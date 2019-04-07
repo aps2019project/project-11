@@ -21,7 +21,7 @@ public class Main {
         }
     }
 
-    public static void shopCommaands() {
+    public static void shopCommands() {
         while (true) {
             String line = myScanner.nextLine();
             if (line.matches("exit")) {

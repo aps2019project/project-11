@@ -25,6 +25,12 @@ public class Collection
         this.items.add(item);
     }
 
+    private void detectID(int ID, String deckName, String command)
+    {
+        //find
+        //add remove
+    }
+
     public void show(){
 
     }
@@ -38,6 +44,11 @@ public class Collection
     }
 
     public void deleteDeck(String deckName){
+
+    }
+
+    public void help()
+    {
 
     }
 }

@@ -13,7 +13,8 @@ public class Shop
         return items;
     }
 
-    public void showCollection(){
+    public void showCollection()
+    {
 
     }
 
@@ -21,7 +22,8 @@ public class Shop
 
     }
 
-    public void searchCollection(String name){
+    public void searchCollection(String name)
+    {
         Account.loggedInAccount.getCollection().searchCollection(name);
     }
 
