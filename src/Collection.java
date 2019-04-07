@@ -24,4 +24,20 @@ public class Collection
     {
         this.items.add(item);
     }
+
+    public void show(){
+
+    }
+
+    public void searchCollection(String name){
+
+    }
+
+    public void createDeck(String deckName){
+
+    }
+
+    public void deleteDeck(String deckName){
+
+    }
 }
