@@ -1,5 +1,19 @@
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("hello world");
+public class Main
+{
+    public static void main(String[] args)
+    {
+        accountCommands();
+        while (true)
+        {
+
+        }
+    }
+
+    public static void accountCommands()
+    {
+        while (true)
+        {
+
+        }
     }
 }
