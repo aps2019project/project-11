@@ -1,6 +1,8 @@
 public class Hero extends Card
 {
     private int heroID;
+    private int defaultHP;
+    private int defaultAP;
     private int HP;
     private int AP;
     private Spell specialPower;
@@ -19,7 +21,8 @@ public class Hero extends Card
         return specialPower;
     }
 
-    public int getHP() {
+    public int getHP()
+    {
         return HP;
     }
 
@@ -28,4 +31,11 @@ public class Hero extends Card
 
     }
 
+    public int getDefaultAP() {
+        return defaultAP;
+    }
+
+    public int getDefaultHP() {
+        return defaultHP;
+    }
 }

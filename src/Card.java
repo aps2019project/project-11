@@ -4,6 +4,7 @@ public class Card
     {
         spell, hero, minion
     }
+
     private int cardID;
     private int price;
 

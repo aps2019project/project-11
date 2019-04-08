@@ -47,6 +47,16 @@ public class Account
 
     }
 
+    public static void showAllPlayers()
+    {
+
+    }
+
+    public static Account findAccount(String userName)
+    {
+
+    }
+
     public Collection getCollection()
     {
         return collection;

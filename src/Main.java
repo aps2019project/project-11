@@ -37,5 +37,16 @@ public class Main {
                 return;
             }
         }
-}
+    }
+
+    public static void battleCommands()
+    {
+        String battleMode = myScanner.nextLine();
+        //todo
+        while (true)
+        {
+            String line = myScanner.nextLine();
+
+        }
+    }
 }
