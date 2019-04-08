@@ -3,20 +3,24 @@ import java.util.Scanner;
 public class Main {
     static Scanner myScanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         accountCommands();
         showCommandLine();
     }
 
     private static void showCommandLine() {
         //ToDo
-        while (true) {
+        while (true)
+        {
             String line = myScanner.nextLine();
         }
     }
 
-    public static void accountCommands() {
-        while (true) {
+    public static void accountCommands()
+    {
+        while (true)
+        {
 
         }
     }
@@ -48,5 +52,10 @@ public class Main {
             String line = myScanner.nextLine();
 
         }
+    }
+
+    public static void graveYardCommands(Battle battle)
+    {
+
     }
 }

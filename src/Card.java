@@ -2,7 +2,21 @@ public class Card
 {
 
 
+    public int getColumn() {
+        return column;
+    }
 
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
 
     enum typeOfCard
     {
@@ -13,6 +27,8 @@ public class Card
     private int cardID;
     private int price;
     private String cardName;
+    private int row;
+    private int column;
 
     public int getCardID()
     {

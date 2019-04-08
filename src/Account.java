@@ -11,7 +11,10 @@ public class Account
     private int money;
     private String password;
     private int numOfWins = 0;
-
+    private ArrayList<Card> hand = new ArrayList<>();
+    private ArrayList<Item> collectibleItems = new ArrayList<>();
+    private ArrayList<Card> graveYard = new ArrayList<>();
+    private int mana;
     public Account(String userName)
     {
 
@@ -95,5 +98,37 @@ public class Account
     public void increaseNumberOfWins()
     {
         numOfWins ++;
+    }
+
+    public ArrayList<Item> getCollectibleItems() {
+        return collectibleItems;
+    }
+
+    public void setCollectibleItems(ArrayList<Item> collectibleItems) {
+        this.collectibleItems = collectibleItems;
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+    public void setHand(ArrayList<Card> hand) {
+        this.hand = hand;
+    }
+
+    public ArrayList<Card> getGraveYard() {
+        return graveYard;
+    }
+
+    public void setGraveYard(ArrayList<Card> graveYard) {
+        this.graveYard = graveYard;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }

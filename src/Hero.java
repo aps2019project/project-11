@@ -31,11 +31,13 @@ public class Hero extends Card
 
     }
 
-    public int getDefaultAP() {
+    public int getDefaultAP()
+    {
         return defaultAP;
     }
 
-    public int getDefaultHP() {
+    public int getDefaultHP()
+    {
         return defaultHP;
     }
 }

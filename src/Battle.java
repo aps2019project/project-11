@@ -1,5 +1,16 @@
+import java.util.ArrayList;
+
 public class Battle
 {
+
+
+    public Account getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(Account playerTurn) {
+        this.playerTurn = playerTurn;
+    }
 
     enum battleMode
     {
@@ -9,8 +20,10 @@ public class Battle
     static Battle currentBattle;
     private Account firstPlayer;
     private Account secondPlayer;
+    private Account playerTurn;
     private BattleField battleField;
     static Card selectedCard;
+    static Item selectedICollectibleItem;
 
     public Battle(Account firstPlayer, Account secondPlayer)
     {
@@ -104,6 +117,11 @@ public class Battle
         selectedCard = card;
     }
 
+    public void selectCollectibleItem(int collectibleItemID)
+    {
+
+    }
+
     public void moveCard(int x , int y){
         if(selectedCard.isCardSelectedInBattle()){
 
@@ -111,13 +129,75 @@ public class Battle
     }
 
     public void attackToOpponent(int cardID){
+        if(selectedCard.isCardSelectedInBattle()){
 
+        }
     }
 
     public void comboAttack(String[] commandParts){
 
+
     }
 
+    public void useSpecialPower(int x, int y)
+    {
+        if(selectedCard.isCardSelectedInBattle()){
 
+        }
+    }
 
+    public void showHand()
+    {
+
+    }
+
+    public void insertCard(String cardName, int x, int y)
+    {
+
+    }
+
+    public void endTurn()
+    {
+
+    }
+
+    public void showCollectableItems()
+    {
+
+    }
+
+    public void showCollectibleItemInfo()
+    {
+
+    }
+
+    public void useCollectibleItem(int x, int y)
+    {
+
+    }
+
+    public void showNextCard()
+    {
+
+    }
+
+    public void showGraveYardCardInfo(int cardID)
+    {
+
+    }
+
+    public void showAllCardsInTheGraveYard()
+    {
+
+    }
+
+    public void help()
+    {
+
+    }
+
+    public void showBattleCommands()
+    {
+
+    }
 }
