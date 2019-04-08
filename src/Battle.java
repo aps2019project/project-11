@@ -10,6 +10,7 @@ public class Battle
     private Account firstPlayer;
     private Account secondPlayer;
     private BattleField battleField;
+    static Card selectedCard;
 
     public Battle(Account firstPlayer, Account secondPlayer)
     {
@@ -96,4 +97,27 @@ public class Battle
     {
 
     }
+
+    public void selectCard(int cardID){
+        Card card = Card.findCard(cardID);
+        card.setCardSelectedInBattle(true);
+        selectedCard = card;
+    }
+
+    public void moveCard(int x , int y){
+        if(selectedCard.isCardSelectedInBattle()){
+
+        }
+    }
+
+    public void attackToOpponent(int cardID){
+
+    }
+
+    public void comboAttack(String[] commandParts){
+
+    }
+
+
+
 }
