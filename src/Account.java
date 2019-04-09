@@ -60,6 +60,11 @@ public class Account
 
     }
 
+    public static void setAIAccounts()
+    {
+
+    }
+
     public Collection getCollection()
     {
         return collection;

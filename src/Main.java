@@ -5,6 +5,9 @@ public class Main {
 
     public static void main(String[] args)
     {
+        Card.setCards();
+        Item.setItems();
+        Account.setAIAccounts();
         accountCommands();
         showCommandLine();
     }

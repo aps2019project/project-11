@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Item
 {
     public boolean isCollectibleItemSelectedInBattle() {
@@ -12,6 +14,8 @@ public class Item
     {
         collectible, flag, usable
     }
+
+    private static ArrayList<Item> items = new ArrayList<>();
     private int itemID;
     private boolean collectibleItemSelectedInBattle = false;
 
@@ -20,7 +24,16 @@ public class Item
         return itemID;
     }
 
+    public static ArrayList<Item> getItems() {
+        return items;
+    }
+
     public Item findItem(int itemID, String command)
+    {
+
+    }
+
+    public static void setItems()
     {
 
     }

@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class Hero extends Card
 {
+    private static ArrayList<Hero> heroes = new ArrayList<>();
     private int heroID;
     private int defaultHP;
     private int defaultAP;
@@ -31,6 +34,10 @@ public class Hero extends Card
 
     }
 
+    public static ArrayList<Hero> getHeroes() {
+        return heroes;
+    }
+
     public int getDefaultAP()
     {
         return defaultAP;
@@ -39,5 +46,10 @@ public class Hero extends Card
     public int getDefaultHP()
     {
         return defaultHP;
+    }
+
+    public static void setHeroes()
+    {
+
     }
 }
