@@ -129,7 +129,8 @@ public class Battle
     }
 
     public void attackToOpponent(int cardID){
-        if(selectedCard.isCardSelectedInBattle()){
+        if(selectedCard.isCardSelectedInBattle())
+        {
 
         }
     }
@@ -197,6 +198,11 @@ public class Battle
     }
 
     public void showBattleCommands()
+    {
+
+    }
+
+    public void logicEndGame()
     {
 
     }
