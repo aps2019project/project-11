@@ -2,22 +2,18 @@ import java.util.ArrayList;
 
 public abstract class Card
 {
-    public static ArrayList<Card> getCards() {
-        return cards;
-    }
-
     private static ArrayList<Card> cards = new ArrayList<>();
     private boolean cardSelectedInBattle = false;
     private int cardID;
     private int price;
     private int requiredMana;
     private String cardName;
-    private boolean enabledHolyBuff = false;
-    private boolean enableStunBuff = false;
-    private boolean enableDisarmBuff = false;
     private int row;
     private int column;
 
+    public static ArrayList<Card> getCards() {
+        return cards;
+    }
 
     public int getColumn() {
         return column;
@@ -74,31 +70,6 @@ public abstract class Card
     public static void setCards()
     {
         Spell.setSpells();
-        Hero.setHeroes();
-        Minion.setMinions();
-    }
-
-    public boolean isEnabledHolyBuff() {
-        return enabledHolyBuff;
-    }
-
-    public void setEnabledHolyBuff(boolean enabledHolyBuff) {
-        this.enabledHolyBuff = enabledHolyBuff;
-    }
-
-    public boolean isEnableStunBuff() {
-        return enableStunBuff;
-    }
-
-    public void setEnableStunBuff(boolean enableStunBuff) {
-        this.enableStunBuff = enableStunBuff;
-    }
-
-    public boolean isEnableDisarmBuff() {
-        return enableDisarmBuff;
-    }
-
-    public void setEnableDisarmBuff(boolean enableDisarmBuff) {
-        this.enableDisarmBuff = enableDisarmBuff;
+        NonSpellCards.setNonSpellCards();
     }
 }

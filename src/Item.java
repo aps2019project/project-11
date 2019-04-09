@@ -17,6 +17,8 @@ public class Item
 
     private static ArrayList<Item> items = new ArrayList<>();
     private int itemID;
+    private int price;
+    //todo item effects
     private boolean collectibleItemSelectedInBattle = false;
 
     public int getItemID()

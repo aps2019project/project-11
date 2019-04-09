@@ -1,39 +1,18 @@
 import java.util.ArrayList;
 
-public class Minion extends Card
+public class Minion extends NonSpellCards
 {
+    enum typesTimeToActivateSpecialPower
+    {
+        passive, onAttack, onSpawn, onDeath, combo, onDefend, onRespawn
+    }
+
     private static ArrayList<Minion> minions = new ArrayList<>();
-    private int defaultHP;
-    private int defaultAP;
-    private int HP;
-    private int AP;
-    private Spell specialPower;
+    private typesTimeToActivateSpecialPower timeToActivateSpeciallPower;
 
-    public int getAP()
+    public static ArrayList<Minion> getMinions()
     {
-        return AP;
-    }
-
-    public Spell getSpecialPower()
-    {
-        return specialPower;
-    }
-
-    public int getHP()
-    {
-        return HP;
-    }
-
-    public static ArrayList<Minion> getMinions() {
         return minions;
-    }
-
-    public int getDefaultHP() {
-        return defaultHP;
-    }
-
-    public int getDefaultAP() {
-        return defaultAP;
     }
 
     public static void setMinions()
