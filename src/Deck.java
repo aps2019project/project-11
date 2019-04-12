@@ -7,20 +7,28 @@ public class Deck
     private ArrayList<Item> item = new ArrayList<>();
     private ArrayList<Card> cards = new ArrayList<>();
 
-    public Deck(String deckName){
-
+    public Deck(String deckName)
+    {
+        this.deckName = deckName;
     }
 
     public String getDeckName() {
         return deckName;
     }
 
-    public void deleteDeck(String deckName){
-
+    public void deleteDeck(Deck deck){
+        Account.loggedInAccount.getPlayerDecks().remove(deck);
     }
 
-    public Deck searchDeck(String deckName){
-        //ToDo
+    public static Deck findDeck(String deckName)
+    {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            if (deck.getDeckName().equals(deckName))
+            {
+                return deck;
+            }
+        }
         return null;
     }
 

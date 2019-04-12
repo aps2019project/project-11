@@ -1,5 +1,17 @@
 public abstract class NonSpellCards extends Card
 {
+    public int getAP() {
+        return AP;
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public typesOfImpact getTypeOfImpact() {
+        return typeOfImpact;
+    }
+
     enum typesOfImpact
     {
         ranged, melee, hybrid
@@ -15,7 +27,7 @@ public abstract class NonSpellCards extends Card
     private boolean enableStunBuff = false;
     private boolean enableDisarmBuff = false;
 
-    public int [][] setAttackableCells()
+    public int [][] setAttackAbleCells()
     {
 
     }
@@ -25,5 +37,4 @@ public abstract class NonSpellCards extends Card
         Hero.setHeroes();
         Minion.setMinions();
     }
-
 }

@@ -11,8 +11,4 @@ public class BattleField
     {
 
     }
-
-    public void
-
-
 }

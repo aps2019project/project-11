@@ -1,3 +1,5 @@
+import com.sun.org.apache.bcel.internal.generic.I2F;
+
 import java.util.ArrayList;
 
 public abstract class Card
@@ -71,5 +73,17 @@ public abstract class Card
     {
         Spell.setSpells();
         NonSpellCards.setNonSpellCards();
+    }
+
+    public void printCardStats(int counter)
+    {
+        if (this instanceof Spell)
+        {
+            ((Spell) this).printSpellCardStats(counter);
+        }
+        else if (this instanceof Minion)
+        {
+            ((Minion) this).printMinionStats(counter);
+        }
     }
 }

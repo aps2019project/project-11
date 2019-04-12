@@ -4,7 +4,6 @@ public class Hero extends NonSpellCards
 {
     private static ArrayList<Hero> heroes = new ArrayList<>();
     private int heroID;
-    private int MP;
     private int turnsRemainingToEndCoolDown;
     private int coolDown;
 
@@ -26,5 +25,10 @@ public class Hero extends NonSpellCards
     public static void setHeroes()
     {
 
+    }
+
+    public void printHeroStats(int counter)
+    {
+        System.out.println(counter + " : Name :" + getCardName() + " - AP : " + getAP() + " – HP : " + getHP() + " – Class : " + getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + getPrice());
     }
 }

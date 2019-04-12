@@ -19,4 +19,9 @@ public class Minion extends NonSpellCards
     {
 
     }
+
+    public void printMinionStats(int counter)
+    {
+        System.out.println(counter + " : Type : Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getAP() + " - HP : " + getHP() + " - MP : " + getRequiredMana() + " - Special power : " + /*todo*/ " – Sell Cost : " + getPrice());
+    }
 }

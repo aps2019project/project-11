@@ -6,8 +6,17 @@ public class Item
         return collectibleItemSelectedInBattle;
     }
 
-    public void setCollectibleItemSelectedInBattle(boolean collectibleItemSelectedInBattle) {
+    public void setCollectibleItemSelectedInBattle(boolean collectibleItemSelectedInBattle)
+    {
         this.collectibleItemSelectedInBattle = collectibleItemSelectedInBattle;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     enum itemType
@@ -17,6 +26,7 @@ public class Item
 
     private static ArrayList<Item> items = new ArrayList<>();
     private int itemID;
+    private String itemName;
     private int price;
     //todo item effects
     private boolean collectibleItemSelectedInBattle = false;
@@ -38,5 +48,10 @@ public class Item
     public static void setItems()
     {
 
+    }
+
+    public void printItemStats(int counter)
+    {
+        System.out.println(counter + " : Name : " + getItemName() + " – Desc: " + /*todo*/ " – Sell Cost : " + getPrice());
     }
 }

@@ -5,7 +5,7 @@ public class Account
     static ArrayList<Account> accounts = new ArrayList<>();
     static Account loggedInAccount;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
-    private Collection collection;
+    private Collection collection = new Collection();
     private ArrayList<Deck> playerDecks = new ArrayList<>();
     private Deck mainDeck;
     private int money;
@@ -18,6 +18,11 @@ public class Account
     public Account(String userName)
     {
 
+    }
+
+    public void addDeck(Deck deck)
+    {
+        this.playerDecks.add(deck);
     }
 
     public void login(String userName)

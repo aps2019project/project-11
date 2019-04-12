@@ -83,5 +83,8 @@ public class Spell extends Card
         return spells;
     }
 
-
+    public void printSpellCardStats(int counter)
+    {
+        System.out.println(counter + " : Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMana() + " – Description : " /*todo*/ + " Sell Cost : " + getPrice());
+    }
 }
