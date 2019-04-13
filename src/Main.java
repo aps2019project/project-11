@@ -28,17 +28,17 @@ public class Main
 
     private static void showCommandLine() {
         //ToDo
-        while (true)
-        {
-            String line = myScanner.nextLine();
-        }
+        String line;
+        do {
+           line =myScanner.nextLine();
+        }while(!line.equals("Exit"));
     }
 
     public static void accountCommands()
     {
         String input=myScanner.nextLine();
 
-        while (!input.equals("exit"))
+        while (true)
         {
             String [] seperatedInput = input.split(" ");
             if (patternCollectionCommands9.matcher(input).matches())
@@ -48,6 +48,7 @@ public class Main
             else if (patternCollectionCommands10.matcher(input).matches())
             {
                 Account.loggedInAccount.login(seperatedInput[1]);
+                showCommandLine();
             }
             else if (input.equalsIgnoreCase("show leaderboard "))
             {
