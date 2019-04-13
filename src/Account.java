@@ -1,15 +1,17 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Account
 {
     static ArrayList<Account> accounts = new ArrayList<>();
+    private String AccountName;
     static Account loggedInAccount;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
     private ArrayList<Deck> playerDecks = new ArrayList<>();
     private Deck mainDeck;
     private int money;
-    private String password;
+    private int  password;
     private int numOfWins = 0;
     private ArrayList<Card> hand = new ArrayList<>();
     private ArrayList<Item> collectibleItems = new ArrayList<>();
@@ -17,7 +19,16 @@ public class Account
     private int mana;
     public Account(String userName)
     {
-
+         int inputPassword= Main.myScanner.nextInt();
+         if (findAccount(userName)==null)
+         {
+             Account account = new Account(userName);
+             account.password=inputPassword;
+         }
+         else
+         {
+             System.out.println("this Account has been existed");
+         }
     }
 
     public void addDeck(Deck deck)
@@ -27,32 +38,84 @@ public class Account
 
     public void login(String userName)
     {
+        boolean flagForCheckingPassword =false;
+        boolean flagForCheckingUserName=false;
+        int inputPassword= Main.myScanner.nextInt();
+        for (Account account:accounts)
+        {
+            if (inputPassword==account.password)
+            {
+                loggedInAccount=account;
+                flagForCheckingPassword =true;
+            }
+        }
+        if (flagForCheckingPassword==false)
+        {
+            System.out.println("this password is not correct");
+            flagForCheckingPassword=true;
+        }
+        for (Account account: accounts)
+        {
+            if (userName.compareTo(account.AccountName)==0)
+            {
+                flagForCheckingUserName=true;
+            }
+        }
+        if (flagForCheckingUserName==false)
+        {
+            System.out.println("this userName is not exist");
+            flagForCheckingUserName=true;
+        }
 
     }
 
     public void logout()
     {
-
+        loggedInAccount=null;
     }
 
     public static void help()
     {
-
-    }
-
-    public static void showLeaderBoard()
-    {
-
+        System.out.println("create account [user name]");
+        System.out.println("login [user name]");
+        System.out.println("show leaderboard");
+        System.out.println("save");
+        System.out.println("logout");
+        System.out.println("help");
     }
 
     public void sortAccountsByWins()
     {
+        int counter;
+        for (counter=0;counter<accounts.size();counter++)
+        {
+            if (accounts.get(counter).numOfWins<accounts.get(counter+1).numOfWins)
+            {
+                Collections.swap(accounts,counter+1,counter);
+            }
+        }
+    }
 
+    public static void showLeaderBoard()
+    {
+        int secondCounter;
+        for (secondCounter=0;secondCounter<accounts.size();secondCounter++)
+        {
+            System.out.print(secondCounter);
+            System.out.print("-");
+            System.out.print("UserName");
+            System.out.print(" ");
+            System.out.print(accounts.get(secondCounter).AccountName);
+            System.out.print("-");
+            System.out.print("Wins");
+            System.out.print(" ");
+            System.out.println(accounts.get(secondCounter).numOfWins);
+        }
     }
 
     public void save()
     {
-
+        //todo
     }
 
     public static void showAllPlayers()
@@ -62,6 +125,14 @@ public class Account
 
     public static Account findAccount(String userName)
     {
+        for (Account account:accounts)
+        {
+            if (userName.compareTo(account.AccountName)==0)
+            {
+                return account;
+            }
+        }
+        return null;
 
     }
 
@@ -110,7 +181,8 @@ public class Account
         numOfWins ++;
     }
 
-    public ArrayList<Item> getCollectibleItems() {
+    public ArrayList<Item> getCollectibleItems()
+    {
         return collectibleItems;
     }
 
