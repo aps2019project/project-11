@@ -7,6 +7,11 @@ public class Main
     static Pattern patternCollectionCommands1 = Pattern.compile("search //w+");
     static Pattern patternCollectionCommands2 = Pattern.compile("create deck //w+");
     static Pattern patternCollectionCommands3 = Pattern.compile("delete deck //w+");
+    static Pattern patternCollectionCommands4 = Pattern.compile("add //d+ to deck //w+");
+    static Pattern patternCollectionCommands5 = Pattern.compile("remove //d+ from deck //w+");
+    static Pattern patternCollectionCommands6 = Pattern.compile("validate deck //w+");
+    static Pattern patternCollectionCommands7 = Pattern.compile("select deck //w+");
+    static Pattern patternCollectionCommands8 = Pattern.compile("show deck //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
@@ -70,9 +75,35 @@ public class Main
             {
                 Account.loggedInAccount.getCollection().deleteDeck(commandParts[2]);
             }
-            else if ()
+            else if (patternCollectionCommands4.matcher(command).matches())
             {
-
+                int ID = Integer.parseInt(commandParts[1]);
+                Account.loggedInAccount.getCollection().detectID(ID, commandParts[4], "add");
+            }
+            else if (patternCollectionCommands5.matcher(command).matches())
+            {
+                int ID = Integer.parseInt(commandParts[1]);
+                Account.loggedInAccount.getCollection().detectID(ID, commandParts[4], "remove");
+            }
+            else if (patternCollectionCommands6.matcher(command).matches())
+            {
+                Deck.checkDeckValidity(commandParts[2]);
+            }
+            else if (patternCollectionCommands7.matcher(command).matches())
+            {
+                Deck.setDeckAsMainDeck(commandParts[2]);
+            }
+            else if (patternCollectionCommands8.matcher(command).matches())
+            {
+                Deck.showDeck(commandParts[2]);
+            }
+            else if (command.equals("how all decks"))
+            {
+                Deck.showAllDecks();
+            }
+            else if (command.equals("help"))
+            {
+                Collection.help();
             }
             command = myScanner.nextLine();
         }

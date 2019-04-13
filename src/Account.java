@@ -141,4 +141,8 @@ public class Account
     public void setMana(int mana) {
         this.mana = mana;
     }
+
+    public void setMainDeck(Deck mainDeck) {
+        this.mainDeck = mainDeck;
+    }
 }

@@ -49,12 +49,26 @@ public abstract class Card
 
     public static Card findCard(int cardID)
     {
-
+        for (Card card : cards)
+        {
+            if (card.getCardID() == cardID)
+            {
+                return card;
+            }
+        }
+        return null;
     }
 
     public static Card findCard(String cardName)
     {
-
+        for (Card card : cards)
+        {
+            if (card.getCardName().equals(cardName))
+            {
+                return card;
+            }
+        }
+        return null;
     }
 
     public boolean isCardSelectedInBattle() {

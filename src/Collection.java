@@ -25,10 +25,92 @@ public class Collection
         this.items.add(item);
     }
 
-    private void detectID(int ID, String deckName, String command)
+    public void detectID(int ID, String deckName, String command)
     {
-        //find
-        //add remove
+        Deck deck = Deck.findDeck(deckName);
+        if (deck == null)
+        {
+            System.out.println("There is no deck with this name");
+            return;
+        }
+        if (command.equals("add"))
+        {
+            checkIDValidityToAddToDeck(deck, ID);
+        }
+        else if (command.equals("remove"))
+        {
+            checkIDValidityToRemoveFromDeck(deck, ID);
+        }
+    }
+
+    public void checkIDValidityToAddToDeck(Deck deck, int ID)
+    {
+        if (Card.findCard(ID) != null)
+        {
+            for (Card card : cards)
+            {
+                if (ID == card.getCardID())
+                {
+                    if (card instanceof Hero)
+                    {
+                        deck.addHeroToDeck((Hero) card);
+                    }
+                    else
+                    {
+                        deck.addCardToDeck(card);
+                    }
+                    return;
+                }
+            }
+            System.out.println("This card isn't in the collection");
+        }
+        if (Item.findItem(ID) != null)
+        {
+            for (Item item : items)
+            {
+                if (ID == item.getItemID())
+                {
+                    deck.addItemToDeck(item);
+                    return;
+                }
+            }
+            System.out.println("This item isn't in the collection");
+        }
+    }
+
+    public void checkIDValidityToRemoveFromDeck(Deck deck, int ID)
+    {
+        if (Card.findCard(ID) != null)
+        {
+            for (Card card : cards)
+            {
+                if (ID == card.getCardID())
+                {
+                    if (card instanceof Hero)
+                    {
+                        deck.deleteHeroFromDeck((Hero) card);
+                    }
+                    else
+                    {
+                        deck.deleteCardFromDeck(card);
+                    }
+                    return;
+                }
+            }
+            System.out.println("This card isn't in the collection");
+        }
+        if (Item.findItem(ID) != null)
+        {
+            for (Item item : items)
+            {
+                if (ID == item.getItemID())
+                {
+                    deck.deleteItemFromDeck(item);
+                    return;
+                }
+            }
+            System.out.println("This item isn't in the collection");
+        }
     }
 
     public void searchCollection(String name)
@@ -85,6 +167,7 @@ public class Collection
             if (card instanceof Hero)
             {
                 ((Hero) card).printHeroStats(counter);
+                counter ++;
             }
         }
 
@@ -93,18 +176,36 @@ public class Collection
         for (Item item : this.getItems())
         {
             item.printItemStats(counter);
+            counter ++;
         }
 
         counter = 0;
         System.out.println("Cards :");
         for (Card card : this.getCards())
         {
+            if (card instanceof Hero)
+            {
+                continue;
+            }
             card.printCardStats(counter);
+            counter ++;
         }
     }
 
-    public void help()
+    public static void help()
     {
-
+        System.out.println("exit");
+        System.out.println("show");
+        System.out.println("search [cardName | itemName]");
+        System.out.println("save");
+        System.out.println("create deck [deckName]");
+        System.out.println("delete deck [deckName]");
+        System.out.println("add [cardID | heroID | itemID] to deck [deckName]");
+        System.out.println("remove [cardID | heroID | itemID] from deck [deckName]");
+        System.out.println("validate deck [deckName]");
+        System.out.println("select deck [deckName]");
+        System.out.println("show all decks");
+        System.out.println("show deck [deckName]");
+        System.out.println("help");
     }
 }

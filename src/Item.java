@@ -40,9 +40,16 @@ public class Item
         return items;
     }
 
-    public Item findItem(int itemID, String command)
+    public static Item findItem(int itemID)
     {
-
+        for (Item item : items)
+        {
+            if (item.getItemID() == itemID)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 
     public static void setItems()
