@@ -15,6 +15,7 @@ public class Main
     static Pattern patternCollectionCommands9 = Pattern.compile("create account //w+");
     static Pattern patternCollectionCommands10 = Pattern.compile("login //w+");
     static Pattern patternCollectionCommands11 = Pattern.compile("search collection //w+");
+    static Pattern patternCollectionCommands12 = Pattern.compile("buy //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
@@ -31,7 +32,10 @@ public class Main
         //ToDo
         String line;
         do {
-            line =myScanner.nextLine();
+            line = myScanner.nextLine();
+            if(line.equals("enter shop")){
+                shopCommands();
+            }
         }while(!line.equals("Exit"));
     }
 
@@ -90,6 +94,19 @@ public class Main
             else if(patternCollectionCommands11.matcher(command).matches()){
                 Shop.shop.searchCollection(command);
             }
+            else if(patternCollectionCommands12.matcher(command).matches()){
+                if(Card.findCard(partedCommand[1]) != null){
+                    Shop.shop.buyCard(Card.findCard(partedCommand[1]));
+                }
+                else if(Item.findItem(partedCommand[1]) != null){
+                    Shop.shop.buyItem(Item.findItem(partedCommand[1]));
+                }
+                else {
+                    System.out.println("Card or Item does'nt exist in Shop");
+                }
+            }
+
+
 
         }
     }

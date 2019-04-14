@@ -42,11 +42,30 @@ public class Shop
         Account.loggedInAccount.getCollection().searchCollection(name);
     }
 
-    public void buyCard(String cardName){
+    public void buyCard(Card card){
+        if(card.getPrice() > Account.loggedInAccount.getMoney()){
+            System.out.println("you haven't enough money.");
+        }
+        else {
+            Account.loggedInAccount.getCollection().addCard(card);
+            Account.loggedInAccount.decreaseMoney(card.getPrice());
+            System.out.println("Successful purchase");
+        }
 
     }
 
-    public void  buyItem(String itemName){
+    public void  buyItem(Item item){
+        if(item.getPrice() > Account.loggedInAccount.getMoney()){
+            System.out.println("you haven't enough money.");
+        }
+        else if(Account.loggedInAccount.getCollection().getItems().size() == 3){
+            System.out.println("You have 3 items in your collection and you can't buy another item.");
+        }
+        else {
+            Account.loggedInAccount.getCollection().addItem(item);
+            Account.loggedInAccount.decreaseMoney(item.getPrice());
+            System.out.println("Successful purchase");
+        }
 
     }
 

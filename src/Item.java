@@ -52,6 +52,18 @@ public class Item
         return null;
     }
 
+    public static Item findItem(String itemName)
+    {
+        for (Item item : items)
+        {
+            if (item.getItemName().equals(itemName))
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public static void setItems()
     {
 

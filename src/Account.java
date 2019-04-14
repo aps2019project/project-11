@@ -156,6 +156,11 @@ public class Account
         this.money = this.getMoney() + money;
     }
 
+    public void decreaseMoney(int money)
+    {
+        this.money = this.getMoney() - money;
+    }
+
     public ArrayList<FinishedMatch> getMatchHistory()
     {
         return matchHistory;
