@@ -14,6 +14,7 @@ public class Main
     static Pattern patternCollectionCommands8 = Pattern.compile("show deck //w+");
     static Pattern patternCollectionCommands9 = Pattern.compile("create account //w+");
     static Pattern patternCollectionCommands10 = Pattern.compile("login //w+");
+    static Pattern patternCollectionCommands11 = Pattern.compile("search collection //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
@@ -81,13 +82,13 @@ public class Main
                 return;
             }
             else if(command.equals("show collection")){
-                shop.showCollection();
+                Shop.shop.showCollection();
             }
             else if(patternCollectionCommands1.matcher(command).matches()){
-                shop.searchShop(partedCommand[1]);
+                Shop.shop.searchShop(partedCommand[1]);
             }
-            else if(patternCollectionCommands13.matcher(command).matches()){
-                shop.searchCollection(command);
+            else if(patternCollectionCommands11.matcher(command).matches()){
+                Shop.shop.searchCollection(command);
             }
 
         }

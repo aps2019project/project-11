@@ -4,6 +4,7 @@ public class Shop
 {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    static Shop shop = new Shop();
     public ArrayList<Card> getCards()
     {
         return cards;
