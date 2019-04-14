@@ -19,16 +19,21 @@ public class Shop
         Account.loggedInAccount.getCollection().show();
     }
 
-    public void searchShop(String name){
-        for(Card card : cards){
-            if(card.getCardName().equals(name)){
+    public void searchShop(String name)
+    {
+        for(Card card : cards)
+        {
+            if(card.getCardName().equals(name))
+            {
                 System.out.println("The card exists in the shop.");
                 System.out.println("CardID : " + card.getCardID());
                 return;
             }
         }
-        for(Item item : items){
-            if(item.getItemName().equals(name)){
+        for(Item item : items)
+        {
+            if(item.getItemName().equals(name))
+            {
                 System.out.println("The item exists in the shop.");
                 System.out.println("ItemID : " + item.getItemID());
                 return;
@@ -42,11 +47,14 @@ public class Shop
         Account.loggedInAccount.getCollection().searchCollection(name);
     }
 
-    public void buyCard(Card card){
-        if(card.getPrice() > Account.loggedInAccount.getMoney()){
+    public void buyCard(Card card)
+    {
+        if(card.getPrice() > Account.loggedInAccount.getMoney())
+        {
             System.out.println("you haven't enough money.");
         }
-        else {
+        else
+        {
             Account.loggedInAccount.getCollection().addCard(card);
             Account.loggedInAccount.decreaseMoney(card.getPrice());
             System.out.println("Successful purchase");
@@ -54,61 +62,87 @@ public class Shop
 
     }
 
-    public void  buyItem(Item item){
-        if(item.getPrice() > Account.loggedInAccount.getMoney()){
+    public void buyItem(Item item)
+    {
+        if(item.getPrice() > Account.loggedInAccount.getMoney())
+        {
             System.out.println("you haven't enough money.");
         }
-        else if(Account.loggedInAccount.getCollection().getItems().size() == 3){
+        else if(Account.loggedInAccount.getCollection().getItems().size() == 3)
+        {
             System.out.println("You have 3 items in your collection and you can't buy another item.");
         }
-        else {
+        else
+        {
             Account.loggedInAccount.getCollection().addItem(item);
             Account.loggedInAccount.decreaseMoney(item.getPrice());
             System.out.println("Successful purchase");
         }
-
     }
 
-    public void  sell(int ID){
-        int condition = 0;
+    public void detectIDToSell(int ID)
+    {
         Card cardToSell = null;
         Item itemToSell = null;
-        for(Card card : Account.loggedInAccount.getCollection().getCards()){
-            if(card.getCardID() == ID){
-                condition = 1;
+        for(Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if(card.getCardID() == ID)
+            {
                 cardToSell = card;
             }
         }
-        if(condition == 0) {
-            for (Item item : Account.loggedInAccount.getCollection().getItems()) {
-                if (item.getItemID() == ID) {
-                    condition = 1;
-                    itemToSell = item;
+        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        {
+            if (item.getItemID() == ID)
+            {
+                itemToSell = item;
+            }
+        }
+        if(cardToSell == null && itemToSell == null)
+        {
+            System.out.println("You haven't Card or Item with this ID!");
+            return;
+        }
+        this.sell(cardToSell, itemToSell);
+    }
+
+    public void sell(Card cardToSell, Item itemToSell)
+    {
+        if(cardToSell != null)
+        {
+            for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+            {
+                if (cardToSell instanceof Hero)
+                {
+                    deck.deleteHeroFromDeck((Hero) cardToSell);
+                }
+                else
+                {
+                    deck.deleteNonHeroCardFromDeck(cardToSell);
                 }
             }
-        }
-        if(condition == 0){
-            System.out.println("You have'nt Card or Item with this ID!");
+            Account.loggedInAccount.getCollection().getCards().remove(cardToSell);
+            Account.loggedInAccount.addMoney(cardToSell.getPrice());
+            System.out.println("Successful Sale");
         }
         else {
-            if(cardToSell != null){
-                Account.loggedInAccount.getCollection().getCards().remove(cardToSell);
-                Account.loggedInAccount.addMoney(cardToSell.getPrice());
-                System.out.println("Successful Sale");
+            for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+            {
+                deck.deleteItemFromDeck(itemToSell);
             }
-            else {
-                Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
-                Account.loggedInAccount.addMoney(itemToSell.getPrice());
-                System.out.println("Successful Sale");
-            }
+            Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
+            Account.loggedInAccount.addMoney(itemToSell.getPrice());
+            System.out.println("Successful Sale");
         }
     }
 
-    public void show(){
+    public void show()
+    {
 
     }
 
-    public void help(){
+    public static void help()
+    {
         System.out.println("exit");
         System.out.println("show collection");
         System.out.println("search [item name | card name]");

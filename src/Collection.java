@@ -57,7 +57,7 @@ public class Collection
                     }
                     else
                     {
-                        deck.addCardToDeck(card);
+                        deck.addNonHeroCardToDeck(card);
                     }
                     return;
                 }
@@ -92,7 +92,7 @@ public class Collection
                     }
                     else
                     {
-                        deck.deleteCardFromDeck(card);
+                        deck.deleteNonHeroCardFromDeck(card);
                     }
                     return;
                 }

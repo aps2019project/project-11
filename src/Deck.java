@@ -29,7 +29,7 @@ public class Deck
         return null;
     }
 
-    public void addCardToDeck(Card card)
+    public void addNonHeroCardToDeck(Card card)
     {
         for (Card deckCard : nonHeroCards)
         {
@@ -47,7 +47,7 @@ public class Deck
         this.nonHeroCards.add(card);
     }
 
-    public void deleteCardFromDeck(Card card)
+    public void deleteNonHeroCardFromDeck(Card card)
     {
         for (Card deckCard : nonHeroCards)
         {

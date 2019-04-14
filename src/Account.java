@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Account
 {
-    static ArrayList<Account> accounts = new ArrayList<>();
-    private String AccountName;
+    private static ArrayList<Account> accounts = new ArrayList<>();
+    private String accountName;
     static Account loggedInAccount;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
@@ -17,13 +18,15 @@ public class Account
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private ArrayList<Card> graveYard = new ArrayList<>();
     private int mana;
+
     public Account(String userName)
     {
          int inputPassword= Main.myScanner.nextInt();
-         if (findAccount(userName)==null)
+         if (findAccount(userName) == null)
          {
-             Account account = new Account(userName);
-             account.password=inputPassword;
+             this.password = inputPassword;
+             this.accountName = userName;
+             accounts.add(this);
          }
          else
          {
@@ -36,80 +39,67 @@ public class Account
         this.playerDecks.add(deck);
     }
 
-    public void login(String userName)
+    public static void login(String userName)
     {
-        boolean flagForCheckingPassword =false;
-        boolean flagForCheckingUserName=false;
-        int inputPassword= Main.myScanner.nextInt();
-        for (Account account:accounts)
+        int inputPassword = Main.myScanner.nextInt();
+        for (Account account : accounts)
         {
-            if (inputPassword==account.password)
+            if (userName.equals(account.accountName))
             {
-                loggedInAccount=account;
-                flagForCheckingPassword =true;
+                if (inputPassword == account.password)
+                {
+                    loggedInAccount = account;
+                    return;
+                }
+                System.out.println("The password is not correct");
+                return;
             }
         }
-        if (flagForCheckingPassword==false)
-        {
-            System.out.println("this password is not correct");
-            flagForCheckingPassword=true;
-        }
-        for (Account account: accounts)
-        {
-            if (userName.compareTo(account.AccountName)==0)
-            {
-                flagForCheckingUserName=true;
-            }
-        }
-        if (flagForCheckingUserName==false)
-        {
-            System.out.println("this userName is not exist");
-            flagForCheckingUserName=true;
-        }
-
+        System.out.println("this userName is not exist");
     }
 
-    public void logout()
+    public static void logout()
     {
-        loggedInAccount=null;
+        loggedInAccount = null;
     }
 
     public static void help()
     {
         System.out.println("create account [user name]");
         System.out.println("login [user name]");
-        System.out.println("show leaderboard");
+        System.out.println("show leaderBoard");
         System.out.println("save");
         System.out.println("logout");
         System.out.println("help");
     }
 
-    public void sortAccountsByWins()
+    public static void sortAccountsByWins()
     {
-        int counter;
-        for (counter=0;counter<accounts.size();counter++)
+        Collections.sort(accounts, new Comparator<Account>()
         {
-            if (accounts.get(counter).numOfWins<accounts.get(counter+1).numOfWins)
+            @Override
+            public int compare(Account o1, Account o2)
             {
-                Collections.swap(accounts,counter+1,counter);
+                if (o1.getNumOfWins() < o2.getNumOfWins())
+                {
+                    return 1;
+                }
+                else if (o1.getNumOfWins() > o2.getNumOfWins())
+                {
+                    return -1;
+                }
+                return 0;
             }
-        }
+        });
     }
 
     public static void showLeaderBoard()
     {
-        int secondCounter;
-        for (secondCounter=0;secondCounter<accounts.size();secondCounter++)
+        int counter = 1;
+        for (Account account : accounts)
         {
-            System.out.print(secondCounter);
-            System.out.print("-");
-            System.out.print("UserName");
-            System.out.print(" ");
-            System.out.print(accounts.get(secondCounter).AccountName);
-            System.out.print("-");
-            System.out.print("Wins");
-            System.out.print(" ");
-            System.out.println(accounts.get(secondCounter).numOfWins);
+            System.out.println(counter + "- UserName : " + account.accountName + "- Wins : " + account.numOfWins);
+            counter ++;
         }
     }
 
@@ -120,25 +110,24 @@ public class Account
 
     public static void showAllPlayers()
     {
-
+        //todo
     }
 
     public static Account findAccount(String userName)
     {
-        for (Account account:accounts)
+        for (Account account : accounts)
         {
-            if (userName.compareTo(account.AccountName)==0)
+            if (userName.equals(account.accountName))
             {
                 return account;
             }
         }
         return null;
-
     }
 
     public static void setAIAccounts()
     {
-
+        //todo
     }
 
     public Collection getCollection()
