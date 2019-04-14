@@ -12,9 +12,11 @@ public class Main
     static Pattern patternCollectionCommands6 = Pattern.compile("validate deck //w+");
     static Pattern patternCollectionCommands7 = Pattern.compile("select deck //w+");
     static Pattern patternCollectionCommands8 = Pattern.compile("show deck //w+");
+    static Pattern patternCollectionCommands9 = Pattern.compile("search collection //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
+    static Shop shop = new Shop();
     public static void main(String[] args)
     {
         Card.setCards();
@@ -41,11 +43,25 @@ public class Main
     }
 
     public static void shopCommands() {
+        String command;
+        String[] partedCommand;
         while (true) {
-            String line = myScanner.nextLine();
-            if (line.matches("exit")) {
+            command = myScanner.nextLine();
+            partedCommand = command.split("\\s");
+            if (command.equals("exit")) {
                 return;
             }
+            else if(command.equals("show collection")){
+                shop.showCollection();
+            }
+            else if(patternCollectionCommands1.matcher(command).matches()){
+                shop.searchShop(partedCommand[1]);
+            }
+            else if(patternCollectionCommands9.matcher(command).matches()){
+                shop.searchCollection(partedCommand[2]);
+            }
+            else if()
+
         }
     }
 

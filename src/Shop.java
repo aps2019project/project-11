@@ -19,7 +19,21 @@ public class Shop
     }
 
     public void searchShop(String name){
-
+        for(Card card : cards){
+            if(card.getCardName().equals(name)){
+                System.out.println("The card exists in the shop.");
+                System.out.println("CardID : " + card.getCardID());
+                return;
+            }
+        }
+        for(Item item : items){
+            if(item.getItemName().equals(name)){
+                System.out.println("The item exists in the shop.");
+                System.out.println("ItemID : " + item.getItemID());
+                return;
+            }
+        }
+        System.out.println("The item  or card doesn't exist in the shop.");
     }
 
     public void searchCollection(String name)
