@@ -31,13 +31,13 @@ public class Main
 
     private static void showCommandLine() {
         //ToDo
-        String command;
+        String line;
         do {
-            command = myScanner.nextLine();
-            if(command.equals("enter shop")){
+            line = myScanner.nextLine();
+            if(line.equals("enter shop")){
                 shopCommands();
             }
-        }while(!command.equals("Exit"));
+        }while(!line.equals("Exit"));
     }
 
     public static void accountCommands()
