@@ -17,6 +17,7 @@ public class Main
     private static Pattern patternShopBuy = Pattern.compile("buy //w+");
     private static Pattern patternShopSell = Pattern.compile("sell //w+");
 
+
     static Scanner myScanner = new Scanner(System.in);
 
     public static void main(String[] args)

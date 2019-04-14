@@ -138,10 +138,57 @@ public class Shop
 
     public void show()
     {
+        int counter = 1;
+        for(Hero hero : Hero.getHeroes()){
+            printStatsOfHero(hero , counter);
+            counter++;
+        }
+        counter = 1;
+        for(Item item : Item.getItems()){
+            printStatsOfItem(item , counter);
+            counter++;
+        }
+        counter = 1;
+        for(Card card : Card.getCards()){
+            if(card instanceof Hero){
+                continue;
+            }
+            if (card instanceof Spell)
+            {
+                Spell spell = (Spell) card;
+                printStatsOfSpell(spell , counter);
+                counter++;
+            }
+            else if (card instanceof Minion)
+            {
+                Minion minion = (Minion) card;
+                printStatsOfMinion(minion , counter);
+                counter++;
+            }
+        }
 
     }
 
-    public static void help()
+    private void printStatsOfMinion(Minion minion, int counter) {
+        System.out.println(counter + " : Type : Minion - Name : " + minion.getCardName() + " – Class:" + minion.getTypeOfImpact() + " - AP : " + minion.getAP() + " - HP : " + minion.getHP() + " - MP : " + minion.getRequiredMana() + " - Special power : "
+                + /*todo*/ " – Buy Cost : " + minion.getPrice());
+    }
+
+    private void printStatsOfSpell(Spell spell, int counter) {
+        System.out.println(counter + " : Type : Spell - Name : " + spell.getCardName() + " - MP : " + spell.getRequiredMana() + " – Description : " /*todo*/
+                + " Buy Cost : " + spell.getPrice());
+    }
+
+    private void printStatsOfItem(Item item, int counter) {
+        System.out.println(counter + " : Name : " + item.getItemName() + " – Desc: " + /*todo*/ " – Buy Cost : " + item.getPrice());
+    }
+
+    private void printStatsOfHero(Hero hero, int counter) {
+        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getAP() + " – HP : " + hero.getHP() +
+                " – Special power: " /*todo*/ + " - Buy Cost : " + hero.getPrice());
+    }
+
+    static void help()
     {
         System.out.println("exit");
         System.out.println("show collection");
