@@ -12,9 +12,11 @@ public class Main
     static Pattern patternCollectionCommands6 = Pattern.compile("validate deck //w+");
     static Pattern patternCollectionCommands7 = Pattern.compile("select deck //w+");
     static Pattern patternCollectionCommands8 = Pattern.compile("show deck //w+");
+    static Pattern patternCollectionCommands13= Pattern.compile("search collection //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
+    static Shop shop = new Shop();
     public static void main(String[] args)
     {
         Card.setCards();
@@ -26,55 +28,39 @@ public class Main
 
     private static void showCommandLine() {
         //ToDo
-        String line;
-        do {
-           line =myScanner.nextLine();
-        }while(!line.equals("Exit"));
+        while (true)
+        {
+            String line = myScanner.nextLine();
+        }
     }
 
     public static void accountCommands()
     {
-        String input=myScanner.nextLine();
-
         while (true)
         {
-            String [] seperatedInput = input.split(" ");
-            if (patternCollectionCommands9.matcher(input).matches())
-            {
-               new Account(seperatedInput[2]);
-            }
-            else if (patternCollectionCommands10.matcher(input).matches())
-            {
-                Account.loggedInAccount.login(seperatedInput[1]);
-                showCommandLine();
-            }
-            else if (input.equalsIgnoreCase("show leaderboard "))
-            {
-                Account.loggedInAccount.sortAccountsByWins();
-                Account.loggedInAccount.showLeaderBoard();
-            }
-            else if (input.equalsIgnoreCase("save"))
-            {
-                //todo
-            }
-            else if (input.equalsIgnoreCase("logout"))
-            {
-                Account.loggedInAccount.logout();
-            }
-            else if (input.equalsIgnoreCase("help"))
-            {
-                Account.loggedInAccount.help();
-            }
 
         }
     }
 
     public static void shopCommands() {
+        String command;
+        String[] partedCommand;
         while (true) {
-            String line = myScanner.nextLine();
-            if (line.matches("exit")) {
+            command = myScanner.nextLine();
+            partedCommand = command.split("\\s");
+            if (command.equals("exit")) {
                 return;
             }
+            else if(command.equals("show collection")){
+                shop.showCollection();
+            }
+            else if(patternCollectionCommands1.matcher(command).matches()){
+                shop.searchShop(partedCommand[1]);
+            }
+            else if(patternCollectionCommands13.matcher(command).matches()){
+                shop.searchCollection(command);
+            }
+
         }
     }
 
