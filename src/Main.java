@@ -12,11 +12,11 @@ public class Main
     static Pattern patternCollectionCommands6 = Pattern.compile("validate deck //w+");
     static Pattern patternCollectionCommands7 = Pattern.compile("select deck //w+");
     static Pattern patternCollectionCommands8 = Pattern.compile("show deck //w+");
-    static Pattern patternCollectionCommands13= Pattern.compile("search collection //w+");
+    static Pattern patternCollectionCommands9 = Pattern.compile("create account //w+");
+    static Pattern patternCollectionCommands10 = Pattern.compile("login //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
-    static Shop shop = new Shop();
     public static void main(String[] args)
     {
         Card.setCards();
@@ -28,16 +28,45 @@ public class Main
 
     private static void showCommandLine() {
         //ToDo
-        while (true)
-        {
-            String line = myScanner.nextLine();
-        }
+        String line;
+        do {
+            line =myScanner.nextLine();
+        }while(!line.equals("Exit"));
     }
 
     public static void accountCommands()
     {
+        String input=myScanner.nextLine();
+
         while (true)
         {
+            String [] seperatedInput = input.split(" ");
+            if (patternCollectionCommands9.matcher(input).matches())
+            {
+                new Account(seperatedInput[2]);
+            }
+            else if (patternCollectionCommands10.matcher(input).matches())
+            {
+                Account.loggedInAccount.login(seperatedInput[1]);
+                showCommandLine();
+            }
+            else if (input.equalsIgnoreCase("show leaderboard "))
+            {
+                Account.loggedInAccount.sortAccountsByWins();
+                Account.loggedInAccount.showLeaderBoard();
+            }
+            else if (input.equalsIgnoreCase("save"))
+            {
+                //todo
+            }
+            else if (input.equalsIgnoreCase("logout"))
+            {
+                Account.loggedInAccount.logout();
+            }
+            else if (input.equalsIgnoreCase("help"))
+            {
+                Account.loggedInAccount.help();
+            }
 
         }
     }
@@ -140,3 +169,5 @@ public class Main
 
     }
 }
+
+
