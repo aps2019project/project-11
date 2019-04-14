@@ -69,7 +69,41 @@ public class Shop
 
     }
 
-    public void  sell(String name){
+    public void  sell(int ID){
+        int condition = 0;
+        Card cardToSell = null;
+        Item itemToSell = null;
+        for(Card card : Account.loggedInAccount.getCollection().getCards()){
+            if(card.getCardID() == ID){
+                condition = 1;
+                cardToSell = card;
+            }
+        }
+        if(condition == 0) {
+            for (Item item : Account.loggedInAccount.getCollection().getItems()) {
+                if (item.getItemID() == ID) {
+                    condition = 1;
+                    itemToSell = item;
+                }
+            }
+        }
+        if(condition == 0){
+            System.out.println("You have'nt Card or Item with this ID!");
+        }
+        else {
+            if(cardToSell != null){
+                Account.loggedInAccount.getCollection().getCards().remove(cardToSell);
+                Account.loggedInAccount.addMoney(cardToSell.getPrice());
+                System.out.println("Successful Sale");
+            }
+            else {
+                Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
+                Account.loggedInAccount.addMoney(itemToSell.getPrice());
+                System.out.println("Successful Sale");
+            }
+        }
+
+
 
     }
 

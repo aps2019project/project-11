@@ -16,6 +16,7 @@ public class Main
     static Pattern patternCollectionCommands10 = Pattern.compile("login //w+");
     static Pattern patternCollectionCommands11 = Pattern.compile("search collection //w+");
     static Pattern patternCollectionCommands12 = Pattern.compile("buy //w+");
+    static Pattern patternCollectionCommands13 = Pattern.compile("sell //w+");
 
     static Scanner myScanner = new Scanner(System.in);
 
@@ -105,7 +106,9 @@ public class Main
                     System.out.println("Card or Item does'nt exist in Shop");
                 }
             }
-
+            else if(patternCollectionCommands13.matcher(command).matches()){
+                Shop.shop.sell(Integer.parseInt(partedCommand[1]));
+            }
 
 
         }
