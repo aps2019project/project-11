@@ -31,13 +31,13 @@ public class Main
 
     private static void showCommandLine() {
         //ToDo
-        String line;
+        String command;
         do {
-            line = myScanner.nextLine();
-            if(line.equals("enter shop")){
+            command = myScanner.nextLine();
+            if(command.equals("enter shop")){
                 shopCommands();
             }
-        }while(!line.equals("Exit"));
+        }while(!command.equals("Exit"));
     }
 
     public static void accountCommands()
@@ -109,6 +109,13 @@ public class Main
             else if(patternCollectionCommands13.matcher(command).matches()){
                 Shop.shop.sell(Integer.parseInt(partedCommand[1]));
             }
+            else if(command.equals("show")){
+                Shop.shop.show();
+            }
+            else if(command.equals("help")){
+                Shop.shop.help();
+            }
+
 
 
         }

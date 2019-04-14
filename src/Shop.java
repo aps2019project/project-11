@@ -16,7 +16,7 @@ public class Shop
 
     public void showCollection()
     {
-
+        Account.loggedInAccount.getCollection().show();
     }
 
     public void searchShop(String name){
@@ -102,9 +102,6 @@ public class Shop
                 System.out.println("Successful Sale");
             }
         }
-
-
-
     }
 
     public void show(){
@@ -112,6 +109,14 @@ public class Shop
     }
 
     public void help(){
+        System.out.println("exit");
+        System.out.println("show collection");
+        System.out.println("search [item name | card name]");
+        System.out.println("search collection [item name | card name]");
+        System.out.println("buy [card name | item name]");
+        System.out.println("sell [card ID | item ID]");
+        System.out.println("show");
+        System.out.println("help");
 
     }
 }
