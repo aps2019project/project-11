@@ -4,7 +4,7 @@ public class Spell extends Card
 {
 
     private TargetCommunities targetCommunity;
-
+    private DescriptionTypeOfSpell descriptionTypeOfSpell;
     private Effect effect;
 
     private static ArrayList<Spell> spells = new ArrayList<>();
@@ -13,8 +13,13 @@ public class Spell extends Card
 
     public Spell(String name, int price, int mana, TargetCommunities targetCommunity, Effect effect, int effectMultiplicity)
     {
-        //todo
+        this.setCardName(name);
+        this.setPrice(price);
+        this.setRequiredMana(mana);
+        this.targetCommunity = targetCommunity;
         this.effect = effect;
+        //todo //effectmultiplicity
+        spells.add(this);
     }
 
     public static void setSpells()

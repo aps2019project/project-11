@@ -1,4 +1,4 @@
 public enum DescriptionTypeOfSpell
 {
-
+    disarm, removingBadAndGoodBuffs, adding2ToAP, impact4Time, adding4ToHeroAP, hotHouseFor2turn, impactFor8TimeToEnemyHero, hotHouseFor1Turn, adding4ToAPButDisarm, disarmFor1Turn, poisonAllForcesFor4Turn, removingGoodAndBadBuffsForOneForse, weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn, powerBuffIncrease6AP,powerBuffWith2APConstant, impactToAllEnemy6impact, weaknessWithdecreasing4APInOneForse, weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse, killingEnemy, stunFor2Turn
 }

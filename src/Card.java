@@ -98,4 +98,16 @@ public abstract class Card
             ((Minion) this).printMinionStats(counter);
         }
     }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setRequiredMana(int requiredMana) {
+        this.requiredMana = requiredMana;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
 }
