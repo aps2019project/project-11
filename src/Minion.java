@@ -2,13 +2,8 @@ import java.util.ArrayList;
 
 public class Minion extends NonSpellCards
 {
-    enum typesTimeToActivateSpecialPower
-    {
-        passive, onAttack, onSpawn, onDeath, combo, onDefend, onRespawn
-    }
-
     private static ArrayList<Minion> minions = new ArrayList<>();
-    private typesTimeToActivateSpecialPower timeToActivateSpeciallPower;
+    private TimeToActivateSpecialPower timeToActivateSpeciallPower;
 
     public static ArrayList<Minion> getMinions()
     {

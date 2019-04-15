@@ -2,33 +2,11 @@ import java.util.ArrayList;
 
 public class Item
 {
-    public boolean isCollectibleItemSelectedInBattle() {
-        return collectibleItemSelectedInBattle;
-    }
-
-    public void setCollectibleItemSelectedInBattle(boolean collectibleItemSelectedInBattle)
-    {
-        this.collectibleItemSelectedInBattle = collectibleItemSelectedInBattle;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    enum itemType
-    {
-        collectible, flag, usable
-    }
-
     private static ArrayList<Item> items = new ArrayList<>();
     private int itemID;
     private String itemName;
     private int price;
-    //todo item effects
+    private Spell itemEffect;
     private boolean collectibleItemSelectedInBattle = false;
 
     public int getItemID()
@@ -72,5 +50,22 @@ public class Item
     public void printItemStats(int counter)
     {
         System.out.println(counter + " : Name : " + getItemName() + " – Desc: " + /*todo*/ " – Sell Cost : " + getPrice());
+    }
+
+    public boolean isCollectibleItemSelectedInBattle() {
+        return collectibleItemSelectedInBattle;
+    }
+
+    public void setCollectibleItemSelectedInBattle(boolean collectibleItemSelectedInBattle)
+    {
+        this.collectibleItemSelectedInBattle = collectibleItemSelectedInBattle;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

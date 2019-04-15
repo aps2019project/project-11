@@ -1,14 +1,9 @@
 public class BattleField
 {
-    private int battleFieldMatrix[][] = new int[5][9];
+    private Cell battleFieldMatrix[][] = new Cell[5][9];
 
-    public int[][] getBattleFieldMatrix()
+    public Cell[][] getBattleFieldMatrix()
     {
         return battleFieldMatrix;
-    }
-
-    public void setCell(int x, int y, int typeOfCard)
-    {
-
     }
 }

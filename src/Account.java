@@ -17,7 +17,7 @@ public class Account
     private ArrayList<Card> hand = new ArrayList<>();
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private ArrayList<Card> graveYard = new ArrayList<>();
-    private int mana;
+    private int MP;
 
     public Account(String userName)
     {
@@ -200,12 +200,12 @@ public class Account
         this.graveYard = graveYard;
     }
 
-    public int getMana() {
-        return mana;
+    public int getMP() {
+        return MP;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    public void setMP(int MP) {
+        this.MP = MP;
     }
 
     public void setMainDeck(Deck mainDeck) {

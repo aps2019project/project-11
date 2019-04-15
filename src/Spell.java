@@ -2,23 +2,16 @@ import java.util.ArrayList;
 
 public class Spell extends Card
 {
-    enum targetCommunities
-    {
-        opponentForce, twoInTwoSquare, ownForce, ownHero, opponentHero, threeInThreeSquare, allOpponentForces, anyForce, allOwnForces, allOpponentForesInColumn, opponentMinion, ownMinion, opponentMinionAroundOwnHero
-    }
-    private targetCommunities targetCommunity;
 
-    enum effects
-    {
-        toxicCell, fieryCell, holyCell, holyBuff, powerBuff, poisonBuff, WeaknessBuff, stunBuff, disarmBuff
-    }
-    private effects effect;
+    private TargetCommunities targetCommunity;
+
+    private Effect effect;
 
     private static ArrayList<Spell> spells = new ArrayList<>();
 
     private int effectMultiplicity;
 
-    public Spell(String name, int price, int mana, targetCommunities targetCommunity, effects effect, int effectMultiplicity)
+    public Spell(String name, int price, int mana, TargetCommunities targetCommunity, Effect effect, int effectMultiplicity)
     {
         //todo
         this.effect = effect;
