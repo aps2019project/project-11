@@ -110,4 +110,8 @@ public abstract class Card
     public void setCardName(String cardName) {
         this.cardName = cardName;
     }
+
+    public void setCardID(int cardID) {
+        this.cardID = cardID;
+    }
 }

@@ -68,4 +68,8 @@ public class Item
     public int getPrice() {
         return price;
     }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
 }
