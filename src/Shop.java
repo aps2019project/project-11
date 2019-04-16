@@ -9,7 +9,8 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
-    static void help() {
+    static void help()
+    {
         System.out.println("exit");
         System.out.println("show collection");
         System.out.println("search [item name | card name]");
@@ -21,21 +22,27 @@ public class Shop {
 
     }
 
-    public ArrayList<Card> getCards() {
+    public ArrayList<Card> getCards()
+    {
         return cards;
     }
 
-    public ArrayList<Item> getItems() {
+    public ArrayList<Item> getItems()
+    {
         return items;
     }
 
-    void showCollection() {
+    void showCollection()
+    {
         Account.loggedInAccount.getCollection().show();
     }
 
-    void searchShop(String name) {
-        for (Card card : cards) {
-            if (card.getCardName().equals(name)) {
+    void searchShop(String name)
+    {
+        for (Card card : cards)
+        {
+            if (card.getCardName().equals(name))
+            {
                 System.out.println("The card exists in the shop.");
                 System.out.println("CardID : " + card.getCardID());
                 return;
@@ -135,16 +142,18 @@ public class Shop {
         }
     }
 
-    void show() {
+    void show()
+    {
         int counter = 1;
-        for (Hero hero : Hero.getHeroes()) {
+        for (Hero hero : Hero.getHeroes())
+        {
             printStatsOfHero(hero, counter);
-            counter++;
+            counter ++;
         }
         counter = 1;
         for (Item item : Item.getItems()) {
             printStatsOfItem(item, counter);
-            counter++;
+            counter ++;
         }
         counter = 1;
         for (Card card : Card.getCards()) {
@@ -154,11 +163,11 @@ public class Shop {
             if (card instanceof Spell) {
                 Spell spell = (Spell) card;
                 printStatsOfSpell(spell, counter);
-                counter++;
+                counter ++;
             } else if (card instanceof Minion) {
                 Minion minion = (Minion) card;
                 printStatsOfMinion(minion, counter);
-                counter++;
+                counter ++;
             }
         }
     }

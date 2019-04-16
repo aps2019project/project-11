@@ -73,7 +73,8 @@ public abstract class Card
         return cardSelectedInBattle;
     }
 
-    public void setCardSelectedInBattle(boolean cardSelectedInBattle) {
+    public void setCardSelectedInBattle(boolean cardSelectedInBattle)
+    {
         this.cardSelectedInBattle = cardSelectedInBattle;
     }
 

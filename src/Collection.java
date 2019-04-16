@@ -160,7 +160,7 @@ public class Collection
 
     public void show()
     {
-        int counter = 0;
+        int counter = 1;
         System.out.println("Heroes :");
         for (Card card : this.getCards())
         {
@@ -171,7 +171,7 @@ public class Collection
             }
         }
 
-        counter = 0;
+        counter = 1;
         System.out.println("Items :");
         for (Item item : this.getItems())
         {
@@ -179,7 +179,7 @@ public class Collection
             counter ++;
         }
 
-        counter = 0;
+        counter = 1;
         System.out.println("Cards :");
         for (Card card : this.getCards())
         {

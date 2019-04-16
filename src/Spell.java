@@ -22,6 +22,11 @@ public class Spell extends Card
         spells.add(this);
     }
 
+    public Spell()
+    {
+        //todo constructor for heroes
+    }
+
     public static void setSpells()
     {
 
