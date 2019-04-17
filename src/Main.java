@@ -51,6 +51,15 @@ public class Main
             {
                 battleCommands();
             }
+            else if (command.equalsIgnoreCase("save"))
+            {
+                //todo
+            }
+            else if (command.equalsIgnoreCase("logout"))
+            {
+                Account.logout();
+                accountCommands();
+            }
             else if (command.equalsIgnoreCase("Help"))
             {
                 showCommandLine();
@@ -66,7 +75,11 @@ public class Main
         while (true)
         {
             String [] separatedInput = input.split(" ");
-            if (patternCreateAccount.matcher(input).matches())
+            if (input.equalsIgnoreCase("Exit"))
+            {
+               return;
+            }
+            else if (patternCreateAccount.matcher(input).matches())
             {
                 new Account(separatedInput[2]);
             }
@@ -79,14 +92,6 @@ public class Main
             {
                 Account.sortAccountsByWins();
                 Account.showLeaderBoard();
-            }
-            else if (input.equalsIgnoreCase("save"))
-            {
-                //todo
-            }
-            else if (input.equalsIgnoreCase("logout"))
-            {
-                Account.logout();
             }
             else if (input.equalsIgnoreCase("help"))
             {

@@ -6,7 +6,7 @@ public abstract class Card
     private boolean cardSelectedInBattle = false;
     private int cardID;
     private int price;
-    private int requiredMana;
+    private int requiredMP;
     private String cardName;
     private int row;
     private int column;
@@ -31,8 +31,8 @@ public abstract class Card
         this.row = row;
     }
 
-    public int getRequiredMana() {
-        return requiredMana;
+    public int getRequiredMP() {
+        return requiredMP;
     }
 
     public int getCardID()
@@ -104,8 +104,8 @@ public abstract class Card
         this.price = price;
     }
 
-    public void setRequiredMana(int requiredMana) {
-        this.requiredMana = requiredMana;
+    public void setRequiredMP(int requiredMP) {
+        this.requiredMP = requiredMP;
     }
 
     public void setCardName(String cardName) {

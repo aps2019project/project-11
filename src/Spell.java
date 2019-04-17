@@ -2,23 +2,28 @@ import java.util.ArrayList;
 
 public class Spell extends Card
 {
-
-    private TargetCommunities targetCommunity;
-    private DescriptionTypeOfSpell descriptionTypeOfSpell;
-    private Effect effect;
+    public enum DescriptionTypeOfSpell
+    {
+        disarm, removingBadAndGoodBuffs, adding2ToAP, impact4Time, adding4ToHeroAP, hotHouseFor2turn, impactFor8TimeToEnemyHero, hotHouseFor1Turn, adding4ToAPButDisarm, disarmFor1Turn, poisonAllForcesFor4Turn, removingGoodAndBadBuffsForOneForse, weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn, powerBuffIncrease6AP,powerBuffWith2APConstant, impactToAllEnemy6impact, weaknessWithdecreasing4APInOneForse, weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse, killingEnemy, stunFor2Turn
+    }
 
     private static ArrayList<Spell> spells = new ArrayList<>();
-
+    private TargetCommunities targetCommunity;
+    private String descriptionTypeOfSpell;
+    private Effect effect;
     private int effectMultiplicity;
+    private TimeToActivateSpecialPower timeToActivateSpecialPower;
 
-    public Spell(String name, int price, int mana, TargetCommunities targetCommunity, Effect effect, int effectMultiplicity)
+
+    public Spell(String name, int price, int MP, TargetCommunities targetCommunity, Effect effect, int effectMultiplicity, String descriptionTypeOfSpell)
     {
         this.setCardName(name);
         this.setPrice(price);
-        this.setRequiredMana(mana);
-        this.targetCommunity = targetCommunity;
-        this.effect = effect;
-        //todo //effectmultiplicity
+        this.setRequiredMP(MP);
+        this.setTargetCommunity(targetCommunity);
+        this.setEffect(effect);
+        this.setEffectMultiplicity(effectMultiplicity);
+        this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
         spells.add(this);
     }
 
@@ -81,6 +86,42 @@ public class Spell extends Card
         return effectMultiplicity;
     }
 
+    public void setEffectMultiplicity(int effectMultiplicity) {
+        this.effectMultiplicity = effectMultiplicity;
+    }
+
+    public TargetCommunities getTargetCommunity() {
+        return targetCommunity;
+    }
+
+    public void setTargetCommunity(TargetCommunities targetCommunity) {
+        this.targetCommunity = targetCommunity;
+    }
+
+    public Effect getEffect() {
+        return effect;
+    }
+
+    public void setEffect(Effect effect) {
+        this.effect = effect;
+    }
+
+    public String getDescriptionTypeOfSpell() {
+        return descriptionTypeOfSpell;
+    }
+
+    public void setDescriptionTypeOfSpell(String descriptionTypeOfSpell) {
+        this.descriptionTypeOfSpell = descriptionTypeOfSpell;
+    }
+
+    public TimeToActivateSpecialPower getTimeToActivateSpecialPower() {
+        return timeToActivateSpecialPower;
+    }
+
+    public void setTimeToActivateSpecialPower(TimeToActivateSpecialPower timeToActivateSpecialPower) {
+        this.timeToActivateSpecialPower = timeToActivateSpecialPower;
+    }
+
     public static ArrayList<Spell> getSpells()
     {
         return spells;
@@ -88,6 +129,6 @@ public class Spell extends Card
 
     public void printSpellCardStats(int counter)
     {
-        System.out.println(counter + " : Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMana() + " – Description : " /*todo*/ + " Sell Cost : " + getPrice());
+        System.out.println(counter + " : Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " /*todo*/ + " Sell Cost : " + getPrice());
     }
 }

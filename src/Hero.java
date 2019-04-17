@@ -51,9 +51,16 @@ public class Hero extends NonSpellCards
         new Hero("Rostam", 8000, 55, 7, ImpactType.hybrid, 4, 0);
     }
 
-    public Hero findHero(int heroID, String command)
+    public Hero findHero(int heroID)
     {
-
+        for (Hero hero : heroes)
+        {
+            if (hero.getHeroID() == heroID)
+            {
+                return hero;
+            }
+        }
+        return null;
     }
 
     public static ArrayList<Hero> getHeroes()
@@ -68,6 +75,6 @@ public class Hero extends NonSpellCards
 
     public void printHeroStats(int counter)
     {
-        System.out.println(counter + " : Name :" + getCardName() + " - AP : " + getAP() + " – HP : " + getHP() + " – Class : " + getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + getPrice());
+        System.out.println(counter + " : Name :" + getCardName() + " - AP : " + getDefaultAP() + " – HP : " + getDefaultHP() + " – Class : " + getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + getPrice());
     }
 }
