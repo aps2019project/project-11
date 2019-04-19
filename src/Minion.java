@@ -24,6 +24,16 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
+        Minion minion1 = new Minion("persianArcher",300,2,6,4,ImpactType.ranged,7,null,null);
+        Minion minion2 = new Minion("persianSwordsMan",400,2,6,4,ImpactType.melee,0,null/*todo*/,TimeToActivateSpecialPower.onAttack);
+        Minion minion3 = new Minion("persianSpear",500,1,5,3,ImpactType.hybrid,3,null,null);
+        Minion minion4 = new Minion("persianHorseMan",200,4,10,6,ImpactType.melee,0,null,null);
+        Minion minion5 = new Minion("persianAthlete",600 ,9 ,24 ,6 ,ImpactType.melee,0,null/*todo*/,null);
+        Minion minion6 = new Minion("persianGeneralissimo",800,7,12,4,ImpactType.melee,0,null/*todo*/,TimeToActivateSpecialPower.combo);
+        Minion minion7 = new Minion("toranianArcher",500,1,3,4,ImpactType.ranged,5,null,null);
+        Minion minion8 = new Minion("toranianSling",600,1,4,2,ImpactType.ranged,7,null,null);
+        Minion minion9 = new Minion("toranianSpear",600,1,4,4,ImpactType.hybrid,3,null,null);
+        Minion minion10 = new Minion("toranianSpy",700,4,6,6,ImpactType.melee,0,null/*todo*/,TimeToActivateSpecialPower.onAttack);
         Minion minion11 = new Minion("Gorzdar Torani" ,450 , 2 ,3 , 10 , ImpactType.melee , 0 , null , null);
         Minion minion12 = new Minion("Shahzade Torani" ,800 , 6 ,6 , 10 , ImpactType.melee , 0 , null /*todo*/ , TimeToActivateSpecialPower.combo);
         Minion minion13 = new Minion("Dive Sepid" ,300 , 9 ,14 , 10 , ImpactType.hybrid , 7 , null , null);
