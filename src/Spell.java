@@ -4,7 +4,7 @@ public class Spell extends Card
 {
     public enum DescriptionTypeOfSpell
     {
-        disarm, removingBadAndGoodBuffs, adding2ToAP, impact4Time, adding4ToHeroAP, hotHouseFor2turn, impactFor8TimeToEnemyHero, hotHouseFor1Turn, adding4ToAPButDisarm, disarmFor1Turn, poisonAllForcesFor4Turn, removingGoodAndBadBuffsForOneForse, weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn, powerBuffIncrease6AP,powerBuffWith2APConstant, impactToAllEnemy6impact, weaknessWithdecreasing4APInOneForse, weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse, killingEnemy, stunFor2Turn
+        disarm, removingBadAndGoodBuffs, adding2ToAP, impact4Time, adding4ToHeroAP, hotHouseFor2turn, impactFor8TimeToEnemyHero, poisonHouseFor1Turn ,hotHouseFor1Turn, adding4ToAPButDisarmFor3Turn, disarmFor1Turn, poisonAllForcesFor4Turn, weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn, powerBuffIncrease6AP,powerBuffWith2APConstant, impactToAllEnemy6impact, weaknessWithdecreasing4APInOneForse, weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse, killingEnemy, stunFor2Turn
     }
 
     private static ArrayList<Spell> spells = new ArrayList<>();
@@ -27,13 +27,33 @@ public class Spell extends Card
         spells.add(this);
     }
 
-    public Spell()
+    /*public Spell()
     {
         //todo constructor for heroes
-    }
+    }*/
 
     public static void setSpells()
     {
+        new Spell("totalDisarm","1000","0",TargetCommunities.opponentForce,Effect.disarmBuff,,DescriptionTypeOfSpell.disarm);
+        new Spell("areaDispel","1500","2",TargetCommunities.twoInTwoSquare,,,DescriptionTypeOfSpell.removingBadAndGoodBuffs);
+        new Spell("empower","250","1",TargetCommunities.ownForce,,"2",DescriptionTypeOfSpell.adding2ToAP);
+        new Spell("fireball","400","1",TargetCommunities.opponentForce,,"4",DescriptionTypeOfSpell.impact4Time);
+        new Spell("godStrength","450","2",TargetCommunities.ownHero,,"4",DescriptionTypeOfSpell.adding4ToHeroAP);
+        new Spell("hellFire","600","3",TargetCommunities.twoInTwoSquare,,"2",DescriptionTypeOfSpell.hotHouseFor2turn);
+        new Spell("lightingBolt","1250","2",TargetCommunities.opponentHero,,"8",DescriptionTypeOfSpell.impactFor8TimeToEnemyHero);
+        new Spell("poisonLake","900","5",TargetCommunities.threeInThreeSquare,,"1",DescriptionTypeOfSpell.poisonHouseFor1Turn);
+        new Spell("madness","650","0",TargetCommunities.ownForce,,"4",DescriptionTypeOfSpell.adding4ToAPButDisarmFor3Turn);
+        new Spell("allDisarm","2000","9",TargetCommunities.allOpponentForces,,"//",DescriptionTypeOfSpell.disarmFor1Turn);
+        new Spell("allPoison","1500","8",TargetCommunities.allOpponentForces,,"//",DescriptionTypeOfSpell.poisonAllForcesFor4Turn);
+        new Spell("dispel","2100","0",TargetCommunities.anyForce,,"//",DescriptionTypeOfSpell.removingBadAndGoodBuffs);
+        new Spell("healthWithProfit","2250","0",TargetCommunities.ownForce,,"//",DescriptionTypeOfSpell.weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn);
+        new Spell("powerUp","2500","2",TargetCommunities.ownForce,,"//",DescriptionTypeOfSpell.powerBuffIncrease6AP);
+        new Spell("allPower","2000","4",TargetCommunities.allOwnForces,,"//",DescriptionTypeOfSpell.powerBuffWith2APConstant);
+        new Spell("allAttack","1500","4",TargetCommunities.allOpponentForesInColumn,,"//",DescriptionTypeOfSpell.impactToAllEnemy6impact);
+        new Spell("weakening","1000","1",TargetCommunities.opponentMinion,,"//",DescriptionTypeOfSpell.weaknessWithdecreasing4APInOneForse);
+        new Spell("sacrifice","1600","2",TargetCommunities.ownMinion,,"//",DescriptionTypeOfSpell.weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse);
+        new Spell("kingGuard","1750","9",TargetCommunities.opponentMinionAroundOwnHero,,"//",DescriptionTypeOfSpell.killingEnemy);
+        new Spell("shock","1200","1",TargetCommunities.opponentForce,Effect.stunBuff ,,DescriptionTypeOfSpell.stunFor2Turn);
 
     }
 
