@@ -62,10 +62,14 @@ public class Shop {
         Account.loggedInAccount.getCollection().searchCollection(name);
     }
 
-    void buyCard(Card card) {
-        if (card.getPrice() > Account.loggedInAccount.getMoney()) {
+    void buyCard(Card card)
+    {
+        if (card.getPrice() > Account.loggedInAccount.getMoney())
+        {
             System.out.println("you haven't enough money.");
-        } else {
+        }
+        else
+        {
             setCardID(card);
             Account.loggedInAccount.getCollection().addCard(card);
             Account.loggedInAccount.decreaseMoney(card.getPrice());
@@ -73,17 +77,22 @@ public class Shop {
         }
     }
 
-    private void setCardID(Card card) {
-        if (card instanceof Hero) {
-            card.setCardID(heroID++);
-        } else if (card instanceof Minion) {
-            card.setCardID(minionID++);
-        } else if (card instanceof Spell) {
-            card.setCardID(spellID++);
+    private void setCardID(Card card)
+    {
+        if (card instanceof Hero)
+        {
+            card.setCardID(heroID ++);
+        } else if (card instanceof Minion)
+        {
+            card.setCardID(minionID ++);
+        } else if (card instanceof Spell)
+        {
+            card.setCardID(spellID ++);
         }
     }
 
-     void buyItem(Item item) {
+     void buyItem(Item item)
+     {
         if (item.getPrice() > Account.loggedInAccount.getMoney()) {
             System.out.println("you haven't enough money.");
         } else if (Account.loggedInAccount.getCollection().getItems().size() == 3) {
@@ -96,7 +105,8 @@ public class Shop {
         }
     }
 
-    private void setItemID(Item item) {
+    private void setItemID(Item item)
+    {
         item.setItemID(itemID++);
     }
 
@@ -147,44 +157,29 @@ public class Shop {
         int counter = 1;
         for (Hero hero : Hero.getHeroes())
         {
-            printStatsOfHero(hero, counter);
+            hero.printHeroStats(counter);
             counter ++;
         }
         counter = 1;
-        for (Item item : Item.getItems()) {
-            printStatsOfItem(item, counter);
+        for (Item item : Item.getItems())
+        {
+            item.printItemStats(counter);
             counter ++;
         }
         counter = 1;
-        for (Card card : Card.getCards()) {
-            if (card instanceof Hero) {
-                continue;
-            }
-            if (card instanceof Spell) {
+        for (Card card : Card.getCards())
+        {
+            if (card instanceof Spell)
+            {
                 Spell spell = (Spell) card;
-                printStatsOfSpell(spell, counter);
+                spell.printSpellCardStats(counter);
                 counter ++;
-            } else if (card instanceof Minion) {
+            } else if (card instanceof Minion)
+            {
                 Minion minion = (Minion) card;
-                printStatsOfMinion(minion, counter);
+                minion.printMinionStats(counter);
                 counter ++;
             }
         }
-    }
-
-    private void printStatsOfMinion(Minion minion, int counter) {
-        minion.printMinionStats(counter);
-    }
-
-    private void printStatsOfSpell(Spell spell, int counter) {
-        spell.printSpellCardStats(counter);
-    }
-
-    private void printStatsOfItem(Item item, int counter) {
-        item.printItemStats(counter);
-    }
-
-    private void printStatsOfHero(Hero hero, int counter) {
-        hero.printHeroStats(counter);
     }
 }

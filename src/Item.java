@@ -30,7 +30,22 @@ public class Item
         new Item("Shield", 4000, ItemType.usable, new Spell());
         new Item("DamulArk", 30000, ItemType.usable, new Spell());
         new Item("TheDevastation", ItemType.collectible, new Spell());
-        new Item()
+        new Item("TwinHornArrow", ItemType.collectible, new Spell());
+        new Item("SimurghFeather", 3500, ItemType.usable, new Spell());
+        new Item("Elixir", ItemType.collectible, new Spell());
+        new Item("ManaPotion", ItemType.collectible, new Spell());
+        new Item("InvulnerablePotion", ItemType.collectible, new Spell());
+        new Item("DeathCurse", ItemType.collectible, new Spell());
+        new Item("Random damage", ItemType.collectible, new Spell());
+        new Item("Terror Hood",  5000, ItemType.usable, new Spell());
+        new Item("Blades of agility", ItemType.collectible, new Spell());
+        new Item("King Wisdom", 9000, ItemType.usable, new Spell());
+        new Item("Assassination Dagger", 15000, ItemType.usable, new Spell());
+        new Item("Poisonous Dagger", 7000, ItemType.usable, new Spell());
+        new Item("Shock Hammer", 15000, ItemType.usable, new Spell());
+        new Item("Soul Eater", 25000, ItemType.usable, new Spell());
+        new Item("Baptism", 20000, ItemType.usable, new Spell());
+        new Item("Chinese sword", ItemType.collectible, new Spell());
     }
 
     public static Item findItem(int itemID)

@@ -189,7 +189,7 @@ public class Deck
 
     public void printDeckStats()
     {
-        int counter = 0;
+        int counter = 1;
         System.out.println("Heroes :");
         for (Hero hero : hero)
         {
@@ -197,7 +197,7 @@ public class Deck
             counter ++;
         }
 
-        counter = 0;
+        counter = 1;
         System.out.println("Items :");
         for (Item item : item)
         {
@@ -205,7 +205,7 @@ public class Deck
             counter ++;
         }
 
-        counter = 0;
+        counter = 1;
         System.out.println("Cards :");
         for (Card card : nonHeroCards)
         {

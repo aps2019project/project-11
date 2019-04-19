@@ -1,9 +1,5 @@
-import java.util.ArrayList;
-
 public class Battle
 {
-
-
     public Account getPlayerTurn() {
         return playerTurn;
     }
