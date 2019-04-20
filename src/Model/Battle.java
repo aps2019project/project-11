@@ -1,3 +1,5 @@
+package Model;
+
 public class Battle
 {
     public Account getPlayerTurn() {
@@ -43,7 +45,6 @@ public class Battle
     {
         while (true)
         {
-            String line = Main.myScanner.nextLine();
 
         }
     }
@@ -51,7 +52,7 @@ public class Battle
     public static void multiPlayerMatch()
     {
         Account.showAllPlayers();
-        String secondPlayerName = Main.myScanner.nextLine();
+        String secondPlayerName = null; //todo get from scanner
         Account secondPlayer = Account.findAccount(secondPlayerName);
         currentBattle = new Battle(Account.loggedInAccount, secondPlayer);
         currentBattle.selectMatchMode();

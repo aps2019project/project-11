@@ -1,7 +1,12 @@
+package Model;
+
+import View.ShowOutput;
+
 import java.util.ArrayList;
 
-public class Shop {
-    static Shop shop = new Shop();
+public class Shop
+{
+    public static Shop shop = new Shop();
     private static int heroID = 10000;
     private static int minionID = 20000;
     private static int spellID = 30000;
@@ -9,35 +14,7 @@ public class Shop {
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
-    static void help()
-    {
-        System.out.println("exit");
-        System.out.println("show collection");
-        System.out.println("search [item name | card name]");
-        System.out.println("search collection [item name | card name]");
-        System.out.println("buy [card name | item name]");
-        System.out.println("sell [card ID | item ID]");
-        System.out.println("show");
-        System.out.println("help");
-
-    }
-
-    public ArrayList<Card> getCards()
-    {
-        return cards;
-    }
-
-    public ArrayList<Item> getItems()
-    {
-        return items;
-    }
-
-    void showCollection()
-    {
-        Account.loggedInAccount.getCollection().show();
-    }
-
-    void searchShop(String name)
+    public void searchShop(String name)
     {
         for (Card card : cards)
         {
@@ -58,11 +35,12 @@ public class Shop {
         System.out.println("The item  or card doesn't exist in the shop.");
     }
 
-    void searchCollection(String name) {
+    public void searchCollection(String name)
+    {
         Account.loggedInAccount.getCollection().searchCollection(name);
     }
 
-    void buyCard(Card card)
+    public void buyCard(Card card)
     {
         if (card.getPrice() > Account.loggedInAccount.getMoney())
         {
@@ -91,7 +69,7 @@ public class Shop {
         }
     }
 
-     void buyItem(Item item)
+     public void buyItem(Item item)
      {
         if (item.getPrice() > Account.loggedInAccount.getMoney()) {
             System.out.println("you haven't enough money.");
@@ -107,10 +85,10 @@ public class Shop {
 
     private void setItemID(Item item)
     {
-        item.setItemID(itemID++);
+        item.setItemID(itemID ++);
     }
 
-    void detectIDToSell(int ID) {
+    public void detectIDToSell(int ID) {
         Card cardToSell = null;
         Item itemToSell = null;
         for (Card card : Account.loggedInAccount.getCollection().getCards()) {
@@ -130,12 +108,17 @@ public class Shop {
         this.sell(cardToSell, itemToSell);
     }
 
-    private void sell(Card cardToSell, Item itemToSell) {
-        if (cardToSell != null) {
-            for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
-                if (cardToSell instanceof Hero) {
+    private void sell(Card cardToSell, Item itemToSell)
+    {
+        if (cardToSell != null)
+        {
+            for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+            {
+                if (cardToSell instanceof Hero)
+                {
                     deck.deleteHeroFromDeck((Hero) cardToSell);
-                } else {
+                } else
+                    {
                     deck.deleteNonHeroCardFromDeck(cardToSell);
                 }
             }
@@ -152,12 +135,12 @@ public class Shop {
         }
     }
 
-    void show()
+    public void show()
     {
         int counter = 1;
         for (Hero hero : Hero.getHeroes())
         {
-            hero.printHeroStats(counter);
+            ShowOutput.printHeroStats(hero, counter);
             counter ++;
         }
         counter = 1;
@@ -181,5 +164,15 @@ public class Shop {
                 counter ++;
             }
         }
+    }
+
+    public ArrayList<Card> getCards()
+    {
+        return cards;
+    }
+
+    public ArrayList<Item> getItems()
+    {
+        return items;
     }
 }

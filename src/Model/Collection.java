@@ -1,3 +1,7 @@
+package Model;
+
+import View.ShowOutput;
+
 import java.util.ArrayList;
 
 public class Collection
@@ -140,7 +144,7 @@ public class Collection
         Deck deck = Deck.findDeck(deckName);
         if (deck != null)
         {
-            System.out.println("Deck exists with this name");
+            System.out.println("Model.Deck exists with this name");
             return;
         }
         Deck newDeck = new Deck(deckName);
@@ -166,7 +170,7 @@ public class Collection
         {
             if (card instanceof Hero)
             {
-                ((Hero) card).printHeroStats(counter);
+                ShowOutput.printHeroStats((Hero) card, counter);
                 counter ++;
             }
         }
@@ -190,22 +194,5 @@ public class Collection
             card.printCardStats(counter);
             counter ++;
         }
-    }
-
-    public static void help()
-    {
-        System.out.println("exit");
-        System.out.println("show");
-        System.out.println("search [cardName | itemName]");
-        System.out.println("save");
-        System.out.println("create deck [deckName]");
-        System.out.println("delete deck [deckName]");
-        System.out.println("add [cardID | heroID | itemID] to deck [deckName]");
-        System.out.println("remove [cardID | heroID | itemID] from deck [deckName]");
-        System.out.println("validate deck [deckName]");
-        System.out.println("select deck [deckName]");
-        System.out.println("show all decks");
-        System.out.println("show deck [deckName]");
-        System.out.println("help");
     }
 }

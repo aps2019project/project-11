@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 
 public class Hero extends NonSpellCards
@@ -71,10 +73,5 @@ public class Hero extends NonSpellCards
     public int getHeroID()
     {
         return heroID;
-    }
-
-    public void printHeroStats(int counter)
-    {
-        System.out.println(counter + " : Name :" + getCardName() + " - AP : " + getDefaultAP() + " – HP : " + getDefaultHP() + " – Class : " + getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + getPrice());
     }
 }

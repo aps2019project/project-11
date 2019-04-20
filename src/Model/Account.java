@@ -1,3 +1,6 @@
+package Model;
+
+import Controller.CallTheAppropriateFunction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -6,13 +9,13 @@ public class Account
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private String accountName;
-    static Account loggedInAccount;
+    public static Account loggedInAccount;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
     private ArrayList<Deck> playerDecks = new ArrayList<>();
     private Deck mainDeck;
     private int money;
-    private int  password;
+    private String  password;
     private int numOfWins = 0;
     private ArrayList<Card> hand = new ArrayList<>();
     private ArrayList<Item> collectibleItems = new ArrayList<>();
@@ -21,17 +24,18 @@ public class Account
 
     public Account(String userName)
     {
-         int inputPassword= Main.myScanner.nextInt();
-         if (findAccount(userName) == null)
-         {
-             this.password = inputPassword;
-             this.accountName = userName;
-             accounts.add(this);
-         }
-         else
-         {
-             System.out.println("this Account has been existed");
-         }
+        if (findAccount(userName) == null)
+        {
+            CallTheAppropriateFunction.printOutput("Enter your Password");
+            this.password = CallTheAppropriateFunction.getPassword();
+            this.accountName = userName;
+            accounts.add(this);
+            CallTheAppropriateFunction.printOutput("New Account created");
+        }
+        else
+        {
+            CallTheAppropriateFunction.printOutput("this Account has been existed");
+        }
     }
 
     public void addDeck(Deck deck)
@@ -41,36 +45,27 @@ public class Account
 
     public static void login(String userName)
     {
-        int inputPassword = Main.myScanner.nextInt();
         for (Account account : accounts)
         {
             if (userName.equals(account.accountName))
             {
-                if (inputPassword == account.password)
+                CallTheAppropriateFunction.printOutput("Enter your Password");
+                String inputPassword = CallTheAppropriateFunction.getPassword();
+                if (inputPassword.equals(account.password))
                 {
                     loggedInAccount = account;
                     return;
                 }
-                System.out.println("The password is not correct");
+                CallTheAppropriateFunction.printOutput("The password is not correct");
                 return;
             }
         }
-        System.out.println("this userName is not exist");
+        CallTheAppropriateFunction.printOutput("this userName is not exist");
     }
 
     public static void logout()
     {
         loggedInAccount = null;
-    }
-
-    public static void help()
-    {
-        System.out.println("create account [user name]");
-        System.out.println("login [user name]");
-        System.out.println("show leaderBoard");
-        System.out.println("save");
-        System.out.println("logout");
-        System.out.println("help");
     }
 
     public static void sortAccountsByWins()
@@ -91,16 +86,6 @@ public class Account
                 return 0;
             }
         });
-    }
-
-    public static void showLeaderBoard()
-    {
-        int counter = 1;
-        for (Account account : accounts)
-        {
-            System.out.println(counter + "- UserName : " + account.accountName + "- Wins : " + account.numOfWins);
-            counter ++;
-        }
     }
 
     public void save()
@@ -211,4 +196,13 @@ public class Account
     public void setMainDeck(Deck mainDeck) {
         this.mainDeck = mainDeck;
     }
+
+    public static ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
 }
+

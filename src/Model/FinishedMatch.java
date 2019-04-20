@@ -1,3 +1,5 @@
+package Model;
+
 public class FinishedMatch
 {
     private String opponentName;

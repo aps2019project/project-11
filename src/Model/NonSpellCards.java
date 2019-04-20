@@ -1,3 +1,5 @@
+package Model;
+
 public abstract class NonSpellCards extends Card
 {
     private int defaultHP;
@@ -13,7 +15,9 @@ public abstract class NonSpellCards extends Card
 
     public Cell [][] setAttackAbleCells()
     {
-
+        Cell[][] cells = new Cell[5][9];
+        //TODO
+        return cells;
     }
 
     public static void setNonSpellCards()

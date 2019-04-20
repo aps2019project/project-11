@@ -1,3 +1,7 @@
+package Model;
+
+import View.ShowOutput;
+
 import java.util.ArrayList;
 
 public class Deck
@@ -41,7 +45,7 @@ public class Deck
         }
         if (nonHeroCards.size() == 20)
         {
-            System.out.println("Deck is full");
+            System.out.println("Model.Deck is full");
             return;
         }
         this.nonHeroCards.add(card);
@@ -72,7 +76,7 @@ public class Deck
         }
         if (this.item.size() == 1)
         {
-            System.out.println("Deck is full");
+            System.out.println("Model.Deck is full");
             return;
         }
         this.item.add(item);
@@ -103,7 +107,7 @@ public class Deck
         }
         if (this.hero.size() == 1)
         {
-            System.out.println("Deck is full");
+            System.out.println("Model.Deck is full");
             return;
         }
         this.hero.add(hero);
@@ -130,17 +134,17 @@ public class Deck
             {
                 if (deck.nonHeroCards.size() == 20 && deck.hero.size() == 1)
                 {
-                    System.out.println("Deck is valid");
+                    System.out.println("Model.Deck is valid");
                     return true;
                 }
                 else
                 {
-                    System.out.println("Deck isn't valid");
+                    System.out.println("Model.Deck isn't valid");
                     return false;
                 }
             }
         }
-        System.out.println("Deck doesn't exist");
+        System.out.println("Model.Deck doesn't exist");
         return false;
     }
 
@@ -184,7 +188,7 @@ public class Deck
             deck.printDeckStats();
             return;
         }
-        System.out.println("Deck doesn't exist");
+        System.out.println("Model.Deck doesn't exist");
     }
 
     public void printDeckStats()
@@ -193,7 +197,7 @@ public class Deck
         System.out.println("Heroes :");
         for (Hero hero : hero)
         {
-            hero.printHeroStats(counter);
+            ShowOutput.printHeroStats(hero, counter);
             counter ++;
         }
 
