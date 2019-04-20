@@ -74,4 +74,28 @@ public abstract class NonSpellCards extends Card
     public void setImpactType(ImpactType impactType) {
         this.impactType = impactType;
     }
+
+    public boolean isEnabledHolyBuff() {
+        return enabledHolyBuff;
+    }
+
+    public void setEnabledHolyBuff(boolean enabledHolyBuff) {
+        this.enabledHolyBuff = enabledHolyBuff;
+    }
+
+    public boolean isEnableStunBuff() {
+        return enableStunBuff;
+    }
+
+    public void setEnableStunBuff(boolean enableStunBuff) {
+        this.enableStunBuff = enableStunBuff;
+    }
+
+    public boolean isEnableDisarmBuff() {
+        return enableDisarmBuff;
+    }
+
+    public void setEnableDisarmBuff(boolean enableDisarmBuff) {
+        this.enableDisarmBuff = enableDisarmBuff;
+    }
 }
