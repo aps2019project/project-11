@@ -24,6 +24,18 @@ public class Spell extends Card
         this.spellUnit = spellUnit;
     }
 
+    public int getSpellTurn() {
+        return spellTurn;
+    }
+
+    public ImpactType getImpactType() {
+        return impactType;
+    }
+
+    public void setImpactType(ImpactType impactType) {
+        this.impactType = impactType;
+    }
+
     public enum DescriptionTypeOfSpell
     {
         disarm, removingBadAndGoodBuffs, adding2ToAP, impact4Time, adding4ToHeroAP, hotHouseFor2turn, impactFor8TimeToEnemyHero, poisonHouseFor1Turn ,hotHouseFor1Turn, adding4ToAPButDisarmFor3Turn, disarmFor1Turn, poisonAllForcesFor4Turn, weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn, powerBuffIncrease6AP,powerBuffWith2APConstant, impactToAllEnemy6impact, weaknessWithdecreasing4APInOneForse, weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse, killingEnemy, stunFor2Turn
@@ -34,6 +46,7 @@ public class Spell extends Card
     private String descriptionTypeOfSpell;
     private Effect effect;
     private int effectMultiplicity;
+    private ImpactType impactType;
     private TypeOfMultiplicity typeOfMultiplicity;
     private int spellTurn;
     private int spellUnit;
@@ -77,7 +90,27 @@ public class Spell extends Card
         this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
         spells.add(this);
     }
-
+    public Spell(TypeOfMultiplicity typeOfMultiplicity,int number,TargetCommunities targetCommunity,ImpactType impactType,Effect effect)
+    {
+        this.setTypeOfMultiplicity(typeOfMultiplicity);
+        this.setImpactType(impactType);
+        this.setEffect(effect);
+        if (typeOfMultiplicity==TypeOfMultiplicity.spellTurn)
+        {
+            this.setSpellTurn(number);
+        }
+        if (typeOfMultiplicity==TypeOfMultiplicity.spellUnit)
+        {
+            this.setSpellUnit(number);
+        }
+        else if (typeOfMultiplicity==TypeOfMultiplicity.spellTurnAndUnit)
+        {
+            int Unit=number/10;
+            int Turn=number%10;
+            this.setSpellUnit(Unit);
+            this.setSpellTurn(Turn);
+        }
+    }
 
     public static void setSpells()
     {
@@ -97,7 +130,7 @@ public class Spell extends Card
        new Spell("powerUp",2500,2,TargetCommunities.ownForce,Effect.powerBuff,TypeOfMultiplicity.spellUnit,6,"powerBuffIncrease6AP");
        new Spell("allPower",2000,4,TargetCommunities.allOwnForces,Effect.powerBuff,TypeOfMultiplicity.spellUnit,2,"powerBuffWith2APConstant");
        new Spell("allAttack",1500,4,TargetCommunities.allOpponentForesInColumn,Effect.holyBuff,TypeOfMultiplicity.spellUnit,6,"impactToAllEnemy6impact");
-       new Spell("weakening",1000,1,TargetCommunities.opponentMinion,Effect.WeaknessBuff,TypeOfMultiplicity.spellUnit,4,"weaknessWithdecreasing4APInOneForse");
+       new Spell("weakening",1000,1,TargetCommunities.opponentMinion,Effect.weaknessBuff,TypeOfMultiplicity.spellUnit,4,"weaknessWithdecreasing4APInOneForse");
        new Spell("sacrifice",1600,2,TargetCommunities.ownMinion,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse");
        new Spell("kingGuard",1750,9,TargetCommunities.opponentMinionAroundOwnHero,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"killingEnemy");
        new Spell("shock",1200,1,TargetCommunities.opponentForce,Effect.stunBuff ,TypeOfMultiplicity.spellUnit,2,"stunFor2Turn");
@@ -145,6 +178,10 @@ public class Spell extends Card
     }
 
     public void effectHolyCell(int x, int y)
+    {
+
+    }
+    public void effectaddingMP(Card card)
     {
 
     }

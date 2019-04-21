@@ -28,26 +28,26 @@ public class Item
 
     public static void setItems()
     {
-        new Item("CrownOfWisdom", 300, ItemType.usable, new Spell());
-        new Item("Shield", 4000, ItemType.usable, new Spell());
-        new Item("DamulArk", 30000, ItemType.usable, new Spell());
-        new Item("TheDevastation", ItemType.collectible, new Spell());
-        new Item("TwinHornArrow", ItemType.collectible, new Spell());
-        new Item("SimurghFeather", 3500, ItemType.usable, new Spell());
-        new Item("Elixir", ItemType.collectible, new Spell());
-        new Item("ManaPotion", ItemType.collectible, new Spell());
-        new Item("InvulnerablePotion", ItemType.collectible, new Spell());
-        new Item("DeathCurse", ItemType.collectible, new Spell());
-        new Item("Random damage", ItemType.collectible, new Spell());
-        new Item("Terror Hood",  5000, ItemType.usable, new Spell());
-        new Item("Blades of agility", ItemType.collectible, new Spell());
-        new Item("King Wisdom", 9000, ItemType.usable, new Spell());
-        new Item("Assassination Dagger", 15000, ItemType.usable, new Spell());
-        new Item("Poisonous Dagger", 7000, ItemType.usable, new Spell());
-        new Item("Shock Hammer", 15000, ItemType.usable, new Spell());
-        new Item("Soul Eater", 25000, ItemType.usable, new Spell());
-        new Item("Baptism", 20000, ItemType.usable, new Spell());
-        new Item("Chinese sword", ItemType.collectible, new Spell());
+        new Item("CrownOfWisdom", 300, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,null));
+        new Item("Shield", 4000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,12,TargetCommunities.ownHero,null,Effect.holyBuff));
+        new Item("DamulArk", 30000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.ownHero,ImpactType.rangedAndhybrid,Effect.disarmBuff));
+        new Item("TheDevastation", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,6,null,null,Effect.powerBuff));
+        new Item("TwinHornArrow", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,ImpactType.RangedORhybrid,Effect.powerBuff));
+        new Item("SimurghFeather", 3500, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.opponentHero,ImpactType.RangedORhybrid,Effect.weaknessBuff));
+        new Item("Elixir", ItemType.collectible, new Spell(/*todo*/));
+        new Item("ManaPotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,Effect.addingMP));
+        new Item("InvulnerablePotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellTurnAndUnit,102,TargetCommunities.ownForce,null,Effect.holyBuff));
+        new Item("DeathCurse", ItemType.collectible, new Spell(/*todo*/));
+        new Item("Random damage", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,null,Effect.powerBuff));
+        new Item("Terror Hood",  5000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurnAndUnit,21,TargetCommunities.opponentForce,null,Effect.weaknessBuff));
+        new Item("Blades of agility", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,6,TargetCommunities.anyForce,null,Effect.powerBuff));
+        new Item("King Wisdom", 9000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUntilEndGame,1,null,null,Effect.addingMP));
+        new Item("Assassination Dagger", 15000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,1,TargetCommunities.opponentHero,null,Effect.holyBuff));
+        new Item("Poisonous Dagger", 7000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.opponentForce,null,Effect.poisonBuff));
+        new Item("Shock Hammer", 15000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.opponentForce,null,Effect.disarmBuff));
+        new Item("Soul Eater", 25000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,1,TargetCommunities.ownForce,null,Effect.powerBuff));
+        new Item("Baptism", 20000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,2,TargetCommunities.ownMinion,null,Effect.holyBuff));
+        new Item("Chinese sword", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,5,TargetCommunities.anyForce,ImpactType.melee,Effect.powerBuff));
     }
 
     public static Item findItem(int itemID)
