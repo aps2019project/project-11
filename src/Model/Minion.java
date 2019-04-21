@@ -6,7 +6,7 @@ public class Minion extends NonSpellCards
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
 
-    Minion(String name , int price , int MP , int HP , int AP , ImpactType impactType , int rangeOfAttack , Spell specialPower , TimeToActivateSpecialPower timeToActivateSpecialPower ){
+    Minion(String name , int price , int MP , int HP , int AP , ImpactType impactType , int rangeOfAttack , Spell specialPower , TimeToActivateSpecialPower timeToActivateSpecialPower  ){
         this.setCardName(name);
         this.setPrice(price);
         this.setRequiredMP(MP);
@@ -26,26 +26,26 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
-        Minion minion1 = new Minion("persianArcher",300,2,6,4, ImpactType.ranged,7,null,null);
-        Minion minion2 = new Minion("persianSwordsMan",400,2,6,4, ImpactType.melee,0,null/*todo*/, TimeToActivateSpecialPower.onAttack);
+        Minion minion1 = new Minion("persianArcher",300,2,6,4, ImpactType.ranged,7, null ,null);
+        Minion minion2 = new Minion("persianSwordsMan",400,2,6,4, ImpactType.melee,0, new Spell(null , 0 , 0 , TargetCommunities.opponentForce ,Effect.stunBuff , TypeOfMultiplicity.spellTurn , 1 , "stun enemy force for one turn"), TimeToActivateSpecialPower.onAttack);
         Minion minion3 = new Minion("persianSpear",500,1,5,3, ImpactType.hybrid,3,null,null);
         Minion minion4 = new Minion("persianHorseMan",200,4,10,6, ImpactType.melee,0,null,null);
         Minion minion5 = new Minion("persianAthlete",600 ,9 ,24 ,6 , ImpactType.melee,0,null/*todo*/,null);
-        Minion minion6 = new Minion("persianGeneralissimo",800,7,12,4, ImpactType.melee,0,null/*todo*/, TimeToActivateSpecialPower.combo);
+        Minion minion6 = new Minion("persianGeneralissimo",800,7,12,4, ImpactType.melee,0,null, TimeToActivateSpecialPower.combo);
         Minion minion7 = new Minion("toranianArcher",500,1,3,4, ImpactType.ranged,5,null,null);
         Minion minion8 = new Minion("toranianSling",600,1,4,2, ImpactType.ranged,7,null,null);
         Minion minion9 = new Minion("toranianSpear",600,1,4,4, ImpactType.hybrid,3,null,null);
-        Minion minion10 = new Minion("toranianSpy",700,4,6,6, ImpactType.melee,0,null/*todo*/, TimeToActivateSpecialPower.onAttack);
+        Minion minion10 = new Minion("toranianSpy",700,4,6,6, ImpactType.melee,0,new Spell(null , 0 , 0 , TargetCommunities.opponentForce ,Effect.stunBuff , TypeOfMultiplicity.spellTurn , 1 , "stun enemy force for one turn"), TimeToActivateSpecialPower.onAttack);
         Minion minion11 = new Minion("Gorzdar Torani" ,450 , 2 ,3 , 10 , ImpactType.melee , 0 , null , null);
         Minion minion12 = new Minion("Shahzade Torani" ,800 , 6 ,6 , 10 , ImpactType.melee , 0 , null /*todo*/ , TimeToActivateSpecialPower.combo);
         Minion minion13 = new Minion("Dive Sepid" ,300 , 9 ,14 , 10 , ImpactType.hybrid , 7 , null , null);
         Minion minion14 = new Minion("Ghoul Sang Andaz" ,300 , 9 ,12 , 12 , ImpactType.ranged , 7 , null , null);
-        Minion minion15 = new Minion("Oghab" ,200 , 2 ,0 , 2 , ImpactType.ranged , 3 ,null /*todo*/ , TimeToActivateSpecialPower.passive);
+        Minion minion15 = new Minion("Oghab" ,200 , 2 ,0 , 2 , ImpactType.ranged , 3 , new Spell(null , 0 , 0 , TargetCommunities.ownMinion ,Effect.powerBuff , TypeOfMultiplicity.spellUnit , 10 , "has 10 power buff with increase HP"), TimeToActivateSpecialPower.passive);
         Minion minion16 = new Minion("Div GorazSavar" ,300 , 6 ,16 , 8 , ImpactType.melee , 0 , null , null);
-        Minion minion17 = new Minion("Ghoul TakCheshm" ,500 , 7 ,12 , 11 , ImpactType.hybrid , 0, null/*todo*/ , TimeToActivateSpecialPower.onDeath);
-        Minion minion18 = new Minion("Mar Sammi" ,300 , 4 ,5 , 6 , ImpactType.ranged , 4 ,null/*todo*/ ,  TimeToActivateSpecialPower.onAttack);
+        Minion minion17 = new Minion("Ghoul TakCheshm" ,500 , 7 ,12 , 11 , ImpactType.hybrid , 0, new Spell(null , 0 , 0 , TargetCommunities.threeInThreeSquare ,Effect.weaknessBuff , TypeOfMultiplicity.spellUnit , 2 , "hit 2 damage to minions in 8 square around"), TimeToActivateSpecialPower.onDeath);
+        Minion minion18 = new Minion("Mar Sammi" ,300 , 4 ,5 , 6 , ImpactType.ranged , 4 ,new Spell(null , 0 , 0 , TargetCommunities.opponentForce ,Effect.poisonBuff , TypeOfMultiplicity.spellTurn , 3 , "poison enemy forces 3 turns") ,  TimeToActivateSpecialPower.onAttack);
         Minion minion19 = new Minion("Ezhdehaye Atash Andaz" ,250 , 5 ,9 , 5 , ImpactType.ranged , 4 ,null ,  null);
-        Minion minion20 = new Minion("Shir Darande" ,600 , 2 ,1 , 8 , ImpactType.melee , 0 ,null/*todo*/ ,  TimeToActivateSpecialPower.onAttack);
+        Minion minion20 = new Minion("Shir Darande" ,600 , 2 ,1 , 8 , ImpactType.melee , 0 ,new Spell(null , 0 , 0 , TargetCommunities.ownForce ,Effect.holyBuff , TypeOfMultiplicity.spellTurn , 1 , "holy buff and has not effect on AP") ,  TimeToActivateSpecialPower.onAttack);
         Minion minion21 = new Minion("Mar Ghoul Peykar" ,500 , 8 ,14 , 7 , ImpactType.ranged , 5 ,null/*todo*/ ,  TimeToActivateSpecialPower.onSpawn);
         Minion minion22 = new Minion("Gorg Sefid" ,400 , 5 ,8 , 2 , ImpactType.melee , 0 ,null/*todo*/ ,  TimeToActivateSpecialPower.onAttack);
         Minion minion23 = new Minion("Palang" ,400 , 4 ,6 , 2 , ImpactType.melee , 0 ,null/*todo*/ ,  TimeToActivateSpecialPower.onAttack);

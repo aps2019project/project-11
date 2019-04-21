@@ -77,6 +77,8 @@ public class Spell extends Card
         this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
         spells.add(this);
     }
+
+
     public static void setSpells()
     {
        new Spell("totalDisarm",1000,0,TargetCommunities.opponentForce,Effect.disarmBuff,TypeOfMultiplicity.spellUntilEndGame,"disarm");
