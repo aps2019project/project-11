@@ -72,6 +72,11 @@ public class Minion extends NonSpellCards
         System.out.println(counter + " : Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + /*todo*/ " – Sell Cost : " + getPrice());
     }
 
+    public void printMinionStats()
+    {
+        System.out.println("Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + /*todo*/ " – Sell Cost : " + getPrice());
+    }
+
     private static void minion2SpecialPower(Card opponentCard) {
         ((NonSpellCards) opponentCard).setEnableStunBuff(true);
     }

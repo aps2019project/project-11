@@ -208,7 +208,9 @@ public class CallTheAppropriateFunction
                 case SHOW_NEXT_CARD:
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
+                case HELP_BATTLE:
                 case EXIT:
+                    return;
             }
         }
 
@@ -219,8 +221,9 @@ public class CallTheAppropriateFunction
             Request.getGraveYardCommands();
             switch (Request.command){
                 case SHOW_INFO:
+                    /*todo*/
                 case SHOW_CARDS:
-                case HELP_GRAVEYARD:
+                    /*todo*/
                 case EXIT:
                     return;
             }

@@ -30,7 +30,8 @@ public enum CommandType
     ENTER_GRAVEYARD,
     SHOW_INFO,
     SHOW_CARDS,
-    HELP_GRAVEYARD
+    HELP_BATTLE,
+    SHOW_MENU
     ;
 
 

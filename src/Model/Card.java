@@ -102,6 +102,19 @@ public abstract class Card
         }
     }
 
+    public void printCardStats()
+    {
+        if (this instanceof Spell)
+        {
+            ((Spell) this).printSpellCardStats();
+        }
+        else if (this instanceof Minion)
+        {
+            ((Minion) this).printMinionStats();
+        }
+    }
+
+
     public void setPrice(int price) {
         this.price = price;
     }

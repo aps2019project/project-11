@@ -1,5 +1,7 @@
 package Model;
 
+import View.Request;
+
 import java.util.regex.Pattern;
 
 public class Battle
@@ -190,12 +192,25 @@ public class Battle
 
     public void showGraveYardCardInfo(int cardID)
     {
-
+        Card card = playerTurn.findCardInGraveYard(Request.command.cardOrItemIDInGraveYard);
+        if(card != null) {
+            card.printCardStats();
+        }
     }
 
-    public void showAllCardsInTheGraveYard()
-    {
-
+    public void showAllCardsInTheGraveYard() {
+        int counter = 1;
+        System.out.println("first Player Grave Yard :");
+        for (Card card : firstPlayer.getGraveYard()) {
+            card.printCardStats(counter);
+            counter++;
+        }
+        counter = 1;
+        System.out.println("second Player Grave Yard :");
+        for (Card card : secondPlayer.getGraveYard()) {
+            card.printCardStats(counter);
+            counter++;
+        }
     }
 
     public void help()

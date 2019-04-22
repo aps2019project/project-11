@@ -26,6 +26,7 @@ public class Request
     private static Pattern patternEnterGraveYard = Pattern.compile("Enter graveyard");
     private static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
     private static Pattern patternShowCardsOfGraveYard = Pattern.compile("Show cards");
+    private static Pattern patternShowMenu = Pattern.compile("Show menu");
 
     public static CommandType command;
 
@@ -56,6 +57,9 @@ public class Request
         {
             command = CommandType.HELP;
         }
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
+        }
         else if (input.equalsIgnoreCase("Exit"))
         {
             command = CommandType.EXIT;
@@ -83,6 +87,9 @@ public class Request
         else if (input.equalsIgnoreCase("show leaderBoard"))
         {
             command = CommandType.SHOW_LEADER_BOARD;
+        }
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
         }
         else if (input.equalsIgnoreCase("help"))
         {
@@ -124,6 +131,9 @@ public class Request
         else if(input.equals("show"))
         {
             command = CommandType.SHOW;
+        }
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
         }
         else if(input.equals("help"))
         {
@@ -193,6 +203,9 @@ public class Request
         {
             command = CommandType.HELP;
         }
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
+        }
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;
@@ -217,10 +230,16 @@ public class Request
         else if(patternEnterGraveYard.matcher(input).matches()){
             command = CommandType.ENTER_GRAVEYARD;
         }
-        else if (input.equals("exit"))
-        {
+        else if(input.equals("Help")){
+            command = CommandType.HELP_BATTLE;
+        }
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit")) {
             command = CommandType.EXIT;
         }
+
 
     }
 
@@ -239,8 +258,8 @@ public class Request
         else if (patternShowCardsOfGraveYard.matcher(input).matches()){
             command = CommandType.SHOW_CARDS;
         }
-        else if(input.equals("Help")){
-            command = CommandType.HELP_GRAVEYARD;
+        else if(patternShowMenu.matcher(input).matches()){
+            command = CommandType.SHOW_MENU;
         }
         else if (input.equals("exit"))
         {
