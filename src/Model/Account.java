@@ -15,15 +15,12 @@ public class Account
     private ArrayList<Deck> playerDecks = new ArrayList<>();
     private Deck mainDeck;
     private int money;
-    private String  password;
+    private String password;
     private int numOfWins = 0;
-    private ArrayList<Card> hand = new ArrayList<>();
-    private ArrayList<Item> collectibleItems = new ArrayList<>();
-    private ArrayList<Card> graveYard = new ArrayList<>();
-    private int MP;
 
     public Account(String userName)
     {
+        
         if (findAccount(userName) == null)
         {
             CallTheAppropriateFunction.printOutput("Enter your Password");
@@ -158,39 +155,6 @@ public class Account
     public void increaseNumberOfWins()
     {
         numOfWins ++;
-    }
-
-    public ArrayList<Item> getCollectibleItems()
-    {
-        return collectibleItems;
-    }
-
-    public void setCollectibleItems(ArrayList<Item> collectibleItems) {
-        this.collectibleItems = collectibleItems;
-    }
-
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
-    public void setHand(ArrayList<Card> hand) {
-        this.hand = hand;
-    }
-
-    public ArrayList<Card> getGraveYard() {
-        return graveYard;
-    }
-
-    public void setGraveYard(ArrayList<Card> graveYard) {
-        this.graveYard = graveYard;
-    }
-
-    public int getMP() {
-        return MP;
-    }
-
-    public void setMP(int MP) {
-        this.MP = MP;
     }
 
     public void setMainDeck(Deck mainDeck) {

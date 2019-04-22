@@ -197,6 +197,7 @@ public class CallTheAppropriateFunction
     {
 
     }
+
     public static void logout()
     {
         Account.logout();

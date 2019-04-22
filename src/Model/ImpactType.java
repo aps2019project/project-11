@@ -2,5 +2,5 @@ package Model;
 
 public enum ImpactType
 {
-    ranged, melee, hybrid,rangedAndhybrid,RangedORhybrid
+    ranged, melee, hybrid, rangedAndHybrid, RangedOrHybrid
 }

@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.regex.Pattern;
+
 public class Battle
 {
-    public Account getPlayerTurn() {
+    public Player getPlayerTurn() {
         return playerTurn;
     }
 
-    public void setPlayerTurn(Account playerTurn) {
+    public void setPlayerTurn(Player playerTurn) {
         this.playerTurn = playerTurn;
     }
 
@@ -16,24 +18,24 @@ public class Battle
     }
 
     static Battle currentBattle;
-    private Account firstPlayer;
-    private Account secondPlayer;
-    private Account playerTurn;
+    private Player firstPlayer;
+    private Player secondPlayer;
+    private Player playerTurn;
     private BattleField battleField;
     static Card selectedCard;
     static Item selectedICollectibleItem;
 
-    public Battle(Account firstPlayer, Account secondPlayer)
+    public Battle(Player firstPlayer, Player secondPlayer)
     {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
     }
 
-    public Account getSecondPlayer() {
+    public Player getSecondPlayer() {
         return secondPlayer;
     }
 
-    public Account getFirstPlayer() {
+    public Player getFirstPlayer() {
         return firstPlayer;
     }
 
@@ -53,8 +55,11 @@ public class Battle
     {
         Account.showAllPlayers();
         String secondPlayerName = null; //todo get from scanner
-        Account secondPlayer = Account.findAccount(secondPlayerName);
-        currentBattle = new Battle(Account.loggedInAccount, secondPlayer);
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
+        playerOne.setAccount(Account.loggedInAccount);
+        playerTwo.setAccount(Account.findAccount(secondPlayerName));
+        currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
         //TODO
     }
@@ -108,10 +113,14 @@ public class Battle
 
     }
 
-    public void selectCard(int cardID){
+    public void selectCard(int cardID)
+    {
         Card card = Card.findCard(cardID);
-        card.setCardSelectedInBattle(true);
-        selectedCard = card;
+        if (card != null)
+        {
+            card.setCardSelectedInBattle(true);
+            selectedCard = card;
+        }
     }
 
     public void selectCollectibleItem(int collectibleItemID)

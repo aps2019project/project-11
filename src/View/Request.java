@@ -200,6 +200,11 @@ public class Request
 
     }
 
+    public static void getAfterSelectCardCommands()
+    {
+
+    }
+
     public static void getGraveYardCommands()
     {
 

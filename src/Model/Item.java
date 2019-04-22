@@ -30,10 +30,10 @@ public class Item
     {
         new Item("CrownOfWisdom", 300, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,null));
         new Item("Shield", 4000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,12,TargetCommunities.ownHero,null,Effect.holyBuff));
-        new Item("DamulArk", 30000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.ownHero,ImpactType.rangedAndhybrid,Effect.disarmBuff));
+        new Item("DamulArk", 30000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.ownHero,ImpactType.rangedAndHybrid,Effect.disarmBuff));
         new Item("TheDevastation", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,6,null,null,Effect.powerBuff));
-        new Item("TwinHornArrow", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,ImpactType.RangedORhybrid,Effect.powerBuff));
-        new Item("SimurghFeather", 3500, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.opponentHero,ImpactType.RangedORhybrid,Effect.weaknessBuff));
+        new Item("TwinHornArrow", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,ImpactType.RangedOrHybrid,Effect.powerBuff));
+        new Item("SimurghFeather", 3500, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.opponentHero,ImpactType.RangedOrHybrid,Effect.weaknessBuff));
         new Item("Elixir", ItemType.collectible, new Spell(/*todo*/));
         new Item("ManaPotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,Effect.addingMP));
         new Item("InvulnerablePotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellTurnAndUnit,102,TargetCommunities.ownForce,null,Effect.holyBuff));
