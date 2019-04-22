@@ -95,6 +95,7 @@ public class Spell extends Card
         this.setTypeOfMultiplicity(typeOfMultiplicity);
         this.setImpactType(impactType);
         this.setEffect(effect);
+        this.setTargetCommunity(targetCommunity);
         if (typeOfMultiplicity==TypeOfMultiplicity.spellTurn)
         {
             this.setSpellTurn(number);
