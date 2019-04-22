@@ -67,7 +67,7 @@ public class CallTheAppropriateFunction
                     determineCollectionCommand();
                     break;
                 case ENTER_BATTLE:
-                    determineBattleCommand();
+                    determineBattleMenuCommand();
                     break;
                 case LOGOUT:
                     Account.logout();
@@ -193,9 +193,38 @@ public class CallTheAppropriateFunction
         }
     }
 
+    public static void determineBattleMenuCommand()
+    {
+        while (true) {
+            Request.getBattleMenuCommands();
+        }
+    }
+
     public static void determineBattleCommand()
     {
+        while (true){
+            Request.getBattleCommands();
+            switch (Request.command){
+                case SHOW_NEXT_CARD:
+                case ENTER_GRAVEYARD:
+                    determineGraveYardCommand();
+                case EXIT:
+            }
+        }
 
+    }
+
+    public static void determineGraveYardCommand(){
+        while (true){
+            Request.getGraveYardCommands();
+            switch (Request.command){
+                case SHOW_INFO:
+                case SHOW_CARDS:
+                case HELP_GRAVEYARD:
+                case EXIT:
+                    return;
+            }
+        }
     }
 
     public static void logout()

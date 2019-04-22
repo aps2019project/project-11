@@ -25,10 +25,18 @@ public enum CommandType
     VALIDATE_DECK,
     SET_MAIN_DECK,
     SHOW_ALL_DECKS,
-    SHOW_DECK;
+    SHOW_DECK,
+    SHOW_NEXT_CARD,
+    ENTER_GRAVEYARD,
+    SHOW_INFO,
+    SHOW_CARDS,
+    HELP_GRAVEYARD
+    ;
+
 
     public String username;
     public String cardOrItemName;
     public int cardOrItemID;
     public String deckName;
+    public int cardOrItemIDInGraveYard;
 }

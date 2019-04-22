@@ -22,6 +22,10 @@ public class Request
     private static Pattern patternShopSearchCollection = Pattern.compile("search collection [a-zA-Z_0-9]+");
     private static Pattern patternShopBuy = Pattern.compile("buy [a-zA-Z_0-9]+");
     private static Pattern patternShopSell = Pattern.compile("sell [a-zA-Z_0-9]+");
+    private static Pattern patternShowNextCard = Pattern.compile("Show Next Card");
+    private static Pattern patternEnterGraveYard = Pattern.compile("Enter graveyard");
+    private static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
+    private static Pattern patternShowCardsOfGraveYard = Pattern.compile("Show cards");
 
     public static CommandType command;
 
@@ -195,8 +199,28 @@ public class Request
         }
     }
 
+    public static void getBattleMenuCommands()
+    {
+
+    }
+
     public static void getBattleCommands()
     {
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if(){
+
+        }
+        else if(patternShowNextCard.matcher(input).matches()){
+            command = CommandType.SHOW_NEXT_CARD;
+        }
+        else if(patternEnterGraveYard.matcher(input).matches()){
+            command = CommandType.ENTER_GRAVEYARD;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
+        }
 
     }
 
@@ -205,9 +229,23 @@ public class Request
 
     }
 
-    public static void getGraveYardCommands()
-    {
-
+    public static void getGraveYardCommands() {
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if (patternShowInfoOfCardInGraveYard.matcher(input).matches()) {
+            command = CommandType.SHOW_INFO;
+            command.cardOrItemIDInGraveYard = Integer.parseInt(inputParts[2]);
+        }
+        else if (patternShowCardsOfGraveYard.matcher(input).matches()){
+            command = CommandType.SHOW_CARDS;
+        }
+        else if(input.equals("Help")){
+            command = CommandType.HELP_GRAVEYARD;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
+        }
     }
 
     public static String getPassword()
