@@ -5,8 +5,9 @@ import View.*;
 
 public class CallTheAppropriateFunction
 {
-    AccountManager accountManager = new AccountManager();
-    CollectionManager collectionManager = new CollectionManager();
+    private AccountManager accountManager = new AccountManager();
+    private CollectionManager collectionManager = new CollectionManager();
+    private DeckManager deckManager = new DeckManager();
 
     public void setPrimarySettings()
     {
@@ -167,16 +168,16 @@ public class CallTheAppropriateFunction
                     collectionManager.detectID(Request.command.cardOrItemID, Request.command.deckName, "remove");
                     break;
                 case VALIDATE_DECK:
-                    Deck.checkDeckValidity(Request.command.deckName);
+                    deckManager.checkDeckValidity(Request.command.deckName);
                     break;
                 case SET_MAIN_DECK:
-                    Deck.setDeckAsMainDeck(Request.command.deckName);
+                    deckManager.setDeckAsMainDeck(Request.command.deckName);
                     break;
                 case SHOW_DECK:
-                    Deck.showDeck(Request.command.deckName);
+                    ShowOutput.showDeckInfo(Request.command.deckName);
                     break;
                 case SHOW_ALL_DECKS:
-                    Deck.showAllDecks();
+                    ShowOutput.showAllDecksInfo();
                     break;
                 case HELP:
                     ShowOutput.collectionHelp();

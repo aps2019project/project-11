@@ -1,6 +1,6 @@
 package View;
 
-import Controller.AccountManager;
+import Controller.*;
 import Model.*;
 
 public class ShowOutput
@@ -102,6 +102,64 @@ public class ShowOutput
             {
                 continue;
             }
+            card.printCardStats(counter);
+            counter ++;
+        }
+    }
+
+    public static void showAllDecksInfo()
+    {
+        int counter = 0;
+        Deck mainDeck = Account.loggedInAccount.getMainDeck();
+        if (mainDeck != null)
+        {
+            System.out.println(counter + " : " + mainDeck.getDeckName() + " : ");
+            printDeckStats(mainDeck);
+            counter ++;
+        }
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            if (mainDeck != null && deck.getDeckName().equals(mainDeck.getDeckName()))
+            {
+                continue;
+            }
+            System.out.println(counter + " : " + deck.getDeckName() + " : ");
+            printDeckStats(deck);
+            counter ++;
+        }
+    }
+
+    public static void showDeckInfo(String deckName)
+    {
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
+        {
+            printDeckStats(deck);
+        }
+    }
+
+    public static void printDeckStats(Deck deck)
+    {
+        int counter = 1;
+        System.out.println("Heroes :");
+        for (Hero hero : deck.getHero())
+        {
+            ShowOutput.printHeroStats(hero, counter);
+            counter ++;
+        }
+
+        counter = 1;
+        System.out.println("Items :");
+        for (Item item : deck.getItem())
+        {
+            item.printItemStats(counter);
+            counter ++;
+        }
+
+        counter = 1;
+        System.out.println("Cards :");
+        for (Card card : deck.getNonHeroCards())
+        {
             card.printCardStats(counter);
             counter ++;
         }

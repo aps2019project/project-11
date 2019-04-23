@@ -117,10 +117,10 @@ public class Shop
             {
                 if (cardToSell instanceof Hero)
                 {
-                    deck.deleteHeroFromDeck((Hero) cardToSell);
+                    deck.deleteHeroFromDeck((Hero) cardToSell);  //todo
                 } else
                     {
-                    deck.deleteNonHeroCardFromDeck(cardToSell);
+                    deck.deleteNonHeroCardFromDeck(cardToSell);  //todo
                 }
             }
             Account.loggedInAccount.getCollection().getCards().remove(cardToSell);
@@ -128,7 +128,7 @@ public class Shop
             System.out.println("Successful Sale");
         } else {
             for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
-                deck.deleteItemFromDeck(itemToSell);
+                deck.deleteItemFromDeck(itemToSell);  //todo
             }
             Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
             Account.loggedInAccount.addMoney(itemToSell.getPrice());

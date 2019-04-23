@@ -5,21 +5,21 @@ import View.ShowOutput;
 
 public class CollectionManager
 {
+    private DeckManager deckManager = new DeckManager();
+
     public void detectID(int ID, String deckName, String command)
     {
-        Deck deck = Deck.findDeck(deckName);
-        if (deck == null)
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
         {
-            ShowOutput.printOutput("There is no deck with this name");
-            return;
-        }
-        if (command.equals("add"))
-        {
-            this.checkIDValidityToAddToDeck(deck, ID);
-        }
-        else if (command.equals("remove"))
-        {
-            this.checkIDValidityToRemoveFromDeck(deck, ID);
+            if (command.equals("add"))
+            {
+                this.checkIDValidityToAddToDeck(deck, ID);
+            }
+            else if (command.equals("remove"))
+            {
+                this.checkIDValidityToRemoveFromDeck(deck, ID);
+            }
         }
     }
 
@@ -33,11 +33,11 @@ public class CollectionManager
                 {
                     if (card instanceof Hero)
                     {
-                        deck.addHeroToDeck((Hero) card);
+                        deckManager.checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card);
                     }
                     else
                     {
-                        deck.addNonHeroCardToDeck(card);
+                        deckManager.checkCircumstancesToAddNonHeroCardToDeck(deck, card);
                     }
                     return;
                 }
@@ -50,7 +50,7 @@ public class CollectionManager
             {
                 if (ID == item.getItemID())
                 {
-                    deck.addItemToDeck(item);
+                    deckManager.checkCircumstancesToAddItemToDeck(deck, item);
                     return;
                 }
             }
@@ -68,11 +68,11 @@ public class CollectionManager
                 {
                     if (card instanceof Hero)
                     {
-                        deck.deleteHeroFromDeck((Hero) card);
+                        deckManager.checkHeroCardExistenceInDeckToRemove(deck, (Hero) card);
                     }
                     else
                     {
-                        deck.deleteNonHeroCardFromDeck(card);
+                        deckManager.checkNonHeroCardExistenceInDeckToRemove(deck, card);
                     }
                     return;
                 }
@@ -85,7 +85,7 @@ public class CollectionManager
             {
                 if (ID == item.getItemID())
                 {
-                    deck.deleteItemFromDeck(item);
+                    deckManager.checkItemExistenceInDeckToRemove(deck, item);
                     return;
                 }
             }
@@ -117,10 +117,10 @@ public class CollectionManager
 
     public void createDeck(String deckName)
     {
-        Deck deck = Deck.findDeck(deckName);
+        Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
         {
-            ShowOutput.printOutput("Model.Deck exists with this name");
+            ShowOutput.printOutput("Deck exists with this name");
             return;
         }
         Deck newDeck = new Deck(deckName);
@@ -129,12 +129,10 @@ public class CollectionManager
 
     public void deleteDeck(String deckName)
     {
-        Deck deck = Deck.findDeck(deckName);
-        if (deck == null)
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
         {
-            ShowOutput.printOutput("There is no deck with this name");
-            return;
+            Account.loggedInAccount.deleteDeck(deck);
         }
-        Account.loggedInAccount.deleteDeck(deck);
     }
 }
