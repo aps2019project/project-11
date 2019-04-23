@@ -95,7 +95,17 @@ public class Battle
 
     }
 
-    public void showGameInfo()
+    public static void showGameInfo()
+    {
+
+    }
+
+    public static void showMyMinions()
+    {
+
+    }
+
+    public static void showOpponentMinions()
     {
 
     }
@@ -110,12 +120,12 @@ public class Battle
 
     }
 
-    public void showCardInfo(int cardID)
+    public static void showCardInfo(int cardID)
     {
 
     }
 
-    public void selectCard(int cardID)
+    public static void selectCard(int cardID)
     {
         Card card = Card.findCard(cardID);
         if (card != null)
@@ -130,8 +140,9 @@ public class Battle
 
     }
 
-    public void moveCard(int x , int y){
-        if(selectedCard.isCardSelectedInBattle()){
+    public static void moveCard(int x , int y){
+        if(selectedCard.isCardSelectedInBattle())
+        {
 
         }
     }

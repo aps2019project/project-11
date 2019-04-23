@@ -204,11 +204,31 @@ public class CallTheAppropriateFunction
     {
         while (true){
             Request.getBattleCommands();
-            switch (Request.command){
+            switch (Request.command)
+            {
+                case GAME_INFO:
+                Battle.showGameInfo();
+                break;
+                case SHOW_MY_MINIONS:
+                    Battle.showMyMinions();
+                    break;
+                case SHOW_OPPONENT_MINIONS:
+                    Battle.showOpponentMinions();
+                    break;
+                case SHOW_CARD_INFO:
+                    Battle.showCardInfo(Request.command.cardOrItemID);
+                    break;
+                case SELECT:
+                    Battle.selectCard(Request.command.cardOrItemID);
+                    break;
+                case MOVE_TO:
+                    Battle.moveCard(Request.command.rowOfTheHouse,Request.command.columnOfTheHouse);
                 case SHOW_NEXT_CARD:
+
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
                 case HELP_BATTLE:
+
                 case EXIT:
                     return;
             }

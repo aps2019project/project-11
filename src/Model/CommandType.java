@@ -31,7 +31,13 @@ public enum CommandType
     SHOW_INFO,
     SHOW_CARDS,
     HELP_BATTLE,
-    SHOW_MENU
+    SHOW_MENU,
+    GAME_INFO,
+    SHOW_MY_MINIONS,
+    SHOW_OPPONENT_MINIONS,
+    SHOW_CARD_INFO,
+    SELECT,
+    MOVE_TO
     ;
 
 
@@ -40,4 +46,6 @@ public enum CommandType
     public int cardOrItemID;
     public String deckName;
     public int cardOrItemIDInGraveYard;
+    public int rowOfTheHouse;
+    public int columnOfTheHouse;
 }
