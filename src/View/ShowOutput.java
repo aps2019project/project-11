@@ -1,5 +1,6 @@
 package View;
 
+import Controller.AccountManager;
 import Model.*;
 
 public class ShowOutput
@@ -23,7 +24,7 @@ public class ShowOutput
     public static void showAccountsLeaderBoard()
     {
         int counter = 1;
-        for (Account account : Account.getAccounts())
+        for (Account account : new AccountManager().getAccounts())
         {
             System.out.println(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
             counter ++;
@@ -70,5 +71,39 @@ public class ShowOutput
     public static void printHeroStats(Hero hero, int counter)
     {
         System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + hero.getPrice());
+    }
+
+    public static void showCollectionInfo(Collection collection)
+    {
+        int counter = 1;
+        System.out.println("Heroes :");
+        for (Card card : collection.getCards())
+        {
+            if (card instanceof Hero)
+            {
+                ShowOutput.printHeroStats((Hero) card, counter);
+                counter ++;
+            }
+        }
+
+        counter = 1;
+        System.out.println("Items :");
+        for (Item item : collection.getItems())
+        {
+            item.printItemStats(counter);
+            counter ++;
+        }
+
+        counter = 1;
+        System.out.println("Cards :");
+        for (Card card : collection.getCards())
+        {
+            if (card instanceof Hero)
+            {
+                continue;
+            }
+            card.printCardStats(counter);
+            counter ++;
+        }
     }
 }

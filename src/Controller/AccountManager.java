@@ -7,51 +7,51 @@ import java.util.ArrayList;
 
 public class AccountManager
 {
-    private static ArrayList<Account> accounts = new ArrayList<>();
+    private ArrayList<Account> accounts = new ArrayList<>();
 
-    public static void checkCircumstancesToCreateAccount(String userName)
+    public void checkCircumstancesToCreateAccount(String userName)
     {
         if (findAccount(userName) == null)
         {
-            CallTheAppropriateFunction.printOutput("Enter your Password");
-            Account account = new Account(userName, CallTheAppropriateFunction.getPassword());
+            ShowOutput.printOutput("Enter your Password");
+            Account account = new Account(userName, Request.getPassword());
             accounts.add(account);
-            CallTheAppropriateFunction.printOutput("New Account created");
+            ShowOutput.printOutput("New Account created");
         }
         else
         {
-            CallTheAppropriateFunction.printOutput("this Account has been existed");
+            ShowOutput.printOutput("this Account has been existed");
         }
     }
 
-    public static void checkCircumstancesToLogin(String userName)
+    public void checkCircumstancesToLogin(String userName)
     {
         for (Account account : getAccounts())
         {
             if (userName.equals(account.getAccountName()))
             {
-                CallTheAppropriateFunction.printOutput("Enter your Password");
-                String inputPassword = CallTheAppropriateFunction.getPassword();
+                ShowOutput.printOutput("Enter your Password");
+                String inputPassword = Request.getPassword();
                 if (inputPassword.equals(account.getPassword()))
                 {
                     Account.login(account);
                     ShowOutput.printMainMenuCommands();
-                    CallTheAppropriateFunction.determineMainMenuCommand();
+                    new CallTheAppropriateFunction().determineMainMenuCommand();
                 }
-                CallTheAppropriateFunction.printOutput("The password is not correct");
+                ShowOutput.printOutput("The password is not correct");
                 return;
             }
         }
-        CallTheAppropriateFunction.printOutput("This userName doesn't exist");
+        ShowOutput.printOutput("This userName doesn't exist");
     }
 
-    public static void logout()
+    public void logout()
     {
         Account.logout();
         Request.getAccountCommands();
     }
 
-    public static void sortAccountsByWins()
+    public void sortAccountsByWins()
     {
         accounts.sort((o1, o2) -> {
             if (o1.getNumOfWins() < o2.getNumOfWins())
@@ -66,7 +66,7 @@ public class AccountManager
         });
     }
 
-    public static Account findAccount(String userName)
+    public Account findAccount(String userName)
     {
         for (Account account : accounts)
         {
@@ -78,7 +78,7 @@ public class AccountManager
         return null;
     }
 
-    public static ArrayList<Account> getAccounts()
+    public ArrayList<Account> getAccounts()
     {
         return accounts;
     }

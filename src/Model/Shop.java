@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.CollectionManager;
 import View.ShowOutput;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Shop
 
     public void searchCollection(String name)
     {
-        Account.loggedInAccount.getCollection().searchCollection(name);
+        new CollectionManager().searchCollection(name);
     }
 
     public void buyCard(Card card)

@@ -4,7 +4,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-        CallTheAppropriateFunction.setPrimarySettings();
+        CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();
+        callTheAppropriateFunction.setPrimarySettings();
     }
 }
 

@@ -2,6 +2,7 @@ package Model;
 
 import Controller.AccountManager;
 import View.Request;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.util.regex.Pattern;
 
@@ -61,7 +62,7 @@ public class Battle
         Player playerOne = new Player();
         Player playerTwo = new Player();
         playerOne.setAccount(Account.loggedInAccount);
-        playerTwo.setAccount(AccountManager.findAccount(secondPlayerName));
+        //playerTwo.setAccount(Account.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
         //TODO

@@ -16,11 +16,6 @@ public class Deck
         this.deckName = deckName;
     }
 
-    public void deleteDeck(Deck deck)
-    {
-        Account.loggedInAccount.getPlayerDecks().remove(deck);
-    }
-
     public static Deck findDeck(String deckName)
     {
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())

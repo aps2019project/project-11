@@ -5,7 +5,10 @@ import View.*;
 
 public class CallTheAppropriateFunction
 {
-    public static void setPrimarySettings()
+    AccountManager accountManager = new AccountManager();
+    CollectionManager collectionManager = new CollectionManager();
+
+    public void setPrimarySettings()
     {
         Card.setCards();
         Item.setItems();
@@ -13,7 +16,7 @@ public class CallTheAppropriateFunction
         determineAccountCommand();
     }
 
-    public static void determineAccountCommand()
+    public void determineAccountCommand()
     {
         while (true)
         {
@@ -21,13 +24,13 @@ public class CallTheAppropriateFunction
             switch (Request.command)
             {
                 case CREATE_ACCOUNT:
-                    AccountManager.checkCircumstancesToCreateAccount(Request.command.username);
+                    accountManager.checkCircumstancesToCreateAccount(Request.command.username);
                     break;
                 case LOGIN:
-                    AccountManager.checkCircumstancesToLogin(Request.command.username);
+                    accountManager.checkCircumstancesToLogin(Request.command.username);
                     break;
                 case SHOW_LEADER_BOARD:
-                    AccountManager.sortAccountsByWins();
+                    accountManager.sortAccountsByWins();
                     ShowOutput.showAccountsLeaderBoard();
                     break;
                 case HELP:
@@ -40,7 +43,7 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public static void determineMainMenuCommand()
+    public void determineMainMenuCommand()
     {
         while (true)
         {
@@ -61,7 +64,7 @@ public class CallTheAppropriateFunction
                     determineBattleMenuCommand();
                     break;
                 case LOGOUT:
-                    AccountManager.logout();
+                    accountManager.logout();
                     break;
                 case SAVE:
 
@@ -76,7 +79,7 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public static void determineShopCommand()
+    public void determineShopCommand()
     {
         while (true)
         {
@@ -92,7 +95,7 @@ public class CallTheAppropriateFunction
                     determineMainMenuCommand();
                     break;
                 case SHOW_COLLECTION:
-                    Account.loggedInAccount.getCollection().show();
+                    ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
                 case SEARCH:
                     Shop.shop.searchShop(Request.command.cardOrItemName);
@@ -127,7 +130,7 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public static void determineCollectionCommand()
+    public void determineCollectionCommand()
     {
         while (true)
         {
@@ -143,25 +146,25 @@ public class CallTheAppropriateFunction
                     determineMainMenuCommand();
                     break;
                 case SHOW:
-                    Account.loggedInAccount.getCollection().show();
+                    ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
                 case SEARCH:
-                    Account.loggedInAccount.getCollection().searchCollection(Request.command.cardOrItemName);
+                    collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case SAVE:
                     //todo
                     break;
                 case CREATE_DECK:
-                    Account.loggedInAccount.getCollection().createDeck(Request.command.deckName);
+                    collectionManager.createDeck(Request.command.deckName);
                     break;
                 case DELETE_DECK:
-                    Account.loggedInAccount.getCollection().deleteDeck(Request.command.deckName);
+                    collectionManager.deleteDeck(Request.command.deckName);
                     break;
                 case ADD_TO_DECK:
-                    Account.loggedInAccount.getCollection().detectID(Request.command.cardOrItemID, Request.command.deckName, "add");
+                    collectionManager.detectID(Request.command.cardOrItemID, Request.command.deckName, "add");
                     break;
                 case REMOVE_FROM_DECK:
-                    Account.loggedInAccount.getCollection().detectID(Request.command.cardOrItemID, Request.command.deckName, "remove");
+                    collectionManager.detectID(Request.command.cardOrItemID, Request.command.deckName, "remove");
                     break;
                 case VALIDATE_DECK:
                     Deck.checkDeckValidity(Request.command.deckName);
@@ -183,14 +186,14 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public static void determineBattleMenuCommand()
+    public void determineBattleMenuCommand()
     {
         while (true) {
             Request.getBattleMenuCommands();
         }
     }
 
-    public static void determineBattleCommand()
+    public void determineBattleCommand()
     {
         while (true){
             Request.getBattleCommands();
@@ -227,7 +230,7 @@ public class CallTheAppropriateFunction
 
     }
 
-    public static void determineGraveYardCommand()
+    public void determineGraveYardCommand()
     {
         while (true
         ){
@@ -242,20 +245,5 @@ public class CallTheAppropriateFunction
                     return;
             }
         }
-    }
-
-    public static void printOutput(String output)
-    {
-        ShowOutput.printOutput(output);
-    }
-
-    public static String getPassword()
-    {
-        return Request.getPassword();
-    }
-
-    public static void printHeroStats(Hero hero, int counter)
-    {
-        ShowOutput.printHeroStats(hero, counter);
     }
 }

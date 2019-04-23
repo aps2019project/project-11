@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Account
 {
@@ -24,6 +23,11 @@ public class Account
     public void addDeck(Deck deck)
     {
         this.playerDecks.add(deck);
+    }
+
+    public void deleteDeck(Deck deck)
+    {
+        Account.loggedInAccount.getPlayerDecks().remove(deck);
     }
 
     public static void login(Account account)
