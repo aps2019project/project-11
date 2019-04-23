@@ -272,8 +272,6 @@ public class Request
         else if (input.equals("exit")) {
             command = CommandType.EXIT;
         }
-
-
     }
 
     public static void getAfterSelectCardCommands()
@@ -281,7 +279,8 @@ public class Request
 
     }
 
-    public static void getGraveYardCommands() {
+    public static void getGraveYardCommands()
+    {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (patternShowInfoOfCardInGraveYard.matcher(input).matches()) {

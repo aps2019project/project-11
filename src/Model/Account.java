@@ -1,13 +1,10 @@
 package Model;
 
-import Controller.CallTheAppropriateFunction;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Account
 {
-    private static ArrayList<Account> accounts = new ArrayList<>();
     private String accountName;
     public static Account loggedInAccount;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
@@ -18,21 +15,10 @@ public class Account
     private String password;
     private int numOfWins = 0;
 
-    public Account(String userName)
+    public Account(String userName,String password)
     {
-        
-        if (findAccount(userName) == null)
-        {
-            CallTheAppropriateFunction.printOutput("Enter your Password");
-            this.password = CallTheAppropriateFunction.getPassword();
-            this.accountName = userName;
-            accounts.add(this);
-            CallTheAppropriateFunction.printOutput("New Account created");
-        }
-        else
-        {
-            CallTheAppropriateFunction.printOutput("this Account has been existed");
-        }
+        this.password = password;
+        this.accountName = userName;
     }
 
     public void addDeck(Deck deck)
@@ -40,49 +26,14 @@ public class Account
         this.playerDecks.add(deck);
     }
 
-    public static void login(String userName)
+    public static void login(Account account)
     {
-        for (Account account : accounts)
-        {
-            if (userName.equals(account.accountName))
-            {
-                CallTheAppropriateFunction.printOutput("Enter your Password");
-                String inputPassword = CallTheAppropriateFunction.getPassword();
-                if (inputPassword.equals(account.password))
-                {
-                    loggedInAccount = account;
-                    return;
-                }
-                CallTheAppropriateFunction.printOutput("The password is not correct");
-                return;
-            }
-        }
-        CallTheAppropriateFunction.printOutput("this userName is not exist");
+        loggedInAccount = account;
     }
 
     public static void logout()
     {
         loggedInAccount = null;
-    }
-
-    public static void sortAccountsByWins()
-    {
-        Collections.sort(accounts, new Comparator<Account>()
-        {
-            @Override
-            public int compare(Account o1, Account o2)
-            {
-                if (o1.getNumOfWins() < o2.getNumOfWins())
-                {
-                    return 1;
-                }
-                else if (o1.getNumOfWins() > o2.getNumOfWins())
-                {
-                    return -1;
-                }
-                return 0;
-            }
-        });
     }
 
     public void save()
@@ -93,18 +44,6 @@ public class Account
     public static void showAllPlayers()
     {
         //todo
-    }
-
-    public static Account findAccount(String userName)
-    {
-        for (Account account : accounts)
-        {
-            if (userName.equals(account.accountName))
-            {
-                return account;
-            }
-        }
-        return null;
     }
 
     public static void setAIAccounts()
@@ -161,12 +100,12 @@ public class Account
         this.mainDeck = mainDeck;
     }
 
-    public static ArrayList<Account> getAccounts() {
-        return accounts;
-    }
-
     public String getAccountName() {
         return accountName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
 

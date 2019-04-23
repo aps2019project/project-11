@@ -18,32 +18,23 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAccountCommands();
-            if (Request.command == null)
-            {
-                continue;
-            }
             switch (Request.command)
             {
                 case CREATE_ACCOUNT:
-                    new Account(Request.command.username);
+                    AccountManager.checkCircumstancesToCreateAccount(Request.command.username);
                     break;
                 case LOGIN:
-                    Account.login(Request.command.username);
-                    if (Account.loggedInAccount != null)
-                    {
-                        ShowOutput.printMainMenuCommands();
-                        determineMainMenuCommand();
-                    }
+                    AccountManager.checkCircumstancesToLogin(Request.command.username);
                     break;
-                case EXIT:
-                    System.exit(0);
+                case SHOW_LEADER_BOARD:
+                    AccountManager.sortAccountsByWins();
+                    ShowOutput.showAccountsLeaderBoard();
                     break;
                 case HELP:
                     ShowOutput.accountHelp();
                     break;
-                case SHOW_LEADER_BOARD:
-                    Account.sortAccountsByWins();
-                    ShowOutput.showLeaderBoard();
+                case EXIT:
+                    System.exit(0);
                     break;
             }
         }
@@ -70,11 +61,10 @@ public class CallTheAppropriateFunction
                     determineBattleMenuCommand();
                     break;
                 case LOGOUT:
-                    Account.logout();
-                    determineAccountCommand();
+                    AccountManager.logout();
                     break;
                 case SAVE:
-                    //todo
+
                     break;
                 case EXIT:
                     System.exit(0);
@@ -227,6 +217,7 @@ public class CallTheAppropriateFunction
 
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
+
                 case HELP_BATTLE:
 
                 case EXIT:
@@ -236,10 +227,13 @@ public class CallTheAppropriateFunction
 
     }
 
-    public static void determineGraveYardCommand(){
-        while (true){
+    public static void determineGraveYardCommand()
+    {
+        while (true
+        ){
             Request.getGraveYardCommands();
-            switch (Request.command){
+            switch (Request.command)
+            {
                 case SHOW_INFO:
                     /*todo*/
                 case SHOW_CARDS:
@@ -248,12 +242,6 @@ public class CallTheAppropriateFunction
                     return;
             }
         }
-    }
-
-    public static void logout()
-    {
-        Account.logout();
-        Request.getAccountCommands();
     }
 
     public static void printOutput(String output)

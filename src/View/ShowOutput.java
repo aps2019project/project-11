@@ -20,7 +20,7 @@ public class ShowOutput
         System.out.println("Exit");
     }
 
-    public static void showLeaderBoard()
+    public static void showAccountsLeaderBoard()
     {
         int counter = 1;
         for (Account account : Account.getAccounts())

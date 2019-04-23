@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.AccountManager;
 import View.Request;
 
 import java.util.regex.Pattern;
@@ -60,7 +61,7 @@ public class Battle
         Player playerOne = new Player();
         Player playerTwo = new Player();
         playerOne.setAccount(Account.loggedInAccount);
-        playerTwo.setAccount(Account.findAccount(secondPlayerName));
+        playerTwo.setAccount(AccountManager.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
         //TODO
