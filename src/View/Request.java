@@ -1,5 +1,6 @@
 package View;
 
+import Model.Account;
 import Model.CommandType;
 
 import java.util.Scanner;

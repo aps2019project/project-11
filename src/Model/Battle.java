@@ -2,6 +2,7 @@ package Model;
 
 import Controller.AccountManager;
 import View.Request;
+import View.ShowOutput;
 
 
 import java.util.regex.Pattern;
@@ -182,7 +183,7 @@ public class Battle
 
     public void showNextCard()
     {
-
+        ShowOutput.showNextCardInfo(playerTurn.getHand().getNextCard());
     }
 
     public void showGraveYardCardInfo(int cardID)

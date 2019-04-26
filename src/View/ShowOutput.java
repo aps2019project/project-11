@@ -237,4 +237,8 @@ public class ShowOutput {
             }
         }
     }
+
+    public static void showNextCardInfo(Card card) {
+        showCardInfo(card.getCardID());
+    }
 }
