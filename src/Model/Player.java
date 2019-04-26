@@ -6,7 +6,7 @@ public class Player
 {
     private Account account;
     private Deck mainDeck;
-    private ArrayList<Card> hand = new ArrayList<>();
+    private Hand hand;
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private ArrayList<Card> graveYard = new ArrayList<>();
     private int MP;
@@ -27,11 +27,13 @@ public class Player
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Account account)
+    {
         this.account = account;
     }
 
-    public ArrayList<Card> getGraveYard() {
+    public ArrayList<Card> getGraveYard()
+    {
         return graveYard;
     }
 }
