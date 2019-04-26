@@ -44,11 +44,13 @@ public class Deck
         this.hero.remove(hero);
     }
 
-    public ArrayList<Hero> getHero() {
+    public ArrayList<Hero> getHero()
+    {
         return hero;
     }
 
-    public ArrayList<Item> getItem() {
+    public ArrayList<Item> getItem()
+    {
         return item;
     }
 
