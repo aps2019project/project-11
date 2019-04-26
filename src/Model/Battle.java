@@ -2,7 +2,7 @@ package Model;
 
 import Controller.AccountManager;
 import View.Request;
-import com.sun.org.apache.bcel.internal.generic.NEW;
+
 
 import java.util.regex.Pattern;
 
@@ -24,7 +24,7 @@ public class Battle
     static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
-    private Player playerTurn;
+    private  Player playerTurn;
     private BattleField battleField;
     static Card selectedCard;
     static Item selectedICollectibleItem;
@@ -35,15 +35,18 @@ public class Battle
         this.secondPlayer = secondPlayer;
     }
 
-    public Player getSecondPlayer() {
+    public Player getSecondPlayer()
+    {
         return secondPlayer;
     }
 
-    public Player getFirstPlayer() {
+    public Player getFirstPlayer()
+    {
         return firstPlayer;
     }
 
-    public BattleField getBattleField() {
+    public BattleField getBattleField()
+    {
         return battleField;
     }
 
@@ -58,6 +61,7 @@ public class Battle
     public static void multiPlayerMatch()
     {
         Account.showAllPlayers();
+        Request.getBattleCommands();
         String secondPlayerName = null; //todo get from scanner
         Player playerOne = new Player();
         Player playerTwo = new Player();
@@ -65,7 +69,7 @@ public class Battle
         //playerTwo.setAccount(Account.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
-        //TODO
+
     }
 
     public void selectMatchMode()
@@ -97,32 +101,12 @@ public class Battle
 
     }
 
-    public static void showGameInfo()
-    {
-
-    }
-
-    public static void showMyMinions()
-    {
-
-    }
-
-    public static void showOpponentMinions()
-    {
-
-    }
-
     public void showAllOwnForcesInfo()
     {
 
     }
 
     public void showAllOpponentForcesInfo()
-    {
-
-    }
-
-    public static void showCardInfo(int cardID)
     {
 
     }
