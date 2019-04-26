@@ -1,10 +1,6 @@
 package Model;
 
-import Controller.AccountManager;
 import View.Request;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import java.util.regex.Pattern;
 
 public class Battle
 {

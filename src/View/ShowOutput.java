@@ -164,4 +164,35 @@ public class ShowOutput
             counter ++;
         }
     }
+
+    public static void showShopInfo()
+    {
+        int counter = 1;
+        for (Hero hero : Hero.getHeroes())
+        {
+            ShowOutput.printHeroStats(hero, counter);
+            counter ++;
+        }
+        counter = 1;
+        for (Item item : Item.getItems())
+        {
+            item.printItemStats(counter);
+            counter ++;
+        }
+        counter = 1;
+        for (Card card : Card.getCards())
+        {
+            if (card instanceof Spell)
+            {
+                Spell spell = (Spell) card;
+                spell.printSpellCardStats(counter);
+                counter ++;
+            } else if (card instanceof Minion)
+            {
+                Minion minion = (Minion) card;
+                minion.printMinionStats(counter);
+                counter ++;
+            }
+        }
+    }
 }

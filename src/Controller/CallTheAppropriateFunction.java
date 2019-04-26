@@ -8,6 +8,7 @@ public class CallTheAppropriateFunction
     private AccountManager accountManager = new AccountManager();
     private CollectionManager collectionManager = new CollectionManager();
     private DeckManager deckManager = new DeckManager();
+    private ShopManager shopManager = new ShopManager();
 
     public void setPrimarySettings()
     {
@@ -17,7 +18,39 @@ public class CallTheAppropriateFunction
         determineAccountCommand();
     }
 
-    public void determineAccountCommand()
+    void determineMainMenuCommand()
+    {
+        while (true)
+        {
+            Request.getMainMenuCommands();
+            switch (Request.command)
+            {
+                case ENTER_SHOP:
+                    determineShopCommand();
+                    break;
+                case ENTER_COLLECTION:
+                    determineCollectionCommand();
+                    break;
+                case ENTER_BATTLE:
+                    determineBattleMenuCommand();
+                    break;
+                case LOGOUT:
+                    accountManager.logout();
+                    break;
+                case SAVE:
+                    //todo
+                    break;
+                case EXIT:
+                    System.exit(0);
+                    break;
+                case HELP:
+                    ShowOutput.printMainMenuCommands();
+                    break;
+            }
+        }
+    }
+
+    private void determineAccountCommand()
     {
         while (true)
         {
@@ -44,74 +77,30 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public void determineMainMenuCommand()
-    {
-        while (true)
-        {
-            Request.getMainMenuCommands();
-            if (Request.command == null)
-            {
-                continue;
-            }
-            switch (Request.command)
-            {
-                case ENTER_SHOP:
-                    determineShopCommand();
-                    break;
-                case ENTER_COLLECTION:
-                    determineCollectionCommand();
-                    break;
-                case ENTER_BATTLE:
-                    determineBattleMenuCommand();
-                    break;
-                case LOGOUT:
-                    accountManager.logout();
-                    break;
-                case SAVE:
-
-                    break;
-                case EXIT:
-                    System.exit(0);
-                    break;
-                case HELP:
-                    ShowOutput.printMainMenuCommands();
-                    break;
-            }
-        }
-    }
-
-    public void determineShopCommand()
+    private void determineShopCommand()
     {
         while (true)
         {
             Request.getShopCommands();
-            if (Request.command == null)
-            {
-                continue;
-            }
             switch (Request.command)
             {
-                case EXIT:
-                    ShowOutput.printMainMenuCommands();
-                    determineMainMenuCommand();
-                    break;
                 case SHOW_COLLECTION:
                     ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
                 case SEARCH:
-                    Shop.shop.searchShop(Request.command.cardOrItemName);
+                    shopManager.searchShop(Request.command.cardOrItemName);
                     break;
                 case SEARCH_COLLECTION:
-                    Shop.shop.searchCollection(Request.command.cardOrItemName);
+                    collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case BUY:
                     if(Card.findCard(Request.command.cardOrItemName) != null)
                     {
-                        Shop.shop.buyCard(Card.findCard(Request.command.cardOrItemName));
+                        shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
                     }
                     else if(Item.findItem(Request.command.cardOrItemName) != null)
                     {
-                        Shop.shop.buyItem(Item.findItem(Request.command.cardOrItemName));
+                        shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
                     }
                     else
                     {
@@ -119,27 +108,27 @@ public class CallTheAppropriateFunction
                     }
                     break;
                 case SELL:
-                    Shop.shop.detectIDToSell(Request.command.cardOrItemID);
+                    shopManager.detectIDToSell(Request.command.cardOrItemID);
                     break;
                 case SHOW:
-                    Shop.shop.show();
+                    ShowOutput.showShopInfo();
                     break;
                 case HELP:
                     ShowOutput.shopHelp();
+                    break;
+                case EXIT:
+                    ShowOutput.printMainMenuCommands();
+                    determineMainMenuCommand();
                     break;
             }
         }
     }
 
-    public void determineCollectionCommand()
+    private void determineCollectionCommand()
     {
         while (true)
         {
             Request.getCollectionCommands();
-            if (Request.command == null)
-            {
-                continue;
-            }
             switch (Request.command)
             {
                 case EXIT:
@@ -187,16 +176,17 @@ public class CallTheAppropriateFunction
         }
     }
 
-    public void determineBattleMenuCommand()
+    private void determineBattleMenuCommand()
     {
         while (true) {
             Request.getBattleMenuCommands();
         }
     }
 
-    public void determineBattleCommand()
+    private void determineBattleCommand()
     {
-        while (true){
+        while (true)
+        {
             Request.getBattleCommands();
             switch (Request.command)
             {
@@ -231,7 +221,7 @@ public class CallTheAppropriateFunction
 
     }
 
-    public void determineGraveYardCommand()
+    private void determineGraveYardCommand()
     {
         while (true
         ){

@@ -127,7 +127,8 @@ public abstract class Card
         this.cardName = cardName;
     }
 
-    public void setCardID(int cardID) {
+    public void setCardID(int cardID)
+    {
         this.cardID = cardID;
     }
 }

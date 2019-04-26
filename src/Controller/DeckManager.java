@@ -85,6 +85,21 @@ public class DeckManager
         ShowOutput.printOutput("This card isn't in the deck");
     }
 
+    public void searchDecksToRemoveNonHeroCardOnSale(Card card)
+    {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            for (Card deckCard : deck.getNonHeroCards())
+            {
+                if (card.getCardName().equals(deckCard.getCardName()))
+                {
+                    deck.deleteNonHeroCardFromDeck(card);
+                    return;
+                }
+            }
+        }
+    }
+
     public void checkHeroCardExistenceInDeckToRemove(Deck deck, Hero hero)
     {
         for (Hero deckHero : deck.getHero())
@@ -98,6 +113,21 @@ public class DeckManager
         ShowOutput.printOutput("This hero isn't in the deck");
     }
 
+    public void searchDecksToRemoveHeroOnSale(Hero hero)
+    {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            for (Hero deckHero : deck.getHero())
+            {
+                if (hero.getHeroID() == deckHero.getHeroID())
+                {
+                    deck.deleteHeroFromDeck(hero);
+                    return;
+                }
+            }
+        }
+    }
+
     public void checkItemExistenceInDeckToRemove(Deck deck, Item item)
     {
         for (Item deckItem : deck.getItem())
@@ -109,6 +139,21 @@ public class DeckManager
             }
         }
         ShowOutput.printOutput("This item isn't in the deck");
+    }
+
+    public void searchDecksToRemoveItemOnSale(Item item)
+    {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            for (Item deckItem : deck.getItem())
+            {
+                if (item.getItemID() == deckItem.getItemID())
+                {
+                    deck.deleteItemFromDeck(item);
+                    return;
+                }
+            }
+        }
     }
 
     public boolean checkDeckValidity(String deckName)
