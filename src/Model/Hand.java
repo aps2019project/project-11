@@ -16,4 +16,8 @@ public class Hand
     {
         this.nextCard = nextCard;
     }
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 }

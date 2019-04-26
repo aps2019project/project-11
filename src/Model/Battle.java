@@ -1,19 +1,25 @@
 package Model;
 
-import Controller.AccountManager;
 import View.Request;
 import View.ShowOutput;
 
-
-import java.util.regex.Pattern;
-
 public class Battle
 {
-    public Player getPlayerTurn() {
+    public static Battle currentBattle;
+    private Player firstPlayer;
+    private Player secondPlayer;
+    private Player playerTurn;
+    private BattleField battleField;
+    static Card selectedCard;
+    static Item selectedICollectibleItem;
+
+    public Player getPlayerTurn()
+    {
         return playerTurn;
     }
 
-    public void setPlayerTurn(Player playerTurn) {
+    public void setPlayerTurn(Player playerTurn)
+    {
         this.playerTurn = playerTurn;
     }
 
@@ -22,25 +28,19 @@ public class Battle
         killOpponentHero, keepFlag ,gatherFlags
     }
 
-    static Battle currentBattle;
-    private Player firstPlayer;
-    private Player secondPlayer;
-    private Player playerTurn;
-    private BattleField battleField;
-    static Card selectedCard;
-    static Item selectedICollectibleItem;
-
     public Battle(Player firstPlayer, Player secondPlayer)
     {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
     }
 
-    public Player getSecondPlayer() {
+    public Player getSecondPlayer()
+    {
         return secondPlayer;
     }
 
-    public Player getFirstPlayer() {
+    public Player getFirstPlayer()
+    {
         return firstPlayer;
     }
 
@@ -125,7 +125,8 @@ public class Battle
 
     }
 
-    public static void moveCard(int x , int y){
+    public static void moveCard(int x , int y)
+    {
         if(selectedCard.isCardSelectedInBattle())
         {
 
@@ -151,11 +152,6 @@ public class Battle
         }
     }
 
-    public void showHand()
-    {
-
-    }
-
     public void insertCard(String cardName, int x, int y)
     {
 
@@ -166,7 +162,7 @@ public class Battle
 
     }
 
-    public void showCollectableItems()
+    public void showCollectibleItems()
     {
 
     }
@@ -189,12 +185,14 @@ public class Battle
     public void showGraveYardCardInfo(int cardID)
     {
         Card card = playerTurn.findCardInGraveYard(Request.command.cardOrItemIDInGraveYard);
-        if(card != null) {
+        if(card != null)
+        {
             card.printCardStats();
         }
     }
 
-    public void showAllCardsInTheGraveYard() {
+    public void showAllCardsInTheGraveYard()
+    {
         int counter = 1;
         System.out.println("first Player Grave Yard :");
         for (Card card : firstPlayer.getGraveYard()) {

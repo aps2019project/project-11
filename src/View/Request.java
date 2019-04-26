@@ -33,7 +33,7 @@ public class Request
     private static Pattern patternShowOpponentMinions = Pattern.compile("Show opponent minions");
     private static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
     private static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
-    private static Pattern patternMoveTo = Pattern.compile("[0-9]+,[0-9]+");
+    private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
 
     public static CommandType command;
 
@@ -244,7 +244,12 @@ public class Request
         else if(patternShowCardInfo.matcher(input).matches())
         {
             command = CommandType.SHOW_CARD_INFO;
-            command.cardOrItemID=Integer.parseInt(inputParts[3]);
+            command.cardOrItemID = Integer.parseInt(inputParts[3]);
+        }
+        else if (patternSelect.matcher(input).matches())
+        {
+            command = CommandType.SELECT;
+            command.cardOrItemID = Integer.parseInt(inputParts[2]);
         }
         else if (patternMoveTo.matcher(input).matches())
         {
@@ -252,11 +257,6 @@ public class Request
             command.rowOfTheHouse = Integer.parseInt(inputParts[2]);
             command.columnOfTheHouse = Integer.parseInt(inputParts[3]);
             //todo
-        }
-        else if (patternSelect.matcher(input).matches())
-        {
-            command = CommandType.SELECT;
-            command.cardOrItemID=Integer.parseInt(inputParts[2]);
         }
         else if(patternShowNextCard.matcher(input).matches()){
             command = CommandType.SHOW_NEXT_CARD;
@@ -280,18 +280,26 @@ public class Request
 
     }
 
+    public static void getAfterSelectItemCommands()
+    {
+
+    }
+
     public static void getGraveYardCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternShowInfoOfCardInGraveYard.matcher(input).matches()) {
+        if (patternShowInfoOfCardInGraveYard.matcher(input).matches())
+        {
             command = CommandType.SHOW_INFO;
             command.cardOrItemIDInGraveYard = Integer.parseInt(inputParts[2]);
         }
-        else if (patternShowCardsOfGraveYard.matcher(input).matches()){
+        else if (patternShowCardsOfGraveYard.matcher(input).matches())
+        {
             command = CommandType.SHOW_CARDS;
         }
-        else if(patternShowMenu.matcher(input).matches()){
+        else if(patternShowMenu.matcher(input).matches())
+        {
             command = CommandType.SHOW_MENU;
         }
         else if (input.equals("exit"))

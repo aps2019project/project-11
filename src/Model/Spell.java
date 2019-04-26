@@ -182,7 +182,7 @@ public class Spell extends Card
     {
 
     }
-    public void effectaddingMP(Card card)
+    public void effectAddingMP(Card card)
     {
 
     }

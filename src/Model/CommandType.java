@@ -37,7 +37,9 @@ public enum CommandType
     SHOW_OPPONENT_MINIONS,
     SHOW_CARD_INFO,
     SELECT,
-    MOVE_TO
+    MOVE_TO,
+    SHOW_HAND,
+    INSERT_CARD,
     ;
 
 

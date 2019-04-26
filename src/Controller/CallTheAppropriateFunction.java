@@ -9,6 +9,7 @@ public class CallTheAppropriateFunction
     private CollectionManager collectionManager = new CollectionManager();
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
+    private BattleManager battleManager = new BattleManager();
 
     public void setPrimarySettings()
     {
@@ -178,7 +179,8 @@ public class CallTheAppropriateFunction
 
     private void determineBattleMenuCommand()
     {
-        while (true) {
+        while (true)
+        {
             Request.getBattleMenuCommands();
         }
     }
@@ -207,6 +209,12 @@ public class CallTheAppropriateFunction
                     break;
                 case MOVE_TO:
                     Battle.moveCard(Request.command.rowOfTheHouse,Request.command.columnOfTheHouse);
+                    break;
+                case SHOW_HAND:
+                    ShowOutput.showHand(Battle.currentBattle.getPlayerTurn().getHand());
+                    break;
+                case INSERT_CARD:
+                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheHouse, Request.command.columnOfTheHouse);
                 case SHOW_NEXT_CARD:
 
                 case ENTER_GRAVEYARD:
@@ -223,8 +231,8 @@ public class CallTheAppropriateFunction
 
     private void determineGraveYardCommand()
     {
-        while (true
-        ){
+        while (true)
+        {
             Request.getGraveYardCommands();
             switch (Request.command)
             {

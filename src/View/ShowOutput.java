@@ -3,14 +3,14 @@ package View;
 import Controller.*;
 import Model.*;
 
-import javax.sound.midi.Soundbank;
-
 public class ShowOutput {
-    public static void printOutput(String command) {
+    public static void printOutput(String command)
+    {
         System.out.println(command);
     }
 
-    public static void printMainMenuCommands() {
+    public static void printMainMenuCommands()
+    {
         System.out.println("Collection");
         System.out.println("Shop");
         System.out.println("Battle");
@@ -20,22 +20,26 @@ public class ShowOutput {
         System.out.println("Exit");
     }
 
-    public static void showAccountsLeaderBoard() {
+    public static void showAccountsLeaderBoard()
+    {
         int counter = 1;
-        for (Account account : new AccountManager().getAccounts()) {
+        for (Account account : new AccountManager().getAccounts())
+        {
             System.out.println(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
             counter++;
         }
     }
 
-    public static void accountHelp() {
+    public static void accountHelp()
+    {
         System.out.println("create account [user name]");
         System.out.println("login [user name]");
         System.out.println("show leaderBoard");
         System.out.println("help");
     }
 
-    public static void shopHelp() {
+    public static void shopHelp()
+    {
         System.out.println("exit");
         System.out.println("show collection");
         System.out.println("search [item name | card name]");
@@ -46,7 +50,8 @@ public class ShowOutput {
         System.out.println("help");
     }
 
-    public static void collectionHelp() {
+    public static void collectionHelp()
+    {
         System.out.println("exit");
         System.out.println("show");
         System.out.println("search [cardName | itemName]");
@@ -62,15 +67,19 @@ public class ShowOutput {
         System.out.println("help");
     }
 
-    public static void printHeroStats(Hero hero, int counter) {
+    public static void printHeroStats(Hero hero, int counter)
+    {
         System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + hero.getPrice());
     }
 
-    public static void showCollectionInfo(Collection collection) {
+    public static void showCollectionInfo(Collection collection)
+    {
         int counter = 1;
         System.out.println("Heroes :");
-        for (Card card : collection.getCards()) {
-            if (card instanceof Hero) {
+        for (Card card : collection.getCards())
+        {
+            if (card instanceof Hero)
+            {
                 ShowOutput.printHeroStats((Hero) card, counter);
                 counter++;
             }
@@ -78,15 +87,18 @@ public class ShowOutput {
 
         counter = 1;
         System.out.println("Items :");
-        for (Item item : collection.getItems()) {
+        for (Item item : collection.getItems())
+        {
             item.printItemStats(counter);
             counter++;
         }
 
         counter = 1;
         System.out.println("Cards :");
-        for (Card card : collection.getCards()) {
-            if (card instanceof Hero) {
+        for (Card card : collection.getCards())
+        {
+            if (card instanceof Hero)
+            {
                 continue;
             }
             card.printCardStats(counter);
@@ -94,16 +106,20 @@ public class ShowOutput {
         }
     }
 
-    public static void showAllDecksInfo() {
+    public static void showAllDecksInfo()
+    {
         int counter = 0;
         Deck mainDeck = Account.loggedInAccount.getMainDeck();
-        if (mainDeck != null) {
+        if (mainDeck != null)
+        {
             System.out.println(counter + " : " + mainDeck.getDeckName() + " : ");
             printDeckStats(mainDeck);
             counter++;
         }
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
-            if (mainDeck != null && deck.getDeckName().equals(mainDeck.getDeckName())) {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            if (mainDeck != null && deck.getDeckName().equals(mainDeck.getDeckName()))
+            {
                 continue;
             }
             System.out.println(counter + " : " + deck.getDeckName() + " : ");
@@ -112,31 +128,37 @@ public class ShowOutput {
         }
     }
 
-    public static void showDeckInfo(String deckName) {
+    public static void showDeckInfo(String deckName)
+    {
         Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null) {
+        if (deck != null)
+        {
             printDeckStats(deck);
         }
     }
 
-    public static void printDeckStats(Deck deck) {
+    public static void printDeckStats(Deck deck)
+    {
         int counter = 1;
         System.out.println("Heroes :");
-        for (Hero hero : deck.getHero()) {
+        for (Hero hero : deck.getHero())
+        {
             ShowOutput.printHeroStats(hero, counter);
             counter++;
         }
 
         counter = 1;
         System.out.println("Items :");
-        for (Item item : deck.getItem()) {
+        for (Item item : deck.getItem())
+        {
             item.printItemStats(counter);
             counter++;
         }
 
         counter = 1;
         System.out.println("Cards :");
-        for (Card card : deck.getNonHeroCards()) {
+        for (Card card : deck.getNonHeroCards())
+        {
             card.printCardStats(counter);
             counter++;
         }
@@ -238,7 +260,17 @@ public class ShowOutput {
         }
     }
 
-    public static void showNextCardInfo(Card card) {
+    public static void showNextCardInfo(Card card)
+    {
         showCardInfo(card.getCardID());
+    }
+
+    public static void showHand(Hand hand)
+    {
+        for (Card card : hand.getCards())
+        {
+            showCardInfo(card.getCardID());
+        }
+        showCardInfo(hand.getNextCard().getCardID());
     }
 }
