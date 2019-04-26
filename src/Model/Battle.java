@@ -1,6 +1,10 @@
 package Model;
 
+import Controller.AccountManager;
 import View.Request;
+
+
+import java.util.regex.Pattern;
 
 public class Battle
 {
@@ -39,7 +43,8 @@ public class Battle
         return firstPlayer;
     }
 
-    public BattleField getBattleField() {
+    public BattleField getBattleField()
+    {
         return battleField;
     }
 
@@ -54,6 +59,7 @@ public class Battle
     public static void multiPlayerMatch()
     {
         Account.showAllPlayers();
+        Request.getBattleCommands();
         String secondPlayerName = null; //todo get from scanner
         Player playerOne = new Player();
         Player playerTwo = new Player();
@@ -61,7 +67,7 @@ public class Battle
         //playerTwo.setAccount(Account.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
-        //TODO
+
     }
 
     public void selectMatchMode()
@@ -93,32 +99,12 @@ public class Battle
 
     }
 
-    public static void showGameInfo()
-    {
-
-    }
-
-    public static void showMyMinions()
-    {
-
-    }
-
-    public static void showOpponentMinions()
-    {
-
-    }
-
     public void showAllOwnForcesInfo()
     {
 
     }
 
     public void showAllOpponentForcesInfo()
-    {
-
-    }
-
-    public static void showCardInfo(int cardID)
     {
 
     }

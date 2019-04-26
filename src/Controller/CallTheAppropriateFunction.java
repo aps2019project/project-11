@@ -191,16 +191,16 @@ public class CallTheAppropriateFunction
             switch (Request.command)
             {
                 case GAME_INFO:
-                Battle.showGameInfo();
+                    ShowOutput.showGameInfo();
                 break;
                 case SHOW_MY_MINIONS:
-                    Battle.showMyMinions();
+                    ShowOutput.showMyMinions();
                     break;
                 case SHOW_OPPONENT_MINIONS:
-                    Battle.showOpponentMinions();
+                    ShowOutput.showOpponentMinions();
                     break;
                 case SHOW_CARD_INFO:
-                    Battle.showCardInfo(Request.command.cardOrItemID);
+                    ShowOutput.showCardInfo(Request.command.cardOrItemID);
                     break;
                 case SELECT:
                     Battle.selectCard(Request.command.cardOrItemID);
