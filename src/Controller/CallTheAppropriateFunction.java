@@ -172,7 +172,6 @@ public class CallTheAppropriateFunction
                 case HELP:
                     ShowOutput.collectionHelp();
                     break;
-
             }
         }
     }
@@ -215,15 +214,16 @@ public class CallTheAppropriateFunction
     {
         while (true)
         {
+            Account.showAllPlayers();
             Request.getMultiPlayerMatchMode();
             switch (Request.command)
             {
-                case START_MULTI_PLAYER_GAME:
-
-                    break;
                 case SELECT_USER:
-
+                    battleManager.checkSecondPlayerExistence(Request.command.username);
                     break;
+                case START_MULTI_PLAYER_GAME:
+                    break;
+
             }
         }
     }

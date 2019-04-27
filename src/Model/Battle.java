@@ -12,6 +12,7 @@ public class Battle
     private BattleField battleField;
     static Card selectedCard;
     static Item selectedICollectibleItem;
+    private BattleMode battleMode;
 
     public Player getPlayerTurn()
     {
@@ -21,11 +22,6 @@ public class Battle
     public void setPlayerTurn(Player playerTurn)
     {
         this.playerTurn = playerTurn;
-    }
-
-    enum battleMode
-    {
-        killOpponentHero, keepFlag ,gatherFlags
     }
 
     public Battle(Player firstPlayer, Player secondPlayer)
@@ -38,6 +34,11 @@ public class Battle
         return secondPlayer;
     }
 
+    public void setSecondPlayer(Player secondPlayer)
+    {
+        this.secondPlayer = secondPlayer;
+    }
+
     public Player getFirstPlayer()
     {
         return firstPlayer;
@@ -48,18 +49,8 @@ public class Battle
         return battleField;
     }
 
-    public static void singlePlayerMatch()
-    {
-        while (true)
-        {
-
-        }
-    }
-
     public static void multiPlayerMatch()
     {
-        Account.showAllPlayers();
-        Request.getBattleCommands();
         String secondPlayerName = null; //todo get from scanner
         Player playerOne = new Player();
         Player playerTwo = new Player();
@@ -67,21 +58,6 @@ public class Battle
         //playerTwo.setAccount(Account.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
-
-    }
-
-    public void selectMatchMode()
-    {
-
-    }
-
-    public void storyMode()
-    {
-
-    }
-    public void customMode()
-    {
-
     }
 
     public void killHeroMode()
@@ -149,11 +125,6 @@ public class Battle
         if(selectedCard.isCardSelectedInBattle()){
 
         }
-    }
-
-    public void showHand()
-    {
-
     }
 
     public void insertCard(String cardName, int x, int y)

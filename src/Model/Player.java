@@ -12,6 +12,11 @@ public class Player
     private int MP;
     private static ArrayList<Card> insertedCards = new ArrayList<>();
 
+    public Player(Account account)
+    {
+        this.account = account;
+    }
+
     public Card findCardInGraveYard(int ID){
         for (Card card : graveYard)
         {

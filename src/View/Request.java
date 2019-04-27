@@ -326,7 +326,7 @@ public class Request
             command.columnOfTheCell = Integer.parseInt(inputParts[3]);
             //todo
         }
-        else if(patternShowNextCard.matcher(input).matches()){
+        else if(input.equalsIgnoreCase("Show Next Card")){
             command = CommandType.SHOW_NEXT_CARD;
         }
         else if(patternEnterGraveYard.matcher(input).matches()){

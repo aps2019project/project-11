@@ -42,15 +42,8 @@ public class Spell extends Card
     }
 
     private static ArrayList<Spell> spells = new ArrayList<>();
-    private TargetCommunities targetCommunity;
     private String descriptionTypeOfSpell;
-    private Effect effect;
-    private int effectMultiplicity;
-    private ImpactType impactType;
-    private TypeOfMultiplicity typeOfMultiplicity;
-    private int spellTurn;
-    private int spellUnit;
-    private TimeToActivateSpecialPower timeToActivateSpecialPower;
+    private SpellEffect spellEffect;
 
     public Spell(String name, int price,int MP,TargetCommunities targetCommunities,Effect effect,TypeOfMultiplicity typeOfMultiplicity,int number,String descriptionTypeOfSpell)
     {
@@ -135,7 +128,6 @@ public class Spell extends Card
        new Spell("sacrifice",1600,2,TargetCommunities.ownMinion,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse");
        new Spell("kingGuard",1750,9,TargetCommunities.opponentMinionAroundOwnHero,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"killingEnemy");
        new Spell("shock",1200,1,TargetCommunities.opponentForce,Effect.stunBuff ,TypeOfMultiplicity.spellUnit,2,"stunFor2Turn");
-
     }
 
     public void effectHolyBuff(Card card)
