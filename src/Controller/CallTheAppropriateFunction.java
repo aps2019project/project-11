@@ -182,6 +182,49 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getBattleMenuCommands();
+            switch (Request.command)
+            {
+                case SINGLE_PLAYER:
+                    selectSinglePlayerMatchMode();
+                    break;
+                case MULTI_PLAYER:
+                    selectMultiPlayerMatchMode();
+                    break;
+            }
+        }
+    }
+
+    private void selectSinglePlayerMatchMode()
+    {
+        while(true)
+        {
+            Request.getSinglePlayerMatchMode();
+            switch (Request.command)
+            {
+                case STORY:
+
+                    break;
+                case CUSTOM_GAME:
+
+                    break;
+            }
+        }
+    }
+
+    private void selectMultiPlayerMatchMode()
+    {
+        while (true)
+        {
+            Request.getMultiPlayerMatchMode();
+            switch (Request.command)
+            {
+                case START_MULTI_PLAYER_GAME:
+
+                    break;
+                case SELECT_USER:
+
+                    break;
+            }
         }
     }
 

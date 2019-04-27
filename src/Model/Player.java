@@ -10,6 +10,7 @@ public class Player
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private ArrayList<Card> graveYard = new ArrayList<>();
     private int MP;
+    private static ArrayList<Card> insertedCards = new ArrayList<>();
 
     public Card findCardInGraveYard(int ID){
         for (Card card : graveYard)
@@ -43,5 +44,13 @@ public class Player
 
     public void setHand(Hand hand) {
         this.hand = hand;
+    }
+
+    public ArrayList<Card> getInsertedCards() {
+        return insertedCards;
+    }
+
+    public  void setInsertedCards(ArrayList<Card> insertedCards) {
+        this.insertedCards = insertedCards;
     }
 }

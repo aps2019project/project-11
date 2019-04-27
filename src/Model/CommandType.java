@@ -40,6 +40,12 @@ public enum CommandType
     MOVE_TO,
     SHOW_HAND,
     INSERT_CARD,
+    SINGLE_PLAYER,
+    MULTI_PLAYER,
+    STORY,
+    CUSTOM_GAME,
+    SELECT_USER,
+    START_MULTI_PLAYER_GAME,
     ;
 
     public String username;
@@ -49,4 +55,6 @@ public enum CommandType
     public int cardOrItemIDInGraveYard;
     public int rowOfTheCell;
     public int columnOfTheCell;
+    public String multiPlayerMatchMode;
+    public int numOfFlags;
 }

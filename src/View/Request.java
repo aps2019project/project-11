@@ -30,6 +30,8 @@ public class Request
     private static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
     private static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
     private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
+    private static Pattern patternSelectUser = Pattern.compile("Select User //w+");
+    private static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game //w//s*//d*");
 
     public static CommandType command;
 
@@ -235,7 +237,60 @@ public class Request
 
     public static void getBattleMenuCommands()
     {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("Single Player"))
+        {
+            command = CommandType.SINGLE_PLAYER;
+        }
+        else if (input.equalsIgnoreCase("Multi Player"))
+        {
+            command = CommandType.MULTI_PLAYER;
+        }
+        else
+        {
+            command = null;
+        }
+    }
 
+    public static void getSinglePlayerMatchMode()
+    {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("Story"))
+        {
+            command = CommandType.STORY;
+        }
+        else if (input.equalsIgnoreCase("Custom Game"))
+        {
+            command = CommandType.CUSTOM_GAME;
+        }
+        else
+        {
+            command = null;
+        }
+    }
+
+    public static void getMultiPlayerMatchMode()
+    {
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if (patternSelectUser.matcher(input).matches())
+        {
+            command = CommandType.SELECT_USER;
+            Request.command.username = inputParts[2];
+        }
+        else if (patternStartMultiPlayerGame.matcher(input).matches())
+        {
+            command = CommandType.START_MULTI_PLAYER_GAME;
+            Request.command.multiPlayerMatchMode = inputParts[3];
+            if (inputParts.length > 4)
+            {
+                Request.command.numOfFlags = Integer.parseInt(inputParts[4]);
+            }
+        }
+        else
+        {
+            command = null;
+        }
     }
 
     public static void getBattleCommands()

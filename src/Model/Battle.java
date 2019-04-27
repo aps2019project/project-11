@@ -34,8 +34,7 @@ public class Battle
         this.secondPlayer = secondPlayer;
     }
 
-    public Player getSecondPlayer()
-    {
+    public Player getSecondPlayer() {
         return secondPlayer;
     }
 
@@ -150,6 +149,11 @@ public class Battle
         if(selectedCard.isCardSelectedInBattle()){
 
         }
+    }
+
+    public void showHand()
+    {
+
     }
 
     public void insertCard(String cardName, int x, int y)
