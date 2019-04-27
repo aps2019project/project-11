@@ -15,5 +15,4 @@ public class SpellChange
     private boolean madeCellHoly = false;
     private boolean madeCellFiery = false;
 
-
 }
