@@ -207,14 +207,11 @@ public class CallTheAppropriateFunction
                 case SELECT:
                     Battle.selectCard(Request.command.cardOrItemID);
                     break;
-                case MOVE_TO:
-                    Battle.moveCard(Request.command.rowOfTheHouse,Request.command.columnOfTheHouse);
-                    break;
                 case SHOW_HAND:
                     ShowOutput.showHand(Battle.currentBattle.getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
-                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheHouse, Request.command.columnOfTheHouse);
+                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                 case SHOW_NEXT_CARD:
 
                 case ENTER_GRAVEYARD:
@@ -226,7 +223,28 @@ public class CallTheAppropriateFunction
                     return;
             }
         }
+    }
 
+    private void determineAfterSelectCardCommand()
+    {
+        while (true)
+        {
+            Request.getAfterSelectCardCommands();
+            switch (Request.command)
+            {
+                case MOVE_TO:
+                    Battle.moveCard(Request.command.rowOfTheCell,Request.command.columnOfTheCell);
+                    break;
+            }
+        }
+    }
+
+    private void determineAfterSelectItemCommand()
+    {
+        while (true)
+        {
+            Request.getAfterSelectItemCommands();
+        }
     }
 
     private void determineGraveYardCommand()

@@ -42,12 +42,11 @@ public enum CommandType
     INSERT_CARD,
     ;
 
-
     public String username;
     public String cardOrItemName;
     public int cardOrItemID;
     public String deckName;
     public int cardOrItemIDInGraveYard;
-    public int rowOfTheHouse;
-    public int columnOfTheHouse;
+    public int rowOfTheCell;
+    public int columnOfTheCell;
 }

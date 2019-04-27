@@ -1,6 +1,5 @@
 package View;
 
-import Model.Account;
 import Model.CommandType;
 
 import java.util.Scanner;
@@ -28,9 +27,6 @@ public class Request
     private static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
     private static Pattern patternShowCardsOfGraveYard = Pattern.compile("Show cards");
     private static Pattern patternShowMenu = Pattern.compile("Show menu");
-    private static Pattern patternGameInfo = Pattern.compile("Game info");
-    private static Pattern patternShowMyMinions = Pattern.compile("Show my minions");
-    private static Pattern patternShowOpponentMinions = Pattern.compile("Show opponent minions");
     private static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
     private static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
     private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
@@ -72,6 +68,10 @@ public class Request
         {
             command = CommandType.EXIT;
         }
+        else
+        {
+            command = null;
+        }
     }
 
     public static void getAccountCommands()
@@ -102,6 +102,10 @@ public class Request
         else if (input.equalsIgnoreCase("help"))
         {
             command = CommandType.HELP;
+        }
+        else
+        {
+            command = null;
         }
     }
 
@@ -140,12 +144,17 @@ public class Request
         {
             command = CommandType.SHOW;
         }
-        else if(patternShowMenu.matcher(input).matches()){
+        else if(patternShowMenu.matcher(input).matches())
+        {
             command = CommandType.SHOW_MENU;
         }
         else if(input.equals("help"))
         {
             command = CommandType.HELP;
+        }
+        else
+        {
+            command = null;
         }
     }
 
@@ -218,6 +227,10 @@ public class Request
         {
             command = CommandType.EXIT;
         }
+        else
+        {
+            command = null;
+        }
     }
 
     public static void getBattleMenuCommands()
@@ -229,15 +242,15 @@ public class Request
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if(patternGameInfo.matcher(input).matches())
+        if(input.equalsIgnoreCase("Game Info"))
         {
             command = CommandType.GAME_INFO;
         }
-        else if(patternShowMyMinions.matcher(input).matches())
+        else if(input.equalsIgnoreCase("Show My Minions"))
         {
             command = CommandType.SHOW_MY_MINIONS;
         }
-        else if (patternShowOpponentMinions.matcher(input).matches())
+        else if (input.equalsIgnoreCase("Show Opponent Minions"))
         {
             command = CommandType.SHOW_OPPONENT_MINIONS;
         }
@@ -254,8 +267,8 @@ public class Request
         else if (patternMoveTo.matcher(input).matches())
         {
             command = CommandType.MOVE_TO;
-            command.rowOfTheHouse = Integer.parseInt(inputParts[2]);
-            command.columnOfTheHouse = Integer.parseInt(inputParts[3]);
+            command.rowOfTheCell = Integer.parseInt(inputParts[2]);
+            command.columnOfTheCell = Integer.parseInt(inputParts[3]);
             //todo
         }
         else if(patternShowNextCard.matcher(input).matches()){
@@ -272,6 +285,10 @@ public class Request
         }
         else if (input.equals("exit")) {
             command = CommandType.EXIT;
+        }
+        else
+        {
+            command = null;
         }
     }
 
@@ -305,6 +322,10 @@ public class Request
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;
+        }
+        else
+        {
+            command = null;
         }
     }
 
