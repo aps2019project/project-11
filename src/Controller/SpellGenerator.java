@@ -2,12 +2,36 @@ package Controller;
 
 import Model.*;
 
+import java.util.ArrayList;
+
 public class SpellGenerator
 {
-
-    public void setSpells()
+    public void generateSpell(String name, int price, int MP, ArrayList<SpellChange> spellChanges, ArrayList<Target> targets)
     {
-        generateSpell("totalDisarm", 1000, 0, generateSpellChange());
+        new Spell(name, price, MP, spellChanges, targets);
+
+    }
+
+    public Target generateTargetsOfSpells(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, ImpactType impactType, int maxAttackRange)
+    {
+        return new Target(numOfOwnMinions, numOfOpponentMinions, ownHero, opponentHero, numOfOpponentBothNonSpellCards, numOfOwnBothNonSpellCards, startRow, startColumn, endRow, endColumn, impactType, maxAttackRange);
+    }
+
+    public SpellChange spellChangeGenerator(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery)
+    {
+        return new SpellChange(turnsToApplyChange, positiveChange, applyChangeUntilEndOfTheGame, timeToActivateSpecialPower, changeAP, changeHP, changeMP, stunOpponent, disarmOpponent, activateHolyBuff, madeCellToxic, madeCellHoly, madeCellFiery);
+    }
+
+    public void setSpells(String name, int price, int MP)
+    {
+        ArrayList<Target> targets = new ArrayList<>();
+        ArrayList<SpellChange> spellChanges = new ArrayList<>();
+        targets.add(generateTargetsOfSpells());
+        spellChanges.add(spellChangeGenerator());
+        generateSpell(name, price, MP, spellChanges, targets);
+        targets.clear();
+        spellChanges.clear();
+    }
 
         new Spell("totalDisarm",1000,0,TargetCommunities.opponentForce,Effect.disarmBuff,TypeOfMultiplicity.spellUntilEndGame,"disarm");
         new Spell("areaDispel",1500,2,TargetCommunities.twoInTwoSquare,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"removingBadAndGoodBuffs");
@@ -29,14 +53,4 @@ public class SpellGenerator
         new Spell("sacrifice",1600,2,TargetCommunities.ownMinion,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse");
         new Spell("kingGuard",1750,9,TargetCommunities.opponentMinionAroundOwnHero,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"killingEnemy");
         new Spell("shock",1200,1,TargetCommunities.opponentForce,Effect.stunBuff ,TypeOfMultiplicity.spellUnit,2,"stunFor2Turn");
-    }
-    public SpellChange generateSpellChange()
-    {
-
-    }
-
-    public void generateSpell(String name, int price, int MP, SpellChange spellChange)
-    {
-        new Spell().getSpellEffect().
-    }
 }

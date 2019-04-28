@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 public class Spell extends Card
 {
-    public SpellEffect getSpellEffect() {
-        return spellEffect;
-    }
-
     private static ArrayList<Spell> spells = new ArrayList<>();
     private String descriptionTypeOfSpell;
-    private SpellEffect spellEffect;
+    private SpellEffect spellEffect = new SpellEffect();
+
+    public Spell(String name, int price, int MP, ArrayList<SpellChange> spellChanges, ArrayList<Target> targets)
+    {
+        this.setCardName(name);
+        this.setPrice(price);
+        this.setRequiredMP(MP);
+        this.getSpellEffect().setSpellChanges(spellChanges);
+        this.getSpellEffect().setTargets(targets);
+        spells.add(this);
+    }
 
     public void effectHolyBuff(Card card)
     {
@@ -67,6 +73,10 @@ public class Spell extends Card
     public void setDescriptionTypeOfSpell(String descriptionTypeOfSpell) {
         this.descriptionTypeOfSpell = descriptionTypeOfSpell;
     }
+    public SpellEffect getSpellEffect() {
+        return spellEffect;
+    }
+
 
     public static ArrayList<Spell> getSpells()
     {

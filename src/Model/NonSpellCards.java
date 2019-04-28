@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public abstract class NonSpellCards extends Card
 {
     private int defaultHP;
@@ -7,8 +9,8 @@ public abstract class NonSpellCards extends Card
     private int currentHP;
     private int currentAP;
     private Spell specialPower;
+    private ArrayList<Spell> spellsAppliedOnThisCard = new ArrayList<>();
     private ImpactType impactType;
-    private int maxAttackRange;
     private boolean moveAble = true;
     private boolean attackAble = true;
     private boolean counterAttackAble = true;
