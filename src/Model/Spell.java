@@ -26,13 +26,13 @@ public class Spell extends Card
 
 
 
-        Spell minionSpelll5 = new Spell(null , 0 , 0 , "10 power buff" );
-        minionSpelll5.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false , false , false));
-        minionSpelll5.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null));
+        Spell minionSpell15 = new Spell(null , 0 , 0 , "10 power buff" );
+        minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false , false , false));
+        minionSpell15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null));
 
-        Spell minionSpelll7 = new Spell(null , 0 , 0 , "make 2 damage on around minions" );
-        minionSpelll7.getSpellEffect().addSpellChange(new SpellChange(0 , false , false ,TimeToActivateSpecialPower.onDeath ,0 ,-2 , 0 , false , false , false , false , false , false));
-        minionSpelll7.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.hybrid ,0 , null));
+        Spell minionSpell17 = new Spell(null , 0 , 0 , "make 2 damage on around minions" );
+        minionSpell17.getSpellEffect().addSpellChange(new SpellChange(0 , false , false ,TimeToActivateSpecialPower.onDeath ,0 ,-2 , 0 , false , false , false , false , false , false));
+        minionSpell17.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.hybrid ,0 , null));
 
         Spell minionSpell8 = new Spell(null , 0 , 0 , "made toxic enemy force 3 turn" );
         minionSpell8.getSpellEffect().addSpellChange(new SpellChange(3 , false , false ,TimeToActivateSpecialPower.onAttack ,0 ,-1 , 0 , false , false , false , false , false , false));

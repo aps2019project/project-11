@@ -6,15 +6,13 @@ public class Minion extends NonSpellCards
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
 
-    Minion(String name , int price , int MP , int HP , int AP , ImpactType impactType , int rangeOfAttack ,  TimeToActivateSpecialPower timeToActivateSpecialPower  ){
+    Minion(String name, int price, int MP, int HP, int AP, Spell specialPower){
         this.setCardName(name);
         this.setPrice(price);
         this.setRequiredMP(MP);
         this.setDefaultHP(HP);
         this.setDefaultAP(AP);
-        this.setImpactType(impactType);
-        this.setMaxAttackRange(rangeOfAttack);
-        //TimeToActivateSpecialPower
+        this.setSpecialPower(specialPower);
         minions.add(this);
     }
 
@@ -25,6 +23,11 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
+        Spell specialPowerMinion15 = new Spell(null , 0 , 0 , "10 power buff" );
+        specialPowerMinion15.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false , false , false));
+        specialPowerMinion15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null));
+        new Minion("Oghab" ,200 , 2 ,0 , 2, specialPowerMinion15);
+
         Minion minion1 = new Minion("persianArcher",300,2,6,4, ImpactType.ranged,7,  null);
         Minion minion2 = new Minion("persianSwordsMan",400,2,6,4, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);
         Minion minion3 = new Minion("persianSpear",500,1,5,3, ImpactType.hybrid,3,null);
@@ -39,7 +42,7 @@ public class Minion extends NonSpellCards
         Minion minion12 = new Minion("Shahzade Torani" ,800 , 6 ,6 , 10 , ImpactType.melee , 0  , TimeToActivateSpecialPower.combo);
         Minion minion13 = new Minion("Dive Sepid" ,300 , 9 ,14 , 10 , ImpactType.hybrid , 7 , null);
         Minion minion14 = new Minion("Ghoul Sang Andaz" ,300 , 9 ,12 , 12 , ImpactType.ranged , 7 , null);
-        Minion minion15 = new Minion("Oghab" ,200 , 2 ,0 , 2 , ImpactType.ranged , 3 , TimeToActivateSpecialPower.passive);
+        //Minion minion15 = new Minion("Oghab" ,200 , 2 ,0 , 2 , ImpactType.ranged , 3 , TimeToActivateSpecialPower.passive);
         Minion minion16 = new Minion("Div GorazSavar" ,300 , 6 ,16 , 8 , ImpactType.melee , 0 , null);
         Minion minion17 = new Minion("Ghoul TakCheshm" ,500 , 7 ,12 , 11 , ImpactType.hybrid , 0, TimeToActivateSpecialPower.onDeath);
         Minion minion18 = new Minion("Mar Sammi" ,300 , 4 ,5 , 6 , ImpactType.ranged , 4 ,  TimeToActivateSpecialPower.onAttack);
