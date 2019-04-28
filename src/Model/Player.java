@@ -8,17 +8,18 @@ public class Player
     private Deck mainDeck;
     private Hand hand;
     private ArrayList<Item> collectibleItems = new ArrayList<>();
-    private ArrayList<Card> graveYard = new ArrayList<>();
+    private GraveYard graveYard = new GraveYard();
     private int MP;
-    private static ArrayList<Card> insertedCards = new ArrayList<>();
+    private ArrayList<Card> insertedCards = new ArrayList<>();
 
     public Player(Account account)
     {
         this.account = account;
     }
 
-    public Card findCardInGraveYard(int ID){
-        for (Card card : graveYard)
+    public Card findCardInGraveYard(int ID)
+    {
+        for (Card card : graveYard.getCards())
         {
             if (card.getCardID() == ID)
             {
@@ -38,7 +39,7 @@ public class Player
         this.account = account;
     }
 
-    public ArrayList<Card> getGraveYard()
+    public GraveYard getGraveYard()
     {
         return graveYard;
     }
@@ -55,7 +56,8 @@ public class Player
         return insertedCards;
     }
 
-    public  void setInsertedCards(ArrayList<Card> insertedCards) {
+    public  void setInsertedCards(ArrayList<Card> insertedCards)
+    {
         this.insertedCards = insertedCards;
     }
 }

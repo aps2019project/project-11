@@ -9,9 +9,9 @@ public abstract class NonSpellCards extends Card
     private Spell specialPower;
     private ImpactType impactType;
     private int maxAttackRange;
-    private boolean enabledHolyBuff = false;
-    private boolean enableStunBuff = false;
-    private boolean enableDisarmBuff = false;
+    private boolean moveAble = true;
+    private boolean attackAble = true;
+    private boolean counterAttackAble = true;
 
     public Cell [][] setAttackAbleCells()
     {
@@ -75,27 +75,35 @@ public abstract class NonSpellCards extends Card
         this.impactType = impactType;
     }
 
-    public boolean isEnabledHolyBuff() {
-        return enabledHolyBuff;
+    public boolean isMoveAble() {
+        return moveAble;
     }
 
-    public void setEnabledHolyBuff(boolean enabledHolyBuff) {
-        this.enabledHolyBuff = enabledHolyBuff;
+    public void setMoveAble(boolean moveAble) {
+        this.moveAble = moveAble;
     }
 
-    public boolean isEnableStunBuff() {
-        return enableStunBuff;
+    public boolean isAttackAble() {
+        return attackAble;
     }
 
-    public void setEnableStunBuff(boolean enableStunBuff) {
-        this.enableStunBuff = enableStunBuff;
+    public void setAttackAble(boolean attackAble) {
+        this.attackAble = attackAble;
     }
 
-    public boolean isEnableDisarmBuff() {
-        return enableDisarmBuff;
+    public boolean isCounterAttackAble() {
+        return counterAttackAble;
     }
 
-    public void setEnableDisarmBuff(boolean enableDisarmBuff) {
-        this.enableDisarmBuff = enableDisarmBuff;
+    public void setCounterAttackAble(boolean counterAttackAble) {
+        this.counterAttackAble = counterAttackAble;
+    }
+
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
+    }
+
+    public void setCurrentAP(int currentAP) {
+        this.currentAP = currentAP;
     }
 }

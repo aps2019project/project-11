@@ -22,11 +22,7 @@ public class Request
     private static Pattern patternShopSearchCollection = Pattern.compile("search collection [a-zA-Z_0-9]+");
     private static Pattern patternShopBuy = Pattern.compile("buy [a-zA-Z_0-9]+");
     private static Pattern patternShopSell = Pattern.compile("sell [a-zA-Z_0-9]+");
-    private static Pattern patternShowNextCard = Pattern.compile("Show Next Card");
-    private static Pattern patternEnterGraveYard = Pattern.compile("Enter graveyard");
     private static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
-    private static Pattern patternShowCardsOfGraveYard = Pattern.compile("Show cards");
-    private static Pattern patternShowMenu = Pattern.compile("Show menu");
     private static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
     private static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
     private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
@@ -62,10 +58,6 @@ public class Request
         {
             command = CommandType.HELP;
         }
-        else if(patternShowMenu.matcher(input).matches())
-        {
-            command = CommandType.SHOW_MENU;
-        }
         else if (input.equalsIgnoreCase("Exit"))
         {
             command = CommandType.EXIT;
@@ -97,9 +89,6 @@ public class Request
         else if (input.equalsIgnoreCase("show leaderBoard"))
         {
             command = CommandType.SHOW_LEADER_BOARD;
-        }
-        else if(patternShowMenu.matcher(input).matches()){
-            command = CommandType.SHOW_MENU;
         }
         else if (input.equalsIgnoreCase("help"))
         {
@@ -145,10 +134,6 @@ public class Request
         else if(input.equals("show"))
         {
             command = CommandType.SHOW;
-        }
-        else if(patternShowMenu.matcher(input).matches())
-        {
-            command = CommandType.SHOW_MENU;
         }
         else if(input.equals("help"))
         {
@@ -221,9 +206,6 @@ public class Request
         else if (input.equals("help"))
         {
             command = CommandType.HELP;
-        }
-        else if(patternShowMenu.matcher(input).matches()){
-            command = CommandType.SHOW_MENU;
         }
         else if (input.equals("exit"))
         {
@@ -326,19 +308,24 @@ public class Request
             command.columnOfTheCell = Integer.parseInt(inputParts[3]);
             //todo
         }
-        else if(input.equalsIgnoreCase("Show Next Card")){
+        else if(input.equalsIgnoreCase("Show Next Card"))
+        {
             command = CommandType.SHOW_NEXT_CARD;
         }
-        else if(patternEnterGraveYard.matcher(input).matches()){
+        else if(input.equalsIgnoreCase("Enter graveyard"))
+        {
             command = CommandType.ENTER_GRAVEYARD;
         }
-        else if(input.equals("Help")){
+        else if(input.equals("Help"))
+        {
             command = CommandType.HELP_BATTLE;
         }
-        else if(patternShowMenu.matcher(input).matches()){
+        else if(input.equalsIgnoreCase("Show menu"))
+        {
             command = CommandType.SHOW_MENU;
         }
-        else if (input.equals("exit")) {
+        else if (input.equals("exit"))
+        {
             command = CommandType.EXIT;
         }
         else
@@ -366,11 +353,11 @@ public class Request
             command = CommandType.SHOW_INFO;
             command.cardOrItemIDInGraveYard = Integer.parseInt(inputParts[2]);
         }
-        else if (patternShowCardsOfGraveYard.matcher(input).matches())
+        else if (input.equalsIgnoreCase("Show cards"))
         {
             command = CommandType.SHOW_CARDS;
         }
-        else if(patternShowMenu.matcher(input).matches())
+        else if(input.equalsIgnoreCase("Show menu"))
         {
             command = CommandType.SHOW_MENU;
         }
