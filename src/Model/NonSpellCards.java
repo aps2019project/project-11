@@ -65,14 +65,6 @@ public abstract class NonSpellCards extends Card
         this.specialPower = specialPower;
     }
 
-    public int getMaxAttackRange() {
-        return maxAttackRange;
-    }
-
-    public void setMaxAttackRange(int maxAttackRange) {
-        this.maxAttackRange = maxAttackRange;
-    }
-
     public void setImpactType(ImpactType impactType) {
         this.impactType = impactType;
     }

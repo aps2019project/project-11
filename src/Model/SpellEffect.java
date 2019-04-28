@@ -11,15 +11,15 @@ public class SpellEffect
         return targets;
     }
 
-    public void setTargets(ArrayList<Target> targets) {
-        this.targets = targets;
+    public void addTarget(Target target) {
+        targets.add(target);
     }
 
     public ArrayList<SpellChange> getSpellChanges() {
         return spellChanges;
     }
 
-    public void setSpellChanges(ArrayList<SpellChange> spellChanges) {
-        this.spellChanges = spellChanges;
+    public void addSpellChange(SpellChange spellChange) {
+        spellChanges.add(spellChange);
     }
 }

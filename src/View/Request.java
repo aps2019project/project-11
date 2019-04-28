@@ -68,6 +68,11 @@ public class Request
         }
     }
 
+    public static void getSpellMakingCommand()
+    {
+        //phase 2
+    }
+
     public static void getAccountCommands()
     {
         String input = myScanner.nextLine();
