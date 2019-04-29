@@ -71,6 +71,10 @@ public class Spell extends Card
         spellThirteen.getSpellEffect().addSpellChange(new SpellChange(3,false,false,0,-6,0,false,false,true,false,false,false,false,false,false));
         spellThirteen.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,false,false,false));
 
+        Spell spellFourteen = new Spell("powerup",2500,2,"powerbuff");
+        spellFourteen.getSpellEffect().addSpellChange(new SpellChange(1,true,false,6,0,0,false,false,false,false,false,false,false,false,false));
+        spellFourteen.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,null,false,false,false));
+
         Spell spellFifteen = new Spell("allPower",2000,4,"addingAP");
         spellFifteen.getSpellEffect().addSpellChange(new SpellChange(0,true,true,2,0,0,false,false,false,false,false,false,false,false,false));
         spellFifteen.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,false,true));
