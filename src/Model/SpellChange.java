@@ -39,6 +39,24 @@ public class SpellChange
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
     }
 
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
+    {
+        this.turnsToApplyChange = turnsToApplyChange;
+        this.positiveChange = positiveChange;
+        this.applyChangeUntilEndOfTheGame = applyChangeUntilEndOfTheGame;
+        this.changeAP = changeAP;
+        this.changeHP = changeHP;
+        this.changeMP = changeMP;
+        this.stunOpponent = stunOpponent;
+        this.disarmOpponent = disarmOpponent;
+        this.activateHolyBuff = activateHolyBuff;
+        this.activateReverseHolyBuff = activateReverseHolyBuff;
+        this.madeCellToxic = madeCellToxic;
+        this.madeCellHoly = madeCellHoly;
+        this.madeCellFiery = madeCellFiery;
+        this.deleteAllPositiveBuff = deleteAllPositiveBuff;
+    }
+
     public int getTurnsToApplyChange() {
         return turnsToApplyChange;
     }

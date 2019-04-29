@@ -38,6 +38,26 @@ public class Target
         this.allOpponentNonSpellCards = allOpponentNonSpellCards;
         this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
+
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
+    {
+        this.numOfOwnMinions = numOfOwnMinions;
+        this.numOfOpponentMinions = numOfOpponentMinions;
+        this.ownHero = ownHero;
+        this.opponentHero = opponentHero;
+        this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
+        this.numOfOwnBothNonSpellCards = numOfOwnBothNonSpellCards;
+        this.startRow = startRow;
+        this.startColumn = startColumn;
+        this.endRow = endRow;
+        this.endColumn = endColumn;
+        this.nextNoneSpellCard = nextNoneSpellCard;
+        this.allOwnMinion = allOwnMinion;
+        this.allOpponentNonSpellCards = allOpponentNonSpellCards;
+        this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
+    }
+
+
     public int getNumOfOwnMinions()
     {
         return numOfOwnMinions;

@@ -8,7 +8,7 @@ public abstract class NonSpellCards extends Card
     private int defaultAP;
     private int currentHP;
     private int currentAP;
-    private Spell specialPower;
+    private SpecialPower specialPower;
     private ArrayList<Spell> spellsAppliedOnThisCard = new ArrayList<>();
     private ImpactType impactType;
     private boolean moveAble = true;
@@ -57,11 +57,11 @@ public abstract class NonSpellCards extends Card
         return currentAP;
     }
 
-    public Spell getSpecialPower() {
+    public SpecialPower getSpecialPower() {
         return specialPower;
     }
 
-    public void setSpecialPower(Spell specialPower) {
+    public void setSpecialPower(SpecialPower specialPower) {
         this.specialPower = specialPower;
     }
 

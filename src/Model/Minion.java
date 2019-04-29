@@ -6,7 +6,7 @@ public class Minion extends NonSpellCards
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
 
-    Minion(String name, int price, int MP, int HP, int AP, Spell specialPower){
+    Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower){
         this.setCardName(name);
         this.setPrice(price);
         this.setRequiredMP(MP);
