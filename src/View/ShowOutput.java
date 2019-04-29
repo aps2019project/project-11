@@ -171,11 +171,45 @@ public class ShowOutput {
 
     public static void showMyMinions()
     {
-
+        for (Card card :Battle.currentBattle.getPlayerTurn().getInsertedCards())
+        {
+            System.out.print(card.getCardID() + " : " );
+            System.out.print(card.getCardName() +" , ");
+            System.out.print("health :");
+            System.out.print(((NonSpellCards) card).getCurrentHP() + " , ");
+            System.out.print("location :");
+            System.out.print("("+ card.getRow() + " , " + card.getColumn() + ")" + " , ");
+            System.out.print("power :");
+            System.out.print(((NonSpellCards) card).getCurrentAP());
+        }
     }
 
     public static void showOpponentMinions()
     {
+        Player opponent = new Player();
+        if (Battle.currentBattle.getPlayerTurn() == Battle.currentBattle.getFirstPlayer())
+        {
+            opponent = Battle.currentBattle.getSecondPlayer();
+        }
+        else
+        {
+            opponent = Battle.currentBattle.getFirstPlayer();
+        }
+        for (Card card :opponent.getInsertedCards())
+        {
+            System.out.print(card.getCardID());
+            System.out.print(" : ");
+            System.out.print(card.getCardName() +" , ");
+            System.out.print("health");
+            System.out.print(" : ");
+            System.out.print(((NonSpellCards) card).getCurrentHP() + " , ");
+            System.out.print("location");
+            System.out.print(" : ");
+            System.out.print("("+ card.getRow() + " , " + card.getColumn() + ")" + " , ");
+            System.out.print("power");
+            System.out.print(" : ");
+            System.out.print(((NonSpellCards) card).getCurrentAP());
+        }
 
     }
 

@@ -58,6 +58,21 @@ public class Battle
         //playerTwo.setAccount(Account.findAccount(secondPlayerName));
         currentBattle = new Battle(playerOne, playerTwo);
         currentBattle.selectMatchMode();
+
+    }
+
+    public void selectMatchMode()
+    {
+
+    }
+
+    public void storyMode()
+    {
+
+    }
+    public void customMode()
+    {
+
     }
 
     public void killHeroMode()

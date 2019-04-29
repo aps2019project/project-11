@@ -14,6 +14,7 @@ public class SpellChange
     private boolean stunOpponent;
     private boolean disarmOpponent;
     private boolean activateHolyBuff;
+    private boolean activateReverseHolyBuff;
     private boolean madeCellToxic;
     private boolean madeCellHoly;
     private boolean madeCellFiery;

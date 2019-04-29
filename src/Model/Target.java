@@ -64,7 +64,8 @@ public class Target
         return startColumn;
     }
 
-    public int getEndRow() {
+    public int getEndRow()
+    {
         return endRow;
     }
 
