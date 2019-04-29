@@ -19,6 +19,7 @@ public class SpellChange
     private boolean madeCellHoly;
     private boolean madeCellFiery;
     private boolean deleteAllPositiveBuff;
+    private boolean killing;
 
     public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
     {
@@ -39,7 +40,7 @@ public class SpellChange
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
     }
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff,boolean kiiling)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -55,6 +56,7 @@ public class SpellChange
         this.madeCellHoly = madeCellHoly;
         this.madeCellFiery = madeCellFiery;
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
+        this.killing=kiiling;
     }
 
     public int getTurnsToApplyChange() {
@@ -183,5 +185,21 @@ public class SpellChange
 
     public void setActivateReverseHolyBuff(boolean activateReverseHolyBuff) {
         this.activateReverseHolyBuff = activateReverseHolyBuff;
+    }
+
+    public boolean isDeleteAllPositiveBuff() {
+        return deleteAllPositiveBuff;
+    }
+
+    public void setDeleteAllPositiveBuff(boolean deleteAllPositiveBuff) {
+        this.deleteAllPositiveBuff = deleteAllPositiveBuff;
+    }
+
+    public boolean isKilling() {
+        return killing;
+    }
+
+    public void setKilling(boolean killing) {
+        this.killing = killing;
     }
 }
