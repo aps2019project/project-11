@@ -20,7 +20,7 @@ public class Spell extends Card
     public static void setSpells()
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
-        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false , false));
+        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false , false , false));
         spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 0 , 0 , 0 , 0 , null , 0 , null, false));
         Spell spellTwo = new Spell("areaDispel",1500,2, "removingAllBadAndGoodBuffs" );
 

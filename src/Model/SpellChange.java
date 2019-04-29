@@ -18,8 +18,9 @@ public class SpellChange
     private boolean madeCellToxic;
     private boolean madeCellHoly;
     private boolean madeCellFiery;
+    private boolean deleteAllPositiveBuff;
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery)
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -35,6 +36,7 @@ public class SpellChange
         this.madeCellToxic = madeCellToxic;
         this.madeCellHoly = madeCellHoly;
         this.madeCellFiery = madeCellFiery;
+        this.deleteAllPositiveBuff = deleteAllPositiveBuff;
     }
 
     public int getTurnsToApplyChange() {
