@@ -20,9 +20,32 @@ public class Spell extends Card
     public static void setSpells()
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
-        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false , false));
-        spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 0 , 0 , 0 , 0 , null , 0 , null, false));
+        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false,false,false));
+        spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 0 , 0 , 0 , 0 , null , 0 , null,false));
         Spell spellTwo = new Spell("areaDispel",1500,2, "removingAllBadAndGoodBuffs" );
+        spellTwo.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null, 0,0,0,false,false,false,false,false,false,false,false));
+        spellTwo.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0, 0  ,  0 ,  0 ,null,0,null,false));
+        Spell spellThree = new Spell("empower", 250, 1,"addingAP");
+        spellThree.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null,2,0,0,false,false,false,false,false,false,false,false));
+        spellThree.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,0,null,false));
+        Spell spellFour = new Spell("fireball",400,1,"impactToOpponent");
+        spellFour.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,-4,0,false,false,false,false,false,false,false,false));
+        spellFour.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,null,0,null,false));
+        Spell spellFive = new Spell("godStrength",450,2,"addingAP");
+        spellFive.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null,4,0,0,false, false,false,false,false,false,false,false));
+        spellFive.getSpellEffect().addTarget(new Target(0,0,true,false,0,0,0,0,0,0,null,0,null,false));
+        Spell spellSix = new Spell("hellFire",600,3,"fieryHouse");
+        spellSix.getSpellEffect().addSpellChange(new SpellChange(2,false,false,null,0,0,0,false,false,false,false,false,false,true,false));
+        spellSix.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0 ,  0 , 0  ,  0,null,0,null,false));
+        Spell spellSeven = new Spell("lightingBolt",1250,2,"impactToOpponent");
+        spellSeven.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,-8,0,false,false,false,false,false,false,false,false));
+        spellSeven.getSpellEffect().addTarget(new Target(0,0,false,true,0,0,0,0,0,0,null,0,null,false));
+        Spell spellEigth = new Spell("poisonLake",900,5,"toxicHouse");
+        spellEigth.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,0,0,false,false,false,false,true,false,false,false));
+        spellEigth.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,  0 , 0  , 0  , 0  ,null,0,null,false));
+        Spell spellNine = new Spell("madness",650,0,"addingAPButDisarm");
+        spellNine.getSpellEffect().addSpellChange(new SpellChange(3,true,false,null,4,0,0,false,false,false,false,false,false,false,false));
+        spellNine.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,0,null,false));
 
 
 
