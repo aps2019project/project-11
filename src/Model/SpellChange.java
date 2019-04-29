@@ -14,12 +14,15 @@ public class SpellChange
     private boolean stunOpponent;
     private boolean disarmOpponent;
     private boolean activateHolyBuff;
+    private int numOfHolyBuffs;
     private boolean activateReverseHolyBuff;
     private boolean madeCellToxic;
     private boolean madeCellHoly;
     private boolean madeCellFiery;
     private boolean deleteAllPositiveBuff;
     private boolean killing;
+    private boolean dispel;
+    private boolean continuous;
 
     public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
     {
@@ -40,7 +43,7 @@ public class SpellChange
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
     }
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff,boolean kiiling)
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, int numOfHollyBuffs, boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery, boolean deleteAllPositiveBuff, boolean killing, boolean dispel, boolean continuous)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -51,12 +54,15 @@ public class SpellChange
         this.stunOpponent = stunOpponent;
         this.disarmOpponent = disarmOpponent;
         this.activateHolyBuff = activateHolyBuff;
+        this.numOfHolyBuffs = numOfHollyBuffs;
         this.activateReverseHolyBuff = activateReverseHolyBuff;
         this.madeCellToxic = madeCellToxic;
         this.madeCellHoly = madeCellHoly;
         this.madeCellFiery = madeCellFiery;
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
-        this.killing=kiiling;
+        this.killing = killing;
+        this.dispel = dispel;
+        this.continuous = continuous;
     }
 
     public int getTurnsToApplyChange() {
@@ -201,5 +207,29 @@ public class SpellChange
 
     public void setKilling(boolean killing) {
         this.killing = killing;
+    }
+
+    public boolean isDispel() {
+        return dispel;
+    }
+
+    public void setDispel(boolean dispel) {
+        this.dispel = dispel;
+    }
+
+    public boolean isContinuous() {
+        return continuous;
+    }
+
+    public void setContinuous(boolean continuous) {
+        this.continuous = continuous;
+    }
+
+    public int getNumOfHolyBuffs() {
+        return numOfHolyBuffs;
+    }
+
+    public void setNumOfHolyBuffs(int numOfHolyBuffs) {
+        this.numOfHolyBuffs = numOfHolyBuffs;
     }
 }

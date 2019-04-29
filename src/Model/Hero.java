@@ -24,36 +24,54 @@ public class Hero extends NonSpellCards
     public static void setHeroes()
     {
         SpecialPower specialPowerHero1 = new SpecialPower("Activate a power buff with 4 units Increase impact strength permanently on itself");
-        specialPowerHero1.getSpellEffect().addSpellChange(new SpellChange(0, true, true, 4, 0, 0, false, false, false, false, false, false, false, false));
+        specialPowerHero1.getSpellEffect().addSpellChange(new SpellChange(0, true, true, 4, 0, 0, false, false, false,0,false, false, false, false, false, false, false, false));
         specialPowerHero1.getSpellEffect().addTarget(new Target(0, 0, true, false, 0, 0, 0, 0, 0, 0, ImpactType.melee, 0, null, false, false, false));
         new Hero("Dave White", 8000, 50, 4, 1, 2, specialPowerHero1);
 
         SpecialPower specialPowerHero2 = new SpecialPower("Stun all opponent forces for 1 turn");
-        specialPowerHero2.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, false, false, false, false, false));
+        specialPowerHero2.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, 0,false, false, false, false, false, false, false, false));
         specialPowerHero2.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, ImpactType.melee, 0, null, false, true, false));
         new Hero("Simurgh", 9000, 50, 4, 5, 8, specialPowerHero2);
 
         SpecialPower specialPowerHero3 = new SpecialPower("Disarm one opponent force");
-        specialPowerHero3.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, false, true, false, false, false, false, false, false));
+        specialPowerHero3.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, false, true, false, 0,false, false, false, false, false, false, false, false));
         specialPowerHero3.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, ImpactType.melee, 0, null, false, false, false));
         new Hero("SevenHeadedDragon", 8000, 50, 4, 0, 1, specialPowerHero3);
 
         SpecialPower specialPowerHero4 = new SpecialPower("Stun 1 opponent force for 1 turn");
-        specialPowerHero4.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, false, false, false, false, false));
+        specialPowerHero4.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, 0,false, false, false, false, false, false, false, false));
         specialPowerHero4.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, ImpactType.melee, 0, null, false, false, false));
         new Hero("Rakhsh", 8000, 50, 4, 1, 2, specialPowerHero4);
 
         SpecialPower specialPowerHero5 = new SpecialPower("Poison opponent for 3 turns when it hurts");
-        specialPowerHero5.getSpellEffect().addSpellChange(new SpellChange(3, false, false, 0, -1, 0, false, false, false, false, false, false, false, false));
+        specialPowerHero5.getSpellEffect().addSpellChange(new SpellChange(3, false, false, 0, -1, 0, false, false, false, 0,false, false, false, false, false, false, false, false));
         specialPowerHero5.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, ImpactType.melee, 0, null, false, false, false));
         new Hero("Zahak", 10000, 50, 2, 0, 0, specialPowerHero5);
 
+        SpecialPower specialPowerHero6 = new SpecialPower("Hallow a cell for 3 turns");
+        specialPowerHero6.getSpellEffect().addSpellChange(new SpellChange(3, true, false, 0, 0, 0, false, false, false, 0,false, false, true, false, false, false, false, false));
+        specialPowerHero6.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 1, 1, 1, 1, ImpactType.melee, 0, null, false, false, false));
+        new Hero("Kaveh", 8000, 50, 4, 1, 3, specialPowerHero6);
 
-        new Hero("Kaveh", 8000, 50, 4, ImpactType.melee, new Spell(), 3);
-        new Hero("Arash", 10000, 30, 2, ImpactType.ranged, 6, new Spell(), 2);
-        new Hero("Afsaneh", 11000, 40, 3, ImpactType.ranged, 3, new Spell(), 2);
-        new Hero("Esfandiar", 12000, 35, 3, ImpactType.hybrid, 3, new Spell(), 0);
-        new Hero("Rostam", 8000, 55, 7, ImpactType.hybrid, 4, 0);
+        SpecialPower specialPowerHero7 = new SpecialPower("Impact 4 units to all forces in heroes row");
+        specialPowerHero7.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, -4, 0, false, false, false, 0,false, false, false, false, false, false, false, false));
+        specialPowerHero7.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 1, 1, 1, 9, ImpactType.ranged, 6, null, false, true, false));
+        new Hero("Arash", 10000, 30, 2, 2,  2, specialPowerHero7);
+
+        SpecialPower specialPowerHero8 = new SpecialPower("Dispel 1 opponent force");
+        specialPowerHero8.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, false, false, false, 0,false, false, false, false, false, false, true, false));
+        specialPowerHero8.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, ImpactType.ranged, 3, null, false, false, false));
+        new Hero("Afsaneh", 11000, 40, 3, 1, 2, specialPowerHero8);
+
+        SpecialPower specialPowerHero9 = new SpecialPower("3 continuous holly buffs");
+        specialPowerHero9.getSpellEffect().addSpellChange(new SpellChange(0, true, false, 0, 0, 0, false, false, true, 3,false, false, false, false, false, false, false, true));
+        specialPowerHero9.getSpellEffect().addTarget(new Target(0, 0, true, false, 0, 0, 0, 0, 0, 0, ImpactType.hybrid, 3, null, false, false, false));
+        new Hero("Esfandiar", 12000, 35, 3, 0, 0, specialPowerHero9);
+
+        SpecialPower specialPowerHero10 = new SpecialPower("Rostam has no specialPower");
+        specialPowerHero9.getSpellEffect().addSpellChange(new SpellChange(0, false, false, 0, 0, 0, false, false, false, 0,false, false, false, false, false, false, false, false));
+        specialPowerHero9.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, ImpactType.hybrid, 4, null, false, false, false));
+        new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10);
     }
 
     public Hero findHero(int heroID)
