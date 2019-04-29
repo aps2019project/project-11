@@ -20,36 +20,9 @@ public class Spell extends Card
     public static void setSpells()
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
-        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false,false));
+        spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true , null , 0 , 0 , 0 , false , true , false , false ,false , false));
         spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 0 , 0 , 0 , 0 , null , 0 , null));
         Spell spellTwo = new Spell("areaDispel",1500,2, "removingAllBadAndGoodBuffs" );
-        spellTwo.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null,0,0,0,false,false,false,false,false,false,false));
-        spellTwo.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,   ,   ,   ,  ,null,0,null));
-        Spell spellThree = new Spell("Empower",250,1,"addingAPToOneForce");
-        spellThree.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null,2,0,0,false,false,false,false,false,false,false));
-        spellThree.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,0,null));
-        Spell spellFour = new Spell("Fireball",400,1,"impactOpponent");
-        spellFour.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,-4,0,false,false,false,false,false,false,false));
-        spellFour.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,null,0,null));
-        Spell spellFive = new Spell("godStrength",450,2,"addingAPToHero");
-        spellFive.getSpellEffect().addSpellChange(new SpellChange(1,true,false,null,4,0,0,false,false,false,false,false,false,false));
-        spellFive.getSpellEffect().addTarget(new Target(0,0,true,false,0,0,0,0,0,0,null,0,null));
-        Spell spellSix = new Spell("hellFire",600,3,"fieryHouse2*2Square");
-        spellSix.getSpellEffect().addSpellChange(new SpellChange(2,false,false,null,0,0,0,false,false,false,false,false,false,true));
-        spellSix.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,   ,   ,   ,  ,null,0,null));
-        Spell spellSeven = new Spell("lightingBolt",1250,2,"impactToOpponentHero");
-        spellSeven.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,-8,0,false,false,false,false,false,false,false));
-        spellSeven.getSpellEffect().addTarget(new Target(0,0,false,true,0,0,0,0,0,0,null,0 ,null));
-        Spell spellEight = new Spell("poisonLake",900,5,"toxicHouse3*3Square");
-        spellEight.getSpellEffect().addSpellChange(new SpellChange(1,false,false,null,0,0,0,false,false,false,false,true,false,false));
-        spellEight.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,  ,  ,  ,  ,null,0,null));
-        Spell spellNine = new Spell("madness",650,0,"addingAPAndDisarm");
-        spellNine.getSpellEffect().addSpellChange(new SpellChange(3,true,false,null,4,0,0,false,true,false,false,false,false,false));
-        spellNine.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,0,null));
-        Spell spellTen = new Spell("allDisarm",2000,9,"disarmAllOpponentForce");
-
-
-
 
 
 
@@ -62,8 +35,8 @@ public class Spell extends Card
 
 
 
-       /* new Spell("totalDisarm",1000,0,TargetCommunities.opponentForce,Effect.disarmBuff,TypeOfMultiplicity.spellUntilEndGame,"disarm");
-        new Spell("areaDispel",1500,2,TargetCommunities.twoInTwoSquare,null,TypeOfMultiplicity.spellUnit,"removingBadAndGoodBuffs");
+        new Spell("totalDisarm",1000,0,TargetCommunities.opponentForce,Effect.disarmBuff,TypeOfMultiplicity.spellUntilEndGame,"disarm");
+        new Spell("areaDispel",1500,2,TargetCommunities.twoInTwoSquare,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"removingBadAndGoodBuffs");
         new Spell("empower",250,1,TargetCommunities.ownForce,Effect.powerBuff,TypeOfMultiplicity.spellUnit,2,"adding2ToAP");
         new Spell("fireball",400,1,TargetCommunities.opponentForce,Effect.holyBuff,TypeOfMultiplicity.spellUnit,4,"impact4Time");
         new Spell("godStrength",450,2,TargetCommunities.ownHero,Effect.powerBuff,TypeOfMultiplicity.spellUnit,4,"adding4ToHeroAP");
@@ -73,15 +46,15 @@ public class Spell extends Card
         new Spell("madness",650,0,TargetCommunities.ownForce,Effect.powerBuff,TypeOfMultiplicity.spellTurnAndUnit,43,"adding4ToAPButDisarmFor3Turn");
         new Spell("allDisarm",2000,9,TargetCommunities.allOpponentForces,Effect.disarmBuff,TypeOfMultiplicity.spellUnit,1,"disarmFor1Turn");
         new Spell("allPoison",1500,8,TargetCommunities.allOpponentForces,Effect.poisonBuff,TypeOfMultiplicity.spellUnit,4,"poisonAllForcesFor4Turn");
-        new Spell("dispel",2100,0,TargetCommunities.anyForce,null,TypeOfMultiplicity.spellTurnAndUnit,63,"removingBadAndGoodBuffs");
-        new Spell("healthWithProfit",2250,0,TargetCommunities.ownForce,null,TypeOfMultiplicity.spellUnit,6,"weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn");
+        new Spell("dispel",2100,0,TargetCommunities.anyForce,null/*todo*/,TypeOfMultiplicity.spellTurnAndUnit,63,"removingBadAndGoodBuffs");
+        new Spell("healthWithProfit",2250,0,TargetCommunities.ownForce,null/*todo*/,TypeOfMultiplicity.spellUnit,6,"weaknessBuffDecreasing6HPHaving2holyBuffFor3Turn");
         new Spell("powerUp",2500,2,TargetCommunities.ownForce,Effect.powerBuff,TypeOfMultiplicity.spellUnit,6,"powerBuffIncrease6AP");
         new Spell("allPower",2000,4,TargetCommunities.allOwnForces,Effect.powerBuff,TypeOfMultiplicity.spellUnit,2,"powerBuffWith2APConstant");
         new Spell("allAttack",1500,4,TargetCommunities.allOpponentForesInColumn,Effect.holyBuff,TypeOfMultiplicity.spellUnit,6,"impactToAllEnemy6impact");
         new Spell("weakening",1000,1,TargetCommunities.opponentMinion,Effect.weaknessBuff,TypeOfMultiplicity.spellUnit,4,"weaknessWithdecreasing4APInOneForse");
-        new Spell("sacrifice",1600,2,TargetCommunities.ownMinion,null,TypeOfMultiplicity.spellUnit,"weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse");
-        new Spell("kingGuard",1750,9,TargetCommunities.opponentMinionAroundOwnHero,null,TypeOfMultiplicity.spellUnit,"killingEnemy");
-        new Spell("shock",1200,1,TargetCommunities.opponentForce,Effect.stunBuff ,TypeOfMultiplicity.spellUnit,2,"stunFor2Turn");*/
+        new Spell("sacrifice",1600,2,TargetCommunities.ownMinion,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"weaknessWithdecreasing6HPAndPowerBuffWithIncreasing8APInOneForse");
+        new Spell("kingGuard",1750,9,TargetCommunities.opponentMinionAroundOwnHero,null/*todo*/,TypeOfMultiplicity.spellUnit/*todo*/,"killingEnemy");
+        new Spell("shock",1200,1,TargetCommunities.opponentForce,Effect.stunBuff ,TypeOfMultiplicity.spellUnit,2,"stunFor2Turn");
 
 
     public void effectHolyBuff(Card card)

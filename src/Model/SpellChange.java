@@ -156,4 +156,12 @@ public class SpellChange
     public void setMadeCellFiery(boolean madeCellFiery) {
         this.madeCellFiery = madeCellFiery;
     }
+
+    public boolean isActivateReverseHolyBuff() {
+        return activateReverseHolyBuff;
+    }
+
+    public void setActivateReverseHolyBuff(boolean activateReverseHolyBuff) {
+        this.activateReverseHolyBuff = activateReverseHolyBuff;
+    }
 }
