@@ -132,17 +132,6 @@ public class Minion extends NonSpellCards
         new Minion("Shah Ghoul" ,600 , 5 ,10 , 4 , null);
         new Minion("Arzhang Div" ,600 , 3 ,6 , 6 , null);  //40
 
-        Minion minion1 = new Minion("persianArcher",300,2,6,4, ImpactType.ranged,7,  null);
-        Minion minion2 = new Minion("persianSwordsMan",400,2,6,4, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);
-        Minion minion3 = new Minion("persianSpear",500,1,5,3, ImpactType.hybrid,3,null);
-        Minion minion4 = new Minion("persianHorseMan",200,4,10,6, ImpactType.melee,0,null);
-        Minion minion5 = new Minion("persianAthlete",600 ,9 ,24 ,6 , ImpactType.melee,0,null);
-        Minion minion6 = new Minion("persianGeneralissimo",800,7,12,4, ImpactType.melee,0, TimeToActivateSpecialPower.combo);
-        Minion minion7 = new Minion("toranianArcher",500,1,3,4, ImpactType.ranged,5,null);
-        Minion minion8 = new Minion("toranianSling",600,1,4,2, ImpactType.ranged,7,null);
-        Minion minion9 = new Minion("toranianSpear",600,1,4,4, ImpactType.hybrid,3,null);
-        Minion minion10 = new Minion("toranianSpy",700,4,6,6, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);
-
 
 
     }
