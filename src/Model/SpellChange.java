@@ -14,6 +14,7 @@ public class SpellChange
     private boolean stunOpponent;
     private boolean disarmOpponent;
     private boolean activateHolyBuff;
+    private boolean activateReverseHolyBuff;
     private boolean madeCellToxic;
     private boolean madeCellHoly;
     private boolean madeCellFiery;
@@ -154,5 +155,13 @@ public class SpellChange
 
     public void setMadeCellFiery(boolean madeCellFiery) {
         this.madeCellFiery = madeCellFiery;
+    }
+
+    public boolean isActivateReverseHolyBuff() {
+        return activateReverseHolyBuff;
+    }
+
+    public void setActivateReverseHolyBuff(boolean activateReverseHolyBuff) {
+        this.activateReverseHolyBuff = activateReverseHolyBuff;
     }
 }
