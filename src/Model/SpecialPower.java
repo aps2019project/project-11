@@ -18,11 +18,13 @@ public class SpecialPower
         this.descriptionTypeOfSpell = descriptionTypeOfSpell;
     }
 
-    public SpellEffect getSpellEffect() {
+    public SpellEffect getSpellEffect()
+    {
         return spellEffect;
     }
 
-    public void setSpellEffect(SpellEffect spellEffect) {
+    public void setSpellEffect(SpellEffect spellEffect)
+    {
         this.spellEffect = spellEffect;
     }
 
