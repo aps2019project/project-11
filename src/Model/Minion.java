@@ -25,23 +25,23 @@ public class Minion extends NonSpellCards
     {
         Spell minionSpell15 = new Spell(null , 0 , 0 , "10 power buff" );
         minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false, false , false , false , false));
-        minionSpell15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null, false));
+        minionSpell15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null, false,false,false));
 
         Spell minionSpell17 = new Spell(null , 0 , 0 , "make 2 damage on around minions" );
         minionSpell17.getSpellEffect().addSpellChange(new SpellChange(0 , false , false ,TimeToActivateSpecialPower.onDeath ,0 ,-2 , 0 , false , false , false ,false, false , false , false ,false));
-        minionSpell17.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.hybrid ,0 , null, false));
+        minionSpell17.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.hybrid ,0 , null, false,false,false));
 
         Spell minionSpell18 = new Spell(null , 0 , 0 , "made toxic enemy force 3 turn" );
         minionSpell18.getSpellEffect().addSpellChange(new SpellChange(3 , false , false ,TimeToActivateSpecialPower.onAttack ,0 ,-1 , 0 , false , false , false ,false, false , false , false , false));
-        minionSpell18.getSpellEffect().addTarget(new Target(0 , 0 , false ,false , 1 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null,false));
+        minionSpell18.getSpellEffect().addTarget(new Target(0 , 0 , false ,false , 1 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null,false,false,false));
 
         Spell minionSpell20 = new Spell(null , 0 , 0 , "holy buff" );
         minionSpell20.getSpellEffect().addSpellChange(new SpellChange(0, true , false ,TimeToActivateSpecialPower.onAttack ,0 ,0 , 0 , false , false , true ,false, false , false , false , false));
-        minionSpell20.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee ,0 , null, false));
+        minionSpell20.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee ,0 , null, false,false,false));
 
         Spell minionSpell21 = new Spell(null , 0 , 0 , "minions around the card receive one more damage when receive damage" );
         minionSpell21.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onSpawn ,0 ,0 , 0 , false , false , false , true , false , false , false, false));
-        minionSpell21.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee ,0 , null , false));
+        minionSpell21.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee ,0 , null , false,false,false));
 
         /*Spell minionSpell22 = new Spell(null , 0 , 0 , "" );
         minionSpell22.getSpellEffect().addSpellChange(new SpellChange(0, true , false ,TimeToActivateSpecialPower.onAttack ,0 ,0 , 0 , false , false , true , false , false , false));
@@ -49,45 +49,45 @@ public class Minion extends NonSpellCards
 
         Spell minionSpell23 = new Spell(null , 0 , 0 , "if attack to opponent minion , next minion receive 8 damage" );
         minionSpell23.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onAttack ,0 ,-8 , 0 , false , false , false , false, false , false , false , false));
-        minionSpell23.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false));
+        minionSpell23.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false,false,false));
 
         Spell minionSpell24 = new Spell(null , 0 , 0 , "if attack to opponent minion , next minion receive 6 damage" );
         minionSpell24.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onAttack ,0 ,-6 , 0 , false , false , false , false, false , false , false , false));
-        minionSpell24.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null ,false));
+        minionSpell24.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null ,false,false,false));
 
         Spell minionSpell25 = new Spell(null , 0 , 0 , "give 2 power buff and 1 poison buff to around minion cards in one turn" );
         minionSpell25.getSpellEffect().addSpellChange(new SpellChange(1, false , false ,TimeToActivateSpecialPower.passive ,2 ,-1 , 0 , false , false , false , false, false , false , false , false));
-        minionSpell25.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false));
-        minionSpell25.getSpellEffect().addTarget(new Target(8 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false));
+        minionSpell25.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false,false,false));
+        minionSpell25.getSpellEffect().addTarget(new Target(8 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false,false,false));
 
         Spell minionSpell26 = new Spell(null , 0 , 0 , "give 2 power buff and 1 poison buff to around minion cards in continuously" );
         minionSpell26.getSpellEffect().addSpellChange(new SpellChange(0, true , true ,TimeToActivateSpecialPower.passive ,2 , 0, 0 , false , false , true , false, false , false , false , false));
-        minionSpell26.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false));
-        minionSpell26.getSpellEffect().addTarget(new Target(8 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false));
+        minionSpell26.getSpellEffect().addTarget(new Target(0 , 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false,false,false));
+        minionSpell26.getSpellEffect().addTarget(new Target(8 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null , false,false,false));
 
         Spell minionSpell27 = new Spell(null , 0 , 0 , "increase 1 AP to all own minions" );
         minionSpell27.getSpellEffect().addSpellChange(new SpellChange(0, true , true ,TimeToActivateSpecialPower.onTurn ,1 ,0, 0 , false , false , false , false, false , false , false , false));
-        minionSpell27.getSpellEffect().addTarget(new Target(0 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged,0 , null , true));
+        minionSpell27.getSpellEffect().addTarget(new Target(0 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged,0 , null , true,false,false));
 
         Spell minionSpell31 = new Spell(null , 0 , 0 , "random damage one opponent 16 damage" );
         minionSpell31.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onSpawn ,0 ,-16, 0 , false , false , false , false, false , false , false , false));
-        minionSpell31.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false));
+        minionSpell31.getSpellEffect().addTarget(new Target(0 , 1 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false,false,false));
 
         Spell minionSpell35 = new Spell(null , 0 , 0 , "delete all positive buff" );
         minionSpell35.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onAttack ,0 ,0, 0 , false , false , false , false, false , false , false , true));
-        minionSpell35.getSpellEffect().addTarget(new Target(0, 0 , false ,false , 1 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false));
+        minionSpell35.getSpellEffect().addTarget(new Target(0, 0 , false ,false , 1 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false,false,false));
 
         Spell minionSpell36 = new Spell(null , 0 , 0 , "around minions stun" );
         minionSpell36.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onSpawn ,0 ,0, 0 , true , false , false , false, false , false , false , false));
-        minionSpell36.getSpellEffect().addTarget(new Target(0, 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged,0 , null , false));
+        minionSpell36.getSpellEffect().addTarget(new Target(0, 8 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged,0 , null , false,false,false));
 
         Spell minionSpell37 = new Spell(null , 0 , 0 , "12 holy buff" );
         minionSpell37.getSpellEffect().addSpellChange(new SpellChange(0, true , false ,TimeToActivateSpecialPower.passive ,0 ,0, 0 , true , false , true , false, false , false , false , false));
-        minionSpell37.getSpellEffect().addTarget(new Target(1, 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false));
+        minionSpell37.getSpellEffect().addTarget(new Target(1, 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false,false,false));
 
         Spell minionSpell38 = new Spell(null , 0 , 0 , "on death make 6 damage on opponent hero" );
         minionSpell38.getSpellEffect().addSpellChange(new SpellChange(0, false , false ,TimeToActivateSpecialPower.onDeath,0 ,-6, 0 , false , false , true , false, false , false , false , false));
-        minionSpell38.getSpellEffect().addTarget(new Target(0, 0 , false ,true , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false));
+        minionSpell38.getSpellEffect().addTarget(new Target(0, 0 , false ,true , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.melee,0 , null , false,false,false));
 
 
 
@@ -104,6 +104,8 @@ public class Minion extends NonSpellCards
         Minion minion8 = new Minion("toranianSling",600,1,4,2, ImpactType.ranged,7,null);
         Minion minion9 = new Minion("toranianSpear",600,1,4,4, ImpactType.hybrid,3,null);
         Minion minion10 = new Minion("toranianSpy",700,4,6,6, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);
+
+
         Minion minion11 = new Minion("Gorzdar Torani" ,450 , 2 ,3 , 10 , ImpactType.melee , 0 , null );
         Minion minion12 = new Minion("Shahzade Torani" ,800 , 6 ,6 , 10 , ImpactType.melee , 0  , TimeToActivateSpecialPower.combo);
         Minion minion13 = new Minion("Dive Sepid" ,300 , 9 ,14 , 10 , ImpactType.hybrid , 7 , null);

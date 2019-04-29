@@ -16,8 +16,10 @@ public class Target
     private int maxAttackRange;
     private NonSpellCards nextNoneSpellCard;
     private boolean allOwnMinion;
+    private boolean allOwnBothNonSpellCards;
+    private boolean allOpponentNonSpellCards;
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, ImpactType impactType, int maxAttackRange , NonSpellCards nextNoneSpellCard ,boolean allOwnMinion)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, ImpactType impactType, int maxAttackRange , NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -33,6 +35,8 @@ public class Target
         this.maxAttackRange = maxAttackRange;
         this.nextNoneSpellCard = nextNoneSpellCard;
         this.allOwnMinion = allOwnMinion;
+        this.allOpponentNonSpellCards = allOpponentNonSpellCards;
+        this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
     public int getNumOfOwnMinions()
     {
@@ -99,5 +103,21 @@ public class Target
 
     public void setAllOwnMinion(boolean allOwnMinion) {
         this.allOwnMinion = allOwnMinion;
+    }
+
+    public boolean isAllOpponentNonSpellCards() {
+        return allOpponentNonSpellCards;
+    }
+
+    public void setAllOpponentNonSpellCards(boolean allOpponentNonSpellCards) {
+        this.allOpponentNonSpellCards = allOpponentNonSpellCards;
+    }
+
+    public boolean isAllOwnBothNonSpellCards() {
+        return allOwnBothNonSpellCards;
+    }
+
+    public void setAllOwnBothNonSpellCards(boolean allOwnBothNonSpellCards) {
+        this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
 }
