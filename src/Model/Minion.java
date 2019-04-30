@@ -6,7 +6,8 @@ public class Minion extends NonSpellCards
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
 
-    Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower){
+    Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower)
+    {
         this.setCardName(name);
         this.setPrice(price);
         this.setRequiredMP(MP);
@@ -23,6 +24,21 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
+        Spell minionSpell2 = new Spell("persianSwordsMan",400,2,"stun in current turn");
+        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(0,false,false,TimeToActivateSpecialPower.onAttack,0,0,0,true,false,false,false,false,false,false,false,false,true));
+        minionSpell2.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,ImpactType.melee,0,null,false,false,false));
+
+        Spell minionSpell5 = new Spell("persianAthlete",600,9,"confusing");
+        //todo
+
+        Spell minionSpell6 = new Spell("persianGeneralissimo",800,7,"combo");
+        minionSpell6.getSpellEffect().addSpellChange(new SpellChange(0,false,false,TimeToActivateSpecialPower.combo,0,0,0,false,false,false,false,false,false,false,false,true,false));
+        minionSpell6.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,ImpactType.melee,4,null,false,false,false));
+
+        Spell minionSpell10 = new Spell("toranianSpy",700,4,"disarm and poison");
+        minionSpell10.getSpellEffect().addSpellChange(new SpellChange(4,false,false,TimeToActivateSpecialPower.onAttack,0,-1,0,false,true,false,false,false,false,false,false,false,false));
+        minionSpell10.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,ImpactType.melee,0,null,false,false,false));
+
         Spell minionSpell15 = new Spell(null , 0 , 0 , "10 power buff" );
         minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false, false , false , false , false));
         minionSpell15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null, false,false,false));
@@ -91,16 +107,8 @@ public class Minion extends NonSpellCards
 
 
 
-        /*new Minion("persianArcher",300,2,6,4, ImpactType.ranged,7,  null);
-        new Minion("persianSwordsMan",400,2,6,4, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);
-        new Minion("persianSpear",500,1,5,3, ImpactType.hybrid,3,null);
-        new Minion("persianHorseMan",200,4,10,6, ImpactType.melee,0,null);
-        new Minion("persianAthlete",600 ,9 ,24 ,6 , ImpactType.melee,0,null);
-        new Minion("persianGeneralissimo",800,7,12,4, ImpactType.melee,0, TimeToActivateSpecialPower.combo);
-        new Minion("toranianArcher",500,1,3,4, ImpactType.ranged,5,null);
-        new Minion("toranianSling",600,1,4,2, ImpactType.ranged,7,null);
-        new Minion("toranianSpear",600,1,4,4, ImpactType.hybrid,3,null);
-        new Minion("toranianSpy",700,4,6,6, ImpactType.melee,0, TimeToActivateSpecialPower.onAttack);*/
+
+      /*
         new Minion("Gorzdar Torani" ,450 , 2 ,3 , 10 , null );
         new Minion("Shahzade Torani" ,800 , 6 ,6 , 10 , null);
         new Minion("Dive Sepid" ,300 , 9 ,14 , 10 , null);
@@ -130,7 +138,7 @@ public class Minion extends NonSpellCards
         new Minion("Folad Zereh" ,650 , 3 ,1 , 1 , minionSpell37);
         new Minion("Siavash" ,350 , 4 ,8 , 5 , minionSpell38); //38
         new Minion("Shah Ghoul" ,600 , 5 ,10 , 4 , null);
-        new Minion("Arzhang Div" ,600 , 3 ,6 , 6 , null);  //40
+        new Minion("Arzhang Div" ,600 , 3 ,6 , 6 , null);  //40*/
 
 
 

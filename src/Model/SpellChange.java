@@ -23,8 +23,10 @@ public class SpellChange
     private boolean killing;
     private boolean dispel;
     private boolean continuous;
+    private boolean combo;
+    private boolean currentTurn;
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff)
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff,boolean combo,boolean currentTurn)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -41,6 +43,8 @@ public class SpellChange
         this.madeCellHoly = madeCellHoly;
         this.madeCellFiery = madeCellFiery;
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
+        this.combo = combo;
+        this.currentTurn = currentTurn;
     }
 
     public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, int numOfHollyBuffs, boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery, boolean deleteAllPositiveBuff, boolean killing, boolean dispel, boolean continuous)
@@ -231,5 +235,21 @@ public class SpellChange
 
     public void setNumOfHolyBuffs(int numOfHolyBuffs) {
         this.numOfHolyBuffs = numOfHolyBuffs;
+    }
+
+    public boolean isCombo() {
+        return combo;
+    }
+
+    public void setCombo(boolean combo) {
+        this.combo = combo;
+    }
+
+    public boolean isCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(boolean currentTurn) {
+        this.currentTurn = currentTurn;
     }
 }
