@@ -10,26 +10,33 @@ public class Item
     private int price;
     private ItemType itemType;
     private String descriptionTypeOfItem;
-    private Spell itemEffect;
+    private ItemEffect itemEffect;
     private boolean collectibleItemSelectedInBattle = false;
 
-    public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem)
+    public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)
     {
-        this(itemName, itemType, descriptionTypeOfItem);
+        this(itemName, itemType, descriptionTypeOfItem, itemEffect);
         this.setPrice(price);
     }
 
-    public Item(String itemName, ItemType itemType, String descriptionTypeOfItem)
+    public Item(String itemName, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)
     {
         this.setItemName(itemName);
         this.setItemType(itemType);
         this.setDescriptionTypeOfItem(descriptionTypeOfItem);
+        this.setItemEffect(itemEffect);
         items.add(this);
     }
 
     public static void setItems()
     {
-        new Item("CrownOfWisdom", 300, ItemType.usable, "Increase MP in first 3 turns once");
+        ItemEffect itemEffectItem1 = new ItemEffect();
+        itemEffectItem1.addItemChange(new ItemChange(3, false, 1, 0, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem1.addItemTarget(ItemTarget.OWN_PLAYER);
+        new Item("CrownOfWisdom", 300, ItemType.usable, "Increase MP in first 3 turns once", itemEffectItem1);
+
+
+
         new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero");
         new Item("DamulArk", 30000, ItemType.usable, "Own hero disarm opponent while own hybrid or ranged force attacked");
         new Item("TheDevastation", ItemType.collectible, "Increase HP 6 units");
@@ -123,11 +130,11 @@ public class Item
         this.price = price;
     }
 
-    public Spell getItemEffect() {
+    public ItemEffect getItemEffect() {
         return itemEffect;
     }
 
-    public void setItemEffect(Spell itemEffect) {
+    public void setItemEffect(ItemEffect itemEffect) {
         this.itemEffect = itemEffect;
     }
 
