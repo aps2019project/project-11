@@ -15,6 +15,7 @@ public class Player
     public Player(Account account)
     {
         this.account = account;
+        this.mainDeck = account.getMainDeck();
     }
 
     public Card findCardInGraveYard(int ID)

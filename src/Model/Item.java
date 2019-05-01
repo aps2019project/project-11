@@ -9,45 +9,46 @@ public class Item
     private String itemName;
     private int price;
     private ItemType itemType;
+    private String descriptionTypeOfItem;
     private Spell itemEffect;
     private boolean collectibleItemSelectedInBattle = false;
 
-    public Item(String itemName, int price, ItemType itemType, Spell itemEffect)
+    public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem)
     {
-        this(itemName, itemType, itemEffect);
+        this(itemName, itemType, descriptionTypeOfItem);
         this.setPrice(price);
     }
 
-    public Item(String itemName, ItemType itemType, Spell itemEffect)
+    public Item(String itemName, ItemType itemType, String descriptionTypeOfItem)
     {
         this.setItemName(itemName);
         this.setItemType(itemType);
-        this.setItemEffect(itemEffect);
+        this.setDescriptionTypeOfItem(descriptionTypeOfItem);
         items.add(this);
     }
 
     public static void setItems()
     {
-        new Item("CrownOfWisdom", 300, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,null));
-        new Item("Shield", 4000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,12,TargetCommunities.ownHero,null,Effect.holyBuff));
-        new Item("DamulArk", 30000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.ownHero,ImpactType.rangedAndHybrid,Effect.disarmBuff));
-        new Item("TheDevastation", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,6,null,null,Effect.powerBuff));
-        new Item("TwinHornArrow", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,ImpactType.RangedOrHybrid,Effect.powerBuff));
-        new Item("SimurghFeather", 3500, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.opponentHero,ImpactType.RangedOrHybrid,Effect.weaknessBuff));
-        new Item("Elixir", ItemType.collectible, new Spell(/*todo*/));
-        new Item("ManaPotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,3,null,null,Effect.addingMP));
-        new Item("InvulnerablePotion", ItemType.collectible, new Spell(TypeOfMultiplicity.spellTurnAndUnit,102,TargetCommunities.ownForce,null,Effect.holyBuff));
-        new Item("DeathCurse", ItemType.collectible, new Spell(/*todo*/));
-        new Item("Random damage", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,2,TargetCommunities.anyForce,null,Effect.powerBuff));
-        new Item("Terror Hood",  5000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurnAndUnit,21,TargetCommunities.opponentForce,null,Effect.weaknessBuff));
-        new Item("Blades of agility", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,6,TargetCommunities.anyForce,null,Effect.powerBuff));
-        new Item("King Wisdom", 9000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUntilEndGame,1,null,null,Effect.addingMP));
-        new Item("Assassination Dagger", 15000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,1,TargetCommunities.opponentHero,null,Effect.holyBuff));
-        new Item("Poisonous Dagger", 7000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.opponentForce,null,Effect.poisonBuff));
-        new Item("Shock Hammer", 15000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,1,TargetCommunities.opponentForce,null,Effect.disarmBuff));
-        new Item("Soul Eater", 25000, ItemType.usable, new Spell(TypeOfMultiplicity.spellUnit,1,TargetCommunities.ownForce,null,Effect.powerBuff));
-        new Item("Baptism", 20000, ItemType.usable, new Spell(TypeOfMultiplicity.spellTurn,2,TargetCommunities.ownMinion,null,Effect.holyBuff));
-        new Item("Chinese sword", ItemType.collectible, new Spell(TypeOfMultiplicity.spellUnit,5,TargetCommunities.anyForce,ImpactType.melee,Effect.powerBuff));
+        new Item("CrownOfWisdom", 300, ItemType.usable, "Increase MP in first 3 turns once");
+        new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero");
+        new Item("DamulArk", 30000, ItemType.usable, "Own hero disarm opponent while own hybrid or ranged force attacked");
+        new Item("TheDevastation", ItemType.collectible, "Increase HP 6 units");
+        new Item("TwinHornArrow", ItemType.collectible, "Increase one hybrid or ranged force twice");
+        new Item("SimurghFeather", 3500, ItemType.usable, "Decrease opponent hero's AP twice if hybrid or ranged");
+        new Item("Elixir", ItemType.collectible, "Increase Hp 3 units and one powerBuff with +3 for random minion");
+        new Item("ManaPotion", ItemType.collectible, "Increase MP 3 units in next turn");
+        new Item("InvulnerablePotion", ItemType.collectible, "Activate 10 hollyBuffs on random own force for 2 turns");
+        new Item("DeathCurse", ItemType.collectible, "Minion attack one of the closest opponent forces 8 units");
+        new Item("Random damage", ItemType.collectible, "add 2 units to random force AP");
+        new Item("Terror Hood",  5000, ItemType.usable, "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked");
+        new Item("Blades of agility", ItemType.collectible, "add 6 units to random force AP");
+        new Item("King Wisdom", 9000, ItemType.usable, "Increase MP 1 unit in all turns");
+        new Item("Assassination Dagger", 15000, ItemType.usable, "Attack opponent hero 1 unit when inserting any force");
+        new Item("Poisonous Dagger", 7000, ItemType.usable, "Activate poisonBuff on opponent random force for 1 turn while own force attacked");
+        new Item("Shock Hammer", 15000, ItemType.usable, "Stun opponent when own hero attacked");
+        new Item("Soul Eater", 25000, ItemType.usable, "Activate 1 powerBuff with 1 unit on random own force while any own minion killed");
+        new Item("Baptism", 20000, ItemType.usable, "Each minion has powerBuff for 2 turns when spawned");
+        new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces");
     }
 
     public static Item findItem(int itemID)
@@ -98,7 +99,6 @@ public class Item
         this.collectibleItemSelectedInBattle = collectibleItemSelectedInBattle;
     }
 
-
     public void setItemName(String itemName)
     {
         this.itemName = itemName;
@@ -137,5 +137,13 @@ public class Item
 
     public void setItemType(ItemType itemType) {
         this.itemType = itemType;
+    }
+
+    public String getDescriptionTypeOfItem() {
+        return descriptionTypeOfItem;
+    }
+
+    public void setDescriptionTypeOfItem(String descriptionTypeOfItem) {
+        this.descriptionTypeOfItem = descriptionTypeOfItem;
     }
 }

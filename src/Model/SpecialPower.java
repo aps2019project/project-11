@@ -2,20 +2,20 @@ package Model;
 
 public class SpecialPower
 {
-    private String descriptionTypeOfSpell;
+    private String descriptionTypeOfSpecialPower;
     private SpellEffect spellEffect = new SpellEffect();
 
-    public SpecialPower(String descriptionTypeOfSpell)
+    public SpecialPower(String descriptionTypeOfSpecialPower)
     {
-        this.descriptionTypeOfSpell = descriptionTypeOfSpell;
+        this.descriptionTypeOfSpecialPower = descriptionTypeOfSpecialPower;
     }
 
-    public String getDescriptionTypeOfSpell() {
-        return descriptionTypeOfSpell;
+    public String getDescriptionTypeOfSpecialPower() {
+        return descriptionTypeOfSpecialPower;
     }
 
-    public void setDescriptionTypeOfSpell(String descriptionTypeOfSpell) {
-        this.descriptionTypeOfSpell = descriptionTypeOfSpell;
+    public void setDescriptionTypeOfSpecialPower(String descriptionTypeOfSpecialPower) {
+        this.descriptionTypeOfSpecialPower = descriptionTypeOfSpecialPower;
     }
 
     public SpellEffect getSpellEffect()
