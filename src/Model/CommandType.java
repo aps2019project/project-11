@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public enum CommandType
 {
     CREATE_ACCOUNT,
@@ -46,6 +48,7 @@ public enum CommandType
     CUSTOM_GAME,
     SELECT_USER,
     START_MULTI_PLAYER_GAME,
+    COMBO_ATTACK
     ;
 
     public String username;
@@ -57,4 +60,6 @@ public enum CommandType
     public int columnOfTheCell;
     public String multiPlayerMatchMode;
     public int numOfFlags;
+    public int enemyCardIDForCombo;
+    public ArrayList<Integer> cardIDsForComboAttack = new ArrayList<>();
 }

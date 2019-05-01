@@ -28,6 +28,8 @@ public class Request
     private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
     private static Pattern patternSelectUser = Pattern.compile("Select User //w+");
     private static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game //w//s*//d*");
+    private static Pattern patternComboAttack = Pattern.compile("Attack combo (([0-9]+)(\\s))+");
+
 
     public static CommandType command;
 
@@ -312,6 +314,14 @@ public class Request
             command.rowOfTheCell = Integer.parseInt(inputParts[2]);
             command.columnOfTheCell = Integer.parseInt(inputParts[3]);
             //todo
+        }
+        else if(patternComboAttack.matcher(input).matches())
+        {
+            command = CommandType.COMBO_ATTACK;
+            command.enemyCardIDForCombo = Integer.parseInt(inputParts[2]);
+            for(int counter = 3 ; counter < inputParts.length ; counter++){
+                command.cardIDsForComboAttack.add(Integer.parseInt(inputParts[counter]));
+            }
         }
         else if(input.equalsIgnoreCase("Show Next Card"))
         {

@@ -1,31 +1,30 @@
 package Controller;
 
-import Model.*;
-import View.*;
+import Model.Account;
+import Model.Battle;
+import Model.Card;
+import Model.Item;
+import View.Request;
+import View.ShowOutput;
 
-public class CallTheAppropriateFunction
-{
+public class CallTheAppropriateFunction {
     private AccountManager accountManager = new AccountManager();
     private CollectionManager collectionManager = new CollectionManager();
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
 
-    public void setPrimarySettings()
-    {
+    public void setPrimarySettings() {
         Card.setCards();
         Item.setItems();
         Account.setAIAccounts();
         determineAccountCommand();
     }
 
-    void determineMainMenuCommand()
-    {
-        while (true)
-        {
+    void determineMainMenuCommand() {
+        while (true) {
             Request.getMainMenuCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case ENTER_SHOP:
                     determineShopCommand();
                     break;
@@ -51,13 +50,10 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineAccountCommand()
-    {
-        while (true)
-        {
+    private void determineAccountCommand() {
+        while (true) {
             Request.getAccountCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case CREATE_ACCOUNT:
                     accountManager.checkCircumstancesToCreateAccount(Request.command.username);
                     break;
@@ -78,13 +74,10 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineShopCommand()
-    {
-        while (true)
-        {
+    private void determineShopCommand() {
+        while (true) {
             Request.getShopCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case SHOW_COLLECTION:
                     ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
@@ -95,16 +88,11 @@ public class CallTheAppropriateFunction
                     collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case BUY:
-                    if(Card.findCard(Request.command.cardOrItemName) != null)
-                    {
+                    if (Card.findCard(Request.command.cardOrItemName) != null) {
                         shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
-                    }
-                    else if(Item.findItem(Request.command.cardOrItemName) != null)
-                    {
+                    } else if (Item.findItem(Request.command.cardOrItemName) != null) {
                         shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
-                    }
-                    else
-                    {
+                    } else {
                         ShowOutput.printOutput("Card or Item does'nt exist in Shop");
                     }
                     break;
@@ -125,13 +113,10 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineCollectionCommand()
-    {
-        while (true)
-        {
+    private void determineCollectionCommand() {
+        while (true) {
             Request.getCollectionCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case EXIT:
                     ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
@@ -176,13 +161,10 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineBattleMenuCommand()
-    {
-        while (true)
-        {
+    private void determineBattleMenuCommand() {
+        while (true) {
             Request.getBattleMenuCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case SINGLE_PLAYER:
                     selectSinglePlayerMatchMode();
                     break;
@@ -193,13 +175,10 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void selectSinglePlayerMatchMode()
-    {
-        while(true)
-        {
+    private void selectSinglePlayerMatchMode() {
+        while (true) {
             Request.getSinglePlayerMatchMode();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case STORY:
 
                     break;
@@ -210,14 +189,11 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void selectMultiPlayerMatchMode()
-    {
-        while (true)
-        {
+    private void selectMultiPlayerMatchMode() {
+        while (true) {
             Account.showAllPlayers();
             Request.getMultiPlayerMatchMode();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case SELECT_USER:
                     battleManager.checkSecondPlayerExistence(Request.command.username);
                     break;
@@ -228,16 +204,13 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineBattleCommand()
-    {
-        while (true)
-        {
+    private void determineBattleCommand() {
+        while (true) {
             Request.getBattleCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case GAME_INFO:
                     ShowOutput.showGameInfo();
-                break;
+                    break;
                 case SHOW_MY_MINIONS:
                     ShowOutput.showMyMinions();
                     break;
@@ -255,11 +228,14 @@ public class CallTheAppropriateFunction
                     break;
                 case INSERT_CARD:
                     battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    break;
+                case COMBO_ATTACK:
+
                 case SHOW_NEXT_CARD:
 
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
-
+                    break;
                 case HELP_BATTLE:
 
                 case EXIT:
@@ -268,35 +244,27 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineAfterSelectCardCommand()
-    {
-        while (true)
-        {
+    private void determineAfterSelectCardCommand() {
+        while (true) {
             Request.getAfterSelectCardCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case MOVE_TO:
-                    Battle.moveCard(Request.command.rowOfTheCell,Request.command.columnOfTheCell);
+                    Battle.moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
             }
         }
     }
 
-    private void determineAfterSelectItemCommand()
-    {
-        while (true)
-        {
+    private void determineAfterSelectItemCommand() {
+        while (true) {
             Request.getAfterSelectItemCommands();
         }
     }
 
-    private void determineGraveYardCommand()
-    {
-        while (true)
-        {
+    private void determineGraveYardCommand() {
+        while (true) {
             Request.getGraveYardCommands();
-            switch (Request.command)
-            {
+            switch (Request.command) {
                 case SHOW_INFO:
                     /*todo*/
                 case SHOW_CARDS:

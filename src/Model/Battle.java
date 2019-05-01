@@ -3,6 +3,9 @@ package Model;
 import View.Request;
 import View.ShowOutput;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Battle
 {
     public static Battle currentBattle;
@@ -130,9 +133,22 @@ public class Battle
         }
     }
 
-    public void comboAttack(String[] commandParts){
+    public void comboAttack(int enemyCardID , ArrayList<Integer> cardsIDForComboAttack){
+        checkComboCondition(cardsIDForComboAttack);
+        for(int cardID : cardsIDForComboAttack){
+            selectCard(cardID);
+            attackToOpponent(enemyCardID);
+        }
+    }
 
-
+    private void checkComboCondition(ArrayList<Integer> cardsIDForComboAttack) {
+        for(int cardID : cardsIDForComboAttack) {
+            if(Card.findCard(cardID) == null){
+                continue;
+            }
+            Card card = Card.findCard(cardID);
+            if(card instanceof Minion && ((Minion)card).)
+        }
     }
 
     public void useSpecialPower(int x, int y)
