@@ -6,6 +6,7 @@ public class ItemEffect
 {
     private ArrayList<ItemChange> itemChanges = new ArrayList<>();
     private ArrayList<ItemTarget> itemTargets = new ArrayList<>();
+    private ItemActivateTime itemActivateTimes;
 
     public ArrayList<ItemChange> getItemChanges() {
         return itemChanges;
@@ -21,5 +22,13 @@ public class ItemEffect
 
     public void addItemTarget(ItemTarget itemTarget) {
         itemTargets.add(itemTarget);
+    }
+
+    public ItemActivateTime getItemActivateTimes() {
+        return itemActivateTimes;
+    }
+
+    public void setItemActivateTimes(ItemActivateTime itemActivateTimes) {
+        this.itemActivateTimes = itemActivateTimes;
     }
 }

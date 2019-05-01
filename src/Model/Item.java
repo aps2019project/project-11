@@ -33,14 +33,36 @@ public class Item
         ItemEffect itemEffectItem1 = new ItemEffect();
         itemEffectItem1.addItemChange(new ItemChange(3, false, 1, 0, 0, false, false, 0, false, 0, false, 0, false, 0));
         itemEffectItem1.addItemTarget(ItemTarget.OWN_PLAYER);
+        itemEffectItem1.setItemActivateTimes(ItemActivateTime.START_BATTLE);
         new Item("CrownOfWisdom", 300, ItemType.usable, "Increase MP in first 3 turns once", itemEffectItem1);
 
+        ItemEffect itemEffectItem2 = new ItemEffect();
+        itemEffectItem2.addItemChange(new ItemChange(0, true, 0, 0, 0, false, true, 12, false, 0, false, 0, false, 0));
+        itemEffectItem2.addItemTarget(ItemTarget.OWN_HERO);
+        itemEffectItem2.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero", itemEffectItem2);
+
+        ItemEffect itemEffectItem3 = new ItemEffect();
+        itemEffectItem3.addItemChange(new ItemChange(1, false, 0, 0, 0, true, false, 0, false, 0, false, 0, false,0));
+        itemEffectItem3.addItemTarget(ItemTarget.OWN_RANGED_HYBRID_HERO);
+        itemEffectItem3.setItemActivateTimes(ItemActivateTime.ON_ATTACK);
+        new Item("DamulArk", 30000, ItemType.usable, "Own hero disarm opponent while own hybrid or ranged force attacked", itemEffectItem3);
+
+        ItemEffect itemEffectItem4 = new ItemEffect();
+        itemEffectItem4.addItemChange(new ItemChange(0, true, 0, 6, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem4.addItemTarget(ItemTarget.OWN_RANDOM_FORCE);
+        itemEffectItem4.setItemActivateTimes(ItemActivateTime.ON_ATTACK);
+        new Item("TheDevastation", ItemType.collectible, "Increase HP 6 units", itemEffectItem4);
+
+        ItemEffect itemEffectItem5 = new ItemEffect();
+        itemEffectItem5.addItemChange(new ItemChange(0, true, 0, 0, 2, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem5.addItemTarget(ItemTarget.OWN_RANDOM_RANGED_HYBRID);
+        itemEffectItem5.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("TwinHornArrow", ItemType.collectible, "Increase one hybrid or ranged force twice", itemEffectItem5);
 
 
-        new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero");
-        new Item("DamulArk", 30000, ItemType.usable, "Own hero disarm opponent while own hybrid or ranged force attacked");
-        new Item("TheDevastation", ItemType.collectible, "Increase HP 6 units");
-        new Item("TwinHornArrow", ItemType.collectible, "Increase one hybrid or ranged force twice");
+
+
         new Item("SimurghFeather", 3500, ItemType.usable, "Decrease opponent hero's AP twice if hybrid or ranged");
         new Item("Elixir", ItemType.collectible, "Increase Hp 3 units and one powerBuff with +3 for random minion");
         new Item("ManaPotion", ItemType.collectible, "Increase MP 3 units in next turn");
