@@ -230,7 +230,7 @@ public class CallTheAppropriateFunction {
                     battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
                 case COMBO_ATTACK:
-
+                    //why Battle is static?
                 case SHOW_NEXT_CARD:
 
                 case ENTER_GRAVEYARD:
