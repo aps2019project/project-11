@@ -139,6 +139,7 @@ public class Battle
             selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
+        //todo //counterAttcak\\
     }
 
     private void checkComboCondition(ArrayList<Integer> cardsIDForComboAttack) {
@@ -147,7 +148,9 @@ public class Battle
                 continue;
             }
             Card card = Card.findCard(cardID);
-            if(card instanceof Minion && ((Minion)card).)
+            if(!(card instanceof Minion) || !((Minion)card).isAbleToCombo()){
+                cardsIDForComboAttack.removeIf(n -> n == cardID);
+            }
         }
     }
 
