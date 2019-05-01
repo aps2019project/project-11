@@ -60,24 +60,96 @@ public class Item
         itemEffectItem5.setItemActivateTimes(ItemActivateTime.USE_ITEM);
         new Item("TwinHornArrow", ItemType.collectible, "Increase one hybrid or ranged force twice", itemEffectItem5);
 
+        ItemEffect itemEffectItem6 = new ItemEffect();
+        itemEffectItem6.addItemChange(new ItemChange(0, true, 0, 0, -2, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem6.addItemTarget(ItemTarget.OPPONENT_RANGED_HYBRID_HERO);
+        itemEffectItem6.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("SimurghFeather", 3500, ItemType.usable, "Decrease opponent hero's AP twice if hybrid or ranged", itemEffectItem6);
 
+        ItemEffect itemEffectItem7 = new ItemEffect();
+        itemEffectItem7.addItemChange(new ItemChange(0, true, 0, 3, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem7.addItemChange(new ItemChange(0, true, 0, 0, 0, false, false, 0, true, 3, false, 0, false, 0));
+        itemEffectItem7.addItemTarget(ItemTarget.OWN_RANDOM_MINION);
+        itemEffectItem7.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("Elixir", ItemType.collectible, "Increase Hp 3 units and one powerBuff with +3 for random minion", itemEffectItem7);
 
+        ItemEffect itemEffectItem8 = new ItemEffect();
+        itemEffectItem8.addItemChange(new ItemChange(1, false, 3, 0, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem8.addItemTarget(ItemTarget.OWN_PLAYER);
+        itemEffectItem8.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("ManaPotion", ItemType.collectible, "Increase MP 3 units in next turn", itemEffectItem8);
 
-        new Item("SimurghFeather", 3500, ItemType.usable, "Decrease opponent hero's AP twice if hybrid or ranged");
-        new Item("Elixir", ItemType.collectible, "Increase Hp 3 units and one powerBuff with +3 for random minion");
-        new Item("ManaPotion", ItemType.collectible, "Increase MP 3 units in next turn");
-        new Item("InvulnerablePotion", ItemType.collectible, "Activate 10 hollyBuffs on random own force for 2 turns");
-        new Item("DeathCurse", ItemType.collectible, "Minion attack one of the closest opponent forces 8 units");
-        new Item("Random damage", ItemType.collectible, "add 2 units to random force AP");
-        new Item("Terror Hood",  5000, ItemType.usable, "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked");
-        new Item("Blades of agility", ItemType.collectible, "add 6 units to random force AP");
-        new Item("King Wisdom", 9000, ItemType.usable, "Increase MP 1 unit in all turns");
-        new Item("Assassination Dagger", 15000, ItemType.usable, "Attack opponent hero 1 unit when inserting any force");
-        new Item("Poisonous Dagger", 7000, ItemType.usable, "Activate poisonBuff on opponent random force for 1 turn while own force attacked");
-        new Item("Shock Hammer", 15000, ItemType.usable, "Stun opponent when own hero attacked");
-        new Item("Soul Eater", 25000, ItemType.usable, "Activate 1 powerBuff with 1 unit on random own force while any own minion killed");
-        new Item("Baptism", 20000, ItemType.usable, "Each minion has powerBuff for 2 turns when spawned");
-        new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces");
+        ItemEffect itemEffectItem9 = new ItemEffect();
+        itemEffectItem9.addItemChange(new ItemChange(2, false, 0, 0, 0, false, true, 10, false, 0, false, 0, false, 0));
+        itemEffectItem9.addItemTarget(ItemTarget.OWN_RANDOM_FORCE);
+        itemEffectItem9.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("InvulnerablePotion", ItemType.collectible, "Activate 10 hollyBuffs on random own force for 2 turns", itemEffectItem9);
+
+        ItemEffect itemEffectItem10 = new ItemEffect();  //todo
+        itemEffectItem10.addItemChange(new ItemChange(0, true, 0, -8, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem10.addItemTarget(ItemTarget.OPPONENT_CLOSEST_FORCE);
+        itemEffectItem10.setItemActivateTimes(ItemActivateTime.ON_DEATH);
+        new Item("DeathCurse", ItemType.collectible, "Minion attack one of the closest opponent forces 8 units", itemEffectItem10);
+
+        ItemEffect itemEffectItem11 = new ItemEffect();
+        itemEffectItem11.addItemChange(new ItemChange(0, true, 0, 0, 2, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem11.addItemTarget(ItemTarget.OWN_RANDOM_FORCE);
+        itemEffectItem11.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("Random damage", ItemType.collectible, "add 2 units to random force AP", itemEffectItem11);
+
+        ItemEffect itemEffectItem12 = new ItemEffect();
+        itemEffectItem12.addItemChange(new ItemChange(1, false, 0, 0, 0, false, false, 0, false, 0, true, 2, false, 0));
+        itemEffectItem12.addItemTarget(ItemTarget.OPPONENT_RANDOM_FORCE);
+        itemEffectItem12.setItemActivateTimes(ItemActivateTime.ON_ATTACK);
+        new Item("Terror Hood",  5000, ItemType.usable, "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked", itemEffectItem12);
+
+        ItemEffect itemEffectItem13 = new ItemEffect();
+        itemEffectItem13.addItemChange(new ItemChange(0, true, 0, 0, 6, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem13.addItemTarget(ItemTarget.OWN_RANDOM_FORCE);
+        itemEffectItem13.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("Blades of agility", ItemType.collectible, "add 6 units to random force AP", itemEffectItem13);
+
+        ItemEffect itemEffectItem14 = new ItemEffect();
+        itemEffectItem14.addItemChange(new ItemChange(0, true, 1, 0, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem14.addItemTarget(ItemTarget.OWN_PLAYER);
+        itemEffectItem14.setItemActivateTimes(ItemActivateTime.START_BATTLE);
+        new Item("King Wisdom", 9000, ItemType.usable, "Increase MP 1 unit in all turns", itemEffectItem14);
+
+        ItemEffect itemEffectItem15 = new ItemEffect();
+        itemEffectItem15.addItemChange(new ItemChange(0, true, 0, -1, 0, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem15.addItemTarget(ItemTarget.OPPONENT_HERO);
+        itemEffectItem15.setItemActivateTimes(ItemActivateTime.ON_SPAWN);
+        new Item("Assassination Dagger", 15000, ItemType.usable, "Attack opponent hero 1 unit when inserting any force", itemEffectItem15);
+
+        ItemEffect itemEffectItem16 = new ItemEffect();
+        itemEffectItem16.addItemChange(new ItemChange(1, false, 0, 0, 0, false, false, 0, false, 0, false, 0, true, 1));
+        itemEffectItem16.addItemTarget(ItemTarget.OPPONENT_RANDOM_FORCE);
+        itemEffectItem16.setItemActivateTimes(ItemActivateTime.ON_ATTACK);
+        new Item("Poisonous Dagger", 7000, ItemType.usable, "Activate poisonBuff on opponent random force for 1 turn while own force attacked", itemEffectItem16);
+
+        ItemEffect itemEffectItem17 = new ItemEffect();
+        itemEffectItem17.addItemChange(new ItemChange(1, false, 0, 0, 0, true, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem17.addItemTarget(ItemTarget.OPPONENT_FORCE);
+        itemEffectItem17.setItemActivateTimes(ItemActivateTime.ON_ATTACK);
+        new Item("Shock Hammer", 15000, ItemType.usable, "Stun opponent when own hero attacked", itemEffectItem17);
+
+        ItemEffect itemEffectItem18 = new ItemEffect();
+        itemEffectItem18.addItemChange(new ItemChange(0, true, 0, 0, 0, false, false, 0, true, 1, false, 0, false, 0));
+        itemEffectItem18.addItemTarget(ItemTarget.OWN_RANDOM_FORCE);
+        itemEffectItem18.setItemActivateTimes(ItemActivateTime.ON_DEATH);
+        new Item("Soul Eater", 25000, ItemType.usable, "Activate 1 powerBuff with 1 unit on random own force while any own minion killed", itemEffectItem18);
+
+        ItemEffect itemEffectItem19 = new ItemEffect();
+        itemEffectItem19.addItemChange(new ItemChange(2, false, 0, 0, 0, false, true, 1, false, 0, false, 0, false, 0));
+        itemEffectItem19.addItemTarget(ItemTarget.OWN_MINION);
+        itemEffectItem19.setItemActivateTimes(ItemActivateTime.ON_SPAWN);
+        new Item("Baptism", 20000, ItemType.usable, "Each minion has powerBuff for 2 turns when spawned", itemEffectItem19);
+
+        ItemEffect itemEffectItem20 = new ItemEffect();
+        itemEffectItem20.addItemChange(new ItemChange(0, true, 0, 0, 5, false, false, 0, false, 0, false, 0, false, 0));
+        itemEffectItem20.addItemTarget(ItemTarget.OWN_MELEE_FORCE);
+        itemEffectItem20.setItemActivateTimes(ItemActivateTime.USE_ITEM);
+        new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces", itemEffectItem20);
     }
 
     public static Item findItem(int itemID)

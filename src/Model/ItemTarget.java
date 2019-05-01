@@ -14,4 +14,5 @@ public enum ItemTarget
     OPPONENT_FORCE,
     OWN_MINION,
     OWN_MELEE_FORCE,
+    OPPONENT_CLOSEST_FORCE
 }
