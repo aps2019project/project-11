@@ -127,9 +127,12 @@ public class Battle
     }
 
     public void attackToOpponent(int cardID){
+        Card opponentCard = Card.findCard(cardID);
         if(selectedCard.isCardSelectedInBattle())
         {
+            if(((Minion)selectedCard).getTypeOfImpact() == ImpactType.melee){
 
+            }
         }
     }
 

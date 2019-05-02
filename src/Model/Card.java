@@ -131,4 +131,12 @@ public abstract class Card
     {
         this.cardID = cardID;
     }
+
+    public int findDestination(Card card1 , Card card2){
+
+    }
+
+    public boolean checkNeighberhood(Card card1 , Card card2){
+
+    }
 }
