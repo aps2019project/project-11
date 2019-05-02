@@ -31,6 +31,7 @@ public class Request
     private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([0-9]+)(\\s))+");
     private final static Pattern patternSelectItem = Pattern.compile("Select [0-9]+");
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
+    private final static Pattern patternNormalAttack = Pattern.compile("Attack [0-9]+");
 
 
     public static CommandType command;
@@ -373,7 +374,12 @@ public class Request
 
     public static void getAfterSelectCardCommands()
     {
-
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if(patternNormalAttack.matcher(input).matches()){
+            command = CommandType.NORMAL_ATTACK ;
+            command.enemyCardIDForNormalAttack = Integer.parseInt(inputParts[1]);
+        }
     }
 
     public static void getAfterSelectItemCommands()

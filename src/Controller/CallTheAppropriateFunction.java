@@ -285,7 +285,8 @@ public class CallTheAppropriateFunction
                     determineAfterSelectItemCommand();
                     break;
                 case COMBO_ATTACK:
-                    //why Battle is static?
+                    Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack);
+                    break;
                 case SHOW_NEXT_CARD:
 
                 case ENTER_GRAVEYARD:
@@ -307,7 +308,10 @@ public class CallTheAppropriateFunction
                 case MOVE_TO:
                     Battle.getCurrentBattle().moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
+                case NORMAL_ATTACK:
+                    Battle.getCurrentBattle().attackToOpponent(Request.command.enemyCardIDForNormalAttack);
             }
+
         }
     }
 

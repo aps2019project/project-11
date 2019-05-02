@@ -53,6 +53,7 @@ public enum CommandType
     SELECT_ITEM,
     SHOW_ITEM_INFO,
     USE_ITEM,
+    NORMAL_ATTACK
     ;
 
     public String username;
@@ -66,4 +67,5 @@ public enum CommandType
     public int numOfFlags;
     public int enemyCardIDForCombo;
     public ArrayList<Integer> cardIDsForComboAttack = new ArrayList<>();
+    public int enemyCardIDForNormalAttack;
 }

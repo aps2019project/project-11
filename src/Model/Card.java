@@ -133,10 +133,19 @@ public abstract class Card
     }
 
     public int findDestination(Card card1 , Card card2){
-
+        return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
     public boolean checkNeighberhood(Card card1 , Card card2){
-
+        int[][] matrix = new int[5][9];
+        int row = card1.getRow();
+        int column = card1.getColumn();
+        matrix[row][column] = 1;
+        for(int rowCounter = row - 1 ; rowCounter <= row + 1 ; rowCounter++) {
+            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++) {
+                matrix [rowCounter][columnCounter] = 1;
+            }
+        }
+        return matrix[card2.getRow()][card2.getColumn()] == 1;
     }
 }
