@@ -171,7 +171,7 @@ public class ShowOutput {
 
     public static void showMyMinions()
     {
-        for (Card card :Battle.currentBattle.getPlayerTurn().getInsertedCards())
+        for (Card card :Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
             System.out.print(card.getCardID() + " : " );
             System.out.print(card.getCardName() +" , ");
@@ -186,16 +186,16 @@ public class ShowOutput {
 
     public static void showOpponentMinions()
     {
-        Player opponent = new Player();
-        if (Battle.currentBattle.getPlayerTurn() == Battle.currentBattle.getFirstPlayer())
+        Player opponent;
+        if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
         {
-            opponent = Battle.currentBattle.getSecondPlayer();
+            opponent = Battle.getCurrentBattle().getSecondPlayer();
         }
         else
         {
-            opponent = Battle.currentBattle.getFirstPlayer();
+            opponent = Battle.getCurrentBattle().getFirstPlayer();
         }
-        for (Card card :opponent.getInsertedCards())
+        for (Card card : opponent.getInsertedCards())
         {
             System.out.print(card.getCardID());
             System.out.print(" : ");
@@ -306,5 +306,12 @@ public class ShowOutput {
             showCardInfo(card.getCardID());
         }
         showCardInfo(hand.getNextCard().getCardID());
+    }
+
+    public static void showBattleModes()
+    {
+        printOutput("Killing Enemy Hero");
+        printOutput("Keep flag for 6 turns");
+        printOutput("Gathering Flags");
     }
 }

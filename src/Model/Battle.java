@@ -1,72 +1,25 @@
 package Model;
 
-import View.Request;
-import View.ShowOutput;
+import View.*;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Battle
 {
-    public static Battle currentBattle;
+    private static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
     private Player playerTurn;
     private BattleField battleField;
-    static Card selectedCard;
-    static Item selectedICollectibleItem;
+    private static Card selectedCard;
+    private static Item selectedICollectibleItem;
     private BattleMode battleMode;
-
-    public Player getPlayerTurn()
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode)
     {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(Player playerTurn)
-    {
-        this.playerTurn = playerTurn;
-    }
-
-    public Battle(Player firstPlayer, Player secondPlayer)
-    {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-    }
-
-    public Player getSecondPlayer() {
-        return secondPlayer;
-    }
-
-    public void setSecondPlayer(Player secondPlayer)
-    {
-        this.secondPlayer = secondPlayer;
-    }
-
-    public Player getFirstPlayer()
-    {
-        return firstPlayer;
-    }
-
-    public BattleField getBattleField()
-    {
-        return battleField;
-    }
-
-    public static void multiPlayerMatch()
-    {
-        String secondPlayerName = null; //todo get from scanner
-        Player playerOne = new Player();
-        Player playerTwo = new Player();
-        playerOne.setAccount(Account.loggedInAccount);
-        //playerTwo.setAccount(Account.findAccount(secondPlayerName));
-        currentBattle = new Battle(playerOne, playerTwo);
-        currentBattle.selectMatchMode();
-
-    }
-
-    public void selectMatchMode()
-    {
-
+        this.setFirstPlayer(firstPlayer);
+        this.setSecondPlayer(secondPlayer);
+        this.setBattleMode(battleMode);
+        currentBattle = this;
     }
 
     public void storyMode()
@@ -229,5 +182,72 @@ public class Battle
     public void logicEndGame()
     {
 
+    }
+    public Player getPlayerTurn()
+    {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(Player playerTurn)
+    {
+        this.playerTurn = playerTurn;
+    }
+
+    public static Battle getCurrentBattle() {
+        return currentBattle;
+    }
+
+    public static void setCurrentBattle(Battle currentBattle) {
+        Battle.currentBattle = currentBattle;
+    }
+    public Player getSecondPlayer() {
+        return secondPlayer;
+    }
+
+    public void setSecondPlayer(Player secondPlayer)
+    {
+        this.secondPlayer = secondPlayer;
+    }
+
+    public Player getFirstPlayer()
+    {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(Player firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public BattleField getBattleField()
+    {
+        return battleField;
+    }
+
+    public void setBattleField(BattleField battleField) {
+        this.battleField = battleField;
+    }
+
+    public static Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public static void setSelectedCard(Card selectedCard) {
+        Battle.selectedCard = selectedCard;
+    }
+
+    public static Item getSelectedICollectibleItem() {
+        return selectedICollectibleItem;
+    }
+
+    public static void setSelectedICollectibleItem(Item selectedICollectibleItem) {
+        Battle.selectedICollectibleItem = selectedICollectibleItem;
+    }
+
+    public BattleMode getBattleMode() {
+        return battleMode;
+    }
+
+    public void setBattleMode(BattleMode battleMode) {
+        this.battleMode = battleMode;
     }
 }

@@ -78,6 +78,16 @@ public class AccountManager
         return null;
     }
 
+    public void showAllPlayers()
+    {
+        int counter = 1;
+        for (Account account : getAccounts())
+        {
+            ShowOutput.printOutput(counter + account.getAccountName());
+            counter ++;
+        }
+    }
+
     public ArrayList<Account> getAccounts()
     {
         return accounts;

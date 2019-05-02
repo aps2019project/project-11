@@ -2,5 +2,7 @@ package Model;
 
 public enum BattleMode
 {
-    killOpponentHero, keepFlag ,gatherFlags
+    KILLING_ENEMY_HERO,
+    KEEP_FLAG_FOR_6_TURNS,
+    GATHERING_FLAGS
 }

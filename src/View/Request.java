@@ -258,7 +258,7 @@ public class Request
         }
     }
 
-    public static void getMultiPlayerMatchMode()
+    public static void getSecondPlayerInMultiPlayerMatch()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
@@ -267,7 +267,17 @@ public class Request
             command = CommandType.SELECT_USER;
             Request.command.username = inputParts[2];
         }
-        else if (patternStartMultiPlayerGame.matcher(input).matches())
+        else
+        {
+            command = null;
+        }
+    }
+
+    public static void getMultiPlayerMatchMode()
+    {
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if (patternStartMultiPlayerGame.matcher(input).matches())
         {
             command = CommandType.START_MULTI_PLAYER_GAME;
             Request.command.multiPlayerMatchMode = inputParts[3];

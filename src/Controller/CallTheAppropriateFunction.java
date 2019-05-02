@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.Account;
-import Model.Battle;
-import Model.Card;
-import Model.Item;
+import Model.*;
 import View.Request;
 import View.ShowOutput;
 
@@ -169,7 +166,7 @@ public class CallTheAppropriateFunction {
                     selectSinglePlayerMatchMode();
                     break;
                 case MULTI_PLAYER:
-                    selectMultiPlayerMatchMode();
+                    selectSecondPlayerInMultiPlayerMatch();
                     break;
             }
         }
@@ -189,17 +186,50 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void selectMultiPlayerMatchMode() {
-        while (true) {
-            Account.showAllPlayers();
-            Request.getMultiPlayerMatchMode();
-            switch (Request.command) {
+    private void selectSecondPlayerInMultiPlayerMatch()
+    {
+        while (true)
+        {
+            accountManager.showAllPlayers();
+            Request.getSecondPlayerInMultiPlayerMatch();
+            switch (Request.command)
+            {
                 case SELECT_USER:
-                    battleManager.checkSecondPlayerExistence(Request.command.username);
+                    Player firstPlayer = new Player(Account.loggedInAccount);
+                    Player secondPlayer = battleManager.selectSecondPlayer(Request.command.username);
+                    if (secondPlayer != null)
+                    {
+                        selectMultiPlayerMatchMode(firstPlayer, secondPlayer);
+                    }
                     break;
-                case START_MULTI_PLAYER_GAME:
-                    break;
+            }
+        }
+    }
 
+    private void selectMultiPlayerMatchMode(Player firstPlayer, Player secondPlayer)
+    {
+        while (true)
+        {
+            ShowOutput.showBattleModes();
+            Request.getMultiPlayerMatchMode();
+            switch (Request.command)
+            {
+                case START_MULTI_PLAYER_GAME:
+
+                    if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Killing Enemy Hero"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO);
+                    }
+                    else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Keep flag for 6 turns"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    }
+                    else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Gathering flags"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS);
+                    }
+                    determineBattleCommand();
+                    break;
             }
         }
     }
@@ -224,7 +254,7 @@ public class CallTheAppropriateFunction {
                     Battle.selectCard(Request.command.cardOrItemID);
                     break;
                 case SHOW_HAND:
-                    ShowOutput.showHand(Battle.currentBattle.getPlayerTurn().getHand());
+                    ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
                     battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
