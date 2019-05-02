@@ -45,11 +45,6 @@ public class Account
         //todo
     }
 
-    public static void showAllPlayers()
-    {
-        //todo
-    }
-
     public static void setAIAccounts()
     {
         //todo

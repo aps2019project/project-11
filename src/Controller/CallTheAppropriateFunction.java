@@ -1,30 +1,31 @@
 package Controller;
 
-import Model.Account;
-import Model.Battle;
-import Model.Card;
-import Model.Item;
-import View.Request;
-import View.ShowOutput;
+import Model.*;
+import View.*;
 
-public class CallTheAppropriateFunction {
+public class CallTheAppropriateFunction
+{
     private AccountManager accountManager = new AccountManager();
     private CollectionManager collectionManager = new CollectionManager();
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
 
-    public void setPrimarySettings() {
+    public void setPrimarySettings()
+    {
         Card.setCards();
         Item.setItems();
         Account.setAIAccounts();
         determineAccountCommand();
     }
 
-    void determineMainMenuCommand() {
-        while (true) {
+    void determineMainMenuCommand()
+    {
+        while (true)
+        {
             Request.getMainMenuCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case ENTER_SHOP:
                     determineShopCommand();
                     break;
@@ -88,11 +89,15 @@ public class CallTheAppropriateFunction {
                     collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case BUY:
-                    if (Card.findCard(Request.command.cardOrItemName) != null) {
+                    if (Card.findCard(Request.command.cardOrItemName) != null)
+                    {
                         shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
-                    } else if (Item.findItem(Request.command.cardOrItemName) != null) {
+                    } else if (Item.findItem(Request.command.cardOrItemName) != null)
+                    {
                         shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
-                    } else {
+                    }
+                    else
+                    {
                         ShowOutput.printOutput("Card or Item does'nt exist in Shop");
                     }
                     break;
@@ -161,53 +166,96 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineBattleMenuCommand() {
-        while (true) {
+    private void determineBattleMenuCommand()
+    {
+        while (true)
+        {
             Request.getBattleMenuCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case SINGLE_PLAYER:
                     selectSinglePlayerMatchMode();
                     break;
                 case MULTI_PLAYER:
-                    selectMultiPlayerMatchMode();
+                    selectSecondPlayerInMultiPlayerMatch();
                     break;
             }
         }
     }
 
-    private void selectSinglePlayerMatchMode() {
-        while (true) {
+    private void selectSinglePlayerMatchMode()
+    {
+        while (true)
+        {
             Request.getSinglePlayerMatchMode();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case STORY:
-
+                    //todo
                     break;
                 case CUSTOM_GAME:
-
+                    //todo
                     break;
             }
         }
     }
 
-    private void selectMultiPlayerMatchMode() {
-        while (true) {
-            Account.showAllPlayers();
-            Request.getMultiPlayerMatchMode();
-            switch (Request.command) {
+    private void selectSecondPlayerInMultiPlayerMatch()
+    {
+        while (true)
+        {
+            accountManager.showAllPlayers();
+            Request.getSecondPlayerInMultiPlayerMatch();
+            switch (Request.command)
+            {
                 case SELECT_USER:
-                    battleManager.checkSecondPlayerExistence(Request.command.username);
+                    Player firstPlayer = new Player(Account.loggedInAccount);
+                    Player secondPlayer = battleManager.selectSecondPlayer(Request.command.username);
+                    if (secondPlayer != null)
+                    {
+                        selectMultiPlayerMatchMode(firstPlayer, secondPlayer);
+                    }
                     break;
-                case START_MULTI_PLAYER_GAME:
-                    break;
-
             }
         }
     }
 
-    private void determineBattleCommand() {
-        while (true) {
+    private void selectMultiPlayerMatchMode(Player firstPlayer, Player secondPlayer)
+    {
+        while (true)
+        {
+            ShowOutput.showBattleModes();
+            Request.getMultiPlayerMatchMode();
+            switch (Request.command)
+            {
+                case START_MULTI_PLAYER_GAME:
+
+                    if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Killing Enemy Hero"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO);
+                    }
+                    else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Keep flag for 6 turns"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    }
+                    else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Gathering flags"))
+                    {
+                        new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS);
+                        Battle.getCurrentBattle().setNumOfFlagsInGatheringFlagsMatchMode(Request.command.numOfFlags);
+                    }
+                    determineBattleCommand();
+                    break;
+            }
+        }
+    }
+
+    private void determineBattleCommand()
+    {
+        while (true)
+        {
             Request.getBattleCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case GAME_INFO:
                     ShowOutput.showGameInfo();
                     break;
@@ -221,13 +269,20 @@ public class CallTheAppropriateFunction {
                     ShowOutput.showCardInfo(Request.command.cardOrItemID);
                     break;
                 case SELECT:
-                    Battle.selectCard(Request.command.cardOrItemID);
+                    battleManager.selectCard(Request.command.cardOrItemID);
                     break;
                 case SHOW_HAND:
-                    ShowOutput.showHand(Battle.currentBattle.getPlayerTurn().getHand());
+                    ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
                     battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    break;
+                case SHOW_COLLECTIBLES:
+                    ShowOutput.showCollectibleItems();
+                    break;
+                case SELECT_ITEM:
+                    battleManager.selectItem(Request.command.cardOrItemID);
+                    determineAfterSelectItemCommand();
                     break;
                 case COMBO_ATTACK:
                     //why Battle is static?
@@ -244,27 +299,44 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineAfterSelectCardCommand() {
+    private void determineAfterSelectCardCommand()
+    {
         while (true) {
             Request.getAfterSelectCardCommands();
             switch (Request.command) {
                 case MOVE_TO:
-                    Battle.moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    Battle.getCurrentBattle().moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
             }
         }
     }
 
-    private void determineAfterSelectItemCommand() {
-        while (true) {
+    private void determineAfterSelectItemCommand()
+    {
+        while (true)
+        {
             Request.getAfterSelectItemCommands();
+            switch (Request.command)
+            {
+                case SHOW_ITEM_INFO:
+                    Battle.getCurrentBattle().getSelectedICollectibleItem().printItemStats();
+                    break;
+                case USE_ITEM:
+                    int x = Request.command.rowOfTheCell;
+                    int y = Request.command.columnOfTheCell;
+                    Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
+                    break;
+            }
         }
     }
 
-    private void determineGraveYardCommand() {
-        while (true) {
+    private void determineGraveYardCommand()
+    {
+        while (true)
+        {
             Request.getGraveYardCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case SHOW_INFO:
                     /*todo*/
                 case SHOW_CARDS:

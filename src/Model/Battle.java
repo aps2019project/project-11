@@ -1,72 +1,27 @@
 package Model;
 
-import View.Request;
-import View.ShowOutput;
+import Controller.BattleManager;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Battle
 {
-    public static Battle currentBattle;
+    private static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
     private Player playerTurn;
     private BattleField battleField;
-    static Card selectedCard;
-    static Item selectedICollectibleItem;
+    private Card selectedCard;
+    private Item selectedICollectibleItem;
     private BattleMode battleMode;
+    private int numOfFlagsInGatheringFlagsMatchMode;
 
-    public Player getPlayerTurn()
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode)
     {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(Player playerTurn)
-    {
-        this.playerTurn = playerTurn;
-    }
-
-    public Battle(Player firstPlayer, Player secondPlayer)
-    {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-    }
-
-    public Player getSecondPlayer() {
-        return secondPlayer;
-    }
-
-    public void setSecondPlayer(Player secondPlayer)
-    {
-        this.secondPlayer = secondPlayer;
-    }
-
-    public Player getFirstPlayer()
-    {
-        return firstPlayer;
-    }
-
-    public BattleField getBattleField()
-    {
-        return battleField;
-    }
-
-    public static void multiPlayerMatch()
-    {
-        String secondPlayerName = null; //todo get from scanner
-        Player playerOne = new Player();
-        Player playerTwo = new Player();
-        playerOne.setAccount(Account.loggedInAccount);
-        //playerTwo.setAccount(Account.findAccount(secondPlayerName));
-        currentBattle = new Battle(playerOne, playerTwo);
-        currentBattle.selectMatchMode();
-
-    }
-
-    public void selectMatchMode()
-    {
-
+        this.setFirstPlayer(firstPlayer);
+        this.setSecondPlayer(secondPlayer);
+        this.setBattleMode(battleMode);
+        currentBattle = this;
     }
 
     public void storyMode()
@@ -103,22 +58,19 @@ public class Battle
 
     }
 
-    public static void selectCard(int cardID)
+    public void selectCard(Card card)
     {
-        Card card = Card.findCard(cardID);
-        if (card != null)
-        {
-            card.setCardSelectedInBattle(true);
-            selectedCard = card;
-        }
+        setSelectedCard(card);
+        card.setCardSelectedInBattle(true);
     }
 
-    public void selectCollectibleItem(int collectibleItemID)
+    public void selectCollectibleItem(Item item)
     {
-
+        setSelectedICollectibleItem(item);
+        item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public static void moveCard(int x , int y)
+    public void moveCard(int x , int y)
     {
         if(selectedCard.isCardSelectedInBattle())
         {
@@ -136,10 +88,12 @@ public class Battle
         }
     }
 
-    public void comboAttack(int enemyCardID , ArrayList<Integer> cardsIDForComboAttack){
+    public void comboAttack(int enemyCardID , ArrayList<Integer> cardsIDForComboAttack)
+    {
         checkComboCondition(cardsIDForComboAttack);
-        for(int cardID : cardsIDForComboAttack){
-            selectCard(cardID);
+        for(int cardID : cardsIDForComboAttack)
+        {
+            new BattleManager().selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
         //todo //counterAttcak\\
@@ -189,14 +143,9 @@ public class Battle
 
     }
 
-    public void showNextCard()
-    {
-        ShowOutput.showNextCardInfo(playerTurn.getHand().getNextCard());
-    }
-
     public void showGraveYardCardInfo(int cardID)
     {
-        Card card = playerTurn.findCardInGraveYard(Request.command.cardOrItemIDInGraveYard);
+        Card card = playerTurn.findCardInGraveYard(cardID);
         if(card != null)
         {
             card.printCardStats();
@@ -219,18 +168,86 @@ public class Battle
         }
     }
 
-    public void help()
-    {
-
-    }
-
-    public void showBattleCommands()
-    {
-
-    }
-
     public void logicEndGame()
     {
 
+    }
+
+    public Player getPlayerTurn()
+    {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(Player playerTurn)
+    {
+        this.playerTurn = playerTurn;
+    }
+
+    public static Battle getCurrentBattle() {
+        return currentBattle;
+    }
+
+    public static void setCurrentBattle(Battle currentBattle) {
+        Battle.currentBattle = currentBattle;
+    }
+    public Player getSecondPlayer() {
+        return secondPlayer;
+    }
+
+    public void setSecondPlayer(Player secondPlayer)
+    {
+        this.secondPlayer = secondPlayer;
+    }
+
+    public Player getFirstPlayer()
+    {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(Player firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public BattleField getBattleField()
+    {
+        return battleField;
+    }
+
+    public void setBattleField(BattleField battleField) {
+        this.battleField = battleField;
+    }
+
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
+
+    public void setSelectedCard(Card selectedCard)
+    {
+        this.selectedCard = selectedCard;
+    }
+
+    public Item getSelectedICollectibleItem() {
+        return selectedICollectibleItem;
+    }
+
+    public void setSelectedICollectibleItem(Item selectedICollectibleItem)
+    {
+        this.selectedICollectibleItem = selectedICollectibleItem;
+    }
+
+    public BattleMode getBattleMode() {
+        return battleMode;
+    }
+
+    public void setBattleMode(BattleMode battleMode) {
+        this.battleMode = battleMode;
+    }
+
+    public int getNumOfFlagsInGatheringFlagsMatchMode() {
+        return numOfFlagsInGatheringFlagsMatchMode;
+    }
+
+    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode) {
+        this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 }

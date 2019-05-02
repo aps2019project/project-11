@@ -6,6 +6,7 @@ public class Minion extends NonSpellCards
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
     private boolean ableToCombo;
+
     Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower , boolean ableToCombo)
     {
         this.setCardName(name);
@@ -25,6 +26,22 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
+        SpecialPower minionSpell2 = new SpecialPower("stun in current turn");
+        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(0,false,false,TimeToActivateSpecialPower.onAttack,0,0,0,true,false,false,false,false,false,false,false,false,true));
+        minionSpell2.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,ImpactType.melee,0,null,false,false,false));
+
+        SpecialPower minionSpell5 = new SpecialPower("confusing");
+        //minionSpell5.getSpellEffect().addSpellChange();
+       // minionSpell5.getSpellEffect().addTarget();
+
+        SpecialPower minionSpell6 = new SpecialPower("combo");
+        minionSpell6.getSpellEffect().addSpellChange(new SpellChange(0,false,false,TimeToActivateSpecialPower.combo,0,0,0,false,false,false,false,false,false,false,false,true,false));
+        minionSpell6.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,ImpactType.melee,0,null,false,false,false));
+
+        SpecialPower minionSpell10 = new SpecialPower("disarm and poison");
+        minionSpell10.getSpellEffect().addSpellChange(new SpellChange(1,false,false,TimeToActivateSpecialPower.onAttack,0,0,0,false,true,false,false,false,false,false,false,false,false));
+        minionSpell10.getSpellEffect().addSpellChange(new SpellChange(4,false,false,TimeToActivateSpecialPower.onAttack,0,-1,0,false,false,false,false,false,false,false,false,false,false));
+        minionSpell10.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,ImpactType.melee,0,null,false,false,false));
         SpecialPower minionSpell15 = new SpecialPower("10 power buff" );
         minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0 , true , false ,TimeToActivateSpecialPower.passive ,0 ,10 , 0 , false , false , false , false, false , false , false , false,false,false));
         minionSpell15.getSpellEffect().addTarget(new Target(1 , 0 , false ,false , 0 , 0 ,0 , 0 , 0 , 0 ,ImpactType.ranged ,0 , null, false,false,false));
@@ -126,22 +143,22 @@ public class Minion extends NonSpellCards
 
     }
 
-
     public void printMinionStats(int counter)
     {
-        System.out.println(counter + " : Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + /*todo*/ " – Sell Cost : " + getPrice());
+        System.out.println(counter + " : Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
     }
 
     public void printMinionStats()
     {
-        System.out.println("Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + /*todo*/ " – Sell Cost : " + getPrice());
+        System.out.println("Type : Model.Minion - Name : " + getCardName() + " – Class:" + getTypeOfImpact() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
     }
 
     public boolean isAbleToCombo() {
         return ableToCombo;
     }
 
-    public void setAbleToCombo(boolean ableToCombo) {
+    public void setAbleToCombo(boolean ableToCombo)
+    {
         this.ableToCombo = ableToCombo;
     }
 }

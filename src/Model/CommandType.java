@@ -48,7 +48,11 @@ public enum CommandType
     CUSTOM_GAME,
     SELECT_USER,
     START_MULTI_PLAYER_GAME,
-    COMBO_ATTACK
+    COMBO_ATTACK,
+    SHOW_COLLECTIBLES,
+    SELECT_ITEM,
+    SHOW_ITEM_INFO,
+    USE_ITEM,
     ;
 
     public String username;
