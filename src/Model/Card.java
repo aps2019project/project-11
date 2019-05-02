@@ -132,11 +132,11 @@ public abstract class Card
         this.cardID = cardID;
     }
 
-    public int findDestination(Card card1 , Card card2){
+    public static int  findDestination(Card card1 , Card card2){
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
-    public boolean checkNeighberhood(Card card1 , Card card2){
+    public static boolean checkNeighberhood(Card card1 , Card card2){
         int[][] matrix = new int[5][9];
         int row = card1.getRow();
         int column = card1.getColumn();

@@ -78,14 +78,40 @@ public class Battle
         }
     }
 
-    public void attackToOpponent(int cardID){
+    public void attackToOpponent(int cardID)
+    {
+        if(Card.findCard(cardID) == null){
+            System.out.println("Invalid card id");
+            return;
+        }
         Card opponentCard = Card.findCard(cardID);
         if(selectedCard.isCardSelectedInBattle())
         {
-            if(((Minion)selectedCard).getTypeOfImpact() == ImpactType.melee){
+            if(((NonSpellCards) selectedCard).isAttackAble()) {
+                if (((Minion) selectedCard).getImpactType() == ImpactType.melee) {
+                    if (Card.checkNeighberhood(selectedCard, opponentCard)) {
+                        damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
+                    } else {
+                        System.out.println("opponent minion is unavailable for attack");
+                    }
+                }
+                if (((Minion) selectedCard).getImpactType() == ImpactType.ranged) {
+                    if(Card.findDestination(selectedCard , opponentCard) <= ((NonSpellCards)selectedCard).){
+
+                    }
+                }
 
             }
+            else {
+                System.out.println("Card with " + selectedCard.getCardID() + " can′t attack");
+            }
         }
+    }
+
+    private void damageCard(NonSpellCards selectedCard,NonSpellCards opponentCard)
+    {
+        int currentHP = opponentCard.getCurrentHP();
+        opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
     }
 
     public void comboAttack(int enemyCardID , ArrayList<Integer> cardsIDForComboAttack)

@@ -310,6 +310,9 @@ public class CallTheAppropriateFunction
                     break;
                 case NORMAL_ATTACK:
                     Battle.getCurrentBattle().attackToOpponent(Request.command.enemyCardIDForNormalAttack);
+                    break;
+                case EXIT:
+                    return;
             }
 
         }
