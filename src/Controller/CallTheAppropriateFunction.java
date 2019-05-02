@@ -324,7 +324,7 @@ public class CallTheAppropriateFunction
                 case USE_ITEM:
                     int x = Request.command.rowOfTheCell;
                     int y = Request.command.columnOfTheCell;
-                    Battle.getCurrentBattle().getSelectedICollectibleItem().useItem(x, y);
+                    Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
                     break;
             }
         }

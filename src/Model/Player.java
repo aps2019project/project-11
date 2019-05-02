@@ -11,6 +11,8 @@ public class Player
     private GraveYard graveYard = new GraveYard();
     private int MP;
     private ArrayList<Card> insertedCards = new ArrayList<>();
+    private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
+    private ArrayList<SpellChange> activeSpellsOnPlayer = new ArrayList<>();
 
     public Player(Account account)
     {
@@ -68,5 +70,45 @@ public class Player
 
     public void setCollectibleItems(ArrayList<Item> collectibleItems) {
         this.collectibleItems = collectibleItems;
+    }
+
+    public Deck getMainDeck() {
+        return mainDeck;
+    }
+
+    public void setMainDeck(Deck mainDeck) {
+        this.mainDeck = mainDeck;
+    }
+
+    public void setGraveYard(GraveYard graveYard) {
+        this.graveYard = graveYard;
+    }
+
+    public int getMP() {
+        return MP;
+    }
+
+    public void setMP(int MP) {
+        this.MP = MP;
+    }
+
+    public ArrayList<ItemChange> getActiveItemsOnPlayer()
+    {
+        return activeItemsOnPlayer;
+    }
+
+    public void addActiveItemOnPlayer(ItemChange activeItemOnPlayer)
+    {
+        activeItemsOnPlayer.add(activeItemOnPlayer);
+    }
+
+    public ArrayList<SpellChange> getActiveSpellsOnPlayer()
+    {
+        return activeSpellsOnPlayer;
+    }
+
+    public void addActiveSpellOnPlayer(SpellChange activeSpellOnPlayer)
+    {
+        activeSpellsOnPlayer.add(activeSpellOnPlayer);
     }
 }

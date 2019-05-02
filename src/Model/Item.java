@@ -42,7 +42,7 @@ public class Item
         itemEffectItem2.addItemActivateTime(ItemActivateTime.USE_ITEM);
         new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero", itemEffectItem2);
 
-        ItemEffect itemEffectItem3 = new ItemEffect();
+        ItemEffect itemEffectItem3 = new ItemEffect();  //todo
         itemEffectItem3.addItemChange(new ItemChange(1, false, 0, 0, 0, true, false, 0, false, 0, false, 0, false,0));
         itemEffectItem3.addItemTarget(ItemTarget.OWN_RANGED_HYBRID_HERO);
         itemEffectItem3.addItemActivateTime(ItemActivateTime.ON_ATTACK);
@@ -154,9 +154,58 @@ public class Item
         new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces", itemEffectItem20);
     }
 
-    public void useItem(int x, int y)
+    public void applyCollectibleItem(int x, int y)
     {
-        //todo
+        for (int i = 0; i < this.getItemEffect().getItemTargets().size(); i++)
+        {
+            ItemTarget itemTarget = this.getItemEffect().getItemTargets().get(i);
+            ItemChange itemChange = this.getItemEffect().getItemChanges().get(i);
+            switch (itemTarget)
+            {
+                case OWN_RANDOM_FORCE:
+                    Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
+                    break;
+                case OWN_RANDOM_RANGED_HYBRID:
+                    //todo
+                    break;
+                case OWN_RANDOM_MINION:
+                    //todo
+                    break;
+                case OWN_PLAYER:
+                    Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
+                    break;
+                case OWN_MELEE_FORCE:
+                    //todo
+                    break;
+            }
+        }
+    }
+
+    public void applyUsableItem()
+    {
+        for (int i = 0; i < this.getItemEffect().getItemTargets().size(); i++)
+        {
+            ItemTarget itemTarget = this.getItemEffect().getItemTargets().get(i);
+            ItemChange itemChange = this.getItemEffect().getItemChanges().get(i);
+            switch (itemTarget)
+            {
+                case OWN_PLAYER:
+                    Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
+                    break;
+                case OWN_HERO:
+                    Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
+                    break;
+                case OWN_RANGED_HYBRID_HERO:
+                    Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+                    if (hero.getImpactType() == ImpactType.ranged || hero.getImpactType() == ImpactType.hybrid)
+                    {
+                        hero.addActiveItemOnThisCard(itemChange);
+                    }
+                    break;
+                    //todo
+
+            }
+        }
     }
 
     public static Item findItem(int itemID)

@@ -9,7 +9,8 @@ public abstract class NonSpellCards extends Card
     private int currentHP;
     private int currentAP;
     private SpecialPower specialPower;
-    private ArrayList<Spell> spellsAppliedOnThisCard = new ArrayList<>();
+    private ArrayList<SpellChange> activeSpellsOnThisCard = new ArrayList<>();
+    private ArrayList<ItemChange> activeItemsOnThisCard = new ArrayList<>();
     private ImpactType impactType;
     private boolean moveAble = true;
     private boolean attackAble = true;
@@ -26,11 +27,6 @@ public abstract class NonSpellCards extends Card
     {
         Hero.setHeroes();
         Minion.setMinions();
-    }
-
-    public ImpactType getTypeOfImpact()
-    {
-        return impactType;
     }
 
     public int getDefaultHP() {
@@ -99,5 +95,27 @@ public abstract class NonSpellCards extends Card
 
     public void setCurrentAP(int currentAP) {
         this.currentAP = currentAP;
+    }
+
+    public ArrayList<SpellChange> getActiveSpellsOnThisCard()
+    {
+        return activeSpellsOnThisCard;
+    }
+
+    public void addActiveSpellOnThisCard(SpellChange activeSpellOnThisCard)
+    {
+        activeSpellsOnThisCard.add(activeSpellOnThisCard);
+    }
+
+    public ArrayList<ItemChange> getActiveItemsOnThisCard() {
+        return activeItemsOnThisCard;
+    }
+
+    public void addActiveItemOnThisCard(ItemChange activeItemOnThisCard) {
+        activeItemsOnThisCard.add(activeItemOnThisCard);
+    }
+
+    public ImpactType getImpactType() {
+        return impactType;
     }
 }

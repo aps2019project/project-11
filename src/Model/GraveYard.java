@@ -6,7 +6,8 @@ public class GraveYard
 {
     private ArrayList<Card> cards = new ArrayList<>();
 
-    public ArrayList<Card> getCards() {
+    public ArrayList<Card> getCards()
+    {
         return cards;
     }
 }
