@@ -299,6 +299,11 @@ public class ShowOutput {
         showCardInfo(card.getCardID());
     }
 
+    public static void showNextCard()
+    {
+        showNextCardInfo(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
+    }
+
     public static void showHand(Hand hand)
     {
         for (Card card : hand.getCards())

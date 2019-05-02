@@ -158,10 +158,13 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineBattleMenuCommand() {
-        while (true) {
+    private void determineBattleMenuCommand()
+    {
+        while (true)
+        {
             Request.getBattleMenuCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case SINGLE_PLAYER:
                     selectSinglePlayerMatchMode();
                     break;
@@ -172,10 +175,13 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void selectSinglePlayerMatchMode() {
-        while (true) {
+    private void selectSinglePlayerMatchMode()
+    {
+        while (true)
+        {
             Request.getSinglePlayerMatchMode();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case STORY:
 
                     break;
@@ -227,6 +233,7 @@ public class CallTheAppropriateFunction {
                     else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Gathering flags"))
                     {
                         new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS);
+                        Battle.getCurrentBattle().setNumOfFlagsInGatheringFlagsMatchMode(Request.command.numOfFlags);
                     }
                     determineBattleCommand();
                     break;
@@ -291,10 +298,13 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineGraveYardCommand() {
-        while (true) {
+    private void determineGraveYardCommand()
+    {
+        while (true)
+        {
             Request.getGraveYardCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case SHOW_INFO:
                     /*todo*/
                 case SHOW_CARDS:

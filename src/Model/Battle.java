@@ -1,7 +1,5 @@
 package Model;
 
-import View.*;
-
 import java.util.ArrayList;
 
 public class Battle
@@ -14,6 +12,8 @@ public class Battle
     private static Card selectedCard;
     private static Item selectedICollectibleItem;
     private BattleMode battleMode;
+    private int numOfFlagsInGatheringFlagsMatchMode;
+
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode)
     {
         this.setFirstPlayer(firstPlayer);
@@ -139,14 +139,9 @@ public class Battle
 
     }
 
-    public void showNextCard()
-    {
-        ShowOutput.showNextCardInfo(playerTurn.getHand().getNextCard());
-    }
-
     public void showGraveYardCardInfo(int cardID)
     {
-        Card card = playerTurn.findCardInGraveYard(Request.command.cardOrItemIDInGraveYard);
+        Card card = playerTurn.findCardInGraveYard(cardID);
         if(card != null)
         {
             card.printCardStats();
@@ -249,5 +244,13 @@ public class Battle
 
     public void setBattleMode(BattleMode battleMode) {
         this.battleMode = battleMode;
+    }
+
+    public int getNumOfFlagsInGatheringFlagsMatchMode() {
+        return numOfFlagsInGatheringFlagsMatchMode;
+    }
+
+    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode) {
+        this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 }
