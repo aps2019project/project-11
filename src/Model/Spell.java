@@ -148,17 +148,20 @@ public class Spell extends Card
     {
 
     }
-    public String getDescriptionTypeOfSpell() {
+    public String getDescriptionTypeOfSpell()
+    {
         return descriptionTypeOfSpell;
     }
 
-    public void setDescriptionTypeOfSpell(String descriptionTypeOfSpell) {
+    public void setDescriptionTypeOfSpell(String descriptionTypeOfSpell)
+    {
         this.descriptionTypeOfSpell = descriptionTypeOfSpell;
     }
-    public SpellEffect getSpellEffect() {
+
+    public SpellEffect getSpellEffect()
+    {
         return spellEffect;
     }
-
 
     public static ArrayList<Spell> getSpells()
     {
@@ -167,11 +170,11 @@ public class Spell extends Card
 
     public void printSpellCardStats(int counter)
     {
-        System.out.println(counter + " : Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " /*todo*/ + " Sell Cost : " + getPrice());
+        System.out.println(counter + " : Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " + getDescriptionTypeOfSpell() + " Sell Cost : " + getPrice());
     }
 
     public void printSpellCardStats()
     {
-        System.out.println("Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " /*todo*/ + " Sell Cost : " + getPrice());
+        System.out.println("Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " + getDescriptionTypeOfSpell() + " Sell Cost : " + getPrice());
     }
 }

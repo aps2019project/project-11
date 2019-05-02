@@ -152,6 +152,11 @@ public class Item
         new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces", itemEffectItem20);
     }
 
+    public void useItem(int x, int y)
+    {
+        //todo
+    }
+
     public static Item findItem(int itemID)
     {
         for (Item item : items)

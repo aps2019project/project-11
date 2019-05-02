@@ -19,10 +19,13 @@ public class CallTheAppropriateFunction
         determineAccountCommand();
     }
 
-    void determineMainMenuCommand() {
-        while (true) {
+    void determineMainMenuCommand()
+    {
+        while (true)
+        {
             Request.getMainMenuCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case ENTER_SHOP:
                     determineShopCommand();
                     break;
@@ -86,11 +89,15 @@ public class CallTheAppropriateFunction
                     collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case BUY:
-                    if (Card.findCard(Request.command.cardOrItemName) != null) {
+                    if (Card.findCard(Request.command.cardOrItemName) != null)
+                    {
                         shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
-                    } else if (Item.findItem(Request.command.cardOrItemName) != null) {
+                    } else if (Item.findItem(Request.command.cardOrItemName) != null)
+                    {
                         shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
-                    } else {
+                    }
+                    else
+                    {
                         ShowOutput.printOutput("Card or Item does'nt exist in Shop");
                     }
                     break;
@@ -315,7 +322,9 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().getSelectedICollectibleItem().printItemStats();
                     break;
                 case USE_ITEM:
-
+                    int x = Request.command.rowOfTheCell;
+                    int y = Request.command.columnOfTheCell;
+                    Battle.getCurrentBattle().getSelectedICollectibleItem().useItem(x, y);
                     break;
             }
         }

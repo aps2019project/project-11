@@ -69,7 +69,7 @@ public class ShowOutput {
 
     public static void printHeroStats(Hero hero, int counter)
     {
-        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getTypeOfImpact() + " – Special power: " /*todo*/ + " - Sell Cost : " + hero.getPrice());
+        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getTypeOfImpact() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
     public static void showCollectionInfo(Collection collection)
@@ -215,10 +215,10 @@ public class ShowOutput {
 
     public static void showCardInfo(int cardID)
     {
-       Card s=Card.findCard(cardID);
-        if (s instanceof Hero)
+       Card card = Card.findCard(cardID);
+        if (card instanceof Hero)
         {
-            Hero hero= (Hero)s;
+            Hero hero = (Hero)card;
             System.out.println("Hero");
             System.out.print("Name:");
             System.out.println(hero.getCardName());
@@ -226,9 +226,9 @@ public class ShowOutput {
             System.out.println(hero.getPrice());
             System.out.println(/*todo*/);
         }
-        if (s instanceof Minion)
+        if (card instanceof Minion)
         {
-            Minion minion=(Minion)s;
+            Minion minion=(Minion)card;
             System.out.println("Minion");
             System.out.print("Name:");
             System.out.println(minion.getCardName());
@@ -244,12 +244,12 @@ public class ShowOutput {
             System.out.println(/*todo*/);
             System.out.print("Cost:");
             System.out.println(minion.getPrice());
-            System.out.print("Desc:");
-            System.out.println(/*todo*/);
+            System.out.print("Special Power:");
+            System.out.println(minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
         }
-        if (s instanceof Spell)
+        if (card instanceof Spell)
         {
-            Spell spell=(Spell)s;
+            Spell spell=(Spell)card;
             System.out.println("Spell");
             System.out.print("Name:");
             System.out.println(spell.getCardName());
@@ -258,7 +258,7 @@ public class ShowOutput {
             System.out.print("Cost");
             System.out.println(spell.getPrice());
             System.out.print("Desc:");
-            System.out.println(/*todo*/);
+            System.out.println(spell.getDescriptionTypeOfSpell());
         }
 
     }
