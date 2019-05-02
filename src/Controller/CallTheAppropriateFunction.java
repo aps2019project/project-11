@@ -1,17 +1,18 @@
 package Controller;
 
 import Model.*;
-import View.Request;
-import View.ShowOutput;
+import View.*;
 
-public class CallTheAppropriateFunction {
+public class CallTheAppropriateFunction
+{
     private AccountManager accountManager = new AccountManager();
     private CollectionManager collectionManager = new CollectionManager();
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
 
-    public void setPrimarySettings() {
+    public void setPrimarySettings()
+    {
         Card.setCards();
         Item.setItems();
         Account.setAIAccounts();
@@ -183,10 +184,10 @@ public class CallTheAppropriateFunction {
             switch (Request.command)
             {
                 case STORY:
-
+                    //todo
                     break;
                 case CUSTOM_GAME:
-
+                    //todo
                     break;
             }
         }
@@ -241,10 +242,13 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineBattleCommand() {
-        while (true) {
+    private void determineBattleCommand()
+    {
+        while (true)
+        {
             Request.getBattleCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case GAME_INFO:
                     ShowOutput.showGameInfo();
                     break;
@@ -258,13 +262,20 @@ public class CallTheAppropriateFunction {
                     ShowOutput.showCardInfo(Request.command.cardOrItemID);
                     break;
                 case SELECT:
-                    Battle.selectCard(Request.command.cardOrItemID);
+                    battleManager.selectCard(Request.command.cardOrItemID);
                     break;
                 case SHOW_HAND:
                     ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
                     battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    break;
+                case SHOW_COLLECTIBLES:
+                    ShowOutput.showCollectibleItems();
+                    break;
+                case SELECT_ITEM:
+                    battleManager.selectItem(Request.command.cardOrItemID);
+                    determineAfterSelectItemCommand();
                     break;
                 case COMBO_ATTACK:
                     //why Battle is static?
@@ -281,20 +292,32 @@ public class CallTheAppropriateFunction {
         }
     }
 
-    private void determineAfterSelectCardCommand() {
+    private void determineAfterSelectCardCommand()
+    {
         while (true) {
             Request.getAfterSelectCardCommands();
             switch (Request.command) {
                 case MOVE_TO:
-                    Battle.moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    Battle.getCurrentBattle().moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
             }
         }
     }
 
-    private void determineAfterSelectItemCommand() {
-        while (true) {
+    private void determineAfterSelectItemCommand()
+    {
+        while (true)
+        {
             Request.getAfterSelectItemCommands();
+            switch (Request.command)
+            {
+                case SHOW_ITEM_INFO:
+                    Battle.getCurrentBattle().getSelectedICollectibleItem().printItemStats();
+                    break;
+                case USE_ITEM:
+
+                    break;
+            }
         }
     }
 

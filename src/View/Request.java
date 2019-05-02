@@ -9,26 +9,28 @@ public class Request
 {
     public static Scanner myScanner = new Scanner(System.in);
 
-    private static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
-    private static Pattern patternCreateDeck = Pattern.compile("create deck [a-zA-Z_0-9]+");
-    private static Pattern patternDeleteDeck = Pattern.compile("delete deck [a-zA-Z_0-9]+");
-    private static Pattern patternAddCardToDeck = Pattern.compile("add //d+ to deck [a-zA-Z_0-9]+");
-    private static Pattern patternRemoveCardFromDeck = Pattern.compile("remove //d+ from deck [a-zA-Z_0-9]+");
-    private static Pattern patternValidateDeck = Pattern.compile("validate deck [a-zA-Z_0-9]+");
-    private static Pattern patternSelectMainDeck = Pattern.compile("select deck [a-zA-Z_0-9]+");
-    private static Pattern patternShowDeck = Pattern.compile("show deck [a-zA-Z_0-9]+");
-    private static Pattern patternCreateAccount = Pattern.compile("create account [a-zA-Z_0-9]+");
-    private static Pattern patternAccountLogin = Pattern.compile("login [a-zA-Z_0-9]+");
-    private static Pattern patternShopSearchCollection = Pattern.compile("search collection [a-zA-Z_0-9]+");
-    private static Pattern patternShopBuy = Pattern.compile("buy [a-zA-Z_0-9]+");
-    private static Pattern patternShopSell = Pattern.compile("sell [a-zA-Z_0-9]+");
-    private static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
-    private static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
-    private static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
-    private static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+,[0-9]+");
-    private static Pattern patternSelectUser = Pattern.compile("Select User //w+");
-    private static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game //w//s*//d*");
-    private static Pattern patternComboAttack = Pattern.compile("Attack combo (([0-9]+)(\\s))+");
+    private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
+    private final static Pattern patternCreateDeck = Pattern.compile("create deck [a-zA-Z_0-9]+");
+    private final static Pattern patternDeleteDeck = Pattern.compile("delete deck [a-zA-Z_0-9]+");
+    private final static Pattern patternAddCardToDeck = Pattern.compile("add //d+ to deck [a-zA-Z_0-9]+");
+    private final static Pattern patternRemoveCardFromDeck = Pattern.compile("remove //d+ from deck [a-zA-Z_0-9]+");
+    private final static Pattern patternValidateDeck = Pattern.compile("validate deck [a-zA-Z_0-9]+");
+    private final static Pattern patternSelectMainDeck = Pattern.compile("select deck [a-zA-Z_0-9]+");
+    private final static Pattern patternShowDeck = Pattern.compile("show deck [a-zA-Z_0-9]+");
+    private final static Pattern patternCreateAccount = Pattern.compile("create account [a-zA-Z_0-9]+");
+    private final static Pattern patternAccountLogin = Pattern.compile("login [a-zA-Z_0-9]+");
+    private final static Pattern patternShopSearchCollection = Pattern.compile("search collection [a-zA-Z_0-9]+");
+    private final static Pattern patternShopBuy = Pattern.compile("buy [a-zA-Z_0-9]+");
+    private final static Pattern patternShopSell = Pattern.compile("sell [a-zA-Z_0-9]+");
+    private final static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [0-9]+");
+    private final static Pattern patternShowCardInfo = Pattern.compile("Show info [0-9]+");
+    private final static Pattern patternSelect = Pattern.compile("Card id [0-9]+");
+    private final static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+ [0-9]+");
+    private final static Pattern patternSelectUser = Pattern.compile("Select User //w+");
+    private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game //w//s*//d*");
+    private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([0-9]+)(\\s))+");
+    private final static Pattern patternSelectItem = Pattern.compile("Select [0-9]+");
+    private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
 
 
     public static CommandType command;
@@ -325,11 +327,21 @@ public class Request
             command.columnOfTheCell = Integer.parseInt(inputParts[3]);
             //todo
         }
+        else if (input.equalsIgnoreCase("Show collectibles"))
+        {
+            command = CommandType.SHOW_COLLECTIBLES;
+        }
+        else if (patternSelectItem.matcher(input).matches())
+        {
+            command = CommandType.SELECT_ITEM;
+            Request.command.cardOrItemID = Integer.parseInt(inputParts[1]);
+        }
         else if(patternComboAttack.matcher(input).matches())
         {
             command = CommandType.COMBO_ATTACK;
             command.enemyCardIDForCombo = Integer.parseInt(inputParts[2]);
-            for(int counter = 3 ; counter < inputParts.length ; counter++){
+            for(int counter = 3 ; counter < inputParts.length ; counter ++)
+            {
                 command.cardIDsForComboAttack.add(Integer.parseInt(inputParts[counter]));
             }
         }
@@ -366,7 +378,22 @@ public class Request
 
     public static void getAfterSelectItemCommands()
     {
-
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if (input.equalsIgnoreCase("Show Info"))
+        {
+            command = CommandType.SHOW_ITEM_INFO;
+        }
+        else if (patternUseItem.matcher(input).matches())
+        {
+            command = CommandType.USE_ITEM;
+            Request.command.rowOfTheCell = Integer.parseInt(inputParts[1]);
+            Request.command.columnOfTheCell = Integer.parseInt(inputParts[2]);
+        }
+        else
+        {
+            command = null;
+        }
     }
 
     public static void getGraveYardCommands()

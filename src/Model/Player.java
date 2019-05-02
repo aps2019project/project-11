@@ -61,4 +61,12 @@ public class Player
     {
         this.insertedCards = insertedCards;
     }
+
+    public ArrayList<Item> getCollectibleItems() {
+        return collectibleItems;
+    }
+
+    public void setCollectibleItems(ArrayList<Item> collectibleItems) {
+        this.collectibleItems = collectibleItems;
+    }
 }

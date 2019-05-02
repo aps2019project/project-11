@@ -319,4 +319,14 @@ public class ShowOutput {
         printOutput("Keep flag for 6 turns");
         printOutput("Gathering Flags");
     }
+
+    public static void showCollectibleItems()
+    {
+        int counter = 1;
+        for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
+        {
+            item.printItemStats(counter);
+            counter ++;
+        }
+    }
 }

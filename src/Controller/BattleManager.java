@@ -31,4 +31,26 @@ public class BattleManager
             }
         }
     }
+
+    public void selectCard(int cardID)
+    {
+        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
+        {
+            if (card.getCardID() == cardID)
+            {
+                Battle.getCurrentBattle().selectCard(card);
+            }
+        }
+    }
+
+    public void selectItem(int itemID)
+    {
+        for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
+        {
+            if (item.getItemID() == itemID)
+            {
+                Battle.getCurrentBattle().selectCollectibleItem(item);
+            }
+        }
+    }
 }

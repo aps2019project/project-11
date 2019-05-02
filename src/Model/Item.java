@@ -178,7 +178,12 @@ public class Item
 
     public void printItemStats(int counter)
     {
-        System.out.println(counter + " : Name : " + getItemName() + " – Desc: " + /*todo*/ " – Sell Cost : " + getPrice());
+        System.out.println(counter + " : Name : " + getItemName() + " – Desc: " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
+    }
+
+    public void printItemStats()
+    {
+        System.out.println("Name : " + getItemName() + " – Desc: " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
     }
 
     public static ArrayList<Item> getItems()
@@ -191,7 +196,8 @@ public class Item
         return itemName;
     }
 
-    public boolean isCollectibleItemSelectedInBattle() {
+    public boolean isCollectibleItemSelectedInBattle()
+    {
         return collectibleItemSelectedInBattle;
     }
 
