@@ -295,6 +295,7 @@ public class CallTheAppropriateFunction
                     break;
                 case COMBO_ATTACK:
                     Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack);
+                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack.get(0));
                     break;
                 case SHOW_NEXT_CARD:
                     //todo
@@ -321,6 +322,7 @@ public class CallTheAppropriateFunction
                     break;
                 case NORMAL_ATTACK:
                     Battle.getCurrentBattle().attackToOpponent(Request.command.enemyCardIDForNormalAttack);
+                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForNormalAttack);
                     break;
                 case EXIT:
                     return;

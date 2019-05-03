@@ -74,6 +74,11 @@ public class Battle {
         }
     }
 
+    private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard) {
+        int currentHP = opponentCard.getCurrentHP();
+        opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
+    }
+
     public void attackToOpponent(int cardID) {
         if (Card.findCard(cardID) == null) {
             System.out.println("Invalid card id");
@@ -85,18 +90,21 @@ public class Battle {
                 if (((Minion) selectedCard).getImpactType() == ImpactType.melee) {
                     if (Card.checkNeighberhood(selectedCard, opponentCard)) {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
+                        ((Minion) selectedCard).setAttackAble(false);
                     } else {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 } else if (((Minion) selectedCard).getImpactType() == ImpactType.ranged) {
                     if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighberhood(selectedCard, opponentCard))) {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
+                        ((Minion) selectedCard).setAttackAble(false);
                     } else {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 } else if (((Minion) selectedCard).getImpactType() == ImpactType.hybrid) {
                     if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack()) {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
+                        ((Minion) selectedCard).setAttackAble(false);
                     } else {
                         System.out.println("opponent minion is unavailable for attack");
                     }
@@ -108,9 +116,31 @@ public class Battle {
         }
     }
 
-    private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard) {
-        int currentHP = opponentCard.getCurrentHP();
-        opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
+
+    public void counterAttack(int cardID) {
+        Card opponentCard = Card.findCard(cardID);
+        if (((NonSpellCards) opponentCard).isCounterAttackAble()) {
+            if (((Minion) opponentCard).getImpactType() == ImpactType.melee) {
+                if (Card.checkNeighberhood(selectedCard, opponentCard)) {
+                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                }
+            } else if (((Minion) opponentCard).getImpactType() == ImpactType.ranged) {
+                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighberhood(selectedCard, opponentCard))) {
+                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                }
+            } else if (((Minion) opponentCard).getImpactType() == ImpactType.hybrid) {
+                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack()) {
+                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                }
+            }
+        }
+    }
+
+    public void counterAttack(int cardID1 , int cardID2) {
+        selectedCard = Card.findCard(cardID2);
+        counterAttack(cardID1);
+        selectedCard = null;
+
     }
 
     public void comboAttack(int enemyCardID, ArrayList<Integer> cardsIDForComboAttack) {
