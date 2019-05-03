@@ -25,6 +25,10 @@ public class CallTheAppropriateFunction
         {
             ShowOutput.printMainMenuCommands();
             Request.getMainMenuCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case ENTER_SHOP:
@@ -57,6 +61,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAccountCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case CREATE_ACCOUNT:
@@ -84,6 +92,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getShopCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case SHOW_COLLECTION:
@@ -128,6 +140,10 @@ public class CallTheAppropriateFunction
     private void determineCollectionCommand() {
         while (true) {
             Request.getCollectionCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command) {
                 case EXIT:
                     ShowOutput.printMainMenuCommands();
@@ -179,6 +195,10 @@ public class CallTheAppropriateFunction
         {
             ShowOutput.showBattleMenuCommands();
             Request.getBattleMenuCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case SINGLE_PLAYER:
@@ -196,6 +216,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getSinglePlayerMatchMode();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case STORY:
@@ -214,6 +238,10 @@ public class CallTheAppropriateFunction
         {
             accountManager.showAllPlayers();
             Request.getSecondPlayerInMultiPlayerMatch();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case SELECT_USER:
@@ -234,6 +262,10 @@ public class CallTheAppropriateFunction
         {
             ShowOutput.showBattleModes();
             Request.getMultiPlayerMatchMode();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case START_MULTI_PLAYER_GAME:
@@ -262,6 +294,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getBattleCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case GAME_INFO:
@@ -315,6 +351,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAfterSelectCardCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case MOVE_TO:
@@ -336,6 +376,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAfterSelectItemCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case SHOW_ITEM_INFO:
@@ -355,6 +399,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getGraveYardCommands();
+            if(Request.command == null)
+            {
+                continue;
+            }
             switch (Request.command)
             {
                 case SHOW_INFO:
