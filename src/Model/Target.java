@@ -12,14 +12,13 @@ public class Target
     private int startColumn;
     private int endRow;
     private int endColumn;
-    private ImpactType impactType;
     private int maxAttackRange;
     private NonSpellCards nextNoneSpellCard;
     private boolean allOwnMinion;
     private boolean allOwnBothNonSpellCards;
     private boolean allOpponentNonSpellCards;
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, ImpactType impactType, int maxAttackRange , NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, int maxAttackRange , NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -31,7 +30,6 @@ public class Target
         this.startColumn = startColumn;
         this.endRow = endRow;
         this.endColumn = endColumn;
-        this.impactType = impactType;
         this.maxAttackRange = maxAttackRange;
         this.nextNoneSpellCard = nextNoneSpellCard;
         this.allOwnMinion = allOwnMinion;
@@ -99,10 +97,6 @@ public class Target
 
     public int getEndColumn() {
         return endColumn;
-    }
-
-    public ImpactType getImpactType() {
-        return impactType;
     }
 
     public int getMaxAttackRange() {
