@@ -160,16 +160,19 @@ public class Item
         {
             ItemTarget itemTarget = this.getItemEffect().getItemTargets().get(i);
             ItemChange itemChange = this.getItemEffect().getItemChanges().get(i);
+            Minion minion;
             switch (itemTarget)
             {
                 case OWN_RANDOM_FORCE:
                     Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_RANGED_HYBRID:
-                    //todo
+                    minion = Battle.getCurrentBattle().findRandomOwnRangedHybridMinionToApplyItem();
+                    minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_MINION:
-                    //todo
+                    minion = Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
+                    minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_PLAYER:
                     Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);

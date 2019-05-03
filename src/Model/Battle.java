@@ -3,6 +3,7 @@ package Model;
 import Controller.BattleManager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Battle {
     private static Battle currentBattle;
@@ -14,8 +15,10 @@ public class Battle {
     private Item selectedICollectibleItem;
     private BattleMode battleMode;
     private int numOfFlagsInGatheringFlagsMatchMode;
+    private Random random = new Random();
 
-    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode) {
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode)
+    {
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
         this.setBattleMode(battleMode);
@@ -178,16 +181,25 @@ public class Battle {
 
     }
 
-    public void showCollectibleItems() {
-
+    public Minion findRandomOwnMinionToApplyItem()
+    {
+        int numOfInsertedMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().size();
+        int randomMinionNumber = random.nextInt(numOfInsertedMinions);
+        return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
     }
 
-    public void showCollectibleItemInfo() {
-
-    }
-
-    public void useCollectibleItem(int x, int y) {
-
+    public Minion findRandomOwnRangedHybridMinionToApplyItem()
+    {
+        ArrayList<Minion> minions = new ArrayList<>();
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        {
+            if (minion.getImpactType() == ImpactType.hybrid || minion.getImpactType() == ImpactType.ranged)
+            {
+                minions.add(minion);
+            }
+        }
+        int randomMinionNumber = random.nextInt(minions.size());
+        return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
     }
 
     public void showGraveYardCardInfo(int cardID) {
