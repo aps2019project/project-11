@@ -11,7 +11,8 @@ public class SpellEffect
         return targets;
     }
 
-    public void addTarget(Target target) {
+    public void addTarget(Target target)
+    {
         targets.add(target);
     }
 

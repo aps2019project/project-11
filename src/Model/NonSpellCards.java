@@ -118,7 +118,8 @@ public abstract class NonSpellCards extends Card
         return this.impactType;
     }
 
-    public void setImpactType(ImpactType impactType) {
+    public void setImpactType(ImpactType impactType)
+    {
         this.impactType = impactType;
     }
 

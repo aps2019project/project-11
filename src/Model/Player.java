@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player
 {
@@ -10,7 +11,7 @@ public class Player
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private GraveYard graveYard = new GraveYard();
     private int MP;
-    private ArrayList<Card> insertedCards = new ArrayList<>();
+    private ArrayList<Minion> insertedCards = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
     private ArrayList<SpellChange> activeSpellsOnPlayer = new ArrayList<>();
 
@@ -18,6 +19,8 @@ public class Player
     {
         this.account = account;
         this.mainDeck = account.getMainDeck();
+        Collections.shuffle(account.getMainDeck().getNonHeroCards());
+        //todo set hand cards
     }
 
     public Card findCardInGraveYard(int ID)
@@ -55,11 +58,11 @@ public class Player
         this.hand = hand;
     }
 
-    public ArrayList<Card> getInsertedCards() {
+    public ArrayList<Minion> getInsertedCards() {
         return insertedCards;
     }
 
-    public  void setInsertedCards(ArrayList<Card> insertedCards)
+    public  void setInsertedCards(ArrayList<Minion> insertedCards)
     {
         this.insertedCards = insertedCards;
     }
