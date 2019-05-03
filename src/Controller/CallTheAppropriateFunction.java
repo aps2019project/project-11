@@ -23,6 +23,7 @@ public class CallTheAppropriateFunction
     {
         while (true)
         {
+            ShowOutput.printMainMenuCommands();
             Request.getMainMenuCommands();
             switch (Request.command)
             {
@@ -51,10 +52,13 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineAccountCommand() {
-        while (true) {
+    private void determineAccountCommand()
+    {
+        while (true)
+        {
             Request.getAccountCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case CREATE_ACCOUNT:
                     accountManager.checkCircumstancesToCreateAccount(Request.command.username);
                     break;
@@ -75,10 +79,13 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineShopCommand() {
-        while (true) {
+    private void determineShopCommand()
+    {
+        while (true)
+        {
             Request.getShopCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case SHOW_COLLECTION:
                     ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
@@ -170,6 +177,7 @@ public class CallTheAppropriateFunction
     {
         while (true)
         {
+            ShowOutput.showBattleMenuCommands();
             Request.getBattleMenuCommands();
             switch (Request.command)
             {
@@ -289,12 +297,12 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack);
                     break;
                 case SHOW_NEXT_CARD:
-
+                    //todo
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
                     break;
                 case HELP_BATTLE:
-
+                    //todo
                 case EXIT:
                     return;
             }

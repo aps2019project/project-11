@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class AccountManager
 {
-    private ArrayList<Account> accounts = new ArrayList<>();
+    private static ArrayList<Account> accounts = new ArrayList<>();
 
     public void checkCircumstancesToCreateAccount(String userName)
     {
@@ -35,7 +35,6 @@ public class AccountManager
                 if (inputPassword.equals(account.getPassword()))
                 {
                     Account.login(account);
-                    ShowOutput.printMainMenuCommands();
                     new CallTheAppropriateFunction().determineMainMenuCommand();
                 }
                 ShowOutput.printOutput("The password is not correct");
@@ -83,12 +82,12 @@ public class AccountManager
         int counter = 1;
         for (Account account : getAccounts())
         {
-            ShowOutput.printOutput(counter + account.getAccountName());
+            ShowOutput.printOutput(counter + "- " + account.getAccountName());
             counter ++;
         }
     }
 
-    public ArrayList<Account> getAccounts()
+    public static ArrayList<Account> getAccounts()
     {
         return accounts;
     }

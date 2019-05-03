@@ -3,7 +3,8 @@ package View;
 import Controller.*;
 import Model.*;
 
-public class ShowOutput {
+public class ShowOutput
+{
     public static void printOutput(String command)
     {
         System.out.println(command);
@@ -11,9 +12,9 @@ public class ShowOutput {
 
     public static void printMainMenuCommands()
     {
-        System.out.println("Collection");
-        System.out.println("Shop");
-        System.out.println("Battle");
+        System.out.println("Enter Collection");
+        System.out.println("Enter Shop");
+        System.out.println("Enter Battle");
         System.out.println("Save");
         System.out.println("Logout");
         System.out.println("Help");
@@ -23,7 +24,7 @@ public class ShowOutput {
     public static void showAccountsLeaderBoard()
     {
         int counter = 1;
-        for (Account account : new AccountManager().getAccounts())
+        for (Account account : AccountManager.getAccounts())
         {
             System.out.println(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
             counter++;
@@ -69,7 +70,7 @@ public class ShowOutput {
 
     public static void printHeroStats(Hero hero, int counter)
     {
-        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
+        System.out.println(counter + " : Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
     public static void showCollectionInfo(Collection collection)
@@ -81,7 +82,7 @@ public class ShowOutput {
             if (card instanceof Hero)
             {
                 ShowOutput.printHeroStats((Hero) card, counter);
-                counter++;
+                counter ++;
             }
         }
 
@@ -90,7 +91,7 @@ public class ShowOutput {
         for (Item item : collection.getItems())
         {
             item.printItemStats(counter);
-            counter++;
+            counter ++;
         }
 
         counter = 1;
@@ -102,7 +103,7 @@ public class ShowOutput {
                 continue;
             }
             card.printCardStats(counter);
-            counter++;
+            counter ++;
         }
     }
 
@@ -266,32 +267,33 @@ public class ShowOutput {
 
     public static void showShopInfo()
     {
+        printOutput("Herose :");
         int counter = 1;
         for (Hero hero : Hero.getHeroes())
         {
-            ShowOutput.printHeroStats(hero, counter);
+            printHeroStats(hero, counter);
             counter ++;
         }
+        printOutput("Items :");
         counter = 1;
         for (Item item : Item.getItems())
         {
             item.printItemStats(counter);
             counter ++;
         }
+        printOutput("Spells :");
         counter = 1;
-        for (Card card : Card.getCards())
+        for (Spell spell : Spell.getSpells())
         {
-            if (card instanceof Spell)
-            {
-                Spell spell = (Spell) card;
-                spell.printSpellCardStats(counter);
-                counter ++;
-            } else if (card instanceof Minion)
-            {
-                Minion minion = (Minion) card;
-                minion.printMinionStats(counter);
-                counter ++;
-            }
+            spell.printSpellCardStats(counter);
+            counter++;
+        }
+        printOutput("Minions :");
+        counter = 1;
+        for (Minion minion : Minion.getMinions())
+        {
+            minion.printMinionStats(counter);
+            counter ++;
         }
     }
 
@@ -312,6 +314,12 @@ public class ShowOutput {
             showCardInfo(card.getCardID());
         }
         showCardInfo(hand.getNextCard().getCardID());
+    }
+
+    public static void showBattleMenuCommands()
+    {
+        printOutput("Single Player");
+        printOutput("Multi Player");
     }
 
     public static void showBattleModes()

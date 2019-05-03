@@ -11,6 +11,7 @@ public class Shop
     private static int itemID = 40000;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    //todo add cards to shop
 
     public void buyCard(Card card)
     {

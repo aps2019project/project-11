@@ -11,7 +11,6 @@ public abstract class NonSpellCards extends Card
     private SpecialPower specialPower;
     private ArrayList<SpellChange> activeSpellsOnThisCard = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnThisCard = new ArrayList<>();
-    private ImpactType impactType;
     private boolean moveAble = true;
     private boolean attackAble = true;
     private boolean counterAttackAble = true;
@@ -60,10 +59,6 @@ public abstract class NonSpellCards extends Card
 
     public void setSpecialPower(SpecialPower specialPower) {
         this.specialPower = specialPower;
-    }
-
-    public void setImpactType(ImpactType impactType) {
-        this.impactType = impactType;
     }
 
     public boolean isMoveAble() {
@@ -116,7 +111,8 @@ public abstract class NonSpellCards extends Card
         activeItemsOnThisCard.add(activeItemOnThisCard);
     }
 
-    public ImpactType getImpactType() {
-        return impactType;
+    public ImpactType getImpactType()
+    {
+        return this.getSpecialPower().getSpellEffect().getTargets().get(0).getImpactType();
     }
 }

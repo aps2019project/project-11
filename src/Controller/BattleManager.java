@@ -45,6 +45,7 @@ public class BattleManager
         ShowOutput.printOutput("Invalid card id");
     }
 
+
     public void selectItem(int itemID)
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())

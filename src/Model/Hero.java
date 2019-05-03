@@ -69,8 +69,8 @@ public class Hero extends NonSpellCards
         new Hero("Esfandiar", 12000, 35, 3, 0, 0, specialPowerHero9);
 
         SpecialPower specialPowerHero10 = new SpecialPower("Rostam has no specialPower");
-        specialPowerHero9.getSpellEffect().addSpellChange(new SpellChange(0, false, false, 0, 0, 0, false, false, false, 0,false, false, false, false, false, false, false, false));
-        specialPowerHero9.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, ImpactType.hybrid, 4, null, false, false, false));
+        specialPowerHero10.getSpellEffect().addSpellChange(new SpellChange(0, false, false, 0, 0, 0, false, false, false, 0,false, false, false, false, false, false, false, false));
+        specialPowerHero10.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, ImpactType.hybrid, 4, null, false, false, false));
         new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10);
     }
 
