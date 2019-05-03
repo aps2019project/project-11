@@ -45,7 +45,8 @@ public abstract class NonSpellCards extends Card
         this.defaultAP = defaultAP;
     }
 
-    public int getCurrentHP() {
+    public int getCurrentHP()
+    {
         return currentHP;
     }
 

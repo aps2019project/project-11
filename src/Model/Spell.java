@@ -102,31 +102,47 @@ public class Spell extends Card
 
     public void effectHolyBuff(Card card)
     {
-
+        NonSpellCards cards = (NonSpellCards)card;
+        cards.setCurrentHP(1);
     }
 
     public void effectPowerBuff(Card card,boolean isHP)
     {
-
+        NonSpellCards cards = (NonSpellCards)card;
+        //todo
     }
 
     public void effectPoisonBuff(Card card)
     {
-
+        NonSpellCards cards = (NonSpellCards)card;
+        cards.setCurrentHP(cards.getCurrentHP()-1);
     }
 
     public void effectWeaknessBuff(Card card,boolean isHP)
     {
-
+        NonSpellCards cards = (NonSpellCards)card;
+        if (isHP == true)
+        {
+            cards.setCurrentHP(cards.getCurrentHP()-1);
+        }
+        else if (isHP == false)
+        {
+            cards.setCurrentAP(cards.getCurrentAP()-1);
+        }
     }
-
     public void effectStunBuff(Card card)
     {
+        NonSpellCards cards = (NonSpellCards)card;
+        cards.setMoveAble(false);
+        cards.setAttackAble(false);
+        cards.setCounterAttackAble(false);
 
     }
 
     public void effectDisarmBuff(Card card)
     {
+        NonSpellCards cards = (NonSpellCards)card;
+        cards.setCounterAttackAble(false);
 
     }
 
