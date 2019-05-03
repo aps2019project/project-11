@@ -96,9 +96,9 @@ public class Battle
                     }
                 }
                 if (((Minion) selectedCard).getImpactType() == ImpactType.ranged) {
-                    /*if(Card.findDestination(selectedCard , opponentCard) <= ((NonSpellCards)selectedCard).){
+                    if(Card.findDestination(selectedCard , opponentCard) <= ((Minion)selectedCard)){
 
-                    }*/
+                    }
                 }
 
             }

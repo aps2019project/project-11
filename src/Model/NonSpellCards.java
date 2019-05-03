@@ -14,6 +14,8 @@ public abstract class NonSpellCards extends Card
     private boolean moveAble = true;
     private boolean attackAble = true;
     private boolean counterAttackAble = true;
+    private int rangeOfAttack ;
+    private ImpactType impactType;
 
     public Cell [][] setAttackAbleCells()
     {
@@ -113,6 +115,18 @@ public abstract class NonSpellCards extends Card
 
     public ImpactType getImpactType()
     {
-        return this.getSpecialPower().getSpellEffect().getTargets().get(0).getImpactType();
+        return this.impactType;
+    }
+
+    public void setImpactType(ImpactType impactType) {
+        this.impactType = impactType;
+    }
+
+    public int getRangeOfAttack() {
+        return rangeOfAttack;
+    }
+
+    public void setRangeOfAttack(int rangeOfAttack) {
+        this.rangeOfAttack = rangeOfAttack;
     }
 }
