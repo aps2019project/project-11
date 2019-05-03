@@ -69,7 +69,7 @@ public class ShowOutput {
 
     public static void printHeroStats(Hero hero, int counter)
     {
-        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getTypeOfImpact() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
+        System.out.println(counter + " : Name :" + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
     public static void showCollectionInfo(Collection collection)
@@ -166,21 +166,17 @@ public class ShowOutput {
 
     public static void showGameInfo()
     {
-
+        //todo
     }
 
     public static void showMyMinions()
     {
-        for (Card card :Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            System.out.print(card.getCardID() + " : " );
-            System.out.print(card.getCardName() +" , ");
-            System.out.print("health :");
-            System.out.print(((NonSpellCards) card).getCurrentHP() + " , ");
-            System.out.print("location :");
-            System.out.print("("+ card.getRow() + " , " + card.getColumn() + ")" + " , ");
-            System.out.print("power :");
-            System.out.print(((NonSpellCards) card).getCurrentAP());
+            if (card instanceof Minion)
+            {
+                showMinionInfoInTheBattle((Minion) card);
+            }
         }
     }
 
@@ -197,25 +193,29 @@ public class ShowOutput {
         }
         for (Card card : opponent.getInsertedCards())
         {
-            System.out.print(card.getCardID());
-            System.out.print(" : ");
-            System.out.print(card.getCardName() +" , ");
-            System.out.print("health");
-            System.out.print(" : ");
-            System.out.print(((NonSpellCards) card).getCurrentHP() + " , ");
-            System.out.print("location");
-            System.out.print(" : ");
-            System.out.print("("+ card.getRow() + " , " + card.getColumn() + ")" + " , ");
-            System.out.print("power");
-            System.out.print(" : ");
-            System.out.print(((NonSpellCards) card).getCurrentAP());
+            if (card instanceof Minion)
+            {
+                showMinionInfoInTheBattle((Minion) card);
+            }
         }
 
     }
 
+    private static void showMinionInfoInTheBattle(Minion minion)
+    {
+        System.out.print(minion.getCardID() + " : " );
+        System.out.print(minion.getCardName() +", ");
+        System.out.print("health : ");
+        System.out.print(minion.getCurrentHP() + ", ");
+        System.out.print("location : ");
+        System.out.print("("+ minion.getRow() + ", " + minion.getColumn() + "), ");
+        System.out.print("power : ");
+        System.out.println(minion.getCurrentAP());
+    }
+
     public static void showCardInfo(int cardID)
     {
-       Card card = Card.findCard(cardID);
+        Card card = Card.findCard(cardID);
         if (card instanceof Hero)
         {
             Hero hero = (Hero)card;
@@ -239,7 +239,7 @@ public class ShowOutput {
             System.out.print("MP:");
             System.out.println(minion.getRequiredMP());
             System.out.print("Range:");
-            System.out.println(minion.getTypeOfImpact());
+            System.out.println(minion.getImpactType());
             System.out.print("Combo-ability:");
             System.out.println(/*todo*/);
             System.out.print("Cost:");
