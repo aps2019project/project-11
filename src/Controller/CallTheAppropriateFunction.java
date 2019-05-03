@@ -345,9 +345,11 @@ public class CallTheAppropriateFunction
             switch (Request.command)
             {
                 case SHOW_INFO:
-                    /*todo*/
+                    Battle.getCurrentBattle().showGraveYardCardInfo(Request.command.cardOrItemIDInGraveYard);
+                    break;
                 case SHOW_CARDS:
-                    /*todo*/
+                    Battle.getCurrentBattle().showAllCardsInTheGraveYard();
+                    break;
                 case EXIT:
                     return;
             }
