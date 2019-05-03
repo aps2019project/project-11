@@ -39,8 +39,10 @@ public class BattleManager
             if (card.getCardID() == cardID)
             {
                 Battle.getCurrentBattle().selectCard(card);
+                return;
             }
         }
+        ShowOutput.printOutput("Invalid card id");
     }
 
     public void selectItem(int itemID)

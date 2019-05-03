@@ -182,15 +182,17 @@ public class Battle
     {
         int counter = 1;
         System.out.println("first Player Grave Yard :");
-        for (Card card : firstPlayer.getGraveYard().getCards()) {
+        for (Card card : firstPlayer.getGraveYard().getCards())
+        {
             card.printCardStats(counter);
-            counter++;
+            counter ++;
         }
         counter = 1;
         System.out.println("second Player Grave Yard :");
-        for (Card card : secondPlayer.getGraveYard().getCards()) {
+        for (Card card : secondPlayer.getGraveYard().getCards())
+        {
             card.printCardStats(counter);
-            counter++;
+            counter ++;
         }
     }
 

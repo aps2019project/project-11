@@ -219,17 +219,18 @@ public class ShowOutput {
         if (card instanceof Hero)
         {
             Hero hero = (Hero)card;
-            System.out.println("Hero");
+            System.out.println("Hero:");
             System.out.print("Name:");
             System.out.println(hero.getCardName());
             System.out.print("Cost:");
             System.out.println(hero.getPrice());
-            System.out.println(/*todo*/);
+            System.out.print("Desc:");
+            System.out.println(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
         }
         if (card instanceof Minion)
         {
-            Minion minion=(Minion)card;
-            System.out.println("Minion");
+            Minion minion = (Minion)card;
+            System.out.println("Minion:");
             System.out.print("Name:");
             System.out.println(minion.getCardName());
             System.out.print("HP:");
@@ -249,8 +250,8 @@ public class ShowOutput {
         }
         if (card instanceof Spell)
         {
-            Spell spell=(Spell)card;
-            System.out.println("Spell");
+            Spell spell = (Spell)card;
+            System.out.println("Spell:");
             System.out.print("Name:");
             System.out.println(spell.getCardName());
             System.out.print("MP:");

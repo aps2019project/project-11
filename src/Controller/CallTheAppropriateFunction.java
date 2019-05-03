@@ -270,6 +270,7 @@ public class CallTheAppropriateFunction
                     break;
                 case SELECT:
                     battleManager.selectCard(Request.command.cardOrItemID);
+                    determineAfterSelectCardCommand();
                     break;
                 case SHOW_HAND:
                     ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
@@ -302,9 +303,11 @@ public class CallTheAppropriateFunction
 
     private void determineAfterSelectCardCommand()
     {
-        while (true) {
+        while (true)
+        {
             Request.getAfterSelectCardCommands();
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case MOVE_TO:
                     Battle.getCurrentBattle().moveCard(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
