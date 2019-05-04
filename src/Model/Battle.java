@@ -25,6 +25,8 @@ public class Battle {
         currentBattle = this;
     }
 
+    public Battle(){}
+
     public static Battle getCurrentBattle() {
         return currentBattle;
     }
@@ -46,9 +48,16 @@ public class Battle {
                 account2.addDeck(deck2);
                 return new Player(account2);
             case 3:
-                break;
+                Account account3 = new Account();
+                Deck deck3 = Deck.createMainDeckForStoryAccount(3);
+                account3.addDeck(deck3);
+                return new Player(account3);
         }
         return null;
+    }
+
+    public static Player makeCustomGamePlayer(String deckNameForCustomGame) {
+        Deck.
     }
 
     public void customMode() {

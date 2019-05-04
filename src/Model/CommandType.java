@@ -55,7 +55,6 @@ public enum CommandType
     USE_ITEM,
     NORMAL_ATTACK,
     USE_SPECIAL_POWER,
-    COSTUME_GAME
     ;
 
     public String username;
@@ -70,4 +69,8 @@ public enum CommandType
     public int enemyCardIDForCombo;
     public ArrayList<Integer> cardIDsForComboAttack = new ArrayList<>();
     public int enemyCardIDForNormalAttack;
+    public String deckNameForCustomGame;
+    public int customGameMode;
+    public int customGameFlagNumber;
+
 }
