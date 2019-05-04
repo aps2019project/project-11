@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Item
+public class Item implements Cloneable
 {
     private static ArrayList<Item> items = new ArrayList<>();
     private int itemID;
@@ -312,5 +312,11 @@ public class Item
 
     public void setDescriptionTypeOfItem(String descriptionTypeOfItem) {
         this.descriptionTypeOfItem = descriptionTypeOfItem;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

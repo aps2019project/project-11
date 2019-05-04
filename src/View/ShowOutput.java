@@ -42,7 +42,6 @@ public class ShowOutput
 
     public static void shopHelp()
     {
-        System.out.println("exit");
         System.out.println("show collection");
         System.out.println("search [item name | card name]");
         System.out.println("search collection [item name | card name]");
@@ -50,14 +49,12 @@ public class ShowOutput
         System.out.println("sell [card ID | item ID]");
         System.out.println("show");
         System.out.println("help");
+        System.out.println("exit");
     }
 
     public static void collectionHelp()
     {
-        System.out.println("exit");
-        System.out.println("show");
         System.out.println("search [cardName | itemName]");
-        System.out.println("save");
         System.out.println("create deck [deckName]");
         System.out.println("delete deck [deckName]");
         System.out.println("add [cardID | heroID | itemID] to deck [deckName]");
@@ -66,7 +63,10 @@ public class ShowOutput
         System.out.println("select deck [deckName]");
         System.out.println("show all decks");
         System.out.println("show deck [deckName]");
+        System.out.println("save");
+        System.out.println("show");
         System.out.println("help");
+        System.out.println("exit");
     }
 
     public static void printHeroStats(Hero hero, int counter)

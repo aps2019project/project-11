@@ -25,7 +25,7 @@ public class ShopManager
                 return;
             }
         }
-        ShowOutput.printOutput("The item  or card doesn't exist in the shop.");
+        ShowOutput.printOutput("The item or card doesn't exist in the shop.");
     }
 
     public void buyCard(Card card)
