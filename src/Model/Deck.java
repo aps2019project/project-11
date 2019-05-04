@@ -65,8 +65,10 @@ public class Deck
         return deckName;
     }
 
-    public static Deck creatMainDeckForStoryAccount(int i) {
-        switch (i){
+    public static Deck createMainDeckForStoryAccount(int i)
+    {
+        switch (i)
+        {
             case 1:
                 Deck deck1 = new Deck("storyDeck1");
                 deck1.addHeroToDeck(Hero.findHero("Dave White"));

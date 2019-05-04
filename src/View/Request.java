@@ -376,9 +376,14 @@ public class Request
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if(patternNormalAttack.matcher(input).matches()){
+        if(patternNormalAttack.matcher(input).matches())
+        {
             command = CommandType.NORMAL_ATTACK ;
             command.enemyCardIDForNormalAttack = Integer.parseInt(inputParts[1]);
+        }
+        else
+        {
+            command = null;
         }
     }
 

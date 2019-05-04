@@ -40,21 +40,15 @@ public class Battle {
                 Deck deck1 = Deck.creatMainDeckForStoryAccount(1);
                 account1.addDeck(deck1);
                 return new Player(account1);
-                break;
             case 2:
                 Account account2 = new Account();
                 Deck deck2 = Deck.creatMainDeckForStoryAccount(2);
                 account2.addDeck(deck2);
                 return new Player(account2);
-                break;
             case 3:
                 break;
         }
-    }
-
-
-    public void storyMode() {
-
+        return null;
     }
 
     public void customMode() {

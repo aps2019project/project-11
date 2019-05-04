@@ -167,7 +167,22 @@ public class ShowOutput
 
     public static void showGameInfo()
     {
-        //todo
+        System.out.println("First Player MP : " + Battle.getCurrentBattle().getFirstPlayer().getMP());
+        System.out.println("Second Player MP : " + Battle.getCurrentBattle().getSecondPlayer().getMP());
+        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
+        {
+            System.out.println("First Player Hero HP : " + Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+            System.out.println("Second Player Hero HP : " + Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
+        {
+
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
+        {
+
+        }
+
     }
 
     public static void showMyMinions()
@@ -260,33 +275,43 @@ public class ShowOutput
 
     public static void showShopInfo()
     {
-        printOutput("Herose :");
+        printOutput("Heroes :");
         int counter = 1;
-        for (Hero hero : Hero.getHeroes())
+        for (Card card : Shop.getInstance().getCards())
         {
-            printHeroStats(hero, counter);
-            counter ++;
+            if (card instanceof Hero)
+            {
+                printHeroStats((Hero) card, counter);
+                counter ++;
+            }
+
         }
         printOutput("Items :");
         counter = 1;
-        for (Item item : Item.getItems())
+            for (Item item : Shop.getInstance().getItems())
         {
             item.printItemStats(counter);
             counter ++;
         }
         printOutput("Spells :");
         counter = 1;
-        for (Spell spell : Spell.getSpells())
+        for (Card card : Shop.getInstance().getCards())
         {
-            spell.printSpellCardStats(counter);
-            counter++;
+            if (card instanceof Spell)
+            {
+                ((Spell) card).printSpellCardStats(counter);
+                counter ++;
+            }
         }
         printOutput("Minions :");
         counter = 1;
-        for (Minion minion : Minion.getMinions())
+        for (Card card : Shop.getInstance().getCards())
         {
-            minion.printMinionStats(counter);
-            counter ++;
+            if (card instanceof Minion)
+            {
+                ((Minion) card).printMinionStats(counter);
+                counter ++;
+            }
         }
     }
 

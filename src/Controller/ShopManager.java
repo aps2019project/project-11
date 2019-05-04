@@ -7,7 +7,7 @@ public class ShopManager
 {
     public void searchShop(String name)
     {
-        for (Card card : Shop.shop.getCards())
+        for (Card card : Shop.getInstance().getCards())
         {
             if (card.getCardName().equals(name))
             {
@@ -16,7 +16,7 @@ public class ShopManager
                 return;
             }
         }
-        for (Item item : Shop.shop.getItems())
+        for (Item item : Shop.getInstance().getItems())
         {
             if (item.getItemName().equals(name))
             {
@@ -36,7 +36,7 @@ public class ShopManager
         }
         else
         {
-            Shop.shop.buyCard(card);
+            Shop.getInstance().buyCard(card);
             ShowOutput.printOutput("Successful purchase");
         }
     }
@@ -53,7 +53,7 @@ public class ShopManager
         }
         else
         {
-            Shop.shop.buyItem(item);
+            Shop.getInstance().buyItem(item);
             ShowOutput.printOutput("Successful purchase");
         }
     }
@@ -89,14 +89,14 @@ public class ShopManager
         {
             new DeckManager().searchDecksToRemoveNonHeroCardOnSale(cardToSell);
         }
-        Shop.shop.sellCard(cardToSell);
+        Shop.getInstance().sellCard(cardToSell);
         ShowOutput.printOutput("Successful Sale");
     }
 
     public void removeItemFromDeckToSell(Item itemToSell)
     {
         new DeckManager().searchDecksToRemoveItemOnSale(itemToSell);
-        Shop.shop.sellItem(itemToSell);
+        Shop.getInstance().sellItem(itemToSell);
         ShowOutput.printOutput("Successful Sale");
     }
 }

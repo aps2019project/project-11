@@ -21,6 +21,7 @@ public class Hero extends NonSpellCards
         this.setImpactType(impactType);
         this.setRangeOfAttack(rangeOfAttack);
         heroes.add(this);
+        Shop.getInstance().addCardToShop(this);
     }
 
     public static void setHeroes()
@@ -76,12 +77,16 @@ public class Hero extends NonSpellCards
         new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10 , ImpactType.hybrid , 4);
     }
 
-    public static Hero findHero(String name) {
-        for(Hero hero : heroes){
-            if(hero.getCardName().equals(name)){
+    public static Hero findHero(String name)
+    {
+        for(Hero hero : heroes)
+        {
+            if(hero.getCardName().equals(name))
+            {
                 return hero;
             }
         }
+        return null;
     }
 
     public Hero findHero(int heroID)

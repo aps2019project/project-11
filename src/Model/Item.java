@@ -26,6 +26,7 @@ public class Item
         this.setDescriptionTypeOfItem(descriptionTypeOfItem);
         this.setItemEffect(itemEffect);
         items.add(this);
+        Shop.getInstance().addItemToShop(this);
     }
 
     public static void setItems()
