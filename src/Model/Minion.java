@@ -29,15 +29,18 @@ public class Minion extends NonSpellCards
 
     public static void setMinions()
     {
+        SpecialPower minionSpell2 = new SpecialPower("stun in current turn");
+        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, true, false, false, false, false, false, false, false, false, true));
+        minionSpell2.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
+
+        /*SpecialPower minionSpell5 = new SpecialPower("five impact plus number of times that you impact in last turns");
+        minionSpell5.getSpellEffect().addSpellChange(new SpellChange(0,false,false,TimeToActivateSpecialPower.onAttack,0,,0,false,false,false,false,false,false,false,false,false,false));
+        minionSpell5.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,0,null,false,false,false));*/
 
         SpecialPower minionSpell10 = new SpecialPower("disarm and poison");
         minionSpell10.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, false, true, false, false, false, false, false, false, false, false));
         minionSpell10.getSpellEffect().addSpellChange(new SpellChange(4, false, false, TimeToActivateSpecialPower.onAttack, 0, -1, 0, false, false, false, false, false, false, false, false, false, false));
         minionSpell10.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
-
-        SpecialPower minionSpell2 = new SpecialPower("stun in current turn");
-        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, true, false, false, false, false, false, false, false, false, true));
-        minionSpell2.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell15 = new SpecialPower("10 power buff");
         minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0, true, false, TimeToActivateSpecialPower.passive, 0, 10, 0, false, false, false, false, false, false, false, false, false, false));
@@ -106,7 +109,16 @@ public class Minion extends NonSpellCards
         minionSpell38.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onDeath, 0, -6, 0, false, false, true, false, false, false, false, false, false, false));
         minionSpell38.getSpellEffect().addTarget(new Target(0, 0, false, true, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
-
+        new Minion("kamandar Fars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7);
+        new Minion("shamsirzan Fars", 400, 2, 6, 4 ,minionSpell2,false,ImpactType.melee, 0 );
+        new Minion("neizedar Fars", 500, 1, 5, 3, null,false, ImpactType.hybrid, 3);
+        new Minion("asbsavar Fars", 200, 4, 10, 6, null,false,ImpactType.melee, 0);
+        //new Minion("pahlavan Fars", 600, 9, 24, 6, minionSpell5,false,ImpactType.melee, 0);
+        new Minion("sepahsalar Fars", 800, 7, 12, 4, null,true,ImpactType.melee ,0);
+        new Minion("kamandar Torani", 500, 1, 3, 4,null,false,ImpactType.ranged, 5 );
+        new Minion("gholabsangdar Torani", 600, 1, 4, 2, null,false,ImpactType.ranged, 7);
+        new Minion("neizedar Torani", 600, 1, 4, 4, null,false,ImpactType.hybrid, 3);
+        new Minion("jasos Torani", 700, 4, 6, 6, minionSpell10,false, ImpactType.melee, 0);
         new Minion("Gorzdar Torani", 450, 2, 3, 10, null, false, ImpactType.melee, 0);
         new Minion("Shahzade Torani", 800, 6, 6, 10, null, true, ImpactType.melee, 0);
         new Minion("Dive siah", 300, 9, 14, 10, null, false, ImpactType.hybrid, 7);
