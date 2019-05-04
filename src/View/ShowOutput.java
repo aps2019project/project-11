@@ -343,9 +343,10 @@ public class ShowOutput
 
     public static void showBattleModes()
     {
-        printOutput("Killing Enemy Hero");
-        printOutput("Keep flag for 6 turns");
-        printOutput("Gathering Flags");
+        printOutput("Modes:");
+        printOutput("1- Killing Enemy Hero");
+        printOutput("2- Keep flag for 6 turns");
+        printOutput("3- Gathering Flags");
     }
 
     public static void showCollectibleItems()
@@ -362,5 +363,11 @@ public class ShowOutput
         System.out.println("1- Hero : Dave White - Mode : Kill enemy hero");
         System.out.println("2- Hero : Zahak - Mode : Gather and hold flag for 6 turn");
         System.out.println("3- Hero : Arash - Mode : Gather half of the flags");
+    }
+
+    public static void showCustomGameInfo() {
+        showAllDecksInfo();
+        showBattleModes();
+
     }
 }

@@ -32,6 +32,7 @@ public class Request
     private final static Pattern patternSelectItem = Pattern.compile("Select [0-9]+");
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [0-9]+");
+    private final static Pattern patternCusutmGame = Pattern.compile("Start game //w//s*//d*");
 
 
     public static CommandType command;
@@ -234,6 +235,10 @@ public class Request
         if (input.equalsIgnoreCase("Single Player"))
         {
             command = CommandType.SINGLE_PLAYER;
+        }
+        if(patternCusutmGame.matcher(input).matches())
+        {
+
         }
         else if (input.equalsIgnoreCase("Multi Player"))
         {

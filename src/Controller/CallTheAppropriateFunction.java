@@ -231,9 +231,11 @@ public class CallTheAppropriateFunction
                     Battle battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayer , BattleMode.KILLING_ENEMY_HERO);
                     Battle.setCurrentBattle(battle);
                     determineBattleCommand();
+                    //checkResult();
                     break;
                 case CUSTOM_GAME:
-                    //todo
+                    ShowOutput.showCustomGameInfo();
+
                     break;
             }
         }

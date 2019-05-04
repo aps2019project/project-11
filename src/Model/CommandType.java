@@ -54,7 +54,8 @@ public enum CommandType
     SHOW_ITEM_INFO,
     USE_ITEM,
     NORMAL_ATTACK,
-    USE_SPECIAL_POWER
+    USE_SPECIAL_POWER,
+    COSTUME_GAME
     ;
 
     public String username;
