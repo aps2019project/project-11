@@ -239,26 +239,17 @@ public class CallTheAppropriateFunction
                     ShowOutput.showStoryBattleInfo();
                     int selectedNumber = Request.myScanner.nextInt();
                     Player opponentPlayerForStory = Battle.makeStoryPlayer(selectedNumber);
-                    Battle battle = new Battle();
-                    switch (selectedNumber){
-                        case 1:
-                            battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , BattleMode.KILLING_ENEMY_HERO);
-                            break;
-                        case 2:
-                            battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                            break;
-                        case 3:
-                            battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , BattleMode.GATHERING_FLAGS);
-                            break;
-
-                    }
-                    Battle.setCurrentBattle(battle);
+                    Battle storyGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(selectedNumber));
+                    Battle.setCurrentBattle(storyGameBattle);
                     determineBattleCommand();
                     //checkResult();
                     break;
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
                     Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
+                    Battle customGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode));
+                    Battle.setCurrentBattle(customGameBattle);
+                    determineBattleCommand();
                     break;
             }
         }
