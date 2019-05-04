@@ -33,6 +33,22 @@ public class Battle {
         Battle.currentBattle = currentBattle;
     }
 
+    public static Player makeStoryPlayer(int selectedNumber) {
+        switch (selectedNumber){
+            case 1:
+                Account account = new Account();
+                Deck deck = Deck.creatMainDeckForStoryAccount(1);
+                account.addDeck(deck);
+                return new Player(account);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }
+
+
     public void storyMode() {
 
     }

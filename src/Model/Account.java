@@ -20,6 +20,11 @@ public class Account
         this.accountName = userName;
     }
 
+    public Account()
+    {
+
+    }
+
     public void addDeck(Deck deck)
     {
         this.playerDecks.add(deck);

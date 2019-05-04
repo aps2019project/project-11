@@ -331,4 +331,10 @@ public class ShowOutput
             counter ++;
         }
     }
+
+    public static void showStoryBattleInfo() {
+        System.out.println("1- Hero : Dave White - Mode : Kill enemy hero");
+        System.out.println("2- Hero : Zahak - Mode : Gather and hold flag for 6 turn");
+        System.out.println("3- Hero : Arash - Mode : Gather half of the flags");
+    }
 }

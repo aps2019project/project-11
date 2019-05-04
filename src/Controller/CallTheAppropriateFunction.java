@@ -223,7 +223,12 @@ public class CallTheAppropriateFunction
             switch (Request.command)
             {
                 case STORY:
-                    //todo
+                    ShowOutput.showStoryBattleInfo();
+                    int selectedNumber = Request.myScanner.nextInt();
+                    Player opponentPlayer = Battle.makeStoryPlayer(selectedNumber);
+                    Battle battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayer , BattleMode.KILLING_ENEMY_HERO);
+                    Battle.setCurrentBattle(battle);
+                    determineBattleCommand();
                     break;
                 case CUSTOM_GAME:
                     //todo

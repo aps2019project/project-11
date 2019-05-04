@@ -76,6 +76,14 @@ public class Hero extends NonSpellCards
         new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10 , ImpactType.hybrid , 4);
     }
 
+    public static Hero findHero(String name) {
+        for(Hero hero : heroes){
+            if(hero.getCardName().equals(name)){
+                return hero;
+            }
+        }
+    }
+
     public Hero findHero(int heroID)
     {
         for (Hero hero : heroes)
