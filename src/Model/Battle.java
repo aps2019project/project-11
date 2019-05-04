@@ -37,22 +37,15 @@ public class Battle {
         switch (selectedNumber){
             case 1:
                 Account account = new Account();
-                Deck deck = Deck.creatMainDeckForStoryAccount(1);
+                Deck deck = Deck.createMainDeckForStoryAccount(1);
                 account.addDeck(deck);
                 return new Player(account);
-                break;
             case 2:
                 break;
             case 3:
                 break;
         }
-    }
-
-
-    public void storyMode()
-
-    {
-
+        return null;
     }
 
     public void customMode() {

@@ -4,14 +4,32 @@ import java.util.ArrayList;
 
 public class Shop
 {
-    public static Shop shop = new Shop();
+    private static Shop shop = new Shop();
     private static int heroID = 10000;
     private static int minionID = 20000;
     private static int spellID = 30000;
     private static int itemID = 40000;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
-    //todo add cards to shop
+
+    public static Shop getInstance()
+    {
+        if (shop == null)
+        {
+            return new Shop();
+        }
+        return shop;
+    }
+
+    public void addCardToShop(Card card)
+    {
+        this.cards.add(card);
+    }
+
+    public void addItemToShop(Item item)
+    {
+        this.items.add(item);
+    }
 
     public void buyCard(Card card)
     {
