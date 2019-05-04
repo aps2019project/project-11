@@ -36,12 +36,15 @@ public class Battle {
     public static Player makeStoryPlayer(int selectedNumber) {
         switch (selectedNumber){
             case 1:
-                Account account = new Account();
-                Deck deck = Deck.createMainDeckForStoryAccount(1);
-                account.addDeck(deck);
-                return new Player(account);
+                Account account1 = new Account();
+                Deck deck1 = Deck.creatMainDeckForStoryAccount(1);
+                account1.addDeck(deck1);
+                return new Player(account1);
             case 2:
-                break;
+                Account account2 = new Account();
+                Deck deck2 = Deck.creatMainDeckForStoryAccount(2);
+                account2.addDeck(deck2);
+                return new Player(account2);
             case 3:
                 break;
         }
