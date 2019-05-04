@@ -49,7 +49,9 @@ public class Battle {
     }
 
 
-    public void storyMode() {
+    public void storyMode()
+
+    {
 
     }
 

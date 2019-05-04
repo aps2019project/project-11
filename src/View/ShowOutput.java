@@ -167,7 +167,22 @@ public class ShowOutput
 
     public static void showGameInfo()
     {
-        //todo
+        System.out.println("First Player MP : " + Battle.getCurrentBattle().getFirstPlayer().getMP());
+        System.out.println("Second Player MP : " + Battle.getCurrentBattle().getSecondPlayer().getMP());
+        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
+        {
+            System.out.println("First Player Hero HP : " + Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+            System.out.println("Second Player Hero HP : " + Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
+        {
+
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
+        {
+
+        }
+
     }
 
     public static void showMyMinions()
