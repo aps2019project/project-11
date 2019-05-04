@@ -12,7 +12,7 @@ public class Request
     private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
     private final static Pattern patternCreateDeck = Pattern.compile("create deck [a-zA-Z_0-9]+");
     private final static Pattern patternDeleteDeck = Pattern.compile("delete deck [a-zA-Z_0-9]+");
-    private final static Pattern patternAddCardToDeck = Pattern.compile("add //d+ to deck [a-zA-Z_0-9]+");
+    private final static Pattern patternAddCardToDeck = Pattern.compile("add [0-9]+ to deck [a-zA-Z_0-9]+");
     private final static Pattern patternRemoveCardFromDeck = Pattern.compile("remove //d+ from deck [a-zA-Z_0-9]+");
     private final static Pattern patternValidateDeck = Pattern.compile("validate deck [a-zA-Z_0-9]+");
     private final static Pattern patternSelectMainDeck = Pattern.compile("select deck [a-zA-Z_0-9]+");
@@ -32,7 +32,6 @@ public class Request
     private final static Pattern patternSelectItem = Pattern.compile("Select [0-9]+");
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [0-9]+");
-    private final static Pattern patternCusutmGame = Pattern.compile("Start game //w//s*//d*");
 
 
     public static CommandType command;
@@ -236,10 +235,6 @@ public class Request
         {
             command = CommandType.SINGLE_PLAYER;
         }
-        if(patternCusutmGame.matcher(input).matches())
-        {
-
-        }
         else if (input.equalsIgnoreCase("Multi Player"))
         {
             command = CommandType.MULTI_PLAYER;
@@ -253,6 +248,7 @@ public class Request
     public static void getSinglePlayerMatchMode()
     {
         String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Story"))
         {
             command = CommandType.STORY;
@@ -260,6 +256,11 @@ public class Request
         else if (input.equalsIgnoreCase("Custom Game"))
         {
             command = CommandType.CUSTOM_GAME;
+            command.deckNameForCustomGame = inputParts[2];
+            command.customGameMode = Integer.parseInt(inputParts[3]);
+            if(inputParts.length == 5){    ///I have doubt about it
+                command.customGameFlagNumber = Integer.parseInt(inputParts[4]);
+            }
         }
         else
         {

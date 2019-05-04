@@ -109,17 +109,25 @@ public class CallTheAppropriateFunction
                     collectionManager.searchCollection(Request.command.cardOrItemName);
                     break;
                 case BUY:
-                    if (Card.findCard(Request.command.cardOrItemName) != null)
+                    try
                     {
-                        shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
-                    }
-                    else if (Item.findItem(Request.command.cardOrItemName) != null)
+                        Card card = Card.findCard(Request.command.cardOrItemName);
+                        Item item = Item.findItem(Request.command.cardOrItemName);
+                        if (card != null)
+                        {
+                            shopManager.buyCard((Card) card.clone());
+                        }
+                        else if (item != null)
+                        {
+                            shopManager.buyItem((Item) item.clone());
+                        }
+                        else
+                        {
+                            ShowOutput.printOutput("Card or Item doesn't exist in Shop");
+                        }
+                    } catch(CloneNotSupportedException ignored)
                     {
-                        shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
-                    }
-                    else
-                    {
-                        ShowOutput.printOutput("Card or Item doesn't exist in Shop");
+
                     }
                     break;
                 case SELL:
@@ -139,14 +147,17 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineCollectionCommand() {
-        while (true) {
+    private void determineCollectionCommand()
+    {
+        while (true)
+        {
             Request.getCollectionCommands();
             if(Request.command == null)
             {
                 continue;
             }
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case EXIT:
                     ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
@@ -227,15 +238,18 @@ public class CallTheAppropriateFunction
                 case STORY:
                     ShowOutput.showStoryBattleInfo();
                     int selectedNumber = Request.myScanner.nextInt();
-                    Player opponentPlayer = Battle.makeStoryPlayer(selectedNumber);
-                    Battle battle = new Battle(new Player(Account.loggedInAccount) , opponentPlayer , BattleMode.KILLING_ENEMY_HERO);
-                    Battle.setCurrentBattle(battle);
+                    Player opponentPlayerForStory = Battle.makeStoryPlayer(selectedNumber);
+                    Battle storyGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(selectedNumber));
+                    Battle.setCurrentBattle(storyGameBattle);
                     determineBattleCommand();
                     //checkResult();
                     break;
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
-
+                    Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
+                    Battle customGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode));
+                    Battle.setCurrentBattle(customGameBattle);
+                    determineBattleCommand();
                     break;
             }
         }

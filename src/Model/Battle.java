@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.BattleManager;
+import Controller.DeckManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +26,8 @@ public class Battle {
         currentBattle = this;
     }
 
+    public Battle(){}
+
     public static Battle getCurrentBattle() {
         return currentBattle;
     }
@@ -46,9 +49,29 @@ public class Battle {
                 account2.addDeck(deck2);
                 return new Player(account2);
             case 3:
-                break;
+                Account account3 = new Account();
+                Deck deck3 = Deck.createMainDeckForStoryAccount(3);
+                account3.addDeck(deck3);
+                return new Player(account3);
         }
         return null;
+    }
+
+    public static Player makeCustomGamePlayer(String deckNameForCustomGame) {
+        Account account = new Account();
+        account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
+        return new Player(account);
+    }
+
+    public static BattleMode getBattleMode(int customGameMode) {
+        switch (customGameMode){
+            case 1:
+                return BattleMode.KILLING_ENEMY_HERO;
+            case 2:
+                return BattleMode.KEEP_FLAG_FOR_6_TURNS;
+            case 3:
+                return BattleMode.GATHERING_FLAGS;
+        }
     }
 
     public void customMode() {
