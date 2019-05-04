@@ -88,7 +88,7 @@ public class Deck
             case 3:
                 Deck deck3 = new Deck("storyDeck3");
                 deck3.addHeroToDeck(Hero.findHero("Arash"));
-                deck3.addNonHeroCardToDeck("")
+                //deck3.addNonHeroCardToDeck(" ");
         }
         return null;
     }

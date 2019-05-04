@@ -37,12 +37,12 @@ public class Battle {
         switch (selectedNumber){
             case 1:
                 Account account1 = new Account();
-                Deck deck1 = Deck.creatMainDeckForStoryAccount(1);
+                Deck deck1 = Deck.createMainDeckForStoryAccount(1);
                 account1.addDeck(deck1);
                 return new Player(account1);
             case 2:
                 Account account2 = new Account();
-                Deck deck2 = Deck.creatMainDeckForStoryAccount(2);
+                Deck deck2 = Deck.createMainDeckForStoryAccount(2);
                 account2.addDeck(deck2);
                 return new Player(account2);
             case 3:

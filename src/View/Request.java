@@ -130,7 +130,7 @@ public class Request
         else if(patternShopSearchCollection.matcher(input).matches())
         {
             command = CommandType.SEARCH_COLLECTION;
-            command.cardOrItemName = partedInput[1];
+            command.cardOrItemName = partedInput[2];
         }
         else if(patternShopBuy.matcher(input).matches())
         {

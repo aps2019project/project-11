@@ -95,22 +95,20 @@ public class CollectionManager
 
     public void searchCollection(String name)
     {
-        for (Card card : Shop.getInstance().getCards())
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
             if (card.getCardName().equals(name))
             {
                 ShowOutput.printOutput("Card exists in the collection");
                 ShowOutput.printOutput("Card ID : " + card.getCardID());
-                return;
             }
         }
-        for (Item item : Item.getItems())
+        for (Item item : Account.loggedInAccount.getCollection().getItems())
         {
             if (item.getItemName().equals(name))
             {
                 ShowOutput.printOutput("Item exists in the collection");
                 ShowOutput.printOutput("Item ID : " + item.getItemID());
-                return;
             }
         }
     }
