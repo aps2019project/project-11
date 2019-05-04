@@ -53,7 +53,8 @@ public enum CommandType
     SELECT_ITEM,
     SHOW_ITEM_INFO,
     USE_ITEM,
-    NORMAL_ATTACK
+    NORMAL_ATTACK,
+    USE_SPECIAL_POWER
     ;
 
     public String username;

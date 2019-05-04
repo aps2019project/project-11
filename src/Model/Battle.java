@@ -11,7 +11,7 @@ public class Battle {
     private Player secondPlayer;
     private Player playerTurn;
     private BattleField battleField;
-    private Card selectedCard;
+    private NonSpellCards selectedCard;
     private Item selectedICollectibleItem;
     private BattleMode battleMode;
     private int numOfFlagsInGatheringFlagsMatchMode;
@@ -72,7 +72,7 @@ public class Battle {
 
     }
 
-    public void selectCard(Card card) {
+    public void selectCard(NonSpellCards card) {
         setSelectedCard(card);
         card.setCardSelectedInBattle(true);
     }
@@ -102,14 +102,14 @@ public class Battle {
         if (selectedCard.isCardSelectedInBattle()) {
             if (((NonSpellCards) selectedCard).isAttackAble()) {
                 if (((Minion) selectedCard).getImpactType() == ImpactType.melee) {
-                    if (Card.checkNeighberhood(selectedCard, opponentCard)) {
+                    if (Card.checkNeighborhood(selectedCard, opponentCard)) {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
                         ((Minion) selectedCard).setAttackAble(false);
                     } else {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 } else if (((Minion) selectedCard).getImpactType() == ImpactType.ranged) {
-                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighberhood(selectedCard, opponentCard))) {
+                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard))) {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
                         ((Minion) selectedCard).setAttackAble(false);
                     } else {
@@ -135,11 +135,11 @@ public class Battle {
         Card opponentCard = Card.findCard(cardID);
         if (((NonSpellCards) opponentCard).isCounterAttackAble()) {
             if (((Minion) opponentCard).getImpactType() == ImpactType.melee) {
-                if (Card.checkNeighberhood(selectedCard, opponentCard)) {
+                if (Card.checkNeighborhood(selectedCard, opponentCard)) {
                     damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
                 }
             } else if (((Minion) opponentCard).getImpactType() == ImpactType.ranged) {
-                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighberhood(selectedCard, opponentCard))) {
+                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard))) {
                     damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
                 }
             } else if (((Minion) opponentCard).getImpactType() == ImpactType.hybrid) {
@@ -150,8 +150,9 @@ public class Battle {
         }
     }
 
-    public void counterAttack(int cardID1 , int cardID2) {
-        selectedCard = Card.findCard(cardID2);
+    public void counterAttack(int cardID1 , int cardID2)
+    {
+        selectedCard = (NonSpellCards) Card.findCard(cardID2);
         counterAttack(cardID1);
         selectedCard = null;
 
@@ -178,11 +179,7 @@ public class Battle {
         }
     }
 
-    public void useSpecialPower(int x, int y) {
-        if (selectedCard.isCardSelectedInBattle()) {
 
-        }
-    }
 
     public void insertCard(String cardName, int x, int y) {
 
@@ -275,7 +272,7 @@ public class Battle {
         return selectedCard;
     }
 
-    public void setSelectedCard(Card selectedCard) {
+    public void setSelectedCard(NonSpellCards selectedCard) {
         this.selectedCard = selectedCard;
     }
 

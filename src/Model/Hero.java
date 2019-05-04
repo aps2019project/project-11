@@ -31,7 +31,7 @@ public class Hero extends NonSpellCards
         specialPowerHero1.getSpellEffect().addTarget(new Target(0, 0, true, false, 0, 0, 0, 0, 0, 0,  0, null, false, false, false));
         new Hero("Dave White", 8000, 50, 4, 1, 2, specialPowerHero1 , ImpactType.melee , 0);
 
-        SpecialPower specialPowerHero2 = new SpecialPower("Stun all opponent forces for 1 turn");
+        SpecialPower specialPowerHero2 = new SpecialPower("Stun all opponents forces for 1 turn");
         specialPowerHero2.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, 0,false, false, false, false, false, false, false, false));
         specialPowerHero2.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, true, false));
         new Hero("Simurgh", 9000, 50, 4, 5, 8, specialPowerHero2 , ImpactType.melee , 0);

@@ -10,7 +10,7 @@ public class Account
     private Collection collection = new Collection();
     private ArrayList<Deck> playerDecks = new ArrayList<>();
     private Deck mainDeck;
-    private int money;
+    private int money = 15000;
     private String password;
     private int numOfWins = 0;
 

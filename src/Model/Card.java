@@ -1,10 +1,7 @@
 package Model;
 
-import java.util.ArrayList;
-
 public abstract class Card
 {
-    private static ArrayList<Card> cards = new ArrayList<>();
     private boolean cardSelectedInBattle = false;
     private int cardID;
     private int price;
@@ -12,10 +9,6 @@ public abstract class Card
     private String cardName;
     private int row;
     private int column;
-
-    public static ArrayList<Card> getCards() {
-        return cards;
-    }
 
     public int getColumn() {
         return column;
@@ -49,7 +42,7 @@ public abstract class Card
 
     public static Card findCard(int cardID)
     {
-        for (Card card : cards)
+        for (Card card : Shop.getInstance().getCards())
         {
             if (card.getCardID() == cardID)
             {
@@ -61,7 +54,7 @@ public abstract class Card
 
     public static Card findCard(String cardName)
     {
-        for (Card card : cards)
+        for (Card card : Shop.getInstance().getCards())
         {
             if (card.getCardName().equals(cardName))
             {
@@ -136,7 +129,7 @@ public abstract class Card
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
-    public static boolean checkNeighberhood(Card card1 , Card card2){
+    public static boolean checkNeighborhood(Card card1 , Card card2){
         int[][] matrix = new int[5][9];
         int row = card1.getRow();
         int column = card1.getColumn();

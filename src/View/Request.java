@@ -135,6 +135,7 @@ public class Request
         else if(patternShopBuy.matcher(input).matches())
         {
             command = CommandType.BUY;
+            command.cardOrItemName = partedInput[1];
         }
         else if(patternShopSell.matcher(input).matches())
         {

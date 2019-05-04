@@ -37,6 +37,7 @@ public class ShowOutput
         System.out.println("login [user name]");
         System.out.println("show leaderBoard");
         System.out.println("help");
+        System.out.println("exit");
     }
 
     public static void shopHelp()

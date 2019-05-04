@@ -47,7 +47,6 @@ public class AccountManager
     public void logout()
     {
         Account.logout();
-        Request.getAccountCommands();
     }
 
     public void sortAccountsByWins()

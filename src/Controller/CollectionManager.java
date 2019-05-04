@@ -27,7 +27,7 @@ public class CollectionManager
     {
         if (Card.findCard(ID) != null)
         {
-            for (Card card : Card.getCards())
+            for (Card card : Shop.getInstance().getCards())
             {
                 if (ID == card.getCardID())
                 {
@@ -62,7 +62,7 @@ public class CollectionManager
     {
         if (Card.findCard(ID) != null)
         {
-            for (Card card : Card.getCards())
+            for (Card card : Shop.getInstance().getCards())
             {
                 if (ID == card.getCardID())
                 {
@@ -95,7 +95,7 @@ public class CollectionManager
 
     public void searchCollection(String name)
     {
-        for (Card card : Card.getCards())
+        for (Card card : Shop.getInstance().getCards())
         {
             if (card.getCardName().equals(name))
             {

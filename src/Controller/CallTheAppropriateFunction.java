@@ -21,9 +21,9 @@ public class CallTheAppropriateFunction
 
     void determineMainMenuCommand()
     {
+        ShowOutput.printMainMenuCommands();
         while (true)
         {
-            ShowOutput.printMainMenuCommands();
             Request.getMainMenuCommands();
             if(Request.command == null)
             {
@@ -42,6 +42,7 @@ public class CallTheAppropriateFunction
                     break;
                 case LOGOUT:
                     accountManager.logout();
+                    determineAccountCommand();
                     break;
                 case SAVE:
                     //todo
@@ -111,13 +112,14 @@ public class CallTheAppropriateFunction
                     if (Card.findCard(Request.command.cardOrItemName) != null)
                     {
                         shopManager.buyCard(Card.findCard(Request.command.cardOrItemName));
-                    } else if (Item.findItem(Request.command.cardOrItemName) != null)
+                    }
+                    else if (Item.findItem(Request.command.cardOrItemName) != null)
                     {
                         shopManager.buyItem(Item.findItem(Request.command.cardOrItemName));
                     }
                     else
                     {
-                        ShowOutput.printOutput("Card or Item does'nt exist in Shop");
+                        ShowOutput.printOutput("Card or Item doesn't exist in Shop");
                     }
                     break;
                 case SELL:
@@ -369,6 +371,8 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().attackToOpponent(Request.command.enemyCardIDForNormalAttack);
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForNormalAttack);
                     break;
+                case USE_SPECIAL_POWER:
+                    battleManager.useSpecialPower(Request.command.rowOfTheCell,Request.command.columnOfTheCell);
                 case EXIT:
                     return;
             }

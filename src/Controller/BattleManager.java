@@ -32,13 +32,30 @@ public class BattleManager
         }
     }
 
+    public void useSpecialPower(int x, int y) {
+        if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
+        {
+            NonSpellCards SelectedCard = (NonSpellCards)Battle.getCurrentBattle().getSelectedCard();
+            if (SelectedCard.getSpecialPower() == null)
+            {
+                System.out.println("SelectedCard doesn't have special power");
+            }
+            else
+            {
+                Battle.getCurrentBattle().getSelectedCard().setRow(x);
+                Battle.getCurrentBattle().getSelectedCard().setColumn(y);
+            }
+
+        }
+    }
+
     public void selectCard(int cardID)
     {
         for (Card card : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
         {
             if (card.getCardID() == cardID)
             {
-                Battle.getCurrentBattle().selectCard(card);
+                Battle.getCurrentBattle().selectCard((NonSpellCards) card);
                 return;
             }
         }
