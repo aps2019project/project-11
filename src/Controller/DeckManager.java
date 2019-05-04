@@ -14,7 +14,6 @@ public class DeckManager
                 return deck;
             }
         }
-        ShowOutput.printOutput("There is no deck with this name");
         return null;
     }
 
@@ -22,7 +21,7 @@ public class DeckManager
     {
         for (Card deckCard : deck.getNonHeroCards())
         {
-            if (card.getCardName().equals(deckCard.getCardName()))
+            if (card.getCardID() == deckCard.getCardID())
             {
                 ShowOutput.printOutput("This card is in the deck");
                 return;
@@ -171,6 +170,10 @@ public class DeckManager
                 ShowOutput.printOutput("Deck isn't valid");
                 return false;
             }
+        }
+        else
+        {
+            ShowOutput.printOutput("There is no deck with this name");
         }
         return false;
     }

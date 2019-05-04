@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class Card
+public abstract class Card implements Cloneable
 {
     private boolean cardSelectedInBattle = false;
     private int cardID;
@@ -140,5 +140,11 @@ public abstract class Card
             }
         }
         return matrix[card2.getRow()][card2.getColumn()] == 1;
+    }
+
+    @Override
+    public Object clone()throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

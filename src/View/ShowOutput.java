@@ -42,7 +42,6 @@ public class ShowOutput
 
     public static void shopHelp()
     {
-        System.out.println("exit");
         System.out.println("show collection");
         System.out.println("search [item name | card name]");
         System.out.println("search collection [item name | card name]");
@@ -50,14 +49,12 @@ public class ShowOutput
         System.out.println("sell [card ID | item ID]");
         System.out.println("show");
         System.out.println("help");
+        System.out.println("exit");
     }
 
     public static void collectionHelp()
     {
-        System.out.println("exit");
-        System.out.println("show");
         System.out.println("search [cardName | itemName]");
-        System.out.println("save");
         System.out.println("create deck [deckName]");
         System.out.println("delete deck [deckName]");
         System.out.println("add [cardID | heroID | itemID] to deck [deckName]");
@@ -66,12 +63,15 @@ public class ShowOutput
         System.out.println("select deck [deckName]");
         System.out.println("show all decks");
         System.out.println("show deck [deckName]");
+        System.out.println("save");
+        System.out.println("show");
         System.out.println("help");
+        System.out.println("exit");
     }
 
     public static void printHeroStats(Hero hero, int counter)
     {
-        System.out.println(counter + " : Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
+        System.out.println(counter + " : Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power : " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
     public static void showCollectionInfo(Collection collection)
@@ -110,11 +110,11 @@ public class ShowOutput
 
     public static void showAllDecksInfo()
     {
-        int counter = 0;
+        int counter = 1;
         Deck mainDeck = Account.loggedInAccount.getMainDeck();
         if (mainDeck != null)
         {
-            System.out.println(counter + " : " + mainDeck.getDeckName() + " : ");
+            System.out.println(counter + "- " + mainDeck.getDeckName() + " : ");
             printDeckStats(mainDeck);
             counter++;
         }
@@ -124,7 +124,7 @@ public class ShowOutput
             {
                 continue;
             }
-            System.out.println(counter + " : " + deck.getDeckName() + " : ");
+            System.out.println(counter + "- " + deck.getDeckName() + " : ");
             printDeckStats(deck);
             counter++;
         }
@@ -136,6 +136,10 @@ public class ShowOutput
         if (deck != null)
         {
             printDeckStats(deck);
+        }
+        else
+        {
+            ShowOutput.printOutput("There is no deck with this name");
         }
     }
 

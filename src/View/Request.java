@@ -12,7 +12,7 @@ public class Request
     private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
     private final static Pattern patternCreateDeck = Pattern.compile("create deck [a-zA-Z_0-9]+");
     private final static Pattern patternDeleteDeck = Pattern.compile("delete deck [a-zA-Z_0-9]+");
-    private final static Pattern patternAddCardToDeck = Pattern.compile("add //d+ to deck [a-zA-Z_0-9]+");
+    private final static Pattern patternAddCardToDeck = Pattern.compile("add [0-9]+ to deck [a-zA-Z_0-9]+");
     private final static Pattern patternRemoveCardFromDeck = Pattern.compile("remove //d+ from deck [a-zA-Z_0-9]+");
     private final static Pattern patternValidateDeck = Pattern.compile("validate deck [a-zA-Z_0-9]+");
     private final static Pattern patternSelectMainDeck = Pattern.compile("select deck [a-zA-Z_0-9]+");
