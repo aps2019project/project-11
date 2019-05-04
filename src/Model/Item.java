@@ -238,12 +238,12 @@ public class Item implements Cloneable
 
     public void printItemStats(int counter)
     {
-        System.out.println(counter + " : Name : " + getItemName() + " – Desc: " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
+        System.out.println(counter + " : Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
     }
 
     public void printItemStats()
     {
-        System.out.println("Name : " + getItemName() + " – Desc: " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
+        System.out.println("Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
     }
 
     public static ArrayList<Item> getItems()

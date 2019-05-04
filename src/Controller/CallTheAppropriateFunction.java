@@ -147,14 +147,17 @@ public class CallTheAppropriateFunction
         }
     }
 
-    private void determineCollectionCommand() {
-        while (true) {
+    private void determineCollectionCommand()
+    {
+        while (true)
+        {
             Request.getCollectionCommands();
             if(Request.command == null)
             {
                 continue;
             }
-            switch (Request.command) {
+            switch (Request.command)
+            {
                 case EXIT:
                     ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
