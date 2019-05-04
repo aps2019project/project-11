@@ -22,16 +22,27 @@ public class BattleManager
 
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
     {
+        boolean exit = false;
         Card card = Card.findCard(cardName);
         for (Card playerHandCard : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
         {
-            if (card.getCardID() == playerHandCard.getCardID())
+            if (playerHandCard.getCardName().equals(cardName))
             {
-
+                exit = true;
+                break;
             }
         }
+        if (exit == true)
+        {
+            card.setRow(x);
+            card.setColumn(y);
+        }
+        else if (exit == false)
+        {
+            System.out.println("Invalid card name");
+        }
+        //todo
     }
-
     public void useSpecialPower(int x, int y) {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {

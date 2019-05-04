@@ -67,11 +67,13 @@ public class Battle {
 
     }
 
-    public void showAllOwnForcesInfo() {
+    public void showAllOwnForcesInfo()
+    {
 
     }
 
-    public void showAllOpponentForcesInfo() {
+    public void showAllOpponentForcesInfo()
+    {
 
     }
 
@@ -86,7 +88,8 @@ public class Battle {
     }
 
     public void moveCard(int x, int y) {
-        if (selectedCard.isCardSelectedInBattle()) {
+        if (selectedCard.isCardSelectedInBattle())
+        {
 
         }
     }
@@ -184,11 +187,13 @@ public class Battle {
 
 
 
-    public void insertCard(String cardName, int x, int y) {
+    public void insertCard(String cardName, int x, int y)
+    {
 
     }
 
-    public void endTurn() {
+    public void endTurn()
+    {
 
     }
 
@@ -235,7 +240,8 @@ public class Battle {
         }
     }
 
-    public void logicEndGame() {
+    public void logicEndGame()
+    {
 
     }
 

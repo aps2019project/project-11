@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Cell
 {
     private int row;
@@ -11,6 +13,7 @@ public class Cell
     private boolean holyCell = false;
     private boolean toxicCell = false;
     private boolean fieryCell = false;
+    private ArrayList<SpellChange> spellChanges = new ArrayList<>();
 
     public void setItem(Item item)
     {
@@ -54,7 +57,7 @@ public class Cell
         return null;
     }
 
-    public boolean isHolyCell()
+    public  boolean isHolyCell()
     {
         return holyCell;
     }
@@ -82,5 +85,13 @@ public class Cell
     public void setFieryCell(boolean fieryCell)
     {
         this.fieryCell = fieryCell;
+    }
+
+    public ArrayList<SpellChange> getSpellChanges() {
+        return spellChanges;
+    }
+
+    public void setSpellChanges(ArrayList<SpellChange> spellChanges) {
+        this.spellChanges = spellChanges;
     }
 }
