@@ -88,7 +88,8 @@ public class Deck
             case 3:
                 Deck deck3 = new Deck("storyDeck3");
                 deck3.addHeroToDeck(Hero.findHero("Arash"));
-                //deck3.addNonHeroCardToDeck(" ");
+                deck3.addNonHeroCardToDeck(Card.findCard("hellFire")).addNonHeroCardToDeck(Card.findCard("allDisarm")).addNonHeroCardToDeck(Card.findCard("dispel")).addNonHeroCardToDeck(Card.findCard("powerUp")).addNonHeroCardToDeck(Card.findCard("allPower")).addNonHeroCardToDeck(Card.findCard("allAttack")).addNonHeroCardToDeck(Card.findCard("weakening")).addNonHeroCardToDeck(Card.findCard("Ghoul Sang Andaz")).
+                        addNonHeroCardToDeck(Card.findCard("Div GorazSavar")).addNonHeroCardToDeck(Card.findCard("Div GorazSavar")).addNonHeroCardToDeck(Card.findCard("Shir Darande")).addNonHeroCardToDeck(Card.findCard("Piran")).addNonHeroCardToDeck(Card.findCard("Bahman")).addNonHeroCardToDeck(Card.findCard("Ghoul Bozorg"));
         }
         return null;
     }
