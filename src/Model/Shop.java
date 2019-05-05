@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class Shop
 {
     private static Shop shop = new Shop();
-    private static int heroID = 10000;
-    private static int minionID = 20000;
-    private static int spellID = 30000;
-    private static int itemID = 40000;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+
+    private Shop()
+    {
+        //just added to make Shop singleton
+    }
 
     public static Shop getInstance()
     {
@@ -40,18 +41,10 @@ public class Shop
 
     private void setCardID(Card card)
     {
-        if (card instanceof Hero)
-        {
-            card.setCardID(heroID ++);
-        }
-        else if (card instanceof Minion)
-        {
-            card.setCardID(minionID ++);
-        }
-        else if (card instanceof Spell)
-        {
-            card.setCardID(spellID ++);
-        }
+        Account account = Account.loggedInAccount;
+        String cardID = account.getAccountName() + "_" + card.getCardName() + "_" + account.getDefaultID();
+        card.setCardID(cardID);
+        account.increaseDefaultID();
     }
 
      public void buyItem(Item item)
@@ -63,7 +56,10 @@ public class Shop
 
     private void setItemID(Item item)
     {
-        item.setItemID(itemID ++);
+        Account account = Account.loggedInAccount;
+        String itemID = account.getAccountName() + "_" + item.getItemName() + "_" + account.getDefaultID();
+        item.setItemID(itemID);
+        account.increaseDefaultID();
     }
 
     public void sellCard(Card cardToSell)

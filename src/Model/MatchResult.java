@@ -1,5 +1,6 @@
 package Model;
 
-public enum MatchResult {
-    WIN , LOSE , DRAW;
+public enum MatchResult
+{
+    WIN, LOSE, DRAW;
 }

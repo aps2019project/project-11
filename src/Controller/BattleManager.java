@@ -24,28 +24,24 @@ public class BattleManager
 
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
     {
-        boolean exit = false;
-        Card card = Card.findCard(cardName);
-        for (Card playerHandCard : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
+        //todo target
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
+        if (card != null)
         {
-            if (playerHandCard.getCardName().equals(cardName))
+            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
             {
-                exit = true;
-                break;
+                card.setRow(x);
+                card.setColumn(y);
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                return;
             }
+            ShowOutput.printOutput("You don′t have enough MP");
         }
-        if (exit == true)
-        {
-            card.setRow(x);
-            card.setColumn(y);
-        }
-        else if (exit == false)
-        {
-            ShowOutput.printOutput("Invalid card name");
-        }
-        //todo
+        ShowOutput.printOutput("Invalid card name");
     }
-    public void useSpecialPower(int x, int y) {
+
+    public void useSpecialPower(int x, int y)
+    {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {
             NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
@@ -62,11 +58,11 @@ public class BattleManager
         }
     }
 
-    public void selectCard(int cardID)
+    public void selectCard(String cardID)
     {
         for (Card card : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
         {
-            if (card.getCardID() == cardID)
+            if (card.getCardID().equals(cardID))
             {
                 Battle.getCurrentBattle().selectCard((NonSpellCards) card);
                 return;
@@ -76,11 +72,11 @@ public class BattleManager
     }
 
 
-    public void selectItem(int itemID)
+    public void selectItem(String itemID)
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID() == itemID)
+            if (item.getItemID().equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }

@@ -21,7 +21,7 @@ public class Battle
     private Player victoriousPlayer = null;
     private Player loserPlayer = null;
 
-    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode , BattleType battleType)
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
     {
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
@@ -143,7 +143,7 @@ public class Battle
         opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
     }
 
-    public void attackToOpponent(int cardID)
+    public void attackToOpponent(String cardID)
     {
         if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
         {
@@ -153,7 +153,7 @@ public class Battle
         NonSpellCards opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
         if (selectedCard.isCardSelectedInBattle())
         {
-            if (( selectedCard).isAttackAble())
+            if ((selectedCard).isAttackAble())
             {
                 if (((Minion) selectedCard).getImpactType() == ImpactType.melee)
                 {
@@ -201,36 +201,36 @@ public class Battle
     }
 
 
-    public void counterAttack(int cardID)
+    public void counterAttack(String cardID)
     {
-        Card opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
-        if (((NonSpellCards) opponentCard).isCounterAttackAble())
+        NonSpellCards opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        if (opponentCard.isCounterAttackAble())
         {
-            if (((Minion) opponentCard).getImpactType() == ImpactType.melee)
+            if (opponentCard.getImpactType() == ImpactType.melee)
             {
                 if (Card.checkNeighborhood(selectedCard, opponentCard))
                 {
-                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, (NonSpellCards) selectedCard);
                 }
             }
-            else if (((Minion) opponentCard).getImpactType() == ImpactType.ranged)
+            else if (opponentCard.getImpactType() == ImpactType.ranged)
             {
-                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
                 {
-                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, (NonSpellCards) selectedCard);
                 }
             }
-            else if (((Minion) opponentCard).getImpactType() == ImpactType.hybrid)
+            else if (opponentCard.getImpactType() == ImpactType.hybrid)
             {
-                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack())
+                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack())
                 {
-                    damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, (NonSpellCards) selectedCard);
                 }
             }
         }
     }
 
-    public void counterAttack(int cardID1, int cardID2)
+    public void counterAttack(String cardID1, String cardID2)
     {
         selectedCard = (NonSpellCards) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID2);
         counterAttack(cardID1);
@@ -238,20 +238,20 @@ public class Battle
 
     }
 
-    public void comboAttack(int enemyCardID, ArrayList<Integer> cardsIDForComboAttack)
+    public void comboAttack(String enemyCardID, ArrayList<String> cardsIDForComboAttack)
     {
         checkComboCondition(cardsIDForComboAttack);
-        for (int cardID : cardsIDForComboAttack)
+        for (String cardID : cardsIDForComboAttack)
         {
             new BattleManager().selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
-        //todo //counterAttcak\\
+        //todo //counterAttack\\
     }
 
-    private void checkComboCondition(ArrayList<Integer> cardsIDForComboAttack)
+    private void checkComboCondition(ArrayList<String> cardsIDForComboAttack)
     {
-        for (int cardID : cardsIDForComboAttack)
+        for (String cardID : cardsIDForComboAttack)
         {
             if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
             {
@@ -260,7 +260,7 @@ public class Battle
             Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
             if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo())
             {
-                cardsIDForComboAttack.removeIf(n -> n == cardID);
+                cardsIDForComboAttack.removeIf(n -> n.equals(cardID));
             }
         }
     }
@@ -277,7 +277,7 @@ public class Battle
         {
             for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
             {
-                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
                 {
                     ownNonSpellCards.add(ownNonSpellCard);
                 }
@@ -311,11 +311,12 @@ public class Battle
     public NonSpellCards findRandomOpponentNonSpellCardToApplyUsableItem()
     {
         ArrayList<NonSpellCards> opponentNonSpellCards = new ArrayList<>();
-        Outer : for (NonSpellCards nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        Outer:
+        for (NonSpellCards nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
         {
             for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
             {
-                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
                 {
                     continue Outer;
                 }
@@ -352,7 +353,7 @@ public class Battle
         }
     }
 
-    public void showGraveYardCardInfo(int cardID)
+    public void showGraveYardCardInfo(String cardID)
     {
         Card card = playerTurn.findCardInGraveYard(cardID);
         if (card != null)
@@ -381,14 +382,17 @@ public class Battle
 
     public boolean isGameEnded(int gameMode)
     {
-        switch (gameMode){
+        switch (gameMode)
+        {
             case 1:
-                if((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0){
+                if ((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
+                {
                     setVictorious(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
                 }
-                else if((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0) {
+                else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
+                {
                     setVictorious(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
@@ -482,50 +486,62 @@ public class Battle
         this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 
-    public Player getVictoriousPlayer() {
+    public Player getVictoriousPlayer()
+    {
         return victoriousPlayer;
     }
 
-    public BattleType getBattleType() {
+    public void setVictoriousPlayer(Player victoriousPlayer)
+    {
+        this.victoriousPlayer = victoriousPlayer;
+    }
+
+    public BattleType getBattleType()
+    {
         return battleType;
     }
 
-    public void setBattleType(BattleType battleType) {
+    public void setBattleType(BattleType battleType)
+    {
         this.battleType = battleType;
     }
 
-    public void tasksAtEndOfGame() {
-        switch (battleType){
+    public void tasksAtEndOfGame()
+    {
+        switch (battleType)
+        {
             case STORY_GAME_1:
                 victoriousPlayer.getAccount().addMoney(500);
-                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
-                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
-            case STROY_GAME_2:
+            case STORY_GAME_2:
                 victoriousPlayer.getAccount().addMoney(1000);
-                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
-                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case STORY_GAME_3:
                 victoriousPlayer.getAccount().addMoney(1500);
-                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
-                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case CUSTOM_GAME:
                 victoriousPlayer.getAccount().addMoney(1000);
-                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
-                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case MULTI_PLAYER_GAME:
-
+            //todo
         }
     }
 
-    public Player getLoserPlayer() {
+    public Player getLoserPlayer()
+    {
         return loserPlayer;
     }
 
-    public void setLoserPlayer(Player loserPlayer) {
+    public void setLoserPlayer(Player loserPlayer)
+    {
         this.loserPlayer = loserPlayer;
     }
 }

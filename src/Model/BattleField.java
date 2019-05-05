@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BattleField
 {
-    private Cell battleFieldMatrix[][] = new Cell[5][9];
+    private Cell[][] battleFieldMatrix = new Cell[5][9];
     private ArrayList<NonSpellCards> allCardsInTheBattleField = new ArrayList<>();
 
     public Cell[][] getBattleFieldMatrix()
@@ -12,11 +12,11 @@ public class BattleField
         return battleFieldMatrix;
     }
 
-    public NonSpellCards findCardInBattleField(int cardID)
+    public NonSpellCards findCardInBattleField(String cardID)
     {
         for (NonSpellCards nonSpellCard : this.getAllCardsInTheBattleField())
         {
-            if (nonSpellCard.getCardID() == cardID)
+            if (nonSpellCard.getCardID().equals(cardID))
             {
                 return nonSpellCard;
             }
