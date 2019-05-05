@@ -59,16 +59,16 @@ public enum CommandType
 
     public String username;
     public String cardOrItemName;
-    public int cardOrItemID;
+    public String cardOrItemID;
     public String deckName;
-    public int cardOrItemIDInGraveYard;
+    public String cardOrItemIDInGraveYard;
     public int rowOfTheCell;
     public int columnOfTheCell;
     public String multiPlayerMatchMode;
     public int numOfFlags;
-    public int enemyCardIDForCombo;
-    public ArrayList<Integer> cardIDsForComboAttack = new ArrayList<>();
-    public int enemyCardIDForNormalAttack;
+    public String enemyCardIDForCombo;
+    public ArrayList<String> cardIDsForComboAttack = new ArrayList<>();
+    public String enemyCardIDForNormalAttack;
     public String deckNameForCustomGame;
     public int customGameMode;
     public int customGameFlagNumber;

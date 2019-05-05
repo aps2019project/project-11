@@ -7,11 +7,11 @@ public class Collection
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
-    public Card findCardinCollection(int cardID)
+    public Card findCardinCollection(String cardID)
     {
         for (Card card : this.getCards())
         {
-            if (card.getCardID() == cardID)
+            if (card.getCardID().equals(cardID))
             {
                 return card;
             }
@@ -19,11 +19,11 @@ public class Collection
         return null;
     }
 
-    public Item findItemInTheCollection(int itemID)
+    public Item findItemInTheCollection(String itemID)
     {
         for (Item item : this.getItems())
         {
-            if (item.getItemID() == itemID)
+            if (item.getItemID().equals(itemID))
             {
                 return item;
             }

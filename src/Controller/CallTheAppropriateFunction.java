@@ -267,7 +267,7 @@ public class CallTheAppropriateFunction
             case 1:
                 return BattleType.STORY_GAME_1;
             case 2:
-                return BattleType.STROY_GAME_2;
+                return BattleType.STORY_GAME_2;
             case 3:
                 return BattleType.STORY_GAME_3;
         }
@@ -336,7 +336,8 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getBattleCommands();
-            if(Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode)){
+            if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
+            {
                 Battle.getCurrentBattle().tasksAtEndOfGame();
                 break;
             }

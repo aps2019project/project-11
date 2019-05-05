@@ -227,7 +227,7 @@ public class ShowOutput
         System.out.println(minion.getCurrentAP());
     }
 
-    public static void showCardInfo(int cardID)
+    public static void showCardInfo(String cardID)
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
         if (card instanceof Hero)

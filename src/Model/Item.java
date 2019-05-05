@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Item implements Cloneable
 {
     private static ArrayList<Item> items = new ArrayList<>();
-    private int itemID;
+    private String itemID;
     private String itemName;
     private int price;
     private ItemType itemType;
@@ -295,12 +295,12 @@ public class Item implements Cloneable
         this.itemName = itemName;
     }
 
-    public int getItemID()
+    public String getItemID()
     {
         return itemID;
     }
 
-    public void setItemID(int itemID)
+    public void setItemID(String itemID)
     {
         this.itemID = itemID;
     }

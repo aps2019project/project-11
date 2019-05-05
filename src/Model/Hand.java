@@ -7,6 +7,18 @@ public class Hand
     private ArrayList<Card> cards = new ArrayList<>();
     private Card nextCard;
 
+    public Card findCardInCollection(String cardName)
+    {
+        for (Card card : this.getCards())
+        {
+            if (card.getCardName().equals(cardName))
+            {
+                return card;
+            }
+        }
+        return null;
+    }
+
     public Card getNextCard()
     {
         return nextCard;

@@ -7,7 +7,7 @@ public class CollectionManager
 {
     private DeckManager deckManager = new DeckManager();
 
-    public void detectID(int ID, String deckName, String command)
+    public void detectID(String ID, String deckName, String command)
     {
         Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
@@ -27,13 +27,13 @@ public class CollectionManager
         }
     }
 
-    public void checkIDValidityToAddToDeck(Deck deck, int ID)
+    public void checkIDValidityToAddToDeck(Deck deck, String ID)
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
             for (Card card : Account.loggedInAccount.getCollection().getCards())
             {
-                if (ID == card.getCardID())
+                if (ID.equals(card.getCardID()))
                 {
                     if (card instanceof Hero)
                     {
@@ -52,7 +52,7 @@ public class CollectionManager
         {
             for (Item item : Account.loggedInAccount.getCollection().getItems())
             {
-                if (ID == item.getItemID())
+                if (ID.equals(item.getItemID()))
                 {
                     deckManager.checkCircumstancesToAddItemToDeck(deck, item);
                     return;
@@ -66,13 +66,13 @@ public class CollectionManager
         }
     }
 
-    public void checkIDValidityToRemoveFromDeck(Deck deck, int ID)
+    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID)
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
             for (Card card : Account.loggedInAccount.getCollection().getCards())
             {
-                if (ID == card.getCardID())
+                if (ID.equals(card.getCardID()))
                 {
                     if (card instanceof Hero)
                     {
@@ -91,7 +91,7 @@ public class CollectionManager
         {
             for (Item item : Account.loggedInAccount.getCollection().getItems())
             {
-                if (ID == item.getItemID())
+                if (ID.equals(item.getItemID()))
                 {
                     deckManager.checkItemExistenceInDeckToRemove(deck, item);
                     return;

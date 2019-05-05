@@ -24,31 +24,23 @@ public class BattleManager
 
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
     {
-        boolean exit = false;
-        Card card = Card.findCard(cardName);
-        for (Card playerHandCard : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
-        {
-            if (playerHandCard.getCardName().equals(cardName))
-            {
-                exit = true;
-                break;
-            }
-        }
-        if (exit == true)
+        //todo
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInCollection(cardName);
+        if (card != null)
         {
             card.setRow(x);
             card.setColumn(y);
+            Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+            return;
         }
-        else if (exit == false)
-        {
-            System.out.println("Invalid card name");
-        }
-        //todo
+        ShowOutput.printOutput("Invalid card name");
     }
-    public void useSpecialPower(int x, int y) {
+
+    public void useSpecialPower(int x, int y)
+    {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {
-            NonSpellCards SelectedCard = (NonSpellCards)Battle.getCurrentBattle().getSelectedCard();
+            NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
                 System.out.println("SelectedCard doesn't have special power");
@@ -62,11 +54,11 @@ public class BattleManager
         }
     }
 
-    public void selectCard(int cardID)
+    public void selectCard(String cardID)
     {
         for (Card card : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards())
         {
-            if (card.getCardID() == cardID)
+            if (card.getCardID().equals(cardID))
             {
                 Battle.getCurrentBattle().selectCard((NonSpellCards) card);
                 return;
@@ -76,11 +68,11 @@ public class BattleManager
     }
 
 
-    public void selectItem(int itemID)
+    public void selectItem(String itemID)
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID() == itemID)
+            if (item.getItemID().equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }

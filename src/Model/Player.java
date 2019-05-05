@@ -23,11 +23,11 @@ public class Player
         //todo set hand cards
     }
 
-    public Card findCardInGraveYard(int ID)
+    public Card findCardInGraveYard(String ID)
     {
         for (Card card : graveYard.getCards())
         {
-            if (card.getCardID() == ID)
+            if (card.getCardID().equals(ID))
             {
                 return card;
             }

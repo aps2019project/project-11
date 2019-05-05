@@ -12,11 +12,11 @@ public class BattleField
         return battleFieldMatrix;
     }
 
-    public NonSpellCards findCardInBattleField(int cardID)
+    public NonSpellCards findCardInBattleField(String cardID)
     {
         for (NonSpellCards nonSpellCard : this.getAllCardsInTheBattleField())
         {
-            if (nonSpellCard.getCardID() == cardID)
+            if (nonSpellCard.getCardID().equals(cardID))
             {
                 return nonSpellCard;
             }

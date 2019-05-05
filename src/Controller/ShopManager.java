@@ -58,11 +58,11 @@ public class ShopManager
         }
     }
 
-    public void detectIDToSell(int ID)
+    public void detectIDToSell(String ID)
     {
         for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
-            if (card.getCardID() == ID)
+            if (card.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(card);
                 return;
@@ -70,7 +70,7 @@ public class ShopManager
         }
         for (Item item : Account.loggedInAccount.getCollection().getItems())
         {
-            if (item.getItemID() == ID)
+            if (item.getItemID().equals(ID))
             {
                 removeItemFromDeckToSell(item);
                 return;

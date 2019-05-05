@@ -13,6 +13,7 @@ public class Account
     private int money = 15000;
     private String password;
     private int numOfWins = 0;
+    private int defaultID = 1;
 
     public Account(String userName,String password)
     {
@@ -110,6 +111,16 @@ public class Account
 
     public String getPassword() {
         return password;
+    }
+
+    public int getDefaultID()
+    {
+        return defaultID;
+    }
+
+    public void increaseDefaultID()
+    {
+        this.defaultID ++;
     }
 }
 
