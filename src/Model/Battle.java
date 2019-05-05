@@ -123,22 +123,18 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
-        Cell cell = this.getBattleField().getCellWithGivenCoordinate(x, y);
-        boolean ableToMoveToSelectedCell = false;
-        if (selectedCard.isCardSelectedInBattle())
-        {
-            if (this.getSelectedCard().getCurrentCell().getDistance(cell) < 3)
-            {
-                ableToMoveToSelectedCell = true;
-            }
-        }
-        if (ableToMoveToSelectedCell)
+        int[][] moveAbleCells = Battle.getCurrentBattle().getSelectedCard().setMoveAbleCells();
+        if (moveAbleCells[x][y] == 1)
         {
             selectedCard.setRow(x);
             selectedCard.setColumn(y);
+            this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
             System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
         }
-        //todo
+        else
+        {
+            System.out.println("Invalid Target");
+        }
     }
 
     private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard)

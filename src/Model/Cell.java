@@ -43,7 +43,14 @@ public class Cell
         return Math.abs(this.getRow() - cell.getRow()) + Math.abs(this.getColumn() - cell.getColumn());
     }
 
-    public int
+    public boolean isFull()
+    {
+        if (this.getCard() == null)
+        {
+            return false;
+        }
+        return true;
+    }
 
     public  boolean isHolyCell()
     {
