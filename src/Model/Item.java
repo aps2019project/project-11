@@ -350,4 +350,12 @@ public class Item implements Cloneable
     {
         return super.clone();
     }
+
+    public void setDefaultCardID()
+    {
+        Account account = Account.loggedInAccount;
+        String cardID = account.getAccountName() + "_" + this.getItemName() + "_" + account.getAIAccountDefaultID();
+        this.setItemID(cardID);
+        account.increaseAIAccountDefaultID();
+    }
 }

@@ -70,7 +70,7 @@ public class DeckManager
             ShowOutput.printOutput("Deck is full");
             return;
         }
-        deck.addItemToDeck(item);
+        deck.addItemToDeck(item, false);
     }
 
     public void checkNonHeroCardExistenceInDeckToRemove(Deck deck, Card card)

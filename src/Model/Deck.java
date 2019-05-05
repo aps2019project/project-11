@@ -29,8 +29,12 @@ public class Deck
         this.nonHeroCards.remove(card);
     }
 
-    public void addItemToDeck(Item item)
+    public void addItemToDeck(Item item, boolean isDefaultCard)
     {
+        if (isDefaultCard)
+        {
+            item.setDefaultCardID();
+        }
         this.item.add(item);
     }
 
@@ -83,7 +87,7 @@ public class Deck
                 deck1.addNonHeroCardToDeck(Card.findCard("totalDisarm"), true).addNonHeroCardToDeck(Card.findCard("lightingBolt"), true).addNonHeroCardToDeck(Card.findCard("allDisarm"), true).addNonHeroCardToDeck(Card.findCard("allPoison"), true).addNonHeroCardToDeck(Card.findCard("dispel"), true).addNonHeroCardToDeck(Card.findCard("sacrifice"), true).
                         addNonHeroCardToDeck(Card.findCard("shock"), true)./*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Gorzdar Torani"), true).addNonHeroCardToDeck(Card.findCard("Gorzdar Torani"), true).addNonHeroCardToDeck(Card.findCard("Dive siah"), true).addNonHeroCardToDeck(Card.findCard("Ghoul TakCheshm"), true).addNonHeroCardToDeck(Card.findCard("Mar Sammi"), true).
                         addNonHeroCardToDeck(Card.findCard("Mar Ghoul Peykar"), true)./*todo*/addNonHeroCardToDeck(Card.findCard("JadoGar Azam"), true).addNonHeroCardToDeck(Card.findCard("Siavash"), true).addNonHeroCardToDeck(Card.findCard("Nane Sarma"), true).addNonHeroCardToDeck(Card.findCard("Arzhang Div"), true);
-                deck1.addItemToDeck(Item.findItem("CrownOfWisdom"));
+                deck1.addItemToDeck(Item.findItem("CrownOfWisdom"), true);
                 return deck1;
             case 2:
                 Deck deck2 = new Deck("storyDeck2");
@@ -91,7 +95,7 @@ public class Deck
                 deck2.addNonHeroCardToDeck(Card.findCard("areaDispel"), true).addNonHeroCardToDeck(Card.findCard("empower"), true).addNonHeroCardToDeck(Card.findCard("godStrength"), true).addNonHeroCardToDeck(Card.findCard("madness"), true).addNonHeroCardToDeck(Card.findCard("poisonLake"), true).addNonHeroCardToDeck(Card.findCard("healthWithProfit"), true).addNonHeroCardToDeck(Card.findCard("kingGuard"), true).
                         /*todo*//*todo*//*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Shahzade Torani"), true).addNonHeroCardToDeck(Card.findCard("Oghab"), true).addNonHeroCardToDeck(Card.findCard("Oghab"), true).addNonHeroCardToDeck(Card.findCard("Ezhdehaye Atash Andaz"), true).addNonHeroCardToDeck(Card.findCard("Palang"), true).addNonHeroCardToDeck(Card.findCard("Genn"), true).
                         addNonHeroCardToDeck(Card.findCard("Giv"), true).addNonHeroCardToDeck(Card.findCard("Iraj"), true).addNonHeroCardToDeck(Card.findCard("Shah Ghoul"), true);
-                deck2.addItemToDeck(Item.findItem("Soul Eater"));
+                deck2.addItemToDeck(Item.findItem("Soul Eater"), true);
                 return deck2;
             case 3:
                 Deck deck3 = new Deck("storyDeck3");

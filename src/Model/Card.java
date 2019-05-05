@@ -9,7 +9,6 @@ public abstract class Card implements Cloneable
     private String cardName;
     private int row;
     private int column;
-    private static int defaultID = 10000;
 
     public int getColumn()
     {
@@ -153,8 +152,9 @@ public abstract class Card implements Cloneable
 
     public void setDefaultCardID()
     {
-        String cardID = Account.loggedInAccount.getAccountName() + "_" + this.getCardName() + "_" + defaultID;
+        Account account = Account.loggedInAccount;
+        String cardID = account.getAccountName() + "_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
-        defaultID ++;
+        account.increaseAIAccountDefaultID();
     }
 }

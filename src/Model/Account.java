@@ -14,6 +14,7 @@ public class Account
     private String password;
     private int numOfWins = 0;
     private int defaultID = 1;
+    private int AIAccountDefaultID = 10000;
 
     public Account(String userName,String password)
     {
@@ -121,6 +122,16 @@ public class Account
     public void increaseDefaultID()
     {
         this.defaultID ++;
+    }
+
+    public int getAIAccountDefaultID()
+    {
+        return AIAccountDefaultID;
+    }
+
+    public void increaseAIAccountDefaultID()
+    {
+        this.AIAccountDefaultID ++;
     }
 }
 
