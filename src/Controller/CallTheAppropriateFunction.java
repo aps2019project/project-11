@@ -210,7 +210,7 @@ public class CallTheAppropriateFunction
             {
                 ShowOutput.showBattleMenuCommands();
                 Request.getBattleMenuCommands();
-                if(Request.command == null)
+                if (Request.command == null)
                 {
                     continue;
                 }
@@ -236,7 +236,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getSinglePlayerMatchMode();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -246,7 +246,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showStoryBattleInfo();
                     int selectedNumber = Request.myScanner.nextInt();
                     Player opponentPlayerForStory = Battle.makeStoryPlayer(selectedNumber);
-                    Battle storyGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(selectedNumber));
+                    Battle storyGameBattle = new Battle(new Player(Account.loggedInAccount), opponentPlayerForStory, Battle.getBattleMode(selectedNumber));
                     Battle.setCurrentBattle(storyGameBattle);
                     determineBattleCommand();
                     //checkResult();
@@ -254,7 +254,7 @@ public class CallTheAppropriateFunction
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
                     Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
-                    Battle customGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode));
+                    Battle customGameBattle = new Battle(new Player(Account.loggedInAccount), opponentPlayerForCustomGame, Battle.getBattleMode(Request.command.customGameMode));
                     Battle.setCurrentBattle(customGameBattle);
                     determineBattleCommand();
                     break;
@@ -268,7 +268,7 @@ public class CallTheAppropriateFunction
         {
             accountManager.showAllPlayers();
             Request.getSecondPlayerInMultiPlayerMatch();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -292,7 +292,7 @@ public class CallTheAppropriateFunction
         {
             ShowOutput.showBattleModes();
             Request.getMultiPlayerMatchMode();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -324,7 +324,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getBattleCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -381,7 +381,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAfterSelectCardCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -395,7 +395,7 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForNormalAttack);
                     break;
                 case USE_SPECIAL_POWER:
-                    battleManager.useSpecialPower(Request.command.rowOfTheCell,Request.command.columnOfTheCell);
+                    battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                 case EXIT:
                     return;
             }
@@ -408,7 +408,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAfterSelectItemCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -431,7 +431,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getGraveYardCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
