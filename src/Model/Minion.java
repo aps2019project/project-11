@@ -156,11 +156,11 @@ public class Minion extends NonSpellCards
     {
         if (getSpecialPower() != null)
         {
-            System.out.println(counter + " : Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
+            System.out.println(counter + "- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
         }
         else
         {
-            System.out.println(counter + " : Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " – Sell Cost : " + getPrice());
+            System.out.println(counter + "- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " – Sell Cost : " + getPrice());
         }
     }
 

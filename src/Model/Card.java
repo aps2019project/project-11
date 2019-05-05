@@ -10,9 +10,9 @@ public abstract class Card implements Cloneable
     private int row;
     private int column;
     private static int defaultHeroID = 11000;
-    private static int defaultminionID = 21000;
-    private static int defaultspellID = 31000;
-    private static int defaultitemID = 41000;
+    private static int defaultMinionID = 21000;
+    private static int defaultSpellID = 31000;
+    private static int defaultItemID = 41000;
 
     public int getColumn() {
         return column;
@@ -117,6 +117,8 @@ public abstract class Card implements Cloneable
         this.cardID = cardID;
     }
 
+    public static int findDestination(Card card1, Card card2)
+    {
     public static int  findDestination(Card card1 , Card card2)
     {
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
