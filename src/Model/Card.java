@@ -10,27 +10,32 @@ public abstract class Card implements Cloneable
     private int row;
     private int column;
     private static int defaultHeroID = 11000;
-    private static int defaultminionID = 21000;
-    private static int defaultspellID = 31000;
-    private static int defaultitemID = 41000;
+    private static int defaultMinionID = 21000;
+    private static int defaultSpellID = 31000;
+    private static int defaultItemID = 41000;
 
-    public int getColumn() {
+    public int getColumn()
+    {
         return column;
     }
 
-    public void setColumn(int column) {
+    public void setColumn(int column)
+    {
         this.column = column;
     }
 
-    public int getRow() {
+    public int getRow()
+    {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRow(int row)
+    {
         this.row = row;
     }
 
-    public int getRequiredMP() {
+    public int getRequiredMP()
+    {
         return requiredMP;
     }
 
@@ -56,7 +61,8 @@ public abstract class Card implements Cloneable
         return null;
     }
 
-    public boolean isCardSelectedInBattle() {
+    public boolean isCardSelectedInBattle()
+    {
         return cardSelectedInBattle;
     }
 
@@ -65,7 +71,8 @@ public abstract class Card implements Cloneable
         this.cardSelectedInBattle = cardSelectedInBattle;
     }
 
-    public String getCardName() {
+    public String getCardName()
+    {
         return cardName;
     }
 
@@ -100,15 +107,18 @@ public abstract class Card implements Cloneable
     }
 
 
-    public void setPrice(int price) {
+    public void setPrice(int price)
+    {
         this.price = price;
     }
 
-    public void setRequiredMP(int requiredMP) {
+    public void setRequiredMP(int requiredMP)
+    {
         this.requiredMP = requiredMP;
     }
 
-    public void setCardName(String cardName) {
+    public void setCardName(String cardName)
+    {
         this.cardName = cardName;
     }
 
@@ -117,41 +127,46 @@ public abstract class Card implements Cloneable
         this.cardID = cardID;
     }
 
-    public static int  findDestination(Card card1 , Card card2){
+    public static int findDestination(Card card1, Card card2)
+    {
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
-    public static boolean checkNeighborhood(Card card1 , Card card2){
+    public static boolean checkNeighborhood(Card card1, Card card2)
+    {
         int[][] matrix = new int[5][9];
         int row = card1.getRow();
         int column = card1.getColumn();
         matrix[row][column] = 1;
-        for(int rowCounter = row - 1 ; rowCounter <= row + 1 ; rowCounter++) {
-            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++) {
-                matrix [rowCounter][columnCounter] = 1;
+        for (int rowCounter = row - 1; rowCounter <= row + 1; rowCounter++)
+        {
+            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++)
+            {
+                matrix[rowCounter][columnCounter] = 1;
             }
         }
         return matrix[card2.getRow()][card2.getColumn()] == 1;
     }
 
     @Override
-    public Object clone()throws CloneNotSupportedException
+    public Object clone() throws CloneNotSupportedException
     {
         return super.clone();
     }
 
-    public void setDefaultCardID(){
+    public void setDefaultCardID()
+    {
         if (this instanceof Hero)
         {
             this.setCardID(defaultHeroID ++);
         }
         else if (this instanceof Minion)
         {
-            this.setCardID(defaultminionID ++);
+            this.setCardID(defaultMinionID ++);
         }
         else if (this instanceof Spell)
         {
-            this.setCardID(defaultitemID ++);
+            this.setCardID(defaultItemID ++);
         }
     }
 }

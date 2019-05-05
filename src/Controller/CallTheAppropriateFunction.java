@@ -210,7 +210,7 @@ public class CallTheAppropriateFunction
             {
                 ShowOutput.showBattleMenuCommands();
                 Request.getBattleMenuCommands();
-                if(Request.command == null)
+                if (Request.command == null)
                 {
                     continue;
                 }
@@ -236,7 +236,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getSinglePlayerMatchMode();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -280,7 +280,7 @@ public class CallTheAppropriateFunction
         {
             accountManager.showAllPlayers();
             Request.getSecondPlayerInMultiPlayerMatch();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -304,7 +304,7 @@ public class CallTheAppropriateFunction
         {
             ShowOutput.showBattleModes();
             Request.getMultiPlayerMatchMode();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -397,7 +397,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAfterSelectCardCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -411,7 +411,7 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForNormalAttack);
                     break;
                 case USE_SPECIAL_POWER:
-                    battleManager.useSpecialPower(Request.command.rowOfTheCell,Request.command.columnOfTheCell);
+                    battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                 case EXIT:
                     return;
             }

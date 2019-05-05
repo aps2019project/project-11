@@ -44,7 +44,7 @@ public class Item implements Cloneable
         new Item("Shield", 4000, ItemType.usable, "Activate 12 holyBuffs on own hero", itemEffectItem2);
 
         ItemEffect itemEffectItem3 = new ItemEffect();  //todo
-        itemEffectItem3.addItemChange(new ItemChange(1, false, 0, 0, 0, true, false, 0, false, 0, false, 0, false,0));
+        itemEffectItem3.addItemChange(new ItemChange(1, false, 0, 0, 0, true, false, 0, false, 0, false, 0, false, 0));
         itemEffectItem3.addItemTarget(ItemTarget.OWN_RANGED_HYBRID_HERO);
         itemEffectItem3.addItemActivateTime(ItemActivateTime.ON_ATTACK);
         new Item("DamulArk", 30000, ItemType.usable, "Own hero disarm opponent while own hybrid or ranged force attacked", itemEffectItem3);
@@ -104,7 +104,7 @@ public class Item implements Cloneable
         itemEffectItem12.addItemChange(new ItemChange(1, false, 0, 0, 0, false, false, 0, false, 0, true, 2, false, 0));
         itemEffectItem12.addItemTarget(ItemTarget.OPPONENT_RANDOM_FORCE);
         itemEffectItem12.addItemActivateTime(ItemActivateTime.ON_ATTACK);
-        new Item("Terror Hood",  5000, ItemType.usable, "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked", itemEffectItem12);
+        new Item("Terror Hood", 5000, ItemType.usable, "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked", itemEffectItem12);
 
         ItemEffect itemEffectItem13 = new ItemEffect();
         itemEffectItem13.addItemChange(new ItemChange(0, true, 0, 0, 6, false, false, 0, false, 0, false, 0, false, 0));
@@ -165,7 +165,8 @@ public class Item implements Cloneable
             switch (itemTarget)
             {
                 case OWN_RANDOM_FORCE:
-                    Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
+                    NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    ownNonSpellCard.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_RANGED_HYBRID:
                     minion = Battle.getCurrentBattle().findRandomOwnRangedHybridMinionToApplyItem();
@@ -179,7 +180,13 @@ public class Item implements Cloneable
                     Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
                     break;
                 case OWN_MELEE_FORCE:
-                    //todo
+                    for (NonSpellCards nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+                    {
+                        if (nonSpellCard.getImpactType() == ImpactType.melee)
+                        {
+                            nonSpellCard.addActiveItemOnThisCard(itemChange);
+                        }
+                    }
                     break;
             }
         }
@@ -206,8 +213,37 @@ public class Item implements Cloneable
                         hero.addActiveItemOnThisCard(itemChange);
                     }
                     break;
+                case OPPONENT_RANGED_HYBRID_HERO:
+                    Hero opponentRangedHybridHero = Battle.getCurrentBattle().getOpponentHero();
+                    if (opponentRangedHybridHero.getImpactType() == ImpactType.ranged || opponentRangedHybridHero.getImpactType() == ImpactType.hybrid)
+                    {
+                        opponentRangedHybridHero.addActiveItemOnThisCard(itemChange);
+                    }
+                    break;
+                case OPPONENT_RANDOM_FORCE:
+                    NonSpellCards opponentNonSpellCard = Battle.getCurrentBattle().findRandomOpponentNonSpellCardToApplyUsableItem();
+                    opponentNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    break;
+                case OPPONENT_HERO:
+                    Hero opponentHero = Battle.getCurrentBattle().getOpponentHero();
+                    opponentHero.addActiveItemOnThisCard(itemChange);
+                    break;
+                case OPPONENT_FORCE:
                     //todo
-
+                    break;
+                case OWN_RANDOM_FORCE:
+                    NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    ownNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    break;
+                case OWN_MINION:
+                    for (Card card: Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards())
+                    {
+                        if (card instanceof Minion)
+                        {
+                            ((Minion) card).addActiveItemOnThisCard(itemChange);
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -226,7 +262,7 @@ public class Item implements Cloneable
 
     public void printItemStats(int counter)
     {
-        System.out.println(counter + " : Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
+        System.out.println(counter + "- Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
     }
 
     public void printItemStats()
@@ -269,7 +305,8 @@ public class Item implements Cloneable
         this.itemID = itemID;
     }
 
-    public int getPrice() {
+    public int getPrice()
+    {
         return price;
     }
 
@@ -278,27 +315,33 @@ public class Item implements Cloneable
         this.price = price;
     }
 
-    public ItemEffect getItemEffect() {
+    public ItemEffect getItemEffect()
+    {
         return itemEffect;
     }
 
-    public void setItemEffect(ItemEffect itemEffect) {
+    public void setItemEffect(ItemEffect itemEffect)
+    {
         this.itemEffect = itemEffect;
     }
 
-    public ItemType getItemType() {
+    public ItemType getItemType()
+    {
         return itemType;
     }
 
-    public void setItemType(ItemType itemType) {
+    public void setItemType(ItemType itemType)
+    {
         this.itemType = itemType;
     }
 
-    public String getDescriptionTypeOfItem() {
+    public String getDescriptionTypeOfItem()
+    {
         return descriptionTypeOfItem;
     }
 
-    public void setDescriptionTypeOfItem(String descriptionTypeOfItem) {
+    public void setDescriptionTypeOfItem(String descriptionTypeOfItem)
+    {
         this.descriptionTypeOfItem = descriptionTypeOfItem;
     }
 

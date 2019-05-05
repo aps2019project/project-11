@@ -290,6 +290,23 @@ public class Battle
 
     }
 
+    public NonSpellCards findRandomOwnForce()
+    {
+        ArrayList<NonSpellCards> ownNonSpellCards = new ArrayList<>();
+        for (NonSpellCards nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
+            {
+                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                {
+                    ownNonSpellCards.add(ownNonSpellCard);
+                }
+            }
+        }
+        int randomMinionNumber = random.nextInt(ownNonSpellCards.size());
+        return ownNonSpellCards.get(randomMinionNumber);
+    }
+
     public Minion findRandomOwnMinionToApplyItem()
     {
         int numOfInsertedMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().size();
@@ -308,7 +325,39 @@ public class Battle
             }
         }
         int randomMinionNumber = random.nextInt(minions.size());
-        return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
+        return minions.get(randomMinionNumber);
+    }
+
+    public NonSpellCards findRandomOpponentNonSpellCardToApplyUsableItem()
+    {
+        ArrayList<NonSpellCards> opponentNonSpellCards = new ArrayList<>();
+        Outer : for (NonSpellCards nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
+            {
+                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                {
+                    continue Outer;
+                }
+            }
+            opponentNonSpellCards.add(nonSpellCard);
+        }
+        int randomMinionNumber = random.nextInt(opponentNonSpellCards.size());
+        return opponentNonSpellCards.get(randomMinionNumber);
+    }
+
+    public Hero getOpponentHero()
+    {
+        Hero opponentHero;
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
+            opponentHero = this.getSecondPlayer().getMainDeck().getHero().get(0);
+        }
+        else
+        {
+            opponentHero = this.getFirstPlayer().getMainDeck().getHero().get(0);
+        }
+        return opponentHero;
     }
 
     public void showGraveYardCardInfo(int cardID)
