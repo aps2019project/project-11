@@ -32,7 +32,7 @@ public class DeckManager
             ShowOutput.printOutput("Deck is full");
             return;
         }
-        deck.addNonHeroCardToDeck(card);
+        deck.addNonHeroCardToDeck(card , false);
         ShowOutput.printOutput("Card added to deck");
     }
 
@@ -51,7 +51,7 @@ public class DeckManager
             ShowOutput.printOutput("Deck is full");
             return;
         }
-        deck.addHeroToDeck(hero);
+        deck.addHeroToDeck(hero ,false);
         ShowOutput.printOutput("Card added to deck");
     }
 
