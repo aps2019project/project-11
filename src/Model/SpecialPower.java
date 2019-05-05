@@ -15,7 +15,8 @@ public class SpecialPower
         return descriptionTypeOfSpecialPower;
     }
 
-    public void setDescriptionTypeOfSpecialPower(String descriptionTypeOfSpecialPower) {
+    public void setDescriptionTypeOfSpecialPower(String descriptionTypeOfSpecialPower)
+    {
         this.descriptionTypeOfSpecialPower = descriptionTypeOfSpecialPower;
     }
 

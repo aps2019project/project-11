@@ -178,6 +178,7 @@ public class Spell extends Card
     }
 
     public static ArrayList<Spell> getSpells()
+
     {
         return spells;
     }

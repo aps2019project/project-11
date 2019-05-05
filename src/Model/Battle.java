@@ -72,6 +72,7 @@ public class Battle {
             case 3:
                 return BattleMode.GATHERING_FLAGS;
         }
+        return null;
     }
 
     public void customMode() {
@@ -111,10 +112,33 @@ public class Battle {
     }
 
     public void moveCard(int x, int y) {
+        int distance_x=0;
+        int distance_y = 0;
+        boolean flag = false;
+        distance_x = selectedCard.getRow() - x;
+        distance_y = selectedCard.getColumn() - y;
         if (selectedCard.isCardSelectedInBattle())
         {
+            if (distance_x < 2 && distance_y < 2)
+            {
+                flag = true;
+            }
+            else
+            {
+                flag = false;
+            }
 
         }
+        if (flag == true)
+        {
+            selectedCard.setRow(x);
+            selectedCard.setColumn(y);
+            System.out.print(selectedCard.getCardID());
+            System.out.print("moved to");
+            System.out.print(x);
+            System.out.print(y);
+        }
+        //todo
     }
 
     private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard) {

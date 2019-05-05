@@ -13,7 +13,7 @@ public class Cell
     private boolean holyCell = false;
     private boolean toxicCell = false;
     private boolean fieryCell = false;
-    private ArrayList<SpellChange> spellChanges = new ArrayList<>();
+    private  ArrayList<SpellChange> spellChanges = new ArrayList<>();
 
     public void setItem(Item item)
     {
@@ -91,7 +91,8 @@ public class Cell
         return spellChanges;
     }
 
-    public void setSpellChanges(ArrayList<SpellChange> spellChanges) {
+    public void setSpellChanges(ArrayList<SpellChange> spellChanges)
+    {
         this.spellChanges = spellChanges;
     }
 }
