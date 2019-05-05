@@ -265,12 +265,6 @@ public class Battle
         }
     }
 
-
-    public void insertCard(String cardName, int x, int y)
-    {
-
-    }
-
     public void endTurn()
     {
 

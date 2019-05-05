@@ -43,7 +43,7 @@ public class BattleManager
             NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
-                System.out.println("SelectedCard doesn't have special power");
+                ShowOutput.printOutput("SelectedCard doesn't have special power");
             }
             else
             {
