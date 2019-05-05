@@ -256,7 +256,7 @@ public class ShowOutput
             System.out.print("Range:");
             System.out.println(minion.getImpactType());
             System.out.print("Combo-ability:");
-            System.out.println(/*todo*/);
+            System.out.println(minion.getImpactType());
             System.out.print("Cost:");
             System.out.println(minion.getPrice());
             System.out.print("Special Power:");

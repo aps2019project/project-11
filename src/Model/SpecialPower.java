@@ -95,6 +95,10 @@ public class SpecialPower
                         ownMinion.get(counter).addActiveSpellOnThisCard(spellChange);
                     }
             }
+            else if (target.getStartRow() >= 0 || target.getStartColumn() >= 0 || target.getEndRow() >=0 || target.getEndColumn() >=0)
+            {
+                //todo
+            }
 
         }
     }

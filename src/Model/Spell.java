@@ -148,17 +148,17 @@ public class Spell extends Card
 
     public void effectToxicCell(int x, int y)
     {
-
+        //todo
     }
 
     public void effectFieryCell(int x, int y)
     {
-
+        //todo
     }
 
     public void effectHolyCell(int x, int y)
     {
-
+        //todo
     }
     public String getDescriptionTypeOfSpell()
     {
