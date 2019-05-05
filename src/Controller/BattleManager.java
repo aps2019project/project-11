@@ -41,17 +41,17 @@ public class BattleManager
         }
         else if (exit == false)
         {
-            System.out.println("Invalid card name");
+            ShowOutput.printOutput("Invalid card name");
         }
         //todo
     }
     public void useSpecialPower(int x, int y) {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {
-            NonSpellCards SelectedCard = (NonSpellCards)Battle.getCurrentBattle().getSelectedCard();
+            NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
-                System.out.println("SelectedCard doesn't have special power");
+                ShowOutput.printOutput("SelectedCard doesn't have special power");
             }
             else
             {

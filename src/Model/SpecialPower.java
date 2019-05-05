@@ -60,6 +60,8 @@ public class SpecialPower
             }
             else if (target.getNumOfOwnMinions() > 0)
             {
+              //  ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+
 
             }
             else if (target.getNumOfOpponentBothNonSpellCards() > 0)
