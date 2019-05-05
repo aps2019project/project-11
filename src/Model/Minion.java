@@ -149,7 +149,7 @@ public class Minion extends NonSpellCards
         new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0); //38
         new Minion("Shah Ghoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0);
         new Minion("Arzhang Div", 600, 3, 6, 6, null, true, ImpactType.melee, 0);  //40
-        super();
+
     }
 
     public void printMinionStats(int counter)

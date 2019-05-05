@@ -527,4 +527,15 @@ public class Battle
     {
         this.loserPlayer = loserPlayer;
     }
+
+    public void AIPlayerWorks(BattleManager battleManager) {
+        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++) {
+            String randomCardName = playerTurn.getHand().getCards().get((int) (Math.random() % playerTurn.getHand().getCards().size())).getCardName();
+            battleManager.selectCard(randomCardName);
+            battleManager.CheckCircumstancesToInsertCard(selectedCard);
+        }
+        for(int counter = 1 ; counter <= 20 ; counter++){
+
+        }
+    }
 }

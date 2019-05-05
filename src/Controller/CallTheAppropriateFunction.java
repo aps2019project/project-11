@@ -332,7 +332,10 @@ public class CallTheAppropriateFunction
     {
         while (true)
         {
-            //todo
+            if(Battle.getCurrentBattle().getPlayerTurn().isAIPlayer()){
+                Battle.getCurrentBattle().AIPlayerWorks(battleManager);
+                continue;
+            }
             Request.getBattleCommands();
             if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
             {
