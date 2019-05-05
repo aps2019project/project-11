@@ -138,7 +138,6 @@ public class Spell extends Card
         cards.setMoveAble(false);
         cards.setAttackAble(false);
         cards.setCounterAttackAble(false);
-
     }
 
     public void effectDisarmBuff(Card card)

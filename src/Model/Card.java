@@ -40,18 +40,6 @@ public abstract class Card implements Cloneable
         return price;
     }
 
-    public static Card findCard(int cardID)
-    {
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card.getCardID() == cardID)
-            {
-                return card;
-            }
-        }
-        return null;
-    }
-
     public static Card findCard(String cardName)
     {
         for (Card card : Shop.getInstance().getCards())

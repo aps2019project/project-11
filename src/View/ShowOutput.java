@@ -83,7 +83,7 @@ public class ShowOutput
             if (card instanceof Hero)
             {
                 ShowOutput.printHeroStats((Hero) card, counter);
-                counter ++;
+                counter++;
             }
         }
 
@@ -92,7 +92,7 @@ public class ShowOutput
         for (Item item : collection.getItems())
         {
             item.printItemStats(counter);
-            counter ++;
+            counter++;
         }
 
         counter = 1;
@@ -104,7 +104,7 @@ public class ShowOutput
                 continue;
             }
             card.printCardStats(counter);
-            counter ++;
+            counter++;
         }
     }
 
@@ -217,22 +217,22 @@ public class ShowOutput
 
     private static void showMinionInfoInTheBattle(Minion minion)
     {
-        System.out.print(minion.getCardID() + " : " );
-        System.out.print(minion.getCardName() +", ");
+        System.out.print(minion.getCardID() + " : ");
+        System.out.print(minion.getCardName() + ", ");
         System.out.print("health : ");
         System.out.print(minion.getCurrentHP() + ", ");
         System.out.print("location : ");
-        System.out.print("("+ minion.getRow() + ", " + minion.getColumn() + "), ");
+        System.out.print("(" + minion.getRow() + ", " + minion.getColumn() + "), ");
         System.out.print("power : ");
         System.out.println(minion.getCurrentAP());
     }
 
     public static void showCardInfo(int cardID)
     {
-        Card card = Card.findCard(cardID);
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
         if (card instanceof Hero)
         {
-            Hero hero = (Hero)card;
+            Hero hero = (Hero) card;
             System.out.println("Hero:");
             System.out.print("Name:");
             System.out.println(hero.getCardName());
@@ -243,7 +243,7 @@ public class ShowOutput
         }
         if (card instanceof Minion)
         {
-            Minion minion = (Minion)card;
+            Minion minion = (Minion) card;
             System.out.println("Minion:");
             System.out.print("Name:");
             System.out.println(minion.getCardName());
@@ -264,7 +264,7 @@ public class ShowOutput
         }
         if (card instanceof Spell)
         {
-            Spell spell = (Spell)card;
+            Spell spell = (Spell) card;
             System.out.println("Spell:");
             System.out.print("Name:");
             System.out.println(spell.getCardName());
@@ -287,16 +287,16 @@ public class ShowOutput
             if (card instanceof Hero)
             {
                 printHeroStats((Hero) card, counter);
-                counter ++;
+                counter++;
             }
 
         }
         printOutput("Items :");
         counter = 1;
-            for (Item item : Shop.getInstance().getItems())
+        for (Item item : Shop.getInstance().getItems())
         {
             item.printItemStats(counter);
-            counter ++;
+            counter++;
         }
         printOutput("Spells :");
         counter = 1;
@@ -305,7 +305,7 @@ public class ShowOutput
             if (card instanceof Spell)
             {
                 ((Spell) card).printSpellCardStats(counter);
-                counter ++;
+                counter++;
             }
         }
         printOutput("Minions :");
@@ -315,7 +315,7 @@ public class ShowOutput
             if (card instanceof Minion)
             {
                 ((Minion) card).printMinionStats(counter);
-                counter ++;
+                counter++;
             }
         }
     }
@@ -359,19 +359,20 @@ public class ShowOutput
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
             item.printItemStats(counter);
-            counter ++;
+            counter++;
         }
     }
 
-    public static void showStoryBattleInfo() {
+    public static void showStoryBattleInfo()
+    {
         System.out.println("1- Hero : Dave White - Mode : Kill enemy hero");
         System.out.println("2- Hero : Zahak - Mode : Gather and hold flag for 6 turn");
         System.out.println("3- Hero : Arash - Mode : Gather half of the flags");
     }
 
-    public static void showCustomGameInfo() {
+    public static void showCustomGameInfo()
+    {
         showAllDecksInfo();
         showBattleModes();
-
     }
 }

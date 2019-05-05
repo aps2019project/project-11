@@ -1,17 +1,17 @@
 package Model;
 
-import Controller.BattleManager;
-import Controller.DeckManager;
+import Controller.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Battle {
+public class Battle
+{
     private static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
     private Player playerTurn;
-    private BattleField battleField;
+    private BattleField battleField = new BattleField();
     private NonSpellCards selectedCard;
     private Item selectedICollectibleItem;
     private BattleMode battleMode;
@@ -26,18 +26,20 @@ public class Battle {
         currentBattle = this;
     }
 
-    public Battle(){}
-
-    public static Battle getCurrentBattle() {
+    public static Battle getCurrentBattle()
+    {
         return currentBattle;
     }
 
-    public static void setCurrentBattle(Battle currentBattle) {
+    public static void setCurrentBattle(Battle currentBattle)
+    {
         Battle.currentBattle = currentBattle;
     }
 
-    public static Player makeStoryPlayer(int selectedNumber) {
-        switch (selectedNumber){
+    public static Player makeStoryPlayer(int selectedNumber)
+    {
+        switch (selectedNumber)
+        {
             case 1:
                 Account account1 = new Account();
                 Deck deck1 = Deck.createMainDeckForStoryAccount(1);
@@ -57,14 +59,17 @@ public class Battle {
         return null;
     }
 
-    public static Player makeCustomGamePlayer(String deckNameForCustomGame) {
+    public static Player makeCustomGamePlayer(String deckNameForCustomGame)
+    {
         Account account = new Account();
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
         return new Player(account);
     }
 
-    public static BattleMode getBattleMode(int customGameMode) {
-        switch (customGameMode){
+    public static BattleMode getBattleMode(int customGameMode)
+    {
+        switch (customGameMode)
+        {
             case 1:
                 return BattleMode.KILLING_ENEMY_HERO;
             case 2:
@@ -75,19 +80,23 @@ public class Battle {
         return null;
     }
 
-    public void customMode() {
+    public void customMode()
+    {
 
     }
 
-    public void killHeroMode() {
+    public void killHeroMode()
+    {
 
     }
 
-    public void keepFlagMode() {
+    public void keepFlagMode()
+    {
 
     }
 
-    public void gatherFlags(int numOfFlags) {
+    public void gatherFlags(int numOfFlags)
+    {
 
     }
 
@@ -101,18 +110,21 @@ public class Battle {
 
     }
 
-    public void selectCard(NonSpellCards card) {
+    public void selectCard(NonSpellCards card)
+    {
         setSelectedCard(card);
         card.setCardSelectedInBattle(true);
     }
 
-    public void selectCollectibleItem(Item item) {
+    public void selectCollectibleItem(Item item)
+    {
         setSelectedICollectibleItem(item);
         item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public void moveCard(int x, int y) {
-        int distance_x=0;
+    public void moveCard(int x, int y)
+    {
+        int distance_x = 0;
         int distance_y = 0;
         boolean flag = false;
         distance_x = selectedCard.getRow() - x;
@@ -129,7 +141,7 @@ public class Battle {
             }
 
         }
-        if (flag == true)
+        if (flag)
         {
             selectedCard.setRow(x);
             selectedCard.setColumn(y);
@@ -141,97 +153,133 @@ public class Battle {
         //todo
     }
 
-    private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard) {
+    private void damageCard(NonSpellCards selectedCard, NonSpellCards opponentCard)
+    {
         int currentHP = opponentCard.getCurrentHP();
         opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
     }
 
-    public void attackToOpponent(int cardID) {
-        if (Card.findCard(cardID) == null) {
+    public void attackToOpponent(int cardID)
+    {
+        if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+        {
             System.out.println("Invalid card id");
             return;
         }
-        Card opponentCard = Card.findCard(cardID);
-        if (selectedCard.isCardSelectedInBattle()) {
-            if (((NonSpellCards) selectedCard).isAttackAble()) {
-                if (((Minion) selectedCard).getImpactType() == ImpactType.melee) {
-                    if (Card.checkNeighborhood(selectedCard, opponentCard)) {
+        NonSpellCards opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        if (selectedCard.isCardSelectedInBattle())
+        {
+            if (( selectedCard).isAttackAble())
+            {
+                if (((Minion) selectedCard).getImpactType() == ImpactType.melee)
+                {
+                    if (Card.checkNeighborhood(selectedCard, opponentCard))
+                    {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
                         ((Minion) selectedCard).setAttackAble(false);
-                    } else {
+                    }
+                    else
+                    {
                         System.out.println("opponent minion is unavailable for attack");
                     }
-                } else if (((Minion) selectedCard).getImpactType() == ImpactType.ranged) {
-                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard))) {
+                }
+                else if (((Minion) selectedCard).getImpactType() == ImpactType.ranged)
+                {
+                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+                    {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
                         ((Minion) selectedCard).setAttackAble(false);
-                    } else {
+                    }
+                    else
+                    {
                         System.out.println("opponent minion is unavailable for attack");
                     }
-                } else if (((Minion) selectedCard).getImpactType() == ImpactType.hybrid) {
-                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack()) {
+                }
+                else if (((Minion) selectedCard).getImpactType() == ImpactType.hybrid)
+                {
+                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack())
+                    {
                         damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
                         ((Minion) selectedCard).setAttackAble(false);
-                    } else {
+                    }
+                    else
+                    {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 }
 
-            } else {
+            }
+            else
+            {
                 System.out.println("Card with " + selectedCard.getCardID() + " can′t attack");
             }
         }
     }
 
 
-    public void counterAttack(int cardID) {
-        Card opponentCard = Card.findCard(cardID);
-        if (((NonSpellCards) opponentCard).isCounterAttackAble()) {
-            if (((Minion) opponentCard).getImpactType() == ImpactType.melee) {
-                if (Card.checkNeighborhood(selectedCard, opponentCard)) {
+    public void counterAttack(int cardID)
+    {
+        Card opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        if (((NonSpellCards) opponentCard).isCounterAttackAble())
+        {
+            if (((Minion) opponentCard).getImpactType() == ImpactType.melee)
+            {
+                if (Card.checkNeighborhood(selectedCard, opponentCard))
+                {
                     damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
                 }
-            } else if (((Minion) opponentCard).getImpactType() == ImpactType.ranged) {
-                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard))) {
+            }
+            else if (((Minion) opponentCard).getImpactType() == ImpactType.ranged)
+            {
+                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+                {
                     damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
                 }
-            } else if (((Minion) opponentCard).getImpactType() == ImpactType.hybrid) {
-                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack()) {
+            }
+            else if (((Minion) opponentCard).getImpactType() == ImpactType.hybrid)
+            {
+                if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) opponentCard).getRangeOfAttack())
+                {
                     damageCard((NonSpellCards) opponentCard, (NonSpellCards) selectedCard);
                 }
             }
         }
     }
 
-    public void counterAttack(int cardID1 , int cardID2)
+    public void counterAttack(int cardID1, int cardID2)
     {
-        selectedCard = (NonSpellCards) Card.findCard(cardID2);
+        selectedCard = (NonSpellCards) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID2);
         counterAttack(cardID1);
         selectedCard = null;
 
     }
 
-    public void comboAttack(int enemyCardID, ArrayList<Integer> cardsIDForComboAttack) {
+    public void comboAttack(int enemyCardID, ArrayList<Integer> cardsIDForComboAttack)
+    {
         checkComboCondition(cardsIDForComboAttack);
-        for (int cardID : cardsIDForComboAttack) {
+        for (int cardID : cardsIDForComboAttack)
+        {
             new BattleManager().selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
         //todo //counterAttcak\\
     }
 
-    private void checkComboCondition(ArrayList<Integer> cardsIDForComboAttack) {
-        for (int cardID : cardsIDForComboAttack) {
-            if (Card.findCard(cardID) == null) {
+    private void checkComboCondition(ArrayList<Integer> cardsIDForComboAttack)
+    {
+        for (int cardID : cardsIDForComboAttack)
+        {
+            if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+            {
                 continue;
             }
-            Card card = Card.findCard(cardID);
-            if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo()) {
+            Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
+            if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo())
+            {
                 cardsIDForComboAttack.removeIf(n -> n == cardID);
             }
         }
     }
-
 
 
     public void insertCard(String cardName, int x, int y)
@@ -265,23 +313,28 @@ public class Battle {
         return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
     }
 
-    public void showGraveYardCardInfo(int cardID) {
+    public void showGraveYardCardInfo(int cardID)
+    {
         Card card = playerTurn.findCardInGraveYard(cardID);
-        if (card != null) {
+        if (card != null)
+        {
             card.printCardStats();
         }
     }
 
-    public void showAllCardsInTheGraveYard() {
+    public void showAllCardsInTheGraveYard()
+    {
         int counter = 1;
         System.out.println("first Player Grave Yard :");
-        for (Card card : firstPlayer.getGraveYard().getCards()) {
+        for (Card card : firstPlayer.getGraveYard().getCards())
+        {
             card.printCardStats(counter);
             counter++;
         }
         counter = 1;
         System.out.println("second Player Grave Yard :");
-        for (Card card : secondPlayer.getGraveYard().getCards()) {
+        for (Card card : secondPlayer.getGraveYard().getCards())
+        {
             card.printCardStats(counter);
             counter++;
         }
@@ -292,67 +345,83 @@ public class Battle {
 
     }
 
-    public Player getPlayerTurn() {
+    public Player getPlayerTurn()
+    {
         return playerTurn;
     }
 
-    public void setPlayerTurn(Player playerTurn) {
+    public void setPlayerTurn(Player playerTurn)
+    {
         this.playerTurn = playerTurn;
     }
 
-    public Player getSecondPlayer() {
+    public Player getSecondPlayer()
+    {
         return secondPlayer;
     }
 
-    public void setSecondPlayer(Player secondPlayer) {
+    public void setSecondPlayer(Player secondPlayer)
+    {
         this.secondPlayer = secondPlayer;
     }
 
-    public Player getFirstPlayer() {
+    public Player getFirstPlayer()
+    {
         return firstPlayer;
     }
 
-    public void setFirstPlayer(Player firstPlayer) {
+    public void setFirstPlayer(Player firstPlayer)
+    {
         this.firstPlayer = firstPlayer;
     }
 
-    public BattleField getBattleField() {
+    public BattleField getBattleField()
+    {
         return battleField;
     }
 
-    public void setBattleField(BattleField battleField) {
+    public void setBattleField(BattleField battleField)
+    {
         this.battleField = battleField;
     }
 
-    public Card getSelectedCard() {
+    public Card getSelectedCard()
+    {
         return selectedCard;
     }
 
-    public void setSelectedCard(NonSpellCards selectedCard) {
+    public void setSelectedCard(NonSpellCards selectedCard)
+    {
         this.selectedCard = selectedCard;
     }
 
-    public Item getSelectedICollectibleItem() {
+    public Item getSelectedICollectibleItem()
+    {
         return selectedICollectibleItem;
     }
 
-    public void setSelectedICollectibleItem(Item selectedICollectibleItem) {
+    public void setSelectedICollectibleItem(Item selectedICollectibleItem)
+    {
         this.selectedICollectibleItem = selectedICollectibleItem;
     }
 
-    public BattleMode getBattleMode() {
+    public BattleMode getBattleMode()
+    {
         return battleMode;
     }
 
-    public void setBattleMode(BattleMode battleMode) {
+    public void setBattleMode(BattleMode battleMode)
+    {
         this.battleMode = battleMode;
     }
 
-    public int getNumOfFlagsInGatheringFlagsMatchMode() {
+    public int getNumOfFlagsInGatheringFlagsMatchMode()
+    {
         return numOfFlagsInGatheringFlagsMatchMode;
     }
 
-    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode) {
+    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode)
+    {
         this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 }

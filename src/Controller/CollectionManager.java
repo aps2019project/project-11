@@ -29,7 +29,7 @@ public class CollectionManager
 
     public void checkIDValidityToAddToDeck(Deck deck, int ID)
     {
-        if (Card.findCard(ID) != null)
+        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
             for (Card card : Account.loggedInAccount.getCollection().getCards())
             {
@@ -48,7 +48,7 @@ public class CollectionManager
             }
             ShowOutput.printOutput("This card isn't in the collection");
         }
-        if (Item.findItem(ID) != null)
+        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
             for (Item item : Account.loggedInAccount.getCollection().getItems())
             {
@@ -62,13 +62,13 @@ public class CollectionManager
         }
         else
         {
-            ShowOutput.printOutput("There is no card or item with this ID");
+            ShowOutput.printOutput("Invalid ID");
         }
     }
 
     public void checkIDValidityToRemoveFromDeck(Deck deck, int ID)
     {
-        if (Card.findCard(ID) != null)
+        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
             for (Card card : Account.loggedInAccount.getCollection().getCards())
             {
@@ -87,7 +87,7 @@ public class CollectionManager
             }
             ShowOutput.printOutput("This card isn't in the collection");
         }
-        if (Item.findItem(ID) != null)
+        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
             for (Item item : Account.loggedInAccount.getCollection().getItems())
             {
@@ -98,6 +98,10 @@ public class CollectionManager
                 }
             }
             ShowOutput.printOutput("This item isn't in the collection");
+        }
+        else
+        {
+            ShowOutput.printOutput("Invalid ID");
         }
     }
 

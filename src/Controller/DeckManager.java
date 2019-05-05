@@ -33,6 +33,7 @@ public class DeckManager
             return;
         }
         deck.addNonHeroCardToDeck(card);
+        ShowOutput.printOutput("Card added to deck");
     }
 
     public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero)
@@ -51,6 +52,7 @@ public class DeckManager
             return;
         }
         deck.addHeroToDeck(hero);
+        ShowOutput.printOutput("Card added to deck");
     }
 
     public void checkCircumstancesToAddItemToDeck(Deck deck, Item item)
@@ -78,6 +80,7 @@ public class DeckManager
             if (card.getCardName().equals(deckCard.getCardName()))
             {
                 deck.deleteNonHeroCardFromDeck(card);
+                ShowOutput.printOutput("Card removed from deck");
                 return;
             }
         }
@@ -106,6 +109,7 @@ public class DeckManager
             if (hero.getHeroID() == deckHero.getHeroID())
             {
                 deck.deleteHeroFromDeck(hero);
+                ShowOutput.printOutput("Card removed from deck");
                 return;
             }
         }

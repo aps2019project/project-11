@@ -212,18 +212,6 @@ public class Item implements Cloneable
         }
     }
 
-    public static Item findItem(int itemID)
-    {
-        for (Item item : items)
-        {
-            if (item.getItemID() == itemID)
-            {
-                return item;
-            }
-        }
-        return null;
-    }
-
     public static Item findItem(String itemName)
     {
         for (Item item : items)

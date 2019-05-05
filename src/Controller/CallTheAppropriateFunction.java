@@ -25,7 +25,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getMainMenuCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -62,7 +62,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getAccountCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -93,7 +93,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getShopCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -125,7 +125,7 @@ public class CallTheAppropriateFunction
                         {
                             ShowOutput.printOutput("Card or Item doesn't exist in Shop");
                         }
-                    } catch(CloneNotSupportedException ignored)
+                    } catch (CloneNotSupportedException ignored)
                     {
 
                     }
@@ -152,7 +152,7 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getCollectionCommands();
-            if(Request.command == null)
+            if (Request.command == null)
             {
                 continue;
             }
@@ -353,8 +353,8 @@ public class CallTheAppropriateFunction
                     determineAfterSelectItemCommand();
                     break;
                 case COMBO_ATTACK:
-                    Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack);
-                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo , Request.command.cardIDsForComboAttack.get(0));
+                    Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack);
+                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack.get(0));
                     break;
                 case SHOW_NEXT_CARD:
                     //todo
