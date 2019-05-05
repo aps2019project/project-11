@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public abstract class NonSpellCards extends Card
 {
+    private Cell currentCell;
     private int defaultHP;
     private int defaultAP;
     private int currentHP;
@@ -17,11 +18,17 @@ public abstract class NonSpellCards extends Card
     private int rangeOfAttack ;
     private ImpactType impactType;
 
-    public Cell [][] setAttackAbleCells()
+    public int  [][] setAttackAbleCells()
     {
         Cell[][] cells = new Cell[5][9];
-        //TODO
-        return cells;
+        int[][] moveAbleCells = new int [5][9];
+        for (int i = 0;i < 5;i++)
+        {
+            for (int j = 0;j < 9;j++)
+            {
+                if ()
+            }
+        }
     }
 
     public static void setNonSpellCards()
@@ -109,7 +116,8 @@ public abstract class NonSpellCards extends Card
         return activeItemsOnThisCard;
     }
 
-    public void addActiveItemOnThisCard(ItemChange activeItemOnThisCard) {
+    public void addActiveItemOnThisCard(ItemChange activeItemOnThisCard)
+    {
         activeItemsOnThisCard.add(activeItemOnThisCard);
     }
 
@@ -129,5 +137,13 @@ public abstract class NonSpellCards extends Card
 
     public void setRangeOfAttack(int rangeOfAttack) {
         this.rangeOfAttack = rangeOfAttack;
+    }
+
+    public Cell getCurrentCell() {
+        return currentCell;
+    }
+
+    public void setCurrentCell(Cell currentCell) {
+        this.currentCell = currentCell;
     }
 }

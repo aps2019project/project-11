@@ -7,7 +7,6 @@ public class Spell extends Card
     private static ArrayList<Spell> spells = new ArrayList<>();
     private String descriptionTypeOfSpell;
     private SpellEffect spellEffect = new SpellEffect();
-    private Cell cell;
 
     public Spell(String name, int price, int MP, String descriptionTypeOfSpell)
     {
@@ -149,17 +148,17 @@ public class Spell extends Card
 
     public void effectToxicCell(int x, int y)
     {
-        cell.setToxicCell(true);
+
     }
 
     public void effectFieryCell(int x, int y)
     {
-        cell.setFieryCell(true);
+
     }
 
     public void effectHolyCell(int x, int y)
     {
-        cell.setHolyCell(true);
+
     }
     public String getDescriptionTypeOfSpell()
     {

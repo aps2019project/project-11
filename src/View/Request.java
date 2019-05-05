@@ -32,6 +32,7 @@ public class Request
     private final static Pattern patternSelectItem = Pattern.compile("Select [0-9]+");
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [0-9]+");
+    private final static Pattern patternUseSpecialpower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
 
 
     public static CommandType command;
@@ -387,6 +388,12 @@ public class Request
         {
             command = CommandType.NORMAL_ATTACK ;
             command.enemyCardIDForNormalAttack = Integer.parseInt(inputParts[1]);
+        }
+        else if (patternUseSpecialpower.matcher(input).matches())
+        {
+            command = CommandType.USE_SPECIAL_POWER;
+            command.rowOfTheCell = Integer.parseInt(inputParts[3]);
+            command.columnOfTheCell = Integer.parseInt(inputParts[4]);
         }
         else
         {

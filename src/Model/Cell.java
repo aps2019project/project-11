@@ -6,23 +6,12 @@ public class Cell
 {
     private int row;
     private int column;
-    private Spell spell = null;
     private Hero hero = null;
     private Minion minion = null;
-    private Item item = null;
     private boolean holyCell = false;
     private boolean toxicCell = false;
     private boolean fieryCell = false;
     private  ArrayList<SpellChange> spellChanges = new ArrayList<>();
-
-    public void setItem(Item item)
-    {
-        this.item = item;
-    }
-
-    public Item getItem() {
-        return item;
-    }
 
     public void setCard(Card card)
     {
@@ -30,11 +19,7 @@ public class Cell
         {
             this.hero = (Hero) card;
         }
-        else if (card instanceof Spell)
-        {
-            this.spell = (Spell) card;
-        }
-        else
+        else if (card instanceof Minion)
         {
             this.minion = (Minion) card;
         }
@@ -42,10 +27,6 @@ public class Cell
 
     public Card getCard()
     {
-        if (this.spell != null)
-        {
-            return spell;
-        }
         if (this.hero != null)
         {
             return hero;
@@ -56,6 +37,13 @@ public class Cell
         }
         return null;
     }
+
+    public int getDistance (Cell cell)
+    {
+        return Math.abs(this.getRow() - cell.getRow()) + Math.abs(this.getColumn() - cell.getColumn());
+    }
+
+    public int
 
     public  boolean isHolyCell()
     {
@@ -94,5 +82,21 @@ public class Cell
     public void setSpellChanges(ArrayList<SpellChange> spellChanges)
     {
         this.spellChanges = spellChanges;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 }

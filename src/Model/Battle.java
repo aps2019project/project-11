@@ -124,31 +124,20 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
-        int distance_x = 0;
-        int distance_y = 0;
-        boolean flag = false;
-        distance_x = selectedCard.getRow() - x;
-        distance_y = selectedCard.getColumn() - y;
+        Cell cell = this.getBattleField().getCellWithGivenCoordinate(x, y);
+        boolean ableToMoveToSelectedCell = false;
         if (selectedCard.isCardSelectedInBattle())
         {
-            if (distance_x < 2 && distance_y < 2)
+            if (this.getSelectedCard().getCurrentCell().getDistance(cell) < 3)
             {
-                flag = true;
+                ableToMoveToSelectedCell = true;
             }
-            else
-            {
-                flag = false;
-            }
-
         }
-        if (flag)
+        if (ableToMoveToSelectedCell)
         {
             selectedCard.setRow(x);
             selectedCard.setColumn(y);
-            System.out.print(selectedCard.getCardID());
-            System.out.print("moved to");
-            System.out.print(x);
-            System.out.print(y);
+            System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
         }
         //todo
     }
@@ -362,6 +351,18 @@ public class Battle
         return opponentHero;
     }
 
+    public ArrayList<Minion> getOpponentMinions()
+    {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
+            return this.getSecondPlayer().getInsertedCards();
+        }
+        else
+        {
+            return this.getFirstPlayer().getInsertedCards();
+        }
+    }
+
     public void showGraveYardCardInfo(int cardID)
     {
         Card card = playerTurn.findCardInGraveYard(cardID);
@@ -434,7 +435,7 @@ public class Battle
         this.battleField = battleField;
     }
 
-    public Card getSelectedCard()
+    public NonSpellCards getSelectedCard()
     {
         return selectedCard;
     }

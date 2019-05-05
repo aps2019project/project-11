@@ -24,6 +24,11 @@ public class BattleField
         return null;
     }
 
+    public Cell getCellWithGivenCoordinate (int x, int y)
+    {
+        return battleFieldMatrix[x][y];
+    }
+
     public ArrayList<NonSpellCards> getAllCardsInTheBattleField()
     {
         return allCardsInTheBattleField;
