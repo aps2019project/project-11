@@ -370,6 +370,10 @@ public class Request
         {
             command = CommandType.SHOW_MENU;
         }
+        else if (input.equalsIgnoreCase("End Turn"))
+        {
+            command = CommandType.END_TURN;
+        }
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;

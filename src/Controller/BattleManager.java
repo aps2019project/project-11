@@ -33,6 +33,11 @@ public class BattleManager
                 card.setRow(x);
                 card.setColumn(y);
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
+                if (Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().size() > 5)
+                {
+                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(5));
+                }
                 return;
             }
             ShowOutput.printOutput("You don′t have enough MP");

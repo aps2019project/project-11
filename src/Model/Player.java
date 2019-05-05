@@ -20,7 +20,11 @@ public class Player
         this.account = account;
         this.mainDeck = account.getMainDeck();
         Collections.shuffle(account.getMainDeck().getNonHeroCards());
-        //todo set hand cards
+        for (int i = 0;i < 5;i++)
+        {
+            this.getHand().addCardToHand(account.getMainDeck().getNonHeroCards().get(i));
+        }
+        this.getHand().setNextCard(account.getMainDeck().getNonHeroCards().get(5));
     }
 
     public Card findCardInGraveYard(String ID)
