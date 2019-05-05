@@ -13,7 +13,7 @@ public class BattleManager
         {
             if (account.getMainDeck() != null)
             {
-                return new Player(account);
+                return new Player(account , false);
             }
             ShowOutput.printOutput("second player has no valid MainDeck");
             return null;

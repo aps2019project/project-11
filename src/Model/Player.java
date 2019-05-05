@@ -14,11 +14,13 @@ public class Player
     private ArrayList<Minion> insertedCards = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
     private ArrayList<SpellChange> activeSpellsOnPlayer = new ArrayList<>();
+    private boolean isAIPlayer = false;
 
-    public Player(Account account)
+    public Player(Account account , boolean isAIPlayer)
     {
         this.account = account;
         this.mainDeck = account.getMainDeck();
+        this.setAIPlayer(isAIPlayer);
         Collections.shuffle(account.getMainDeck().getNonHeroCards());
         for (int i = 0;i < 5;i++)
         {
@@ -117,5 +119,13 @@ public class Player
     public void addActiveSpellOnPlayer(SpellChange activeSpellOnPlayer)
     {
         activeSpellsOnPlayer.add(activeSpellOnPlayer);
+    }
+
+    public boolean isAIPlayer() {
+        return isAIPlayer;
+    }
+
+    public void setAIPlayer(boolean AIPlayer) {
+        isAIPlayer = AIPlayer;
     }
 }

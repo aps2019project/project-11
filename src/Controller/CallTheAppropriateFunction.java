@@ -246,15 +246,13 @@ public class CallTheAppropriateFunction
                     Request.command.storyGameMode = Request.myScanner.nextInt();
                     Player opponentPlayerForStory = Battle.makeStoryPlayer(Request.command.storyGameMode);
                     BattleType battleTypeStory = getBattleTypeStory(Request.command.storyGameMode);
-                    new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(Request.command.storyGameMode) , battleTypeStory);
+                    new Battle(new Player(Account.loggedInAccount , false) , opponentPlayerForStory , Battle.getBattleMode(Request.command.storyGameMode) , battleTypeStory);
                     determineBattleCommand();
-
-                    //checkResult();
                     break;
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
                     Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
-                    new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode) , BattleType.CUSTOM_GAME);
+                    new Battle(new Player(Account.loggedInAccount , false) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode) , BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
             }
@@ -286,7 +284,7 @@ public class CallTheAppropriateFunction
             switch (Request.command)
             {
                 case SELECT_USER:
-                    Player firstPlayer = new Player(Account.loggedInAccount);
+                    Player firstPlayer = new Player(Account.loggedInAccount , false);
                     Player secondPlayer = battleManager.selectSecondPlayer(Request.command.username);
                     if (secondPlayer != null)
                     {
@@ -334,6 +332,7 @@ public class CallTheAppropriateFunction
     {
         while (true)
         {
+            //todo
             Request.getBattleCommands();
             if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
             {
