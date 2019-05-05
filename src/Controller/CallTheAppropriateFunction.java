@@ -15,7 +15,6 @@ public class CallTheAppropriateFunction
     {
         Card.setCards();
         Item.setItems();
-        Account.setAIAccounts();
         determineAccountCommand();
     }
 
@@ -381,7 +380,7 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack.get(0));
                     break;
                 case SHOW_NEXT_CARD:
-                    //todo
+                    ShowOutput.showNextCardInfo();
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
                     break;

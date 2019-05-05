@@ -52,11 +52,6 @@ public class Account
         //todo
     }
 
-    public static void setAIAccounts()
-    {
-        //todo
-    }
-
     public Collection getCollection()
     {
         return collection;

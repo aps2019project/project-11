@@ -153,7 +153,7 @@ public abstract class Card implements Cloneable
     public void setDefaultCardID()
     {
         Account account = Account.loggedInAccount;
-        String cardID = account.getAccountName() + "_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
+        String cardID = "SinglePlayer_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
         account.increaseAIAccountDefaultID();
     }

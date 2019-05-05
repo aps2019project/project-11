@@ -320,14 +320,10 @@ public class ShowOutput
         }
     }
 
-    public static void showNextCardInfo(Card card)
+    public static void showNextCardInfo()
     {
-        showCardInfo(card.getCardID());
-    }
-
-    public static void showNextCard()
-    {
-        showNextCardInfo(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard();
+        card.printCardStats();
     }
 
     public static void showHand(Hand hand)

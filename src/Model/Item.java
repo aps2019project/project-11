@@ -354,7 +354,7 @@ public class Item implements Cloneable
     public void setDefaultCardID()
     {
         Account account = Account.loggedInAccount;
-        String cardID = account.getAccountName() + "_" + this.getItemName() + "_" + account.getAIAccountDefaultID();
+        String cardID = "SinglePlayer_" + this.getItemName() + "_" + account.getAIAccountDefaultID();
         this.setItemID(cardID);
         account.increaseAIAccountDefaultID();
     }

@@ -24,14 +24,18 @@ public class BattleManager
 
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
     {
-        //todo
+        //todo target
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
         if (card != null)
         {
-            card.setRow(x);
-            card.setColumn(y);
-            Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-            return;
+            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
+            {
+                card.setRow(x);
+                card.setColumn(y);
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                return;
+            }
+            ShowOutput.printOutput("You don′t have enough MP");
         }
         ShowOutput.printOutput("Invalid card name");
     }
