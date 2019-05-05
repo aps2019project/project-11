@@ -15,8 +15,10 @@ public class BattleManager
             {
                 return new Player(account);
             }
-            ShowOutput.printOutput("selected deck for second player is invalid");
+            ShowOutput.printOutput("second player has no valid MainDeck");
+            return null;
         }
+        ShowOutput.printOutput("Invalid UserName");
         return null;
     }
 

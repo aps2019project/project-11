@@ -204,23 +204,30 @@ public class CallTheAppropriateFunction
 
     private void determineBattleMenuCommand()
     {
-        while (true)
+        if (Account.loggedInAccount.getMainDeck() != null)
         {
-            ShowOutput.showBattleMenuCommands();
-            Request.getBattleMenuCommands();
-            if(Request.command == null)
+            while (true)
             {
-                continue;
+                ShowOutput.showBattleMenuCommands();
+                Request.getBattleMenuCommands();
+                if(Request.command == null)
+                {
+                    continue;
+                }
+                switch (Request.command)
+                {
+                    case SINGLE_PLAYER:
+                        selectSinglePlayerMatchMode();
+                        break;
+                    case MULTI_PLAYER:
+                        selectSecondPlayerInMultiPlayerMatch();
+                        break;
+                }
             }
-            switch (Request.command)
-            {
-                case SINGLE_PLAYER:
-                    selectSinglePlayerMatchMode();
-                    break;
-                case MULTI_PLAYER:
-                    selectSecondPlayerInMultiPlayerMatch();
-                    break;
-            }
+        }
+        else
+        {
+            ShowOutput.printOutput("you don't have Valid mainDeck");
         }
     }
 
