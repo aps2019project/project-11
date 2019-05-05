@@ -96,19 +96,21 @@ public class Battle
         item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public void moveCard(int x, int y)
-    {
+    public void moveCard(int x, int y) {
         int[][] moveAbleCells = Battle.getCurrentBattle().getSelectedCard().setMoveAbleCells();
-        if (moveAbleCells[x][y] == 1)
-        {
-            selectedCard.setRow(x);
-            selectedCard.setColumn(y);
-            this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-            System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
+        if (selectedCard.isMoveAble()) {
+            if (moveAbleCells[x][y] == 1) {
+                selectedCard.setRow(x);
+                selectedCard.setColumn(y);
+                this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
+                selectedCard.setMoveAble(false);
+            } else {
+                System.out.println("Invalid Target");
+            }
         }
-        else
-        {
-            System.out.println("Invalid Target");
+        else {
+            System.out.println("this card is not movable");
         }
     }
 
@@ -535,7 +537,11 @@ public class Battle
             battleManager.CheckCircumstancesToInsertCard(selectedCard);
         }
         for(int counter = 1 ; counter <= 20 ; counter++){
-
+            selectedCard = playerTurn.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
+            NonSpellCards firstPlayerCard = firstPlayer.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
+            attackToOpponent(firstPlayerCard.getCardName());
+            counterAttack(selectedCard.getCardName() , firstPlayerCard.getCardID());
         }
+        selectedCard = null;
     }
 }
