@@ -54,7 +54,7 @@ public enum CommandType
     SHOW_ITEM_INFO,
     USE_ITEM,
     NORMAL_ATTACK,
-    USE_SPECIAL_POWER,
+    USE_SPECIAL_POWER
     ;
 
     public String username;
@@ -72,5 +72,6 @@ public enum CommandType
     public String deckNameForCustomGame;
     public int customGameMode;
     public int customGameFlagNumber;
+    public  int storyGameMode;
 
 }

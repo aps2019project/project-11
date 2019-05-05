@@ -244,22 +244,34 @@ public class CallTheAppropriateFunction
             {
                 case STORY:
                     ShowOutput.showStoryBattleInfo();
-                    int selectedNumber = Request.myScanner.nextInt();
-                    Player opponentPlayerForStory = Battle.makeStoryPlayer(selectedNumber);
-                    Battle storyGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(selectedNumber));
-                    Battle.setCurrentBattle(storyGameBattle);
+                    Request.command.storyGameMode = Request.myScanner.nextInt();
+                    Player opponentPlayerForStory = Battle.makeStoryPlayer(Request.command.storyGameMode);
+                    BattleType battleTypeStory = getBattleTypeStory(Request.command.storyGameMode);
+                    new Battle(new Player(Account.loggedInAccount) , opponentPlayerForStory , Battle.getBattleMode(Request.command.storyGameMode) , battleTypeStory);
                     determineBattleCommand();
+
                     //checkResult();
                     break;
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
                     Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
-                    Battle customGameBattle = new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode));
-                    Battle.setCurrentBattle(customGameBattle);
+                    new Battle(new Player(Account.loggedInAccount) , opponentPlayerForCustomGame , Battle.getBattleMode(Request.command.customGameMode) , BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
             }
         }
+    }
+
+    private BattleType getBattleTypeStory(int storyGameMode) {
+        switch (storyGameMode){
+            case 1:
+                return BattleType.STORY_GAME_1;
+            case 2:
+                return BattleType.STROY_GAME_2;
+            case 3:
+                return BattleType.STORY_GAME_3;
+        }
+        return null;
     }
 
     private void selectSecondPlayerInMultiPlayerMatch()
@@ -302,15 +314,15 @@ public class CallTheAppropriateFunction
 
                     if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Killing Enemy Hero"))
                     {
-                        new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO);
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO , BattleType.MULTI_PLAYER_GAME);
                     }
                     else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Keep flag for 6 turns"))
                     {
-                        new Battle(firstPlayer, secondPlayer, BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                        new Battle(firstPlayer, secondPlayer, BattleMode.KEEP_FLAG_FOR_6_TURNS ,  BattleType.MULTI_PLAYER_GAME);
                     }
                     else if (Request.command.multiPlayerMatchMode.equalsIgnoreCase("Gathering flags"))
                     {
-                        new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS);
+                        new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS, BattleType.MULTI_PLAYER_GAME);
                         Battle.getCurrentBattle().setNumOfFlagsInGatheringFlagsMatchMode(Request.command.numOfFlags);
                     }
                     determineBattleCommand();
@@ -324,6 +336,10 @@ public class CallTheAppropriateFunction
         while (true)
         {
             Request.getBattleCommands();
+            if(Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode)){
+                Battle.tasksAtEndOfGame();
+                break;
+            }
             if(Request.command == null)
             {
                 continue;

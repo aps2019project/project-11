@@ -15,14 +15,17 @@ public class Battle
     private NonSpellCards selectedCard;
     private Item selectedICollectibleItem;
     private BattleMode battleMode;
+    private BattleType battleType;
     private int numOfFlagsInGatheringFlagsMatchMode;
     private Random random = new Random();
+    private Player victoriousPlayer;
 
-    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode)
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode , BattleType battleType)
     {
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
         this.setBattleMode(battleMode);
+        this.battleType = battleType;
         currentBattle = this;
     }
 
@@ -78,11 +81,6 @@ public class Battle
                 return BattleMode.GATHERING_FLAGS;
         }
         return null;
-    }
-
-    public void customMode()
-    {
-
     }
 
     public void killHeroMode()
@@ -340,9 +338,24 @@ public class Battle
         }
     }
 
-    public void logicEndGame()
+    public boolean isGameEnded(int gameMode)
     {
+        switch (gameMode){
+            case 1:
+                if((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0){
+                    setVictorious(secondPlayer);
+                    return true;
+                }
+                else if((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0) {
+                    setVictorious(secondPlayer);
+                    return true;
+                }
+        }
+        return false;
+    }
 
+    public void setVictorious(Player player){
+        victoriousPlayer = player;
     }
 
     public Player getPlayerTurn()
@@ -423,5 +436,21 @@ public class Battle
     public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode)
     {
         this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
+    }
+
+    public Player getVictoriousPlayer() {
+        return victoriousPlayer;
+    }
+
+    public void setVictoriousPlayer(Player victoriousPlayer) {
+        this.victoriousPlayer = victoriousPlayer;
+    }
+
+    public BattleType getBattleType() {
+        return battleType;
+    }
+
+    public void setBattleType(BattleType battleType) {
+        this.battleType = battleType;
     }
 }
