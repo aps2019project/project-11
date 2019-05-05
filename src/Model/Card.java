@@ -117,7 +117,7 @@ public abstract class Card implements Cloneable
         this.cardID = cardID;
     }
 
-    public static int findDestination(Card card1, Card card2)
+    public static int  findDestination(Card card1 , Card card2)
     {
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
@@ -152,7 +152,7 @@ public abstract class Card implements Cloneable
         }
         else if (this instanceof Spell)
         {
-            this.setCardID(defaultSpellID ++);
+            this.setCardID(defaultItemID ++);
         }
     }
 }

@@ -337,7 +337,7 @@ public class CallTheAppropriateFunction
         {
             Request.getBattleCommands();
             if(Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode)){
-                Battle.tasksAtEndOfGame();
+                Battle.getCurrentBattle().tasksAtEndOfGame();
                 break;
             }
             if(Request.command == null)

@@ -18,7 +18,8 @@ public class Battle
     private BattleType battleType;
     private int numOfFlagsInGatheringFlagsMatchMode;
     private Random random = new Random();
-    private Player victoriousPlayer;
+    private Player victoriousPlayer = null;
+    private Player loserPlayer = null;
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode , BattleType battleType)
     {
@@ -384,10 +385,12 @@ public class Battle
             case 1:
                 if((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0){
                     setVictorious(secondPlayer);
+                    setLoserPlayer(firstPlayer);
                     return true;
                 }
                 else if((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0) {
                     setVictorious(secondPlayer);
+                    setLoserPlayer(firstPlayer);
                     return true;
                 }
         }
@@ -482,15 +485,46 @@ public class Battle
         return victoriousPlayer;
     }
 
-    public void setVictoriousPlayer(Player victoriousPlayer) {
-        this.victoriousPlayer = victoriousPlayer;
-    }
-
     public BattleType getBattleType() {
         return battleType;
     }
 
     public void setBattleType(BattleType battleType) {
         this.battleType = battleType;
+    }
+
+    public void tasksAtEndOfGame() {
+        switch (battleType){
+            case STORY_GAME_1:
+                victoriousPlayer.getAccount().addMoney(500);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                break;
+            case STROY_GAME_2:
+                victoriousPlayer.getAccount().addMoney(1000);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                break;
+            case STORY_GAME_3:
+                victoriousPlayer.getAccount().addMoney(1500);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                break;
+            case CUSTOM_GAME:
+                victoriousPlayer.getAccount().addMoney(1000);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName() , MatchResult.WIN , 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName() , MatchResult.LOSE , 0));
+                break;
+            case MULTI_PLAYER_GAME:
+
+        }
+    }
+
+    public Player getLoserPlayer() {
+        return loserPlayer;
+    }
+
+    public void setLoserPlayer(Player loserPlayer) {
+        this.loserPlayer = loserPlayer;
     }
 }
