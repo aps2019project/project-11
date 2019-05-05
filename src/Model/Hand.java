@@ -29,11 +29,13 @@ public class Hand
         this.nextCard = nextCard;
     }
 
-    public ArrayList<Card> getCards() {
+    public ArrayList<Card> getCards()
+    {
         return cards;
     }
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
+    public void addCardToHand(Card card)
+    {
+        cards.add(card);
     }
 }

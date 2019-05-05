@@ -384,6 +384,9 @@ public class CallTheAppropriateFunction
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
                     break;
+                case END_TURN:
+                    Battle.getCurrentBattle().endTurn();
+                    break;
                 case HELP_BATTLE:
                     //todo
                 case EXIT:

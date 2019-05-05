@@ -84,31 +84,6 @@ public class Battle
         return null;
     }
 
-    public void killHeroMode()
-    {
-
-    }
-
-    public void keepFlagMode()
-    {
-
-    }
-
-    public void gatherFlags(int numOfFlags)
-    {
-
-    }
-
-    public void showAllOwnForcesInfo()
-    {
-
-    }
-
-    public void showAllOpponentForcesInfo()
-    {
-
-    }
-
     public void selectCard(NonSpellCards card)
     {
         setSelectedCard(card);
@@ -155,36 +130,36 @@ public class Battle
         {
             if ((selectedCard).isAttackAble())
             {
-                if (((Minion) selectedCard).getImpactType() == ImpactType.melee)
+                if ((selectedCard).getImpactType() == ImpactType.melee)
                 {
                     if (Card.checkNeighborhood(selectedCard, opponentCard))
                     {
-                        damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
-                        ((Minion) selectedCard).setAttackAble(false);
+                        damageCard(selectedCard, opponentCard);
+                        (selectedCard).setAttackAble(false);
                     }
                     else
                     {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 }
-                else if (((Minion) selectedCard).getImpactType() == ImpactType.ranged)
+                else if ((selectedCard).getImpactType() == ImpactType.ranged)
                 {
-                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+                    if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
                     {
-                        damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
-                        ((Minion) selectedCard).setAttackAble(false);
+                        damageCard( selectedCard, opponentCard);
+                        (selectedCard).setAttackAble(false);
                     }
                     else
                     {
                         System.out.println("opponent minion is unavailable for attack");
                     }
                 }
-                else if (((Minion) selectedCard).getImpactType() == ImpactType.hybrid)
+                else if ((selectedCard).getImpactType() == ImpactType.hybrid)
                 {
-                    if (Card.findDestination(selectedCard, opponentCard) <= ((Minion) selectedCard).getRangeOfAttack())
+                    if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack())
                     {
-                        damageCard((NonSpellCards) selectedCard, (NonSpellCards) opponentCard);
-                        ((Minion) selectedCard).setAttackAble(false);
+                        damageCard(selectedCard, opponentCard);
+                        (selectedCard).setAttackAble(false);
                     }
                     else
                     {
@@ -267,7 +242,15 @@ public class Battle
 
     public void endTurn()
     {
-
+        //todo apply items and special powers
+        if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
+        {
+            Battle.getCurrentBattle().setPlayerTurn(Battle.getCurrentBattle().getSecondPlayer());
+        }
+        else
+        {
+            Battle.getCurrentBattle().setPlayerTurn(Battle.getCurrentBattle().getFirstPlayer());
+        }
     }
 
     public NonSpellCards findRandomOwnForce()
