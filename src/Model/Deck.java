@@ -14,8 +14,11 @@ public class Deck
         this.deckName = deckName;
     }
 
-    public Deck addNonHeroCardToDeck(Card card)
+    public Deck addNonHeroCardToDeck(Card card , boolean isDefaultCard)     //Default cards are story opponents cards
     {
+        if(isDefaultCard){
+            card.setDefaultCardID();
+        }
         this.nonHeroCards.add(card);
         return this;
     }
@@ -35,8 +38,11 @@ public class Deck
         this.item.remove(item);
     }
 
-    public void addHeroToDeck(Hero hero)
+    public void addHeroToDeck(Hero hero , boolean isDefaultCard)
     {
+        if(isDefaultCard){
+            hero.setDefaultCardID();
+        }
         this.hero.add(hero);
     }
 
@@ -71,25 +77,25 @@ public class Deck
         {
             case 1:
                 Deck deck1 = new Deck("storyDeck1");
-                deck1.addHeroToDeck(Hero.findHero("Dave White"));
-                deck1.addNonHeroCardToDeck(Card.findCard("totalDisarm")).addNonHeroCardToDeck(Card.findCard("lightingBolt")).addNonHeroCardToDeck(Card.findCard("allDisarm")).addNonHeroCardToDeck(Card.findCard("allPoison")).addNonHeroCardToDeck(Card.findCard("dispel")).addNonHeroCardToDeck(Card.findCard("sacrifice")).
-                        addNonHeroCardToDeck(Card.findCard("shock"))./*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Gorzdar Torani")).addNonHeroCardToDeck(Card.findCard("Gorzdar Torani")).addNonHeroCardToDeck(Card.findCard("Dive siah")).addNonHeroCardToDeck(Card.findCard("Ghoul TakCheshm")).addNonHeroCardToDeck(Card.findCard("Mar Sammi")).
-                        addNonHeroCardToDeck(Card.findCard("Mar Ghoul Peykar"))./*todo*/addNonHeroCardToDeck(Card.findCard("JadoGar Azam")).addNonHeroCardToDeck(Card.findCard("Siavash")).addNonHeroCardToDeck(Card.findCard("Nane Sarma")).addNonHeroCardToDeck(Card.findCard("Arzhang Div"));
+                deck1.addHeroToDeck(Hero.findHero("Dave White") , true);
+                deck1.addNonHeroCardToDeck(Card.findCard("totalDisarm") , true).addNonHeroCardToDeck(Card.findCard("lightingBolt") ,true).addNonHeroCardToDeck(Card.findCard("allDisarm") , true).addNonHeroCardToDeck(Card.findCard("allPoison") ,true).addNonHeroCardToDeck(Card.findCard("dispel") , true).addNonHeroCardToDeck(Card.findCard("sacrifice") ,true).
+                        addNonHeroCardToDeck(Card.findCard("shock")  , true)./*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Gorzdar Torani") , true).addNonHeroCardToDeck(Card.findCard("Gorzdar Torani") , true).addNonHeroCardToDeck(Card.findCard("Dive siah") , true).addNonHeroCardToDeck(Card.findCard("Ghoul TakCheshm") , true).addNonHeroCardToDeck(Card.findCard("Mar Sammi") , true).
+                        addNonHeroCardToDeck(Card.findCard("Mar Ghoul Peykar") , true)./*todo*/addNonHeroCardToDeck(Card.findCard("JadoGar Azam") , true).addNonHeroCardToDeck(Card.findCard("Siavash") , true).addNonHeroCardToDeck(Card.findCard("Nane Sarma") , true).addNonHeroCardToDeck(Card.findCard("Arzhang Div") , true);
                 deck1.addItemToDeck(Item.findItem("CrownOfWisdom"));
                 return deck1;
             case 2:
                 Deck deck2 = new Deck("storyDeck2");
-                deck2.addHeroToDeck(Hero.findHero("Zahak"));
-                deck2.addNonHeroCardToDeck(Card.findCard("areaDispel")).addNonHeroCardToDeck(Card.findCard("empower")).addNonHeroCardToDeck(Card.findCard("godStrength")).addNonHeroCardToDeck(Card.findCard("madness")).addNonHeroCardToDeck(Card.findCard("poisonLake")).addNonHeroCardToDeck(Card.findCard("healthWithProfit")).addNonHeroCardToDeck(Card.findCard("kingGuard")).
-                        /*todo*//*todo*//*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Shahzade Torani")).addNonHeroCardToDeck(Card.findCard("Oghab")).addNonHeroCardToDeck(Card.findCard("Oghab")).addNonHeroCardToDeck(Card.findCard("Ezhdehaye Atash Andaz")).addNonHeroCardToDeck(Card.findCard("Palang")).addNonHeroCardToDeck(Card.findCard("Genn")).
-                        addNonHeroCardToDeck(Card.findCard("Giv")).addNonHeroCardToDeck(Card.findCard("Iraj")).addNonHeroCardToDeck(Card.findCard("Shah Ghoul"));
+                deck2.addHeroToDeck(Hero.findHero("Zahak") , true);
+                deck2.addNonHeroCardToDeck(Card.findCard("areaDispel"), true).addNonHeroCardToDeck(Card.findCard("empower") , true).addNonHeroCardToDeck(Card.findCard("godStrength") , true).addNonHeroCardToDeck(Card.findCard("madness") , true).addNonHeroCardToDeck(Card.findCard("poisonLake") , true).addNonHeroCardToDeck(Card.findCard("healthWithProfit") , true).addNonHeroCardToDeck(Card.findCard("kingGuard") , true).
+                        /*todo*//*todo*//*todo*//*todo*/addNonHeroCardToDeck(Card.findCard("Shahzade Torani") ,true).addNonHeroCardToDeck(Card.findCard("Oghab") , true).addNonHeroCardToDeck(Card.findCard("Oghab") , true).addNonHeroCardToDeck(Card.findCard("Ezhdehaye Atash Andaz") , true).addNonHeroCardToDeck(Card.findCard("Palang") ,true).addNonHeroCardToDeck(Card.findCard("Genn") , true).
+                        addNonHeroCardToDeck(Card.findCard("Giv") , true).addNonHeroCardToDeck(Card.findCard("Iraj") , true).addNonHeroCardToDeck(Card.findCard("Shah Ghoul") , true);
                 deck2.addItemToDeck(Item.findItem("Soul Eater"));
                 return deck2;
             case 3:
                 Deck deck3 = new Deck("storyDeck3");
-                deck3.addHeroToDeck(Hero.findHero("Arash"));
-                deck3.addNonHeroCardToDeck(Card.findCard("hellFire")).addNonHeroCardToDeck(Card.findCard("allDisarm")).addNonHeroCardToDeck(Card.findCard("dispel")).addNonHeroCardToDeck(Card.findCard("powerUp")).addNonHeroCardToDeck(Card.findCard("allPower")).addNonHeroCardToDeck(Card.findCard("allAttack")).addNonHeroCardToDeck(Card.findCard("weakening")).addNonHeroCardToDeck(Card.findCard("Ghoul Sang Andaz")).
-                        addNonHeroCardToDeck(Card.findCard("Div GorazSavar")).addNonHeroCardToDeck(Card.findCard("Div GorazSavar")).addNonHeroCardToDeck(Card.findCard("Shir Darande")).addNonHeroCardToDeck(Card.findCard("Piran")).addNonHeroCardToDeck(Card.findCard("Bahman")).addNonHeroCardToDeck(Card.findCard("Ghoul Bozorg"));
+                deck3.addHeroToDeck(Hero.findHero("Arash") , true);
+                deck3.addNonHeroCardToDeck(Card.findCard("hellFire"), true).addNonHeroCardToDeck(Card.findCard("allDisarm"), true).addNonHeroCardToDeck(Card.findCard("dispel"), true).addNonHeroCardToDeck(Card.findCard("powerUp"), true).addNonHeroCardToDeck(Card.findCard("allPower"), true).addNonHeroCardToDeck(Card.findCard("allAttack"), true).addNonHeroCardToDeck(Card.findCard("weakening"), true).addNonHeroCardToDeck(Card.findCard("Ghoul Sang Andaz"), true).
+                        addNonHeroCardToDeck(Card.findCard("Div GorazSavar"), true).addNonHeroCardToDeck(Card.findCard("Div GorazSavar"), true).addNonHeroCardToDeck(Card.findCard("Shir Darande"), true).addNonHeroCardToDeck(Card.findCard("Piran"), true).addNonHeroCardToDeck(Card.findCard("Bahman"), true).addNonHeroCardToDeck(Card.findCard("Ghoul Bozorg"), true);
         }
         return null;
     }

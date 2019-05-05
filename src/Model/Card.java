@@ -9,6 +9,10 @@ public abstract class Card implements Cloneable
     private String cardName;
     private int row;
     private int column;
+    private static int defaultHeroID = 11000;
+    private static int defaultminionID = 21000;
+    private static int defaultspellID = 31000;
+    private static int defaultitemID = 41000;
 
     public int getColumn() {
         return column;
@@ -134,5 +138,20 @@ public abstract class Card implements Cloneable
     public Object clone()throws CloneNotSupportedException
     {
         return super.clone();
+    }
+
+    public void setDefaultCardID(){
+        if (this instanceof Hero)
+        {
+            this.setCardID(defaultHeroID ++);
+        }
+        else if (this instanceof Minion)
+        {
+            this.setCardID(defaultminionID ++);
+        }
+        else if (this instanceof Spell)
+        {
+            this.setCardID(defaultitemID ++);
+        }
     }
 }
