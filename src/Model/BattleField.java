@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BattleField
 {
-    private Cell battleFieldMatrix[][] = new Cell[5][9];
+    private Cell[][] battleFieldMatrix = new Cell[5][9];
     private ArrayList<NonSpellCards> allCardsInTheBattleField = new ArrayList<>();
 
     public Cell[][] getBattleFieldMatrix()

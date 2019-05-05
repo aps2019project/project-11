@@ -246,7 +246,7 @@ public class Battle
             new BattleManager().selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
-        //todo //counterAttcak\\
+        //todo //counterAttack\\
     }
 
     private void checkComboCondition(ArrayList<String> cardsIDForComboAttack)
@@ -277,7 +277,7 @@ public class Battle
         {
             for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
             {
-                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
                 {
                     ownNonSpellCards.add(ownNonSpellCard);
                 }
@@ -316,7 +316,7 @@ public class Battle
         {
             for (NonSpellCards ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
             {
-                if (nonSpellCard.getCardID() == ownNonSpellCard.getCardID())
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
                 {
                     continue Outer;
                 }

@@ -25,7 +25,7 @@ public class BattleManager
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
     {
         //todo
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInCollection(cardName);
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
         if (card != null)
         {
             card.setRow(x);

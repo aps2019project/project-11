@@ -7,7 +7,7 @@ public class Hand
     private ArrayList<Card> cards = new ArrayList<>();
     private Card nextCard;
 
-    public Card findCardInCollection(String cardName)
+    public Card findCardInHand(String cardName)
     {
         for (Card card : this.getCards())
         {
