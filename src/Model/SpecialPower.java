@@ -60,21 +60,40 @@ public class SpecialPower
             }
             else if (target.getNumOfOwnMinions() > 0)
             {
-              //  ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
-
+                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                for (int j=0; j< target.getNumOfOwnMinions(); j++)
+                {
+                    ownMinions.get(j).addActiveSpellOnThisCard(spellChange);
+                }
 
             }
             else if (target.getNumOfOpponentBothNonSpellCards() > 0)
             {
-
+                 Hero opponentHero = Battle.getCurrentBattle().getOpponentHero();
+                 opponentHero.addActiveSpellOnThisCard(spellChange);
+                 ArrayList<Minion> opponentMinion = Battle.getCurrentBattle().getOpponentMinions();
+                 for (int counter = 0; counter < target.getNumOfOpponentBothNonSpellCards()-1 ; counter++)
+                 {
+                     opponentMinion.get(counter).addActiveSpellOnThisCard(spellChange);
+                 }
             }
             else if (target.getNumOfOpponentMinions() > 0)
             {
-
+                ArrayList<Minion> opponentMinions = Battle.getCurrentBattle().getOpponentMinions();
+                for (int counter = 0; counter<target.getNumOfOpponentMinions(); counter++)
+                {
+                    opponentMinions.get(counter).addActiveSpellOnThisCard(spellChange);
+                }
             }
             else if (target.getNumOfOwnBothNonSpellCards() > 0)
             {
-
+                    Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+                    ArrayList<Minion> ownMinion = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                    hero.addActiveSpellOnThisCard(spellChange);
+                    for (int counter = 0; counter < target.getNumOfOwnBothNonSpellCards()-1 ; counter++)
+                    {
+                        ownMinion.get(counter).addActiveSpellOnThisCard(spellChange);
+                    }
             }
 
         }

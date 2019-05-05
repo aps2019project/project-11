@@ -397,7 +397,8 @@ public class Battle
         return false;
     }
 
-    public void setVictorious(Player player){
+    public void setVictorious(Player player)
+    {
         victoriousPlayer = player;
     }
 
