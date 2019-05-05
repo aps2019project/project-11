@@ -242,6 +242,7 @@ public class Battle
 
     public void endTurn()
     {
+        //todo apply items and special powers
         if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
         {
             Battle.getCurrentBattle().setPlayerTurn(Battle.getCurrentBattle().getSecondPlayer());
