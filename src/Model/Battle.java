@@ -722,7 +722,7 @@ public class Battle
         return null;
     }
 
-    private Player getOpponentPlayer()
+    public Player getOpponentPlayer()
     {
         if (playerTurn == firstPlayer)
         {
@@ -732,7 +732,8 @@ public class Battle
     }
 
     public void setHeroesInBattlefield(BattleManager battleManager) {
-        battleManager.CheckCircumstancesToInsertCard(firstPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 0);
-        battleManager.CheckCircumstancesToInsertCard(secondPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 8);
+        battleManager.insertCardToBattleField(firstPlayer.getMainDeck().getHero().get(0), 2, 0);
+        battleManager.insertCardToBattleField(secondPlayer.getMainDeck().getHero().get(0) , 2 , 8);
+
     }
 }
