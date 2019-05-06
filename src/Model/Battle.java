@@ -280,7 +280,7 @@ public class Battle
 
     public void endTurn()
     {
-        //todo apply items and special powers
+        //todo apply special powers
         checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
@@ -292,6 +292,10 @@ public class Battle
             this.setPlayerTurn(this.getFirstPlayer());
         }
         this.getPlayerTurn().setMP();
+        for (ItemChange itemChange : this.getPlayerTurn().getActiveItemsOnPlayer())
+        {
+            itemChange.applyItemChange(this.getPlayerTurn());
+        }
     }
 
     public NonSpellCards findRandomOwnForce()

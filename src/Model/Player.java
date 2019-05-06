@@ -103,6 +103,11 @@ public class Player
         this.MP = defaultMP;
     }
 
+    public void increaseMPViaItem(int MP)
+    {
+        this.MP = this.getMP() + MP;
+    }
+
     public void increaseDefaultMP()
     {
         this.defaultMP = defaultMP + 1;
