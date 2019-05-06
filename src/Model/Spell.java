@@ -101,7 +101,7 @@ public class Spell extends Card
         spellTwenty.getSpellEffect().addTarget(new Target(0,1,false,false,1,0,0,0,0,0,null,false,false,false));
     }
 
-    public void effectHolyBuff(Card card)
+    /*public void effectHolyBuff(Card card)
     {
         NonSpellCards cards = (NonSpellCards)card;
         cards.setCurrentHP(1);
@@ -143,7 +143,7 @@ public class Spell extends Card
         NonSpellCards cards = (NonSpellCards)card;
         cards.setCounterAttackAble(false);
 
-    }
+    }*/
 
 
 

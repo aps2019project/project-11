@@ -735,4 +735,9 @@ public class Battle
         }
         return firstPlayer;
     }
+
+    public void setHeroesInBattlefield(BattleManager battleManager) {
+        battleManager.CheckCircumstancesToInsertCard(firstPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 0);
+        battleManager.CheckCircumstancesToInsertCard(secondPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 8);
+    }
 }
