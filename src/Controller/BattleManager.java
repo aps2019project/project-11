@@ -50,19 +50,20 @@ public class BattleManager
     private int[][] setMovableCellsMatrix()
     {
         int[][] matrix = new int[5][9];
-        for (NonSpellCards card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            generateMatrix(matrix, card);
+            generateMatrix(matrix, minion);
         }
-        Card hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+        Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
         generateMatrix(matrix, hero);
         return matrix;
     }
 
-    private void generateMatrix(int[][] matrix, Card hero) {
-        for (int row = hero.getRow() - 1; row <= hero.getRow() + 1 && row >= 0 && row < 5; row++)
+    private void generateMatrix(int[][] matrix, Card card)
+    {
+        for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0 && row < 5; row++)
         {
-            for (int column = hero.getRow() - 1; column <= hero.getRow() + 1 && column >= 0 && column < 9; column++)
+            for (int column = card.getRow() - 1; column <= card.getRow() + 1 && column >= 0 && column < 9; column++)
             {
                 matrix[row][column] = 1;
             }
@@ -173,7 +174,7 @@ public class BattleManager
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID() .equals(itemID))
+            if (item.getItemID().equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }
