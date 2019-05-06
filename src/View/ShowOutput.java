@@ -240,9 +240,18 @@ public class ShowOutput
             System.out.print("Cost: ");
             System.out.println(hero.getPrice());
             System.out.print("Desc: ");
-            System.out.println(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            if (hero.getSpecialPower() != null)
+            {
+                System.out.println(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            }
+            else
+            {
+                System.out.println("This hero has no special power");
+            }
+
         }
-        if (card instanceof Minion) {
+        if (card instanceof Minion)
+        {
             Minion minion = (Minion) card;
             System.out.println();
             System.out.println("Minion: ");
@@ -260,9 +269,14 @@ public class ShowOutput
             System.out.println(minion.getImpactType());
             System.out.print("Cost: ");
             System.out.println(minion.getPrice());
-            if (minion.getSpecialPower() != null) {
-                System.out.print("Special Power: ");
+            System.out.print("Special Power: ");
+            if (minion.getSpecialPower() != null)
+            {
                 System.out.println(minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            }
+            else
+            {
+                System.out.println("This minion has no special power");
             }
         }
         if (card instanceof Spell)
