@@ -35,13 +35,12 @@ public class Request
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z_0-9]+ in( [0-9]+ [0-9]+ )");
 
-
     public static CommandType command;
 
     public static void getMainMenuCommands()
     {
         String input = myScanner.nextLine();
-        if(input.equalsIgnoreCase("Enter Shop"))
+        if (input.equalsIgnoreCase("Enter Shop"))
         {
             command = CommandType.ENTER_SHOP;
         }
@@ -120,35 +119,35 @@ public class Request
         {
             command = CommandType.EXIT;
         }
-        else if(input.equals("show collection"))
+        else if (input.equals("show collection"))
         {
             command = CommandType.SHOW_COLLECTION;
         }
-        else if(patternSearch.matcher(input).matches())
+        else if (patternSearch.matcher(input).matches())
         {
             command = CommandType.SEARCH;
             command.cardOrItemName = partedInput[1];
         }
-        else if(patternShopSearchCollection.matcher(input).matches())
+        else if (patternShopSearchCollection.matcher(input).matches())
         {
             command = CommandType.SEARCH_COLLECTION;
             command.cardOrItemName = partedInput[2];
         }
-        else if(patternShopBuy.matcher(input).matches())
+        else if (patternShopBuy.matcher(input).matches())
         {
             command = CommandType.BUY;
             command.cardOrItemName = partedInput[1];
         }
-        else if(patternShopSell.matcher(input).matches())
+        else if (patternShopSell.matcher(input).matches())
         {
             command = CommandType.SELL;
             command.cardOrItemID = partedInput[1];
         }
-        else if(input.equals("show"))
+        else if (input.equals("show"))
         {
             command = CommandType.SHOW;
         }
-        else if(input.equals("help"))
+        else if (input.equals("help"))
         {
             command = CommandType.HELP;
         }
@@ -241,6 +240,10 @@ public class Request
         {
             command = CommandType.MULTI_PLAYER;
         }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
+        }
         else
         {
             command = null;
@@ -260,9 +263,18 @@ public class Request
             command = CommandType.CUSTOM_GAME;
             command.deckNameForCustomGame = inputParts[2];
             command.customGameMode = Integer.parseInt(inputParts[3]);
-            if(inputParts.length == 5){    ///I have doubt about it
+            if (inputParts.length == 5)    ///I have doubt about it
+            {
                 command.customGameFlagNumber = Integer.parseInt(inputParts[4]);
             }
+        }
+        else if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
         }
         else
         {
@@ -278,6 +290,14 @@ public class Request
         {
             command = CommandType.SELECT_USER;
             Request.command.username = inputParts[2];
+        }
+        else if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
         }
         else
         {
@@ -298,6 +318,14 @@ public class Request
                 Request.command.numOfFlags = Integer.parseInt(inputParts[4]);
             }
         }
+        else if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
+        }
         else
         {
             command = null;
@@ -308,11 +336,11 @@ public class Request
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if(input.equalsIgnoreCase("Game Info"))
+        if (input.equalsIgnoreCase("Game Info"))
         {
             command = CommandType.GAME_INFO;
         }
-        else if(input.equalsIgnoreCase("Show My Minions"))
+        else if (input.equalsIgnoreCase("Show My Minions"))
         {
             command = CommandType.SHOW_MY_MINIONS;
         }
@@ -320,7 +348,7 @@ public class Request
         {
             command = CommandType.SHOW_OPPONENT_MINIONS;
         }
-        else if(patternShowCardInfo.matcher(input).matches())
+        else if (patternShowCardInfo.matcher(input).matches())
         {
             command = CommandType.SHOW_CARD_INFO;
             command.cardOrItemID = inputParts[3];
@@ -347,19 +375,19 @@ public class Request
         {
             command = CommandType.SHOW_HAND;
         }
-        else if(input.equalsIgnoreCase("Show Next Card"))
+        else if (input.equalsIgnoreCase("Show Next Card"))
         {
             command = CommandType.SHOW_NEXT_CARD;
         }
-        else if(input.equalsIgnoreCase("Enter graveyard"))
+        else if (input.equalsIgnoreCase("Enter graveyard"))
         {
             command = CommandType.ENTER_GRAVEYARD;
         }
-        else if(input.equalsIgnoreCase("Help"))
+        else if (input.equalsIgnoreCase("Help"))
         {
             command = CommandType.HELP_BATTLE;
         }
-        else if(input.equalsIgnoreCase("Show menu"))
+        else if (input.equalsIgnoreCase("Show menu"))
         {
             command = CommandType.SHOW_MENU;
         }
@@ -381,9 +409,9 @@ public class Request
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if(patternNormalAttack.matcher(input).matches())
+        if (patternNormalAttack.matcher(input).matches())
         {
-            command = CommandType.NORMAL_ATTACK ;
+            command = CommandType.NORMAL_ATTACK;
             command.enemyCardIDForNormalAttack = inputParts[1];
         }
         else if (patternMoveTo.matcher(input).matches())
@@ -399,14 +427,22 @@ public class Request
             command.rowOfTheCell = Integer.parseInt(inputParts[3]);
             command.columnOfTheCell = Integer.parseInt(inputParts[4]);
         }
-        else if(patternComboAttack.matcher(input).matches())
+        else if (patternComboAttack.matcher(input).matches())
         {
             command = CommandType.COMBO_ATTACK;
             command.enemyCardIDForCombo = inputParts[2];
-            for(int counter = 3 ; counter < inputParts.length ; counter ++)
+            for (int counter = 3; counter < inputParts.length; counter++)
             {
                 command.cardIDsForComboAttack.add(inputParts[counter]);
             }
+        }
+        else if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
         }
         else
         {
@@ -428,6 +464,14 @@ public class Request
             Request.command.rowOfTheCell = Integer.parseInt(inputParts[1]);
             Request.command.columnOfTheCell = Integer.parseInt(inputParts[2]);
         }
+        else if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
+        }
         else
         {
             command = null;
@@ -447,7 +491,7 @@ public class Request
         {
             command = CommandType.SHOW_CARDS;
         }
-        else if(input.equalsIgnoreCase("Show menu"))
+        else if (input.equalsIgnoreCase("Show menu"))
         {
             command = CommandType.SHOW_MENU;
         }

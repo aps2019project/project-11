@@ -257,6 +257,9 @@ public class CallTheAppropriateFunction
                     new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, Battle.getBattleMode(Request.command.customGameMode), BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuSinglePlayerMatch();
+                    break;
                 case EXIT:
                     return;
             }
@@ -296,6 +299,9 @@ public class CallTheAppropriateFunction
                     {
                         selectMultiPlayerMatchMode(firstPlayer, secondPlayer);
                     }
+                    break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuSelectUserForMultiPlayerMatch();
                     break;
                 case EXIT:
                     return;
@@ -337,6 +343,9 @@ public class CallTheAppropriateFunction
                         ShowOutput.printOutput("Let's Fight");
                         determineBattleCommand();
                     }
+                    break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuMultiPlayerMatchMode();
                     break;
                 case EXIT:
                     return;
@@ -439,6 +448,9 @@ public class CallTheAppropriateFunction
                 case USE_SPECIAL_POWER:
                     battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuAfterSelectCard();
+                    break;
                 case EXIT:
                     return;
             }
@@ -464,6 +476,9 @@ public class CallTheAppropriateFunction
                     int x = Request.command.rowOfTheCell;
                     int y = Request.command.columnOfTheCell;
                     Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
+                    break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuAfterSelectItem();
                     break;
                 case EXIT:
                     return;

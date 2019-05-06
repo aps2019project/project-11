@@ -397,4 +397,46 @@ public class ShowOutput
         System.out.println("Exit");
         System.out.println("Show Menu");
     }
+
+    public static void showMenuAfterSelectItem()
+    {
+        System.out.println("Show Info");
+        System.out.println("Use [0-9]+ [0-9]+");
+        System.out.println("Show Menu");
+        System.out.println("Exit");
+    }
+
+    public static void showMenuAfterSelectCard()
+    {
+        System.out.println("Move To [0-9]+ [0-9]+");
+        System.out.println("Attack [cardID]");
+        System.out.println("Attack combo [opponentCardID] [myCardID] ...");
+        System.out.println("Use special power( [0-9]+ [0-9]+ )");
+        System.out.println("Show Menu");
+        System.out.println("Exit");
+    }
+
+    public static void showMenuMultiPlayerMatchMode()
+    {
+        System.out.println("Start MultiPlayer Game KillingEnemyHero");
+        System.out.println("Start MultiPlayer Game KeepFlagFor6Turns");
+        System.out.println("Start MultiPlayer Game GatheringFlags");
+        System.out.println("ShowMenu");
+        System.out.println("Exit");
+    }
+
+    public static void showMenuSelectUserForMultiPlayerMatch()
+    {
+        System.out.println("Select User [userName]");
+        System.out.println("Show Menu");
+        System.out.println("Exit");
+    }
+
+    public static void showMenuSinglePlayerMatch()
+    {
+        System.out.println("Story");
+        System.out.println("Custom Game");
+        System.out.println("Show Menu");
+        System.out.println("Exit");
+    }
 }
