@@ -59,11 +59,17 @@ public class BattleManager
         return matrix;
     }
 
-    private void generateMatrix(int[][] matrix, Card hero) {
-        for (int row = hero.getRow() - 1; row <= hero.getRow() + 1 && row >= 0 && row < 5; row++)
+    private void generateMatrix(int[][] matrix, Card card) {
+        for (int row = card.getRow() - 1; row <= card.getRow() + 1; row++)
         {
-            for (int column = hero.getRow() - 1; column <= hero.getRow() + 1 && column >= 0 && column < 9; column++)
+            if(row < 0 || row >= 5){
+                continue;
+            }
+            for (int column = card.getColumn() - 1; column <= card.getColumn() + 1 ; column++)
             {
+                if(column < 0 || column >= 9){
+                    continue;
+                }
                 matrix[row][column] = 1;
             }
         }
