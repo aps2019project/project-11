@@ -7,7 +7,7 @@ public class Minion extends NonSpellCards
     private static ArrayList<Minion> minions = new ArrayList<>();
     private boolean ableToCombo;
 
-    Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower, boolean ableToCombo, ImpactType impactType, int rangeOfAttack)
+    public Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower, boolean ableToCombo, ImpactType impactType, int rangeOfAttack)
     {
         this.setCardName(name);
         this.setPrice(price);

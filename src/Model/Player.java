@@ -28,6 +28,19 @@ public class Player
             this.getHand().addCardToHand(account.getMainDeck().getNonHeroCards().get(i));
         }
         this.getHand().setNextCard(account.getMainDeck().getNonHeroCards().get(5));
+        for (Card card : this.getMainDeck().getNonHeroCards())
+        {
+            if (card instanceof Minion)
+            {
+                ((Minion) card).setCurrentAP(((Minion) card).getDefaultAP());
+                ((Minion) card).setCurrentHP(((Minion) card).getDefaultHP());
+            }
+        }
+        for (Hero hero : this.getMainDeck().getHero())
+        {
+            hero.setCurrentAP(hero.getDefaultAP());
+            hero.setCurrentHP(hero.getDefaultHP());
+        }
     }
 
     public Card findCardInGraveYard(String ID)
