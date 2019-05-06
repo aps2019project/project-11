@@ -17,7 +17,8 @@ public class ItemChange
     private boolean activatePoisonBuff;
     private int numOfPoisonBuff;
 
-    public ItemChange(int turnsToApplyChange, boolean applyChangeUntilEndOfTheGame, int changeMP, int changeHP, int changeAP, boolean disarmOpponent, boolean activateHolyBuff, int numOfHolyBuffs, boolean activatePowerBuff, int numOfPowerBuff, boolean activateWeaknessBuff, int numOfWeaknessBuff, boolean activatePoisonBuff, int numOfPoisonBuff) {
+    public ItemChange(int turnsToApplyChange, boolean applyChangeUntilEndOfTheGame, int changeMP, int changeHP, int changeAP, boolean disarmOpponent, boolean activateHolyBuff, int numOfHolyBuffs, boolean activatePowerBuff, int numOfPowerBuff, boolean activateWeaknessBuff, int numOfWeaknessBuff, boolean activatePoisonBuff, int numOfPoisonBuff)
+    {
         this.turnsToApplyChange = turnsToApplyChange;
         this.applyChangeUntilEndOfTheGame = applyChangeUntilEndOfTheGame;
         this.changeMP = changeMP;
@@ -34,115 +35,110 @@ public class ItemChange
         this.numOfPoisonBuff = numOfPoisonBuff;
     }
 
-    public int getTurnsToApplyChange() {
+    public void applyItemChange(NonSpellCards nonSpellCard)
+    {
+        if (this.getTurnsToApplyChange() == 0 && !this.isApplyChangeUntilEndOfTheGame())
+        {
+            return;
+        }
+        if (this.isDisarmOpponent())
+        {
+            nonSpellCard.setCounterAttackAble(false);
+        }
+        if (this.isActivateHolyBuff())
+        {
+            nonSpellCard.setNumOfHolyBuffs(this.getNumOfHolyBuffs());
+        }
+        if (this.isActivatePoisonBuff())
+        {
+            nonSpellCard.setCurrentHP(nonSpellCard.getCurrentHP() - this.getNumOfPoisonBuff());
+        }
+        if (this.isActivatePowerBuff())
+        {
+            nonSpellCard.setCurrentAP(nonSpellCard.getCurrentAP() + this.getNumOfPowerBuff());
+        }
+        if (this.isActivateWeaknessBuff())
+        {
+            nonSpellCard.setCurrentAP(nonSpellCard.getCurrentAP() - this.getNumOfWeaknessBuff());
+        }
+        nonSpellCard.setCurrentHP(nonSpellCard.getCurrentHP() + this.getChangeHP());
+        nonSpellCard.setCurrentAP(nonSpellCard.getCurrentAP() + this.getChangeAP());
+        nonSpellCard.setRequiredMP(nonSpellCard.getRequiredMP() + this.getChangeMP());
+        this.setTurnsToApplyChange(this.getTurnsToApplyChange() - 1);
+    }
+
+    public int getTurnsToApplyChange()
+    {
         return turnsToApplyChange;
     }
 
-    public void setTurnsToApplyChange(int turnsToApplyChange) {
+    public void setTurnsToApplyChange(int turnsToApplyChange)
+    {
         this.turnsToApplyChange = turnsToApplyChange;
     }
 
-    public boolean isApplyChangeUntilEndOfTheGame() {
+    public boolean isApplyChangeUntilEndOfTheGame()
+    {
         return applyChangeUntilEndOfTheGame;
     }
 
-    public void setApplyChangeUntilEndOfTheGame(boolean applyChangeUntilEndOfTheGame) {
-        this.applyChangeUntilEndOfTheGame = applyChangeUntilEndOfTheGame;
-    }
-
-    public int getChangeMP() {
+    public int getChangeMP()
+    {
         return changeMP;
     }
 
-    public void setChangeMP(int changeMP) {
-        this.changeMP = changeMP;
-    }
-
-    public int getChangeHP() {
+    public int getChangeHP()
+    {
         return changeHP;
     }
 
-    public void setChangeHP(int changeHP) {
-        this.changeHP = changeHP;
-    }
-
-    public int getChangeAP() {
+    public int getChangeAP()
+    {
         return changeAP;
     }
 
-    public void setChangeAP(int changeAP) {
-        this.changeAP = changeAP;
-    }
-
-    public boolean isDisarmOpponent() {
+    public boolean isDisarmOpponent()
+    {
         return disarmOpponent;
     }
 
-    public void setDisarmOpponent(boolean disarmOpponent) {
-        this.disarmOpponent = disarmOpponent;
-    }
-
-    public boolean isActivateHolyBuff() {
+    public boolean isActivateHolyBuff()
+    {
         return activateHolyBuff;
     }
 
-    public void setActivateHolyBuff(boolean activateHolyBuff) {
-        this.activateHolyBuff = activateHolyBuff;
-    }
-
-    public int getNumOfHolyBuffs() {
+    public int getNumOfHolyBuffs()
+    {
         return numOfHolyBuffs;
     }
 
-    public void setNumOfHolyBuffs(int numOfHolyBuffs) {
-        this.numOfHolyBuffs = numOfHolyBuffs;
-    }
-
-    public boolean isActivatePowerBuff() {
+    public boolean isActivatePowerBuff()
+    {
         return activatePowerBuff;
     }
 
-    public void setActivatePowerBuff(boolean activatePowerBuff) {
-        this.activatePowerBuff = activatePowerBuff;
-    }
-
-    public int getNumOfPowerBuff() {
+    public int getNumOfPowerBuff()
+    {
         return numOfPowerBuff;
     }
 
-    public void setNumOfPowerBuff(int numOfPowerBuff) {
-        this.numOfPowerBuff = numOfPowerBuff;
-    }
-
-    public boolean isActivateWeaknessBuff() {
+    public boolean isActivateWeaknessBuff()
+    {
         return activateWeaknessBuff;
     }
 
-    public void setActivateWeaknessBuff(boolean activateWeaknessBuff) {
-        this.activateWeaknessBuff = activateWeaknessBuff;
-    }
-
-    public int getNumOfWeaknessBuff() {
+    public int getNumOfWeaknessBuff()
+    {
         return numOfWeaknessBuff;
     }
 
-    public void setNumOfWeaknessBuff(int numOfWeaknessBuff) {
-        this.numOfWeaknessBuff = numOfWeaknessBuff;
-    }
-
-    public boolean isActivatePoisonBuff() {
+    public boolean isActivatePoisonBuff()
+    {
         return activatePoisonBuff;
     }
 
-    public void setActivatePoisonBuff(boolean activatePoisonBuff) {
-        this.activatePoisonBuff = activatePoisonBuff;
-    }
-
-    public int getNumOfPoisonBuff() {
+    public int getNumOfPoisonBuff()
+    {
         return numOfPoisonBuff;
-    }
-
-    public void setNumOfPoisonBuff(int numOfPoisonBuff) {
-        this.numOfPoisonBuff = numOfPoisonBuff;
     }
 }

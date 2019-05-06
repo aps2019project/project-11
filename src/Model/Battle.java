@@ -265,6 +265,19 @@ public class Battle
             }
         }
     }
+
+    public void checkUsedItemsToApplyItemChange()
+    {
+        for (NonSpellCards nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        {
+            for (ItemChange itemChange : nonSpellCard.getActiveItemsOnThisCard())
+            {
+                //todo
+                itemChange.applyItemChange(nonSpellCard);
+            }
+        }
+    }
+
     public void endTurn()
     {
         //todo apply items and special powers

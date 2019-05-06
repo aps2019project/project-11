@@ -15,6 +15,7 @@ public abstract class NonSpellCards extends Card
     private boolean moveAble = true;
     private boolean attackAble = true;
     private boolean counterAttackAble = true;
+    private int numOfHolyBuffs;
     private int rangeOfAttack ;
     private ImpactType impactType;
 
@@ -154,5 +155,15 @@ public abstract class NonSpellCards extends Card
 
     public void setCurrentCell(Cell currentCell) {
         this.currentCell = currentCell;
+    }
+
+    public int getNumOfHolyBuffs()
+    {
+        return numOfHolyBuffs;
+    }
+
+    public void setNumOfHolyBuffs(int numOfHolyBuffs)
+    {
+        this.numOfHolyBuffs = numOfHolyBuffs;
     }
 }

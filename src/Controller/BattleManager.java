@@ -22,30 +22,41 @@ public class BattleManager
         return null;
     }
 
-    public void CheckCircumstancesToInsertCard(String cardName, int x, int y) {
+    public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
+    {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
-        if(setMovableCellsMatrix()[x][y] != 1){
+        if (setMovableCellsMatrix()[x][y] != 1)
+        {
             ShowOutput.printOutput("Invalid target");
             return;
         }
-        if (card != null) {
-            if (insertCardToBattleField(card, x, y)) {
+        if (card != null)
+        {
+            if (insertCardToBattleField(card, x, y))
+            {
                 return;
             }
-            else {
+            else
+            {
                 System.out.println();
             }
-        } else {
+        }
+        else
+        {
             ShowOutput.printOutput("Invalid card name");
         }
     }
 
-    private int[][] setMovableCellsMatrix() {
+    private int[][] setMovableCellsMatrix()
+    {
         int[][] matrix = new int[5][9];
-        for (NonSpellCards card: Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()){
-            for(int row = card.getRow() - 1 ; row < card.getRow() + 1 && row >= 0; row++){
-                for(int column = card.getRow() - 1 ; column< card.getRow() + 1 && column>= 0; column++) {
-                    matrix [row][column] = 1;
+        for (NonSpellCards card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        {
+            for (int row = card.getRow() - 1; row < card.getRow() + 1 && row >= 0; row++)
+            {
+                for (int column = card.getRow() - 1; column < card.getRow() + 1 && column >= 0; column++)
+                {
+                    matrix[row][column] = 1;
                 }
             }
         }
@@ -83,17 +94,21 @@ public class BattleManager
 
     private boolean insertCardToBattleField(Card card, int x, int y)
     {
-        if(!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull())) {
-            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP()) {
+        if (!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull()))
+        {
+            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
+            {
                 card.setRow(x);
                 card.setColumn(y);
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
                 Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
                 Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
-                if (card instanceof Minion) {
+                if (card instanceof Minion)
+                {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
                 }
-                if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5) {
+                if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5)
+                {
                     Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
                 }
                 return true;
