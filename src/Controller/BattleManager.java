@@ -106,10 +106,11 @@ public class BattleManager
                 if (card instanceof Minion)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCards) card);
                 }
-                if (card instanceof Hero)
+                else if (card instanceof Hero)
                 {
-                    Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((NonSpellCards) card);
+                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCards) card);
                     System.out.println("Hero sat in BattleField");
                 }
                 if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5)

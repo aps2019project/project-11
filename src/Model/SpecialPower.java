@@ -32,7 +32,7 @@ public class SpecialPower
             {
                 Hero opponentHero = Battle.getCurrentBattle().getOpponentHero();
                 opponentHero.addActiveSpellOnThisCard(spellChange);
-                ArrayList<NonSpellCards> opponentMinions= Battle.getCurrentBattle().getOpponentMinions();
+                ArrayList<Minion> opponentMinions= Battle.getCurrentBattle().getOpponentMinions();
                 for (NonSpellCards opponentMinion : opponentMinions)
                 {
                     opponentMinion.addActiveSpellOnThisCard(spellChange);
@@ -42,7 +42,7 @@ public class SpecialPower
             {
                 Hero ownHero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
                 ownHero.addActiveSpellOnThisCard(spellChange);
-                ArrayList<NonSpellCards> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
                 for (NonSpellCards ownMinion: ownMinions)
                 {
                     ownMinion.addActiveSpellOnThisCard(spellChange);
@@ -50,7 +50,7 @@ public class SpecialPower
             }
             else if (target.isAllOwnMinion())
             {
-                ArrayList<NonSpellCards> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
                 for (NonSpellCards ownMinion : ownMinions)
                 {
                     ownMinion.addActiveSpellOnThisCard(spellChange);
@@ -58,7 +58,7 @@ public class SpecialPower
             }
             else if (target.getNumOfOwnMinions() > 0)
             {
-                ArrayList<NonSpellCards> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
                 for (int j=0; j< target.getNumOfOwnMinions(); j++)
                 {
                     ownMinions.get(j).addActiveSpellOnThisCard(spellChange);
@@ -67,15 +67,15 @@ public class SpecialPower
             }
             else if (target.getNumOfOpponentBothNonSpellCards() > 0)
             {
-                ArrayList<NonSpellCards> oppnentBothNonSpellCards = Battle.getCurrentBattle().findingOpponentNonSpellCards();
+                ArrayList<NonSpellCards> opponentBothNonSpellCards = Battle.getCurrentBattle().findingOpponentNonSpellCards();
                 for (int counter = 0; counter < target.getNumOfOpponentBothNonSpellCards(); counter++)
                 {
-                    oppnentBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
+                    opponentBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
                 }
             }
             else if (target.getNumOfOpponentMinions() > 0)
             {
-                ArrayList<NonSpellCards> opponentMinions = Battle.getCurrentBattle().getOpponentMinions();
+                ArrayList<Minion> opponentMinions = Battle.getCurrentBattle().getOpponentMinions();
                 for (int counter = 0; counter<target.getNumOfOpponentMinions(); counter++)
                 {
                     opponentMinions.get(counter).addActiveSpellOnThisCard(spellChange);
