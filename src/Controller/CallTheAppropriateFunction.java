@@ -449,7 +449,8 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack.get(0));
                     break;
                 case USE_SPECIAL_POWER:
-                    battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    Battle.getCurrentBattle().getSelectedCard().getSpecialPower().applySpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    battleManager.useSpecialPower(Battle.getCurrentBattle().getSelectedCard().getSpecialPower(), Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
                 case SHOW_MENU:
                     ShowOutput.showMenuAfterSelectCard();

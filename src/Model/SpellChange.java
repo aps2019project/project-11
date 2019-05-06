@@ -8,20 +8,20 @@ public class SpellChange
     private boolean removeOpponentPositiveBuffs;
     private boolean removeOwnNegativeBuffs;
     private TimeToActivateSpecialPower timeToActivateSpecialPower;
-    private int changeAP;//
-    private int changeHP;//
-    private int changeMP;//
-    private boolean stunOpponent;//
-    private boolean disarmOpponent;//
-    private boolean activateHolyBuff;//
-    private int numOfHolyBuffs;//
+    private int changeAP;
+    private int changeHP;
+    private int changeMP;
+    private boolean stunOpponent;
+    private boolean disarmOpponent;
+    private boolean activateHolyBuff;
+    private int numOfHolyBuffs;
     private boolean activateReverseHolyBuff;
-    private boolean madeCellToxic;//
-    private boolean madeCellHoly;//
-    private boolean madeCellFiery;//
-    private boolean deleteAllPositiveBuff;//
-    private boolean killing;//
-    private boolean dispel;//
+    private boolean madeCellToxic;
+    private boolean madeCellHoly;
+    private boolean madeCellFiery;
+    private boolean deleteAllPositiveBuff;
+    private boolean killing;
+    private boolean dispel;
     private boolean continuous;
     private boolean currentTurn;
 
@@ -87,7 +87,7 @@ public class SpellChange
         }
         if (this.isStunOpponent())
         {
-            nonSpellCard.setCounterAttackAble(false);
+            nonSpellCard.setAttackAble(false);
             nonSpellCard.setMoveAble(false);
         }
         if (this.isDisarmOpponent())
@@ -108,12 +108,20 @@ public class SpellChange
         }
         if (this.isActivateHolyBuff())
         {
-
+            nonSpellCard.setNumOfHolyBuffs(this.getNumOfHolyBuffs());
         }
         if (this.isDeleteAllPositiveBuff())
         {
-
+            for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard())
+            {
+                if (spellChange.isPositiveChange())
+                {
+                    spellChange.setApplyChangeUntilEndOfTheGame(false);
+                    spellChange.setTurnsToApplyChange(0);
+                }
+            }
         }
+        this.setTurnsToApplyChange(this.getTurnsToApplyChange() - 1);
     }
 
     public int getTurnsToApplyChange() {

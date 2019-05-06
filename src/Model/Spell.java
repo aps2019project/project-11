@@ -101,52 +101,6 @@ public class Spell extends Card
         spellTwenty.getSpellEffect().addTarget(new Target(0,1,false,false,1,0,0,0,0,0,null,false,false,false));
     }
 
-    /*public void effectHolyBuff(Card card)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-        cards.setCurrentHP(1);
-    }
-
-    public void effectPowerBuff(Card card,boolean isHP)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-    }
-
-    public void effectPoisonBuff(Card card)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-        cards.setCurrentHP(cards.getCurrentHP()-1);
-    }
-
-    public void effectWeaknessBuff(Card card,boolean isHP)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-        if (isHP)
-        {
-            cards.setCurrentHP(cards.getCurrentHP()-1);
-        }
-        else if (!isHP)
-        {
-            cards.setCurrentAP(cards.getCurrentAP()-1);
-        }
-    }
-    public void effectStunBuff(Card card)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-        cards.setMoveAble(false);
-        cards.setAttackAble(false);
-        cards.setCounterAttackAble(false);
-    }
-
-    public void effectDisarmBuff(Card card)
-    {
-        NonSpellCards cards = (NonSpellCards)card;
-        cards.setCounterAttackAble(false);
-
-    }*/
-
-
-
     public String getDescriptionTypeOfSpell()
     {
         return descriptionTypeOfSpell;

@@ -25,7 +25,7 @@ public class Cell
         }
     }
 
-    public Card getCard()
+    public NonSpellCards getCard()
     {
         if (this.hero != null)
         {

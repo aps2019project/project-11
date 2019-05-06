@@ -280,9 +280,6 @@ public class Battle
 
     public void endTurn()
     {
-        //todo apply special powers
-
-        checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
         {
@@ -293,6 +290,8 @@ public class Battle
             this.setPlayerTurn(this.getFirstPlayer());
         }
         this.getPlayerTurn().setMP();
+        checkInsertedCardsToApplySpellChange();
+        checkUsedItemsToApplyItemChange();
         for (ItemChange itemChange : this.getPlayerTurn().getActiveItemsOnPlayer())
         {
             itemChange.applyItemChange(this.getPlayerTurn());
@@ -727,7 +726,7 @@ public class Battle
         return null;
     }
 
-    private Player getOpponentPlayer()
+    public Player getOpponentPlayer()
     {
         if (playerTurn == firstPlayer)
         {
@@ -736,8 +735,9 @@ public class Battle
         return firstPlayer;
     }
 
-    public void setHeroesInBattlefield(BattleManager battleManager) {
-        battleManager.CheckCircumstancesToInsertCard(firstPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 0);
-        battleManager.CheckCircumstancesToInsertCard(secondPlayer.getMainDeck().getHero().get(0).getCardName() , 2 , 8);
+    public void setHeroesInBattlefield(BattleManager battleManager)
+    {
+        battleManager.CheckCircumstancesToInsertCard(firstPlayer.getMainDeck().getHero().get(0).getCardName(), 2, 0);
+        battleManager.CheckCircumstancesToInsertCard(secondPlayer.getMainDeck().getHero().get(0).getCardName(), 2, 8);
     }
 }

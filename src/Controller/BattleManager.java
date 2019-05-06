@@ -121,21 +121,25 @@ public class BattleManager
     }
 
 
-    public void useSpecialPower(int x, int y)
+    public void useSpecialPower(SpecialPower specialPower, int x, int y)
     {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {
             NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
-                ShowOutput.printOutput("SelectedCard doesn't have special power");
+                ShowOutput.printOutput("Selected Card doesn't have special power");
             }
             else
             {
-                Battle.getCurrentBattle().getSelectedCard().setRow(x);
-                Battle.getCurrentBattle().getSelectedCard().setColumn(y);
+                SpellChange spellChange = specialPower.getSpellEffect().getSpellChanges().get(0);
+                NonSpellCards card = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+                if (card != null)
+                {
+                    card.addActiveSpellOnThisCard(spellChange);
+                    spellChange.applySpellChangeOnCard(card);
+                }
             }
-
         }
     }
 
