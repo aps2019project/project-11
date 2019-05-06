@@ -33,6 +33,7 @@ public class Request
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [a-zA-Z_0-9]+");
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
+    private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z_0-9]+ in( [0-9]+ [0-9]+ )");
 
 
     public static CommandType command;
@@ -329,13 +330,6 @@ public class Request
             command = CommandType.SELECT;
             command.cardOrItemID = inputParts[2];
         }
-        else if (patternMoveTo.matcher(input).matches())
-        {
-            command = CommandType.MOVE_TO;
-            command.rowOfTheCell = Integer.parseInt(inputParts[2]);
-            command.columnOfTheCell = Integer.parseInt(inputParts[3]);
-            //todo
-        }
         else if (input.equalsIgnoreCase("Show collectibles"))
         {
             command = CommandType.SHOW_COLLECTIBLES;
@@ -345,14 +339,13 @@ public class Request
             command = CommandType.SELECT_ITEM;
             Request.command.cardOrItemID = inputParts[1];
         }
-        else if(patternComboAttack.matcher(input).matches())
+        else if (patternInsertCard.matcher(input).matches())
         {
-            command = CommandType.COMBO_ATTACK;
-            command.enemyCardIDForCombo = inputParts[2];
-            for(int counter = 3 ; counter < inputParts.length ; counter ++)
-            {
-                command.cardIDsForComboAttack.add(inputParts[counter]);
-            }
+            command = CommandType.INSERT_CARD;
+        }
+        else if (input.equalsIgnoreCase("Show Hand"))
+        {
+            command = CommandType.SHOW_HAND;
         }
         else if(input.equalsIgnoreCase("Show Next Card"))
         {
@@ -362,7 +355,7 @@ public class Request
         {
             command = CommandType.ENTER_GRAVEYARD;
         }
-        else if(input.equals("Help"))
+        else if(input.equalsIgnoreCase("Help"))
         {
             command = CommandType.HELP_BATTLE;
         }
@@ -393,11 +386,27 @@ public class Request
             command = CommandType.NORMAL_ATTACK ;
             command.enemyCardIDForNormalAttack = inputParts[1];
         }
+        else if (patternMoveTo.matcher(input).matches())
+        {
+            command = CommandType.MOVE_TO;
+            command.rowOfTheCell = Integer.parseInt(inputParts[2]);
+            command.columnOfTheCell = Integer.parseInt(inputParts[3]);
+            //todo
+        }
         else if (patternUseSpecialPower.matcher(input).matches())
         {
             command = CommandType.USE_SPECIAL_POWER;
             command.rowOfTheCell = Integer.parseInt(inputParts[3]);
             command.columnOfTheCell = Integer.parseInt(inputParts[4]);
+        }
+        else if(patternComboAttack.matcher(input).matches())
+        {
+            command = CommandType.COMBO_ATTACK;
+            command.enemyCardIDForCombo = inputParts[2];
+            for(int counter = 3 ; counter < inputParts.length ; counter ++)
+            {
+                command.cardIDsForComboAttack.add(inputParts[counter]);
+            }
         }
         else
         {

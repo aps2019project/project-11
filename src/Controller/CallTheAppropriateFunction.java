@@ -46,11 +46,11 @@ public class CallTheAppropriateFunction
                 case SAVE:
                     //todo
                     break;
-                case EXIT:
-                    System.exit(0);
-                    break;
                 case HELP:
                     ShowOutput.printMainMenuCommands();
+                    break;
+                case EXIT:
+                    System.exit(0);
                     break;
             }
         }
@@ -157,10 +157,6 @@ public class CallTheAppropriateFunction
             }
             switch (Request.command)
             {
-                case EXIT:
-                    ShowOutput.printMainMenuCommands();
-                    determineMainMenuCommand();
-                    break;
                 case SHOW:
                     ShowOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
                     break;
@@ -197,6 +193,10 @@ public class CallTheAppropriateFunction
                 case HELP:
                     ShowOutput.collectionHelp();
                     break;
+                case EXIT:
+                    ShowOutput.printMainMenuCommands();
+                    determineMainMenuCommand();
+                    break;
             }
         }
     }
@@ -221,6 +221,8 @@ public class CallTheAppropriateFunction
                     case MULTI_PLAYER:
                         selectSecondPlayerInMultiPlayerMatch();
                         break;
+                    case EXIT:
+                        return;
                 }
             }
         }
@@ -255,6 +257,8 @@ public class CallTheAppropriateFunction
                     new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, Battle.getBattleMode(Request.command.customGameMode), BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
+                case EXIT:
+                    return;
             }
         }
     }
@@ -293,6 +297,8 @@ public class CallTheAppropriateFunction
                         selectMultiPlayerMatchMode(firstPlayer, secondPlayer);
                     }
                     break;
+                case EXIT:
+                    return;
             }
         }
     }
@@ -332,6 +338,8 @@ public class CallTheAppropriateFunction
                         determineBattleCommand();
                     }
                     break;
+                case EXIT:
+                    return;
             }
         }
     }
@@ -346,14 +354,14 @@ public class CallTheAppropriateFunction
                 continue;
             }
             Request.getBattleCommands();
+            if (Request.command == null)
+            {
+                continue;
+            }
             if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
             {
                 Battle.getCurrentBattle().tasksAtEndOfGame();
                 break;
-            }
-            if (Request.command == null)
-            {
-                continue;
             }
             switch (Request.command)
             {
@@ -385,10 +393,6 @@ public class CallTheAppropriateFunction
                 case SELECT_ITEM:
                     battleManager.selectItem(Request.command.cardOrItemID);
                     determineAfterSelectItemCommand();
-                    break;
-                case COMBO_ATTACK:
-                    Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack);
-                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack.get(0));
                     break;
                 case SHOW_NEXT_CARD:
                     ShowOutput.showNextCardInfo();
@@ -428,6 +432,10 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().attackToOpponent(Request.command.enemyCardIDForNormalAttack);
                     Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForNormalAttack);
                     break;
+                case COMBO_ATTACK:
+                    Battle.getCurrentBattle().comboAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack);
+                    Battle.getCurrentBattle().counterAttack(Request.command.enemyCardIDForCombo, Request.command.cardIDsForComboAttack.get(0));
+                    break;
                 case USE_SPECIAL_POWER:
                     battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
                     break;
@@ -457,6 +465,8 @@ public class CallTheAppropriateFunction
                     int y = Request.command.columnOfTheCell;
                     Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
                     break;
+                case EXIT:
+                    return;
             }
         }
     }

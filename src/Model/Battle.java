@@ -632,7 +632,7 @@ public class Battle
         }
         for (Card card : playerTurn.getHand().getCards())
         {
-            if (card.getPrice() <= playerTurn.getMP())
+            if (card.getRequiredMP() <= playerTurn.getMP())
             {
                 System.out.println(playerTurn.getAccount().getAccountName() + " can insert " + card.getCardName());
             }

@@ -390,14 +390,11 @@ public class ShowOutput
         System.out.println("End turn");
         System.out.println("Show collectibles");
         System.out.println("Select [collectible id]");
-        System.out.println("Show info");
-        System.out.println("Use [location x y ]");
         System.out.println("Show Next Card");
         System.out.println("Enter graveyard");
-        System.out.println("Show info [card id]");
-        System.out.println("Show cards");
         System.out.println("Help");
         System.out.println("End Game");
         System.out.println("Exit");
+        System.out.println("Show Menu");
     }
 }
