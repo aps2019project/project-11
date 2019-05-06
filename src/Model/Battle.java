@@ -738,9 +738,11 @@ public class Battle
         return firstPlayer;
     }
 
-    public void setHeroesInBattlefield(BattleManager battleManager)
+    public void setHeroesInBattlefield()
     {
-        battleManager.insertCardToBattleField(firstPlayer.getMainDeck().getHero().get(0), 2, 0);
-        battleManager.insertCardToBattleField(secondPlayer.getMainDeck().getHero().get(0), 2, 8);
+        firstPlayer.getMainDeck().getHero().get(0).setRow(2);
+        firstPlayer.getMainDeck().getHero().get(0).setColumn(0);
+        secondPlayer.getMainDeck().getHero().get(0).setRow(2);
+        secondPlayer.getMainDeck().getHero().get(0).setColumn(8);
     }
 }

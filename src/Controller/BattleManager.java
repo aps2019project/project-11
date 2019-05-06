@@ -56,16 +56,27 @@ public class BattleManager
         }
         Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
         generateMatrix(matrix, hero);
+        for (int i = 0;i < 5; i++)
+        {
+            for (int j = 0;j < 9; j++)
+            {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
         return matrix;
     }
 
     private void generateMatrix(int[][] matrix, Card card)
     {
-        for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0 && row < 5; row++)
+        for (int row = card.getRow() - 1; row <= card.getRow() + 1; row++)
         {
-            for (int column = card.getRow() - 1; column <= card.getRow() + 1 && column >= 0 && column < 9; column++)
+            for (int column = card.getColumn() - 1; column <= card.getColumn() + 1; column++)
             {
-                matrix[row][column] = 1;
+                if (row >= 0 && row < 5 && column >= 0 && column < 9)
+                {
+                    matrix[row][column] = 1;
+                }
             }
         }
     }
