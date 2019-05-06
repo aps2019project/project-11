@@ -82,13 +82,15 @@ public class Cell
         this.fieryCell = fieryCell;
     }
 
-    public ArrayList<SpellChange> getSpellChanges() {
+    public ArrayList<SpellChange> getSpellChanges()
+    {
         return spellChanges;
     }
 
-    public void setSpellChanges(ArrayList<SpellChange> spellChanges)
+    public void addSpellChange(SpellChange spellChange)
+
     {
-        this.spellChanges = spellChanges;
+        this.spellChanges.add(spellChange);
     }
 
     public int getRow() {
