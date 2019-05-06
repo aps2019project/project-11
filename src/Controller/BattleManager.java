@@ -167,7 +167,7 @@ public class BattleManager
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID().equals(itemID))
+            if (item.getItemID() .equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }
