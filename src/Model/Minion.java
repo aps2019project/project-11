@@ -30,7 +30,7 @@ public class Minion extends NonSpellCards
     public static void setMinions()
     {
         SpecialPower minionSpell2 = new SpecialPower("stun in current turn");
-        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, true, false, false, false, false, false, false, false, false, true));
+        minionSpell2.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, true, false, false, false, false, false, false, false, false, true));
         minionSpell2.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell10 = new SpecialPower("disarm and poison");
@@ -39,11 +39,11 @@ public class Minion extends NonSpellCards
         minionSpell10.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell15 = new SpecialPower("10 power buff");
-        minionSpell15.getSpellEffect().addSpellChange(new SpellChange(0, true, false, TimeToActivateSpecialPower.passive, 0, 10, 0, false, false, false, false, false, false, false, false, false, false));
+        minionSpell15.getSpellEffect().addSpellChange(new SpellChange(1, true, false, TimeToActivateSpecialPower.passive, 0, 10, 0, false, false, false, false, false, false, false, false, false, false));
         minionSpell15.getSpellEffect().addTarget(new Target(1, 0, false, false, 0, 0, 0, 0, 0, 0, 3, null, false, false, false));
 
         SpecialPower minionSpell17 = new SpecialPower("make 2 damage on around minions");
-        minionSpell17.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onDeath, 0, -2, 0, false, false, false, false, false, false, false, false, false, false));
+        minionSpell17.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onDeath, 0, -2, 0, false, false, false, false, false, false, false, false, false, false));
         minionSpell17.getSpellEffect().addTarget(new Target(0, 8, false, false, 0, 0, 0, 0, 0, 0, 3, null, false, false, false));
 
         SpecialPower minionSpell18 = new SpecialPower("made toxic enemy force 3 turn");
@@ -51,19 +51,19 @@ public class Minion extends NonSpellCards
         minionSpell18.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 4, null, false, false, false));
 
         SpecialPower minionSpell20 = new SpecialPower("holy buff");
-        minionSpell20.getSpellEffect().addSpellChange(new SpellChange(0, true, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, false, false, true, false, false, false, false, false, false, false));
+        minionSpell20.getSpellEffect().addSpellChange(new SpellChange(1, true, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, false, false, true, false, false, false, false, false, false, false));
         minionSpell20.getSpellEffect().addTarget(new Target(1, 0, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell21 = new SpecialPower("minions around the card receive one more damage when receive damage");
-        minionSpell21.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onSpawn, 0, 0, 0, false, false, false, true, false, false, false, false, false, false));
+        minionSpell21.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onSpawn, 0, 0, 0, false, false, false, true, false, false, false, false, false, false));
         minionSpell21.getSpellEffect().addTarget(new Target(0, 8, false, false, 0, 0, 0, 0, 0, 0, 5, null, false, false, false));
 
         SpecialPower minionSpell23 = new SpecialPower("if attack to opponent minion , next minion receive 8 damage");
-        minionSpell23.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, -8, 0, false, false, false, false, false, false, false, false, false, false));
+        minionSpell23.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onAttack, 0, -8, 0, false, false, false, false, false, false, false, false, false, false));
         minionSpell23.getSpellEffect().addTarget(new Target(0, 1, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell24 = new SpecialPower("if attack to opponent minion , next minion receive 6 damage");
-        minionSpell24.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, -6, 0, false, false, false, false, false, false, false, false, false, false));
+        minionSpell24.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onAttack, 0, -6, 0, false, false, false, false, false, false, false, false, false, false));
         minionSpell24.getSpellEffect().addTarget(new Target(0, 1, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell25 = new SpecialPower("give 2 power buff and 1 poison buff to around minion cards in one turn");
@@ -85,11 +85,11 @@ public class Minion extends NonSpellCards
         minionSpell31.getSpellEffect().addTarget(new Target(0, 1, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell35 = new SpecialPower("delete all positive buff");
-        minionSpell35.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, false, false, false, false, false, false, false, true, false, false));
+        minionSpell35.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onAttack, 0, 0, 0, false, false, false, false, false, false, false, true, false, false));
         minionSpell35.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell36 = new SpecialPower("around minions stun");
-        minionSpell36.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onSpawn, 0, 0, 0, true, false, false, false, false, false, false, false, false, false));
+        minionSpell36.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onSpawn, 0, 0, 0, true, false, false, false, false, false, false, false, false, false));
         minionSpell36.getSpellEffect().addTarget(new Target(0, 8, false, false, 0, 0, 0, 0, 0, 0, 5, null, false, false, false));
 
         SpecialPower minionSpell37 = new SpecialPower("12 holy buff");
@@ -97,7 +97,7 @@ public class Minion extends NonSpellCards
         minionSpell37.getSpellEffect().addTarget(new Target(1, 0, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         SpecialPower minionSpell38 = new SpecialPower("on death make 6 damage on opponent hero");
-        minionSpell38.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onDeath, 0, -6, 0, false, false, true, false, false, false, false, false, false, false));
+        minionSpell38.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onDeath, 0, -6, 0, false, false, true, false, false, false, false, false, false, false));
         minionSpell38.getSpellEffect().addTarget(new Target(0, 0, false, true, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
         new Minion("kamandarFars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7);

@@ -173,7 +173,7 @@ public class Item implements Cloneable
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_MINION:
-                    minion = Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
+                    minion = (Minion) Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_PLAYER:

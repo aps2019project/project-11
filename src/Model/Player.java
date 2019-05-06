@@ -12,7 +12,7 @@ public class Player
     private GraveYard graveYard = new GraveYard();
     private int defaultMP = 2;
     private int MP;
-    private ArrayList<Minion> insertedCards = new ArrayList<>();
+    private ArrayList<NonSpellCards> insertedCards = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
     private ArrayList<SpellChange> activeSpellsOnPlayer = new ArrayList<>();
     private boolean isAIPlayer = false;
@@ -65,11 +65,11 @@ public class Player
         this.hand = hand;
     }
 
-    public ArrayList<Minion> getInsertedCards() {
+    public ArrayList<NonSpellCards> getInsertedCards() {
         return insertedCards;
     }
 
-    public  void setInsertedCards(ArrayList<Minion> insertedCards)
+    public  void setInsertedCards(ArrayList<NonSpellCards> insertedCards)
     {
         this.insertedCards = insertedCards;
     }
