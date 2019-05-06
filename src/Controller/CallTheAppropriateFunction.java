@@ -390,7 +390,8 @@ public class CallTheAppropriateFunction
                     Battle.getCurrentBattle().endTurn();
                     break;
                 case HELP_BATTLE:
-                    //todo
+                    Battle.getCurrentBattle().help();
+                    break;
                 case EXIT:
                     return;
             }
