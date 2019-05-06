@@ -137,9 +137,10 @@ public class BattleManager {
     }
 
     public void selectCard(String cardID) {
-        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getHand().getCards()) {
+        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()) {
             if (card.getCardID().equals(cardID)) {
                 Battle.getCurrentBattle().selectCard((NonSpellCards) card);
+                System.out.println("Card selected");
                 return;
             }
         }
