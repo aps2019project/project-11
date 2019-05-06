@@ -33,7 +33,7 @@ public class Request
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [a-zA-Z_0-9]+");
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
-    private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z_0-9]+ in(\\s)((\\s)[0-9]+(\\s)[,](\\s)[0-9]+(\\s))");
+    private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
     public static CommandType command;
 
