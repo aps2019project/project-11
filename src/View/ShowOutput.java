@@ -394,6 +394,7 @@ public class ShowOutput
         System.out.println("Enter graveyard");
         System.out.println("Help");
         System.out.println("End Game");
+        System.out.println("Surrender");
         System.out.println("Exit");
         System.out.println("Show Menu");
     }

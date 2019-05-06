@@ -369,8 +369,7 @@ public class CallTheAppropriateFunction
             }
             if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
             {
-                Battle.getCurrentBattle().tasksAtEndOfGame();
-                break;
+                determineAfterGameEndedCommand();
             }
             switch (Request.command)
             {
@@ -410,6 +409,9 @@ public class CallTheAppropriateFunction
                     break;
                 case END_TURN:
                     Battle.getCurrentBattle().endTurn();
+                    break;
+                case SURRENDER:
+                    Battle.getCurrentBattle().tasksWhenSurrender();
                     break;
                 case HELP_BATTLE:
                     Battle.getCurrentBattle().help();
@@ -508,6 +510,24 @@ public class CallTheAppropriateFunction
                     break;
                 case EXIT:
                     return;
+            }
+        }
+    }
+
+    private void determineAfterGameEndedCommand()
+    {
+        while (true)
+        {
+            Request.getAfterGameEndedCommand();
+            if (Request.command == null)
+            {
+                continue;
+            }
+            switch (Request.command)
+            {
+                case END_GAME:
+                    Battle.getCurrentBattle().tasksAtEndOfGame();
+                    break;
             }
         }
     }

@@ -395,6 +395,10 @@ public class Request
         {
             command = CommandType.END_TURN;
         }
+        else if (input.equalsIgnoreCase("Surrender"))
+        {
+            command = CommandType.SURRENDER;
+        }
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;
@@ -497,6 +501,19 @@ public class Request
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;
+        }
+        else
+        {
+            command = null;
+        }
+    }
+
+    public static void getAfterGameEndedCommand()
+    {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("End Game"))
+        {
+            command = CommandType.END_GAME;
         }
         else
         {
