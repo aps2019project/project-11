@@ -390,7 +390,7 @@ public class ShowOutput
         System.out.println("Show card info [card id]");
         System.out.println("Select [card id]");
         System.out.println("Show hand");
-        System.out.println("Insert [card name] in ( x y )");
+        System.out.println("Insert [card name] in ( x , y )");
         System.out.println("End turn");
         System.out.println("Show collectibles");
         System.out.println("Select [collectible id]");
