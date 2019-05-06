@@ -355,6 +355,7 @@ public class CallTheAppropriateFunction
 
     private void determineBattleCommand()
     {
+        Battle.getCurrentBattle().setHeroesInBattlefield(battleManager);
         while (true)
         {
             if (Battle.getCurrentBattle().getPlayerTurn().isAIPlayer())
@@ -478,6 +479,7 @@ public class CallTheAppropriateFunction
                     int x = Request.command.rowOfTheCell;
                     int y = Request.command.columnOfTheCell;
                     Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
+                    Battle.getCurrentBattle().checkUsedItemsToApplyItemChange();
                     break;
                 case SHOW_MENU:
                     ShowOutput.showMenuAfterSelectItem();
