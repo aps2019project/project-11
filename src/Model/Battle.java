@@ -592,8 +592,13 @@ public class Battle
             if (((NonSpellCards) card).isAttackAble()) {
                 int[][] matrix = setAttackRangeMatrix((NonSpellCards)card);
                 for(NonSpellCards enemyCard : getOpponentPlayer().getInsertedCards() ){
-                    if(matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1){
-                        System.out.println(card.getCardName() + " can attack to " + enemyCard.getCardName());
+                    try {
+                        assert matrix != null;
+                        if(matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1){
+                            System.out.println(card.getCardName() + " can attack to " + enemyCard.getCardName());
+                        }
+                    }
+                    catch (Exception ignored){
                     }
                 }
             }
@@ -639,6 +644,7 @@ public class Battle
                 }
                 return matrix3;
         }
+        return null;
     }
 
     public Player getOpponentPlayer(){
