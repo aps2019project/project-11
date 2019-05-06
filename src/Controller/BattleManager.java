@@ -23,8 +23,11 @@ public class BattleManager
     }
 
     public void CheckCircumstancesToInsertCard(String cardName, int x, int y) {
-        //todo target
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
+        if(setMovableCellsMatrix()[x][y] != 1){
+            ShowOutput.printOutput("Invalid target");
+            return;
+        }
         if (card != null) {
             if (insertCardToBattleField(card, x, y)) {
                 return;
@@ -37,9 +40,20 @@ public class BattleManager
         }
     }
 
+    private int[][] setMovableCellsMatrix() {
+        int[][] matrix = new int[5][9];
+        for (NonSpellCards card: Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()){
+            for(int row = card.getRow() - 1 ; row < card.getRow() + 1 ; row++){
+                for(int column = card.getRow() - 1 ; column< card.getRow() + 1 ; column++) {
+                    matrix [row][column] = 1;
+                }
+            }
+        }
+        return matrix;
+    }
+
     public void CheckCircumstancesToInsertCard(Card card)
     {
-        //todo target
         if (card != null)
         {
             int condition = 0;
@@ -48,7 +62,7 @@ public class BattleManager
             {
                 for (y = 0; y < 9; y++)
                 {
-                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null)
+                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setMovableCellsMatrix()[(int) x][(int) y] == 1)
                     {
                         condition = 1;
                         break;
