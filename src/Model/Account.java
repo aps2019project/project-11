@@ -20,11 +20,58 @@ public class Account
     {
         this.password = password;
         this.accountName = userName;
+        this.addDefaultCardsToCollection();
     }
 
     public Account()
     {
 
+    }
+
+    private void addDefaultCardsToCollection()
+    {
+        this.getCollection().addCard(Hero.findHero("Rostam"));
+        this.getCollection().addItem(Item.findItem("CrownOfWisdom"));
+        this.getCollection().addCard(Card.findCard("kamandarFars"));
+        this.getCollection().addCard(Card.findCard("kamandarFars"));
+        this.getCollection().addCard(Card.findCard("neizedarFars"));
+        this.getCollection().addCard(Card.findCard("neizedarFars"));
+        this.getCollection().addCard(Card.findCard("asbsavarFars"));
+        this.getCollection().addCard(Card.findCard("kamandarTorani"));
+        this.getCollection().addCard(Card.findCard("kamandarTorani"));
+        this.getCollection().addCard(Card.findCard("GorzdarTorani"));
+        this.getCollection().addCard(Card.findCard("gholabsangdarTorani"));
+        this.getCollection().addCard(Card.findCard("DivGorazSavar"));
+        this.getCollection().addCard(Card.findCard("Iraj"));
+        this.getCollection().addCard(Card.findCard("EzhdehayeAtashAndaz"));
+        this.getCollection().addCard(Card.findCard("GhoulBozorg"));
+        this.getCollection().addCard(Card.findCard("neizedarTorani"));
+        this.getCollection().addCard(Card.findCard("totalDisarm"));
+        this.getCollection().addCard(Card.findCard("totalDisarm"));
+        this.getCollection().addCard(Card.findCard("areaDispel"));
+        this.getCollection().addCard(Card.findCard("fireball"));
+        this.getCollection().addCard(Card.findCard("shock"));
+        this.getCollection().addCard(Card.findCard("godStrength"));
+        addDefaultDeck();
+    }
+
+    public void addDefaultDeck()
+    {
+        Deck deck = new Deck("defaultDeck");
+        for (Card card : this.getCollection().getCards())
+        {
+            if (card instanceof Hero)
+            {
+                deck.addHeroToDeck((Hero) card, false);
+            }
+            else
+            {
+                deck.addNonHeroCardToDeck(card, false);
+            }
+        }
+        deck.addItemToDeck(this.getCollection().getItems().get(0), false);
+        this.addDeck(deck);
+        this.setMainDeck(deck);
     }
 
     public void addDeck(Deck deck)

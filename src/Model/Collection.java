@@ -38,6 +38,7 @@ public class Collection
 
     public void addCard(Card card)
     {
+        Shop.getInstance().setCardID(card);
         this.cards.add(card);
     }
 
@@ -48,6 +49,7 @@ public class Collection
 
     public void addItem(Item item)
     {
+        Shop.getInstance().setItemID(item);
         this.items.add(item);
     }
 }

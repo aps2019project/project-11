@@ -418,6 +418,7 @@ public class CallTheAppropriateFunction
                     break;
                 case USE_SPECIAL_POWER:
                     battleManager.useSpecialPower(Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    break;
                 case EXIT:
                     return;
             }

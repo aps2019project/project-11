@@ -13,7 +13,7 @@ public class BattleManager
         {
             if (account.getMainDeck() != null)
             {
-                return new Player(account , false);
+                return new Player(account, false);
             }
             ShowOutput.printOutput("second player has no valid MainDeck");
             return null;
@@ -28,7 +28,10 @@ public class BattleManager
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
         if (card != null)
         {
-            if (insertCardToBattleField(card, x, y)) return;
+            if (insertCardToBattleField(card, x, y))
+            {
+                return;
+            }
         }
         ShowOutput.printOutput("Invalid card name");
     }
@@ -39,31 +42,42 @@ public class BattleManager
         if (card != null)
         {
             int condition = 0;
-            double x = 0 , y = 0 ;
-            for(x = 0 ; x < 5 ; x++){
-                for(y = 0 ; y < 9 ; y++) {
-                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null) {
+            double x = 0, y = 0;
+            for (x = 0; x < 5; x++)
+            {
+                for (y = 0; y < 9; y++)
+                {
+                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null)
+                    {
                         condition = 1;
                         break;
                     }
                 }
             }
-            if(condition == 0 ){
+            if (condition == 0)
+            {
                 return;
             }
-            if (insertCardToBattleField(card, (int)x, (int)y)) return;
+            if (insertCardToBattleField(card, (int) x, (int) y))
+            {
+                return;
+            }
         }
         ShowOutput.printOutput("Invalid card name");
     }
 
-    private boolean insertCardToBattleField(Card card, int x, int y) {
+    private boolean insertCardToBattleField(Card card, int x, int y)
+    {
         if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
         {
             card.setRow(x);
             card.setColumn(y);
             Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
             Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
-            Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+            if (card instanceof Minion)
+            {
+                Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+            }
             if (Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().size() > 5)
             {
                 Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(5));

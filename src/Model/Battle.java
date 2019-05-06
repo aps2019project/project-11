@@ -26,8 +26,8 @@ public class Battle
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
         this.setBattleMode(battleMode);
-        this.battleType = battleType;
-        currentBattle = this;
+        this.setBattleType(battleType);
+        Battle.setCurrentBattle(this);
     }
 
     public static Battle getCurrentBattle()
@@ -48,17 +48,20 @@ public class Battle
                 Account account1 = new Account();
                 Deck deck1 = Deck.createMainDeckForStoryAccount(1);
                 account1.addDeck(deck1);
-                return new Player(account1 , true);
+                account1.setMainDeck(deck1);
+                return new Player(account1, true);
             case 2:
                 Account account2 = new Account();
                 Deck deck2 = Deck.createMainDeckForStoryAccount(2);
                 account2.addDeck(deck2);
-                return new Player(account2 , true);
+                account2.setMainDeck(deck2);
+                return new Player(account2, true);
             case 3:
                 Account account3 = new Account();
                 Deck deck3 = Deck.createMainDeckForStoryAccount(3);
                 account3.addDeck(deck3);
-                return new Player(account3 , true);
+                account3.setMainDeck(deck3);
+                return new Player(account3, true);
         }
         return null;
     }
@@ -67,7 +70,7 @@ public class Battle
     {
         Account account = new Account();
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
-        return new Player(account , true);
+        return new Player(account, true);
     }
 
     public static BattleMode getBattleMode(int customGameMode)
@@ -96,20 +99,26 @@ public class Battle
         item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public void moveCard(int x, int y) {
+    public void moveCard(int x, int y)
+    {
         int[][] moveAbleCells = Battle.getCurrentBattle().getSelectedCard().setMoveAbleCells();
-        if (selectedCard.isMoveAble()) {
-            if (moveAbleCells[x][y] == 1) {
+        if (selectedCard.isMoveAble())
+        {
+            if (moveAbleCells[x][y] == 1)
+            {
                 selectedCard.setRow(x);
                 selectedCard.setColumn(y);
                 this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
                 System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
                 selectedCard.setMoveAble(false);
-            } else {
+            }
+            else
+            {
                 System.out.println("Invalid Target");
             }
         }
-        else {
+        else
+        {
             System.out.println("this card is not movable");
         }
     }
@@ -148,7 +157,7 @@ public class Battle
                 {
                     if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
                     {
-                        damageCard( selectedCard, opponentCard);
+                        damageCard(selectedCard, opponentCard);
                         (selectedCard).setAttackAble(false);
                     }
                     else
@@ -341,11 +350,12 @@ public class Battle
     public ArrayList<NonSpellCards> findingOpponentNonSpellCards()
     {
         ArrayList<NonSpellCards> opponentNonSpellCards = new ArrayList<>();
-        FirstFor: for (NonSpellCards nonSpellCards :this.getBattleField().getAllCardsInTheBattleField())
+        FirstFor:
+        for (NonSpellCards nonSpellCards : this.getBattleField().getAllCardsInTheBattleField())
         {
-            for (NonSpellCards ownNonSpellCards :this.getPlayerTurn().getInsertedCards())
+            for (NonSpellCards ownNonSpellCards : this.getPlayerTurn().getInsertedCards())
             {
-                if (Integer.parseInt(nonSpellCards.getCardID())== Integer.parseInt(ownNonSpellCards.getCardID()))
+                if (Integer.parseInt(nonSpellCards.getCardID()) == Integer.parseInt(ownNonSpellCards.getCardID()))
                 {
                     continue FirstFor;
                 }
@@ -355,12 +365,12 @@ public class Battle
         return opponentNonSpellCards;
     }
 
-    public ArrayList<NonSpellCards>findingOwnNonSpellCards()
+    public ArrayList<NonSpellCards> findingOwnNonSpellCards()
     {
         ArrayList<NonSpellCards> ownNonSpellCards = new ArrayList<>();
-        for (NonSpellCards nonSpellCards :this.getBattleField().getAllCardsInTheBattleField())
+        for (NonSpellCards nonSpellCards : this.getBattleField().getAllCardsInTheBattleField())
         {
-            for (NonSpellCards AllOwnNonSpellCards:this.getFirstPlayer().getInsertedCards())
+            for (NonSpellCards AllOwnNonSpellCards : this.getFirstPlayer().getInsertedCards())
             {
                 if (Integer.parseInt(AllOwnNonSpellCards.getCardID()) == Integer.parseInt(nonSpellCards.getCardID()))
                 {
@@ -370,6 +380,7 @@ public class Battle
         }
         return ownNonSpellCards;
     }
+
     public void showGraveYardCardInfo(String cardID)
     {
         Card card = playerTurn.findCardInGraveYard(cardID);
@@ -525,7 +536,7 @@ public class Battle
 
     public void tasksAtEndOfGame()
     {
-        switch (battleType)
+        switch (this.getBattleType())
         {
             case STORY_GAME_1:
                 victoriousPlayer.getAccount().addMoney(500);
@@ -565,56 +576,73 @@ public class Battle
         this.loserPlayer = loserPlayer;
     }
 
-    public void AIPlayerWorks(BattleManager battleManager) {
-        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++) {
+    public void AIPlayerWorks(BattleManager battleManager)
+    {
+        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++)
+        {
             String randomCardName = playerTurn.getHand().getCards().get((int) (Math.random() % playerTurn.getHand().getCards().size())).getCardName();
             battleManager.selectCard(randomCardName);
             battleManager.CheckCircumstancesToInsertCard(selectedCard);
         }
-        for(int counter = 1 ; counter <= 20 ; counter++){
-            selectedCard = playerTurn.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
-            NonSpellCards firstPlayerCard = firstPlayer.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
+        for (int counter = 1; counter <= 20; counter++)
+        {
+            selectedCard = playerTurn.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
+            NonSpellCards firstPlayerCard = firstPlayer.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
             attackToOpponent(firstPlayerCard.getCardName());
-            counterAttack(selectedCard.getCardName() , firstPlayerCard.getCardID());
+            counterAttack(selectedCard.getCardName(), firstPlayerCard.getCardID());
         }
         selectedCard = null;
     }
 
 
-    public void help() {
-        for(Card card : playerTurn.getInsertedCards()){
-            if(((NonSpellCards)card).isMoveAble()){
+    public void help()
+    {
+        for (Card card : playerTurn.getInsertedCards())
+        {
+            if (((NonSpellCards) card).isMoveAble())
+            {
                 System.out.println(card.getCardName() + " is movable");
             }
         }
-        for(Card card : playerTurn.getInsertedCards()) {
-            if (((NonSpellCards) card).isAttackAble()) {
-                int[][] matrix = setAttackRangeMatrix((NonSpellCards)card);
-                for(NonSpellCards enemyCard : getOpponentPlayer().getInsertedCards() ){
-                    try {
+        for (Card card : playerTurn.getInsertedCards())
+        {
+            if (((NonSpellCards) card).isAttackAble())
+            {
+                int[][] matrix = setAttackRangeMatrix((NonSpellCards) card);
+                for (NonSpellCards enemyCard : getOpponentPlayer().getInsertedCards())
+                {
+                    try
+                    {
                         assert matrix != null;
-                        if(matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1){
+                        if (matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1)
+                        {
                             System.out.println(card.getCardName() + " can attack to " + enemyCard.getCardName());
                         }
-                    }
-                    catch (Exception ignored){
+                    } catch (Exception ignored)
+                    {
                     }
                 }
             }
         }
-        for(Card card : playerTurn.getHand().getCards()){
-            if(card.getPrice() <= playerTurn.getMP()){
+        for (Card card : playerTurn.getHand().getCards())
+        {
+            if (card.getPrice() <= playerTurn.getMP())
+            {
                 System.out.println(playerTurn.getAccount().getAccountName() + " can insert " + card.getCardName());
             }
         }
     }
 
-    private int[][] setAttackRangeMatrix(NonSpellCards card) {
-        switch (card.getImpactType()){
+    private int[][] setAttackRangeMatrix(NonSpellCards card)
+    {
+        switch (card.getImpactType())
+        {
             case melee:
                 int[][] matrix1 = new int[3][3];
-                for(int row = 0 ; row < 3 ; row++){
-                    for (int column = 0 ; column < 3 ; column++){
+                for (int row = 0; row < 3; row++)
+                {
+                    for (int column = 0; column < 3; column++)
+                    {
                         matrix1[row][column] = 1;
                     }
                 }
@@ -622,13 +650,17 @@ public class Battle
             case ranged:
                 int rangeOfAttack = card.getRangeOfAttack();
                 int[][] matrix2 = new int[rangeOfAttack][rangeOfAttack];
-                for(int row = 0 ; row < rangeOfAttack ; row++){
-                    for (int column = 0 ; column < rangeOfAttack ; column++){
+                for (int row = 0; row < rangeOfAttack; row++)
+                {
+                    for (int column = 0; column < rangeOfAttack; column++)
+                    {
                         matrix2[row][column] = 1;
                     }
                 }
-                for(int row = card.getRow() - 1 ; row <card.getRow() + 1  ; row++){
-                    for (int column = card.getColumn() - 1 ; column < card.getColumn() + 1 ; column++){
+                for (int row = card.getRow() - 1; row < card.getRow() + 1; row++)
+                {
+                    for (int column = card.getColumn() - 1; column < card.getColumn() + 1; column++)
+                    {
                         matrix2[row][column] = 0;
                     }
                 }
@@ -636,8 +668,10 @@ public class Battle
             case hybrid:
                 rangeOfAttack = card.getRangeOfAttack();
                 int[][] matrix3 = new int[rangeOfAttack][rangeOfAttack];
-                for(int row = 0 ; row < rangeOfAttack ; row++){
-                    for (int column = 0 ; column < rangeOfAttack ; column++){
+                for (int row = 0; row < rangeOfAttack; row++)
+                {
+                    for (int column = 0; column < rangeOfAttack; column++)
+                    {
                         matrix3[row][column] = 1;
                     }
                 }
@@ -646,8 +680,10 @@ public class Battle
         return null;
     }
 
-    public Player getOpponentPlayer(){
-        if(playerTurn == firstPlayer){
+    public Player getOpponentPlayer()
+    {
+        if (playerTurn == firstPlayer)
+        {
             return secondPlayer;
         }
         return firstPlayer;
