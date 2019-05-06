@@ -36,7 +36,8 @@ public class BattleManager
             {
                 return;
             }
-            else {
+            else
+            {
                 System.out.println("Card insertion failed!");
             }
         }
@@ -51,9 +52,9 @@ public class BattleManager
         int[][] matrix = new int[5][9];
         for (NonSpellCards card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0; row++)
+            for (int row = card.getRow() - 1; row < card.getRow() + 1 && row >= 0 && row < 5; row++)
             {
-                for (int column = card.getRow() - 1; column <= card.getRow() + 1 && column >= 0; column++)
+                for (int column = card.getRow() - 1; column < card.getRow() + 1 && column >= 0 && column < 9; column++)
                 {
                     matrix[row][column] = 1;
                 }

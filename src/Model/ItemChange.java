@@ -67,6 +67,11 @@ public class ItemChange
         this.setTurnsToApplyChange(this.getTurnsToApplyChange() - 1);
     }
 
+    public void applyItemChange(Player player)
+    {
+        player.increaseMPViaItem(this.getChangeMP());
+    }
+
     public int getTurnsToApplyChange()
     {
         return turnsToApplyChange;

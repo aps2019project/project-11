@@ -37,7 +37,7 @@ public class Battle
         return currentBattle;
     }
 
-    public static void setCurrentBattle(Battle currentBattle)
+    private static void setCurrentBattle(Battle currentBattle)
     {
         Battle.currentBattle = currentBattle;
     }
@@ -200,21 +200,21 @@ public class Battle
             {
                 if (Card.checkNeighborhood(selectedCard, opponentCard))
                 {
-                    damageCard(opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, selectedCard);
                 }
             }
             else if (opponentCard.getImpactType() == ImpactType.ranged)
             {
                 if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
                 {
-                    damageCard(opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, selectedCard);
                 }
             }
             else if (opponentCard.getImpactType() == ImpactType.hybrid)
             {
                 if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack())
                 {
-                    damageCard(opponentCard, (NonSpellCards) selectedCard);
+                    damageCard(opponentCard, selectedCard);
                 }
             }
         }
@@ -280,7 +280,7 @@ public class Battle
 
     public void endTurn()
     {
-        //todo apply items and special powers
+        //todo apply special powers
         checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
@@ -292,6 +292,10 @@ public class Battle
             this.setPlayerTurn(this.getFirstPlayer());
         }
         this.getPlayerTurn().setMP();
+        for (ItemChange itemChange : this.getPlayerTurn().getActiveItemsOnPlayer())
+        {
+            itemChange.applyItemChange(this.getPlayerTurn());
+        }
     }
 
     public NonSpellCards findRandomOwnForce()
@@ -491,14 +495,29 @@ public class Battle
         this.getFirstPlayer().setMP();
     }
 
+    public Player getLoserPlayer()
+    {
+        return loserPlayer;
+    }
+
+    public void setLoserPlayer(Player loserPlayer)
+    {
+        this.loserPlayer = loserPlayer;
+    }
+
+    public Player getVictoriousPlayer()
+    {
+        return victoriousPlayer;
+    }
+
+    public void setVictoriousPlayer(Player victoriousPlayer)
+    {
+        this.victoriousPlayer = victoriousPlayer;
+    }
+
     public BattleField getBattleField()
     {
         return battleField;
-    }
-
-    public void setBattleField(BattleField battleField)
-    {
-        this.battleField = battleField;
     }
 
     public NonSpellCards getSelectedCard()
@@ -541,22 +560,12 @@ public class Battle
         this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 
-    public Player getVictoriousPlayer()
-    {
-        return victoriousPlayer;
-    }
-
-    public void setVictoriousPlayer(Player victoriousPlayer)
-    {
-        this.victoriousPlayer = victoriousPlayer;
-    }
-
-    public BattleType getBattleType()
+    private BattleType getBattleType()
     {
         return battleType;
     }
 
-    public void setBattleType(BattleType battleType)
+    private void setBattleType(BattleType battleType)
     {
         this.battleType = battleType;
     }
@@ -606,16 +615,6 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
         }
-    }
-
-    public Player getLoserPlayer()
-    {
-        return loserPlayer;
-    }
-
-    public void setLoserPlayer(Player loserPlayer)
-    {
-        this.loserPlayer = loserPlayer;
     }
 
     public void AIPlayerWorks(BattleManager battleManager)
@@ -723,7 +722,7 @@ public class Battle
         return null;
     }
 
-    public Player getOpponentPlayer()
+    private Player getOpponentPlayer()
     {
         if (playerTurn == firstPlayer)
         {

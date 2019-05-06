@@ -8,20 +8,20 @@ public class SpellChange
     private boolean removeOpponentPositiveBuffs;
     private boolean removeOwnNegativeBuffs;
     private TimeToActivateSpecialPower timeToActivateSpecialPower;
-    private int changeAP;
-    private int changeHP;
-    private int changeMP;
-    private boolean stunOpponent;
-    private boolean disarmOpponent;
-    private boolean activateHolyBuff;
-    private int numOfHolyBuffs;
+    private int changeAP;//
+    private int changeHP;//
+    private int changeMP;//
+    private boolean stunOpponent;//
+    private boolean disarmOpponent;//
+    private boolean activateHolyBuff;//
+    private int numOfHolyBuffs;//
     private boolean activateReverseHolyBuff;
-    private boolean madeCellToxic;
-    private boolean madeCellHoly;
-    private boolean madeCellFiery;
-    private boolean deleteAllPositiveBuff;
-    private boolean killing;
-    private boolean dispel;
+    private boolean madeCellToxic;//
+    private boolean madeCellHoly;//
+    private boolean madeCellFiery;//
+    private boolean deleteAllPositiveBuff;//
+    private boolean killing;//
+    private boolean dispel;//
     private boolean continuous;
     private boolean currentTurn;
 
@@ -95,6 +95,22 @@ public class SpellChange
             nonSpellCard.setCounterAttackAble(false);
         }
         if (this.isKilling())
+        {
+            Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).setCurrentHP(0);
+        }
+        if (this.isDispel())
+        {
+
+        }
+        if (this.isCurrentTurn())
+        {
+
+        }
+        if (this.isActivateHolyBuff())
+        {
+
+        }
+        if (this.isDeleteAllPositiveBuff())
         {
 
         }
@@ -188,7 +204,8 @@ public class SpellChange
         this.disarmOpponent = disarmOpponent;
     }
 
-    public boolean isActivateHolyBuff() {
+    public boolean isActivateHolyBuff()
+    {
         return activateHolyBuff;
     }
 
