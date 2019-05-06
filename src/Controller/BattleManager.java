@@ -50,17 +50,24 @@ public class BattleManager
     private int[][] setMovableCellsMatrix()
     {
         int[][] matrix = new int[5][9];
-        for (NonSpellCards card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0 && row < 5; row++)
+            generateMatrix(matrix, minion);
+        }
+        Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+        generateMatrix(matrix, hero);
+        return matrix;
+    }
+
+    private void generateMatrix(int[][] matrix, Card card)
+    {
+        for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0 && row < 5; row++)
+        {
+            for (int column = card.getRow() - 1; column <= card.getRow() + 1 && column >= 0 && column < 9; column++)
             {
-                for (int column = card.getRow() - 1; column <= card.getRow() + 1 && column >= 0 && column < 9; column++)
-                {
-                    matrix[row][column] = 1;
-                }
+                matrix[row][column] = 1;
             }
         }
-        return matrix;
     }
 
     public void CheckCircumstancesToInsertCard(Card card)
@@ -167,7 +174,7 @@ public class BattleManager
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID() .equals(itemID))
+            if (item.getItemID().equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }
