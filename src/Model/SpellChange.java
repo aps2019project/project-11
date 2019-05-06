@@ -73,7 +73,31 @@ public class SpellChange
         {
             return;
         }
-        if (this.)
+        if (this.getChangeAP() != 0)
+        {
+            nonSpellCard.setCurrentAP(nonSpellCard.getCurrentAP() + getChangeAP());
+        }
+        if (this.getChangeHP() != 0)
+        {
+            nonSpellCard.setCurrentHP(nonSpellCard.getCurrentHP() + getChangeHP());
+        }
+        if (this.getChangeMP() != 0)
+        {
+            nonSpellCard.setRequiredMP(getChangeMP() + nonSpellCard.getRequiredMP());
+        }
+        if (this.isStunOpponent())
+        {
+            nonSpellCard.setCounterAttackAble(false);
+            nonSpellCard.setMoveAble(false);
+        }
+        if (this.isDisarmOpponent())
+        {
+            nonSpellCard.setCounterAttackAble(false);
+        }
+        if (this.isKilling())
+        {
+
+        }
     }
 
     public int getTurnsToApplyChange() {
