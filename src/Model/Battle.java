@@ -356,6 +356,21 @@ public class Battle
         return opponentNonSpellCards;
     }
 
+    public ArrayList<NonSpellCards>findingOwnNonSpellCards()
+    {
+        ArrayList<NonSpellCards> ownNonSpellCards = new ArrayList<>();
+        for (NonSpellCards nonSpellCards :this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCards AllOwnNonSpellCards:this.getFirstPlayer().getInsertedCards())
+            {
+                if (Integer.parseInt(AllOwnNonSpellCards.getCardID()) == Integer.parseInt(nonSpellCards.getCardID()))
+                {
+                    ownNonSpellCards.add(AllOwnNonSpellCards);
+                }
+            }
+        }
+        return ownNonSpellCards;
+    }
     public void showGraveYardCardInfo(String cardID)
     {
         Card card = playerTurn.findCardInGraveYard(cardID);

@@ -85,7 +85,11 @@ public class SpecialPower
             }
             else if (target.getNumOfOwnBothNonSpellCards() > 0)
             {
-
+                ArrayList<NonSpellCards> ownBothNonSpellCards = Battle.getCurrentBattle().findingOwnNonSpellCards();
+                for (int counter = 0 ;counter <target.getNumOfOwnBothNonSpellCards() ; counter++)
+                {
+                    ownBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
+                }
             }
             else if (target.getStartRow() >= 0 || target.getStartColumn() >= 0 || target.getEndRow() >=0 || target.getEndColumn() >=0)
             {
