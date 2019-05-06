@@ -651,6 +651,6 @@ public class Battle
         if(playerTurn == firstPlayer){
             return secondPlayer;
         }
-        return firstPlayer
+        return firstPlayer;
     }
 }
