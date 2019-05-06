@@ -157,7 +157,14 @@ public class Minion extends NonSpellCards
 
     public void printMinionStats()
     {
-        System.out.println("Type : Minion - Name : " + getCardName() + " – Class:" + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
+        if (getSpecialPower() != null)
+        {
+            System.out.println("- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
+        }
+        else
+        {
+            System.out.println("- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " – Sell Cost : " + getPrice());
+        }
     }
 
     public boolean isAbleToCombo()
