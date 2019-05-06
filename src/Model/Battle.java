@@ -592,6 +592,7 @@ public class Battle
             attackToOpponent(firstPlayerCard.getCardName());
             counterAttack(selectedCard.getCardName(), firstPlayerCard.getCardID());
         }
+        this.setPlayerTurn(firstPlayer);
         selectedCard = null;
     }
 

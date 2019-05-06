@@ -73,6 +73,6 @@ public enum CommandType
     public String deckNameForCustomGame;
     public int customGameMode;
     public int customGameFlagNumber;
-    public  int storyGameMode;
+    public  int storyGameMode = 0;
 
 }

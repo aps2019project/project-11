@@ -29,29 +29,36 @@ public class Account
 
     public void addDefaultCardsToCollection(Account account)
     {
-        this.getCollection().addCard(account, Hero.findHero("Rostam"));
-        this.getCollection().addItem(account, Item.findItem("CrownOfWisdom"));
-        this.getCollection().addCard(account, Card.findCard("kamandarFars"));
-        this.getCollection().addCard(account, Card.findCard("kamandarFars"));
-        this.getCollection().addCard(account, Card.findCard("neizedarFars"));
-        this.getCollection().addCard(account, Card.findCard("neizedarFars"));
-        this.getCollection().addCard(account, Card.findCard("asbsavarFars"));
-        this.getCollection().addCard(account, Card.findCard("kamandarTorani"));
-        this.getCollection().addCard(account, Card.findCard("kamandarTorani"));
-        this.getCollection().addCard(account, Card.findCard("GorzdarTorani"));
-        this.getCollection().addCard(account, Card.findCard("gholabsangdarTorani"));
-        this.getCollection().addCard(account, Card.findCard("DivGorazSavar"));
-        this.getCollection().addCard(account, Card.findCard("Iraj"));
-        this.getCollection().addCard(account, Card.findCard("EzhdehayeAtashAndaz"));
-        this.getCollection().addCard(account, Card.findCard("GhoulBozorg"));
-        this.getCollection().addCard(account, Card.findCard("neizedarTorani"));
-        this.getCollection().addCard(account, Card.findCard("totalDisarm"));
-        this.getCollection().addCard(account, Card.findCard("totalDisarm"));
-        this.getCollection().addCard(account, Card.findCard("areaDispel"));
-        this.getCollection().addCard(account, Card.findCard("fireball"));
-        this.getCollection().addCard(account, Card.findCard("shock"));
-        this.getCollection().addCard(account, Card.findCard("godStrength"));
-        addDefaultDeck();
+        try
+        {
+            this.getCollection().addCard(account, (Card) Hero.findHero("Rostam").clone());
+            this.getCollection().addItem(account, (Item) Item.findItem("CrownOfWisdom").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("kamandarFars").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("kamandarFars").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("neizedarFars").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("neizedarFars").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("asbsavarFars").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("kamandarTorani").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("kamandarTorani").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("GorzdarTorani").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("gholabsangdarTorani").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("DivGorazSavar").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("Iraj").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("EzhdehayeAtashAndaz").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("GhoulBozorg").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("neizedarTorani").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("totalDisarm").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("totalDisarm").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("areaDispel").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("fireball").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("shock").clone());
+            this.getCollection().addCard(account, (Card) Card.findCard("godStrength").clone());
+            addDefaultDeck();
+        }
+        catch (CloneNotSupportedException ignored)
+        {
+
+        }
     }
 
     public void addDefaultDeck()
