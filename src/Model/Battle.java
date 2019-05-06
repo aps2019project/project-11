@@ -281,6 +281,7 @@ public class Battle
     public void endTurn()
     {
         //todo apply items and special powers
+        checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
         {
@@ -444,23 +445,18 @@ public class Battle
             case 1:
                 if ((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
                 {
-                    setVictorious(secondPlayer);
+                    setVictoriousPlayer(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
                 }
                 else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
                 {
-                    setVictorious(secondPlayer);
+                    setVictoriousPlayer(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
                 }
         }
         return false;
-    }
-
-    public void setVictorious(Player player)
-    {
-        victoriousPlayer = player;
     }
 
     public Player getPlayerTurn()
@@ -565,8 +561,23 @@ public class Battle
         this.battleType = battleType;
     }
 
+    public void tasksWhenSurrender()
+    {
+        this.setLoserPlayer(this.getPlayerTurn());
+        if (this.getSecondPlayer() == this.getPlayerTurn())
+        {
+            this.setVictoriousPlayer(this.getFirstPlayer());
+        }
+        else
+        {
+            this.setVictoriousPlayer(this.getSecondPlayer());
+        }
+        tasksAtEndOfGame();
+    }
+
     public void tasksAtEndOfGame()
     {
+
         switch (this.getBattleType())
         {
             case STORY_GAME_1:

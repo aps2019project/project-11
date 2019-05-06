@@ -56,6 +56,8 @@ public enum CommandType
     NORMAL_ATTACK,
     USE_SPECIAL_POWER,
     END_TURN,
+    SURRENDER,
+    END_GAME,
     ;
 
     public String username;
