@@ -160,6 +160,7 @@ public class Spell extends Card
     {
         //todo
     }
+
     public String getDescriptionTypeOfSpell()
     {
         return descriptionTypeOfSpell;

@@ -28,6 +28,7 @@ public class Battle
         this.setPlayerTurn(firstPlayer);
         this.setBattleMode(battleMode);
         this.setBattleType(battleType);
+        this.getBattleField().makeCells();
         Battle.setCurrentBattle(this);
     }
 

@@ -7,6 +7,17 @@ public class BattleField
     private Cell[][] battleFieldMatrix = new Cell[5][9];
     private ArrayList<NonSpellCards> allCardsInTheBattleField = new ArrayList<>();
 
+    public void makeCells()
+    {
+        for (int i = 0;i < 5;i++)
+        {
+            for (int j = 0;j < 9;j++)
+            {
+               battleFieldMatrix[i][j] = new Cell();
+            }
+        }
+    }
+
     public Cell[][] getBattleFieldMatrix()
     {
         return battleFieldMatrix;
