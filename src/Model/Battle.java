@@ -49,17 +49,17 @@ public class Battle
                 Account account1 = new Account();
                 Deck deck1 = Deck.createMainDeckForStoryAccount(1);
                 account1.addDeck(deck1);
-                return new Player(account1);
+                return new Player(account1 , true);
             case 2:
                 Account account2 = new Account();
                 Deck deck2 = Deck.createMainDeckForStoryAccount(2);
                 account2.addDeck(deck2);
-                return new Player(account2);
+                return new Player(account2 , true);
             case 3:
                 Account account3 = new Account();
                 Deck deck3 = Deck.createMainDeckForStoryAccount(3);
                 account3.addDeck(deck3);
-                return new Player(account3);
+                return new Player(account3 , true);
         }
         return null;
     }
@@ -68,7 +68,7 @@ public class Battle
     {
         Account account = new Account();
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
-        return new Player(account);
+        return new Player(account , true);
     }
 
     public static BattleMode getBattleMode(int customGameMode)
@@ -97,19 +97,21 @@ public class Battle
         item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public void moveCard(int x, int y)
-    {
+    public void moveCard(int x, int y) {
         int[][] moveAbleCells = Battle.getCurrentBattle().getSelectedCard().setMoveAbleCells();
-        if (moveAbleCells[x][y] == 1)
-        {
-            selectedCard.setRow(x);
-            selectedCard.setColumn(y);
-            this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-            System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
+        if (selectedCard.isMoveAble()) {
+            if (moveAbleCells[x][y] == 1) {
+                selectedCard.setRow(x);
+                selectedCard.setColumn(y);
+                this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
+                selectedCard.setMoveAble(false);
+            } else {
+                System.out.println("Invalid Target");
+            }
         }
-        else
-        {
-            System.out.println("Invalid Target");
+        else {
+            System.out.println("this card is not movable");
         }
     }
 
@@ -544,5 +546,20 @@ public class Battle
     public void setLoserPlayer(Player loserPlayer)
     {
         this.loserPlayer = loserPlayer;
+    }
+
+    public void AIPlayerWorks(BattleManager battleManager) {
+        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++) {
+            String randomCardName = playerTurn.getHand().getCards().get((int) (Math.random() % playerTurn.getHand().getCards().size())).getCardName();
+            battleManager.selectCard(randomCardName);
+            battleManager.CheckCircumstancesToInsertCard(selectedCard);
+        }
+        for(int counter = 1 ; counter <= 20 ; counter++){
+            selectedCard = playerTurn.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
+            NonSpellCards firstPlayerCard = firstPlayer.getInsertedCards().get((int)(Math.random() % playerTurn.getInsertedCards().size()));
+            attackToOpponent(firstPlayerCard.getCardName());
+            counterAttack(selectedCard.getCardName() , firstPlayerCard.getCardID());
+        }
+        selectedCard = null;
     }
 }
