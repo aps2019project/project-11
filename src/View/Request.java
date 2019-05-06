@@ -419,7 +419,6 @@ public class Request
             command = CommandType.MOVE_TO;
             command.rowOfTheCell = Integer.parseInt(inputParts[2]);
             command.columnOfTheCell = Integer.parseInt(inputParts[3]);
-            //todo
         }
         else if (patternUseSpecialPower.matcher(input).matches())
         {

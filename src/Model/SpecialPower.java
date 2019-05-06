@@ -91,19 +91,10 @@ public class SpecialPower
                     ownBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
                 }
             }
-            else if (target.getStartRow() >= 0 || target.getStartColumn() >= 0 || target.getEndRow() >=0 || target.getEndColumn() >=0)
+            else if (target.getStartRow() > 0 && target.getStartColumn() > 0 && target.getEndRow() > 0 && target.getEndColumn() > 0)
             {
-                //todo
+                this.getSpellEffect().addCellEffect(x, y);
             }
-            else if (target.getMaxAttackRange() > 0)
-            {
-                /// TODO
-            }
-            else if (target.getNextNoneSpellCard()!= null)
-            {
-
-            }
-
         }
     }
     public String getDescriptionTypeOfSpecialPower()

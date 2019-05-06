@@ -22,7 +22,7 @@ public class Spell extends Card
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
         spellOne.getSpellEffect().addSpellChange( new SpellChange(0 , false , true  , 0 , 0 , 0 , false , true , false , 0,false , false,false,false,false,false,false,false));
-        spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 1 , 1 , 3 , 3 ,  null,false,false,false));
+        spellOne.getSpellEffect().addTarget(new Target(0 , 0 ,false , false , 1 , 0 , 0 , 0 , 0 , 0 ,  null,false,false,false));
 
         Spell spellTwo = new Spell("areaDispel",1500,2, "removingAllBadAndGoodBuffs" );
         spellTwo.getSpellEffect().addSpellChange(new SpellChange(1,true,false, 0,0,0,false,false,true,0,false,false,false,false,false,false,false,false));
@@ -42,7 +42,7 @@ public class Spell extends Card
 
         Spell spellSix = new Spell("hellFire",600,3,"fieryHouse");
         spellSix.getSpellEffect().addSpellChange(new SpellChange(2,false,false,0,0,0,false,false,false,0,false,false,false,true,false,false,false,false));
-        spellSix.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,1 ,  1 , 3  ,  3,null,false,false,false));
+        spellSix.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,1 ,  1 , 2  ,  2,null,false,false,false));
 
         Spell spellSeven = new Spell("lightingBolt",1250,2,"impactToOpponent");
         spellSeven.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,-8,0,false,false,false,0,false,false,false,false,false,false,false,false));
@@ -50,7 +50,7 @@ public class Spell extends Card
 
         Spell spellEight = new Spell("poisonLake",900,5,"toxicHouse");
         spellEight.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,0,0,false,false,false,0,false,true,false,false,false,false,false,false));
-        spellEight.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,  1 , 1 , 4  , 4  ,null,false,false,false));
+        spellEight.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,  1 , 1 , 3  , 3  ,null,false,false,false));
 
         Spell spellNine = new Spell("madness",650,0,"addingAPButDisarm");
         spellNine.getSpellEffect().addSpellChange(new SpellChange(3,true,false,4,0,0,false,false,false,0,false,false,false,false,false,false,false,false));
@@ -125,7 +125,7 @@ public class Spell extends Card
         {
             cards.setCurrentHP(cards.getCurrentHP()-1);
         }
-        else if (isHP == false)
+        else if (!isHP)
         {
             cards.setCurrentAP(cards.getCurrentAP()-1);
         }
@@ -145,21 +145,7 @@ public class Spell extends Card
 
     }
 
-    public void effectToxicCell(int x, int y)
-    {
-        //todo
 
-    }
-
-    public void effectFieryCell(int x, int y)
-    {
-        //todo
-    }
-
-    public void effectHolyCell(int x, int y)
-    {
-        //todo
-    }
 
     public String getDescriptionTypeOfSpell()
     {
