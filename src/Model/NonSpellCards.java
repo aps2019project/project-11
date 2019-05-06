@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class NonSpellCards extends Card
 {
-    private Cell currentCell;
+    private Cell currentCell = new Cell();
     private int defaultHP;
     private int defaultAP;
     private int currentHP;
@@ -23,6 +23,8 @@ public abstract class NonSpellCards extends Card
     {
         Cell[][] cells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
         int[][] moveAbleCells = new int [5][9];
+        currentCell.setRow(this.getRow());
+        currentCell.setColumn(this.getColumn());
         for (int i = 0;i < 5;i++)
         {
             for (int j = 0;j < 9;j++)
