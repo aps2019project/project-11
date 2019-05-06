@@ -69,13 +69,11 @@ public class SpecialPower
             }
             else if (target.getNumOfOpponentBothNonSpellCards() > 0)
             {
-                 Hero opponentHero = Battle.getCurrentBattle().getOpponentHero();
-                 opponentHero.addActiveSpellOnThisCard(spellChange);
-                 ArrayList<Minion> opponentMinion = Battle.getCurrentBattle().getOpponentMinions();
-                 for (int counter = 0; counter < target.getNumOfOpponentBothNonSpellCards()-1 ; counter++)
-                 {
-                     opponentMinion.get(counter).addActiveSpellOnThisCard(spellChange);
-                 }
+                ArrayList<NonSpellCards> oppnentBothNonSpellCards = Battle.getCurrentBattle().findingOpponentNonSpellCards();
+                for (int counter = 0; counter < target.getNumOfOpponentBothNonSpellCards(); counter++)
+                {
+                    oppnentBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
+                }
             }
             else if (target.getNumOfOpponentMinions() > 0)
             {
@@ -87,17 +85,15 @@ public class SpecialPower
             }
             else if (target.getNumOfOwnBothNonSpellCards() > 0)
             {
-                    Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
-                    ArrayList<Minion> ownMinion = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
-                    hero.addActiveSpellOnThisCard(spellChange);
-                    for (int counter = 0; counter < target.getNumOfOwnBothNonSpellCards()-1 ; counter++)
-                    {
-                        ownMinion.get(counter).addActiveSpellOnThisCard(spellChange);
-                    }
+
             }
             else if (target.getStartRow() >= 0 || target.getStartColumn() >= 0 || target.getEndRow() >=0 || target.getEndColumn() >=0)
             {
                 //todo
+            }
+            else if (target.getMaxAttackRange() > 0)
+            {
+                /// TODO
             }
 
         }

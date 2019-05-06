@@ -82,7 +82,8 @@ public class Target
         return numOfOwnBothNonSpellCards;
     }
 
-    public int getStartRow() {
+    public int getStartRow()
+    {
         return startRow;
     }
 
@@ -103,7 +104,8 @@ public class Target
         return maxAttackRange;
     }
 
-    public NonSpellCards getNextNoneSpellCard() {
+    public NonSpellCards getNextNoneSpellCard()
+    {
         return nextNoneSpellCard;
     }
 

@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.*;
+import com.sun.org.apache.bcel.internal.generic.NOP;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -334,6 +335,23 @@ public class Battle
         {
             return this.getFirstPlayer().getInsertedCards();
         }
+    }
+
+    public ArrayList<NonSpellCards> findingOpponentNonSpellCards()
+    {
+        ArrayList<NonSpellCards> opponentNonSpellCards = new ArrayList<>();
+        FirstFor: for (NonSpellCards nonSpellCards :this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCards ownNonSpellCards :this.getPlayerTurn().getInsertedCards())
+            {
+                if (Integer.parseInt(nonSpellCards.getCardID())== Integer.parseInt(ownNonSpellCards.getCardID()))
+                {
+                    continue FirstFor;
+                }
+            }
+            opponentNonSpellCards.add(nonSpellCards);
+        }
+        return opponentNonSpellCards;
     }
 
     public void showGraveYardCardInfo(String cardID)
