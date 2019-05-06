@@ -60,7 +60,7 @@ public class BattleManager
         {
             for (int j = 0; j < 9; j++)
             {
-                System.out.print(matrix[i][j]);
+                System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
         }
