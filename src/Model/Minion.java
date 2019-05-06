@@ -109,46 +109,46 @@ public class Minion extends NonSpellCards
         minionSpell38.getSpellEffect().addSpellChange(new SpellChange(0, false, false, TimeToActivateSpecialPower.onDeath, 0, -6, 0, false, false, true, false, false, false, false, false, false, false));
         minionSpell38.getSpellEffect().addTarget(new Target(0, 0, false, true, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
-        new Minion("kamandar Fars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7);
-        new Minion("shamsirzan Fars", 400, 2, 6, 4 ,minionSpell2,false,ImpactType.melee, 0 );
-        new Minion("neizedar Fars", 500, 1, 5, 3, null,false, ImpactType.hybrid, 3);
-        new Minion("asbsavar Fars", 200, 4, 10, 6, null,false,ImpactType.melee, 0);
-        //new Minion("pahlavan Fars", 600, 9, 24, 6, minionSpell5,false,ImpactType.melee, 0);
-        new Minion("sepahsalar Fars", 800, 7, 12, 4, null,true,ImpactType.melee ,0);
-        new Minion("kamandar Torani", 500, 1, 3, 4,null,false,ImpactType.ranged, 5 );
-        new Minion("gholabsangdar Torani", 600, 1, 4, 2, null,false,ImpactType.ranged, 7);
-        new Minion("neizedar Torani", 600, 1, 4, 4, null,false,ImpactType.hybrid, 3);
-        new Minion("jasos Torani", 700, 4, 6, 6, minionSpell10,false, ImpactType.melee, 0);
-        new Minion("Gorzdar Torani", 450, 2, 3, 10, null, false, ImpactType.melee, 0);
-        new Minion("Shahzade Torani", 800, 6, 6, 10, null, true, ImpactType.melee, 0);
-        new Minion("Dive siah", 300, 9, 14, 10, null, false, ImpactType.hybrid, 7);
-        new Minion("Ghoul Sang Andaz", 300, 9, 12, 12, null, false, ImpactType.ranged, 7);
+        new Minion("kamandarFars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7);
+        new Minion("shamsirzanFars", 400, 2, 6, 4 ,minionSpell2,false,ImpactType.melee, 0 );
+        new Minion("neizedarFars", 500, 1, 5, 3, null,false, ImpactType.hybrid, 3);
+        new Minion("asbsavarFars", 200, 4, 10, 6, null,false,ImpactType.melee, 0);
+        //new Minion("pahlavanFars", 600, 9, 24, 6, minionSpell5,false,ImpactType.melee, 0);
+        new Minion("sepahsalarFars", 800, 7, 12, 4, null,true,ImpactType.melee ,0);
+        new Minion("kamandarTorani", 500, 1, 3, 4,null,false,ImpactType.ranged, 5 );
+        new Minion("gholabsangdarTorani", 600, 1, 4, 2, null,false,ImpactType.ranged, 7);
+        new Minion("neizedarTorani", 600, 1, 4, 4, null,false,ImpactType.hybrid, 3);
+        new Minion("jasosTorani", 700, 4, 6, 6, minionSpell10,false, ImpactType.melee, 0);
+        new Minion("GorzdarTorani", 450, 2, 3, 10, null, false, ImpactType.melee, 0);
+        new Minion("ShahzadeTorani", 800, 6, 6, 10, null, true, ImpactType.melee, 0);
+        new Minion("Divesiah", 300, 9, 14, 10, null, false, ImpactType.hybrid, 7);
+        new Minion("GhoulSangAndaz", 300, 9, 12, 12, null, false, ImpactType.ranged, 7);
         new Minion("Oghab", 200, 2, 0, 2, minionSpell15, false, ImpactType.ranged, 3);
-        new Minion("Div GorazSavar", 300, 6, 16, 8, null, false, ImpactType.melee, 0);
-        new Minion("Ghoul TakCheshm", 500, 7, 12, 11, minionSpell17, false, ImpactType.hybrid, 3);
-        new Minion("Mar Sammi", 300, 4, 5, 6, minionSpell18, false, ImpactType.ranged, 4);
-        new Minion("Ezhdehaye Atash Andaz", 250, 5, 9, 5, null, false, ImpactType.ranged, 4);
-        new Minion("Shir Darande", 600, 2, 1, 8, minionSpell20, false, ImpactType.melee, 0);
-        new Minion("Mar Ghoul Peykar", 500, 8, 14, 7, minionSpell21, false, ImpactType.ranged, 5);
-        //new Minion("Gorg Sefid" ,400 , 5 ,8 , 2 , minionSpell22);
+        new Minion("DivGorazSavar", 300, 6, 16, 8, null, false, ImpactType.melee, 0);
+        new Minion("GhoulTakCheshm", 500, 7, 12, 11, minionSpell17, false, ImpactType.hybrid, 3);
+        new Minion("MarSammi", 300, 4, 5, 6, minionSpell18, false, ImpactType.ranged, 4);
+        new Minion("EzhdehayeAtashAndaz", 250, 5, 9, 5, null, false, ImpactType.ranged, 4);
+        new Minion("ShirDarande", 600, 2, 1, 8, minionSpell20, false, ImpactType.melee, 0);
+        new Minion("MarGhoulPeykar", 500, 8, 14, 7, minionSpell21, false, ImpactType.ranged, 5);
+        //new Minion("GorgSefid" ,400 , 5 ,8 , 2 , minionSpell22);
         new Minion("Palang", 400, 4, 6, 2, minionSpell23, false, ImpactType.melee, 0);
         new Minion("Gorg", 400, 3, 6, 1, minionSpell24, false, ImpactType.melee, 0);
         new Minion("JadoGar", 550, 4, 5, 4, minionSpell25, false, ImpactType.ranged, 3);
-        new Minion("JadoGar Azam", 550, 6, 6, 6, minionSpell26, false, ImpactType.ranged, 5);
+        new Minion("JadoGarAzam", 550, 6, 6, 6, minionSpell26, false, ImpactType.ranged, 5);
         new Minion("Genn", 500, 6, 10, 4, minionSpell27, false, ImpactType.ranged, 4);
-        new Minion("Goraz Vahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0); //28
+        new Minion("GorazVahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0); //28
         new Minion("Piran", 400, 8, 20, 12, null, false, ImpactType.melee, 0);
         new Minion("Giv", 450, 4, 5, 7, null, false, ImpactType.ranged, 5); //30
         new Minion("Bahman", 450, 8, 16, 9, minionSpell31, false, ImpactType.melee, 0);
         new Minion("AshkBos", 400, 7, 14, 8, null, false, ImpactType.melee, 0); //32
         new Minion("Iraj", 500, 4, 6, 20, null, false, ImpactType.ranged, 3);
-        new Minion("Ghoul Bozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2); //34
-        new Minion("Ghoul Dosar", 550, 4, 10, 4, minionSpell35, false, ImpactType.melee, 0);
-        new Minion("Nane Sarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5); //36
-        new Minion("Folad Zereh", 650, 3, 1, 1, minionSpell37, false, ImpactType.melee, 0);
+        new Minion("GhoulBozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2); //34
+        new Minion("GhoulDosar", 550, 4, 10, 4, minionSpell35, false, ImpactType.melee, 0);
+        new Minion("NaneSarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5); //36
+        new Minion("FoladZereh", 650, 3, 1, 1, minionSpell37, false, ImpactType.melee, 0);
         new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0); //38
-        new Minion("Shah Ghoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0);
-        new Minion("Arzhang Div", 600, 3, 6, 6, null, true, ImpactType.melee, 0);  //40
+        new Minion("ShahGhoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0);
+        new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0);  //40
 
     }
 

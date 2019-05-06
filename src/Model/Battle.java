@@ -548,7 +548,10 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case MULTI_PLAYER_GAME:
-            //todo
+                victoriousPlayer.getAccount().addMoney(1000);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
         }
     }
 
@@ -575,5 +578,78 @@ public class Battle
             counterAttack(selectedCard.getCardName() , firstPlayerCard.getCardID());
         }
         selectedCard = null;
+    }
+
+
+    public void help() {
+        for(Card card : playerTurn.getInsertedCards()){
+            if(((NonSpellCards)card).isMoveAble()){
+                System.out.println(card.getCardName() + " is movable");
+            }
+        }
+        for(Card card : playerTurn.getInsertedCards()) {
+            if (((NonSpellCards) card).isAttackAble()) {
+                int[][] matrix = setAttackRangeMatrix((NonSpellCards)card);
+                for(NonSpellCards enemyCard : getOpponentPlayer().getInsertedCards() ){
+                    try {
+                        assert matrix != null;
+                        if(matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1){
+                            System.out.println(card.getCardName() + " can attack to " + enemyCard.getCardName());
+                        }
+                    }
+                    catch (Exception ignored){
+                    }
+                }
+            }
+        }
+        for(Card card : playerTurn.getHand().getCards()){
+            if(card.getPrice() <= playerTurn.getMP()){
+                System.out.println(playerTurn.getAccount().getAccountName() + " can insert " + card.getCardName());
+            }
+        }
+    }
+
+    private int[][] setAttackRangeMatrix(NonSpellCards card) {
+        switch (card.getImpactType()){
+            case melee:
+                int[][] matrix1 = new int[3][3];
+                for(int row = 0 ; row < 3 ; row++){
+                    for (int column = 0 ; column < 3 ; column++){
+                        matrix1[row][column] = 1;
+                    }
+                }
+                return matrix1;
+            case ranged:
+                int rangeOfAttack = card.getRangeOfAttack();
+                int[][] matrix2 = new int[rangeOfAttack][rangeOfAttack];
+                for(int row = 0 ; row < rangeOfAttack ; row++){
+                    for (int column = 0 ; column < rangeOfAttack ; column++){
+                        matrix2[row][column] = 1;
+                    }
+                }
+                for(int row = card.getRow() - 1 ; row <card.getRow() + 1  ; row++){
+                    for (int column = card.getColumn() - 1 ; column < card.getColumn() + 1 ; column++){
+                        matrix2[row][column] = 0;
+                    }
+                }
+                return matrix2;
+            case hybrid:
+                rangeOfAttack = card.getRangeOfAttack();
+                int[][] matrix3 = new int[rangeOfAttack][rangeOfAttack];
+                for(int row = 0 ; row < rangeOfAttack ; row++){
+                    for (int column = 0 ; column < rangeOfAttack ; column++){
+                        matrix3[row][column] = 1;
+                    }
+                }
+                return matrix3;
+        }
+        return null;
+    }
+
+    public Player getOpponentPlayer(){
+        if(playerTurn == firstPlayer){
+            return secondPlayer;
+        }
+        return firstPlayer;
     }
 }
