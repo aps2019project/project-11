@@ -192,7 +192,7 @@ public class Item implements Cloneable
         }
     }
 
-    public void applyUsableItem()
+    public void applyUsableItem(Player player)
     {
         for (int i = 0; i < this.getItemEffect().getItemTargets().size(); i++)
         {
@@ -201,13 +201,13 @@ public class Item implements Cloneable
             switch (itemTarget)
             {
                 case OWN_PLAYER:
-                    Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
+                    player.addActiveItemOnPlayer(itemChange);
                     break;
                 case OWN_HERO:
-                    Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
+                    player.getMainDeck().getHero().get(0).addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANGED_HYBRID_HERO:
-                    Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+                    Hero hero = player.getMainDeck().getHero().get(0);
                     if (hero.getImpactType() == ImpactType.ranged || hero.getImpactType() == ImpactType.hybrid)
                     {
                         hero.addActiveItemOnThisCard(itemChange);
@@ -236,7 +236,7 @@ public class Item implements Cloneable
                     ownNonSpellCard.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_MINION:
-                    for (Card card: Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards())
+                    for (Card card: player.getMainDeck().getNonHeroCards())
                     {
                         if (card instanceof Minion)
                         {

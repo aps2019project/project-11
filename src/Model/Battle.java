@@ -30,6 +30,10 @@ public class Battle
         this.setBattleType(battleType);
         this.getBattleField().makeCells();
         Battle.setCurrentBattle(this);
+        Item usableItemFirstPlayer = this.getFirstPlayer().getMainDeck().getItem().get(0);
+        usableItemFirstPlayer.applyUsableItem(this.getFirstPlayer());
+        Item usableItemSecondPlayer = this.getSecondPlayer().getMainDeck().getItem().get(0);
+        usableItemSecondPlayer.applyUsableItem(this.getSecondPlayer());
     }
 
     public static Battle getCurrentBattle()
@@ -485,8 +489,6 @@ public class Battle
     {
         this.secondPlayer = secondPlayer;
         this.getSecondPlayer().setMP();
-        Item usableItem = this.getSecondPlayer().getMainDeck().getItem().get(0);
-        usableItem.applyUsableItem();
     }
 
     public Player getFirstPlayer()
@@ -498,8 +500,6 @@ public class Battle
     {
         this.firstPlayer = firstPlayer;
         this.getFirstPlayer().setMP();
-        Item usableItem = this.getFirstPlayer().getMainDeck().getItem().get(0);
-        usableItem.applyUsableItem();
     }
 
     public Player getLoserPlayer()
