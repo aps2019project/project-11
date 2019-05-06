@@ -107,6 +107,11 @@ public class BattleManager
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
                 }
+                if (card instanceof Hero)
+                {
+                    Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((NonSpellCards) card);
+                    System.out.println("Hero sat in BattleField");
+                }
                 if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));

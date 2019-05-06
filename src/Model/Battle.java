@@ -316,7 +316,7 @@ public class Battle
         return ownNonSpellCards.get(randomMinionNumber);
     }
 
-    public Minion findRandomOwnMinionToApplyItem()
+    public NonSpellCards findRandomOwnMinionToApplyItem()
     {
         int numOfInsertedMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().size();
         int randomMinionNumber = random.nextInt(numOfInsertedMinions);
@@ -326,11 +326,11 @@ public class Battle
     public Minion findRandomOwnRangedHybridMinionToApplyItem()
     {
         ArrayList<Minion> minions = new ArrayList<>();
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (NonSpellCards minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
             if (minion.getImpactType() == ImpactType.hybrid || minion.getImpactType() == ImpactType.ranged)
             {
-                minions.add(minion);
+                minions.add((Minion) minion);
             }
         }
         int randomMinionNumber = random.nextInt(minions.size());
@@ -370,7 +370,7 @@ public class Battle
         return opponentHero;
     }
 
-    public ArrayList<Minion> getOpponentMinions()
+    public ArrayList<NonSpellCards> getOpponentMinions()
     {
         if (this.getPlayerTurn() == this.getFirstPlayer())
         {
