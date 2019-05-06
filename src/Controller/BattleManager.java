@@ -22,23 +22,38 @@ public class BattleManager
         return null;
     }
 
-    public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
-    {
-        //todo target
+    public void CheckCircumstancesToInsertCard(String cardName, int x, int y) {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
-        if (card != null)
-        {
-            if (insertCardToBattleField(card, x, y))
-            {
+        if(setMovableCellsMatrix()[x][y] != 1){
+            ShowOutput.printOutput("Invalid target");
+            return;
+        }
+        if (card != null) {
+            if (insertCardToBattleField(card, x, y)) {
                 return;
             }
+            else {
+                System.out.println();
+            }
+        } else {
+            ShowOutput.printOutput("Invalid card name");
         }
-        ShowOutput.printOutput("Invalid card name");
+    }
+
+    private int[][] setMovableCellsMatrix() {
+        int[][] matrix = new int[5][9];
+        for (NonSpellCards card: Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()){
+            for(int row = card.getRow() - 1 ; row < card.getRow() + 1 && row >= 0; row++){
+                for(int column = card.getRow() - 1 ; column< card.getRow() + 1 && column>= 0; column++) {
+                    matrix [row][column] = 1;
+                }
+            }
+        }
+        return matrix;
     }
 
     public void CheckCircumstancesToInsertCard(Card card)
     {
-        //todo target
         if (card != null)
         {
             int condition = 0;
@@ -47,7 +62,7 @@ public class BattleManager
             {
                 for (y = 0; y < 9; y++)
                 {
-                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null)
+                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setMovableCellsMatrix()[(int) x][(int) y] == 1)
                     {
                         condition = 1;
                         break;
@@ -68,23 +83,25 @@ public class BattleManager
 
     private boolean insertCardToBattleField(Card card, int x, int y)
     {
-        if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
-        {
-            card.setRow(x);
-            card.setColumn(y);
-            Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-            Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
-            if (card instanceof Minion)
-            {
-                Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+        if(!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull())) {
+            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP()) {
+                card.setRow(x);
+                card.setColumn(y);
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
+                Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
+                if (card instanceof Minion) {
+                    Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+                }
+                if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5) {
+                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
+                }
+                return true;
             }
-            if (Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().size() > 5)
-            {
-                Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(5));
-            }
-            return true;
+            ShowOutput.printOutput("You don′t have enough MP");
+            return false;
         }
-        ShowOutput.printOutput("You don′t have enough MP");
+        ShowOutput.printOutput("The selected Cell is full");
         return false;
     }
 
