@@ -11,7 +11,7 @@ public class Cell
     private boolean holyCell = false;
     private boolean toxicCell = false;
     private boolean fieryCell = false;
-    private  ArrayList<SpellChange> spellChanges = new ArrayList<>();
+    private ArrayList<SpellChange> spellChanges = new ArrayList<>();
 
     public void setCard(Card card)
     {

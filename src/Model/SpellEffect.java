@@ -16,11 +16,13 @@ public class SpellEffect
         targets.add(target);
     }
 
-    public ArrayList<SpellChange> getSpellChanges() {
+    public ArrayList<SpellChange> getSpellChanges()
+    {
         return spellChanges;
     }
 
-    public void addSpellChange(SpellChange spellChange) {
+    public void addSpellChange(SpellChange spellChange)
+    {
         spellChanges.add(spellChange);
     }
 }

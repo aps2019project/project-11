@@ -99,6 +99,10 @@ public class SpecialPower
             {
                 /// TODO
             }
+            else if (target.getNextNoneSpellCard()!= null)
+            {
+
+            }
 
         }
     }

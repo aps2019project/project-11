@@ -1,7 +1,6 @@
 package Model;
 
 import Controller.*;
-import com.sun.org.apache.bcel.internal.generic.NOP;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -24,6 +24,7 @@ public class SpellChange
     private boolean dispel;
     private boolean continuous;
     private boolean currentTurn;
+    private boolean isHP;
 
     public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff,boolean combo,boolean currentTurn)
     {
@@ -45,7 +46,7 @@ public class SpellChange
         this.currentTurn = currentTurn;
     }
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, int numOfHollyBuffs, boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery, boolean deleteAllPositiveBuff, boolean killing, boolean dispel, boolean continuous)
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, int numOfHollyBuffs, boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery, boolean deleteAllPositiveBuff, boolean killing, boolean dispel, boolean continuous,boolean isHP)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -241,5 +242,13 @@ public class SpellChange
 
     public void setCurrentTurn(boolean currentTurn) {
         this.currentTurn = currentTurn;
+    }
+
+    public boolean isHP() {
+        return isHP;
+    }
+
+    public void setHP(boolean HP) {
+        isHP = HP;
     }
 }
