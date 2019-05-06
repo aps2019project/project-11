@@ -30,7 +30,7 @@ public abstract class NonSpellCards extends Card
                 {
                     moveAbleCells[i][j] = 1;
                 }
-                if (this.getCurrentCell().isFull())
+                if (cells[i][j].isFull())
                 {
                     moveAbleCells[i][j] = 0;
                 }
