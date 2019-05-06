@@ -549,7 +549,10 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case MULTI_PLAYER_GAME:
-            //todo
+                victoriousPlayer.getAccount().addMoney(1000);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
         }
     }
 
