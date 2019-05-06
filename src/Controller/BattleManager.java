@@ -43,8 +43,8 @@ public class BattleManager
     private int[][] setMovableCellsMatrix() {
         int[][] matrix = new int[5][9];
         for (NonSpellCards card: Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()){
-            for(int row = card.getRow() - 1 ; row < card.getRow() + 1 ; row++){
-                for(int column = card.getRow() - 1 ; column< card.getRow() + 1 ; column++) {
+            for(int row = card.getRow() - 1 ; row < card.getRow() + 1 && row >= 0; row++){
+                for(int column = card.getRow() - 1 ; column< card.getRow() + 1 && column>= 0; column++) {
                     matrix [row][column] = 1;
                 }
             }

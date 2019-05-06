@@ -236,7 +236,6 @@ public class Battle
             new BattleManager().selectCard(cardID);
             attackToOpponent(enemyCardID);
         }
-        //todo //counterAttack\\
     }
 
     private void checkComboCondition(ArrayList<String> cardsIDForComboAttack)
@@ -677,9 +676,9 @@ public class Battle
                         matrix2[row][column] = 1;
                     }
                 }
-                for (int row = card.getRow() - 1; row < card.getRow() + 1; row++)
+                for (int row = card.getRow() - 1; row < card.getRow() + 1 && row >= 0; row++)
                 {
-                    for (int column = card.getColumn() - 1; column < card.getColumn() + 1; column++)
+                    for (int column = card.getColumn() - 1; column < card.getColumn() + 1 && column >= 0; column++)
                     {
                         matrix2[row][column] = 0;
                     }
