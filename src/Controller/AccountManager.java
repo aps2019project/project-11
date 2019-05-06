@@ -15,6 +15,7 @@ public class AccountManager
         {
             ShowOutput.printOutput("Enter your Password");
             Account account = new Account(userName, Request.getPassword());
+            account.addDefaultCardsToCollection(account);
             accounts.add(account);
             ShowOutput.printOutput("New Account created");
         }

@@ -7,7 +7,7 @@ public class Player
 {
     private Account account;
     private Deck mainDeck;
-    private Hand hand;
+    private Hand hand = new Hand();
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private GraveYard graveYard = new GraveYard();
     private int MP;

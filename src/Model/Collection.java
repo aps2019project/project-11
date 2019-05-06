@@ -36,9 +36,9 @@ public class Collection
         return cards;
     }
 
-    public void addCard(Card card)
+    public void addCard(Account account, Card card)
     {
-        Shop.getInstance().setCardID(card);
+        Shop.getInstance().setCardID(account, card);
         this.cards.add(card);
     }
 
@@ -47,9 +47,9 @@ public class Collection
         return items;
     }
 
-    public void addItem(Item item)
+    public void addItem(Account account, Item item)
     {
-        Shop.getInstance().setItemID(item);
+        Shop.getInstance().setItemID(account, item);
         this.items.add(item);
     }
 }

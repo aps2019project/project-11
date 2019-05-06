@@ -25,6 +25,7 @@ public class Battle
     {
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
+        this.setPlayerTurn(firstPlayer);
         this.setBattleMode(battleMode);
         this.setBattleType(battleType);
         Battle.setCurrentBattle(this);

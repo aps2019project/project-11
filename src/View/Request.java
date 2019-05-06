@@ -27,7 +27,7 @@ public class Request
     private final static Pattern patternSelect = Pattern.compile("Card id [a-zA-Z_0-9]+");
     private final static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+ [0-9]+");
     private final static Pattern patternSelectUser = Pattern.compile("Select User [a-zA-Z_0-9]+");
-    private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game [a-zA-Z_0-9]//s*[0-9]*");
+    private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game [a-zA-Z_0-9]+[\\t\\f\\r]?[0-9]*");
     private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([a-zA-Z_0-9]+)(\\s))+");
     private final static Pattern patternSelectItem = Pattern.compile("Select [a-zA-Z_0-9]+");
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");

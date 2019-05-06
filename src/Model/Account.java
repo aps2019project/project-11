@@ -20,7 +20,6 @@ public class Account
     {
         this.password = password;
         this.accountName = userName;
-        this.addDefaultCardsToCollection();
     }
 
     public Account()
@@ -28,30 +27,30 @@ public class Account
 
     }
 
-    private void addDefaultCardsToCollection()
+    public void addDefaultCardsToCollection(Account account)
     {
-        this.getCollection().addCard(Hero.findHero("Rostam"));
-        this.getCollection().addItem(Item.findItem("CrownOfWisdom"));
-        this.getCollection().addCard(Card.findCard("kamandarFars"));
-        this.getCollection().addCard(Card.findCard("kamandarFars"));
-        this.getCollection().addCard(Card.findCard("neizedarFars"));
-        this.getCollection().addCard(Card.findCard("neizedarFars"));
-        this.getCollection().addCard(Card.findCard("asbsavarFars"));
-        this.getCollection().addCard(Card.findCard("kamandarTorani"));
-        this.getCollection().addCard(Card.findCard("kamandarTorani"));
-        this.getCollection().addCard(Card.findCard("GorzdarTorani"));
-        this.getCollection().addCard(Card.findCard("gholabsangdarTorani"));
-        this.getCollection().addCard(Card.findCard("DivGorazSavar"));
-        this.getCollection().addCard(Card.findCard("Iraj"));
-        this.getCollection().addCard(Card.findCard("EzhdehayeAtashAndaz"));
-        this.getCollection().addCard(Card.findCard("GhoulBozorg"));
-        this.getCollection().addCard(Card.findCard("neizedarTorani"));
-        this.getCollection().addCard(Card.findCard("totalDisarm"));
-        this.getCollection().addCard(Card.findCard("totalDisarm"));
-        this.getCollection().addCard(Card.findCard("areaDispel"));
-        this.getCollection().addCard(Card.findCard("fireball"));
-        this.getCollection().addCard(Card.findCard("shock"));
-        this.getCollection().addCard(Card.findCard("godStrength"));
+        this.getCollection().addCard(account, Hero.findHero("Rostam"));
+        this.getCollection().addItem(account, Item.findItem("CrownOfWisdom"));
+        this.getCollection().addCard(account, Card.findCard("kamandarFars"));
+        this.getCollection().addCard(account, Card.findCard("kamandarFars"));
+        this.getCollection().addCard(account, Card.findCard("neizedarFars"));
+        this.getCollection().addCard(account, Card.findCard("neizedarFars"));
+        this.getCollection().addCard(account, Card.findCard("asbsavarFars"));
+        this.getCollection().addCard(account, Card.findCard("kamandarTorani"));
+        this.getCollection().addCard(account, Card.findCard("kamandarTorani"));
+        this.getCollection().addCard(account, Card.findCard("GorzdarTorani"));
+        this.getCollection().addCard(account, Card.findCard("gholabsangdarTorani"));
+        this.getCollection().addCard(account, Card.findCard("DivGorazSavar"));
+        this.getCollection().addCard(account, Card.findCard("Iraj"));
+        this.getCollection().addCard(account, Card.findCard("EzhdehayeAtashAndaz"));
+        this.getCollection().addCard(account, Card.findCard("GhoulBozorg"));
+        this.getCollection().addCard(account, Card.findCard("neizedarTorani"));
+        this.getCollection().addCard(account, Card.findCard("totalDisarm"));
+        this.getCollection().addCard(account, Card.findCard("totalDisarm"));
+        this.getCollection().addCard(account, Card.findCard("areaDispel"));
+        this.getCollection().addCard(account, Card.findCard("fireball"));
+        this.getCollection().addCard(account, Card.findCard("shock"));
+        this.getCollection().addCard(account, Card.findCard("godStrength"));
         addDefaultDeck();
     }
 

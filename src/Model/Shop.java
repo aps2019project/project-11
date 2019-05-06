@@ -34,13 +34,12 @@ public class Shop
 
     public void buyCard(Card card)
     {
-        Account.loggedInAccount.getCollection().addCard(card);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, card);
         Account.loggedInAccount.decreaseMoney(card.getPrice());
     }
 
-    public void setCardID(Card card)
+    public void setCardID(Account account, Card card)
     {
-        Account account = Account.loggedInAccount;
         String cardID = account.getAccountName() + "_" + card.getCardName() + "_" + account.getDefaultID();
         card.setCardID(cardID);
         account.increaseDefaultID();
@@ -48,13 +47,12 @@ public class Shop
 
      public void buyItem(Item item)
      {
-         Account.loggedInAccount.getCollection().addItem(item);
+         Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item);
          Account.loggedInAccount.decreaseMoney(item.getPrice());
      }
 
-    public void setItemID(Item item)
+    public void setItemID(Account account, Item item)
     {
-        Account account = Account.loggedInAccount;
         String itemID = account.getAccountName() + "_" + item.getItemName() + "_" + account.getDefaultID();
         item.setItemID(itemID);
         account.increaseDefaultID();
