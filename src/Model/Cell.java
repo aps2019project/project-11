@@ -106,4 +106,8 @@ public class Cell
     public void setColumn(int column) {
         this.column = column;
     }
+
+    public void remove(NonSpellCards selectedCard) {
+        this.setCard(null);
+    }
 }

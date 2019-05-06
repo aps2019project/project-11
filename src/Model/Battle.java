@@ -103,16 +103,18 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
-        int[][] moveAbleCells = Battle.getCurrentBattle().getSelectedCard().setMoveAbleCells();
+        NonSpellCards card = Battle.getCurrentBattle().getSelectedCard();
+        int[][] moveAbleCells = card.setMoveAbleCells();
         if (selectedCard.isMoveAble())
         {
             if (moveAbleCells[x][y] == 1)
             {
-                selectedCard.setRow(x);
-                selectedCard.setColumn(y);
-                this.getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-                System.out.println(selectedCard.getCardID() + " moved to " + x + " " + y);
-                selectedCard.setMoveAble(false);
+                this.getBattleField().getBattleFieldMatrix()[card.getRow()][card.getColumn()].remove(card);
+                card.setRow(x);
+                card.setColumn(y);
+                this.getBattleField().getBattleFieldMatrix()[x][y].setCard(card);
+                System.out.println(card.getCardID() + " moved to " + x + " " + y);
+                card.setMoveAble(false);
             }
             else
             {
