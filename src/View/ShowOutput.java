@@ -371,4 +371,15 @@ public class ShowOutput
         showAllDecksInfo();
         showBattleModes();
     }
+
+    public static void showMenuGraveYard()
+    {
+        System.out.println("Show Cards");
+        System.out.println("Show Info [card ID]");
+    }
+
+    public static void showMenuBattle()
+    {
+        //todo
+    }
 }

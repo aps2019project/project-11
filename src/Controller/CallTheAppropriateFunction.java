@@ -401,6 +401,9 @@ public class CallTheAppropriateFunction
                 case HELP_BATTLE:
                     Battle.getCurrentBattle().help();
                     break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuBattle();
+                    break;
                 case EXIT:
                     return;
             }
@@ -471,6 +474,9 @@ public class CallTheAppropriateFunction
             {
                 case SHOW_INFO:
                     Battle.getCurrentBattle().showGraveYardCardInfo(Request.command.cardOrItemIDInGraveYard);
+                    break;
+                case SHOW_MENU:
+                    ShowOutput.showMenuGraveYard();
                     break;
                 case SHOW_CARDS:
                     Battle.getCurrentBattle().showAllCardsInTheGraveYard();
