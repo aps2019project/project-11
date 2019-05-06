@@ -281,6 +281,7 @@ public class Battle
     public void endTurn()
     {
         //todo apply special powers
+
         checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
@@ -482,6 +483,8 @@ public class Battle
     {
         this.secondPlayer = secondPlayer;
         this.getSecondPlayer().setMP();
+        Item usableItem = this.getSecondPlayer().getMainDeck().getItem().get(0);
+        usableItem.applyUsableItem();
     }
 
     public Player getFirstPlayer()
@@ -493,6 +496,8 @@ public class Battle
     {
         this.firstPlayer = firstPlayer;
         this.getFirstPlayer().setMP();
+        Item usableItem = this.getFirstPlayer().getMainDeck().getItem().get(0);
+        usableItem.applyUsableItem();
     }
 
     public Player getLoserPlayer()
