@@ -255,6 +255,17 @@ public class Battle
         }
     }
 
+    public void checkInsertedCardsToApplySpellChange()
+    {
+        for (NonSpellCards nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        {
+            for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard())
+            {
+                //todo
+                spellChange.applySpellChangeOnCard(nonSpellCard);
+            }
+        }
+    }
     public void endTurn()
     {
         //todo apply items and special powers
