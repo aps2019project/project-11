@@ -173,7 +173,7 @@ public class Item implements Cloneable
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_MINION:
-                    minion = (Minion) Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
+                    minion = Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_PLAYER:
@@ -351,11 +351,7 @@ public class Item implements Cloneable
         return super.clone();
     }
 
-    public void setDefaultCardID()
-    {
-        Account account = Account.loggedInAccount;
-        String cardID = "SinglePlayer_" + this.getItemName() + "_" + account.getAIAccountDefaultID();
-        this.setItemID(cardID);
-        account.increaseAIAccountDefaultID();
+    public void setDefaultCardID() {
+
     }
 }
