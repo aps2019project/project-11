@@ -50,11 +50,11 @@ public class BattleManager
     private int[][] setMovableCellsMatrix()
     {
         int[][] matrix = new int[5][9];
-        for (NonSpellCards card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            generateMatrix(matrix, card);
+            generateMatrix(matrix, minion);
         }
-        Card hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+        Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
         generateMatrix(matrix, hero);
         return matrix;
     }
@@ -179,7 +179,7 @@ public class BattleManager
     {
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            if (item.getItemID() .equals(itemID))
+            if (item.getItemID().equals(itemID))
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }

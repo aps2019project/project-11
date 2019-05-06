@@ -355,7 +355,7 @@ public class CallTheAppropriateFunction
 
     private void determineBattleCommand()
     {
-        Battle.getCurrentBattle().setHeroesInBattlefield(battleManager);
+        Battle.getCurrentBattle().setHeroesInBattlefield();
         while (true)
         {
             if (Battle.getCurrentBattle().getPlayerTurn().isAIPlayer())

@@ -33,7 +33,7 @@ public class Spell extends Card
         spellThree.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,false,false,false));
 
         Spell spellFour = new Spell("fireball",400,1,"impactToOpponent");
-        spellFour.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,-4,0,false,false,false,0,false,false,false,false,false,false,false,false));
+        spellFour.getSpellEffect().addSpellChange(new SpellChange(1,true,false,0,-4,0,false,false,false,0,false,false,false,false,false,false,false,false));
         spellFour.getSpellEffect().addTarget(new Target(0,0,false,false,1,0,0,0,0,0,null,false,false,false));
 
         Spell spellFive = new Spell("godStrength",450,2,"addingAP");
@@ -45,7 +45,7 @@ public class Spell extends Card
         spellSix.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,1 ,  1 , 2  ,  2,null,false,false,false));
 
         Spell spellSeven = new Spell("lightingBolt",1250,2,"impactToOpponent");
-        spellSeven.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,-8,0,false,false,false,0,false,false,false,false,false,false,false,false));
+        spellSeven.getSpellEffect().addSpellChange(new SpellChange(1,true,false,0,-8,0,false,false,false,0,false,false,false,false,false,false,false,false));
         spellSeven.getSpellEffect().addTarget(new Target(0,0,false,true,0,0,0,0,0,0,null,false,false,false));
 
         Spell spellEight = new Spell("poisonLake",900,5,"toxicHouse");
@@ -64,9 +64,6 @@ public class Spell extends Card
         spellEleven.getSpellEffect().addSpellChange(new SpellChange(4,false,false,0,0,0,false,false,false,0,false,true,false,false,false,false,false,false));
         spellEleven.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,true,false));
 
-        //Spell spellTwelve = new Spell("dispel",2100,0,"");
-        //todo
-
         Spell spellThirteen = new Spell("healthWithProfit",2250,0,"2hollyBuffFor3turn");
         spellThirteen.getSpellEffect().addSpellChange(new SpellChange(3,false,false,0,-6,0,false,false,true,2,false,false,false,false,false,false,false,false));
         spellThirteen.getSpellEffect().addTarget(new Target(0,0,false,false,0,1,0,0,0,0,null,false,false,false));
@@ -80,7 +77,7 @@ public class Spell extends Card
         spellFifteen.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,false,true));
 
         Spell spellSixteen = new Spell("allAttack",1500,4,"impactingToAllOpponent");
-        spellSixteen.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,-6,0,false,false,false,0,false,false,false,false,false,false,false,false));
+        spellSixteen.getSpellEffect().addSpellChange(new SpellChange(1,true,false,0,-6,0,false,false,false,0,false,false,false,false,false,false,false,false));
         spellSixteen.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,true,false));
 
         Spell spellSeventeen = new Spell("weakening",1000,1,"weaknessBuff");
