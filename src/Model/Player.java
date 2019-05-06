@@ -10,6 +10,7 @@ public class Player
     private Hand hand = new Hand();
     private ArrayList<Item> collectibleItems = new ArrayList<>();
     private GraveYard graveYard = new GraveYard();
+    private int defaultMP = 2;
     private int MP;
     private ArrayList<Minion> insertedCards = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
@@ -97,8 +98,14 @@ public class Player
         return MP;
     }
 
-    public void setMP(int MP) {
-        this.MP = MP;
+    public void setMP()
+    {
+        this.MP = defaultMP;
+    }
+
+    public void increaseDefaultMP()
+    {
+        this.defaultMP = defaultMP + 1;
     }
 
     public ArrayList<ItemChange> getActiveItemsOnPlayer()

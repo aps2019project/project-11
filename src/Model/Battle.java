@@ -255,14 +255,16 @@ public class Battle
     public void endTurn()
     {
         //todo apply items and special powers
-        if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
+        this.getPlayerTurn().increaseDefaultMP();
+        if (this.getPlayerTurn() == this.getFirstPlayer())
         {
-            Battle.getCurrentBattle().setPlayerTurn(Battle.getCurrentBattle().getSecondPlayer());
+            this.setPlayerTurn(this.getSecondPlayer());
         }
         else
         {
-            Battle.getCurrentBattle().setPlayerTurn(Battle.getCurrentBattle().getFirstPlayer());
+            this.setPlayerTurn(this.getFirstPlayer());
         }
+        this.getPlayerTurn().setMP();
     }
 
     public NonSpellCards findRandomOwnForce()
@@ -453,6 +455,7 @@ public class Battle
     public void setSecondPlayer(Player secondPlayer)
     {
         this.secondPlayer = secondPlayer;
+        this.getSecondPlayer().setMP();
     }
 
     public Player getFirstPlayer()
@@ -463,6 +466,7 @@ public class Battle
     public void setFirstPlayer(Player firstPlayer)
     {
         this.firstPlayer = firstPlayer;
+        this.getFirstPlayer().setMP();
     }
 
     public BattleField getBattleField()
