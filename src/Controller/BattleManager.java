@@ -22,18 +22,19 @@ public class BattleManager
         return null;
     }
 
-    public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
-    {
+    public void CheckCircumstancesToInsertCard(String cardName, int x, int y) {
         //todo target
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
-        if (card != null)
-        {
-            if (insertCardToBattleField(card, x, y))
-            {
+        if (card != null) {
+            if (insertCardToBattleField(card, x, y)) {
                 return;
             }
+            else {
+                System.out.println();
+            }
+        } else {
+            ShowOutput.printOutput("Invalid card name");
         }
-        ShowOutput.printOutput("Invalid card name");
     }
 
     public void CheckCircumstancesToInsertCard(Card card)
@@ -68,23 +69,25 @@ public class BattleManager
 
     private boolean insertCardToBattleField(Card card, int x, int y)
     {
-        if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
-        {
-            card.setRow(x);
-            card.setColumn(y);
-            Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-            Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
-            if (card instanceof Minion)
-            {
-                Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+        if(!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull())) {
+            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP()) {
+                card.setRow(x);
+                card.setColumn(y);
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
+                Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
+                Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
+                if (card instanceof Minion) {
+                    Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+                }
+                if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5) {
+                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
+                }
+                return true;
             }
-            if (Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().size() > 5)
-            {
-                Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(5));
-            }
-            return true;
+            ShowOutput.printOutput("You don′t have enough MP");
+            return false;
         }
-        ShowOutput.printOutput("You don′t have enough MP");
+        ShowOutput.printOutput("The selected Cell is full");
         return false;
     }
 

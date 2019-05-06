@@ -108,6 +108,10 @@ public class Player
         this.defaultMP = defaultMP + 1;
     }
 
+    public void decreaseMP(int number){
+        MP -= number;
+    }
+
     public ArrayList<ItemChange> getActiveItemsOnPlayer()
     {
         return activeItemsOnPlayer;
