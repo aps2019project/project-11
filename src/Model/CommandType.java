@@ -75,6 +75,10 @@ public enum CommandType
     public String deckNameForCustomGame;
     public int customGameMode;
     public int customGameFlagNumber;
-    public  int storyGameMode = 0;
+    public int storyGameMode = 0;
+    public int insertRow;
+    public int insertColumn;
+    public String insertCardName;
+
 
 }

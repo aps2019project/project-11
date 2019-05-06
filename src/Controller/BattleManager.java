@@ -36,9 +36,8 @@ public class BattleManager
             {
                 return;
             }
-            else
-            {
-                System.out.println();
+            else {
+                System.out.println("Card insertion failed!");
             }
         }
         else
