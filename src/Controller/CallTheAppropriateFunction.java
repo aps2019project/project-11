@@ -369,8 +369,7 @@ public class CallTheAppropriateFunction
             }
             if (Battle.getCurrentBattle().isGameEnded(Request.command.storyGameMode))
             {
-                Battle.getCurrentBattle().tasksAtEndOfGame();
-                break;
+                determineAfterGameEndedCommand();
             }
             switch (Request.command)
             {
@@ -394,7 +393,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
-                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.rowOfTheCell, Request.command.columnOfTheCell);
+                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.insertRow, Request.command.insertColumn);
                     break;
                 case SHOW_COLLECTIBLES:
                     ShowOutput.showCollectibleItems();
@@ -410,6 +409,9 @@ public class CallTheAppropriateFunction
                     break;
                 case END_TURN:
                     Battle.getCurrentBattle().endTurn();
+                    break;
+                case SURRENDER:
+                    Battle.getCurrentBattle().tasksWhenSurrender();
                     break;
                 case HELP_BATTLE:
                     Battle.getCurrentBattle().help();
@@ -508,6 +510,24 @@ public class CallTheAppropriateFunction
                     break;
                 case EXIT:
                     return;
+            }
+        }
+    }
+
+    private void determineAfterGameEndedCommand()
+    {
+        while (true)
+        {
+            Request.getAfterGameEndedCommand();
+            if (Request.command == null)
+            {
+                continue;
+            }
+            switch (Request.command)
+            {
+                case END_GAME:
+                    Battle.getCurrentBattle().tasksAtEndOfGame();
+                    break;
             }
         }
     }

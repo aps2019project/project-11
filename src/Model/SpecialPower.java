@@ -6,8 +6,6 @@ public class SpecialPower
 {
     private String descriptionTypeOfSpecialPower;
     private SpellEffect spellEffect = new SpellEffect();
-    private ArrayList<Target> targets = new ArrayList<>();
-    private ArrayList<SpellChange> spellChanges = new ArrayList<>();
 
     public SpecialPower(String descriptionTypeOfSpecialPower)
     {

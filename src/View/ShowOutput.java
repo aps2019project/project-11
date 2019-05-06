@@ -233,38 +233,42 @@ public class ShowOutput
         if (card instanceof Hero)
         {
             Hero hero = (Hero) card;
+            System.out.println();
             System.out.println("Hero:");
-            System.out.print("Name:");
+            System.out.print("Name: ");
             System.out.println(hero.getCardName());
-            System.out.print("Cost:");
+            System.out.print("Cost: ");
             System.out.println(hero.getPrice());
-            System.out.print("Desc:");
+            System.out.print("Desc: ");
             System.out.println(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
         }
-        if (card instanceof Minion)
-        {
+        if (card instanceof Minion) {
             Minion minion = (Minion) card;
-            System.out.println("Minion:");
-            System.out.print("Name:");
+            System.out.println();
+            System.out.println("Minion: ");
+            System.out.print("Name: ");
             System.out.println(minion.getCardName());
-            System.out.print("HP:");
+            System.out.print("HP: ");
             System.out.print(minion.getCurrentHP());
-            System.out.print("AP:");
+            System.out.print("  AP: ");
             System.out.print(minion.getCurrentAP());
-            System.out.print("MP:");
+            System.out.print("  MP: ");
             System.out.println(minion.getRequiredMP());
-            System.out.print("Range:");
+            System.out.print("Range: ");
             System.out.println(minion.getImpactType());
-            System.out.print("Combo-ability:");
+            System.out.print("Combo-ability: ");
             System.out.println(minion.getImpactType());
-            System.out.print("Cost:");
+            System.out.print("Cost: ");
             System.out.println(minion.getPrice());
-            System.out.print("Special Power:");
-            System.out.println(minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            if (minion.getSpecialPower() != null) {
+                System.out.print("Special Power: ");
+                System.out.println(minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            }
         }
         if (card instanceof Spell)
         {
             Spell spell = (Spell) card;
+            System.out.println();
             System.out.println("Spell:");
             System.out.print("Name:");
             System.out.println(spell.getCardName());
@@ -394,6 +398,7 @@ public class ShowOutput
         System.out.println("Enter graveyard");
         System.out.println("Help");
         System.out.println("End Game");
+        System.out.println("Surrender");
         System.out.println("Exit");
         System.out.println("Show Menu");
     }

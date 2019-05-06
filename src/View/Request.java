@@ -33,7 +33,7 @@ public class Request
     private final static Pattern patternUseItem = Pattern.compile("Use [0-9]+ [0-9]+");
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [a-zA-Z_0-9]+");
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
-    private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z_0-9]+ in( [0-9]+ [0-9]+ )");
+    private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
     public static CommandType command;
 
@@ -370,6 +370,10 @@ public class Request
         else if (patternInsertCard.matcher(input).matches())
         {
             command = CommandType.INSERT_CARD;
+            command.insertRow = Integer.parseInt(inputParts[4]);
+            command.insertColumn = Integer.parseInt(inputParts[6]);
+            command.insertCardName = inputParts[1];
+
         }
         else if (input.equalsIgnoreCase("Show Hand"))
         {
@@ -394,6 +398,10 @@ public class Request
         else if (input.equalsIgnoreCase("End Turn"))
         {
             command = CommandType.END_TURN;
+        }
+        else if (input.equalsIgnoreCase("Surrender"))
+        {
+            command = CommandType.SURRENDER;
         }
         else if (input.equals("exit"))
         {
@@ -497,6 +505,19 @@ public class Request
         else if (input.equals("exit"))
         {
             command = CommandType.EXIT;
+        }
+        else
+        {
+            command = null;
+        }
+    }
+
+    public static void getAfterGameEndedCommand()
+    {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("End Game"))
+        {
+            command = CommandType.END_GAME;
         }
         else
         {
