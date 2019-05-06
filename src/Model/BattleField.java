@@ -18,6 +18,7 @@ public class BattleField
         }
     }
 
+
     public Cell[][] getBattleFieldMatrix()
     {
         return battleFieldMatrix;
