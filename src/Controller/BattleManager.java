@@ -34,6 +34,7 @@ public class BattleManager
         {
             if (insertCardToBattleField(card, x, y))
             {
+                System.out.println("card sat in the battlefield");
                 return;
             }
             else
