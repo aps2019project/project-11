@@ -266,14 +266,6 @@ public class Request
         else if (input.equalsIgnoreCase("Custom Game"))
         {
             command = CommandType.CUSTOM_GAME;
-            String line = myScanner.nextLine();
-            String[] partedLine = line.split("\\s");
-            command.deckNameForCustomGame = partedLine[2];
-            command.customGameMode = Integer.parseInt(partedLine[3]);
-            if (partedLine.length == 5)    ///I have doubt about it
-            {
-                command.customGameFlagNumber = Integer.parseInt(partedLine[4]);
-            }
         }
         else
         {
@@ -512,5 +504,16 @@ public class Request
             getStoryMatchLevel();
         }
         return Request.command.storyGameMode;
+    }
+
+    public static void getCustomGameCommands() {
+        String line = myScanner.nextLine();
+        String[] partedLine = line.split("\\s");
+        command.deckNameForCustomGame = partedLine[2];
+        command.customGameMode = Integer.parseInt(partedLine[3]);
+        if (partedLine.length == 5)    ///I have doubt about it
+        {
+            command.customGameFlagNumber = Integer.parseInt(partedLine[4]);
+        }
     }
 }
