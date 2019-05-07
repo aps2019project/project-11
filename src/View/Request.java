@@ -252,8 +252,6 @@ public class Request
 
     public static void getSinglePlayerMatchMode()
     {
-        System.out.println("Story");
-        System.out.println("Custom Game");
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Story"))
