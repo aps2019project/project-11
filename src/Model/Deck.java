@@ -96,7 +96,7 @@ public class Deck
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("kamandarFars").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("neizedarTorani").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("GorgSefid").clone(), true);
-                    deck1.addNonHeroCardToDeck((Card) Card.findCard("Gorzdar Torani").clone(), true);
+                    deck1.addNonHeroCardToDeck((Card) Card.findCard("GorzdarTorani").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("GorzdarTorani").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("Divesiah").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("GhoulTakCheshm").clone(), true);
