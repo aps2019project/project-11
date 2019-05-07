@@ -22,33 +22,59 @@ public class BattleManager
         return null;
     }
 
-    public void CheckCircumstancesToInsertCard(String cardName, int x, int y)
+    public void checkCircumstancesToInsertCard(String cardName, int x, int y)
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
-        if (setInsertAbleCellsMatrix()[x][y] != 1)
+        if (card == null)
+        {
+            ShowOutput.printOutput("Invalid card name");
+            return;
+        }
+        if (card instanceof Minion)
+        {
+            checkCircumstancesToInsertMinion((Minion) card, x, y);
+        }
+        else
+        {
+            checkCircumstancesToInsertSpell((Spell) card, x, y);
+        }
+    }
+
+    private void checkCircumstancesToInsertMinion(Minion minion, int x, int y)
+    {
+        if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
         {
             ShowOutput.printOutput("Invalid target");
             return;
         }
-        if (card != null)
+        if (insertCardToBattleField(minion, x, y))
         {
-            if (insertCardToBattleField(card, x, y))
-            {
-                System.out.println("card sat in the battlefield");
-                return;
-            }
-            else
-            {
-                System.out.println("Card insertion failed!");
-            }
+            System.out.println(minion.getCardName() + " with " + minion.getCardID() + " inserted to (" + x + ", " + y + ")");
         }
         else
         {
-            ShowOutput.printOutput("Invalid card name");
+            System.out.println("Card insertion failed!");
         }
     }
 
-    private int[][] setInsertAbleCellsMatrix()
+    private void checkCircumstancesToInsertSpell(Spell spell, int x, int y)
+    {
+        if (spell.setInsertAbleCellsToInsertSpell()[x][y] != 1)
+        {
+            ShowOutput.printOutput("Invalid target");
+            return;
+        }
+        if ()
+        {
+            System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
+        }
+        else
+        {
+            System.out.println("Card insertion failed!");
+        }
+    }
+
+    private int[][] setInsertAbleCellsMatrixForMinion()
     {
         int[][] matrix = new int[5][9];
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
@@ -95,7 +121,7 @@ public class BattleManager
             {
                 for (y = 0; y < 9; y++)
                 {
-                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setInsertAbleCellsMatrix()[(int) x][(int) y] == 1)
+                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setInsertAbleCellsMatrixForMinion()[(int) x][(int) y] == 1)
                     {
                         condition = 1;
                         break;

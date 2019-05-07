@@ -400,7 +400,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
-                    battleManager.CheckCircumstancesToInsertCard(Request.command.insertCardName, Request.command.insertRow, Request.command.insertColumn);
+                    battleManager.checkCircumstancesToInsertCard(Request.command.insertCardName, Request.command.insertRow, Request.command.insertColumn);
                     break;
                 case SHOW_COLLECTIBLES:
                     ShowOutput.showCollectibleItems();
