@@ -143,7 +143,7 @@ public class Battle
 
     public void attackToOpponent(String cardID)
     {
-        if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
         {
             System.out.println("Invalid card id");
             return;
@@ -300,6 +300,10 @@ public class Battle
         {
             this.setPlayerTurn(this.getFirstPlayer());
         }
+        for(NonSpellCards card : playerTurn.getInsertedCards()){
+            card.setMoveAble(true);
+        }
+        playerTurn.getMainDeck().getHero().get(0).setMoveAble(true);
         this.getPlayerTurn().setMP();
         checkInsertedCardsToApplySpellChange();
         checkUsedItemsToApplyItemChange();
@@ -307,6 +311,7 @@ public class Battle
         {
             itemChange.applyItemChange(this.getPlayerTurn());
         }
+        System.out.println(Battle.getCurrentBattle().getPlayerTurn().getAccount().getAccountName() + " turn");
     }
 
     public NonSpellCards findRandomOwnForce()
