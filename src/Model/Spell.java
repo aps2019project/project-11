@@ -64,6 +64,10 @@ public class Spell extends Card
         spellEleven.getSpellEffect().addSpellChange(new SpellChange(4,false,false,0,0,0,false,false,false,0,false,true,false,false,false,false,false,false));
         spellEleven.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,true,false));
 
+        Spell spellTwelve = new Spell("dispel",1500,0,"...");
+        spellTwelve.getSpellEffect().addSpellChange(new SpellChange(0,false,false,0,0,0,false,false,false,0,false,false,false,false,false,false,false,false));
+        spellTwelve.getSpellEffect().addTarget(new Target(0,0,false,false,0,0,0,0,0,0,null,false,false,false));
+
         Spell spellThirteen = new Spell("healthWithProfit",2250,0,"2hollyBuffFor3turn");
         spellThirteen.getSpellEffect().addSpellChange(new SpellChange(1,false,false,0,-6,0,false,false,false,0,false,false,false,false,false,false,false,false));
         spellThirteen.getSpellEffect().addSpellChange(new SpellChange(3,true,false,0,0,0,false,false,true,2,false,false,false,false,false,false,false,false));
@@ -102,6 +106,7 @@ public class Spell extends Card
     public int[][] setInsertAbleCellsToInsertSpell()
     {
         int[][] insertAbleCells = new int[5][9];
+        return insertAbleCells;
     }
 
     public String getDescriptionTypeOfSpell()
