@@ -140,7 +140,6 @@ public class CallTheAppropriateFunction
                     ShowOutput.shopHelp();
                     break;
                 case EXIT:
-                    ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
                     break;
             }
@@ -195,7 +194,6 @@ public class CallTheAppropriateFunction
                     ShowOutput.collectionHelp();
                     break;
                 case EXIT:
-                    ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
                     break;
             }
@@ -235,8 +233,8 @@ public class CallTheAppropriateFunction
 
     private void selectSinglePlayerMatchMode()
     {
-        System.out.println("Story");
-        System.out.println("Custom Game");
+        ShowOutput.printOutput("Story");
+        ShowOutput.printOutput("Custom Game");
         while (true)
         {
             Request.getSinglePlayerMatchMode();
