@@ -70,6 +70,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -107,6 +108,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -153,6 +155,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -225,6 +228,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -246,6 +250,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -278,6 +283,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -301,6 +307,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -328,6 +335,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -409,6 +417,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -453,6 +462,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -481,6 +491,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -508,6 +519,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
@@ -521,6 +533,7 @@ public class Request
         }
         else
         {
+            ShowOutput.printOutput("invalid command");
             command = null;
         }
     }
