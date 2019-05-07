@@ -59,19 +59,29 @@ public class BattleManager
 
     private void checkCircumstancesToInsertSpell(Spell spell, int x, int y)
     {
-        if (spell.setInsertAbleCellsToInsertSpell()[x][y] != 1)
-        {
-            ShowOutput.printOutput("Invalid target");
-            return;
-        }
-        if ()
+        NonSpellCards nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+        if (getPossibilityToInsertSpell(spell, nonSpellCard))
         {
             System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
         }
         else
         {
-            System.out.println("Card insertion failed!");
+            System.out.println("Invalid target");
         }
+    }
+
+    private boolean getPossibilityToInsertSpell(Spell spell, NonSpellCards nonSpellCard)
+    {
+        Target target = spell.getSpellEffect().getTargets().get(0);
+        if (target.isOwnHero() && nonSpellCard instanceof Hero)
+        {
+            return true;
+        }
+        else if (target.getNumOfOwnMinions() > 0 && nonSpellCard instanceof Minion)
+        {
+            return true;
+        }
+        return false;
     }
 
     private int[][] setInsertAbleCellsMatrixForMinion()

@@ -99,11 +99,6 @@ public class Spell extends Card
         spellTwenty.getSpellEffect().addTarget(new Target(0,1,false,false,1,0,0,0,0,0,null,false,false,false));
     }
 
-    public int[][] setInsertAbleCellsToInsertSpell()
-    {
-        int[][] insertAbleCells = new int[5][9];
-    }
-
     public String getDescriptionTypeOfSpell()
     {
         return descriptionTypeOfSpell;
