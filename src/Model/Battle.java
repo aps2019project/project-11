@@ -108,7 +108,8 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
-        if(x < 0 || x > 4 || y < 0 || y > 8){
+        if (x < 0 || x > 4 || y < 0 || y > 8)
+        {
             System.out.println("Invalid target");
             return;
         }
@@ -301,7 +302,8 @@ public class Battle
         {
             this.setPlayerTurn(this.getFirstPlayer());
         }
-        for(NonSpellCards card : playerTurn.getInsertedCards()){
+        for (NonSpellCards card : playerTurn.getInsertedCards())
+        {
             card.setMoveAble(true);
         }
         playerTurn.getMainDeck().getHero().get(0).setMoveAble(true);

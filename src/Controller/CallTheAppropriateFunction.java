@@ -246,10 +246,15 @@ public class CallTheAppropriateFunction
             {
                 case STORY:
                     ShowOutput.showStoryBattleInfo();
-                    Request.command.storyGameMode = Request.myScanner.nextInt();
-                    Player opponentPlayerForStory = Battle.makeStoryPlayer(Request.command.storyGameMode);
-                    BattleType battleTypeStory = getBattleTypeStory(Request.command.storyGameMode);
-                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, Battle.getBattleMode(Request.command.storyGameMode), battleTypeStory);
+                    int numberOfLevel = Request.getStoryMatchLevel();
+                    while (numberOfLevel < 1 || numberOfLevel > 3)
+                    {
+                        ShowOutput.printOutput("Entered number is invalid");
+                        numberOfLevel = Request.getStoryMatchLevel();
+                    }
+                    Player opponentPlayerForStory = Battle.makeStoryPlayer(numberOfLevel);
+                    BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
+                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, Battle.getBattleMode(numberOfLevel), battleTypeStory);
                     determineBattleCommand();
                     break;
                 case CUSTOM_GAME:

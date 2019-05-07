@@ -440,7 +440,7 @@ public class ShowOutput
 
     public static void showMenuAfterSelectCard()
     {
-        System.out.println("Move To [0-9]+ [0-9]+");
+        System.out.println("Move To [0-9]+ , [0-9]+");
         System.out.println("Attack [cardID]");
         System.out.println("Attack combo [opponentCardID] [myCardID] ...");
         System.out.println("Use special power( [0-9]+ [0-9]+ )");
@@ -470,5 +470,18 @@ public class ShowOutput
         System.out.println("Custom Game");
         System.out.println("Show Menu");
         System.out.println("Exit");
+    }
+
+    public static void printMatrixValues(int[][] moveAbleCells, String command)
+    {
+        ShowOutput.printOutput(command);
+        for (int i = 0;i < 5;i++)
+        {
+            for (int j = 0;j < 9;j++)
+            {
+                System.out.print(moveAbleCells[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

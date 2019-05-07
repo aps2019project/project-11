@@ -1,5 +1,7 @@
 package Model;
 
+import View.ShowOutput;
+
 import java.util.ArrayList;
 
 public abstract class NonSpellCards extends Card
@@ -40,6 +42,7 @@ public abstract class NonSpellCards extends Card
                 //todo
             }
         }
+        ShowOutput.printMatrixValues(moveAbleCells, "MoveAble Cells :");
         return moveAbleCells;
     }
 
