@@ -235,6 +235,8 @@ public class CallTheAppropriateFunction
 
     private void selectSinglePlayerMatchMode()
     {
+        System.out.println("Story");
+        System.out.println("Custom Game");
         while (true)
         {
             Request.getSinglePlayerMatchMode();

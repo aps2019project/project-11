@@ -127,19 +127,19 @@ public class Minion extends NonSpellCards
         new Minion("JadoGar", 550, 4, 5, 4, minionSpell25, false, ImpactType.ranged, 3);
         new Minion("JadoGarAzam", 550, 6, 6, 6, minionSpell26, false, ImpactType.ranged, 5);
         new Minion("Genn", 500, 6, 10, 4, minionSpell27, false, ImpactType.ranged, 4);
-        new Minion("GorazVahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0); //28
+        new Minion("GorazVahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0);
         new Minion("Piran", 400, 8, 20, 12, null, false, ImpactType.melee, 0);
-        new Minion("Giv", 450, 4, 5, 7, null, false, ImpactType.ranged, 5); //30
+        new Minion("Giv", 450, 4, 5, 7, null, false, ImpactType.ranged, 5);
         new Minion("Bahman", 450, 8, 16, 9, minionSpell31, false, ImpactType.melee, 0);
-        new Minion("AshkBos", 400, 7, 14, 8, null, false, ImpactType.melee, 0); //32
+        new Minion("AshkBos", 400, 7, 14, 8, null, false, ImpactType.melee, 0);
         new Minion("Iraj", 500, 4, 6, 20, null, false, ImpactType.ranged, 3);
-        new Minion("GhoulBozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2); //34
+        new Minion("GhoulBozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2);
         new Minion("GhoulDosar", 550, 4, 10, 4, minionSpell35, false, ImpactType.melee, 0);
-        new Minion("NaneSarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5); //36
+        new Minion("NaneSarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5);
         new Minion("FoladZereh", 650, 3, 1, 1, minionSpell37, false, ImpactType.melee, 0);
-        new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0); //38
+        new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0);
         new Minion("ShahGhoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0);
-        new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0);  //40
+        new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0);
 
     }
 
