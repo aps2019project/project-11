@@ -474,8 +474,8 @@ public class Battle
                 }
                 else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
                 {
-                    setVictoriousPlayer(secondPlayer);
-                    setLoserPlayer(firstPlayer);
+                    setVictoriousPlayer(firstPlayer);
+                    setLoserPlayer(secondPlayer);
                     return true;
                 }
         }

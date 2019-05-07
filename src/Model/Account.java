@@ -100,11 +100,6 @@ public class Account
         loggedInAccount = null;
     }
 
-    public void save()
-    {
-        //todo
-    }
-
     public Collection getCollection()
     {
         return collection;
