@@ -107,6 +107,10 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
+        if(x < 0 || x > 4 || y < 0 || y > 8){
+            System.out.println("Invalid target");
+            return;
+        }
         NonSpellCards card = Battle.getCurrentBattle().getSelectedCard();
         int[][] moveAbleCells = card.setMoveAbleCells();
         if (selectedCard.isMoveAble())

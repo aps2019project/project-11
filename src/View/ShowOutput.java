@@ -195,8 +195,8 @@ public class ShowOutput
         for (NonSpellCards minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
             showMinionInfoInTheBattle((Minion) minion);
-            showOwnHero(Battle.getCurrentBattle().getPlayerTurn());
         }
+        showOwnHero(Battle.getCurrentBattle().getPlayerTurn());
     }
 
     private static void showOwnHero(Player player) {
@@ -230,12 +230,13 @@ public class ShowOutput
         {
             showMinionInfoInTheBattle((Minion) minion);
         }
+        Hero hero = opponent.getMainDeck().getHero().get(0);
+        showInformationOfCards(hero.getCardID() , hero.getCardName() , hero.getCurrentHP() , hero.getRow() , hero.getColumn() , hero.getCurrentAP() , hero );
     }
 
     private static void showMinionInfoInTheBattle(Minion minion)
     {
-        showInformationOfCards(minion.getCardID(), minion.getCardName(), minion.getCurrentHP(), minion.getRow(), minion.getColumn(), minion.getCurrentAP(), Battle
-        .getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0));
+        showInformationOfCards(minion.getCardID(), minion.getCardName(), minion.getCurrentHP(), minion.getRow(), minion.getColumn(), minion.getCurrentAP(), null);
     }
 
     public static void showCardInfo(String cardID)
