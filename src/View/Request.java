@@ -25,7 +25,7 @@ public class Request
     private final static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [a-zA-Z_0-9]+");
     private final static Pattern patternShowCardInfo = Pattern.compile("Show info [a-zA-Z_0-9]+");
     private final static Pattern patternSelect = Pattern.compile("Select (.)+");
-   // private final static Pattern patternMoveTo = Pattern.compile("Move To ([0-9]+ [,] [0-9]+)");
+    // private final static Pattern patternMoveTo = Pattern.compile("Move To ([0-9]+ [,] [0-9]+)");
     private final static Pattern patternSelectUser = Pattern.compile("Select User [a-zA-Z_0-9]+");
     private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game [a-zA-Z_0-9]+[\\t\\f\\r]?[0-9]*");
     private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([a-zA-Z_0-9]+)(\\s))+");
@@ -273,18 +273,9 @@ public class Request
                 command.customGameFlagNumber = Integer.parseInt(inputParts[4]);
             }
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -297,18 +288,9 @@ public class Request
             command = CommandType.SELECT_USER;
             Request.command.username = inputParts[2];
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -325,18 +307,9 @@ public class Request
                 Request.command.numOfFlags = Integer.parseInt(inputParts[4]);
             }
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -399,10 +372,6 @@ public class Request
         {
             command = CommandType.HELP_BATTLE;
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
         else if (input.equalsIgnoreCase("End Turn"))
         {
             command = CommandType.END_TURN;
@@ -411,15 +380,7 @@ public class Request
         {
             command = CommandType.SURRENDER;
         }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
-        else
-        {
-            ShowOutput.printOutput("invalid command");
-            command = null;
-        }
+        getShowMenuAndExitCommand(input);
     }
 
     public static void getAfterSelectCardCommands()
@@ -431,7 +392,7 @@ public class Request
             command = CommandType.NORMAL_ATTACK;
             command.enemyCardIDForNormalAttack = inputParts[1];
         }
-        else if (input.contains("Move to"))
+        else if (input.contains("Move To"))
         {
             command = CommandType.MOVE_TO;
             command.rowOfTheCell = Integer.parseInt(inputParts[2]);
@@ -452,18 +413,9 @@ public class Request
                 command.cardIDsForComboAttack.add(inputParts[counter]);
             }
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -481,18 +433,9 @@ public class Request
             Request.command.rowOfTheCell = Integer.parseInt(inputParts[1]);
             Request.command.columnOfTheCell = Integer.parseInt(inputParts[2]);
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -509,18 +452,9 @@ public class Request
         {
             command = CommandType.SHOW_CARDS;
         }
-        else if (input.equalsIgnoreCase("Show menu"))
-        {
-            command = CommandType.SHOW_MENU;
-        }
-        else if (input.equals("exit"))
-        {
-            command = CommandType.EXIT;
-        }
         else
         {
-            ShowOutput.printOutput("invalid command");
-            command = null;
+            getShowMenuAndExitCommand(input);
         }
     }
 
@@ -530,6 +464,23 @@ public class Request
         if (input.equalsIgnoreCase("End Game"))
         {
             command = CommandType.END_GAME;
+        }
+        else
+        {
+            ShowOutput.printOutput("invalid command");
+            command = null;
+        }
+    }
+
+    public static void getShowMenuAndExitCommand(String input)
+    {
+        if (input.equalsIgnoreCase("Show menu"))
+        {
+            command = CommandType.SHOW_MENU;
+        }
+        else if (input.equals("exit"))
+        {
+            command = CommandType.EXIT;
         }
         else
         {
@@ -550,8 +501,7 @@ public class Request
             ShowOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
             Request.command.storyGameMode = Integer.parseInt(input);
-        }
-        catch (NumberFormatException e)
+        } catch (NumberFormatException e)
         {
             ShowOutput.printOutput("Try Again");
             getStoryMatchLevel();

@@ -440,7 +440,7 @@ public class ShowOutput
 
     public static void showMenuAfterSelectCard()
     {
-        System.out.println("Move To [0-9]+ [0-9]+");
+        System.out.println("Move To [0-9]+ , [0-9]+");
         System.out.println("Attack [cardID]");
         System.out.println("Attack combo [opponentCardID] [myCardID] ...");
         System.out.println("Use special power( [0-9]+ [0-9]+ )");
