@@ -267,7 +267,7 @@ public class Request
         {
             command = CommandType.CUSTOM_GAME;
             String line = myScanner.nextLine();
-            String[] partedLine = line.split("\\s");
+            String[] partedLine = line.split(" ");
             command.deckNameForCustomGame = partedLine[2];
             command.customGameMode = Integer.parseInt(partedLine[3]);
             if (partedLine.length == 5)    ///I have doubt about it
