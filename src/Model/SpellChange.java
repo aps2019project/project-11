@@ -98,17 +98,48 @@ public class SpellChange
         {
             Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).setCurrentHP(0);
         }
+        if (this.isCurrentTurn())
+        {
+            this.setTurnsToApplyChange(getTurnsToApplyChange());
+        }
+        if (this.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onTurn )
+        {
+            this.setTurnsToApplyChange(getTurnsToApplyChange());
+        }
         if (this.isDispel())
         {
 
         }
         if (this.isCurrentTurn())
         {
-
+            this.setTurnsToApplyChange(this.getTurnsToApplyChange());
         }
         if (this.isActivateHolyBuff())
         {
             nonSpellCard.setNumOfHolyBuffs(this.getNumOfHolyBuffs());
+        }
+        if (this.isRemoveOpponentPositiveBuffs())
+        {
+            for (int counter = 0; counter < Battle.getCurrentBattle().findingOpponentNonSpellCards().size(); counter++)
+            {
+                if (Battle.getCurrentBattle().findingOpponentNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).isPositiveChange())
+                {
+                    Battle.getCurrentBattle().findingOpponentNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).setApplyChangeUntilEndOfTheGame(false);
+                    Battle.getCurrentBattle().findingOpponentNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).setTurnsToApplyChange(0);
+                }
+
+            }
+        }
+        if (this.isRemoveOwnNegativeBuffs())
+        {
+            for (int counter = 0;counter < Battle.getCurrentBattle().findingOwnNonSpellCards().size(); counter++)
+            {
+                if (!Battle.getCurrentBattle().findingOwnNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).isPositiveChange())
+                {
+                    Battle.getCurrentBattle().findingOwnNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).setApplyChangeUntilEndOfTheGame(false);
+                    Battle.getCurrentBattle().findingOwnNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).setTurnsToApplyChange(0);
+                }
+            }
         }
         if (this.isDeleteAllPositiveBuff())
         {

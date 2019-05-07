@@ -413,8 +413,9 @@ public class ShowOutput
         System.out.println("Help");
         System.out.println("End Game");
         System.out.println("Surrender");
-        System.out.println("Exit");
         System.out.println("Show Menu");
+        System.out.println("Exit");
+
     }
 
     public static void showMenuAfterSelectItem()

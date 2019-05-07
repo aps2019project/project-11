@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.*;
+import View.ShowOutput;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -434,14 +435,14 @@ public class Battle
     public void showAllCardsInTheGraveYard()
     {
         int counter = 1;
-        System.out.println("first Player Grave Yard :");
+        ShowOutput.printOutput("first Player Grave Yard :");
         for (Card card : firstPlayer.getGraveYard().getCards())
         {
             card.printCardStats(counter);
             counter++;
         }
         counter = 1;
-        System.out.println("second Player Grave Yard :");
+        ShowOutput.printOutput("second Player Grave Yard :");
         for (Card card : secondPlayer.getGraveYard().getCards())
         {
             card.printCardStats(counter);

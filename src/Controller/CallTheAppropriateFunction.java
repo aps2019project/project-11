@@ -89,6 +89,7 @@ public class CallTheAppropriateFunction
 
     private void determineShopCommand()
     {
+
         while (true)
         {
             Request.getShopCommands();
