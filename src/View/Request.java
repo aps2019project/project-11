@@ -252,8 +252,6 @@ public class Request
 
     public static void getSinglePlayerMatchMode()
     {
-        System.out.println("Story");
-        System.out.println("Custom Game");
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Story"))
@@ -530,5 +528,21 @@ public class Request
     public static String getPassword()
     {
         return myScanner.nextLine();
+    }
+
+    public static int getStoryMatchLevel()
+    {
+        try
+        {
+            ShowOutput.printOutput("Enter Level number");
+            String input = myScanner.nextLine();
+            Request.command.storyGameMode = Integer.parseInt(input);
+        }
+        catch (NumberFormatException e)
+        {
+            ShowOutput.printOutput("Try Again");
+            getStoryMatchLevel();
+        }
+        return Request.command.storyGameMode;
     }
 }
