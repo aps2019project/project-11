@@ -77,6 +77,7 @@ public class Battle
     {
         Account account = new Account();
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
+        account.setMainDeck(DeckManager.findDeck(deckNameForCustomGame));
         return new Player(account, true);
     }
 
@@ -337,6 +338,10 @@ public class Battle
             }
         }
         int randomMinionNumber = (int) (Math.random() % ownNonSpellCards.size());
+        if (randomMinionNumber == 0)
+        {
+            return null;
+        }
         return ownNonSpellCards.get(randomMinionNumber);
     }
 

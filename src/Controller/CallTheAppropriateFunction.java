@@ -259,6 +259,7 @@ public class CallTheAppropriateFunction
                     break;
                 case CUSTOM_GAME:
                     ShowOutput.showCustomGameInfo();
+                    Request.getCustomGameCommands();
                     Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(Request.command.deckNameForCustomGame);
                     new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, Battle.getBattleMode(Request.command.customGameMode), BattleType.CUSTOM_GAME);
                     determineBattleCommand();
