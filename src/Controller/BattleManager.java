@@ -107,6 +107,7 @@ public class BattleManager {
                     Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCards) card);
                     System.out.println("Hero sat in BattleField");
                 }
+                Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCards) card);
                 if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5) {
                     Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
                 }

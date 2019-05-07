@@ -753,5 +753,7 @@ public class Battle
         firstPlayer.getMainDeck().getHero().get(0).setColumn(0);
         secondPlayer.getMainDeck().getHero().get(0).setRow(2);
         secondPlayer.getMainDeck().getHero().get(0).setColumn(8);
+        currentBattle.getBattleField().addCardInTheBattleField(firstPlayer.getMainDeck().getHero().get(0));
+        currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
     }
 }
