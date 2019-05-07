@@ -471,4 +471,17 @@ public class ShowOutput
         System.out.println("Show Menu");
         System.out.println("Exit");
     }
+
+    public static void printMatrixValues(int[][] moveAbleCells, String command)
+    {
+        ShowOutput.printOutput(command);
+        for (int i = 0;i < 5;i++)
+        {
+            for (int j = 0;j < 9;j++)
+            {
+                System.out.print(moveAbleCells[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }
