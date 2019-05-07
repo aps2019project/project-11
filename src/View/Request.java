@@ -380,7 +380,10 @@ public class Request
         {
             command = CommandType.SURRENDER;
         }
-        getShowMenuAndExitCommand(input);
+        else
+        {
+            getShowMenuAndExitCommand(input);
+        }
     }
 
     public static void getAfterSelectCardCommands()
