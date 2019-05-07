@@ -266,11 +266,13 @@ public class Request
         else if (input.equalsIgnoreCase("Custom Game"))
         {
             command = CommandType.CUSTOM_GAME;
-            command.deckNameForCustomGame = inputParts[2];
-            command.customGameMode = Integer.parseInt(inputParts[3]);
-            if (inputParts.length == 5)    ///I have doubt about it
+            String line = myScanner.nextLine();
+            String[] partedLine = line.split("\\s");
+            command.deckNameForCustomGame = partedLine[2];
+            command.customGameMode = Integer.parseInt(partedLine[3]);
+            if (partedLine.length == 5)    ///I have doubt about it
             {
-                command.customGameFlagNumber = Integer.parseInt(inputParts[4]);
+                command.customGameFlagNumber = Integer.parseInt(partedLine[4]);
             }
         }
         else
