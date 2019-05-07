@@ -146,7 +146,7 @@ public class ShowOutput
     public static void printDeckStats(Deck deck)
     {
         int counter = 1;
-        System.out.println("Heroes :");
+        ShowOutput.printOutput("Heroes :");
         for (Hero hero : deck.getHero())
         {
             ShowOutput.printHeroStats(hero, counter);

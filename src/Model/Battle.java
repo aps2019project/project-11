@@ -77,6 +77,7 @@ public class Battle
     {
         Account account = new Account();
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
+        account.setMainDeck(DeckManager.findDeck(deckNameForCustomGame));
         return new Player(account, true);
     }
 
@@ -110,7 +111,7 @@ public class Battle
     {
         if (x < 0 || x > 4 || y < 0 || y > 8)
         {
-            System.out.println("Invalid target");
+            ShowOutput.printOutput("Invalid target");
             return;
         }
         NonSpellCards card = Battle.getCurrentBattle().getSelectedCard();
@@ -128,12 +129,12 @@ public class Battle
             }
             else
             {
-                System.out.println("Invalid Target");
+                ShowOutput.printOutput("Invalid Target");
             }
         }
         else
         {
-            System.out.println("this card is not movable");
+           ShowOutput.printOutput("this card is not movable");
         }
     }
 
@@ -164,7 +165,7 @@ public class Battle
                     }
                     else
                     {
-                        System.out.println("opponent minion is unavailable for attack");
+                        ShowOutput.printOutput("opponent minion is unavailable for attack");
                     }
                 }
                 else if ((selectedCard).getImpactType() == ImpactType.ranged)
@@ -176,7 +177,7 @@ public class Battle
                     }
                     else
                     {
-                        System.out.println("opponent minion is unavailable for attack");
+                        ShowOutput.printOutput("opponent minion is unavailable for attack");
                     }
                 }
                 else if ((selectedCard).getImpactType() == ImpactType.hybrid)
@@ -270,8 +271,14 @@ public class Battle
         {
             for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard())
             {
-                //todo
-                spellChange.applySpellChangeOnCard(nonSpellCard);
+                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onAttack)
+                {
+                    spellChange.applySpellChangeOnCard(nonSpellCard);
+                }
+                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onDefend)
+                {
+
+                }
             }
         }
     }
@@ -401,6 +408,18 @@ public class Battle
         else
         {
             return this.getFirstPlayer().getInsertedCards();
+        }
+    }
+
+    public ArrayList<Minion> getOwnMinion()
+    {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
+            return this.getFirstPlayer().getInsertedCards();
+        }
+        else
+            {
+            return this.getSecondPlayer().getInsertedCards();
         }
     }
 
