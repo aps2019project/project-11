@@ -235,6 +235,7 @@ public class CallTheAppropriateFunction
 
     private void selectSinglePlayerMatchMode()
     {
+        System.out.println("You are in single player menu");
         while (true)
         {
             Request.getSinglePlayerMatchMode();
