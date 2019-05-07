@@ -140,7 +140,6 @@ public class CallTheAppropriateFunction
                     ShowOutput.shopHelp();
                     break;
                 case EXIT:
-                    ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
                     break;
             }
@@ -195,7 +194,6 @@ public class CallTheAppropriateFunction
                     ShowOutput.collectionHelp();
                     break;
                 case EXIT:
-                    ShowOutput.printMainMenuCommands();
                     determineMainMenuCommand();
                     break;
             }
