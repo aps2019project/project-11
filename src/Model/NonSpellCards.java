@@ -29,7 +29,7 @@ public abstract class NonSpellCards extends Card
         {
             for (int j = 0;j < 9;j++)
             {
-                if (this.getCurrentCell().getDistance(cells[i][j]) < 3)
+                if (Math.abs(this.currentCell.getRow() - i) + Math.abs(this.currentCell.getColumn() - j) < 3)
                 {
                     moveAbleCells[i][j] = 1;
                 }
