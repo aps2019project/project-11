@@ -464,7 +464,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showMenuAfterSelectCard();
                     break;
                 case EXIT:
-                    System.out.println("exited");
+                    ShowOutput.printOutput("exited");
                     return;
             }
 

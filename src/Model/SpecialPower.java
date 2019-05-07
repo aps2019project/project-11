@@ -42,7 +42,7 @@ public class SpecialPower
             {
                 Hero ownHero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
                 ownHero.addActiveSpellOnThisCard(spellChange);
-                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
+                ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getOwnMinion();
                 for (NonSpellCards ownMinion: ownMinions)
                 {
                     ownMinion.addActiveSpellOnThisCard(spellChange);
