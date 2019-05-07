@@ -166,7 +166,10 @@ public class Item implements Cloneable
             {
                 case OWN_RANDOM_FORCE:
                     NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
-                    ownNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    if (ownNonSpellCard != null)
+                    {
+                        ownNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    }
                     break;
                 case OWN_RANDOM_RANGED_HYBRID:
                     minion = Battle.getCurrentBattle().findRandomOwnRangedHybridMinionToApplyItem();
@@ -233,7 +236,10 @@ public class Item implements Cloneable
                     break;
                 case OWN_RANDOM_FORCE:
                     NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
-                    ownNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    if (ownNonSpellCard != null)
+                    {
+                        ownNonSpellCard.addActiveItemOnThisCard(itemChange);
+                    }
                     break;
                 case OWN_MINION:
                     for (Card card: player.getMainDeck().getNonHeroCards())

@@ -331,6 +331,10 @@ public class Battle
             }
         }
         int randomMinionNumber = (int) (Math.random() % ownNonSpellCards.size());
+        if (randomMinionNumber == 0)
+        {
+            return null;
+        }
         return ownNonSpellCards.get(randomMinionNumber);
     }
 

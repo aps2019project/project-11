@@ -86,7 +86,7 @@ public class Deck
                 case 1:
                     Deck deck1 = new Deck("storyDeck1");
                     deck1.addHeroToDeck((Hero) (Hero.findHero("Dave White")).clone(), true);
-                    deck1.addNonHeroCardToDeck((Card) Card.findCard("totalDisarm").clone() , true);
+                    deck1.addNonHeroCardToDeck((Card) Card.findCard("totalDisarm").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("lightingBolt").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("allDisarm").clone(), true);
                     deck1.addNonHeroCardToDeck((Card) Card.findCard("allPoison").clone(), true);
@@ -112,7 +112,7 @@ public class Deck
                     Deck deck2 = new Deck("storyDeck2");
                     deck2.addHeroToDeck((Hero) Hero.findHero("Zahak").clone(), true);
                     deck2.addNonHeroCardToDeck((Card) Card.findCard("areaDispel").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("empower").clone(), true).addNonHeroCardToDeck(Card.findCard("godStrength"), true).addNonHeroCardToDeck((Card) Card.findCard("madness").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("poisonLake").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("healthWithProfit").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("kingGuard").clone(), true).
-                            addNonHeroCardToDeck((Card) Card.findCard("shamsirzanFars").clone() ,true).addNonHeroCardToDeck((Card) Card.findCard("neizedarFars").clone() , true).addNonHeroCardToDeck((Card) Card.findCard("pahlavanFars").clone() , true).addNonHeroCardToDeck((Card) Card.findCard("gholabsangdarTorani").clone() , true).addNonHeroCardToDeck((Card) Card.findCard("ShahzadeTorani").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Oghab").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Oghab").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("EzhdehayeAtashAndaz").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Palang").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Genn").clone(), true).
+                            addNonHeroCardToDeck((Card) Card.findCard("shamsirzanFars").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("neizedarFars").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("pahlavanFars").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("gholabsangdarTorani").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("ShahzadeTorani").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Oghab").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Oghab").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("EzhdehayeAtashAndaz").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Palang").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Genn").clone(), true).
                             addNonHeroCardToDeck((Card) Card.findCard("Giv").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Iraj").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("ShahGhoul").clone(), true);
                     deck2.addItemToDeck((Item) Item.findItem("Soul Eater").clone(), true);
                     return deck2;
@@ -123,8 +123,7 @@ public class Deck
                             addNonHeroCardToDeck((Card) Card.findCard("DivGorazSavar").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("DivGorazSavar").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("ShirDarande").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Piran").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("Bahman").clone(), true).addNonHeroCardToDeck((Card) Card.findCard("GhoulBozorg").clone(), true);
                     deck3.addItemToDeck((Item) Item.findItem("Terror Hood").clone(), true);
             }
-        }
-        catch (CloneNotSupportedException ignored)
+        } catch (CloneNotSupportedException ignored)
         {
 
         }
