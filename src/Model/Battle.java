@@ -108,6 +108,10 @@ public class Battle
 
     public void moveCard(int x, int y)
     {
+        if(x < 0 || x > 4 || y < 0 || y > 8){
+            System.out.println("Invalid target");
+            return;
+        }
         NonSpellCards card = Battle.getCurrentBattle().getSelectedCard();
         int[][] moveAbleCells = card.setMoveAbleCells();
         if (selectedCard.isMoveAble())
@@ -140,7 +144,7 @@ public class Battle
 
     public void attackToOpponent(String cardID)
     {
-        if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
         {
             System.out.println("Invalid card id");
             return;
@@ -297,6 +301,10 @@ public class Battle
         {
             this.setPlayerTurn(this.getFirstPlayer());
         }
+        for(NonSpellCards card : playerTurn.getInsertedCards()){
+            card.setMoveAble(true);
+        }
+        playerTurn.getMainDeck().getHero().get(0).setMoveAble(true);
         this.getPlayerTurn().setMP();
         checkInsertedCardsToApplySpellChange();
         checkUsedItemsToApplyItemChange();
@@ -304,6 +312,7 @@ public class Battle
         {
             itemChange.applyItemChange(this.getPlayerTurn());
         }
+        System.out.println(Battle.getCurrentBattle().getPlayerTurn().getAccount().getAccountName() + " turn");
     }
 
     public NonSpellCards findRandomOwnForce()
@@ -745,5 +754,7 @@ public class Battle
         firstPlayer.getMainDeck().getHero().get(0).setColumn(0);
         secondPlayer.getMainDeck().getHero().get(0).setRow(2);
         secondPlayer.getMainDeck().getHero().get(0).setColumn(8);
+        currentBattle.getBattleField().addCardInTheBattleField(firstPlayer.getMainDeck().getHero().get(0));
+        currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
     }
 }

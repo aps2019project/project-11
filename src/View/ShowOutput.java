@@ -196,6 +196,23 @@ public class ShowOutput
         {
             showMinionInfoInTheBattle((Minion) minion);
         }
+        showOwnHero(Battle.getCurrentBattle().getPlayerTurn());
+    }
+
+    private static void showOwnHero(Player player) {
+        Hero hero = player.getMainDeck().getHero().get(0);
+        showInformationOfCards(hero.getCardID(), hero.getCardName(), hero.getCurrentHP(), hero.getRow(), hero.getColumn(), hero.getCurrentAP(), hero);
+    }
+
+    private static void showInformationOfCards(String cardID, String cardName, int currentHP, int row, int column, int currentAP, Hero hero) {
+        System.out.print(cardID + " : ");
+        System.out.print(cardName + ", ");
+        System.out.print("health : ");
+        System.out.print(currentHP + ", ");
+        System.out.print("location : ");
+        System.out.print("(" + row + ", " + column + "), ");
+        System.out.print("power : ");
+        System.out.println(currentAP);
     }
 
     public static void showOpponentMinions()
@@ -213,18 +230,13 @@ public class ShowOutput
         {
             showMinionInfoInTheBattle((Minion) minion);
         }
+        Hero hero = opponent.getMainDeck().getHero().get(0);
+        showInformationOfCards(hero.getCardID() , hero.getCardName() , hero.getCurrentHP() , hero.getRow() , hero.getColumn() , hero.getCurrentAP() , hero );
     }
 
     private static void showMinionInfoInTheBattle(Minion minion)
     {
-        System.out.print(minion.getCardID() + " : ");
-        System.out.print(minion.getCardName() + ", ");
-        System.out.print("health : ");
-        System.out.print(minion.getCurrentHP() + ", ");
-        System.out.print("location : ");
-        System.out.print("(" + minion.getRow() + ", " + minion.getColumn() + "), ");
-        System.out.print("power : ");
-        System.out.println(minion.getCurrentAP());
+        showInformationOfCards(minion.getCardID(), minion.getCardName(), minion.getCurrentHP(), minion.getRow(), minion.getColumn(), minion.getCurrentAP(), null);
     }
 
     public static void showCardInfo(String cardID)

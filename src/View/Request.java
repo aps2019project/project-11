@@ -24,8 +24,8 @@ public class Request
     private final static Pattern patternShopSell = Pattern.compile("sell [a-zA-Z_0-9]+");
     private final static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [a-zA-Z_0-9]+");
     private final static Pattern patternShowCardInfo = Pattern.compile("Show info [a-zA-Z_0-9]+");
-    private final static Pattern patternSelect = Pattern.compile("Card id [a-zA-Z_0-9]+");
-    private final static Pattern patternMoveTo = Pattern.compile("Move To [0-9]+ [0-9]+");
+    private final static Pattern patternSelect = Pattern.compile("Select (.)+");
+   // private final static Pattern patternMoveTo = Pattern.compile("Move To ([0-9]+ [,] [0-9]+)");
     private final static Pattern patternSelectUser = Pattern.compile("Select User [a-zA-Z_0-9]+");
     private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game [a-zA-Z_0-9]+[\\t\\f\\r]?[0-9]*");
     private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([a-zA-Z_0-9]+)(\\s))+");
@@ -356,7 +356,7 @@ public class Request
         else if (patternSelect.matcher(input).matches())
         {
             command = CommandType.SELECT;
-            command.cardOrItemID = inputParts[2];
+            command.cardOrItemID = inputParts[1];
         }
         else if (input.equalsIgnoreCase("Show collectibles"))
         {
@@ -422,11 +422,11 @@ public class Request
             command = CommandType.NORMAL_ATTACK;
             command.enemyCardIDForNormalAttack = inputParts[1];
         }
-        else if (patternMoveTo.matcher(input).matches())
+        else if (input.contains("Move to"))
         {
             command = CommandType.MOVE_TO;
             command.rowOfTheCell = Integer.parseInt(inputParts[2]);
-            command.columnOfTheCell = Integer.parseInt(inputParts[3]);
+            command.columnOfTheCell = Integer.parseInt(inputParts[4]);
         }
         else if (patternUseSpecialPower.matcher(input).matches())
         {

@@ -395,7 +395,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
-                    battleManager.CheckCircumstancesToInsertCard(Request.command.cardOrItemName, Request.command.insertRow, Request.command.insertColumn);
+                    battleManager.CheckCircumstancesToInsertCard(Request.command.insertCardName, Request.command.insertRow, Request.command.insertColumn);
                     break;
                 case SHOW_COLLECTIBLES:
                     ShowOutput.showCollectibleItems();
@@ -406,6 +406,7 @@ public class CallTheAppropriateFunction
                     break;
                 case SHOW_NEXT_CARD:
                     ShowOutput.showNextCardInfo();
+                    break;
                 case ENTER_GRAVEYARD:
                     determineGraveYardCommand();
                     break;
@@ -457,6 +458,7 @@ public class CallTheAppropriateFunction
                     ShowOutput.showMenuAfterSelectCard();
                     break;
                 case EXIT:
+                    System.out.println("exited");
                     return;
             }
 
