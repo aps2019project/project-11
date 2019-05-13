@@ -5,6 +5,8 @@ import View.*;
 
 public class DeckManager
 {
+    private ShowOutput showOutput = new ShowOutput();
+
     public static Deck findDeck(String deckName)
     {
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
@@ -21,53 +23,53 @@ public class DeckManager
     {
         for (Card deckCard : deck.getNonHeroCards())
         {
-            if (card.getCardID() == deckCard.getCardID())
+            if (card.getCardID().equals(deckCard.getCardID()))
             {
-                ShowOutput.printOutput("This card is in the deck");
+                showOutput.printOutput("This card is in the deck");
                 return;
             }
         }
         if (deck.getNonHeroCards().size() == 20)
         {
-            ShowOutput.printOutput("Deck is full");
+            showOutput.printOutput("Deck is full");
             return;
         }
-        deck.addNonHeroCardToDeck(card , false);
-        ShowOutput.printOutput("Card added to deck");
+        deck.addNonHeroCardToDeck(card, false);
+        showOutput.printOutput("Card added to deck");
     }
 
     public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero)
     {
         for (Hero deckHero : deck.getHero())
         {
-            if (hero.getHeroID() == deckHero.getHeroID())
+            if (hero.getCardID().equals(deckHero.getCardID()))
             {
-                ShowOutput.printOutput("This hero is in the deck");
+                showOutput.printOutput("This hero is in the deck");
                 return;
             }
         }
         if (deck.getHero().size() == 1)
         {
-            ShowOutput.printOutput("Deck is full");
+            showOutput.printOutput("Deck is full");
             return;
         }
-        deck.addHeroToDeck(hero ,false);
-        ShowOutput.printOutput("Card added to deck");
+        deck.addHeroToDeck(hero, false);
+        showOutput.printOutput("Card added to deck");
     }
 
     public void checkCircumstancesToAddItemToDeck(Deck deck, Item item)
     {
         for (Item deckItem : deck.getItem())
         {
-            if (item.getItemID() == deckItem.getItemID())
+            if (item.getItemID().equals(deckItem.getItemID()))
             {
-                ShowOutput.printOutput("This item is in the deck");
+                showOutput.printOutput("This item is in the deck");
                 return;
             }
         }
         if (deck.getItem().size() == 1)
         {
-            ShowOutput.printOutput("Deck is full");
+            showOutput.printOutput("Deck is full");
             return;
         }
         deck.addItemToDeck(item, false);
@@ -80,11 +82,11 @@ public class DeckManager
             if (card.getCardName().equals(deckCard.getCardName()))
             {
                 deck.deleteNonHeroCardFromDeck(card);
-                ShowOutput.printOutput("Card removed from deck");
+                showOutput.printOutput("Card removed from deck");
                 return;
             }
         }
-        ShowOutput.printOutput("This card isn't in the deck");
+        showOutput.printOutput("This card isn't in the deck");
     }
 
     public void searchDecksToRemoveNonHeroCardOnSale(Card card)
@@ -106,14 +108,14 @@ public class DeckManager
     {
         for (Hero deckHero : deck.getHero())
         {
-            if (hero.getHeroID() == deckHero.getHeroID())
+            if (hero.getCardID().equals(deckHero.getCardID()))
             {
                 deck.deleteHeroFromDeck(hero);
-                ShowOutput.printOutput("Card removed from deck");
+                showOutput.printOutput("Card removed from deck");
                 return;
             }
         }
-        ShowOutput.printOutput("This hero isn't in the deck");
+        showOutput.printOutput("This hero isn't in the deck");
     }
 
     public void searchDecksToRemoveHeroOnSale(Hero hero)
@@ -122,7 +124,7 @@ public class DeckManager
         {
             for (Hero deckHero : deck.getHero())
             {
-                if (hero.getHeroID() == deckHero.getHeroID())
+                if (hero.getCardID().equals(deckHero.getCardID()))
                 {
                     deck.deleteHeroFromDeck(hero);
                     return;
@@ -135,13 +137,13 @@ public class DeckManager
     {
         for (Item deckItem : deck.getItem())
         {
-            if (item.getItemID() == deckItem.getItemID())
+            if (item.getItemID().equals(deckItem.getItemID()))
             {
                 deck.deleteItemFromDeck(item);
                 return;
             }
         }
-        ShowOutput.printOutput("This item isn't in the deck");
+        showOutput.printOutput("This item isn't in the deck");
     }
 
     public void searchDecksToRemoveItemOnSale(Item item)
@@ -150,7 +152,7 @@ public class DeckManager
         {
             for (Item deckItem : deck.getItem())
             {
-                if (item.getItemID() == deckItem.getItemID())
+                if (item.getItemID().equals(deckItem.getItemID()))
                 {
                     deck.deleteItemFromDeck(item);
                     return;
@@ -166,18 +168,18 @@ public class DeckManager
         {
             if (deck.getNonHeroCards().size() == 20 && deck.getHero().size() == 1)
             {
-                ShowOutput.printOutput("Deck is valid");
+                showOutput.printOutput("Deck is valid");
                 return true;
             }
             else
             {
-                ShowOutput.printOutput("Deck isn't valid");
+                showOutput.printOutput("Deck isn't valid");
                 return false;
             }
         }
         else
         {
-            ShowOutput.printOutput("There is no deck with this name");
+            showOutput.printOutput("There is no deck with this name");
         }
         return false;
     }
@@ -188,7 +190,7 @@ public class DeckManager
         {
             Deck deck = DeckManager.findDeck(deckName);
             Account.loggedInAccount.setMainDeck(deck);
-            ShowOutput.printOutput("MainDeck set");
+            showOutput.printOutput("MainDeck set");
         }
     }
 }

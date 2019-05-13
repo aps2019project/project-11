@@ -6,6 +6,7 @@ import View.ShowOutput;
 public class CollectionManager
 {
     private DeckManager deckManager = new DeckManager();
+    private ShowOutput showOutput = new ShowOutput();
 
     public void detectID(String ID, String deckName, String command)
     {
@@ -23,7 +24,7 @@ public class CollectionManager
         }
         else
         {
-            ShowOutput.printOutput("There is no deck with this name");
+            showOutput.printOutput("There is no deck with this name");
         }
     }
 
@@ -46,7 +47,7 @@ public class CollectionManager
                     return;
                 }
             }
-            ShowOutput.printOutput("This card isn't in the collection");
+            showOutput.printOutput("This card isn't in the collection");
         }
         else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
@@ -58,11 +59,11 @@ public class CollectionManager
                     return;
                 }
             }
-            ShowOutput.printOutput("This item isn't in the collection");
+            showOutput.printOutput("This item isn't in the collection");
         }
         else
         {
-            ShowOutput.printOutput("Invalid ID");
+            showOutput.printOutput("Invalid ID");
         }
     }
 
@@ -85,7 +86,7 @@ public class CollectionManager
                     return;
                 }
             }
-            ShowOutput.printOutput("This card isn't in the collection");
+            showOutput.printOutput("This card isn't in the collection");
         }
         else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
@@ -97,11 +98,11 @@ public class CollectionManager
                     return;
                 }
             }
-            ShowOutput.printOutput("This item isn't in the collection");
+            showOutput.printOutput("This item isn't in the collection");
         }
         else
         {
-            ShowOutput.printOutput("Invalid ID");
+            showOutput.printOutput("Invalid ID");
         }
     }
 
@@ -112,8 +113,8 @@ public class CollectionManager
         {
             if (card.getCardName().equals(name))
             {
-                ShowOutput.printOutput("Card exists in the collection");
-                ShowOutput.printOutput("Card ID : " + card.getCardID());
+                showOutput.printOutput("Card exists in the collection");
+                showOutput.printOutput("Card ID : " + card.getCardID());
                 existInTheCollection = true;
             }
         }
@@ -121,14 +122,14 @@ public class CollectionManager
         {
             if (item.getItemName().equals(name))
             {
-                ShowOutput.printOutput("Item exists in the collection");
-                ShowOutput.printOutput("Item ID : " + item.getItemID());
+                showOutput.printOutput("Item exists in the collection");
+                showOutput.printOutput("Item ID : " + item.getItemID());
                 existInTheCollection = true;
             }
         }
         if (!existInTheCollection)
         {
-            ShowOutput.printOutput("The item or card doesn't exist in the collection");
+            showOutput.printOutput("The item or card doesn't exist in the collection");
         }
     }
 
@@ -137,12 +138,12 @@ public class CollectionManager
         Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
         {
-            ShowOutput.printOutput("Deck exists with this name");
+            showOutput.printOutput("Deck exists with this name");
             return;
         }
         Deck newDeck = new Deck(deckName);
         Account.loggedInAccount.addDeck(newDeck);
-        ShowOutput.printOutput("Deck created");
+        showOutput.printOutput("Deck created");
     }
 
     public void deleteDeck(String deckName)
@@ -151,11 +152,11 @@ public class CollectionManager
         if (deck != null)
         {
             Account.loggedInAccount.deleteDeck(deck);
-            ShowOutput.printOutput("Deck deleted");
+            showOutput.printOutput("Deck deleted");
         }
         else
         {
-            ShowOutput.printOutput("There is no deck with this name");
+            showOutput.printOutput("There is no deck with this name");
         }
     }
 }

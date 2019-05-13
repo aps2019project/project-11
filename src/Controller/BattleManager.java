@@ -5,6 +5,7 @@ import View.ShowOutput;
 
 public class BattleManager
 {
+    private ShowOutput showOutput = new ShowOutput();
 
     public Player selectSecondPlayer(String userName)
     {
@@ -15,10 +16,10 @@ public class BattleManager
             {
                 return new Player(account, false);
             }
-            ShowOutput.printOutput("second player has no valid MainDeck");
+            showOutput.printOutput("second player has no valid MainDeck");
             return null;
         }
-        ShowOutput.printOutput("Invalid UserName");
+        showOutput.printOutput("Invalid UserName");
         return null;
     }
 
@@ -27,7 +28,7 @@ public class BattleManager
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
         if (card == null)
         {
-            ShowOutput.printOutput("Invalid card name");
+            showOutput.printOutput("Invalid card name");
             return;
         }
         if (card instanceof Minion)
@@ -44,7 +45,7 @@ public class BattleManager
     {
         if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
         {
-            ShowOutput.printOutput("Invalid target");
+            showOutput.printOutput("Invalid target");
             return;
         }
         if (insertCardToBattleField(minion, x, y))
@@ -77,11 +78,8 @@ public class BattleManager
         {
             return true;
         }
-        else if (target.getNumOfOwnMinions() > 0 && nonSpellCard instanceof Minion)
-        {
-            return true;
-        }
-        return false;
+        else
+            return target.getNumOfOwnMinions() > 0 && nonSpellCard instanceof Minion;
     }
 
     private int[][] setInsertAbleCellsMatrixForMinion()
@@ -98,7 +96,7 @@ public class BattleManager
         {
             matrix[card.getRow()][card.getColumn()] = 0;
         }
-        ShowOutput.printMatrixValues(matrix, "InsertAble Cells :");
+        showOutput.printMatrixValues(matrix, "InsertAble Cells :");
         return matrix;
     }
 
@@ -126,7 +124,7 @@ public class BattleManager
         if (card != null)
         {
             int condition = 0;
-            double x = 0, y = 0;
+            double x, y = 0;
             for (x = 0; x < 5; x++)
             {
                 for (y = 0; y < 9; y++)
@@ -147,7 +145,7 @@ public class BattleManager
                 return;
             }
         }
-        ShowOutput.printOutput("Invalid card name");
+        showOutput.printOutput("Invalid card name");
     }
 
     public boolean insertCardToBattleField(Card card, int x, int y)
@@ -178,10 +176,10 @@ public class BattleManager
                 }
                 return true;
             }
-            ShowOutput.printOutput("You don′t have enough MP");
+            showOutput.printOutput("You don′t have enough MP");
             return false;
         }
-        ShowOutput.printOutput("The selected Cell is full");
+        showOutput.printOutput("The selected Cell is full");
         return false;
     }
 
@@ -193,7 +191,7 @@ public class BattleManager
             NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
-                ShowOutput.printOutput("Selected Card doesn't have special power");
+                showOutput.printOutput("Selected Card doesn't have special power");
             }
             else
             {
@@ -225,7 +223,7 @@ public class BattleManager
                 return;
             }
         }
-        ShowOutput.printOutput("Invalid card id");
+        showOutput.printOutput("Invalid card id");
     }
 
 

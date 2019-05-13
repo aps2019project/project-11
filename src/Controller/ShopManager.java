@@ -5,14 +5,15 @@ import View.*;
 
 public class ShopManager
 {
+    private ShowOutput showOutput = new ShowOutput();
+
     public void searchShop(String name)
     {
         for (Card card : Shop.getInstance().getCards())
         {
             if (card.getCardName().equals(name))
             {
-                ShowOutput.printOutput("The card exists in the shop.");
-                ShowOutput.printOutput("CardID : " + card.getCardID());
+                showOutput.printOutput("The card exists in the shop.");
                 return;
             }
         }
@@ -20,24 +21,23 @@ public class ShopManager
         {
             if (item.getItemName().equals(name))
             {
-                ShowOutput.printOutput("The item exists in the shop.");
-                ShowOutput.printOutput("ItemID : " + item.getItemID());
+                showOutput.printOutput("The item exists in the shop.");
                 return;
             }
         }
-        ShowOutput.printOutput("The item or card doesn't exist in the shop.");
+        showOutput.printOutput("The item or card doesn't exist in the shop.");
     }
 
     public void buyCard(Card card)
     {
         if (card.getPrice() > Account.loggedInAccount.getMoney())
         {
-            ShowOutput.printOutput("you haven't enough money.");
+            showOutput.printOutput("you haven't enough money.");
         }
         else
         {
             Shop.getInstance().buyCard(card);
-            ShowOutput.printOutput("Successful purchase");
+            showOutput.printOutput("Successful purchase");
         }
     }
 
@@ -45,16 +45,16 @@ public class ShopManager
     {
         if (item.getPrice() > Account.loggedInAccount.getMoney())
         {
-            ShowOutput.printOutput("you haven't enough money.");
+            showOutput.printOutput("you haven't enough money.");
         }
         else if (Account.loggedInAccount.getCollection().getItems().size() == 3)
         {
-            ShowOutput.printOutput("You have 3 items in your collection and you can't buy another item.");
+            showOutput.printOutput("You have 3 items in your collection and you can't buy another item.");
         }
         else
         {
             Shop.getInstance().buyItem(item);
-            ShowOutput.printOutput("Successful purchase");
+            showOutput.printOutput("Successful purchase");
         }
     }
 
@@ -76,10 +76,10 @@ public class ShopManager
                 return;
             }
         }
-        ShowOutput.printOutput("You haven't Card or Item with this ID!");
+        showOutput.printOutput("You haven't Card or Item with this ID!");
     }
 
-    public void removeCardFromDeckToSell(Card cardToSell)
+    private void removeCardFromDeckToSell(Card cardToSell)
     {
         if (cardToSell instanceof Hero)
         {
@@ -90,13 +90,13 @@ public class ShopManager
             new DeckManager().searchDecksToRemoveNonHeroCardOnSale(cardToSell);
         }
         Shop.getInstance().sellCard(cardToSell);
-        ShowOutput.printOutput("Successful Sale");
+        showOutput.printOutput("Successful Sale");
     }
 
-    public void removeItemFromDeckToSell(Item itemToSell)
+    private void removeItemFromDeckToSell(Item itemToSell)
     {
         new DeckManager().searchDecksToRemoveItemOnSale(itemToSell);
         Shop.getInstance().sellItem(itemToSell);
-        ShowOutput.printOutput("Successful Sale");
+        showOutput.printOutput("Successful Sale");
     }
 }

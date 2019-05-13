@@ -35,237 +35,246 @@ public class Request
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
-    public static CommandType command;
+    private CommandType command;
 
-    public static void getMainMenuCommands()
+    public CommandType getCommand()
+    {
+        return command;
+    }
+
+    private void setCommand(CommandType command)
+    {
+        this.command = command;
+    }
+
+    public void getMainMenuCommands()
     {
         String input = myScanner.nextLine();
         if (input.equalsIgnoreCase("Enter Shop"))
         {
-            command = CommandType.ENTER_SHOP;
+            setCommand(CommandType.ENTER_SHOP);
         }
         else if (input.equalsIgnoreCase("Enter Collection"))
         {
-            command = CommandType.ENTER_COLLECTION;
+            setCommand(CommandType.ENTER_COLLECTION);
         }
         else if (input.equalsIgnoreCase("Enter Battle"))
         {
-            command = CommandType.ENTER_BATTLE;
+            setCommand(CommandType.ENTER_BATTLE);
         }
         else if (input.equalsIgnoreCase("save"))
         {
-            command = CommandType.SAVE;
+            setCommand(CommandType.SAVE);
         }
         else if (input.equalsIgnoreCase("logout"))
         {
-            command = CommandType.LOGOUT;
+            setCommand(CommandType.LOGOUT);
         }
         else if (input.equalsIgnoreCase("Help"))
         {
-            command = CommandType.HELP;
+            setCommand(CommandType.HELP);
         }
         else if (input.equalsIgnoreCase("Exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getSpellMakingCommand()
+    public void getCardMakingCommand()
     {
         //phase 2
     }
 
-    public static void getAccountCommands()
+    public void getAccountCommands()
     {
         String input = myScanner.nextLine();
         String[] separatedInput = input.split(" ");
         if (input.equalsIgnoreCase("Exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else if (patternCreateAccount.matcher(input).matches())
         {
-            command = CommandType.CREATE_ACCOUNT;
-            command.username = separatedInput[2];
+            setCommand(CommandType.CREATE_ACCOUNT);
+            getCommand().username = separatedInput[2];
         }
         else if (patternAccountLogin.matcher(input).matches())
         {
-            command = CommandType.LOGIN;
-            command.username = separatedInput[1];
+            setCommand(CommandType.LOGIN);
+            getCommand().username = separatedInput[1];
         }
         else if (input.equalsIgnoreCase("show leaderBoard"))
         {
-            command = CommandType.SHOW_LEADER_BOARD;
+            setCommand(CommandType.SHOW_LEADER_BOARD);
         }
         else if (input.equalsIgnoreCase("help"))
         {
-            command = CommandType.HELP;
+            setCommand(CommandType.HELP);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getShopCommands()
+    public void getShopCommands()
     {
         String input = myScanner.nextLine();
         String[] partedInput = input.split("\\s");
         if (input.equals("exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else if (input.equals("show collection"))
         {
-            command = CommandType.SHOW_COLLECTION;
+            setCommand(CommandType.SHOW_COLLECTION);
         }
         else if (patternSearch.matcher(input).matches())
         {
-            command = CommandType.SEARCH;
-            command.cardOrItemName = partedInput[1];
+            setCommand(CommandType.SEARCH);
+            getCommand().cardOrItemName = partedInput[1];
         }
         else if (patternShopSearchCollection.matcher(input).matches())
         {
-            command = CommandType.SEARCH_COLLECTION;
-            command.cardOrItemName = partedInput[2];
+            setCommand(CommandType.SEARCH_COLLECTION);
+            getCommand().cardOrItemName = partedInput[2];
         }
         else if (patternShopBuy.matcher(input).matches())
         {
-            command = CommandType.BUY;
-            command.cardOrItemName = partedInput[1];
+            setCommand(CommandType.BUY);
+            getCommand().cardOrItemName = partedInput[1];
         }
         else if (patternShopSell.matcher(input).matches())
         {
-            command = CommandType.SELL;
-            command.cardOrItemID = partedInput[1];
+            setCommand(CommandType.SELL);
+            getCommand().cardOrItemID = partedInput[1];
         }
         else if (input.equals("show"))
         {
-            command = CommandType.SHOW;
+            setCommand(CommandType.SHOW);
         }
         else if (input.equals("help"))
         {
-            command = CommandType.HELP;
+            setCommand(CommandType.HELP);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getCollectionCommands()
+    public void getCollectionCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (input.equals("show"))
         {
-            command = CommandType.SHOW;
+            setCommand(CommandType.SHOW);
         }
         else if (patternSearch.matcher(input).matches())
         {
-            command = CommandType.SEARCH;
-            command.cardOrItemName = inputParts[1];
+            setCommand(CommandType.SEARCH);
+            getCommand().cardOrItemName = inputParts[1];
         }
         else if (input.equals("save"))
         {
-            command = CommandType.SAVE;
+            setCommand(CommandType.SAVE);
         }
         else if (patternCreateDeck.matcher(input).matches())
         {
-            command = CommandType.CREATE_DECK;
-            command.deckName = inputParts[2];
+            setCommand(CommandType.CREATE_DECK);
+            getCommand().deckName = inputParts[2];
         }
         else if (patternDeleteDeck.matcher(input).matches())
         {
-            command = CommandType.DELETE_DECK;
-            command.deckName = inputParts[2];
+            setCommand(CommandType.DELETE_DECK);
+            getCommand().deckName = inputParts[2];
         }
         else if (patternAddCardToDeck.matcher(input).matches())
         {
-            command = CommandType.ADD_TO_DECK;
-            command.deckName = inputParts[4];
-            command.cardOrItemID = inputParts[1];
+            setCommand(CommandType.ADD_TO_DECK);
+            getCommand().deckName = inputParts[4];
+            getCommand().cardOrItemID = inputParts[1];
         }
         else if (patternRemoveCardFromDeck.matcher(input).matches())
         {
-            command = CommandType.REMOVE_FROM_DECK;
-            command.deckName = inputParts[4];
-            command.cardOrItemID = inputParts[1];
+            setCommand(CommandType.REMOVE_FROM_DECK);
+            getCommand().deckName = inputParts[4];
+            getCommand().cardOrItemID = inputParts[1];
         }
         else if (patternValidateDeck.matcher(input).matches())
         {
-            command = CommandType.VALIDATE_DECK;
-            command.deckName = inputParts[2];
+            setCommand(CommandType.VALIDATE_DECK);
+            getCommand().deckName = inputParts[2];
         }
         else if (patternSelectMainDeck.matcher(input).matches())
         {
-            command = CommandType.SET_MAIN_DECK;
-            command.deckName = inputParts[2];
+            setCommand(CommandType.SET_MAIN_DECK);
+            getCommand().deckName = inputParts[2];
         }
         else if (patternShowDeck.matcher(input).matches())
         {
-            command = CommandType.SHOW_DECK;
-            command.deckName = inputParts[2];
+            setCommand(CommandType.SHOW_DECK);
+            getCommand().deckName = inputParts[2];
         }
         else if (input.equals("show all decks"))
         {
-            command = CommandType.SHOW_ALL_DECKS;
+            setCommand(CommandType.SHOW_ALL_DECKS);
         }
         else if (input.equals("help"))
         {
-            command = CommandType.HELP;
+            setCommand(CommandType.HELP);
         }
         else if (input.equals("exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getBattleMenuCommands()
+    public void getBattleMenuCommands()
     {
         String input = myScanner.nextLine();
         if (input.equalsIgnoreCase("Single Player"))
         {
-            command = CommandType.SINGLE_PLAYER;
+            setCommand(CommandType.SINGLE_PLAYER);
         }
         else if (input.equalsIgnoreCase("Multi Player"))
         {
-            command = CommandType.MULTI_PLAYER;
+            setCommand(CommandType.MULTI_PLAYER);
         }
         else if (input.equals("exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getSinglePlayerMatchMode()
+    public void getSinglePlayerMatchMode()
     {
         String input = myScanner.nextLine();
-        String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Story"))
         {
-            command = CommandType.STORY;
+            setCommand(CommandType.STORY);
         }
         else if (input.equalsIgnoreCase("Custom Game"))
         {
-            command = CommandType.CUSTOM_GAME;
+            setCommand(CommandType.CUSTOM_GAME);
         }
         else
         {
@@ -273,14 +282,14 @@ public class Request
         }
     }
 
-    public static void getSecondPlayerInMultiPlayerMatch()
+    public void getSecondPlayerInMultiPlayerMatch()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (patternSelectUser.matcher(input).matches())
         {
-            command = CommandType.SELECT_USER;
-            Request.command.username = inputParts[2];
+            setCommand(CommandType.SELECT_USER);
+            getCommand().username = inputParts[2];
         }
         else
         {
@@ -288,17 +297,17 @@ public class Request
         }
     }
 
-    public static void getMultiPlayerMatchMode()
+    public void getMultiPlayerMatchMode()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (patternStartMultiPlayerGame.matcher(input).matches())
         {
-            command = CommandType.START_MULTI_PLAYER_GAME;
-            Request.command.multiPlayerMatchMode = inputParts[3];
+            setCommand(CommandType.START_MULTI_PLAYER_GAME);
+            getCommand().multiPlayerMatchMode = inputParts[3];
             if (inputParts.length > 4)
             {
-                Request.command.numOfFlags = Integer.parseInt(inputParts[4]);
+                getCommand().numOfFlags = Integer.parseInt(inputParts[4]);
             }
         }
         else
@@ -307,72 +316,72 @@ public class Request
         }
     }
 
-    public static void getBattleCommands()
+    public void getBattleCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Game Info"))
         {
-            command = CommandType.GAME_INFO;
+            setCommand(CommandType.GAME_INFO);
         }
         else if (input.equalsIgnoreCase("Show My Minions"))
         {
-            command = CommandType.SHOW_MY_MINIONS;
+            setCommand(CommandType.SHOW_MY_MINIONS);
         }
         else if (input.equalsIgnoreCase("Show Opponent Minions"))
         {
-            command = CommandType.SHOW_OPPONENT_MINIONS;
+            setCommand(CommandType.SHOW_OPPONENT_MINIONS);
         }
         else if (patternShowCardInfo.matcher(input).matches())
         {
-            command = CommandType.SHOW_CARD_INFO;
-            command.cardOrItemID = inputParts[3];
+            setCommand(CommandType.SHOW_CARD_INFO);
+            getCommand().cardOrItemID = inputParts[3];
         }
         else if (patternSelect.matcher(input).matches())
         {
-            command = CommandType.SELECT;
-            command.cardOrItemID = inputParts[1];
+            setCommand(CommandType.SELECT);
+            getCommand().cardOrItemID = inputParts[1];
         }
         else if (input.equalsIgnoreCase("Show collectibles"))
         {
-            command = CommandType.SHOW_COLLECTIBLES;
+            setCommand(CommandType.SHOW_COLLECTIBLES);
         }
         else if (patternSelectItem.matcher(input).matches())
         {
-            command = CommandType.SELECT_ITEM;
-            Request.command.cardOrItemID = inputParts[1];
+            setCommand(CommandType.SELECT_ITEM);
+            getCommand().cardOrItemID = inputParts[1];
         }
         else if (patternInsertCard.matcher(input).matches())
         {
-            command = CommandType.INSERT_CARD;
-            command.insertRow = Integer.parseInt(inputParts[4]);
-            command.insertColumn = Integer.parseInt(inputParts[6]);
-            command.insertCardName = inputParts[1];
+            setCommand(CommandType.INSERT_CARD);
+            getCommand().insertRow = Integer.parseInt(inputParts[4]);
+            getCommand().insertColumn = Integer.parseInt(inputParts[6]);
+            getCommand().insertCardName = inputParts[1];
 
         }
         else if (input.equalsIgnoreCase("Show Hand"))
         {
-            command = CommandType.SHOW_HAND;
+            setCommand(CommandType.SHOW_HAND);
         }
         else if (input.equalsIgnoreCase("Show Next Card"))
         {
-            command = CommandType.SHOW_NEXT_CARD;
+            setCommand(CommandType.SHOW_NEXT_CARD);
         }
         else if (input.equalsIgnoreCase("Enter graveyard"))
         {
-            command = CommandType.ENTER_GRAVEYARD;
+            setCommand(CommandType.ENTER_GRAVEYARD);
         }
         else if (input.equalsIgnoreCase("Help"))
         {
-            command = CommandType.HELP_BATTLE;
+            setCommand(CommandType.HELP_BATTLE);
         }
         else if (input.equalsIgnoreCase("End Turn"))
         {
-            command = CommandType.END_TURN;
+            setCommand(CommandType.END_TURN);
         }
         else if (input.equalsIgnoreCase("Surrender"))
         {
-            command = CommandType.SURRENDER;
+            setCommand(CommandType.SURRENDER);
         }
         else
         {
@@ -380,34 +389,34 @@ public class Request
         }
     }
 
-    public static void getAfterSelectCardCommands()
+    public void getAfterSelectCardCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (patternNormalAttack.matcher(input).matches())
         {
-            command = CommandType.NORMAL_ATTACK;
-            command.enemyCardIDForNormalAttack = inputParts[1];
+            setCommand(CommandType.NORMAL_ATTACK);
+            getCommand().enemyCardIDForNormalAttack = inputParts[1];
         }
         else if (input.contains("Move To"))
         {
-            command = CommandType.MOVE_TO;
-            command.rowOfTheCell = Integer.parseInt(inputParts[2]);
-            command.columnOfTheCell = Integer.parseInt(inputParts[4]);
+            setCommand(CommandType.MOVE_TO);
+            getCommand().rowOfTheCell = Integer.parseInt(inputParts[2]);
+            getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
         }
         else if (patternUseSpecialPower.matcher(input).matches())
         {
-            command = CommandType.USE_SPECIAL_POWER;
-            command.rowOfTheCell = Integer.parseInt(inputParts[3]);
-            command.columnOfTheCell = Integer.parseInt(inputParts[4]);
+            setCommand(CommandType.USE_SPECIAL_POWER);
+            getCommand().rowOfTheCell = Integer.parseInt(inputParts[3]);
+            getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
         }
         else if (patternComboAttack.matcher(input).matches())
         {
-            command = CommandType.COMBO_ATTACK;
-            command.enemyCardIDForCombo = inputParts[2];
+            setCommand(CommandType.COMBO_ATTACK);
+            getCommand().enemyCardIDForCombo = inputParts[2];
             for (int counter = 3; counter < inputParts.length; counter++)
             {
-                command.cardIDsForComboAttack.add(inputParts[counter]);
+                getCommand().cardIDsForComboAttack.add(inputParts[counter]);
             }
         }
         else
@@ -416,19 +425,19 @@ public class Request
         }
     }
 
-    public static void getAfterSelectItemCommands()
+    public void getAfterSelectItemCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (input.equalsIgnoreCase("Show Info"))
         {
-            command = CommandType.SHOW_ITEM_INFO;
+            setCommand(CommandType.SHOW_ITEM_INFO);
         }
         else if (patternUseItem.matcher(input).matches())
         {
-            command = CommandType.USE_ITEM;
-            Request.command.rowOfTheCell = Integer.parseInt(inputParts[1]);
-            Request.command.columnOfTheCell = Integer.parseInt(inputParts[2]);
+            setCommand(CommandType.USE_ITEM);
+            getCommand().rowOfTheCell = Integer.parseInt(inputParts[1]);
+            getCommand().columnOfTheCell = Integer.parseInt(inputParts[2]);
         }
         else
         {
@@ -436,18 +445,18 @@ public class Request
         }
     }
 
-    public static void getGraveYardCommands()
+    public void getGraveYardCommands()
     {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
         if (patternShowInfoOfCardInGraveYard.matcher(input).matches())
         {
-            command = CommandType.SHOW_INFO;
-            command.cardOrItemIDInGraveYard = inputParts[2];
+            setCommand(CommandType.SHOW_INFO);
+            getCommand().cardOrItemIDInGraveYard = inputParts[2];
         }
         else if (input.equalsIgnoreCase("Show cards"))
         {
-            command = CommandType.SHOW_CARDS;
+            setCommand(CommandType.SHOW_CARDS);
         }
         else
         {
@@ -455,66 +464,67 @@ public class Request
         }
     }
 
-    public static void getAfterGameEndedCommand()
+    public void getAfterGameEndedCommand()
     {
         String input = myScanner.nextLine();
         if (input.equalsIgnoreCase("End Game"))
         {
-            command = CommandType.END_GAME;
+            setCommand(CommandType.END_GAME);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static void getShowMenuAndExitCommand(String input)
+    public void getShowMenuAndExitCommand(String input)
     {
         if (input.equalsIgnoreCase("Show menu"))
         {
-            command = CommandType.SHOW_MENU;
+            setCommand(CommandType.SHOW_MENU);
         }
         else if (input.equals("exit"))
         {
-            command = CommandType.EXIT;
+            setCommand(CommandType.EXIT);
         }
         else
         {
             ShowOutput.printOutput("invalid command");
-            command = null;
+            setCommand(null);
         }
     }
 
-    public static String getPassword()
+    public String getPassword()
     {
         return myScanner.nextLine();
     }
 
-    public static int getStoryMatchLevel()
+    public int getStoryMatchLevel()
     {
         try
         {
             ShowOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
-            Request.command.storyGameMode = Integer.parseInt(input);
-        } catch (NumberFormatException e)
+            getCommand().storyGameMode = Integer.parseInt(input);
+        }
+        catch (NumberFormatException e)
         {
             ShowOutput.printOutput("Try Again");
             getStoryMatchLevel();
         }
-        return Request.command.storyGameMode;
+        return getCommand().storyGameMode;
     }
 
-    public static void getCustomGameCommands()
+    public void getCustomGameCommands()
     {
         String line = myScanner.nextLine();
         String[] partedLine = line.split(" ");
-        command.deckNameForCustomGame = partedLine[2];
-        command.customGameMode = Integer.parseInt(partedLine[3]);
+        getCommand().deckNameForCustomGame = partedLine[2];
+        getCommand().customGameMode = Integer.parseInt(partedLine[3]);
         if (partedLine.length == 5)    ///I have doubt about it
         {
-            command.customGameFlagNumber = Integer.parseInt(partedLine[4]);
+            getCommand().customGameFlagNumber = Integer.parseInt(partedLine[4]);
         }
     }
 }

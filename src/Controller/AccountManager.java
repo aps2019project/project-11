@@ -8,20 +8,22 @@ import java.util.ArrayList;
 public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
+    private Request request = new Request();
+    private ShowOutput showOutput = new ShowOutput();
 
     public void checkCircumstancesToCreateAccount(String userName)
     {
         if (findAccount(userName) == null)
         {
-            ShowOutput.printOutput("Enter your Password");
-            Account account = new Account(userName, Request.getPassword());
+            showOutput.printOutput("Enter your Password");
+            Account account = new Account(userName, request.getPassword());
             account.addDefaultCardsToCollection(account);
             accounts.add(account);
-            ShowOutput.printOutput("New Account created");
+            showOutput.printOutput("New Account created");
         }
         else
         {
-            ShowOutput.printOutput("this Account has been existed");
+            showOutput.printOutput("this Account has been existed");
         }
     }
 
@@ -31,18 +33,18 @@ public class AccountManager
         {
             if (userName.equals(account.getAccountName()))
             {
-                ShowOutput.printOutput("Enter your Password");
-                String inputPassword = Request.getPassword();
+                showOutput.printOutput("Enter your Password");
+                String inputPassword = request.getPassword();
                 if (inputPassword.equals(account.getPassword()))
                 {
                     Account.login(account);
                     new CallTheAppropriateFunction().determineMainMenuCommand();
                 }
-                ShowOutput.printOutput("The password is not correct");
+                showOutput.printOutput("The password is not correct");
                 return;
             }
         }
-        ShowOutput.printOutput("This userName doesn't exist");
+        showOutput.printOutput("This userName doesn't exist");
     }
 
     public void logout()
@@ -82,7 +84,7 @@ public class AccountManager
         int counter = 1;
         for (Account account : getAccounts())
         {
-            ShowOutput.printOutput(counter + "- " + account.getAccountName());
+            showOutput.printOutput(counter + "- " + account.getAccountName());
             counter ++;
         }
     }

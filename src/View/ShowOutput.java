@@ -5,90 +5,90 @@ import Model.*;
 
 public class ShowOutput
 {
-    public static void printOutput(String command)
+    public void printOutput(String command)
     {
         System.out.println(command);
     }
 
-    public static void printMainMenuCommands()
+    public void printMainMenuCommands()
     {
-        System.out.println("Enter Collection");
-        System.out.println("Enter Shop");
-        System.out.println("Enter Battle");
-        System.out.println("Save");
-        System.out.println("Logout");
-        System.out.println("Help");
-        System.out.println("Exit");
+        printOutput("Enter Collection");
+        printOutput("Enter Shop");
+        printOutput("Enter Battle");
+        printOutput("Save");
+        printOutput("Logout");
+        printOutput("Help");
+        printOutput("Exit");
     }
 
-    public static void showAccountsLeaderBoard()
+    public void showAccountsLeaderBoard()
     {
         int counter = 1;
         for (Account account : AccountManager.getAccounts())
         {
-            System.out.println(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
+            printOutput(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
             counter++;
         }
     }
 
-    public static void accountHelp()
+    public void accountHelp()
     {
-        System.out.println("create account [user name]");
-        System.out.println("login [user name]");
-        System.out.println("show leaderBoard");
-        System.out.println("help");
-        System.out.println("exit");
+        printOutput("create account [user name]");
+        printOutput("login [user name]");
+        printOutput("show leaderBoard");
+        printOutput("help");
+        printOutput("exit");
     }
 
-    public static void shopHelp()
+    public void shopHelp()
     {
-        System.out.println("show collection");
-        System.out.println("search [item name | card name]");
-        System.out.println("search collection [item name | card name]");
-        System.out.println("buy [card name | item name]");
-        System.out.println("sell [card ID | item ID]");
-        System.out.println("show");
-        System.out.println("help");
-        System.out.println("exit");
+        printOutput("show collection");
+        printOutput("search [item name | card name]");
+        printOutput("search collection [item name | card name]");
+        printOutput("buy [card name | item name]");
+        printOutput("sell [card ID | item ID]");
+        printOutput("show");
+        printOutput("help");
+        printOutput("exit");
     }
 
-    public static void collectionHelp()
+    public void collectionHelp()
     {
-        System.out.println("search [cardName | itemName]");
-        System.out.println("create deck [deckName]");
-        System.out.println("delete deck [deckName]");
-        System.out.println("add [cardID | heroID | itemID] to deck [deckName]");
-        System.out.println("remove [cardID | heroID | itemID] from deck [deckName]");
-        System.out.println("validate deck [deckName]");
-        System.out.println("select deck [deckName]");
-        System.out.println("show all decks");
-        System.out.println("show deck [deckName]");
-        System.out.println("save");
-        System.out.println("show");
-        System.out.println("help");
-        System.out.println("exit");
+        printOutput("search [cardName | itemName]");
+        printOutput("create deck [deckName]");
+        printOutput("delete deck [deckName]");
+        printOutput("add [cardID | heroID | itemID] to deck [deckName]");
+        printOutput("remove [cardID | heroID | itemID] from deck [deckName]");
+        printOutput("validate deck [deckName]");
+        printOutput("select deck [deckName]");
+        printOutput("show all decks");
+        printOutput("show deck [deckName]");
+        printOutput("save");
+        printOutput("show");
+        printOutput("help");
+        printOutput("exit");
     }
 
-    public static void printHeroStats(Hero hero, int counter)
+    public void printHeroStats(Hero hero, int counter)
     {
-        System.out.println(counter + "- Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power : " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
+        printOutput(counter + "- Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power : " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
-    public static void showCollectionInfo(Collection collection)
+    public void showCollectionInfo(Collection collection)
     {
         int counter = 1;
-        System.out.println("Heroes :");
+        printOutput("Heroes :");
         for (Card card : collection.getCards())
         {
             if (card instanceof Hero)
             {
-                ShowOutput.printHeroStats((Hero) card, counter);
+                printHeroStats((Hero) card, counter);
                 counter++;
             }
         }
 
         counter = 1;
-        System.out.println("Items :");
+        printOutput("Items :");
         for (Item item : collection.getItems())
         {
             item.printItemStats(counter);
@@ -96,7 +96,7 @@ public class ShowOutput
         }
 
         counter = 1;
-        System.out.println("Cards :");
+        printOutput("Cards :");
         for (Card card : collection.getCards())
         {
             if (card instanceof Hero)
@@ -108,13 +108,13 @@ public class ShowOutput
         }
     }
 
-    public static void showAllDecksInfo()
+    public void showAllDecksInfo()
     {
         int counter = 1;
         Deck mainDeck = Account.loggedInAccount.getMainDeck();
         if (mainDeck != null)
         {
-            System.out.println(counter + "- " + mainDeck.getDeckName() + " : ");
+            printOutput(counter + "- " + mainDeck.getDeckName() + " : ");
             printDeckStats(mainDeck);
             counter++;
         }
@@ -124,13 +124,13 @@ public class ShowOutput
             {
                 continue;
             }
-            System.out.println(counter + "- " + deck.getDeckName() + " : ");
+            printOutput(counter + "- " + deck.getDeckName() + " : ");
             printDeckStats(deck);
             counter++;
         }
     }
 
-    public static void showDeckInfo(String deckName)
+    public void showDeckInfo(String deckName)
     {
         Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
@@ -139,22 +139,22 @@ public class ShowOutput
         }
         else
         {
-            ShowOutput.printOutput("There is no deck with this name");
+            printOutput("There is no deck with this name");
         }
     }
 
-    public static void printDeckStats(Deck deck)
+    public void printDeckStats(Deck deck)
     {
         int counter = 1;
-        ShowOutput.printOutput("Heroes :");
+        printOutput("Heroes :");
         for (Hero hero : deck.getHero())
         {
-            ShowOutput.printHeroStats(hero, counter);
+            printHeroStats(hero, counter);
             counter++;
         }
 
         counter = 1;
-        System.out.println("Items :");
+        printOutput("Items :");
         for (Item item : deck.getItem())
         {
             item.printItemStats(counter);
@@ -162,7 +162,7 @@ public class ShowOutput
         }
 
         counter = 1;
-        System.out.println("Cards :");
+        printOutput("Cards :");
         for (Card card : deck.getNonHeroCards())
         {
             card.printCardStats(counter);
@@ -170,14 +170,16 @@ public class ShowOutput
         }
     }
 
-    public static void showGameInfo()
+    public void showGameInfo()
     {
-        System.out.println("First Player MP : " + Battle.getCurrentBattle().getFirstPlayer().getMP());
-        System.out.println("Second Player MP : " + Battle.getCurrentBattle().getSecondPlayer().getMP());
+        printOutput("First Player : " + Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
+        printOutput("Second Player : " + Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());
+        printOutput("First Player MP : " + Battle.getCurrentBattle().getFirstPlayer().getMP());
+        printOutput("Second Player MP : " + Battle.getCurrentBattle().getSecondPlayer().getMP());
         if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
         {
-            System.out.println("First Player Hero HP : " + Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP());
-            System.out.println("Second Player Hero HP : " + Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+            printOutput("First Player Hero HP : " + Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP());
+            printOutput("Second Player Hero HP : " + Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP());
         }
         else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
         {
@@ -190,7 +192,7 @@ public class ShowOutput
 
     }
 
-    public static void showMyMinions()
+    public void showMyMinions()
     {
         for (NonSpellCards minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
@@ -199,23 +201,19 @@ public class ShowOutput
         showOwnHero(Battle.getCurrentBattle().getPlayerTurn());
     }
 
-    private static void showOwnHero(Player player) {
+    private void showOwnHero(Player player)
+    {
         Hero hero = player.getMainDeck().getHero().get(0);
         showInformationOfCards(hero.getCardID(), hero.getCardName(), hero.getCurrentHP(), hero.getRow(), hero.getColumn(), hero.getCurrentAP(), hero);
     }
 
-    private static void showInformationOfCards(String cardID, String cardName, int currentHP, int row, int column, int currentAP, Hero hero) {
-        System.out.print(cardID + " : ");
-        System.out.print(cardName + ", ");
-        System.out.print("health : ");
-        System.out.print(currentHP + ", ");
-        System.out.print("location : ");
-        System.out.print("(" + row + ", " + column + "), ");
-        System.out.print("power : ");
-        System.out.println(currentAP);
+    private void showInformationOfCards(String cardID, String cardName, int currentHP, int row, int column, int currentAP, Hero hero)
+    {
+        //todo behine kardan
+        printOutput(cardID + " : " + cardName + ", " + "health : " + currentHP + ", " + "location : " + "(" + row + ", " + column + "), " + "power : " + currentAP);
     }
 
-    public static void showOpponentMinions()
+    public void showOpponentMinions()
     {
         Player opponent;
         if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
@@ -231,84 +229,65 @@ public class ShowOutput
             showMinionInfoInTheBattle((Minion) minion);
         }
         Hero hero = opponent.getMainDeck().getHero().get(0);
-        showInformationOfCards(hero.getCardID() , hero.getCardName() , hero.getCurrentHP() , hero.getRow() , hero.getColumn() , hero.getCurrentAP() , hero );
+        showInformationOfCards(hero.getCardID(), hero.getCardName(), hero.getCurrentHP(), hero.getRow(), hero.getColumn(), hero.getCurrentAP(), hero);
     }
 
-    private static void showMinionInfoInTheBattle(Minion minion)
+    private void showMinionInfoInTheBattle(Minion minion)
     {
         showInformationOfCards(minion.getCardID(), minion.getCardName(), minion.getCurrentHP(), minion.getRow(), minion.getColumn(), minion.getCurrentAP(), null);
     }
 
-    public static void showCardInfo(String cardID)
+    public void showCardInfo(String cardID)
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
         if (card instanceof Hero)
         {
             Hero hero = (Hero) card;
-            System.out.println();
-            System.out.println("Hero:");
-            System.out.print("Name: ");
-            System.out.println(hero.getCardName());
-            System.out.print("Cost: ");
-            System.out.println(hero.getPrice());
-            System.out.print("Desc: ");
+            printOutput("Hero:");
+            printOutput("Name: " + hero.getCardName());
+            printOutput("Cost: " + hero.getPrice());
             if (hero.getSpecialPower() != null)
             {
-                System.out.println(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
+                printOutput("Desc: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
             }
             else
             {
-                System.out.println("This hero has no special power");
+                printOutput("This hero has no special power");
             }
 
         }
         if (card instanceof Minion)
         {
             Minion minion = (Minion) card;
-            System.out.println();
-            System.out.println("Minion: ");
-            System.out.print("Name: ");
-            System.out.println(minion.getCardName());
-            System.out.print("HP: ");
-            System.out.print(minion.getCurrentHP());
-            System.out.print("  AP: ");
-            System.out.print(minion.getCurrentAP());
-            System.out.print("  MP: ");
-            System.out.println(minion.getRequiredMP());
-            System.out.print("Range: ");
-            System.out.println(minion.getImpactType());
-            System.out.print("Combo-ability: ");
-            System.out.println(minion.getImpactType());
-            System.out.print("Cost: ");
-            System.out.println(minion.getPrice());
-            System.out.print("Special Power: ");
+            printOutput("Minion: ");
+            printOutput("Name: " + minion.getCardName());
+            printOutput("HP: " + minion.getCurrentHP());
+            printOutput("AP: " + minion.getCurrentAP());
+            printOutput("MP: " + minion.getRequiredMP());
+            printOutput("Range: " + minion.getImpactType());
+            printOutput("Combo Ability: " + minion.getImpactType());
+            printOutput("Cost: " + minion.getPrice());
             if (minion.getSpecialPower() != null)
             {
-                System.out.println(minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
+                printOutput("Special Power: " + minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
             }
             else
             {
-                System.out.println("This minion has no special power");
+                printOutput("This minion has no special power");
             }
         }
         if (card instanceof Spell)
         {
             Spell spell = (Spell) card;
-            System.out.println();
-            System.out.println("Spell:");
-            System.out.print("Name:");
-            System.out.println(spell.getCardName());
-            System.out.print("MP:");
-            System.out.println(spell.getRequiredMP());
-            System.out.print("Cost");
-            System.out.println(spell.getPrice());
-            System.out.print("Desc:");
-            System.out.println(spell.getDescriptionTypeOfSpell());
+            printOutput("Spell: ");
+            printOutput("Name: " + spell.getCardName());
+            printOutput("MP: " + spell.getRequiredMP());
+            printOutput("Cost: " + spell.getPrice());
+            printOutput("Desc: " + spell.getDescriptionTypeOfSpell());
         }
-
     }
 
-    public static void showShopInfo()
+    public void showShopInfo()
     {
         printOutput("Heroes :");
         int counter = 1;
@@ -350,13 +329,13 @@ public class ShowOutput
         }
     }
 
-    public static void showNextCardInfo()
+    public void showNextCardInfo()
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard();
         card.printCardStats();
     }
 
-    public static void showHand(Hand hand)
+    public void showHand(Hand hand)
     {
         for (Card card : hand.getCards())
         {
@@ -365,13 +344,13 @@ public class ShowOutput
         showCardInfo(hand.getNextCard().getCardID());
     }
 
-    public static void showBattleMenuCommands()
+    public void showBattleMenuCommands()
     {
         printOutput("Single Player");
         printOutput("Multi Player");
     }
 
-    public static void showBattleModes()
+    public void showBattleModes()
     {
         printOutput("Modes:");
         printOutput("1- Killing Enemy Hero");
@@ -379,7 +358,7 @@ public class ShowOutput
         printOutput("3- Gathering Flags");
     }
 
-    public static void showCollectibleItems()
+    public void showCollectibleItems()
     {
         int counter = 1;
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
@@ -389,96 +368,96 @@ public class ShowOutput
         }
     }
 
-    public static void showStoryBattleInfo()
+    public void showStoryBattleInfo()
     {
         printOutput("1- Hero : Dave White - Mode : Kill enemy hero");
         printOutput("2- Hero : Zahak - Mode : Gather and hold flag for 6 turn");
         printOutput("3- Hero : Arash - Mode : Gather half of the flags");
     }
 
-    public static void showCustomGameInfo()
+    public void showCustomGameInfo()
     {
         showAllDecksInfo();
         showBattleModes();
     }
 
-    public static void showMenuGraveYard()
+    public void showMenuGraveYard()
     {
-        System.out.println("Show Cards");
-        System.out.println("Show Info [card ID]");
+        printOutput("Show Cards");
+        printOutput("Show Info [card ID]");
     }
 
-    public static void showMenuBattle()
+    public void showMenuBattle()
     {
-        System.out.println("Game info");
-        System.out.println("Show my minions");
-        System.out.println("Show opponent minions");
-        System.out.println("Show card info [card id]");
-        System.out.println("Select [card id]");
-        System.out.println("Show hand");
-        System.out.println("Insert [card name] in ( x , y )");
-        System.out.println("End turn");
-        System.out.println("Show collectibles");
-        System.out.println("Select [collectible id]");
-        System.out.println("Show Next Card");
-        System.out.println("Enter graveyard");
-        System.out.println("Help");
-        System.out.println("End Game");
-        System.out.println("Surrender");
-        System.out.println("Show Menu");
-        System.out.println("Exit");
-
+        printOutput("Game info");
+        printOutput("Show my minions");
+        printOutput("Show opponent minions");
+        printOutput("Show card info [card id]");
+        printOutput("Select [card id]");
+        printOutput("Show hand");
+        printOutput("Insert [card name] in ( x , y )");
+        printOutput("End turn");
+        printOutput("Show collectibles");
+        printOutput("Select [collectible id]");
+        printOutput("Show Next Card");
+        printOutput("Enter graveyard");
+        printOutput("Help");
+        printOutput("End Game");
+        printOutput("Surrender");
+        printOutput("Show Menu");
+        printOutput("Exit");
     }
 
-    public static void showMenuAfterSelectItem()
+    public void showMenuAfterSelectItem()
     {
-        System.out.println("Show Info");
-        System.out.println("Use [0-9]+ [0-9]+");
-        System.out.println("Show Menu");
-        System.out.println("Exit");
+        printOutput("Show Info");
+        printOutput("Use [0-9]+ [0-9]+");
+        printOutput("Show Menu");
+        printOutput("Exit");
     }
 
-    public static void showMenuAfterSelectCard()
+    public void showMenuAfterSelectCard()
     {
-        System.out.println("Move To [0-9]+ , [0-9]+");
-        System.out.println("Attack [cardID]");
-        System.out.println("Attack combo [opponentCardID] [myCardID] ...");
-        System.out.println("Use special power( [0-9]+ [0-9]+ )");
-        System.out.println("Show Menu");
-        System.out.println("Exit");
+        printOutput("Move To [0-9]+ , [0-9]+");
+        printOutput("Attack [cardID]");
+        printOutput("Attack combo [opponentCardID] [myCardID] ...");
+        printOutput("Use special power( [0-9]+ [0-9]+ )");
+        printOutput("Show Menu");
+        printOutput("Exit");
     }
 
-    public static void showMenuMultiPlayerMatchMode()
+    public void showMenuMultiPlayerMatchMode()
     {
-        System.out.println("Start MultiPlayer Game KillingEnemyHero");
-        System.out.println("Start MultiPlayer Game KeepFlagFor6Turns");
-        System.out.println("Start MultiPlayer Game GatheringFlags");
-        System.out.println("ShowMenu");
-        System.out.println("Exit");
+        printOutput("Start MultiPlayer Game KillingEnemyHero");
+        printOutput("Start MultiPlayer Game KeepFlagFor6Turns");
+        printOutput("Start MultiPlayer Game GatheringFlags");
+        printOutput("ShowMenu");
+        printOutput("Exit");
     }
 
-    public static void showMenuSelectUserForMultiPlayerMatch()
+    public void showMenuSelectUserForMultiPlayerMatch()
     {
-        System.out.println("Select User [userName]");
-        System.out.println("Show Menu");
-        System.out.println("Exit");
+        printOutput("Select User [userName]");
+        printOutput("Show Menu");
+        printOutput("Exit");
     }
 
-    public static void showMenuSinglePlayerMatch()
+    public void showMenuSinglePlayerMatch()
     {
-        System.out.println("Story");
-        System.out.println("Custom Game");
-        System.out.println("Show Menu");
-        System.out.println("Exit");
+        printOutput("Story");
+        printOutput("Custom Game");
+        printOutput("Show Menu");
+        printOutput("Exit");
     }
 
-    public static void printMatrixValues(int[][] moveAbleCells, String command)
+    public void printMatrixValues(int[][] moveAbleCells, String command)
     {
-        ShowOutput.printOutput(command);
-        for (int i = 0;i < 5;i++)
+        printOutput(command);
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0;j < 9;j++)
+            for (int j = 0; j < 9; j++)
             {
+                //todo println
                 System.out.print(moveAbleCells[i][j] + " ");
             }
             System.out.println();
