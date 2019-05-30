@@ -140,31 +140,6 @@ public class Minion extends NonSpellCard
         new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0);
         new Minion("ShahGhoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0);
         new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0);
-
-    }
-
-    public void printMinionStats(int counter)
-    {
-        if (getSpecialPower() != null)
-        {
-            System.out.println(counter + "- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
-        }
-        else
-        {
-            System.out.println(counter + "- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " – Sell Cost : " + getPrice());
-        }
-    }
-
-    public void printMinionStats()
-    {
-        if (getSpecialPower() != null)
-        {
-            System.out.println("- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " - Special power : " + getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + getPrice());
-        }
-        else
-        {
-            System.out.println("- Type : Minion - Name : " + getCardName() + " – Class : " + getImpactType() + " - AP : " + getDefaultAP() + " - HP : " + getDefaultHP() + " - MP : " + getRequiredMP() + " – Sell Cost : " + getPrice());
-        }
     }
 
     public boolean isAbleToCombo()

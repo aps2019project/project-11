@@ -80,5 +80,4 @@ public enum CommandType
     public int insertColumn;
     public String insertCardName;
 
-
 }

@@ -266,16 +266,6 @@ public class Item implements Cloneable
         return null;
     }
 
-    public void printItemStats(int counter)
-    {
-        System.out.println(counter + "- Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
-    }
-
-    public void printItemStats()
-    {
-        System.out.println("Name : " + getItemName() + " – Desc : " + getDescriptionTypeOfItem() + " – Sell Cost : " + getPrice());
-    }
-
     public static ArrayList<Item> getItems()
     {
         return items;

@@ -21,7 +21,7 @@ public abstract class NonSpellCard extends Card
     private int rangeOfAttack ;
     private ImpactType impactType;
 
-    public int [][] setMoveAbleCells()
+    public int [][] getMoveAbleCells()
     {
         Cell[][] cells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
         int[][] moveAbleCells = new int [5][9];
@@ -42,7 +42,6 @@ public abstract class NonSpellCard extends Card
                 //todo
             }
         }
-        ShowOutput.printMatrixValues(moveAbleCells, "MoveAble Cells :");
         return moveAbleCells;
     }
 

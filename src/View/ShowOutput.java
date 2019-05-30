@@ -91,7 +91,7 @@ public class ShowOutput
         printOutput("Items :");
         for (Item item : collection.getItems())
         {
-            item.printItemStats(counter);
+            printItemStats(counter, item);
             counter++;
         }
 
@@ -103,7 +103,7 @@ public class ShowOutput
             {
                 continue;
             }
-            card.printCardStats(counter);
+            printCardStats(counter, card);
             counter++;
         }
     }
@@ -157,7 +157,7 @@ public class ShowOutput
         printOutput("Items :");
         for (Item item : deck.getItem())
         {
-            item.printItemStats(counter);
+            printItemStats(counter, item);
             counter++;
         }
 
@@ -165,7 +165,7 @@ public class ShowOutput
         printOutput("Cards :");
         for (Card card : deck.getNonHeroCards())
         {
-            card.printCardStats(counter);
+            printCardStats(counter, card);
             counter++;
         }
     }
@@ -304,7 +304,7 @@ public class ShowOutput
         counter = 1;
         for (Item item : Shop.getInstance().getItems())
         {
-            item.printItemStats(counter);
+            printItemStats(counter, item);
             counter++;
         }
         printOutput("Spells :");
@@ -313,7 +313,7 @@ public class ShowOutput
         {
             if (card instanceof Spell)
             {
-                ((Spell) card).printSpellCardStats(counter);
+                printSpellCardStats(counter, (Spell) card);
                 counter++;
             }
         }
@@ -323,16 +323,111 @@ public class ShowOutput
         {
             if (card instanceof Minion)
             {
-                ((Minion) card).printMinionStats(counter);
+                printMinionStats(counter, (Minion) card);
                 counter++;
             }
+        }
+    }
+
+    public void printCardStats(int counter, Card card)
+    {
+        if (card instanceof Spell)
+        {
+            printSpellCardStats(counter, (Spell) card);
+        }
+        else if (card  instanceof Minion)
+        {
+            printMinionStats(counter, (Minion) card);
+        }
+    }
+
+    public void printCardStats(Card card)
+    {
+        if (card instanceof Spell)
+        {
+            printSpellCardStats((Spell) card);
+        }
+        else if (card  instanceof Minion)
+        {
+            printMinionStats((Minion) card);
+        }
+    }
+
+    public void printItemStats(int counter, Item item)
+    {
+        printOutput(counter + "- Name : " + item.getItemName() + " – Desc : " + item.getDescriptionTypeOfItem() + " – Sell Cost : " + item.getPrice());
+    }
+
+    public void printItemStats(Item item)
+    {
+        printOutput("Name : " + item.getItemName() + " – Desc : " + item.getDescriptionTypeOfItem() + " – Sell Cost : " + item.getPrice());
+    }
+
+    public void printSpellCardStats(int counter, Spell spell)
+    {
+        printOutput(counter + "- Type : Spell - Name : " + spell.getCardName() + " - MP : " + spell.getRequiredMP() + " – Description : " + spell.getDescriptionTypeOfSpell() + " Sell Cost : " + spell.getPrice());
+    }
+
+    public void printSpellCardStats(Spell spell)
+    {
+        printOutput("Type : Spell - Name : " + spell.getCardName() + " - MP : " + spell.getRequiredMP() + " – Description : " + spell.getDescriptionTypeOfSpell() + " Sell Cost : " + spell.getPrice());
+    }
+
+    public void printMinionStats(int counter, Minion minion)
+    {
+        if (minion.getSpecialPower() != null)
+        {
+            printOutput(counter + "- Type : Minion - Name : " + minion.getCardName() + " – Class : " + minion.getImpactType() + " - AP : " + minion.getDefaultAP() + " - HP : " + minion.getDefaultHP() + " - MP : " + minion.getRequiredMP() + " - Special power : " + minion.getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + minion.getPrice());
+        }
+        else
+        {
+            printOutput(counter + "- Type : Minion - Name : " + minion.getCardName() + " – Class : " + minion.getImpactType() + " - AP : " + minion.getDefaultAP() + " - HP : " + minion.getDefaultHP() + " - MP : " + minion.getRequiredMP() + " – Sell Cost : " + minion.getPrice());
+        }
+    }
+
+    public void printMinionStats(Minion minion)
+    {
+        if (minion.getSpecialPower() != null)
+        {
+            printOutput("- Type : Minion - Name : " + minion.getCardName() + " – Class : " + minion.getImpactType() + " - AP : " + minion.getDefaultAP() + " - HP : " + minion.getDefaultHP() + " - MP : " + minion.getRequiredMP() + " - Special power : " + minion.getSpecialPower().getDescriptionTypeOfSpecialPower() + " – Sell Cost : " + minion.getPrice());
+        }
+        else
+        {
+            printOutput("- Type : Minion - Name : " + minion.getCardName() + " – Class : " + minion.getImpactType() + " - AP : " + minion.getDefaultAP() + " - HP : " + minion.getDefaultHP() + " - MP : " + minion.getRequiredMP() + " – Sell Cost : " + minion.getPrice());
+        }
+    }
+
+    public void showGraveYardCardInfo(String cardID)
+    {
+        Card card = Battle.getCurrentBattle().getPlayerTurn().findCardInGraveYard(cardID);
+        if (card != null)
+        {
+            printCardStats(card);
+        }
+    }
+
+    public void showAllCardsInTheGraveYard()
+    {
+        int counter = 1;
+        printOutput("first Player Grave Yard :");
+        for (Card card : Battle.getCurrentBattle().getFirstPlayer().getGraveYard().getCards())
+        {
+            printCardStats(counter, card);
+            counter++;
+        }
+        counter = 1;
+        printOutput("second Player Grave Yard :");
+        for (Card card : Battle.getCurrentBattle().getSecondPlayer().getGraveYard().getCards())
+        {
+            printCardStats(counter, card);
+            counter++;
         }
     }
 
     public void showNextCardInfo()
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard();
-        card.printCardStats();
+        printCardStats(card);
     }
 
     public void showHand(Hand hand)
@@ -363,7 +458,7 @@ public class ShowOutput
         int counter = 1;
         for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
         {
-            item.printItemStats(counter);
+            printItemStats(counter, item);
             counter++;
         }
     }

@@ -420,6 +420,7 @@ public class CallTheAppropriateFunction
                     break;
                 case END_TURN:
                     Battle.getCurrentBattle().endTurn();
+                    showOutput.printOutput(Battle.getCurrentBattle().getPlayerTurn().getAccount().getAccountName() + " turn");
                     break;
                 case SURRENDER:
                     Battle.getCurrentBattle().tasksWhenSurrender();
@@ -451,12 +452,10 @@ public class CallTheAppropriateFunction
                     battleManager.moveCard(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
                     break;
                 case NORMAL_ATTACK:
-                    Battle.getCurrentBattle().attackToOpponent(request.getCommand().enemyCardIDForNormalAttack);
-                    Battle.getCurrentBattle().counterAttack(request.getCommand().enemyCardIDForNormalAttack);
+                    battleManager.attackToOpponent(request.getCommand().enemyCardIDForNormalAttack);
                     break;
                 case COMBO_ATTACK:
                     Battle.getCurrentBattle().comboAttack(request.getCommand().enemyCardIDForCombo, request.getCommand().cardIDsForComboAttack);
-                    Battle.getCurrentBattle().counterAttack(request.getCommand().enemyCardIDForCombo, request.getCommand().cardIDsForComboAttack.get(0));
                     break;
                 case USE_SPECIAL_POWER:
                     Battle.getCurrentBattle().getSelectedCard().getSpecialPower().applySpecialPower(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
@@ -485,7 +484,7 @@ public class CallTheAppropriateFunction
             switch (request.getCommand())
             {
                 case SHOW_ITEM_INFO:
-                    Battle.getCurrentBattle().getSelectedICollectibleItem().printItemStats();
+                    showOutput.printItemStats(Battle.getCurrentBattle().getSelectedICollectibleItem());
                     break;
                 case USE_ITEM:
                     int x = request.getCommand().rowOfTheCell;
@@ -514,13 +513,13 @@ public class CallTheAppropriateFunction
             switch (request.getCommand())
             {
                 case SHOW_INFO:
-                    battleManager.showGraveYardCardInfo(request.getCommand().cardOrItemIDInGraveYard);
+                    showOutput.showGraveYardCardInfo(request.getCommand().cardOrItemIDInGraveYard);
                     break;
                 case SHOW_MENU:
                     showOutput.showMenuGraveYard();
                     break;
                 case SHOW_CARDS:
-                    Battle.getCurrentBattle().showAllCardsInTheGraveYard();
+                    showOutput.showAllCardsInTheGraveYard();
                     break;
                 case EXIT:
                     return;

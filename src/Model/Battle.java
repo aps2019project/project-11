@@ -67,72 +67,21 @@ public class Battle
         selectedCard.setMoveAble(false);
     }
 
-    private void damageCard(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    public void damageCard(NonSpellCard selectedCard, NonSpellCard opponentCard)
     {
         int currentHP = opponentCard.getCurrentHP();
         opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
     }
 
-    public void attackToOpponent(String cardID)
+    public void attackToOpponent(NonSpellCard selectedCard, NonSpellCard opponentCard)
     {
-        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
-        {
-            System.out.println("Invalid card id");
-            return;
-        }
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
-        if (selectedCard.isCardSelectedInBattle())
-        {
-            if ((selectedCard).isAttackAble())
-            {
-                if ((selectedCard).getImpactType() == ImpactType.melee)
-                {
-                    if (Card.checkNeighborhood(selectedCard, opponentCard))
-                    {
-                        damageCard(selectedCard, opponentCard);
-                        (selectedCard).setAttackAble(false);
-                    }
-                    else
-                    {
-                        ShowOutput.printOutput("opponent minion is unavailable for attack");
-                    }
-                }
-                else if ((selectedCard).getImpactType() == ImpactType.ranged)
-                {
-                    if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
-                    {
-                        damageCard(selectedCard, opponentCard);
-                        (selectedCard).setAttackAble(false);
-                    }
-                    else
-                    {
-                        ShowOutput.printOutput("opponent minion is unavailable for attack");
-                    }
-                }
-                else if ((selectedCard).getImpactType() == ImpactType.hybrid)
-                {
-                    if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack())
-                    {
-                        damageCard(selectedCard, opponentCard);
-                        (selectedCard).setAttackAble(false);
-                    }
-                    else
-                    {
-                        System.out.println("opponent minion is unavailable for attack");
-                    }
-                }
-
-            }
-            else
-            {
-                System.out.println("Card with " + selectedCard.getCardID() + " can′t attack");
-            }
-        }
+        Battle.getCurrentBattle().damageCard(selectedCard, opponentCard);
+        Battle.getCurrentBattle().counterAttack(opponentCard);
+        (selectedCard).setAttackAble(false);
     }
 
-    public void counterAttack(String cardID)
+    public void counterAttack(NonSpellCard opponentCard)
     {
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
         if (opponentCard.isCounterAttackAble())
         {
             if (opponentCard.getImpactType() == ImpactType.melee)
@@ -159,21 +108,23 @@ public class Battle
         }
     }
 
-    public void counterAttack(String cardID1, String cardID2)
+    //TODO how below method works?? i apply some changes check it works properly(to Ali)
+    private void counterAttack(String cardID1, String cardID2)
     {
-        selectedCard = (NonSpellCard) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID2);
-        counterAttack(cardID1);
-        selectedCard = null;
-
+        selectedCard = (NonSpellCard) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID1);
+        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID2);
+        counterAttack(opponentCard);
+        setSelectedCard(null);
     }
 
     public void comboAttack(String enemyCardID, ArrayList<String> cardsIDForComboAttack)
     {
         checkComboCondition(cardsIDForComboAttack);
+        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(enemyCardID);
         for (String cardID : cardsIDForComboAttack)
         {
-            new BattleManager().selectCard(cardID);
-            attackToOpponent(enemyCardID);
+            NonSpellCard selectedCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+            attackToOpponent(selectedCard, opponentCard);
         }
     }
 
@@ -225,9 +176,6 @@ public class Battle
 
     public void endTurn()
     {
-        //todo apply special powers
-
-        checkUsedItemsToApplyItemChange();
         this.getPlayerTurn().increaseDefaultMP();
         if (this.getPlayerTurn() == this.getFirstPlayer())
         {
@@ -249,7 +197,6 @@ public class Battle
         {
             itemChange.applyItemChange(this.getPlayerTurn());
         }
-        System.out.println(Battle.getCurrentBattle().getPlayerTurn().getAccount().getAccountName() + " turn");
     }
 
     public NonSpellCard findRandomOwnForce()
@@ -383,24 +330,6 @@ public class Battle
             }
         }
         return ownNonSpellCards;
-    }
-
-    public void showAllCardsInTheGraveYard()
-    {
-        int counter = 1;
-        ShowOutput.printOutput("first Player Grave Yard :");
-        for (Card card : firstPlayer.getGraveYard().getCards())
-        {
-            card.printCardStats(counter);
-            counter++;
-        }
-        counter = 1;
-        ShowOutput.printOutput("second Player Grave Yard :");
-        for (Card card : secondPlayer.getGraveYard().getCards())
-        {
-            card.printCardStats(counter);
-            counter++;
-        }
     }
 
     public boolean isGameEnded(int gameMode)
@@ -590,7 +519,7 @@ public class Battle
         {
             selectedCard = playerTurn.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
             NonSpellCard firstPlayerCard = firstPlayer.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
-            attackToOpponent(firstPlayerCard.getCardName());
+            battleManager.attackToOpponent(firstPlayerCard.getCardID());
             counterAttack(selectedCard.getCardName(), firstPlayerCard.getCardID());
         }
         this.setPlayerTurn(firstPlayer);

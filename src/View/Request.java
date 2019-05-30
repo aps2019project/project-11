@@ -25,7 +25,6 @@ public class Request
     private final static Pattern patternShowInfoOfCardInGraveYard = Pattern.compile("Show info [a-zA-Z_0-9]+");
     private final static Pattern patternShowCardInfo = Pattern.compile("Show info [a-zA-Z_0-9]+");
     private final static Pattern patternSelect = Pattern.compile("Select (.)+");
-    // private final static Pattern patternMoveTo = Pattern.compile("Move To ([0-9]+ [,] [0-9]+)");
     private final static Pattern patternSelectUser = Pattern.compile("Select User [a-zA-Z_0-9]+");
     private final static Pattern patternStartMultiPlayerGame = Pattern.compile("Start MultiPlayer Game [a-zA-Z_0-9]+[\\t\\f\\r]?[0-9]*");
     private final static Pattern patternComboAttack = Pattern.compile("Attack combo (([a-zA-Z_0-9]+)(\\s))+");
@@ -36,6 +35,7 @@ public class Request
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
     private CommandType command;
+    private ShowOutput showOutput = new ShowOutput();
 
     public CommandType getCommand()
     {
@@ -80,7 +80,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -118,7 +118,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -165,7 +165,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -238,7 +238,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -260,7 +260,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -473,7 +473,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -490,7 +490,7 @@ public class Request
         }
         else
         {
-            ShowOutput.printOutput("invalid command");
+            showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
@@ -504,13 +504,13 @@ public class Request
     {
         try
         {
-            ShowOutput.printOutput("Enter Level number");
+            showOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
             getCommand().storyGameMode = Integer.parseInt(input);
         }
         catch (NumberFormatException e)
         {
-            ShowOutput.printOutput("Try Again");
+            showOutput.printOutput("Try Again");
             getStoryMatchLevel();
         }
         return getCommand().storyGameMode;

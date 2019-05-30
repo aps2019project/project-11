@@ -238,15 +238,6 @@ public class BattleManager
         }
     }
 
-    public void showGraveYardCardInfo(String cardID)
-    {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().findCardInGraveYard(cardID);
-        if (card != null)
-        {
-            card.printCardStats();
-        }
-    }
-
     public void moveCard(int x, int y)
     {
         if (x < 0 || x > 4 || y < 0 || y > 8)
@@ -255,7 +246,8 @@ public class BattleManager
             return;
         }
         NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
-        int[][] moveAbleCells = selectedCard.setMoveAbleCells();
+        int[][] moveAbleCells = selectedCard.getMoveAbleCells();
+        showOutput.printMatrixValues(moveAbleCells, "MoveAble Cells :");
         if (selectedCard.isMoveAble())
         {
             if (moveAbleCells[x][y] == 1)
@@ -271,6 +263,75 @@ public class BattleManager
         else
         {
             showOutput.printOutput("this card is not movable");
+        }
+    }
+
+    public void attackToOpponent(String cardID)
+    {
+        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
+        {
+            showOutput.printOutput("Invalid card ID");
+            return;
+        }
+        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+        if (selectedCard.isCardSelectedInBattle())
+        {
+            if ((selectedCard).isAttackAble())
+            {
+                if ((selectedCard).getImpactType() == ImpactType.melee)
+                {
+                    meleeCardAttack(selectedCard, opponentCard);
+                }
+                else if ((selectedCard).getImpactType() == ImpactType.ranged)
+                {
+                    rangedCardAttack(selectedCard, opponentCard);
+                }
+                else if ((selectedCard).getImpactType() == ImpactType.hybrid)
+                {
+                    hybridCardAttack(selectedCard, opponentCard);
+                }
+            }
+            else
+            {
+                showOutput.printOutput("Card with " + selectedCard.getCardID() + " can′t attack");
+            }
+        }
+    }
+
+    private void meleeCardAttack(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    {
+        if (Card.checkNeighborhood(selectedCard, opponentCard))
+        {
+            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+        }
+        else
+        {
+            showOutput.printOutput("opponent minion is unavailable for attack");
+        }
+    }
+
+    private void rangedCardAttack(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    {
+        if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+        {
+            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+        }
+        else
+        {
+            showOutput.printOutput("opponent minion is unavailable for attack");
+        }
+    }
+
+    private void hybridCardAttack(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    {
+        if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack())
+        {
+            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+        }
+        else
+        {
+            showOutput.printOutput("opponent minion is unavailable for attack");
         }
     }
 }

@@ -78,31 +78,6 @@ public abstract class Card implements Cloneable
         NonSpellCard.setNonSpellCards();
     }
 
-    public void printCardStats(int counter)
-    {
-        if (this instanceof Spell)
-        {
-            ((Spell) this).printSpellCardStats(counter);
-        }
-        else if (this instanceof Minion)
-        {
-            ((Minion) this).printMinionStats(counter);
-        }
-    }
-
-    public void printCardStats()
-    {
-        if (this instanceof Spell)
-        {
-            ((Spell) this).printSpellCardStats();
-        }
-        else if (this instanceof Minion)
-        {
-            ((Minion) this).printMinionStats();
-        }
-    }
-
-
     public void setPrice(int price)
     {
         this.price = price;

@@ -123,14 +123,4 @@ public class Spell extends Card
     {
         return spells;
     }
-
-    public void printSpellCardStats(int counter)
-    {
-        System.out.println(counter + "- Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " + getDescriptionTypeOfSpell() + " Sell Cost : " + getPrice());
-    }
-
-    public void printSpellCardStats()
-    {
-        System.out.println("Type : Spell - Name : " + getCardName() + " - MP : " + getRequiredMP() + " – Description : " + getDescriptionTypeOfSpell() + " Sell Cost : " + getPrice());
-    }
 }
