@@ -35,7 +35,7 @@ public class ItemChange
         this.numOfPoisonBuff = numOfPoisonBuff;
     }
 
-    public void applyItemChange(NonSpellCards nonSpellCard)
+    public void applyItemChange(NonSpellCard nonSpellCard)
     {
         if (this.getTurnsToApplyChange() == 0 && !this.isApplyChangeUntilEndOfTheGame())
         {

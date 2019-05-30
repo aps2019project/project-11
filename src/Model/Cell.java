@@ -25,7 +25,7 @@ public class Cell
         }
     }
 
-    public NonSpellCards getCard()
+    public NonSpellCard getCard()
     {
         if (this.hero != null)
         {
@@ -109,7 +109,7 @@ public class Cell
         this.column = column;
     }
 
-    public void remove(NonSpellCards selectedCard) {
+    public void remove(NonSpellCard selectedCard) {
         this.setCard(null);
     }
 }

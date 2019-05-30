@@ -4,7 +4,7 @@ import View.ShowOutput;
 
 import java.util.ArrayList;
 
-public abstract class NonSpellCards extends Card
+public abstract class NonSpellCard extends Card
 {
     private Cell currentCell = new Cell();
     private int defaultHP;

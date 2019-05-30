@@ -13,12 +13,12 @@ public class Target
     private int endRow;
     private int endColumn;
     private int maxAttackRange;
-    private NonSpellCards nextNoneSpellCard;
+    private NonSpellCard nextNoneSpellCard;
     private boolean allOwnMinion;
     private boolean allOwnBothNonSpellCards;
     private boolean allOpponentNonSpellCards;
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, int maxAttackRange , NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, int maxAttackRange , NonSpellCard nextNoneSpellCard , boolean allOwnMinion, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -37,7 +37,7 @@ public class Target
         this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, NonSpellCards nextNoneSpellCard ,boolean allOwnMinion,boolean allOpponentNonSpellCards,boolean allOwnBothNonSpellCards)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, NonSpellCard nextNoneSpellCard , boolean allOwnMinion, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -104,12 +104,12 @@ public class Target
         return maxAttackRange;
     }
 
-    public NonSpellCards getNextNoneSpellCard()
+    public NonSpellCard getNextNoneSpellCard()
     {
         return nextNoneSpellCard;
     }
 
-    public void setNextNoneSpellCard(NonSpellCards nextNoneSpellCard) {
+    public void setNextNoneSpellCard(NonSpellCard nextNoneSpellCard) {
         this.nextNoneSpellCard = nextNoneSpellCard;
     }
 

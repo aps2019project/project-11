@@ -194,7 +194,7 @@ public class ShowOutput
 
     public void showMyMinions()
     {
-        for (NonSpellCards minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (NonSpellCard minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
             showMinionInfoInTheBattle((Minion) minion);
         }
@@ -224,7 +224,7 @@ public class ShowOutput
         {
             opponent = Battle.getCurrentBattle().getFirstPlayer();
         }
-        for (NonSpellCards minion : opponent.getInsertedCards())
+        for (NonSpellCard minion : opponent.getInsertedCards())
         {
             showMinionInfoInTheBattle((Minion) minion);
         }

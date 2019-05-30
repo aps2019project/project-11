@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Minion extends NonSpellCards
+public class Minion extends NonSpellCard
 {
     private static ArrayList<Minion> minions = new ArrayList<>();
     private boolean ableToCombo;

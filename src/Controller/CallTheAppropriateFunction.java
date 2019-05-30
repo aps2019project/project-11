@@ -254,16 +254,16 @@ public class CallTheAppropriateFunction
                         showOutput.printOutput("Entered number is invalid");
                         numberOfLevel = request.getStoryMatchLevel();
                     }
-                    Player opponentPlayerForStory = Battle.makeStoryPlayer(numberOfLevel);
+                    Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
                     BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, Battle.getBattleMode(numberOfLevel), battleTypeStory);
+                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                     determineBattleCommand();
                     break;
                 case CUSTOM_GAME:
                     showOutput.showCustomGameInfo();
                     request.getCustomGameCommands();
-                    Player opponentPlayerForCustomGame = Battle.makeCustomGamePlayer(request.getCommand().deckNameForCustomGame);
-                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, Battle.getBattleMode(request.getCommand().customGameMode), BattleType.CUSTOM_GAME);
+                    Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(request.getCommand().deckNameForCustomGame);
+                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(request.getCommand().customGameMode), BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
                 case SHOW_MENU:
@@ -448,7 +448,7 @@ public class CallTheAppropriateFunction
             switch (request.getCommand())
             {
                 case MOVE_TO:
-                    Battle.getCurrentBattle().moveCard(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
+                    battleManager.moveCard(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
                     break;
                 case NORMAL_ATTACK:
                     Battle.getCurrentBattle().attackToOpponent(request.getCommand().enemyCardIDForNormalAttack);
@@ -514,7 +514,7 @@ public class CallTheAppropriateFunction
             switch (request.getCommand())
             {
                 case SHOW_INFO:
-                    Battle.getCurrentBattle().showGraveYardCardInfo(request.getCommand().cardOrItemIDInGraveYard);
+                    battleManager.showGraveYardCardInfo(request.getCommand().cardOrItemIDInGraveYard);
                     break;
                 case SHOW_MENU:
                     showOutput.showMenuGraveYard();

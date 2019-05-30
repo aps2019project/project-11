@@ -60,7 +60,7 @@ public class BattleManager
 
     private void checkCircumstancesToInsertSpell(Spell spell, int x, int y)
     {
-        NonSpellCards nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+        NonSpellCard nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
         if (getPossibilityToInsertSpell(spell, nonSpellCard))
         {
             System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
@@ -71,7 +71,7 @@ public class BattleManager
         }
     }
 
-    private boolean getPossibilityToInsertSpell(Spell spell, NonSpellCards nonSpellCard)
+    private boolean getPossibilityToInsertSpell(Spell spell, NonSpellCard nonSpellCard)
     {
         Target target = spell.getSpellEffect().getTargets().get(0);
         if (target.isOwnHero() && nonSpellCard instanceof Hero)
@@ -162,14 +162,14 @@ public class BattleManager
                 if (card instanceof Minion)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
-                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCards) card);
+                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
                 }
                 else if (card instanceof Hero)
                 {
-                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCards) card);
+                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
                     System.out.println("Hero sat in BattleField");
                 }
-                Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCards) card);
+                Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCard) card);
                 if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
@@ -188,7 +188,7 @@ public class BattleManager
     {
         if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
         {
-            NonSpellCards SelectedCard = Battle.getCurrentBattle().getSelectedCard();
+            NonSpellCard SelectedCard = Battle.getCurrentBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
                 showOutput.printOutput("Selected Card doesn't have special power");
@@ -196,7 +196,7 @@ public class BattleManager
             else
             {
                 SpellChange spellChange = specialPower.getSpellEffect().getSpellChanges().get(0);
-                NonSpellCards card = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+                NonSpellCard card = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
                 if (card != null)
                 {
                     card.addActiveSpellOnThisCard(spellChange);
@@ -218,7 +218,7 @@ public class BattleManager
         {
             if (card.getCardID().equals(cardID))
             {
-                Battle.getCurrentBattle().selectCard((NonSpellCards) card);
+                Battle.getCurrentBattle().selectCard((NonSpellCard) card);
                 System.out.println("Card selected");
                 return;
             }
@@ -235,6 +235,42 @@ public class BattleManager
             {
                 Battle.getCurrentBattle().selectCollectibleItem(item);
             }
+        }
+    }
+
+    public void showGraveYardCardInfo(String cardID)
+    {
+        Card card = Battle.getCurrentBattle().getPlayerTurn().findCardInGraveYard(cardID);
+        if (card != null)
+        {
+            card.printCardStats();
+        }
+    }
+
+    public void moveCard(int x, int y)
+    {
+        if (x < 0 || x > 4 || y < 0 || y > 8)
+        {
+            showOutput.printOutput("Invalid target");
+            return;
+        }
+        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+        int[][] moveAbleCells = selectedCard.setMoveAbleCells();
+        if (selectedCard.isMoveAble())
+        {
+            if (moveAbleCells[x][y] == 1)
+            {
+                Battle.getCurrentBattle().moveCard(selectedCard, x, y);
+                showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
+            }
+            else
+            {
+                showOutput.printOutput("Invalid Target");
+            }
+        }
+        else
+        {
+            showOutput.printOutput("this card is not movable");
         }
     }
 }

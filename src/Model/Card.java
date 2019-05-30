@@ -75,7 +75,7 @@ public abstract class Card implements Cloneable
     public static void setCards()
     {
         Spell.setSpells();
-        NonSpellCards.setNonSpellCards();
+        NonSpellCard.setNonSpellCards();
     }
 
     public void printCardStats(int counter)

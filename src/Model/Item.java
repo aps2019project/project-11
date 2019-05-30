@@ -165,7 +165,7 @@ public class Item implements Cloneable
             switch (itemTarget)
             {
                 case OWN_RANDOM_FORCE:
-                    NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    NonSpellCard ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
                     if (ownNonSpellCard != null)
                     {
                         ownNonSpellCard.addActiveItemOnThisCard(itemChange);
@@ -183,7 +183,7 @@ public class Item implements Cloneable
                     Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
                     break;
                 case OWN_MELEE_FORCE:
-                    for (NonSpellCards nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+                    for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
                     {
                         if (nonSpellCard.getImpactType() == ImpactType.melee)
                         {
@@ -224,7 +224,7 @@ public class Item implements Cloneable
                     }
                     break;
                 case OPPONENT_RANDOM_FORCE:
-                    NonSpellCards opponentNonSpellCard = Battle.getCurrentBattle().findRandomOpponentNonSpellCardToApplyUsableItem();
+                    NonSpellCard opponentNonSpellCard = Battle.getCurrentBattle().findRandomOpponentNonSpellCardToApplyUsableItem();
                     opponentNonSpellCard.addActiveItemOnThisCard(itemChange);
                     break;
                 case OPPONENT_HERO:
@@ -235,7 +235,7 @@ public class Item implements Cloneable
                     //todo
                     break;
                 case OWN_RANDOM_FORCE:
-                    NonSpellCards ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    NonSpellCard ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
                     if (ownNonSpellCard != null)
                     {
                         ownNonSpellCard.addActiveItemOnThisCard(itemChange);

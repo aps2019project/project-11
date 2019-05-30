@@ -67,7 +67,7 @@ public class SpellChange
         this.continuous = continuous;
     }
 
-    public void applySpellChangeOnCard(NonSpellCards nonSpellCard)
+    public void applySpellChangeOnCard(NonSpellCard nonSpellCard)
     {
         if (this.getTurnsToApplyChange() == 0 && !this.isApplyChangeUntilEndOfTheGame())
         {

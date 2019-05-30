@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Hero extends NonSpellCards
+public class Hero extends NonSpellCard
 {
     private static ArrayList<Hero> heroes = new ArrayList<>();
     private int turnsRemainingToEndCoolDown;

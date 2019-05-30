@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BattleField
 {
     private Cell[][] battleFieldMatrix = new Cell[5][9];
-    private ArrayList<NonSpellCards> allCardsInTheBattleField = new ArrayList<>();
+    private ArrayList<NonSpellCard> allCardsInTheBattleField = new ArrayList<>();
 
     public void makeCells()
     {
@@ -23,9 +23,9 @@ public class BattleField
         return battleFieldMatrix;
     }
 
-    public NonSpellCards findCardInBattleField(String cardID)
+    public NonSpellCard findCardInBattleField(String cardID)
     {
-        for (NonSpellCards nonSpellCard : this.getAllCardsInTheBattleField())
+        for (NonSpellCard nonSpellCard : this.getAllCardsInTheBattleField())
         {
             if (nonSpellCard.getCardID().equals(cardID))
             {
@@ -40,12 +40,12 @@ public class BattleField
         return battleFieldMatrix[x][y];
     }
 
-    public ArrayList<NonSpellCards> getAllCardsInTheBattleField()
+    public ArrayList<NonSpellCard> getAllCardsInTheBattleField()
     {
         return allCardsInTheBattleField;
     }
 
-    public void addCardInTheBattleField(NonSpellCards cardInTheBattleField)
+    public void addCardInTheBattleField(NonSpellCard cardInTheBattleField)
     {
         allCardsInTheBattleField.add(cardInTheBattleField);
     }
