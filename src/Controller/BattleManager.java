@@ -84,20 +84,20 @@ public class BattleManager
 
     private int[][] setInsertAbleCellsMatrixForMinion()
     {
-        int[][] matrix = new int[5][9];
+        int[][] insertAbleCells = new int[5][9];
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            generateMatrix(matrix, minion);
+            generateMatrix(insertAbleCells, minion);
         }
         Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
-        generateMatrix(matrix, hero);
-        matrix[hero.getRow()][hero.getColumn()] = 0;
+        generateMatrix(insertAbleCells, hero);
+        insertAbleCells[hero.getRow()][hero.getColumn()] = 0;
         for (Card card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
         {
-            matrix[card.getRow()][card.getColumn()] = 0;
+            insertAbleCells[card.getRow()][card.getColumn()] = 0;
         }
-        showOutput.printMatrixValues(matrix, "InsertAble Cells :");
-        return matrix;
+        showOutput.printMatrixValues(insertAbleCells, "InsertAble Cells :");
+        return insertAbleCells;
     }
 
     private void generateMatrix(int[][] matrix, Card card)

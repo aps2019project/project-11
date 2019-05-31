@@ -545,17 +545,17 @@ public class ShowOutput
         printOutput("Exit");
     }
 
-    public void printMatrixValues(int[][] moveAbleCells, String command)
+    public void printMatrixValues(int[][] matrix, String command)
     {
         printOutput(command);
         for (int i = 0; i < 5; i++)
         {
+            StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < 9; j++)
             {
-                //todo println
-                System.out.print(moveAbleCells[i][j] + " ");
+                stringBuilder.append(matrix[i][j]).append(" ");
             }
-            System.out.println();
+            printOutput(stringBuilder.toString());
         }
     }
 }

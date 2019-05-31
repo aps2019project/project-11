@@ -536,11 +536,9 @@ public class CallTheAppropriateFunction
             {
                 continue;
             }
-            switch (request.getCommand())
+            if (request.getCommand() == CommandType.END_GAME)
             {
-                case END_GAME:
-                    Battle.getCurrentBattle().tasksAtEndOfGame();
-                    break;
+                Battle.getCurrentBattle().tasksAtEndOfGame();
             }
         }
     }
