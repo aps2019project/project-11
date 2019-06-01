@@ -3,7 +3,7 @@ package Controller;
 import Model.*;
 import View.*;
 
-public class CallTheAppropriateFunction
+public class CallTheAppropriateFunction extends Thread
 {
     private AccountManager accountManager = new AccountManager();
     private CollectionManager collectionManager = new CollectionManager();
@@ -12,6 +12,12 @@ public class CallTheAppropriateFunction
     private BattleManager battleManager = new BattleManager();
     private Request request = new Request();
     private ShowOutput showOutput = new ShowOutput();
+
+    @Override
+    public void run()
+    {
+        setPrimarySettings();
+    }
 
     public void setPrimarySettings()
     {
