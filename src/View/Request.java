@@ -1,10 +1,15 @@
 package View;
 
 import Model.CommandType;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Scanner;
@@ -61,6 +66,13 @@ public class Request
         Image image = new Image("file:Duelyst Menu.jpg");
         ImageView imageView = new ImageView(image);
         rootMainMenu.getChildren().add(imageView);
+
+        Text text = new Text("Duelyst");
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50));
+        text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
+        rootMainMenu.getChildren().add(text);
+
         primaryStage.setScene(sceneMainMenu);
     }
 
