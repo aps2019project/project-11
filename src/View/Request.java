@@ -1,6 +1,11 @@
 package View;
 
 import Model.CommandType;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -45,6 +50,18 @@ public class Request
     private void setCommand(CommandType command)
     {
         this.command = command;
+    }
+
+    public Object requestLock = new Object();
+    private Group rootMainMenu = new Group();
+    private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
+
+    public void mainMenu(Stage primaryStage)
+    {
+        Image image = new Image("file:Duelyst Menu.jpg");
+        ImageView imageView = new ImageView(image);
+        rootMainMenu.getChildren().add(imageView);
+        primaryStage.setScene(sceneMainMenu);
     }
 
     public void getMainMenuCommands()
