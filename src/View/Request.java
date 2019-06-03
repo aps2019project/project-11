@@ -1,13 +1,11 @@
 package View;
 
 import Model.CommandType;
-import javafx.event.EventHandler;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -45,7 +43,10 @@ public class Request
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [a-zA-Z_0-9]+");
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
-
+    private Group shopRoot = new Group();
+    private Scene shopScene = new Scene(shopRoot,1000,562);
+    private Group collectionRoot = new Group();
+    private Scene collectionScene = new Scene(collectionRoot,1000,562);
     private ShowOutput showOutput = new ShowOutput();
 
     public CommandType getCommand()
@@ -75,17 +76,18 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
-        setMainMenuText("Battle", 100);
-        setMainMenuText("Shop", 170);
-        setMainMenuText("Collection", 250);
-        setMainMenuText("Save", 330);
-        setMainMenuText("Logout", 410);
-        setMainMenuText("Exit", 490);
+        setMainMenuText("Battle", 100,primaryStage);
+        setMainMenuText("Shop", 170,primaryStage);
+        setMainMenuText("Collection", 250,primaryStage);
+        setMainMenuText("Save", 330,primaryStage);
+        setMainMenuText("Logout", 410,primaryStage);
+        setMainMenuText("Exit", 490,primaryStage);
+
 
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setMainMenuText(String string, int yProperty)
+    private void setMainMenuText(String string, int yProperty, Stage stage)
     {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
@@ -95,39 +97,49 @@ public class Request
         text.setFill(Color.BLUE);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
-        text.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        text.setOnMouseClicked(event -> {
+            switch (string)
             {
-                switch (string)
-                {
-                    case "Shop":
-                        command = CommandType.ENTER_SHOP;
-                        break;
-                    case "Collection":
-                        command = CommandType.ENTER_COLLECTION;
-                        break;
-                    case "Battle":
-                        command = CommandType.ENTER_BATTLE;
-                        break;
-                    case "Save":
-                        command = CommandType.SAVE;
-                        break;
-                    case "Logout":
-                        command = CommandType.LOGOUT;
-                        break;
-                    case "Exit":
-                        command = CommandType.EXIT;
-                        break;
-                }
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
+                case "Shop":
+                    command = CommandType.ENTER_SHOP;
+                    menuOfShop(stage);
+                    break;
+                case "Collection":
+                    command = CommandType.ENTER_COLLECTION;
+                    menuOfCollection(stage);
+                    break;
+                case "Battle":
+                    command = CommandType.ENTER_BATTLE;
+                    break;
+                case "Save":
+                    command = CommandType.SAVE;
+                    break;
+                case "Logout":
+                    command = CommandType.LOGOUT;
+                    break;
+                case "Exit":
+                    command = CommandType.EXIT;
+                    break;
+            }
+            synchronized (requestLock)
+            {
+                requestLock.notify();
             }
         });
         rootMainMenu.getChildren().add(text);
+    }
+
+
+
+
+    public void menuOfShop(Stage primarystage)
+    {
+        primarystage.setScene(shopScene);
+    }
+
+    public void menuOfCollection(Stage primaryStage)
+    {
+        primaryStage.setScene(collectionScene);
     }
 
     public void getMainMenuCommands()

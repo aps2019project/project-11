@@ -10,7 +10,7 @@ public class Main extends Application
     {
         Request request = new Request();
         request.mainMenu(primaryStage);
-        primaryStage.setTitle("Duelyst");
+        primaryStage.setTitle("Duelist");
         primaryStage.show();
     }
 

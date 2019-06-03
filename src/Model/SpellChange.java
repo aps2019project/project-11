@@ -106,10 +106,6 @@ public class SpellChange
         {
             this.setTurnsToApplyChange(getTurnsToApplyChange());
         }
-        if (this.isDispel())
-        {
-
-        }
         if (this.isCurrentTurn())
         {
             this.setTurnsToApplyChange(this.getTurnsToApplyChange());
