@@ -5,10 +5,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -48,7 +46,6 @@ public class Request
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
-    private CommandType command;
     private ShowOutput showOutput = new ShowOutput();
 
     public CommandType getCommand()
@@ -56,12 +53,13 @@ public class Request
         return command;
     }
 
-    private void setCommand(CommandType command)
+    private static void setCommand(CommandType command)
     {
-        this.command = command;
+        Request.command = command;
     }
 
-    public Object requestLock = new Object();
+    private static CommandType command;
+    public static final Object requestLock = new Object();
     private Group rootMainMenu = new Group();
     private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
 
@@ -87,7 +85,7 @@ public class Request
         primaryStage.setScene(sceneMainMenu);
     }
 
-    public void setMainMenuText(String string, int yProperty)
+    private void setMainMenuText(String string, int yProperty)
     {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
@@ -97,6 +95,38 @@ public class Request
         text.setFill(Color.BLUE);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
+        text.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                switch (string)
+                {
+                    case "Shop":
+                        command = CommandType.ENTER_SHOP;
+                        break;
+                    case "Collection":
+                        command = CommandType.ENTER_COLLECTION;
+                        break;
+                    case "Battle":
+                        command = CommandType.ENTER_BATTLE;
+                        break;
+                    case "Save":
+                        command = CommandType.SAVE;
+                        break;
+                    case "Logout":
+                        command = CommandType.LOGOUT;
+                        break;
+                    case "Exit":
+                        command = CommandType.EXIT;
+                        break;
+                }
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+            }
+        });
         rootMainMenu.getChildren().add(text);
     }
 

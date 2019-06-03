@@ -27,7 +27,7 @@ public class AccountManager
         }
     }
 
-    public void checkCircumstancesToLogin(String userName)
+    public void checkCircumstancesToLogin(String userName) throws InterruptedException
     {
         for (Account account : getAccounts())
         {

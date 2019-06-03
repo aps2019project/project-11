@@ -16,25 +16,35 @@ public class CallTheAppropriateFunction extends Thread
     @Override
     public void run()
     {
-        setPrimarySettings();
+        try
+        {
+            setPrimarySettings();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public void setPrimarySettings()
+    public void setPrimarySettings() throws InterruptedException
     {
         Card.setCards();
         Item.setItems();
-        determineAccountCommand();
+        //determineAccountCommand();
+        determineMainMenuCommand();
     }
 
-    void determineMainMenuCommand()
+    void determineMainMenuCommand() throws InterruptedException
     {
         showOutput.printMainMenuCommands();
         while (true)
         {
-            request.getMainMenuCommands();
             if (request.getCommand() == null)
             {
-                continue;
+                synchronized (Request.requestLock)
+                {
+                    Request.requestLock.wait();
+                }
             }
             switch (request.getCommand())
             {
@@ -64,7 +74,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineAccountCommand()
+    private void determineAccountCommand() throws InterruptedException
     {
         while (true)
         {
@@ -95,9 +105,8 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineShopCommand()
+    private void determineShopCommand() throws InterruptedException
     {
-
         while (true)
         {
             request.getShopCommands();
@@ -154,7 +163,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineCollectionCommand()
+    private void determineCollectionCommand() throws InterruptedException
     {
         while (true)
         {
