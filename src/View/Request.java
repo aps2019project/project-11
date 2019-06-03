@@ -2,6 +2,7 @@ package View;
 
 import Model.CommandType;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +10,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -151,21 +156,33 @@ public class Request
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sceneShop = new Scene(scrollPane, 1000, 562);
 
-        setShopMenu("Show Collection",primaryStage,100);
+        makeCards(rootShop);
+
+        /*setShopMenu("Show Collection",primaryStage,100);
         setShopMenu("Search",primaryStage,170);
         setShopMenu("Search Collection",primaryStage,250);
         setShopMenu("Buy",primaryStage,330);
-        setShopMenu("Sell",primaryStage,500);
+        setShopMenu("Sell",primaryStage,500);*/
 
         primaryStage.setScene(sceneShop);
     }
 
-    private void makeCards()
+    private void makeCards(Group root)
     {
+        Image image = new Image("file:download.jpg");
+        ImageView imageView = new ImageView(image);
 
+        Rectangle rectangle = new Rectangle(200, 250);
+        rectangle.setFill(Color.DARKGRAY);
+
+        StackPane stackPane = new StackPane(rectangle, imageView);
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.relocate(20, 20);
+
+        root.getChildren().addAll(stackPane);
     }
 
-    public void setShopMenu(String titlesInShop , Stage stage, int x)
+    /*public void setShopMenu(String titlesInShop , Stage stage, int x)
     {
         Text text = new Text(titlesInShop);
         text.setTextOrigin(VPos.TOP);
@@ -193,15 +210,14 @@ public class Request
                   case "Sell" :
                       command = CommandType.SELL;
                       break;
-                   /*synchronized (requestLock)
+                   synchronized (requestLock)
                     {
                         requestLock.notify();
-                    }*/
+                    }
               }
            });
         rootShop.getChildren().add(text);
-
-    }
+    }*/
 
     public void collectionMenu(Stage primaryStage)
     {
