@@ -134,14 +134,58 @@ public class Request
 
     public void menuOfShop(Stage primarystage)
     {
+        setShopMenu("Show Collection",primarystage,100);
+        setShopMenu("Search",primarystage,171);
+        setShopMenu("Search Collection",primarystage,250);
+        setShopMenu("Buy",primarystage,330);
+        setShopMenu("Sell",primarystage,400);
         primarystage.setScene(shopScene);
+    }
+
+    public void setShopMenu(String titlesInShop , Stage stage, int x)
+    {
+        Text text = new Text(titlesInShop);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.BLACK, 40));
+        text.layoutXProperty().bind(shopScene.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        text.setY(x);
+        text.setFill(Color.BLACK);
+        text.setOnMouseEntered(event -> text.setFill(Color.RED));
+        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
+        text.setOnMouseClicked(event ->
+           {
+             switch (titlesInShop)
+              {
+                  case "Show Collection":
+                      command = CommandType.SHOW_COLLECTION;
+                      break;
+                  case "Search":
+                      command = CommandType.SEARCH;
+                      break;
+                  case "Search Collection" :
+                      command = CommandType.SEARCH_COLLECTION;
+                      break;
+                  case  "Buy" :
+                      command = CommandType.BUY;
+                      break;
+                  case "Sell" :
+                      command = CommandType.SELL;
+                      break;
+
+                   /*synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }*/
+              }
+           });
+        shopRoot.getChildren().add(text);
+
     }
 
     public void menuOfCollection(Stage primaryStage)
     {
         primaryStage.setScene(collectionScene);
     }
-
     public void getMainMenuCommands()
     {
         String input = myScanner.nextLine();
