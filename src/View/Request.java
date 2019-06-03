@@ -1,11 +1,14 @@
 package View;
 
 import Model.CommandType;
+import javafx.event.EventHandler;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -43,10 +46,7 @@ public class Request
     private final static Pattern patternNormalAttack = Pattern.compile("Attack [a-zA-Z_0-9]+");
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
-    private Group shopRoot = new Group();
-    private Scene shopScene = new Scene(shopRoot,1000,562);
-    private Group collectionRoot = new Group();
-    private Scene collectionScene = new Scene(collectionRoot,1000,562);
+
     private ShowOutput showOutput = new ShowOutput();
 
     public CommandType getCommand()
@@ -63,12 +63,15 @@ public class Request
     public static final Object requestLock = new Object();
     private Group rootMainMenu = new Group();
     private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
+    private Group rootShop = new Group();
+    private ScrollPane scrollPane = new ScrollPane();
+    private Scene sceneShop;
+    private Group rootCollection = new Group();
+    private Scene sceneCollection = new Scene(rootCollection,1000,562);
 
     public void mainMenu(Stage primaryStage)
     {
-        Image backGroundImage = new Image("file:Duelyst Menu.jpg");
-        ImageView backGroundImageView = new ImageView(backGroundImage);
-        rootMainMenu.getChildren().add(backGroundImageView);
+        setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
         duelyst.setTextOrigin(VPos.TOP);
@@ -76,18 +79,24 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
-        setMainMenuText("Battle", 100,primaryStage);
-        setMainMenuText("Shop", 170,primaryStage);
-        setMainMenuText("Collection", 250,primaryStage);
-        setMainMenuText("Save", 330,primaryStage);
-        setMainMenuText("Logout", 410,primaryStage);
-        setMainMenuText("Exit", 490,primaryStage);
-
+        setMainMenuText(primaryStage, "Battle", 100);
+        setMainMenuText(primaryStage, "Shop", 170);
+        setMainMenuText(primaryStage, "Collection", 250);
+        setMainMenuText(primaryStage, "Save", 330);
+        setMainMenuText(primaryStage, "Logout", 410);
+        setMainMenuText(primaryStage, "Exit", 490);
 
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setMainMenuText(String string, int yProperty, Stage stage)
+    private void setBackGroundImage(Group root, String url)
+    {
+        Image backGroundImage = new Image(url);
+        ImageView backGroundImageView = new ImageView(backGroundImage);
+        root.getChildren().add(backGroundImageView);
+    }
+
+    private void setMainMenuText(Stage primaryStage, String string, int yProperty)
     {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
@@ -97,49 +106,63 @@ public class Request
         text.setFill(Color.BLUE);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
-        text.setOnMouseClicked(event -> {
-            switch (string)
+        text.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
             {
-                case "Shop":
-                    command = CommandType.ENTER_SHOP;
-                    menuOfShop(stage);
-                    break;
-                case "Collection":
-                    command = CommandType.ENTER_COLLECTION;
-                    menuOfCollection(stage);
-                    break;
-                case "Battle":
-                    command = CommandType.ENTER_BATTLE;
-                    break;
-                case "Save":
-                    command = CommandType.SAVE;
-                    break;
-                case "Logout":
-                    command = CommandType.LOGOUT;
-                    break;
-                case "Exit":
-                    command = CommandType.EXIT;
-                    break;
-            }
-            synchronized (requestLock)
-            {
-                requestLock.notify();
+                switch (string)
+                {
+                    case "Shop":
+                        command = CommandType.ENTER_SHOP;
+                        shopMenu(primaryStage);
+                        break;
+                    case "Collection":
+                        command = CommandType.ENTER_COLLECTION;
+                        break;
+                    case "Battle":
+                        command = CommandType.ENTER_BATTLE;
+                        break;
+                    case "Save":
+                        command = CommandType.SAVE;
+                        break;
+                    case "Logout":
+                        command = CommandType.LOGOUT;
+                        break;
+                    case "Exit":
+                        command = CommandType.EXIT;
+                        break;
+                }
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
             }
         });
         rootMainMenu.getChildren().add(text);
     }
 
-
-
-
-    public void menuOfShop(Stage primarystage)
+    public void shopMenu(Stage primaryStage)
     {
-        setShopMenu("Show Collection",primarystage,100);
-        setShopMenu("Search",primarystage,171);
-        setShopMenu("Search Collection",primarystage,250);
-        setShopMenu("Buy",primarystage,330);
-        setShopMenu("Sell",primarystage,400);
-        primarystage.setScene(shopScene);
+        setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
+
+        scrollPane.setContent(rootShop);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sceneShop = new Scene(scrollPane, 1000, 562);
+
+        setShopMenu("Show Collection",primaryStage,100);
+        setShopMenu("Search",primaryStage,170);
+        setShopMenu("Search Collection",primaryStage,250);
+        setShopMenu("Buy",primaryStage,330);
+        setShopMenu("Sell",primaryStage,500);
+
+        primaryStage.setScene(sceneShop);
+    }
+
+    private void makeCards()
+    {
+
     }
 
     public void setShopMenu(String titlesInShop , Stage stage, int x)
@@ -147,13 +170,12 @@ public class Request
         Text text = new Text(titlesInShop);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.BLACK, 40));
-        text.layoutXProperty().bind(shopScene.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        text.layoutXProperty().bind(sceneShop.widthProperty().subtract(text.prefWidth(-2)).divide(2));
         text.setY(x);
         text.setFill(Color.BLACK);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLACK));
-        text.setOnMouseClicked(event ->
-           {
+        text.setOnMouseClicked(event -> {
              switch (titlesInShop)
               {
                   case "Show Collection":
@@ -171,21 +193,21 @@ public class Request
                   case "Sell" :
                       command = CommandType.SELL;
                       break;
-
                    /*synchronized (requestLock)
                     {
                         requestLock.notify();
                     }*/
               }
            });
-        shopRoot.getChildren().add(text);
+        rootShop.getChildren().add(text);
 
     }
 
-    public void menuOfCollection(Stage primaryStage)
+    public void collectionMenu(Stage primaryStage)
     {
-        primaryStage.setScene(collectionScene);
+        primaryStage.setScene(sceneCollection);
     }
+
     public void getMainMenuCommands()
     {
         String input = myScanner.nextLine();
@@ -222,11 +244,6 @@ public class Request
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
-    }
-
-    public void getCardMakingCommand()
-    {
-        //phase 2
     }
 
     public void getAccountCommands()
