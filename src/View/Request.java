@@ -1,12 +1,16 @@
 package View;
 
 import Model.CommandType;
+import javafx.event.EventHandler;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -63,17 +67,37 @@ public class Request
 
     public void mainMenu(Stage primaryStage)
     {
-        Image image = new Image("file:Duelyst Menu.jpg");
-        ImageView imageView = new ImageView(image);
-        rootMainMenu.getChildren().add(imageView);
+        Image backGroundImage = new Image("file:Duelyst Menu.jpg");
+        ImageView backGroundImageView = new ImageView(backGroundImage);
+        rootMainMenu.getChildren().add(backGroundImageView);
 
-        Text text = new Text("Duelyst");
-        text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50));
-        text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
-        rootMainMenu.getChildren().add(text);
+        Text duelyst = new Text("Duelyst");
+        duelyst.setTextOrigin(VPos.TOP);
+        duelyst.setFont(Font.font(null, FontWeight.BOLD, 60));
+        duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
+        rootMainMenu.getChildren().add(duelyst);
+
+        setMainMenuText("Battle", 100);
+        setMainMenuText("Shop", 170);
+        setMainMenuText("Collection", 250);
+        setMainMenuText("Save", 330);
+        setMainMenuText("Logout", 410);
+        setMainMenuText("Exit", 490);
 
         primaryStage.setScene(sceneMainMenu);
+    }
+
+    public void setMainMenuText(String string, int yProperty)
+    {
+        Text text = new Text(string);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 35));
+        text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
+        text.setY(yProperty);
+        text.setFill(Color.BLUE);
+        text.setOnMouseEntered(event -> text.setFill(Color.RED));
+        text.setOnMouseExited(event -> text.setFill(Color.BLUE));
+        rootMainMenu.getChildren().add(text);
     }
 
     public void getMainMenuCommands()
