@@ -1,6 +1,8 @@
 package View;
 
+import Model.Card;
 import Model.CommandType;
+import Model.Shop;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -10,8 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -20,6 +21,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -64,6 +66,11 @@ public class Request
         Request.command = command;
     }
 
+    private static final int ROW_BLANK = 20;
+    private static final int Column_BLANK = 20;
+    private static final int BLANK_BETWEEN_CARDS = 50;
+
+
     private static CommandType command;
     public static final Object requestLock = new Object();
     private Group rootMainMenu = new Group();
@@ -94,9 +101,9 @@ public class Request
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setBackGroundImage(Group root, String url)
+    private void setBackGroundImage(Group root, String ur2l)
     {
-        Image backGroundImage = new Image(url);
+        Image backGroundImage = new Image(ur2l);
         ImageView backGroundImageView = new ImageView(backGroundImage);
         root.getChildren().add(backGroundImageView);
     }
@@ -154,9 +161,18 @@ public class Request
         scrollPane.setContent(rootShop);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
         sceneShop = new Scene(scrollPane, 1000, 562);
 
-        makeCards(rootShop);
+        int counter = 0;
+        ArrayList<Card> cards = Shop.getInstance().getCards();
+        for (Card card : cards)
+        {
+            int x = ROW_BLANK + (counter%4) * (200 + BLANK_BETWEEN_CARDS);
+            int y = Column_BLANK + counter/4 * (250 + BLANK_BETWEEN_CARDS);
+            makeCards(rootShop, x, y);
+            counter ++;
+        }
 
         /*setShopMenu("Show Collection",primaryStage,100);
         setShopMenu("Search",primaryStage,170);
@@ -167,7 +183,7 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
-    private void makeCards(Group root)
+    private void makeCards(Group root,int x, int y)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
@@ -177,9 +193,19 @@ public class Request
 
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
-        stackPane.relocate(20, 20);
+        stackPane.relocate(x, y);
 
-        root.getChildren().addAll(stackPane);
+        Text AP = new Text("5");
+        AP.setFont(Font.font(15));
+        AP.setFill(Color.RED);
+        AP.relocate(x + 150, y + 200);
+
+        Text HP = new Text("3");
+        HP.setFont(Font.font(15));
+        HP.setFill(Color.YELLOW);
+        HP.relocate(x + 50, y + 200);
+
+        root.getChildren().addAll(stackPane, AP, HP);
     }
 
     /*public void setShopMenu(String titlesInShop , Stage stage, int x)
