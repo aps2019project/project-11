@@ -411,6 +411,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                setCommand(CommandType.EXIT);
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 try
@@ -481,14 +482,13 @@ public class Request
 
         setBattleMenu("Single Player",primaryStage,170);
         setBattleMenu("Multi Player",primaryStage,270);
+        backButton(primaryStage, rootBattle, 50, 450);
 
         primaryStage.setScene(sceneBattle);
     }
 
     public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage , int location)
     {
-        backButton(primaryStage, rootBattle, 50, 450);
-
         Text title = new Text("Select Duel");
         title.setFill(Color.RED);
         title.setTextOrigin(VPos.TOP);
@@ -514,10 +514,10 @@ public class Request
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
                         break;
-                /*synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }*/
+            }
+            synchronized (requestLock)
+            {
+                requestLock.notify();
             }
         });
         rootBattle.getChildren().add(text);
@@ -535,6 +535,11 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
                 primaryStage.setScene(sceneBattle);
                 primaryStage.centerOnScreen();
                 try
@@ -566,17 +571,15 @@ public class Request
             switch (string)
             {
                 case "Story" :
-                    command = CommandType.STORY;
+                    setCommand(CommandType.STORY);
                     break;
                 case "Custom Game":
-                    command = CommandType.CUSTOM_GAME;
+                    setCommand(CommandType.CUSTOM_GAME);
                     break;
-                case "Back":
-
-                  /*synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }*/
+            }
+            synchronized (requestLock)
+            {
+                requestLock.notify();
             }
         });
         rootSinglePlayer.getChildren().add(title);

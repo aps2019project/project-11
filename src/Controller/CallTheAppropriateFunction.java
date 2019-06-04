@@ -188,17 +188,19 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineBattleMenuCommand()
+    private void determineBattleMenuCommand() throws InterruptedException
     {
         if (Account.loggedInAccount.getMainDeck() != null)
         {
             while (true)
             {
                 showOutput.showBattleMenuCommands();
-                request.getBattleMenuCommands();
                 if (request.getCommand() == null)
                 {
-                    continue;
+                    synchronized (Request.requestLock)
+                    {
+                        Request.requestLock.wait();
+                    }
                 }
                 switch (request.getCommand())
                 {
@@ -211,6 +213,7 @@ public class CallTheAppropriateFunction extends Thread
                     case EXIT:
                         return;
                 }
+                Request.setCommand(null);
             }
         }
         else
@@ -219,16 +222,18 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void selectSinglePlayerMatchMode()
+    private void selectSinglePlayerMatchMode() throws InterruptedException
     {
         showOutput.printOutput("Story");
         showOutput.printOutput("Custom Game");
         while (true)
         {
-            request.getSinglePlayerMatchMode();
             if (request.getCommand() == null)
             {
-                continue;
+                synchronized (Request.requestLock)
+                {
+                    Request.requestLock.wait();
+                }
             }
             switch (request.getCommand())
             {
@@ -258,6 +263,7 @@ public class CallTheAppropriateFunction extends Thread
                 case EXIT:
                     return;
             }
+            Request.setCommand(null);
         }
     }
 
