@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -87,6 +86,7 @@ public class Request
     private Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
     private Group rootShop = new Group();
     private ScrollPane scrollPane = new ScrollPane();
+    private Scene sceneShop;
     private Group rootCollection = new Group();
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
     private Group rootBattle = new Group();
@@ -104,7 +104,7 @@ public class Request
         rootSignUpMenu.getChildren().add(labelSignUp);
         labelSignUp.setFont(Font.font(25));
         labelSignUp.relocate(150, 30);
-        labelSignUp.setTextFill(BLACK);
+        labelSignUp.setTextFill(Color.BLACK);
 
         Button buttonSignUp = new Button("Submit");
         Label labelInvalidInput = new Label();
@@ -168,7 +168,7 @@ public class Request
         rootLoginMenu.getChildren().add(labelLogin);
         labelLogin.relocate(150, 30);
         labelLogin.setFont(Font.font(25));
-        labelLogin.setTextFill(BLACK);
+        labelLogin.setTextFill(Color.BLACK);
 
         TextField textFieldName = new TextField();
         TextField textFieldPassword = new TextField();
@@ -254,7 +254,7 @@ public class Request
         root.getChildren().add(labelName);
         labelName.relocate(20, 130);
         labelName.setFont(Font.font(15));
-        labelName.setTextFill(BLACK);
+        labelName.setTextFill(Color.BLACK);
 
         HBox hBoxName = new HBox(textFieldName);
         hBoxName.relocate(115, 130);
@@ -264,7 +264,7 @@ public class Request
         root.getChildren().add(labelPassword);
         labelPassword.relocate(20, 210);
         labelPassword.setFont(Font.font(15));
-        labelPassword.setTextFill(BLACK);
+        labelPassword.setTextFill(Color.BLACK);
 
         HBox hBoxPassword = new HBox(textFieldPassword);
         hBoxPassword.relocate(115, 210);
@@ -277,7 +277,7 @@ public class Request
         button.setFont(Font.font(20));
         labelInvalidInput.relocate(100, 100);
         labelInvalidInput.setFont(Font.font(15));
-        labelInvalidInput.setTextFill(RED);
+        labelInvalidInput.setTextFill(Color.RED);
     }
 
     private void mainMenu(Stage primaryStage)
@@ -315,9 +315,9 @@ public class Request
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 35));
         text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
         text.setY(yProperty);
-        text.setFill(BLUE);
-        text.setOnMouseEntered(event -> text.setFill(RED));
-        text.setOnMouseExited(event -> text.setFill(BLUE));
+        text.setFill(Color.BLUE);
+        text.setOnMouseEntered(event -> text.setFill(Color.RED));
+        text.setOnMouseExited(event -> text.setFill(Color.BLUE));
         text.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -526,7 +526,8 @@ public class Request
                     break;
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
-                        break;
+                    //todo menu and battlefield
+                    break;
             }
             synchronized (requestLock)
             {
@@ -597,6 +598,49 @@ public class Request
         });
         rootSinglePlayer.getChildren().add(title);
     }
+
+    private void setBattleField(Stage primaryStage) {
+
+        Group roots = new Group();
+        showBattleFieldBackGround(roots);
+        GridPane gridPane = makeGridPaneForBattleField();
+        roots.getChildren().add(gridPane);
+        Scene scene = new Scene(roots );
+
+        primaryStage.setScene(scene );
+        primaryStage.setFullScreen(true);
+
+        primaryStage.show();
+
+    }
+
+    private GridPane makeGridPaneForBattleField() {
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(100 , 190 , 190 , 100));
+        gridPane.setHgap(1);
+        gridPane.setVgap(1);
+        setSquares(gridPane);
+
+        return gridPane;
+    }
+
+    private void setSquares(GridPane gridPane)
+    {
+        int score = 0;
+        for (int row = 4; row >= 0; row--)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                Rectangle rectangle = new Rectangle(100, 100, Color.LIGHTGREEN);
+                gridPane.add(rectangle, column, row);
+            }
+        }
+    }
+
+    private void showBattleFieldBackGround(Group roots) {
+        //todo
+    }
+
 
     public void collectionMenu(Stage primaryStage)
     {
