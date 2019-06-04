@@ -17,10 +17,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -80,6 +82,8 @@ public class Request
     private Scene sceneShop;
     private Group rootCollection = new Group();
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
+    private Group rootBattle = new Group();
+    private Scene sceneBattle = new Scene(rootBattle,1000,562);
 
     public void mainMenu(Stage primaryStage)
     {
@@ -134,6 +138,7 @@ public class Request
                         break;
                     case "Battle":
                         command = CommandType.ENTER_BATTLE;
+                        battleMenu(primaryStage);
                         break;
                     case "Save":
                         command = CommandType.SAVE;
@@ -245,6 +250,49 @@ public class Request
         rootShop.getChildren().add(text);
     }*/
 
+
+    public void battleMenu(Stage stage)
+    {
+        setBattleMenu("Single Player",stage,170);
+        setBattleMenu("Multi Player",stage,300);
+        stage.setScene(sceneBattle);
+    }
+
+    public void setBattleMenu(String titleOfBattleMenu, Stage stage , int location)
+    {
+        Text title = new Text("Choose One Of The Below");
+        title.setTextOrigin(VPos.TOP);
+        title.setFont(Font.font(null, FontPosture.ITALIC,45));
+        title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
+        title.setY(50);
+
+        Text text = new Text(titleOfBattleMenu);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.BLACK, 40));
+        text.layoutXProperty().bind(sceneBattle.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        text.setY(location);
+        text.setFill(Color.BLACK);
+        text.setOnMouseEntered(event -> text.setFill(Color.RED));
+        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
+        text.setOnMouseClicked(event -> {
+            switch (titleOfBattleMenu)
+            {
+                case "Single Player":
+                    command = CommandType.SINGLE_PLAYER;
+                    break;
+                case  "Multi Player" :
+                    command = CommandType.MULTI_PLAYER;
+                        break;
+
+                /*synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }*/
+            }
+        });
+        rootBattle.getChildren().add(text);
+        rootBattle.getChildren().add(title);
+    }
     public void collectionMenu(Stage primaryStage)
     {
         primaryStage.setScene(sceneCollection);
