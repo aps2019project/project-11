@@ -76,7 +76,6 @@ public class Request
     private static final int Column_BLANK = 20;
     private static final int BLANK_BETWEEN_CARDS = 50;
 
-
     private static CommandType command;
     public static final Object requestLock = new Object();
     private Group rootSignUpMenu = new Group();
@@ -85,17 +84,19 @@ public class Request
     private Scene sceneLoginMenu = new Scene(rootLoginMenu, 400, 400);
     private Group rootMainMenu = new Group();
     private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
+    private Group rootLeaderBoard = new Group();
+    private Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
     private Group rootShop = new Group();
     private ScrollPane scrollPane = new ScrollPane();
     private Scene sceneShop;
     private Group rootCollection = new Group();
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
     private Group rootBattle = new Group();
-    private Scene sceneBattle = new Scene(rootBattle,1000,500);
+    private Scene sceneBattle = new Scene(rootBattle,1000,562);
     private Group rootSinglePlayer = new Group();
-    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,550);
+    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
 
-    public void signUpMenu(Stage primaryStage) throws Exception
+    public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
         TextField textFieldPassword = new TextField();
@@ -163,7 +164,7 @@ public class Request
         primaryStage.show();
     }
 
-    public void login(Stage primaryStage)
+    private void login(Stage primaryStage)
     {
         Label labelLogin = new Label("Login");
         rootLoginMenu.getChildren().add(labelLogin);
@@ -249,7 +250,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    public void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword)
+    private void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword)
     {
         Label labelName = new Label("Name");
         root.getChildren().add(labelName);
@@ -272,7 +273,7 @@ public class Request
         root.getChildren().add(hBoxPassword);
     }
 
-    public void submitButton(Button button,Label labelInvalidInput)
+    private void submitButton(Button button, Label labelInvalidInput)
     {
         button.relocate(25, 300);
         button.setFont(Font.font(20));
@@ -281,7 +282,7 @@ public class Request
         labelInvalidInput.setTextFill(Color.RED);
     }
 
-    public void mainMenu(Stage primaryStage)
+    private void mainMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
@@ -339,6 +340,7 @@ public class Request
                         break;
                     case "LeaderBoard":
                         setCommand(CommandType.SHOW_LEADER_BOARD);
+                        leaderBoard(primaryStage);
                         break;
                     case "Save":
                         setCommand(CommandType.SAVE);
@@ -361,6 +363,70 @@ public class Request
         rootMainMenu.getChildren().add(text);
     }
 
+    private void leaderBoard(Stage primaryStage)
+    {
+        Label labelTop10 = new Label("Top 10");
+        labelTop10.setTextFill(Color.YELLOW);
+        labelTop10.setFont(Font.font(30));
+        labelTop10.relocate(100, 0);
+        rootLeaderBoard.getChildren().clear();
+        rootLeaderBoard.getChildren().add(labelTop10);
+        showRankingPlayers();
+        backButton(primaryStage, rootLeaderBoard, 100, 600);
+
+        primaryStage.setScene(sceneLeaderBoard);
+        primaryStage.centerOnScreen();
+    }
+
+    private void showRankingPlayers()
+    {
+        int counter = 1;
+        for (Account account : AccountManager.getAccounts())
+        {
+            if (counter > 10)
+            {
+                return;
+            }
+            Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
+            labelPlayerName.setFont(Font.font(15));
+            labelPlayerName.relocate(25, counter * 50);
+            rootLeaderBoard.getChildren().add(labelPlayerName);
+
+            Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
+            labelPlayerHighScore.setFont(Font.font(15));
+            labelPlayerHighScore.relocate(250, counter * 50);
+            rootLeaderBoard.getChildren().add(labelPlayerHighScore);
+
+            counter ++;
+        }
+    }
+
+    public Button backButton(Stage primaryStage, Group root, int x, int y)
+    {
+        Button backButton = new Button("Back");
+        backButton.setFont(Font.font(25));
+        backButton.relocate(x, y);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    mainMenu(primaryStage);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        root.getChildren().add(backButton);
+        return backButton;
+    }
+
     public void shopMenu(Stage primaryStage)
     {
         setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
@@ -380,12 +446,6 @@ public class Request
             makeCards(rootShop, x, y);
             counter ++;
         }
-
-        /*setShopMenu("Show Collection",primaryStage,100);
-        setShopMenu("Search",primaryStage,170);
-        setShopMenu("Search Collection",primaryStage,250);
-        setShopMenu("Buy",primaryStage,330);
-        setShopMenu("Sell",primaryStage,500);*/
 
         primaryStage.setScene(sceneShop);
     }
@@ -415,70 +475,27 @@ public class Request
         root.getChildren().addAll(stackPane, AP, HP);
     }
 
-    /*public void setShopMenu(String titlesInShop , Stage stage, int x)
-    {
-        Text text = new Text(titlesInShop);
-        text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.BLACK, 40));
-        text.layoutXProperty().bind(sceneShop.widthProperty().subtract(text.prefWidth(-2)).divide(2));
-        text.setY(x);
-        text.setFill(Color.BLACK);
-        text.setOnMouseEntered(event -> text.setFill(Color.RED));
-        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
-        text.setOnMouseClicked(event -> {
-             switch (titlesInShop)
-              {
-                  case "Show Collection":
-                      command = CommandType.SHOW_COLLECTION;
-                      break;
-                  case "Search":
-                      command = CommandType.SEARCH;
-                      break;
-                  case "Search Collection" :
-                      command = CommandType.SEARCH_COLLECTION;
-                      break;
-                  case  "Buy" :
-                      command = CommandType.BUY;
-                      break;
-                  case "Sell" :
-                      command = CommandType.SELL;
-                      break;
-                   synchronized (requestLock)
-                    {
-                        requestLock.notify();
-                    }
-              }
-           });
-        rootShop.getChildren().add(text);
-    }*/
-
-
-    public void battleMenu(Stage stage)
+    public void battleMenu(Stage primaryStage)
     {
         setBackGroundImage(rootBattle,"file:duelystBattle.jpg");
 
-        setBattleMenu("Single Player",stage,170);
-        setBattleMenu("Multi Player",stage,270);
-        stage.setScene(sceneBattle);
+        setBattleMenu("Single Player",primaryStage,170);
+        setBattleMenu("Multi Player",primaryStage,270);
+
+        primaryStage.setScene(sceneBattle);
     }
 
-    public void setBattleMenu(String titleOfBattleMenu, Stage stage , int location)
+    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage , int location)
     {
-        Text text1 = new Text("Back");
-        text1.relocate(50,480);
-        text1.setFill(Color.WHITE);
-        text1.setFont(Font.font(null,FontWeight.BOLD,50));
-        text1.setOnMouseClicked(event -> {
-            mainMenu(stage);
-        });
-        text1.setOnMouseEntered(event -> text1.setFill(Color.PURPLE));
-        text1.setOnMouseExited(event -> text1.setFill(Color.WHITE));
+        backButton(primaryStage, rootBattle, 50, 450);
+
         Text title = new Text("Select Duel");
         title.setFill(Color.RED);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontPosture.ITALIC,45));
         title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
         title.setY(50);
+
         Text text = new Text(titleOfBattleMenu);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.BLACK, 45));
@@ -492,7 +509,7 @@ public class Request
             {
                 case "Single Player":
                     command = CommandType.SINGLE_PLAYER;
-                    singlePlayerMenu(stage);
+                    singlePlayerMenu(primaryStage);
                     break;
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
@@ -503,31 +520,38 @@ public class Request
                 }*/
             }
         });
-        rootBattle.getChildren().add(text1);
         rootBattle.getChildren().add(text);
         rootBattle.getChildren().add(title);
     }
 
-    public void singlePlayerMenu(Stage stage)
+    public void singlePlayerMenu(Stage primaryStage)
     {
         setBackGroundImage(rootSinglePlayer,"file:SinglePlayer.jpg");
-        setSinglePlayerMenu("Story",stage,100);
-        setSinglePlayerMenu("Custom Game",stage,250);
-        //setSinglePlayerMenu("Back",stage,400);
-        stage.setScene(sceneSinglePlayer);
+        setSinglePlayerMenu("Story",primaryStage,100);
+        setSinglePlayerMenu("Custom Game",primaryStage,250);
+        Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneBattle);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    battleMenu(primaryStage);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        primaryStage.setScene(sceneSinglePlayer);
     }
 
-    public void setSinglePlayerMenu(String string ,Stage stage, int place)
+    public void setSinglePlayerMenu(String string ,Stage primaryStage, int place)
     {
-        Text text = new Text("Back");
-        text.relocate(100,500);
-        text.setFill(Color.BLACK);
-        text.setFont(Font.font(null,FontWeight.BLACK,50));
-        text.setOnMouseClicked(event -> {
-            battleMenu(stage);
-        });
-        text.setOnMouseEntered(event -> text.setFill(Color.AQUA));
-        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null,FontWeight.BLACK, 45));
@@ -555,84 +579,12 @@ public class Request
                 }*/
             }
         });
-        rootSinglePlayer.getChildren().add(text);
         rootSinglePlayer.getChildren().add(title);
-
     }
+
     public void collectionMenu(Stage primaryStage)
     {
         primaryStage.setScene(sceneCollection);
-    }
-
-    public void getMainMenuCommands()
-    {
-        String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("Enter Shop"))
-        {
-            setCommand(CommandType.ENTER_SHOP);
-        }
-        else if (input.equalsIgnoreCase("Enter Collection"))
-        {
-            setCommand(CommandType.ENTER_COLLECTION);
-        }
-        else if (input.equalsIgnoreCase("Enter Battle"))
-        {
-            setCommand(CommandType.ENTER_BATTLE);
-        }
-        else if (input.equalsIgnoreCase("save"))
-        {
-            setCommand(CommandType.SAVE);
-        }
-        else if (input.equalsIgnoreCase("logout"))
-        {
-            setCommand(CommandType.LOGOUT);
-        }
-        else if (input.equalsIgnoreCase("Help"))
-        {
-            setCommand(CommandType.HELP);
-        }
-        else if (input.equalsIgnoreCase("Exit"))
-        {
-            setCommand(CommandType.EXIT);
-        }
-        else
-        {
-            showOutput.printOutput("invalid command");
-            setCommand(null);
-        }
-    }
-
-    public void getAccountCommands()
-    {
-        String input = myScanner.nextLine();
-        String[] separatedInput = input.split(" ");
-        if (input.equalsIgnoreCase("Exit"))
-        {
-            setCommand(CommandType.EXIT);
-        }
-        else if (patternCreateAccount.matcher(input).matches())
-        {
-            setCommand(CommandType.CREATE_ACCOUNT);
-            getCommand().username = separatedInput[2];
-        }
-        else if (patternAccountLogin.matcher(input).matches())
-        {
-            setCommand(CommandType.LOGIN);
-            getCommand().username = separatedInput[1];
-        }
-        else if (input.equalsIgnoreCase("show leaderBoard"))
-        {
-            setCommand(CommandType.SHOW_LEADER_BOARD);
-        }
-        else if (input.equalsIgnoreCase("help"))
-        {
-            setCommand(CommandType.HELP);
-        }
-        else
-        {
-            showOutput.printOutput("invalid command");
-            setCommand(null);
-        }
     }
 
     public void getShopCommands()

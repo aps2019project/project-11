@@ -17,6 +17,7 @@ public class Main extends Application
     public static void main(String[] args)
     {
         CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();
+        callTheAppropriateFunction.setDaemon(true);
         callTheAppropriateFunction.start();
         launch(args);
     }

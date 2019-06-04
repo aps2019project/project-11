@@ -58,7 +58,6 @@ public class CallTheAppropriateFunction extends Thread
                     break;
                 case SHOW_LEADER_BOARD:
                     accountManager.sortAccountsByWins();
-                    showOutput.showAccountsLeaderBoard();
                     break;
                 case LOGOUT:
                     accountManager.logout();
