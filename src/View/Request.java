@@ -1,24 +1,21 @@
 package View;
 
 import Controller.AccountManager;
-import Model.Account;
-import Model.Card;
-import Model.CommandType;
-import Model.Shop;
+import Model.*;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -29,6 +26,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import static javafx.scene.paint.Color.*;
 
 public class Request
 {
@@ -88,7 +87,6 @@ public class Request
     private Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
     private Group rootShop = new Group();
     private ScrollPane scrollPane = new ScrollPane();
-    private Scene sceneShop;
     private Group rootCollection = new Group();
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
     private Group rootBattle = new Group();
@@ -106,7 +104,7 @@ public class Request
         rootSignUpMenu.getChildren().add(labelSignUp);
         labelSignUp.setFont(Font.font(25));
         labelSignUp.relocate(150, 30);
-        labelSignUp.setTextFill(Color.BLACK);
+        labelSignUp.setTextFill(BLACK);
 
         Button buttonSignUp = new Button("Submit");
         Label labelInvalidInput = new Label();
@@ -170,7 +168,7 @@ public class Request
         rootLoginMenu.getChildren().add(labelLogin);
         labelLogin.relocate(150, 30);
         labelLogin.setFont(Font.font(25));
-        labelLogin.setTextFill(Color.BLACK);
+        labelLogin.setTextFill(BLACK);
 
         TextField textFieldName = new TextField();
         TextField textFieldPassword = new TextField();
@@ -256,7 +254,7 @@ public class Request
         root.getChildren().add(labelName);
         labelName.relocate(20, 130);
         labelName.setFont(Font.font(15));
-        labelName.setTextFill(Color.BLACK);
+        labelName.setTextFill(BLACK);
 
         HBox hBoxName = new HBox(textFieldName);
         hBoxName.relocate(115, 130);
@@ -266,7 +264,7 @@ public class Request
         root.getChildren().add(labelPassword);
         labelPassword.relocate(20, 210);
         labelPassword.setFont(Font.font(15));
-        labelPassword.setTextFill(Color.BLACK);
+        labelPassword.setTextFill(BLACK);
 
         HBox hBoxPassword = new HBox(textFieldPassword);
         hBoxPassword.relocate(115, 210);
@@ -279,7 +277,7 @@ public class Request
         button.setFont(Font.font(20));
         labelInvalidInput.relocate(100, 100);
         labelInvalidInput.setFont(Font.font(15));
-        labelInvalidInput.setTextFill(Color.RED);
+        labelInvalidInput.setTextFill(RED);
     }
 
     private void mainMenu(Stage primaryStage)
@@ -317,9 +315,9 @@ public class Request
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 35));
         text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
         text.setY(yProperty);
-        text.setFill(Color.BLUE);
-        text.setOnMouseEntered(event -> text.setFill(Color.RED));
-        text.setOnMouseExited(event -> text.setFill(Color.BLUE));
+        text.setFill(BLUE);
+        text.setOnMouseEntered(event -> text.setFill(RED));
+        text.setOnMouseExited(event -> text.setFill(BLUE));
         text.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -366,7 +364,7 @@ public class Request
     private void leaderBoard(Stage primaryStage)
     {
         Label labelTop10 = new Label("Top 10");
-        labelTop10.setTextFill(Color.YELLOW);
+        labelTop10.setTextFill(YELLOW);
         labelTop10.setFont(Font.font(30));
         labelTop10.relocate(100, 0);
         rootLeaderBoard.getChildren().clear();
@@ -436,44 +434,59 @@ public class Request
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        sceneShop = new Scene(scrollPane, 1000, 562);
-
+        Scene sceneShop = new Scene(scrollPane, 1000, 562, RED);
         int counter = 0;
-        ArrayList<Card> cards = Shop.getInstance().getCards();
-        for (Card card : cards)
+        for (int i=0;i < 4;i++)
         {
-            int x = ROW_BLANK + (counter%4) * (200 + BLANK_BETWEEN_CARDS);
-            int y = Column_BLANK + counter/4 * (250 + BLANK_BETWEEN_CARDS);
-            makeCards(rootShop, x, y);
-            counter ++;
+            for (Hero hero : Hero.getHeroes())
+            {
+                int x = ROW_BLANK + (counter%4) * (200 + BLANK_BETWEEN_CARDS);
+                int y = Column_BLANK + counter/4 * (250 + BLANK_BETWEEN_CARDS);
+                showCards(rootShop, x, y, hero.getCardName(), hero.getDefaultAP(), hero.getDefaultHP(), hero.getPrice());
+                counter ++;
+            }
+            counter = counter + counter%4;
         }
 
         primaryStage.setScene(sceneShop);
     }
 
-    private void makeCards(Group root,int x, int y)
+    private void showCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(200, 250);
-        rectangle.setFill(Color.DARKGRAY);
+        rectangle.setFill(DARKGRAY);
 
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.relocate(x, y);
 
-        Text AP = new Text("5");
-        AP.setFont(Font.font(15));
-        AP.setFill(Color.RED);
-        AP.relocate(x + 150, y + 200);
+        Text textCardName = new Text(cardName);
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth())/2);
+        textCardName.setLayoutY(y + 160);
 
-        Text HP = new Text("3");
-        HP.setFont(Font.font(15));
-        HP.setFill(Color.YELLOW);
-        HP.relocate(x + 50, y + 200);
+        Text textAP = new Text(Integer.toString(AP));
+        textAP.setFont(Font.font(15));
+        textAP.setFill(RED);
+        textAP.setLayoutX(x + (rectangle.getWidth() - textAP.getLayoutBounds().getWidth())/2 - 40);
+        textAP.setLayoutY(y + 200);
 
-        root.getChildren().addAll(stackPane, AP, HP);
+        Text textHP = new Text(Integer.toString(HP));
+        textHP.setFont(Font.font(15));
+        textHP.setFill(YELLOW);
+        textHP.setLayoutX(x + (rectangle.getWidth() - textHP.getLayoutBounds().getWidth())/2 + 40);
+        textHP.setLayoutY(y + 200);
+
+        Text textPrice = new Text(Integer.toString(price));
+        textPrice.setFont(Font.font(15));
+        textPrice.setFill(GREEN);
+        textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth())/2);
+        textPrice.setLayoutY(y + 240);
+
+        root.getChildren().addAll(stackPane, textCardName, textAP, textHP, textPrice);
     }
 
     public void battleMenu(Stage primaryStage)
@@ -490,7 +503,7 @@ public class Request
     public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage , int location)
     {
         Text title = new Text("Select Duel");
-        title.setFill(Color.RED);
+        title.setFill(RED);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontPosture.ITALIC,45));
         title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
@@ -501,9 +514,9 @@ public class Request
         text.setFont(Font.font(null, FontWeight.BLACK, 45));
         text.layoutXProperty().bind(sceneBattle.widthProperty().subtract(text.prefWidth(-2)).divide(2));
         text.setY(location);
-        text.setFill(Color.BLACK);
-        text.setOnMouseEntered(event -> text.setFill(Color.PURPLE));
-        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
+        text.setFill(BLACK);
+        text.setOnMouseEntered(event -> text.setFill(PURPLE));
+        text.setOnMouseExited(event -> text.setFill(BLACK));
         text.setOnMouseClicked(event -> {
             switch (titleOfBattleMenu)
             {
@@ -560,13 +573,13 @@ public class Request
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null,FontWeight.BLACK, 45));
-        title.setFill(Color.BLUE);
+        title.setFill(BLUE);
         title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
         title.setY(place);
         title.setOnMouseEntered(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,50)));
-        title.setOnMouseEntered(event -> title.setFill(Color.AQUA));
+        title.setOnMouseEntered(event -> title.setFill(AQUA));
         title.setOnMouseExited(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,45)));
-        title.setOnMouseExited(event -> title.setFill(Color.BLACK));
+        title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
             switch (string)
             {
