@@ -455,28 +455,37 @@ public class Request
 
     public void battleMenu(Stage stage)
     {
+        setBackGroundImage(rootBattle,"file:duelystBattle.jpg");
+
         setBattleMenu("Single Player",stage,170);
-        setBattleMenu("Multi Player",stage,300);
+        setBattleMenu("Multi Player",stage,270);
         stage.setScene(sceneBattle);
     }
 
     public void setBattleMenu(String titleOfBattleMenu, Stage stage , int location)
     {
-        //setBackGroundImage(rootBattle,"file:");
+        Text text1 = new Text("Back");
+        text1.relocate(80,525);
+        text1.setFill(Color.BLACK);
+        text1.setFont(Font.font(null,FontWeight.BOLD,50));
+        text1.setOnMouseClicked(event -> {
+            mainMenu(stage);
+        });
+        text1.setOnMouseEntered(event -> text1.setFill(Color.PURPLE));
+        text1.setOnMouseExited(event -> text1.setFill(Color.BLACK));
         Text title = new Text("Select Duel");
         title.setFill(Color.RED);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontPosture.ITALIC,45));
         title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
         title.setY(50);
-
         Text text = new Text(titleOfBattleMenu);
         text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.BLACK, 40));
+        text.setFont(Font.font(null, FontWeight.BLACK, 45));
         text.layoutXProperty().bind(sceneBattle.widthProperty().subtract(text.prefWidth(-2)).divide(2));
         text.setY(location);
         text.setFill(Color.BLACK);
-        text.setOnMouseEntered(event -> text.setFill(Color.LIGHTBLUE));
+        text.setOnMouseEntered(event -> text.setFill(Color.PURPLE));
         text.setOnMouseExited(event -> text.setFill(Color.BLACK));
         text.setOnMouseClicked(event -> {
             switch (titleOfBattleMenu)
@@ -488,31 +497,42 @@ public class Request
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
                         break;
-
                 /*synchronized (requestLock)
                 {
                     requestLock.notify();
                 }*/
             }
         });
+        rootBattle.getChildren().add(text1);
         rootBattle.getChildren().add(text);
         rootBattle.getChildren().add(title);
     }
 
     public void singlePlayerMenu(Stage stage)
     {
-        setSinglePlayerMenu("Story",stage,170);
-        setSinglePlayerMenu("Custom Game",stage,300);
+        setBackGroundImage(rootSinglePlayer,"file:SinglePlayer.jpg");
+        setSinglePlayerMenu("Story",stage,100);
+        setSinglePlayerMenu("Custom Game",stage,250);
+        //setSinglePlayerMenu("Back",stage,400);
         stage.setScene(sceneSinglePlayer);
     }
 
     public void setSinglePlayerMenu(String string ,Stage stage, int place)
     {
+        Text text = new Text("Back");
+        text.relocate(100,500);
+        text.setFill(Color.BLACK);
+        text.setFont(Font.font(null,FontWeight.BLACK,50));
+        text.setOnMouseClicked(event -> {
+            battleMenu(stage);
+        });
+        text.setOnMouseEntered(event -> text.setFill(Color.AQUA));
+        text.setOnMouseExited(event -> text.setFill(Color.BLACK));
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null,FontWeight.BLACK, 45));
         title.setFill(Color.BLUE);
-        title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-2)).divide(2));
+        title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
         title.setY(place);
         title.setOnMouseEntered(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,50)));
         title.setOnMouseEntered(event -> title.setFill(Color.AQUA));
@@ -527,6 +547,7 @@ public class Request
                 case "Custom Game":
                     command = CommandType.CUSTOM_GAME;
                     break;
+                case "Back":
 
                   /*synchronized (requestLock)
                 {
@@ -534,6 +555,7 @@ public class Request
                 }*/
             }
         });
+        rootSinglePlayer.getChildren().add(text);
         rootSinglePlayer.getChildren().add(title);
 
     }
