@@ -84,12 +84,14 @@ public class Request
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
     private Group rootBattle = new Group();
     private Scene sceneBattle = new Scene(rootBattle,1000,562);
+    private Group rootSinglePlayer = new Group();
+    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
 
     public void mainMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
-        Text duelyst = new Text("Duelyst");
+        Text duelyst = new Text("Duelist");
         duelyst.setTextOrigin(VPos.TOP);
         duelyst.setFont(Font.font(null, FontWeight.BOLD, 60));
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
@@ -260,7 +262,9 @@ public class Request
 
     public void setBattleMenu(String titleOfBattleMenu, Stage stage , int location)
     {
-        Text title = new Text("Choose One Of The Below");
+        //setBackGroundImage(rootBattle,"file:");
+        Text title = new Text("Select Duel");
+        title.setFill(Color.RED);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontPosture.ITALIC,45));
         title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
@@ -272,13 +276,14 @@ public class Request
         text.layoutXProperty().bind(sceneBattle.widthProperty().subtract(text.prefWidth(-2)).divide(2));
         text.setY(location);
         text.setFill(Color.BLACK);
-        text.setOnMouseEntered(event -> text.setFill(Color.RED));
+        text.setOnMouseEntered(event -> text.setFill(Color.LIGHTBLUE));
         text.setOnMouseExited(event -> text.setFill(Color.BLACK));
         text.setOnMouseClicked(event -> {
             switch (titleOfBattleMenu)
             {
                 case "Single Player":
                     command = CommandType.SINGLE_PLAYER;
+                    singlePlayerMenu(stage);
                     break;
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
@@ -292,6 +297,45 @@ public class Request
         });
         rootBattle.getChildren().add(text);
         rootBattle.getChildren().add(title);
+    }
+
+    public void singlePlayerMenu(Stage stage)
+    {
+        setSinglePlayerMenu("Story",stage,170);
+        setSinglePlayerMenu("Custom Game",stage,300);
+        stage.setScene(sceneSinglePlayer);
+    }
+
+    public void setSinglePlayerMenu(String string ,Stage stage, int place)
+    {
+        Text title = new Text(string);
+        title.setTextOrigin(VPos.TOP);
+        title.setFont(Font.font(null,FontWeight.BLACK, 45));
+        title.setFill(Color.BLUE);
+        title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-2)).divide(2));
+        title.setY(place);
+        title.setOnMouseEntered(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,50)));
+        title.setOnMouseEntered(event -> title.setFill(Color.AQUA));
+        title.setOnMouseExited(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,45)));
+        title.setOnMouseExited(event -> title.setFill(Color.BLACK));
+        title.setOnMouseClicked(event -> {
+            switch (string)
+            {
+                case "Story" :
+                    command = CommandType.STORY;
+                    break;
+                case "Custom Game":
+                    command = CommandType.CUSTOM_GAME;
+                    break;
+
+                  /*synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }*/
+            }
+        });
+        rootSinglePlayer.getChildren().add(title);
+
     }
     public void collectionMenu(Stage primaryStage)
     {
