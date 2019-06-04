@@ -91,9 +91,9 @@ public class Request
     private Group rootCollection = new Group();
     private Scene sceneCollection = new Scene(rootCollection,1000,562);
     private Group rootBattle = new Group();
-    private Scene sceneBattle = new Scene(rootBattle,1000,562);
+    private Scene sceneBattle = new Scene(rootBattle,1000,500);
     private Group rootSinglePlayer = new Group();
-    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
+    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,550);
 
     public void signUpMenu(Stage primaryStage) throws Exception
     {
@@ -465,14 +465,14 @@ public class Request
     public void setBattleMenu(String titleOfBattleMenu, Stage stage , int location)
     {
         Text text1 = new Text("Back");
-        text1.relocate(80,525);
-        text1.setFill(Color.BLACK);
+        text1.relocate(50,480);
+        text1.setFill(Color.WHITE);
         text1.setFont(Font.font(null,FontWeight.BOLD,50));
         text1.setOnMouseClicked(event -> {
             mainMenu(stage);
         });
         text1.setOnMouseEntered(event -> text1.setFill(Color.PURPLE));
-        text1.setOnMouseExited(event -> text1.setFill(Color.BLACK));
+        text1.setOnMouseExited(event -> text1.setFill(Color.WHITE));
         Text title = new Text("Select Duel");
         title.setFill(Color.RED);
         title.setTextOrigin(VPos.TOP);
