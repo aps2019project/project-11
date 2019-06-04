@@ -8,43 +8,18 @@ import java.util.ArrayList;
 public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private Request request = new Request();
     private ShowOutput showOutput = new ShowOutput();
 
-    public void checkCircumstancesToCreateAccount(String userName)
+    public void createAccount(String userName, String password)
     {
-        if (findAccount(userName) == null)
-        {
-            showOutput.printOutput("Enter your Password");
-            Account account = new Account(userName, request.getPassword());
-            account.addDefaultCardsToCollection(account);
-            accounts.add(account);
-            showOutput.printOutput("New Account created");
-        }
-        else
-        {
-            showOutput.printOutput("this Account has been existed");
-        }
+        Account account = new Account(userName, password);
+        account.addDefaultCardsToCollection(account);
+        AccountManager.getAccounts().add(account);
     }
 
-    public void checkCircumstancesToLogin(String userName) throws InterruptedException
+    public void login(Account account)
     {
-        for (Account account : getAccounts())
-        {
-            if (userName.equals(account.getAccountName()))
-            {
-                showOutput.printOutput("Enter your Password");
-                String inputPassword = request.getPassword();
-                if (inputPassword.equals(account.getPassword()))
-                {
-                    Account.login(account);
-                    new CallTheAppropriateFunction().determineMainMenuCommand();
-                }
-                showOutput.printOutput("The password is not correct");
-                return;
-            }
-        }
-        showOutput.printOutput("This userName doesn't exist");
+        Account.login(account);
     }
 
     public void logout()

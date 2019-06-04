@@ -9,8 +9,8 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         Request request = new Request();
-        request.mainMenu(primaryStage);
-        primaryStage.setTitle("Duelist");
+        request.signUpMenu(primaryStage);
+        primaryStage.setTitle("Duelyst");
         primaryStage.show();
     }
 

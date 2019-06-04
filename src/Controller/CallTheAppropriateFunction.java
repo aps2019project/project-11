@@ -30,11 +30,10 @@ public class CallTheAppropriateFunction extends Thread
     {
         Card.setCards();
         Item.setItems();
-        //determineAccountCommand();
         determineMainMenuCommand();
     }
 
-    void determineMainMenuCommand() throws InterruptedException
+    private void determineMainMenuCommand() throws InterruptedException
     {
         showOutput.printMainMenuCommands();
         while (true)
@@ -57,9 +56,12 @@ public class CallTheAppropriateFunction extends Thread
                 case ENTER_BATTLE:
                     determineBattleMenuCommand();
                     break;
+                case SHOW_LEADER_BOARD:
+                    accountManager.sortAccountsByWins();
+                    showOutput.showAccountsLeaderBoard();
+                    break;
                 case LOGOUT:
                     accountManager.logout();
-                    determineAccountCommand();
                     break;
                 case SAVE:
                     //todo
@@ -71,37 +73,7 @@ public class CallTheAppropriateFunction extends Thread
                     System.exit(0);
                     break;
             }
-        }
-    }
-
-    private void determineAccountCommand() throws InterruptedException
-    {
-        while (true)
-        {
-            request.getAccountCommands();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            switch (request.getCommand())
-            {
-                case CREATE_ACCOUNT:
-                    accountManager.checkCircumstancesToCreateAccount(request.getCommand().username);
-                    break;
-                case LOGIN:
-                    accountManager.checkCircumstancesToLogin(request.getCommand().username);
-                    break;
-                case SHOW_LEADER_BOARD:
-                    accountManager.sortAccountsByWins();
-                    showOutput.showAccountsLeaderBoard();
-                    break;
-                case HELP:
-                    showOutput.accountHelp();
-                    break;
-                case EXIT:
-                    System.exit(0);
-                    break;
-            }
+            Request.setCommand(null);
         }
     }
 

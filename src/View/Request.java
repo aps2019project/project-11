@@ -1,5 +1,7 @@
 package View;
 
+import Controller.AccountManager;
+import Model.Account;
 import Model.Card;
 import Model.CommandType;
 import Model.Shop;
@@ -8,13 +10,15 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -22,7 +26,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -57,13 +60,14 @@ public class Request
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
     private ShowOutput showOutput = new ShowOutput();
+    private AccountManager accountManager = new AccountManager();
 
     public CommandType getCommand()
     {
         return command;
     }
 
-    private static void setCommand(CommandType command)
+    public static void setCommand(CommandType command)
     {
         Request.command = command;
     }
@@ -75,6 +79,10 @@ public class Request
 
     private static CommandType command;
     public static final Object requestLock = new Object();
+    private Group rootSignUpMenu = new Group();
+    private Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
+    private Group rootLoginMenu = new Group();
+    private Scene sceneLoginMenu = new Scene(rootLoginMenu, 400, 400);
     private Group rootMainMenu = new Group();
     private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
     private Group rootShop = new Group();
@@ -87,22 +95,209 @@ public class Request
     private Group rootSinglePlayer = new Group();
     private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
 
+    public void signUpMenu(Stage primaryStage) throws Exception
+    {
+        TextField textFieldName = new TextField();
+        TextField textFieldPassword = new TextField();
+        nameAndPasswordFields(rootSignUpMenu, textFieldName, textFieldPassword);
+
+        Label labelSignUp = new Label("Sign Up");
+        rootSignUpMenu.getChildren().add(labelSignUp);
+        labelSignUp.setFont(Font.font(25));
+        labelSignUp.relocate(150, 30);
+        labelSignUp.setTextFill(Color.BLACK);
+
+        Button buttonSignUp = new Button("Submit");
+        Label labelInvalidInput = new Label();
+        submitButton(buttonSignUp, labelInvalidInput);
+        buttonSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                rootSignUpMenu.getChildren().remove(labelInvalidInput);
+                String userName = textFieldName.getText();
+                String password = textFieldPassword.getText();
+                if (userName.isEmpty() || password.isEmpty())
+                {
+                    rootSignUpMenu.getChildren().add(labelInvalidInput);
+                    labelInvalidInput.setText("you must Fill both TextFields");
+                    return;
+                }
+                Account account = accountManager.findAccount(userName);
+                if (account == null)
+                {
+                    rootSignUpMenu.getChildren().remove(labelInvalidInput);
+                    accountManager.createAccount(userName, password);
+                    primaryStage.setScene(sceneLoginMenu);
+                    primaryStage.centerOnScreen();
+                    login(primaryStage);
+                }
+                else
+                {
+                    labelInvalidInput.setText("Account exists with this name");
+                    rootSignUpMenu.getChildren().add(labelInvalidInput);
+                }
+            }
+        });
+        rootSignUpMenu.getChildren().add(buttonSignUp);
+
+        Button buttonAlreadyHaveAccount = new Button("Already have account");
+        buttonAlreadyHaveAccount.relocate(150, 300);
+        buttonAlreadyHaveAccount.setFont(Font.font(20));
+        buttonAlreadyHaveAccount.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                rootSignUpMenu.getChildren().remove(labelInvalidInput);
+                primaryStage.setScene(sceneLoginMenu);
+                primaryStage.centerOnScreen();
+                login(primaryStage);
+            }
+        });
+        rootSignUpMenu.getChildren().add(buttonAlreadyHaveAccount);
+
+        primaryStage.setScene(sceneSignUpMenu);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+    }
+
+    public void login(Stage primaryStage)
+    {
+        Label labelLogin = new Label("Login");
+        rootLoginMenu.getChildren().add(labelLogin);
+        labelLogin.relocate(150, 30);
+        labelLogin.setFont(Font.font(25));
+        labelLogin.setTextFill(Color.BLACK);
+
+        TextField textFieldName = new TextField();
+        TextField textFieldPassword = new TextField();
+        nameAndPasswordFields(rootLoginMenu, textFieldName, textFieldPassword);
+
+        Button buttonLogin = new Button("Submit");
+        Label labelInvalidInput = new Label();
+        submitButton(buttonLogin, labelInvalidInput);
+        buttonLogin.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                rootLoginMenu.getChildren().remove(labelInvalidInput);
+                String name = textFieldName.getText();
+                String password = textFieldPassword.getText();
+                if (name.isEmpty() || password.isEmpty())
+                {
+                    labelInvalidInput.setText("you must Fill both TextFields");
+                    rootLoginMenu.getChildren().add(labelInvalidInput);
+                    return;
+                }
+                Account account = accountManager.findAccount(name);
+                if (account == null)
+                {
+                    labelInvalidInput.setText("Invalid name or password");
+                    rootLoginMenu.getChildren().add(labelInvalidInput);
+                }
+                else if (account.getPassword().equals(password))
+                {
+                    accountManager.login(account);
+                    rootSignUpMenu.getChildren().remove(labelInvalidInput);
+                    primaryStage.setScene(sceneMainMenu);
+                    primaryStage.centerOnScreen();
+                    try
+                    {
+                        mainMenu(primaryStage);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    labelInvalidInput.setText("Password is Wrong.Try again");
+                    rootLoginMenu.getChildren().add(labelInvalidInput);
+                }
+            }
+        });
+        rootLoginMenu.getChildren().add(buttonLogin);
+
+        Button buttonNeedToSignUp = new Button("Sign Up");
+        buttonNeedToSignUp.relocate(260, 300);
+        buttonNeedToSignUp.setFont(Font.font(20));
+        buttonNeedToSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                rootSignUpMenu.getChildren().remove(labelInvalidInput);
+                primaryStage.setScene(sceneSignUpMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    signUpMenu(primaryStage);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        rootLoginMenu.getChildren().add(buttonNeedToSignUp);
+
+        primaryStage.setScene(sceneLoginMenu);
+        primaryStage.centerOnScreen();
+    }
+
+    public void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword)
+    {
+        Label labelName = new Label("Name");
+        root.getChildren().add(labelName);
+        labelName.relocate(20, 130);
+        labelName.setFont(Font.font(15));
+        labelName.setTextFill(Color.BLACK);
+
+        HBox hBoxName = new HBox(textFieldName);
+        hBoxName.relocate(115, 130);
+        root.getChildren().add(hBoxName);
+
+        Label labelPassword = new Label("Password");
+        root.getChildren().add(labelPassword);
+        labelPassword.relocate(20, 210);
+        labelPassword.setFont(Font.font(15));
+        labelPassword.setTextFill(Color.BLACK);
+
+        HBox hBoxPassword = new HBox(textFieldPassword);
+        hBoxPassword.relocate(115, 210);
+        root.getChildren().add(hBoxPassword);
+    }
+
+    public void submitButton(Button button,Label labelInvalidInput)
+    {
+        button.relocate(25, 300);
+        button.setFont(Font.font(20));
+        labelInvalidInput.relocate(100, 100);
+        labelInvalidInput.setFont(Font.font(15));
+        labelInvalidInput.setTextFill(Color.RED);
+    }
+
     public void mainMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
-        Text duelyst = new Text("Duelist");
+        Text duelyst = new Text("Duelyst");
         duelyst.setTextOrigin(VPos.TOP);
         duelyst.setFont(Font.font(null, FontWeight.BOLD, 60));
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
         setMainMenuText(primaryStage, "Battle", 100);
-        setMainMenuText(primaryStage, "Shop", 170);
-        setMainMenuText(primaryStage, "Collection", 250);
-        setMainMenuText(primaryStage, "Save", 330);
-        setMainMenuText(primaryStage, "Logout", 410);
-        setMainMenuText(primaryStage, "Exit", 490);
+        setMainMenuText(primaryStage, "Shop", 160);
+        setMainMenuText(primaryStage, "Collection", 220);
+        setMainMenuText(primaryStage, "LeaderBoard", 280);
+        setMainMenuText(primaryStage, "Save", 340);
+        setMainMenuText(primaryStage, "Logout", 400);
+        setMainMenuText(primaryStage, "Exit", 460);
 
         primaryStage.setScene(sceneMainMenu);
     }
@@ -132,24 +327,29 @@ public class Request
                 switch (string)
                 {
                     case "Shop":
-                        command = CommandType.ENTER_SHOP;
+                        setCommand(CommandType.ENTER_SHOP);
                         shopMenu(primaryStage);
                         break;
                     case "Collection":
-                        command = CommandType.ENTER_COLLECTION;
+                        setCommand(CommandType.ENTER_COLLECTION);
                         break;
                     case "Battle":
-                        command = CommandType.ENTER_BATTLE;
+                        setCommand(CommandType.ENTER_BATTLE);
                         battleMenu(primaryStage);
                         break;
+                    case "LeaderBoard":
+                        setCommand(CommandType.SHOW_LEADER_BOARD);
+                        break;
                     case "Save":
-                        command = CommandType.SAVE;
+                        setCommand(CommandType.SAVE);
+                        //todo
                         break;
                     case "Logout":
-                        command = CommandType.LOGOUT;
+                        setCommand(CommandType.LOGOUT);
+                        login(primaryStage);
                         break;
                     case "Exit":
-                        command = CommandType.EXIT;
+                        setCommand(CommandType.EXIT);
                         break;
                 }
                 synchronized (requestLock)
