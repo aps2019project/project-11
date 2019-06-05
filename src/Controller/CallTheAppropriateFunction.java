@@ -120,12 +120,6 @@ public class CallTheAppropriateFunction extends Thread
                 case SELL:
                     shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;
-                case SHOW:
-                    showOutput.showShopInfo();
-                    break;
-                case HELP:
-                    showOutput.shopHelp();
-                    break;
                 case EXIT:
                     determineMainMenuCommand();
                     break;
