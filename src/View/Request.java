@@ -588,19 +588,23 @@ public class Request
     }
 
     private void setBattleField(Stage primaryStage) {
+
         Group roots = new Group();
         showBattleFieldBackGround(roots);
         GridPane gridPane = makeGridPaneForBattleField();
         roots.getChildren().add(gridPane);
-        Scene scene = new Scene(roots , 1440 , 600);
-        primaryStage.setScene(scene);
+        Scene scene = new Scene(roots );
+
+        primaryStage.setScene(scene );
+        primaryStage.setFullScreen(true);
+
         primaryStage.show();
 
     }
 
     private GridPane makeGridPaneForBattleField() {
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(100 , 100 , 100 , 100));
+        gridPane.setPadding(new Insets(100 , 190 , 190 , 100));
         gridPane.setHgap(1);
         gridPane.setVgap(1);
         setSquares(gridPane);
@@ -615,7 +619,7 @@ public class Request
         {
             for (int column = 0; column < 9; column++)
             {
-                Rectangle rectangle = new Rectangle(80, 80, Color.GRAY);
+                Rectangle rectangle = new Rectangle(100, 100, Color.LIGHTGREEN);
                 gridPane.add(rectangle, column, row);
             }
         }
@@ -986,7 +990,7 @@ public class Request
         }
     }
 
-    public void getShowMenuAndExitCommand(String input)
+    private void getShowMenuAndExitCommand(String input)
     {
         if (input.equalsIgnoreCase("Show menu"))
         {
