@@ -1,11 +1,9 @@
 package View;
 
 import Controller.AccountManager;
-import Model.Account;
-import Model.Card;
-import Model.CommandType;
-import Model.Shop;
+import Model.*;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+
 public class Request
 {
     public static Scanner myScanner = new Scanner(System.in);
@@ -42,7 +41,7 @@ public class Request
     private final static Pattern patternValidateDeck = Pattern.compile("validate deck [a-zA-Z_0-9]+");
     private final static Pattern patternSelectMainDeck = Pattern.compile("select deck [a-zA-Z_0-9]+");
     private final static Pattern patternShowDeck = Pattern.compile("show deck [a-zA-Z_0-9]+");
-    private final static Pattern patternCreateAccount = Pattern.compile("create account [a-zA-Z_0-9]+");
+    private final static Pattern KpatternCreateAccount = Pattern.compile("create account [a-zA-Z_0-9]+");
     private final static Pattern patternAccountLogin = Pattern.compile("login [a-zA-Z_0-9]+");
     private final static Pattern patternShopSearchCollection = Pattern.compile("search collection [a-zA-Z_0-9]+");
     private final static Pattern patternShopBuy = Pattern.compile("buy [a-zA-Z_0-9]+");
@@ -513,7 +512,8 @@ public class Request
                     break;
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
-                        break;
+                    //todo menu and battlefield
+                    break;
             }
             synchronized (requestLock)
             {
@@ -572,8 +572,10 @@ public class Request
             {
                 case "Story" :
                     setCommand(CommandType.STORY);
+                    setBattleField(primaryStage);
                     break;
                 case "Custom Game":
+                    setBattleField(primaryStage);
                     setCommand(CommandType.CUSTOM_GAME);
                     break;
             }
@@ -584,6 +586,45 @@ public class Request
         });
         rootSinglePlayer.getChildren().add(title);
     }
+
+    private void setBattleField(Stage primaryStage) {
+        Group roots = new Group();
+        showBattleFieldBackGround(roots);
+        GridPane gridPane = makeGridPaneForBattleField();
+        roots.getChildren().add(gridPane);
+        Scene scene = new Scene(roots , 1440 , 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
+    private GridPane makeGridPaneForBattleField() {
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(100 , 100 , 100 , 100));
+        gridPane.setHgap(1);
+        gridPane.setVgap(1);
+        setSquares(gridPane);
+
+        return gridPane;
+    }
+
+    private void setSquares(GridPane gridPane)
+    {
+        int score = 0;
+        for (int row = 4; row >= 0; row--)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                Rectangle rectangle = new Rectangle(80, 80, Color.GRAY);
+                gridPane.add(rectangle, column, row);
+            }
+        }
+    }
+
+    private void showBattleFieldBackGround(Group roots) {
+        //todo
+    }
+
 
     public void collectionMenu(Stage primaryStage)
     {
