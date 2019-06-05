@@ -93,7 +93,8 @@ public class Request
     private Scene sceneBattle = new Scene(rootBattle,1000,562);
     private Group rootSinglePlayer = new Group();
     private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
-
+    private Group rootMultiPlayer = new Group();
+    private Scene sceneMultiPlayer = new Scene(rootMultiPlayer,1000,562);
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
@@ -447,7 +448,6 @@ public class Request
             }
             counter = counter + counter%4;
         }
-
         primaryStage.setScene(sceneShop);
     }
 
@@ -526,7 +526,8 @@ public class Request
                     break;
                 case  "Multi Player" :
                     command = CommandType.MULTI_PLAYER;
-                    //todo menu and battlefield
+                    multiPlayerMenu(primaryStage);
+                    //todo battlefield
                     break;
             }
             synchronized (requestLock)
@@ -599,6 +600,21 @@ public class Request
         rootSinglePlayer.getChildren().add(title);
     }
 
+    public void multiPlayerMenu(Stage stage)
+    {
+        setMultiPlayerMenu("Choose  One Player",stage,100);
+        stage.setScene(sceneMultiPlayer);
+    }
+    public void setMultiPlayerMenu(String s,Stage stage,int location)
+    {
+        Text multiPlayerText = new Text(s);
+        multiPlayerText.setFont(Font.font(null,FontPosture.ITALIC, 50));
+        multiPlayerText.setTextOrigin(VPos.TOP);
+        multiPlayerText.setFill(BLUE);
+        multiPlayerText.layoutXProperty().bind(sceneMultiPlayer.widthProperty().subtract(multiPlayerText.prefWidth(-1)).divide(2));
+        multiPlayerText.setY(location);
+        rootMultiPlayer.getChildren().add(multiPlayerText);
+    }
     private void setBattleField(Stage primaryStage) {
 
         Group roots = new Group();
