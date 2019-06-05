@@ -678,6 +678,7 @@ public class Request
             {
                 case "Story":
                     setCommand(CommandType.STORY);
+                    //setBattleField(primaryStage , 5);
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
@@ -708,13 +709,50 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage)
+    private void setBattleField(Stage primaryStage , int mapNumber)
     {
-        Group roots = new Group();
-        showBattleFieldBackGround(roots);
-        GridPane gridPane = makeGridPaneForBattleField();
-        roots.getChildren().add(gridPane);
-        Scene scene = new Scene(roots);
+
+        Scene scene = null;
+        Group roots;
+        GridPane gridPane;
+        switch (mapNumber){
+            case 1:
+                roots = new Group();
+                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory1.jpg" );
+                gridPane = makeGridPaneForBattleField();
+                roots.getChildren().add(gridPane);
+                scene = new Scene(roots);
+                break;
+            case 2:
+                roots = new Group();
+                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory2.jpg" );
+                gridPane = makeGridPaneForBattleField();
+                roots.getChildren().add(gridPane);
+                scene = new Scene(roots);
+                break;
+            case 3:
+                roots = new Group();
+                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory3.jpg" );
+                gridPane = makeGridPaneForBattleField();
+                roots.getChildren().add(gridPane);
+                scene = new Scene(roots);
+                break;
+                case 4:
+                roots = new Group();
+                setBackGroundImage(roots ,"file:battleField BackGround\\customGameBackGround.jpg" );
+                gridPane = makeGridPaneForBattleField();
+                roots.getChildren().add(gridPane);
+                scene = new Scene(roots);
+                break;
+                case 5:
+                roots = new Group();
+                setBackGroundImage(roots ,"file:battleField BackGround\\multiPlayerBackground.jpg" );
+                gridPane = makeGridPaneForBattleField();
+                roots.getChildren().add(gridPane);
+                scene = new Scene(roots);
+                break;
+        }
+
 
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
@@ -726,7 +764,7 @@ public class Request
     private GridPane makeGridPaneForBattleField()
     {
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(100, 190, 190, 100));
+        gridPane.setPadding(new Insets(200, 300, 190 , 360));
         gridPane.setHgap(1);
         gridPane.setVgap(1);
         setSquares(gridPane);
@@ -736,20 +774,15 @@ public class Request
 
     private void setSquares(GridPane gridPane)
     {
-        int score = 0;
         for (int row = 4; row >= 0; row--)
         {
             for (int column = 0; column < 9; column++)
             {
-                Rectangle rectangle = new Rectangle(100, 100, Color.LIGHTGREEN);
+                Rectangle rectangle = new Rectangle(63, 63 , null);
+                rectangle.setStroke(BEIGE);
                 gridPane.add(rectangle, column, row);
             }
         }
-    }
-
-    private void showBattleFieldBackGround(Group roots)
-    {
-        //todo
     }
 
 
