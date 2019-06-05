@@ -18,7 +18,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Request request = new Request();
+        Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         primaryStage.setTitle("Duelyst");
         primaryStage.show();

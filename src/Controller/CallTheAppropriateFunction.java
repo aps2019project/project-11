@@ -10,7 +10,7 @@ public class CallTheAppropriateFunction extends Thread
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
-    private Request request = new Request();
+    private Request request = Request.getInstance();
     private ShowOutput showOutput = new ShowOutput();
 
     @Override
@@ -40,9 +40,9 @@ public class CallTheAppropriateFunction extends Thread
         {
             if (request.getCommand() == null)
             {
-                synchronized (Request.requestLock)
+                synchronized (request.requestLock)
                 {
-                    Request.requestLock.wait();
+                    request.requestLock.wait();
                 }
             }
             switch (request.getCommand())
@@ -72,7 +72,7 @@ public class CallTheAppropriateFunction extends Thread
                     System.exit(0);
                     break;
             }
-            Request.setCommand(null);
+            request.setCommand(null);
         }
     }
 
@@ -80,10 +80,12 @@ public class CallTheAppropriateFunction extends Thread
     {
         while (true)
         {
-            request.getShopCommands();
             if (request.getCommand() == null)
             {
-                continue;
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.wait();
+                }
             }
             switch (request.getCommand())
             {
@@ -109,11 +111,8 @@ public class CallTheAppropriateFunction extends Thread
                         {
                             shopManager.buyItem((Item) item.clone());
                         }
-                        else
-                        {
-                            showOutput.printOutput("Card or Item doesn't exist in Shop");
-                        }
-                    } catch (CloneNotSupportedException ignored)
+                    }
+                    catch (CloneNotSupportedException ignored)
                     {
 
                     }
@@ -131,6 +130,7 @@ public class CallTheAppropriateFunction extends Thread
                     determineMainMenuCommand();
                     break;
             }
+            request.setCommand(null);
         }
     }
 
@@ -197,9 +197,9 @@ public class CallTheAppropriateFunction extends Thread
                 showOutput.showBattleMenuCommands();
                 if (request.getCommand() == null)
                 {
-                    synchronized (Request.requestLock)
+                    synchronized (request.requestLock)
                     {
-                        Request.requestLock.wait();
+                        request.requestLock.wait();
                     }
                 }
                 switch (request.getCommand())
@@ -213,7 +213,7 @@ public class CallTheAppropriateFunction extends Thread
                     case EXIT:
                         return;
                 }
-                Request.setCommand(null);
+                request.setCommand(null);
             }
         }
         else
@@ -230,9 +230,9 @@ public class CallTheAppropriateFunction extends Thread
         {
             if (request.getCommand() == null)
             {
-                synchronized (Request.requestLock)
+                synchronized (request.requestLock)
                 {
-                    Request.requestLock.wait();
+                    request.requestLock.wait();
                 }
             }
             switch (request.getCommand())
@@ -263,7 +263,7 @@ public class CallTheAppropriateFunction extends Thread
                 case EXIT:
                     return;
             }
-            Request.setCommand(null);
+            request.setCommand(null);
         }
     }
 

@@ -21,6 +21,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -63,17 +64,32 @@ public class Request
         return command;
     }
 
-    public static void setCommand(CommandType command)
+    public void setCommand(CommandType command)
     {
-        Request.command = command;
+        Request.getInstance().command = command;
+    }
+
+    private Request()
+    {
+        //just added to make Request singleton
+    }
+
+    public static Request getInstance()
+    {
+        if (request == null)
+        {
+            return new Request();
+        }
+        return request;
     }
 
     private static final int ROW_BLANK = 20;
     private static final int Column_BLANK = 80;
     private static final int BLANK_BETWEEN_CARDS = 50;
 
-    private static CommandType command;
-    public static final Object requestLock = new Object();
+    private static Request request = new Request();
+    private CommandType command;
+    public final Object requestLock = new Object();
     private Group rootSignUpMenu = new Group();
     private Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
     private Group rootLoginMenu = new Group();
@@ -460,7 +476,7 @@ public class Request
         {
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * Column_BLANK - 2 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showCardImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
+            showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
             counter++;
         }
 
@@ -475,7 +491,7 @@ public class Request
             }
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * Column_BLANK - 3 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showCardImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
+            showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
             counter++;
         }
 
@@ -495,7 +511,7 @@ public class Request
 
     private void showNonSpellCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
     {
-        Rectangle rectangle = showCardImageAndFeatures(root, x, y, cardName, price);
+        Rectangle rectangle = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
 
         Text textAP = new Text(Integer.toString(AP));
         textAP.setFont(Font.font(15));
@@ -512,7 +528,7 @@ public class Request
         root.getChildren().addAll(textAP, textHP);
     }
 
-    private Rectangle showCardImageAndFeatures(Group root, int x, int y, String cardName, int price)
+    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String cardName, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
@@ -528,9 +544,24 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Hello");
-                alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Buy");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to buy " + cardName + " for " + price + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBuy = new ButtonType("Buy");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBuy)
+                {
+                    setCommand(CommandType.BUY);
+                    request.getCommand().cardOrItemName = cardName;
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                }
             }
         });
 
