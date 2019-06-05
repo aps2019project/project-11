@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,7 +21,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -71,7 +69,7 @@ public class Request
     }
 
     private static final int ROW_BLANK = 20;
-    private static final int Column_BLANK = 20;
+    private static final int Column_BLANK = 80;
     private static final int BLANK_BETWEEN_CARDS = 50;
 
     private static CommandType command;
@@ -86,15 +84,16 @@ public class Request
     private Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
     private Group rootShop = new Group();
     private ScrollPane scrollPane = new ScrollPane();
-    private Scene sceneShop;
+    private Scene sceneShop = new Scene(scrollPane, 1000, 562, BURLYWOOD);
     private Group rootCollection = new Group();
-    private Scene sceneCollection = new Scene(rootCollection,1000,562);
+    private Scene sceneCollection = new Scene(rootCollection, 1000, 562);
     private Group rootBattle = new Group();
-    private Scene sceneBattle = new Scene(rootBattle,1000,562);
+    private Scene sceneBattle = new Scene(rootBattle, 1000, 562);
     private Group rootSinglePlayer = new Group();
-    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer,1000,562);
+    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer, 1000, 562);
     private Group rootMultiPlayer = new Group();
-    private Scene sceneMultiPlayer = new Scene(rootMultiPlayer,1000,562);
+    private Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
+
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
@@ -207,8 +206,7 @@ public class Request
                     try
                     {
                         mainMenu(primaryStage);
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
                         e.printStackTrace();
                     }
@@ -236,8 +234,7 @@ public class Request
                 try
                 {
                     signUpMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -396,7 +393,7 @@ public class Request
             labelPlayerHighScore.relocate(250, counter * 50);
             rootLeaderBoard.getChildren().add(labelPlayerHighScore);
 
-            counter ++;
+            counter++;
         }
     }
 
@@ -416,8 +413,7 @@ public class Request
                 try
                 {
                     mainMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -435,23 +431,88 @@ public class Request
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        Scene sceneShop = new Scene(scrollPane, 1000, 562, RED);
-        int counter = 0;
-        for (int i=0;i < 4;i++)
+        setShopMenuText("Heroes", 50);
+
+        int counter = 0, x = 0, y = 0;
+        for (Hero hero : Hero.getHeroes())
         {
-            for (Hero hero : Hero.getHeroes())
-            {
-                int x = ROW_BLANK + (counter%4) * (200 + BLANK_BETWEEN_CARDS);
-                int y = Column_BLANK + counter/4 * (250 + BLANK_BETWEEN_CARDS);
-                showCards(rootShop, x, y, hero.getCardName(), hero.getDefaultAP(), hero.getDefaultHP(), hero.getPrice());
-                counter ++;
-            }
-            counter = counter + counter%4;
+            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = Column_BLANK + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            showNonSpellCards(rootShop, x, y, hero.getCardName(), hero.getDefaultAP(), hero.getDefaultHP(), hero.getPrice());
+            counter++;
         }
+
+        setShopMenuText("Minions", y + 250 + 50);
+
+        counter = counter + counter % 4;
+        for (Minion minion : Minion.getMinions())
+        {
+            y = 2 * Column_BLANK - BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
+            showNonSpellCards(rootShop, x, y, minion.getCardName(), minion.getDefaultAP(), minion.getDefaultHP(), minion.getPrice());
+            counter++;
+        }
+
+        setShopMenuText("Spells", y + 250 + 50);
+
+        counter = counter + counter % 4;
+        for (Spell spell : Spell.getSpells())
+        {
+            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 3 * Column_BLANK - 2 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            showCardImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
+            counter++;
+        }
+
+        setShopMenuText("Items", y + 250 + 50);
+
+        counter = counter + counter % 4;
+        for (Item item : Item.getItems())
+        {
+            if (item.getItemType() == ItemType.collectible)
+            {
+                continue;
+            }
+            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 4 * Column_BLANK - 3 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            showCardImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
+            counter++;
+        }
+
+        backButton(primaryStage, rootShop, 20, 15);
+
         primaryStage.setScene(sceneShop);
     }
 
-    private void showCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
+    private void setShopMenuText(String str, int y)
+    {
+        Text text = new Text(str);
+        text.setLayoutX((sceneShop.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
+        text.setLayoutY(y);
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
+        rootShop.getChildren().addAll(text);
+    }
+
+    private void showNonSpellCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
+    {
+        Rectangle rectangle = showCardImageAndFeatures(root, x, y, cardName, price);
+
+        Text textAP = new Text(Integer.toString(AP));
+        textAP.setFont(Font.font(15));
+        textAP.setFill(RED);
+        textAP.setLayoutX(x + (rectangle.getWidth() - textAP.getLayoutBounds().getWidth()) / 2 - 40);
+        textAP.setLayoutY(y + 200);
+
+        Text textHP = new Text(Integer.toString(HP));
+        textHP.setFill(YELLOW);
+        textHP.setFont(Font.font(15));
+        textHP.setLayoutX(x + (rectangle.getWidth() - textHP.getLayoutBounds().getWidth()) / 2 + 40);
+        textHP.setLayoutY(y + 200);
+
+        root.getChildren().addAll(textAP, textHP);
+    }
+
+    private Rectangle showCardImageAndFeatures(Group root, int x, int y, String cardName, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
@@ -462,50 +523,50 @@ public class Request
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.relocate(x, y);
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Hello");
+                alert.showAndWait();
+            }
+        });
 
         Text textCardName = new Text(cardName);
         textCardName.setFont(Font.font(15));
-        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth())/2);
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
         textCardName.setLayoutY(y + 160);
-
-        Text textAP = new Text(Integer.toString(AP));
-        textAP.setFont(Font.font(15));
-        textAP.setFill(RED);
-        textAP.setLayoutX(x + (rectangle.getWidth() - textAP.getLayoutBounds().getWidth())/2 - 40);
-        textAP.setLayoutY(y + 200);
-
-        Text textHP = new Text(Integer.toString(HP));
-        textHP.setFont(Font.font(15));
-        textHP.setFill(YELLOW);
-        textHP.setLayoutX(x + (rectangle.getWidth() - textHP.getLayoutBounds().getWidth())/2 + 40);
-        textHP.setLayoutY(y + 200);
 
         Text textPrice = new Text(Integer.toString(price));
         textPrice.setFont(Font.font(15));
         textPrice.setFill(GREEN);
-        textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth())/2);
+        textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth()) / 2);
         textPrice.setLayoutY(y + 240);
 
-        root.getChildren().addAll(stackPane, textCardName, textAP, textHP, textPrice);
+        root.getChildren().addAll(stackPane, textCardName, textPrice);
+
+        return rectangle;
     }
 
     public void battleMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootBattle,"file:duelystBattle.jpg");
+        setBackGroundImage(rootBattle, "file:duelystBattle.jpg");
 
-        setBattleMenu("Single Player",primaryStage,170);
-        setBattleMenu("Multi Player",primaryStage,270);
+        setBattleMenu("Single Player", primaryStage, 170);
+        setBattleMenu("Multi Player", primaryStage, 270);
         backButton(primaryStage, rootBattle, 50, 450);
 
         primaryStage.setScene(sceneBattle);
     }
 
-    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage , int location)
+    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
     {
         Text title = new Text("Select Duel");
         title.setFill(RED);
         title.setTextOrigin(VPos.TOP);
-        title.setFont(Font.font(null, FontPosture.ITALIC,45));
+        title.setFont(Font.font(null, FontPosture.ITALIC, 45));
         title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
         title.setY(50);
 
@@ -524,7 +585,7 @@ public class Request
                     command = CommandType.SINGLE_PLAYER;
                     singlePlayerMenu(primaryStage);
                     break;
-                case  "Multi Player" :
+                case "Multi Player":
                     command = CommandType.MULTI_PLAYER;
                     multiPlayerMenu(primaryStage);
                     //todo battlefield
@@ -539,11 +600,11 @@ public class Request
         rootBattle.getChildren().add(title);
     }
 
-    public void singlePlayerMenu(Stage primaryStage)
+    private void singlePlayerMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootSinglePlayer,"file:SinglePlayer.jpg");
-        setSinglePlayerMenu("Story",primaryStage,100);
-        setSinglePlayerMenu("Custom Game",primaryStage,250);
+        setBackGroundImage(rootSinglePlayer, "file:SinglePlayer.jpg");
+        setSinglePlayerMenu("Story", primaryStage, 100);
+        setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -560,8 +621,7 @@ public class Request
                 try
                 {
                     battleMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -570,22 +630,22 @@ public class Request
         primaryStage.setScene(sceneSinglePlayer);
     }
 
-    public void setSinglePlayerMenu(String string ,Stage primaryStage, int place)
+    public void setSinglePlayerMenu(String string, Stage primaryStage, int place)
     {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
-        title.setFont(Font.font(null,FontWeight.BLACK, 45));
+        title.setFont(Font.font(null, FontWeight.BLACK, 45));
         title.setFill(BLUE);
         title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
         title.setY(place);
-        title.setOnMouseEntered(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,50)));
+        title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
         title.setOnMouseEntered(event -> title.setFill(AQUA));
-        title.setOnMouseExited(event -> title.setFont(Font.font(null,FontWeight.SEMI_BOLD,45)));
+        title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
             switch (string)
             {
-                case "Story" :
+                case "Story":
                     setCommand(CommandType.STORY);
                     break;
                 case "Custom Game":
@@ -600,39 +660,42 @@ public class Request
         rootSinglePlayer.getChildren().add(title);
     }
 
-    public void multiPlayerMenu(Stage stage)
+    public void multiPlayerMenu(Stage primaryStage)
     {
-        setMultiPlayerMenu("Choose  One Player",stage,100);
-        stage.setScene(sceneMultiPlayer);
+        setMultiPlayerMenu("Choose  One Player", primaryStage, 100);
+        primaryStage.setScene(sceneMultiPlayer);
     }
-    public void setMultiPlayerMenu(String s,Stage stage,int location)
+
+    public void setMultiPlayerMenu(String s, Stage primaryStage, int location)
     {
         Text multiPlayerText = new Text(s);
-        multiPlayerText.setFont(Font.font(null,FontPosture.ITALIC, 50));
+        multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
         multiPlayerText.setTextOrigin(VPos.TOP);
         multiPlayerText.setFill(BLUE);
         multiPlayerText.layoutXProperty().bind(sceneMultiPlayer.widthProperty().subtract(multiPlayerText.prefWidth(-1)).divide(2));
         multiPlayerText.setY(location);
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
-    private void setBattleField(Stage primaryStage) {
 
+    private void setBattleField(Stage primaryStage)
+    {
         Group roots = new Group();
         showBattleFieldBackGround(roots);
         GridPane gridPane = makeGridPaneForBattleField();
         roots.getChildren().add(gridPane);
-        Scene scene = new Scene(roots );
+        Scene scene = new Scene(roots);
 
-        primaryStage.setScene(scene );
+        primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
 
         primaryStage.show();
 
     }
 
-    private GridPane makeGridPaneForBattleField() {
+    private GridPane makeGridPaneForBattleField()
+    {
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(100 , 190 , 190 , 100));
+        gridPane.setPadding(new Insets(100, 190, 190, 100));
         gridPane.setHgap(1);
         gridPane.setVgap(1);
         setSquares(gridPane);
@@ -653,7 +716,8 @@ public class Request
         }
     }
 
-    private void showBattleFieldBackGround(Group roots) {
+    private void showBattleFieldBackGround(Group roots)
+    {
         //todo
     }
 
@@ -1047,8 +1111,7 @@ public class Request
             showOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
             getCommand().storyGameMode = Integer.parseInt(input);
-        }
-        catch (NumberFormatException e)
+        } catch (NumberFormatException e)
         {
             showOutput.printOutput("Try Again");
             getStoryMatchLevel();
