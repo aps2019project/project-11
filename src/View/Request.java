@@ -470,7 +470,7 @@ public class Request
             StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             xPosition ++;
-            yPosition ++;
+            yPosition++;
         }
 
         setShopMenuText("Spells", y + 250 + 50);
@@ -847,8 +847,8 @@ public class Request
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        setCollectionMenuText("Heroes", 50);
-        int xPosition = 0, yPosition = 0, x, y = 0;
+        setCollectionMenuText("Heroes", 50, false);
+        int xPosition = 0, yPosition = 0, x = 0, y = 0;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
             if (card instanceof Hero)
@@ -861,7 +861,7 @@ public class Request
             }
         }
 
-        setCollectionMenuText("Minions", y + 250 + 50);
+        setCollectionMenuText("Minions", y + 250 + 50, false);
         xPosition = 0;
         if (yPosition % 3 !=0)
         {
@@ -879,7 +879,7 @@ public class Request
             }
         }
 
-        setCollectionMenuText("Spells", y + 250 + 50);
+        setCollectionMenuText("Spells", y + 250 + 50, false);
         xPosition = 0;
         if (yPosition % 3 !=0)
         {
@@ -897,7 +897,7 @@ public class Request
             }
         }
 
-        setCollectionMenuText("Items", y + 250 + 50);
+        setCollectionMenuText("Items", y + 250 + 50, false);
         xPosition = 0;
         if (yPosition % 3 !=0)
         {
@@ -916,16 +916,56 @@ public class Request
             yPosition ++;
         }
 
+        setCollectionMenuText("Decks", 50, true);
+        yPosition = 0;
+        x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
+            yPosition ++;
+        }
+
         backButton(primaryStage, rootCollection, 20, 15);
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();
     }
 
-    private void setCollectionMenuText(String str, int y)
+    private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
+    {
+        Image image = new Image("file:Deck.jpg");
+        ImageView imageView = new ImageView(image);
+
+        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
+
+        StackPane stackPane = new StackPane(rectangle, imageView);
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.relocate(x, y);
+
+        Text textCardName = new Text(deck.getDeckName());
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
+        textCardName.setLayoutY(y + 160);
+
+        root.getChildren().addAll(stackPane, textCardName);
+
+        return stackPane;
+    }
+
+    private void setCollectionMenuText(String str, int y, boolean isDeckText)
     {
         Text text = new Text(str);
-        text.setLayoutX((sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40);
+        double x;
+        if (isDeckText)
+        {
+            x = (sceneCollection.getWidth() * 1/4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3/4;
+        }
+        else
+        {
+            x = (sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40;
+        }
+        text.setLayoutX(x);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
         rootCollection.getChildren().addAll(text);
