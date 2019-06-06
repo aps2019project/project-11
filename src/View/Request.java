@@ -767,7 +767,8 @@ public class Request
                     try
                     {
                         setBattleField(primaryStage, 5);
-                    } catch (IOException e)
+                    }
+                    catch (IOException e)
                     {
                         e.printStackTrace();
                     }

@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class ShowOutput
@@ -80,6 +81,12 @@ public class ShowOutput
             labelPlayerHighScore.setFont(Font.font(15));
             labelPlayerHighScore.relocate(250, counter * 50);
             rootLeaderBoard.getChildren().add(labelPlayerHighScore);
+
+            if (account.equals(Account.loggedInAccount))
+            {
+                labelPlayerName.setTextFill(Color.RED);
+                labelPlayerHighScore.setTextFill(Color.RED);
+            }
 
             counter++;
         }

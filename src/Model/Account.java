@@ -100,6 +100,16 @@ public class Account
         loggedInAccount = null;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Account)
+        {
+            return ((Account) obj).getAccountName().equals(this.getAccountName());
+        }
+        return false;
+    }
+
     public Collection getCollection()
     {
         return collection;

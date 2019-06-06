@@ -121,6 +121,7 @@ public class CallTheAppropriateFunction extends Thread
                     shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;
                 case EXIT:
+                    request.setCommand(null);
                     determineMainMenuCommand();
                     break;
             }
@@ -178,6 +179,7 @@ public class CallTheAppropriateFunction extends Thread
                     showOutput.collectionHelp();
                     break;
                 case EXIT:
+                    request.setCommand(null);
                     determineMainMenuCommand();
                     break;
             }
