@@ -569,7 +569,7 @@ public class Request {
         rootBattle.getChildren().add(title);
     }
 
-    private void singlePlayerMenu(Stage primaryStage) {
+    public void singlePlayerMenu(Stage primaryStage) {
         setBackGroundImage(rootSinglePlayer, "file:SinglePlayer.jpg");
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
@@ -608,11 +608,11 @@ public class Request {
             switch (string) {
                 case "Story":
                     setCommand(CommandType.STORY);
-                    /*try {
-                        setBattleField(primaryStage, 1);
+                    try {
+                        setBattleField(primaryStage, 2);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }*/
+                    }
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
@@ -640,12 +640,12 @@ public class Request {
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException {
+    public void setBattleField(Stage primaryStage, int mapNumber) throws IOException {
         Parent root;
         Scene scene = null;
         switch (mapNumber) {
             case 1:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML1.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
                 scene = new Scene(root);
                 break;
             case 2:
