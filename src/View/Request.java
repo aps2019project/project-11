@@ -3,12 +3,16 @@ package View;
 import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,15 +24,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sun.applet.Main;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 import static javafx.scene.paint.Color.*;
 
-public class Request
-{
+public class Request {
     public static Scanner myScanner = new Scanner(System.in);
 
     private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
@@ -59,25 +65,20 @@ public class Request
     private ShowOutput showOutput = new ShowOutput();
     private AccountManager accountManager = new AccountManager();
 
-    public CommandType getCommand()
-    {
+    public CommandType getCommand() {
         return command;
     }
 
-    public void setCommand(CommandType command)
-    {
+    public void setCommand(CommandType command) {
         Request.getInstance().command = command;
     }
 
-    private Request()
-    {
+    private Request() {
         //just added to make Request singleton
     }
 
-    public static Request getInstance()
-    {
-        if (request == null)
-        {
+    public static Request getInstance() {
+        if (request == null) {
             return new Request();
         }
         return request;
@@ -110,8 +111,7 @@ public class Request
     private Group rootMultiPlayer = new Group();
     private Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
 
-    public void signUpMenu(Stage primaryStage)
-    {
+    public void signUpMenu(Stage primaryStage) {
         TextField textFieldName = new TextField();
         TextField textFieldPassword = new TextField();
         nameAndPasswordFields(rootSignUpMenu, textFieldName, textFieldPassword);
@@ -125,31 +125,25 @@ public class Request
         Button buttonSignUp = new Button("Submit");
         Label labelInvalidInput = new Label();
         submitButton(buttonSignUp, labelInvalidInput);
-        buttonSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (userName.isEmpty() || password.isEmpty())
-                {
+                if (userName.isEmpty() || password.isEmpty()) {
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
                 Account account = accountManager.findAccount(userName);
-                if (account == null)
-                {
+                if (account == null) {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     accountManager.createAccount(userName, password);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
-                }
-                else
-                {
+                } else {
                     labelInvalidInput.setText("Account exists with this name");
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
                 }
@@ -160,11 +154,9 @@ public class Request
         Button buttonAlreadyHaveAccount = new Button("Already have account");
         buttonAlreadyHaveAccount.relocate(150, 300);
         buttonAlreadyHaveAccount.setFont(Font.font(20));
-        buttonAlreadyHaveAccount.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonAlreadyHaveAccount.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneLoginMenu);
                 primaryStage.centerOnScreen();
@@ -178,8 +170,7 @@ public class Request
         primaryStage.show();
     }
 
-    private void login(Stage primaryStage)
-    {
+    private void login(Stage primaryStage) {
         Label labelLogin = new Label("Login");
         rootLoginMenu.getChildren().add(labelLogin);
         labelLogin.relocate(150, 30);
@@ -193,42 +184,32 @@ public class Request
         Button buttonLogin = new Button("Submit");
         Label labelInvalidInput = new Label();
         submitButton(buttonLogin, labelInvalidInput);
-        buttonLogin.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootLoginMenu.getChildren().remove(labelInvalidInput);
                 String name = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (name.isEmpty() || password.isEmpty())
-                {
+                if (name.isEmpty() || password.isEmpty()) {
                     labelInvalidInput.setText("you must Fill both TextFields");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
                     return;
                 }
                 Account account = accountManager.findAccount(name);
-                if (account == null)
-                {
+                if (account == null) {
                     labelInvalidInput.setText("Invalid name or password");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
-                }
-                else if (account.getPassword().equals(password))
-                {
+                } else if (account.getPassword().equals(password)) {
                     accountManager.login(account);
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
-                    try
-                    {
+                    try {
                         mainMenu(primaryStage);
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                else
-                {
+                } else {
                     labelInvalidInput.setText("Password is Wrong.Try again");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
                 }
@@ -239,19 +220,15 @@ public class Request
         Button buttonNeedToSignUp = new Button("Sign Up");
         buttonNeedToSignUp.relocate(260, 300);
         buttonNeedToSignUp.setFont(Font.font(20));
-        buttonNeedToSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonNeedToSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneSignUpMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     signUpMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -262,8 +239,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword)
-    {
+    private void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword) {
         Label labelName = new Label("Name");
         root.getChildren().add(labelName);
         labelName.relocate(20, 130);
@@ -285,8 +261,7 @@ public class Request
         root.getChildren().add(hBoxPassword);
     }
 
-    private void submitButton(Button button, Label labelInvalidInput)
-    {
+    private void submitButton(Button button, Label labelInvalidInput) {
         button.relocate(25, 300);
         button.setFont(Font.font(20));
         labelInvalidInput.relocate(100, 100);
@@ -294,8 +269,7 @@ public class Request
         labelInvalidInput.setTextFill(Color.RED);
     }
 
-    private void mainMenu(Stage primaryStage)
-    {
+    private void mainMenu(Stage primaryStage) {
         setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -315,15 +289,13 @@ public class Request
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setBackGroundImage(Group root, String ur2l)
-    {
+    private void setBackGroundImage(Group root, String ur2l) {
         Image backGroundImage = new Image(ur2l);
         ImageView backGroundImageView = new ImageView(backGroundImage);
         root.getChildren().add(backGroundImageView);
     }
 
-    private void setMainMenuText(Stage primaryStage, String string, int yProperty)
-    {
+    private void setMainMenuText(Stage primaryStage, String string, int yProperty) {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 35));
@@ -332,13 +304,10 @@ public class Request
         text.setFill(Color.BLUE);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
-        text.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
-                switch (string)
-                {
+            public void handle(MouseEvent event) {
+                switch (string) {
                     case "Shop":
                         setCommand(CommandType.ENTER_SHOP);
                         shopMenu(primaryStage);
@@ -366,8 +335,7 @@ public class Request
                         setCommand(CommandType.EXIT);
                         break;
                 }
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
             }
@@ -375,8 +343,7 @@ public class Request
         rootMainMenu.getChildren().add(text);
     }
 
-    private void leaderBoard(Stage primaryStage)
-    {
+    private void leaderBoard(Stage primaryStage) {
         Label labelTop10 = new Label("Top 10");
         labelTop10.setTextFill(YELLOW);
         labelTop10.setFont(Font.font(30));
@@ -390,13 +357,10 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void showRankingPlayers()
-    {
+    private void showRankingPlayers() {
         int counter = 1;
-        for (Account account : AccountManager.getAccounts())
-        {
-            if (counter > 10)
-            {
+        for (Account account : AccountManager.getAccounts()) {
+            if (counter > 10) {
                 return;
             }
             Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
@@ -413,24 +377,19 @@ public class Request
         }
     }
 
-    public Button backButton(Stage primaryStage, Group root, int x, int y)
-    {
+    public Button backButton(Stage primaryStage, Group root, int x, int y) {
         Button backButton = new Button("Back");
         backButton.setFont(Font.font(25));
         backButton.relocate(x, y);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     mainMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -439,8 +398,7 @@ public class Request
         return backButton;
     }
 
-    public void shopMenu(Stage primaryStage)
-    {
+    public void shopMenu(Stage primaryStage) {
         setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
 
         scrollPane.setContent(rootShop);
@@ -450,8 +408,7 @@ public class Request
         setShopMenuText("Heroes", 50);
 
         int counter = 0, x = 0, y = 0;
-        for (Hero hero : Hero.getHeroes())
-        {
+        for (Hero hero : Hero.getHeroes()) {
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = Column_BLANK + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
             showNonSpellCards(rootShop, x, y, hero.getCardName(), hero.getDefaultAP(), hero.getDefaultHP(), hero.getPrice());
@@ -461,8 +418,7 @@ public class Request
         setShopMenuText("Minions", y + 250 + 50);
 
         counter = counter + counter % 4;
-        for (Minion minion : Minion.getMinions())
-        {
+        for (Minion minion : Minion.getMinions()) {
             y = 2 * Column_BLANK - BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             showNonSpellCards(rootShop, x, y, minion.getCardName(), minion.getDefaultAP(), minion.getDefaultHP(), minion.getPrice());
@@ -472,8 +428,7 @@ public class Request
         setShopMenuText("Spells", y + 250 + 50);
 
         counter = counter + counter % 4;
-        for (Spell spell : Spell.getSpells())
-        {
+        for (Spell spell : Spell.getSpells()) {
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * Column_BLANK - 2 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
             showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
@@ -483,10 +438,8 @@ public class Request
         setShopMenuText("Items", y + 250 + 50);
 
         counter = counter + counter % 4;
-        for (Item item : Item.getItems())
-        {
-            if (item.getItemType() == ItemType.collectible)
-            {
+        for (Item item : Item.getItems()) {
+            if (item.getItemType() == ItemType.collectible) {
                 continue;
             }
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
@@ -500,8 +453,7 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
-    private void setShopMenuText(String str, int y)
-    {
+    private void setShopMenuText(String str, int y) {
         Text text = new Text(str);
         text.setLayoutX((sceneShop.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
@@ -509,8 +461,7 @@ public class Request
         rootShop.getChildren().addAll(text);
     }
 
-    private void showNonSpellCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
-    {
+    private void showNonSpellCards(Group root, int x, int y, String cardName, int AP, int HP, int price) {
         Rectangle rectangle = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
 
         Text textAP = new Text(Integer.toString(AP));
@@ -528,8 +479,7 @@ public class Request
         root.getChildren().addAll(textAP, textHP);
     }
 
-    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String cardName, int price)
-    {
+    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String cardName, int price) {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
 
@@ -539,11 +489,9 @@ public class Request
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.relocate(x, y);
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Buy");
                 alert.setHeaderText(null);
@@ -553,12 +501,10 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy)
-                {
+                if (option.get() == buttonTypeBuy) {
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = cardName;
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                 }
@@ -581,8 +527,7 @@ public class Request
         return rectangle;
     }
 
-    public void battleMenu(Stage primaryStage)
-    {
+    public void battleMenu(Stage primaryStage) {
         setBackGroundImage(rootBattle, "file:duelystBattle.jpg");
 
         setBattleMenu("Single Player", primaryStage, 170);
@@ -592,8 +537,7 @@ public class Request
         primaryStage.setScene(sceneBattle);
     }
 
-    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
-    {
+    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location) {
         Text title = new Text("Select Duel");
         title.setFill(RED);
         title.setTextOrigin(VPos.TOP);
@@ -610,8 +554,7 @@ public class Request
         text.setOnMouseEntered(event -> text.setFill(PURPLE));
         text.setOnMouseExited(event -> text.setFill(BLACK));
         text.setOnMouseClicked(event -> {
-            switch (titleOfBattleMenu)
-            {
+            switch (titleOfBattleMenu) {
                 case "Single Player":
                     command = CommandType.SINGLE_PLAYER;
                     singlePlayerMenu(primaryStage);
@@ -622,8 +565,7 @@ public class Request
                     //todo battlefield
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
@@ -631,29 +573,23 @@ public class Request
         rootBattle.getChildren().add(title);
     }
 
-    private void singlePlayerMenu(Stage primaryStage)
-    {
+    private void singlePlayerMenu(Stage primaryStage) {
         setBackGroundImage(rootSinglePlayer, "file:SinglePlayer.jpg");
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneBattle);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     battleMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -661,8 +597,7 @@ public class Request
         primaryStage.setScene(sceneSinglePlayer);
     }
 
-    public void setSinglePlayerMenu(String string, Stage primaryStage, int place)
-    {
+    public void setSinglePlayerMenu(String string, Stage primaryStage, int place) {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.BLACK, 45));
@@ -674,32 +609,32 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
-            switch (string)
-            {
+            switch (string) {
                 case "Story":
                     setCommand(CommandType.STORY);
-                    //setBattleField(primaryStage , 5);
+                    /*try {
+                        setBattleField(primaryStage, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
         rootSinglePlayer.getChildren().add(title);
     }
 
-    public void multiPlayerMenu(Stage primaryStage)
-    {
+    public void multiPlayerMenu(Stage primaryStage) {
         setMultiPlayerMenu("Choose  One Player", primaryStage, 100);
         primaryStage.setScene(sceneMultiPlayer);
     }
 
-    public void setMultiPlayerMenu(String s, Stage primaryStage, int location)
-    {
+    public void setMultiPlayerMenu(String s, Stage primaryStage, int location) {
         Text multiPlayerText = new Text(s);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
         multiPlayerText.setTextOrigin(VPos.TOP);
@@ -709,10 +644,19 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage , int mapNumber)
-    {
-
+    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException {
+        Parent root;
         Scene scene = null;
+        switch (mapNumber) {
+            case 1:
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML.fxml"));
+                scene = new Scene(root);
+            case 2:
+
+
+        }
+
+        /*Scene scene = null;
         Group roots;
         GridPane gridPane;
         switch (mapNumber){
@@ -751,8 +695,7 @@ public class Request
                 roots.getChildren().add(gridPane);
                 scene = new Scene(roots);
                 break;
-        }
-
+        }*/
 
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
@@ -761,10 +704,9 @@ public class Request
 
     }
 
-    private GridPane makeGridPaneForBattleField()
-    {
+    private GridPane makeGridPaneForBattleField() {
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(200, 300, 190 , 360));
+        gridPane.setPadding(new Insets(200, 300, 190, 360));
         gridPane.setHgap(1);
         gridPane.setVgap(1);
         setSquares(gridPane);
@@ -772,419 +714,278 @@ public class Request
         return gridPane;
     }
 
-    private void setSquares(GridPane gridPane)
-    {
-        for (int row = 4; row >= 0; row--)
-        {
-            for (int column = 0; column < 9; column++)
-            {
-                Rectangle rectangle = new Rectangle(63, 63 , null);
-                rectangle.setStroke(BEIGE);
+    private void setSquares(GridPane gridPane) {
+        for (int row = 4; row >= 0; row--) {
+            for (int column = 0; column < 9; column++) {
+                Rectangle rectangle = new Rectangle(63, 63, null);
+                rectangle.setStroke(BLACK);
                 gridPane.add(rectangle, column, row);
             }
         }
     }
 
 
-    public void collectionMenu(Stage primaryStage)
-    {
+    public void collectionMenu(Stage primaryStage) {
         primaryStage.setScene(sceneCollection);
     }
 
-    public void getShopCommands()
-    {
+    public void getShopCommands() {
         String input = myScanner.nextLine();
         String[] partedInput = input.split("\\s");
-        if (input.equals("exit"))
-        {
+        if (input.equals("exit")) {
             setCommand(CommandType.EXIT);
-        }
-        else if (input.equals("show collection"))
-        {
+        } else if (input.equals("show collection")) {
             setCommand(CommandType.SHOW_COLLECTION);
-        }
-        else if (patternSearch.matcher(input).matches())
-        {
+        } else if (patternSearch.matcher(input).matches()) {
             setCommand(CommandType.SEARCH);
             getCommand().cardOrItemName = partedInput[1];
-        }
-        else if (patternShopSearchCollection.matcher(input).matches())
-        {
+        } else if (patternShopSearchCollection.matcher(input).matches()) {
             setCommand(CommandType.SEARCH_COLLECTION);
             getCommand().cardOrItemName = partedInput[2];
-        }
-        else if (patternShopBuy.matcher(input).matches())
-        {
+        } else if (patternShopBuy.matcher(input).matches()) {
             setCommand(CommandType.BUY);
             getCommand().cardOrItemName = partedInput[1];
-        }
-        else if (patternShopSell.matcher(input).matches())
-        {
+        } else if (patternShopSell.matcher(input).matches()) {
             setCommand(CommandType.SELL);
             getCommand().cardOrItemID = partedInput[1];
-        }
-        else if (input.equals("show"))
-        {
+        } else if (input.equals("show")) {
             setCommand(CommandType.SHOW);
-        }
-        else if (input.equals("help"))
-        {
+        } else if (input.equals("help")) {
             setCommand(CommandType.HELP);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public void getCollectionCommands()
-    {
+    public void getCollectionCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equals("show"))
-        {
+        if (input.equals("show")) {
             setCommand(CommandType.SHOW);
-        }
-        else if (patternSearch.matcher(input).matches())
-        {
+        } else if (patternSearch.matcher(input).matches()) {
             setCommand(CommandType.SEARCH);
             getCommand().cardOrItemName = inputParts[1];
-        }
-        else if (input.equals("save"))
-        {
+        } else if (input.equals("save")) {
             setCommand(CommandType.SAVE);
-        }
-        else if (patternCreateDeck.matcher(input).matches())
-        {
+        } else if (patternCreateDeck.matcher(input).matches()) {
             setCommand(CommandType.CREATE_DECK);
             getCommand().deckName = inputParts[2];
-        }
-        else if (patternDeleteDeck.matcher(input).matches())
-        {
+        } else if (patternDeleteDeck.matcher(input).matches()) {
             setCommand(CommandType.DELETE_DECK);
             getCommand().deckName = inputParts[2];
-        }
-        else if (patternAddCardToDeck.matcher(input).matches())
-        {
+        } else if (patternAddCardToDeck.matcher(input).matches()) {
             setCommand(CommandType.ADD_TO_DECK);
             getCommand().deckName = inputParts[4];
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternRemoveCardFromDeck.matcher(input).matches())
-        {
+        } else if (patternRemoveCardFromDeck.matcher(input).matches()) {
             setCommand(CommandType.REMOVE_FROM_DECK);
             getCommand().deckName = inputParts[4];
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternValidateDeck.matcher(input).matches())
-        {
+        } else if (patternValidateDeck.matcher(input).matches()) {
             setCommand(CommandType.VALIDATE_DECK);
             getCommand().deckName = inputParts[2];
-        }
-        else if (patternSelectMainDeck.matcher(input).matches())
-        {
+        } else if (patternSelectMainDeck.matcher(input).matches()) {
             setCommand(CommandType.SET_MAIN_DECK);
             getCommand().deckName = inputParts[2];
-        }
-        else if (patternShowDeck.matcher(input).matches())
-        {
+        } else if (patternShowDeck.matcher(input).matches()) {
             setCommand(CommandType.SHOW_DECK);
             getCommand().deckName = inputParts[2];
-        }
-        else if (input.equals("show all decks"))
-        {
+        } else if (input.equals("show all decks")) {
             setCommand(CommandType.SHOW_ALL_DECKS);
-        }
-        else if (input.equals("help"))
-        {
+        } else if (input.equals("help")) {
             setCommand(CommandType.HELP);
-        }
-        else if (input.equals("exit"))
-        {
+        } else if (input.equals("exit")) {
             setCommand(CommandType.EXIT);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public void getBattleMenuCommands()
-    {
+    public void getBattleMenuCommands() {
         String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("Single Player"))
-        {
+        if (input.equalsIgnoreCase("Single Player")) {
             setCommand(CommandType.SINGLE_PLAYER);
-        }
-        else if (input.equalsIgnoreCase("Multi Player"))
-        {
+        } else if (input.equalsIgnoreCase("Multi Player")) {
             setCommand(CommandType.MULTI_PLAYER);
-        }
-        else if (input.equals("exit"))
-        {
+        } else if (input.equals("exit")) {
             setCommand(CommandType.EXIT);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public void getSinglePlayerMatchMode()
-    {
+    public void getSinglePlayerMatchMode() {
         String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("Story"))
-        {
+        if (input.equalsIgnoreCase("Story")) {
             setCommand(CommandType.STORY);
-        }
-        else if (input.equalsIgnoreCase("Custom Game"))
-        {
+        } else if (input.equalsIgnoreCase("Custom Game")) {
             setCommand(CommandType.CUSTOM_GAME);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getSecondPlayerInMultiPlayerMatch()
-    {
+    public void getSecondPlayerInMultiPlayerMatch() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternSelectUser.matcher(input).matches())
-        {
+        if (patternSelectUser.matcher(input).matches()) {
             setCommand(CommandType.SELECT_USER);
             getCommand().username = inputParts[2];
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getMultiPlayerMatchMode()
-    {
+    public void getMultiPlayerMatchMode() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternStartMultiPlayerGame.matcher(input).matches())
-        {
+        if (patternStartMultiPlayerGame.matcher(input).matches()) {
             setCommand(CommandType.START_MULTI_PLAYER_GAME);
             getCommand().multiPlayerMatchMode = inputParts[3];
-            if (inputParts.length > 4)
-            {
+            if (inputParts.length > 4) {
                 getCommand().numOfFlags = Integer.parseInt(inputParts[4]);
             }
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getBattleCommands()
-    {
+    public void getBattleCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equalsIgnoreCase("Game Info"))
-        {
+        if (input.equalsIgnoreCase("Game Info")) {
             setCommand(CommandType.GAME_INFO);
-        }
-        else if (input.equalsIgnoreCase("Show My Minions"))
-        {
+        } else if (input.equalsIgnoreCase("Show My Minions")) {
             setCommand(CommandType.SHOW_MY_MINIONS);
-        }
-        else if (input.equalsIgnoreCase("Show Opponent Minions"))
-        {
+        } else if (input.equalsIgnoreCase("Show Opponent Minions")) {
             setCommand(CommandType.SHOW_OPPONENT_MINIONS);
-        }
-        else if (patternShowCardInfo.matcher(input).matches())
-        {
+        } else if (patternShowCardInfo.matcher(input).matches()) {
             setCommand(CommandType.SHOW_CARD_INFO);
             getCommand().cardOrItemID = inputParts[3];
-        }
-        else if (patternSelect.matcher(input).matches())
-        {
+        } else if (patternSelect.matcher(input).matches()) {
             setCommand(CommandType.SELECT);
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (input.equalsIgnoreCase("Show collectibles"))
-        {
+        } else if (input.equalsIgnoreCase("Show collectibles")) {
             setCommand(CommandType.SHOW_COLLECTIBLES);
-        }
-        else if (patternSelectItem.matcher(input).matches())
-        {
+        } else if (patternSelectItem.matcher(input).matches()) {
             setCommand(CommandType.SELECT_ITEM);
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternInsertCard.matcher(input).matches())
-        {
+        } else if (patternInsertCard.matcher(input).matches()) {
             setCommand(CommandType.INSERT_CARD);
             getCommand().insertRow = Integer.parseInt(inputParts[4]);
             getCommand().insertColumn = Integer.parseInt(inputParts[6]);
             getCommand().insertCardName = inputParts[1];
 
-        }
-        else if (input.equalsIgnoreCase("Show Hand"))
-        {
+        } else if (input.equalsIgnoreCase("Show Hand")) {
             setCommand(CommandType.SHOW_HAND);
-        }
-        else if (input.equalsIgnoreCase("Show Next Card"))
-        {
+        } else if (input.equalsIgnoreCase("Show Next Card")) {
             setCommand(CommandType.SHOW_NEXT_CARD);
-        }
-        else if (input.equalsIgnoreCase("Enter graveyard"))
-        {
+        } else if (input.equalsIgnoreCase("Enter graveyard")) {
             setCommand(CommandType.ENTER_GRAVEYARD);
-        }
-        else if (input.equalsIgnoreCase("Help"))
-        {
+        } else if (input.equalsIgnoreCase("Help")) {
             setCommand(CommandType.HELP_BATTLE);
-        }
-        else if (input.equalsIgnoreCase("End Turn"))
-        {
+        } else if (input.equalsIgnoreCase("End Turn")) {
             setCommand(CommandType.END_TURN);
-        }
-        else if (input.equalsIgnoreCase("Surrender"))
-        {
+        } else if (input.equalsIgnoreCase("Surrender")) {
             setCommand(CommandType.SURRENDER);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterSelectCardCommands()
-    {
+    public void getAfterSelectCardCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternNormalAttack.matcher(input).matches())
-        {
+        if (patternNormalAttack.matcher(input).matches()) {
             setCommand(CommandType.NORMAL_ATTACK);
             getCommand().enemyCardIDForNormalAttack = inputParts[1];
-        }
-        else if (input.contains("Move To"))
-        {
+        } else if (input.contains("Move To")) {
             setCommand(CommandType.MOVE_TO);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[2]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
-        }
-        else if (patternUseSpecialPower.matcher(input).matches())
-        {
+        } else if (patternUseSpecialPower.matcher(input).matches()) {
             setCommand(CommandType.USE_SPECIAL_POWER);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[3]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
-        }
-        else if (patternComboAttack.matcher(input).matches())
-        {
+        } else if (patternComboAttack.matcher(input).matches()) {
             setCommand(CommandType.COMBO_ATTACK);
             getCommand().enemyCardIDForCombo = inputParts[2];
-            for (int counter = 3; counter < inputParts.length; counter++)
-            {
+            for (int counter = 3; counter < inputParts.length; counter++) {
                 getCommand().cardIDsForComboAttack.add(inputParts[counter]);
             }
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterSelectItemCommands()
-    {
+    public void getAfterSelectItemCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equalsIgnoreCase("Show Info"))
-        {
+        if (input.equalsIgnoreCase("Show Info")) {
             setCommand(CommandType.SHOW_ITEM_INFO);
-        }
-        else if (patternUseItem.matcher(input).matches())
-        {
+        } else if (patternUseItem.matcher(input).matches()) {
             setCommand(CommandType.USE_ITEM);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[1]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[2]);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getGraveYardCommands()
-    {
+    public void getGraveYardCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternShowInfoOfCardInGraveYard.matcher(input).matches())
-        {
+        if (patternShowInfoOfCardInGraveYard.matcher(input).matches()) {
             setCommand(CommandType.SHOW_INFO);
             getCommand().cardOrItemIDInGraveYard = inputParts[2];
-        }
-        else if (input.equalsIgnoreCase("Show cards"))
-        {
+        } else if (input.equalsIgnoreCase("Show cards")) {
             setCommand(CommandType.SHOW_CARDS);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterGameEndedCommand()
-    {
+    public void getAfterGameEndedCommand() {
         String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("End Game"))
-        {
+        if (input.equalsIgnoreCase("End Game")) {
             setCommand(CommandType.END_GAME);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public void getShowMenuAndExitCommand(String input)
-    {
-        if (input.equalsIgnoreCase("Show menu"))
-        {
+    public void getShowMenuAndExitCommand(String input) {
+        if (input.equalsIgnoreCase("Show menu")) {
             setCommand(CommandType.SHOW_MENU);
-        }
-        else if (input.equals("exit"))
-        {
+        } else if (input.equals("exit")) {
             setCommand(CommandType.EXIT);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return myScanner.nextLine();
     }
 
-    public int getStoryMatchLevel()
-    {
-        try
-        {
+    public int getStoryMatchLevel() {
+        try {
             showOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
             getCommand().storyGameMode = Integer.parseInt(input);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             showOutput.printOutput("Try Again");
             getStoryMatchLevel();
         }
         return getCommand().storyGameMode;
     }
 
-    public void getCustomGameCommands()
-    {
+    public void getCustomGameCommands() {
         String line = myScanner.nextLine();
         String[] partedLine = line.split(" ");
         getCommand().deckNameForCustomGame = partedLine[2];
