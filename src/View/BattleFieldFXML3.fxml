@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
@@ -13,10 +15,10 @@
    <children>
       <ImageView fitHeight="1088.0" fitWidth="1540.0" layoutX="-61.0" layoutY="-179.0">
          <image>
-            <Image url="@/battleField BackGround/backgroundStory3.jpg" />
+            <Image url="@../battleField%20BackGround/backgroundStory3.jpg" />
          </image>
       </ImageView>
-      <GridPane gridLinesVisible="true" layoutX="331.0" layoutY="201.0" minWidth="0.0" prefHeight="408.0" prefWidth="770.0">
+      <GridPane gridLinesVisible="true" layoutX="284.0" layoutY="153.0" minWidth="0.0" prefHeight="478.0" prefWidth="832.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
@@ -38,28 +40,78 @@
          <effect>
             <BoxBlur iterations="2" />
          </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <children>
+            <Pane prefHeight="87.2" prefWidth="82.0" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+         </children>
       </GridPane>
-      <Circle fill="#1f93ff00" layoutX="390.0" layoutY="682.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="418.0" layoutY="776.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="547.0" layoutY="682.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="575.0" layoutY="776.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="1002.0" layoutY="682.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="1030.0" layoutY="776.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="848.0" layoutY="682.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="876.0" layoutY="776.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="697.0" layoutY="682.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="725.0" layoutY="776.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
