@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="766.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
+<AnchorPane prefHeight="766.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
 
     <children>
-      <ImageView fitHeight="1136.0" fitWidth="1538.0" layoutX="-172.0" layoutY="-196.0">
+      <ImageView fitHeight="848.0" fitWidth="1378.0" layoutX="-5.0" layoutY="-6.0">
          <image>
-            <Image url="@/battleField BackGround/backgroundStory1.jpg" />
+            <Image url="@../battleField%20BackGround/backgroundStory1.jpg" />
          </image>
       </ImageView>
 
       
-      <GridPane gridLinesVisible="true" layoutX="168.0" layoutY="188.0" minWidth="0.0" prefHeight="436.0" prefWidth="776.0">
+      <GridPane gridLinesVisible="true" layoutX="276.0" layoutY="194.0" minWidth="0.0" prefHeight="436.0" prefWidth="738.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
@@ -42,27 +42,27 @@
             <BoxBlur iterations="2" />
          </effect>
       </GridPane>
-      <Circle fill="#1f93ff00" layoutX="258.0" layoutY="698.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="327.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="415.0" layoutY="698.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="484.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="870.0" layoutY="698.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="939.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="716.0" layoutY="698.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="785.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="565.0" layoutY="698.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="634.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
