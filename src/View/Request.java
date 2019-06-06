@@ -3,7 +3,9 @@ package View;
 import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -753,9 +755,8 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 3);
-                    }
-                    catch (IOException e)
+                        setBattleField(primaryStage, 1);
+                    } catch (IOException e)
                     {
                         e.printStackTrace();
                     }
