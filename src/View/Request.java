@@ -94,25 +94,25 @@ public class Request
     private static Request request = new Request();
     private CommandType command;
     public final Object requestLock = new Object();
-    private Group rootSignUpMenu = new Group();
-    private Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
-    private Group rootLoginMenu = new Group();
-    private Scene sceneLoginMenu = new Scene(rootLoginMenu, 400, 400);
-    private Group rootMainMenu = new Group();
-    private Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
-    private Group rootLeaderBoard = new Group();
-    private Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
-    private Group rootShop = new Group();
-    private ScrollPane scrollPane = new ScrollPane();
-    private Scene sceneShop = new Scene(scrollPane, 1000, 562, BURLYWOOD);
-    private Group rootCollection = new Group();
-    private Scene sceneCollection = new Scene(rootCollection, 1000, 562);
-    private Group rootBattle = new Group();
-    private Scene sceneBattle = new Scene(rootBattle, 1000, 562);
-    private Group rootSinglePlayer = new Group();
-    private Scene sceneSinglePlayer = new Scene(rootSinglePlayer, 1000, 562);
-    private Group rootMultiPlayer = new Group();
-    private Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
+    private Group rootSignUpMenu = Main.getRootSignUpMenu();
+    private Scene sceneSignUpMenu = Main.getSceneSignUpMenu();
+    private Group rootLoginMenu = Main.getRootLoginMenu();
+    private Scene sceneLoginMenu = Main.getSceneLoginMenu();
+    private Group rootMainMenu = Main.getRootMainMenu();
+    private Scene sceneMainMenu = Main.getSceneMainMenu();
+    private Group rootLeaderBoard = Main.getRootLeaderBoard();
+    private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
+    private Group rootShop = Main.getRootShop();
+    private ScrollPane scrollPane = Main.getScrollPane();
+    private Scene sceneShop = Main.getSceneShop();
+    private Group rootCollection = Main.getRootCollection();
+    private Scene sceneCollection = Main.getSceneCollection();
+    private Group rootBattleMenu = Main.getRootBattle();
+    private Scene sceneBattleMenu = Main.getSceneBattle();
+    private Group rootSinglePlayer = Main.getRootSinglePlayer();
+    private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
+    private Group rootMultiPlayer = Main.getRootMultiPlayer();
+    private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -469,7 +469,7 @@ public class Request
         {
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showNonSpellCards(rootShop, x, y, hero.getCardName(), hero.getDefaultAP(), hero.getDefaultHP(), hero.getPrice());
+            showNonSpellCards(rootShop, x, y, hero);
             counter++;
         }
 
@@ -480,7 +480,7 @@ public class Request
         {
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
-            showNonSpellCards(rootShop, x, y, minion.getCardName(), minion.getDefaultAP(), minion.getDefaultHP(), minion.getPrice());
+            showNonSpellCards(rootShop, x, y, minion);
             counter++;
         }
 
@@ -541,12 +541,11 @@ public class Request
                         });
                         for (Card card : Shop.getInstance().getCards())
                         {
-                            if (card.getCardName().equals(searchField.getText()))
+                            if (card.getCardName().equalsIgnoreCase(searchField.getText()))
                             {
                                 if (card instanceof NonSpellCard)
                                 {
-                                    NonSpellCard nonSpellCard = (NonSpellCard) card;
-                                    showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, nonSpellCard.getCardName(), nonSpellCard.getDefaultAP(), nonSpellCard.getDefaultHP(), nonSpellCard.getPrice());
+                                    showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card);
                                 }
                                 else
                                 {
@@ -559,7 +558,6 @@ public class Request
                             if (item.getItemName().equals(searchField.getText()))
                             {
                                 showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, item.getItemName(), item.getPrice());
-
                             }
                         }
                     }
@@ -579,8 +577,13 @@ public class Request
         rootShop.getChildren().addAll(text);
     }
 
-    private void showNonSpellCards(Group root, int x, int y, String cardName, int AP, int HP, int price)
+    private void showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
     {
+        String cardName = nonSpellCard.getCardName();
+        int AP = nonSpellCard.getDefaultAP();
+        int HP = nonSpellCard.getDefaultHP();
+        int price = nonSpellCard.getPrice();
+
         Rectangle rectangle = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
 
         Text textAP = new Text(Integer.toString(AP));
@@ -598,7 +601,7 @@ public class Request
         root.getChildren().addAll(textAP, textHP);
     }
 
-    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String cardName, int price)
+    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String name, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
@@ -617,7 +620,7 @@ public class Request
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Buy");
                 alert.setHeaderText(null);
-                alert.setContentText("Want to buy " + cardName + " for " + price + "?");
+                alert.setContentText("Want to buy " + name + " for " + price + "?");
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeBuy = new ButtonType("Buy");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
@@ -626,7 +629,7 @@ public class Request
                 if (option.get() == buttonTypeBuy)
                 {
                     setCommand(CommandType.BUY);
-                    request.getCommand().cardOrItemName = cardName;
+                    request.getCommand().cardOrItemName = name;
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -635,7 +638,7 @@ public class Request
             }
         });
 
-        Text textCardName = new Text(cardName);
+        Text textCardName = new Text(name);
         textCardName.setFont(Font.font(15));
         textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
         textCardName.setLayoutY(y + 160);
@@ -651,30 +654,30 @@ public class Request
         return rectangle;
     }
 
-    public void battleMenu(Stage primaryStage)
+    private void battleMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootBattle, "file:duelystBattle.jpg");
+        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
 
         setBattleMenu("Single Player", primaryStage, 170);
         setBattleMenu("Multi Player", primaryStage, 270);
-        backButton(primaryStage, rootBattle, 50, 450);
+        backButton(primaryStage, rootBattleMenu, 50, 450);
 
-        primaryStage.setScene(sceneBattle);
+        primaryStage.setScene(sceneBattleMenu);
     }
 
-    public void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
+    private void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
     {
         Text title = new Text("Select Duel");
         title.setFill(RED);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontPosture.ITALIC, 45));
-        title.layoutXProperty().bind(sceneBattle.widthProperty().subtract(title.prefWidth(-2)).divide(2));
+        title.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(title.prefWidth(-2)).divide(2));
         title.setY(50);
 
         Text text = new Text(titleOfBattleMenu);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.BLACK, 45));
-        text.layoutXProperty().bind(sceneBattle.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
         text.setY(location);
         text.setFill(BLACK);
         text.setOnMouseEntered(event -> text.setFill(PURPLE));
@@ -697,11 +700,11 @@ public class Request
                 requestLock.notify();
             }
         });
-        rootBattle.getChildren().add(text);
-        rootBattle.getChildren().add(title);
+        rootBattleMenu.getChildren().add(text);
+        rootBattleMenu.getChildren().add(title);
     }
 
-    public void singlePlayerMenu(Stage primaryStage)
+    private void singlePlayerMenu(Stage primaryStage)
     {
         setBackGroundImage(rootSinglePlayer, "file:SinglePlayer.jpg");
         setSinglePlayerMenu("Story", primaryStage, 100);
@@ -717,7 +720,7 @@ public class Request
                 {
                     requestLock.notify();
                 }
-                primaryStage.setScene(sceneBattle);
+                primaryStage.setScene(sceneBattleMenu);
                 primaryStage.centerOnScreen();
                 try
                 {
@@ -731,7 +734,7 @@ public class Request
         primaryStage.setScene(sceneSinglePlayer);
     }
 
-    public void setSinglePlayerMenu(String string, Stage primaryStage, int place)
+    private void setSinglePlayerMenu(String string, Stage primaryStage, int place)
     {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
@@ -769,13 +772,13 @@ public class Request
         rootSinglePlayer.getChildren().add(title);
     }
 
-    public void multiPlayerMenu(Stage primaryStage)
+    private void multiPlayerMenu(Stage primaryStage)
     {
         setMultiPlayerMenu("Choose  One Player", primaryStage, 100);
         primaryStage.setScene(sceneMultiPlayer);
     }
 
-    public void setMultiPlayerMenu(String s, Stage primaryStage, int location)
+    private void setMultiPlayerMenu(String s, Stage primaryStage, int location)
     {
         Text multiPlayerText = new Text(s);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
@@ -824,57 +827,9 @@ public class Request
 
     }
 
-
     public void collectionMenu(Stage primaryStage)
     {
         primaryStage.setScene(sceneCollection);
-    }
-
-    public void getShopCommands()
-    {
-        String input = myScanner.nextLine();
-        String[] partedInput = input.split("\\s");
-        if (input.equals("exit"))
-        {
-            setCommand(CommandType.EXIT);
-        }
-        else if (input.equals("show collection"))
-        {
-            setCommand(CommandType.SHOW_COLLECTION);
-        }
-        else if (patternSearch.matcher(input).matches())
-        {
-            setCommand(CommandType.SEARCH);
-            getCommand().cardOrItemName = partedInput[1];
-        }
-        else if (patternShopSearchCollection.matcher(input).matches())
-        {
-            setCommand(CommandType.SEARCH_COLLECTION);
-            getCommand().cardOrItemName = partedInput[2];
-        }
-        else if (patternShopBuy.matcher(input).matches())
-        {
-            setCommand(CommandType.BUY);
-            getCommand().cardOrItemName = partedInput[1];
-        }
-        else if (patternShopSell.matcher(input).matches())
-        {
-            setCommand(CommandType.SELL);
-            getCommand().cardOrItemID = partedInput[1];
-        }
-        else if (input.equals("show"))
-        {
-            setCommand(CommandType.SHOW);
-        }
-        else if (input.equals("help"))
-        {
-            setCommand(CommandType.HELP);
-        }
-        else
-        {
-            showOutput.printOutput("invalid command");
-            setCommand(null);
-        }
     }
 
     public void getCollectionCommands()
