@@ -3,9 +3,7 @@ package View;
 import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -105,9 +103,10 @@ public class Request
     private Group rootLeaderBoard = Main.getRootLeaderBoard();
     private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
     private Group rootShop = Main.getRootShop();
-    private ScrollPane scrollPane = Main.getScrollPane();
+    private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
     private Scene sceneShop = Main.getSceneShop();
     private Group rootCollection = Main.getRootCollection();
+    private ScrollPane scrollPaneCollection = Main.getScrollPaneCollection();
     private Scene sceneCollection = Main.getSceneCollection();
     private Group rootBattleMenu = Main.getRootBattle();
     private Scene sceneBattleMenu = Main.getSceneBattle();
@@ -351,6 +350,7 @@ public class Request
                         break;
                     case "Collection":
                         setCommand(CommandType.ENTER_COLLECTION);
+                        collectionMenu(primaryStage);
                         break;
                     case "Battle":
                         setCommand(CommandType.ENTER_BATTLE);
@@ -435,7 +435,8 @@ public class Request
                 try
                 {
                     mainMenu(primaryStage);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -460,60 +461,77 @@ public class Request
     {
         setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
 
-        scrollPane.setContent(rootShop);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPaneShop.setContent(rootShop);
+        scrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        setShopMenuText("Heroes", 50);
+        setShopMenuText(rootShop, "Heroes", 50);
 
-        int counter = 0, x = 0, y = 0;
+        int counterX = 0, counterY = 0, x = 0, y = 0;
         for (Hero hero : Hero.getHeroes())
         {
-            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = COLUMN_BLANK + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
             showNonSpellCards(rootShop, x, y, hero);
-            counter++;
+            counterX ++;
+            counterY ++;
         }
 
-        setShopMenuText("Minions", y + 250 + 50);
+        setShopMenuText(rootShop, "Minions", y + 250 + 50);
 
-        counter = counter + counter % 4;
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
         for (Minion minion : Minion.getMinions())
         {
-            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
-            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
             showNonSpellCards(rootShop, x, y, minion);
-            counter++;
+            counterX ++;
+            counterY ++;
         }
 
-        setShopMenuText("Spells", y + 250 + 50);
+        setShopMenuText(rootShop, "Spells", y + 250 + 50);
 
-        counter = counter + counter % 4;
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
         for (Spell spell : Spell.getSpells())
         {
-            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
             showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
-            counter++;
+            counterX ++;
+            counterY ++;
         }
 
-        setShopMenuText("Items", y + 250 + 50);
+        setShopMenuText(rootShop, "Items", y + 250 + 50);
 
-        counter = counter + counter % 4;
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
         for (Item item : Item.getItems())
         {
             if (item.getItemType() == ItemType.collectible)
             {
                 continue;
             }
-            x = ROW_BLANK + (counter % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counter / 4 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
             showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
-            counter++;
+            counterX ++;
+            counterY ++;
         }
 
         backButton(primaryStage, rootShop, 20, 15);
         TextField searchField = searchField(primaryStage, rootShop);
+
         sceneShop.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -570,13 +588,13 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
-    private void setShopMenuText(String str, int y)
+    private void setShopMenuText(Group root, String str, int y)
     {
         Text text = new Text(str);
         text.setLayoutX((sceneShop.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        rootShop.getChildren().addAll(text);
+        root.getChildren().addAll(text);
     }
 
     private void showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
@@ -830,7 +848,89 @@ public class Request
 
     public void collectionMenu(Stage primaryStage)
     {
+        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+
+        scrollPaneCollection.setContent(rootCollection);
+        scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        setShopMenuText(rootCollection, "Heroes", 50);
+
+        int counterX = 0, counterY = 0, x, y = 0;
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Hero)
+            {
+                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+                y = COLUMN_BLANK + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
+                showNonSpellCards(rootCollection, x, y, (Hero) card);
+                counterX ++;
+                counterY ++;
+            }
+        }
+
+        setShopMenuText(rootCollection, "Minions", y + 250 + 50);
+
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Minion)
+            {
+                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
+                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+                showNonSpellCards(rootCollection, x, y, (Minion) card);
+                counterX ++;
+                counterY ++;
+            }
+        }
+
+        setShopMenuText(rootCollection, "Spells", y + 250 + 50);
+
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Spell)
+            {
+                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
+                showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardName(), card.getPrice());
+                counterX ++;
+                counterY ++;
+            }
+        }
+
+        setShopMenuText(rootCollection, "Items", y + 250 + 50);
+
+        counterX = 0;
+        if (counterY % 4 !=0)
+        {
+            counterY = counterY + 4 - counterY % 4;
+        }
+        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        {
+            if (item.getItemType() == ItemType.collectible)
+            {
+                continue;
+            }
+            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
+            showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemName(), item.getPrice());
+            counterX ++;
+            counterY ++;
+        }
+
+        backButton(primaryStage, rootCollection, 20, 15);
+
         primaryStage.setScene(sceneCollection);
+        primaryStage.centerOnScreen();
     }
 
     public void getCollectionCommands()

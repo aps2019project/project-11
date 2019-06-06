@@ -132,10 +132,12 @@ public class CallTheAppropriateFunction extends Thread
     {
         while (true)
         {
-            request.getCollectionCommands();
             if (request.getCommand() == null)
             {
-                continue;
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.wait();
+                }
             }
             switch (request.getCommand())
             {
@@ -179,6 +181,7 @@ public class CallTheAppropriateFunction extends Thread
                     determineMainMenuCommand();
                     break;
             }
+            request.setCommand(null);
         }
     }
 

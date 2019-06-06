@@ -1,7 +1,6 @@
 package View;
 
 import Controller.*;
-import View.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,10 +20,11 @@ public class Main extends Application
     private static Group rootLeaderBoard = new Group();
     private static Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
     private static Group rootShop = new Group();
-    private static ScrollPane scrollPane = new ScrollPane();
-    private static Scene sceneShop = new Scene(scrollPane, 1000, 562, BURLYWOOD);
+    private static ScrollPane scrollPaneShop = new ScrollPane();
+    private static Scene sceneShop = new Scene(scrollPaneShop, 1000, 562, BURLYWOOD);
     private static Group rootCollection = new Group();
-    private static Scene sceneCollection = new Scene(rootCollection, 1000, 562);
+    private static ScrollPane scrollPaneCollection = new ScrollPane();
+    private static Scene sceneCollection = new Scene(scrollPaneCollection, 1000, 562);
     private static Group rootBattle = new Group();
     private static Scene sceneBattle = new Scene(rootBattle, 1000, 562);
     private static Group rootSinglePlayer = new Group();
@@ -94,9 +94,9 @@ public class Main extends Application
         return rootShop;
     }
 
-    public static ScrollPane getScrollPane()
+    public static ScrollPane getScrollPaneShop()
     {
-        return scrollPane;
+        return scrollPaneShop;
     }
 
     public static Scene getSceneShop()
@@ -107,6 +107,11 @@ public class Main extends Application
     public static Group getRootCollection()
     {
         return rootCollection;
+    }
+
+    public static ScrollPane getScrollPaneCollection()
+    {
+        return scrollPaneCollection;
     }
 
     public static Scene getSceneCollection()
