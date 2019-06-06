@@ -11,8 +11,6 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,14 +22,12 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sun.applet.Main;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
 import static javafx.scene.paint.Color.*;
 
 public class Request {
@@ -649,11 +645,25 @@ public class Request {
         Scene scene = null;
         switch (mapNumber) {
             case 1:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML.fxml"));
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML1.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
                 scene = new Scene(root);
+                break;
             case 2:
-
-
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML2.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                scene = new Scene(root);
+                break;
+            case 3:
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML3.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                scene = new Scene(root);
+                break;
+            case 4:
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML4.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                scene = new Scene(root);
+                break;
+            case 5:
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML5.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                scene = new Scene(root);
+                break;
         }
 
         /*Scene scene = null;
