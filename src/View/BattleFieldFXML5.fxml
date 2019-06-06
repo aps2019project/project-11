@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="753.0" fitWidth="1366.0" layoutX="-9.0" layoutY="-11.0">
          <image>
-            <Image url="@../battleField%20BackGround/multiPlayerGround.jpg" />
+            <Image url="@../battleField BackGround/multiPlayerGround.jpg" />
          </image>
       </ImageView>
 

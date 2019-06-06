@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,12 +15,12 @@
     <children>
       <ImageView fitHeight="848.0" fitWidth="1378.0" layoutX="-5.0" layoutY="-6.0">
          <image>
-            <Image url="@../battleField%20BackGround/backgroundStory1.jpg" />
+            <Image url="@../battleField BackGround/backgroundStory1.jpg" />
          </image>
       </ImageView>
 
-      
-      <GridPane gridLinesVisible="true" layoutX="276.0" layoutY="194.0" minWidth="0.0" prefHeight="436.0" prefWidth="738.0">
+            
+            <GridPane gridLinesVisible="true" layoutX="276.0" layoutY="194.0" minWidth="0.0" prefHeight="436.0" prefWidth="738.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
@@ -41,13 +42,16 @@
          <effect>
             <BoxBlur iterations="2" />
          </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </GridPane>
-      <Circle fill="#1f93ff00" layoutX="327.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="484.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="484.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+      <Circle fill="#1f93ff00" layoutX="327.0" layoutY="730.0" onDragDetected="#show" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
          <effect>
             <BoxBlur />
          </effect>

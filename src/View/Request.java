@@ -3,6 +3,7 @@ package View;
 import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -751,7 +752,7 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 5);
+                        setBattleField(primaryStage, 1);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -790,6 +791,7 @@ public class Request
     {
         Parent root;
         Scene scene = null;
+
         switch (mapNumber)
         {
             case 1:
