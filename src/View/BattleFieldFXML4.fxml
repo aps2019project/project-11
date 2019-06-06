@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="766.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
    <children>
@@ -39,5 +39,30 @@
             <BoxBlur />
          </effect>
       </GridPane>
+      <Circle fill="#1f93ff00" layoutX="344.0" layoutY="702.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="501.0" layoutY="702.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="956.0" layoutY="702.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="802.0" layoutY="702.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="651.0" layoutY="702.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
    </children>
 </AnchorPane>

@@ -751,7 +751,7 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 1);
+                        setBattleField(primaryStage, 5);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -814,76 +814,14 @@ public class Request
                 break;
         }
 
-        /*Scene scene = null;
-        Group roots;
-        GridPane gridPane;
-        switch (mapNumber){
-            case 1:
-                roots = new Group();
-                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory1.jpg" );
-                gridPane = makeGridPaneForBattleField();
-                roots.getChildren().add(gridPane);
-                scene = new Scene(roots);
-                break;
-            case 2:
-                roots = new Group();
-                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory2.jpg" );
-                gridPane = makeGridPaneForBattleField();
-                roots.getChildren().add(gridPane);
-                scene = new Scene(roots);
-                break;
-            case 3:
-                roots = new Group();
-                setBackGroundImage(roots ,"file:battleField BackGround\\backgroundStory3.jpg" );
-                gridPane = makeGridPaneForBattleField();
-                roots.getChildren().add(gridPane);
-                scene = new Scene(roots);
-                break;
-                case 4:
-                roots = new Group();
-                setBackGroundImage(roots ,"file:battleField BackGround\\customGameBackGround.jpg" );
-                gridPane = makeGridPaneForBattleField();
-                roots.getChildren().add(gridPane);
-                scene = new Scene(roots);
-                break;
-                case 5:
-                roots = new Group();
-                setBackGroundImage(roots ,"file:battleField BackGround\\multiPlayerBackground.jpg" );
-                gridPane = makeGridPaneForBattleField();
-                roots.getChildren().add(gridPane);
-                scene = new Scene(roots);
-                break;
-        }*/
-
+        primaryStage.centerOnScreen();
         primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
+
         primaryStage.setFullScreen(true);
 
         primaryStage.show();
 
-    }
-
-    private GridPane makeGridPaneForBattleField()
-    {
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(200, 300, 190, 360));
-        gridPane.setHgap(1);
-        gridPane.setVgap(1);
-        setSquares(gridPane);
-
-        return gridPane;
-    }
-
-    private void setSquares(GridPane gridPane)
-    {
-        for (int row = 4; row >= 0; row--)
-        {
-            for (int column = 0; column < 9; column++)
-            {
-                Rectangle rectangle = new Rectangle(63, 63, null);
-                rectangle.setStroke(BLACK);
-                gridPane.add(rectangle, column, row);
-            }
-        }
     }
 
 

@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="766.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
    <children>
-      <ImageView fitHeight="924.0" fitWidth="1412.0" layoutX="-72.0" layoutY="-70.0">
+      <ImageView fitHeight="1060.0" fitWidth="1412.0" layoutX="-72.0" layoutY="-70.0">
          <image>
             <Image url="@/battleField BackGround/multiPlayerBackground.jpg" />
          </image>
       </ImageView>
-      <GridPane gridLinesVisible="true" layoutX="218.0" layoutY="191.0" minWidth="0.0" prefHeight="490.0" prefWidth="828.0">
+      <GridPane gridLinesVisible="true" layoutX="206.0" layoutY="195.0" minWidth="0.0" prefHeight="490.0" prefWidth="828.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="305.0" />
@@ -39,5 +39,30 @@
             <BoxBlur height="4.0" iterations="3" width="4.0" />
          </effect>
       </GridPane>
+      <Circle fill="#1f93ff00" layoutX="318.0" layoutY="805.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="475.0" layoutY="805.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="930.0" layoutY="805.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="776.0" layoutY="805.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
+      <Circle fill="#1f93ff00" layoutX="625.0" layoutY="805.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Circle>
    </children>
 </AnchorPane>
