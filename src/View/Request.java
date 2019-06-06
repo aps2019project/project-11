@@ -751,7 +751,7 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 2);
+                        setBattleField(primaryStage, 1);
                     } catch (IOException e)
                     {
                         e.printStackTrace();

@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="888.0" fitWidth="1408.0" layoutX="-70.0" layoutY="-78.0">
          <image>
-            <Image url="@../../battleField BackGround/customGameBackGround.jpg" />
+            <Image url="@/battleField BackGround/customGameBackGround.jpg" />
          </image>
       </ImageView>
       <GridPane gridLinesVisible="true" layoutX="264.0" layoutY="132.0" minWidth="0.0" prefHeight="489.0" prefWidth="736.0">
