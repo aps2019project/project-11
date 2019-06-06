@@ -352,6 +352,7 @@ public class Request
                         break;
                     case "Collection":
                         setCommand(CommandType.ENTER_COLLECTION);
+                        rootCollection.getChildren().clear();
                         collectionMenu(primaryStage);
                         break;
                     case "Battle":
@@ -450,7 +451,7 @@ public class Request
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero);
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
             xPosition ++;
             yPosition ++;
@@ -466,7 +467,7 @@ public class Request
         {
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootShop, x, y, minion);
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             xPosition ++;
             yPosition ++;
@@ -555,7 +556,7 @@ public class Request
             {
                 if (card instanceof NonSpellCard)
                 {
-                    StackPane stackPane = showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card);
+                    StackPane stackPane = showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card, card.getCardName());
                     setShopStackPanesOnMouseClicked(stackPane, card.getCardName(), card.getPrice());
                 }
                 else
@@ -584,14 +585,13 @@ public class Request
         rootShop.getChildren().addAll(text);
     }
 
-    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
+    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID)
     {
-        String cardName = nonSpellCard.getCardName();
         int AP = nonSpellCard.getDefaultAP();
         int HP = nonSpellCard.getDefaultHP();
         int price = nonSpellCard.getPrice();
 
-        StackPane stackPane = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
+        StackPane stackPane = showCardAndItemImageAndFeatures(root, x, y, cardNameOrID, price);
 
         Text textAP = new Text(Integer.toString(AP));
         textAP.setFont(Font.font(15));
@@ -610,7 +610,7 @@ public class Request
         return stackPane;
     }
 
-    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String name, int price)
+    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
@@ -622,7 +622,7 @@ public class Request
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.relocate(x, y);
 
-        Text textCardName = new Text(name);
+        Text textCardName = new Text(nameOrID);
         textCardName.setFont(Font.font(15));
         textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
         textCardName.setLayoutY(y + 160);
@@ -855,7 +855,7 @@ public class Request
             {
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
                 xPosition ++;
                 yPosition ++;
             }
@@ -873,7 +873,7 @@ public class Request
             {
                 y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
                 xPosition ++;
                 yPosition ++;
             }
@@ -891,7 +891,7 @@ public class Request
             {
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardName(), card.getPrice());
+                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
                 xPosition ++;
                 yPosition ++;
             }
@@ -911,7 +911,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemName(), item.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
             xPosition ++;
             yPosition ++;
         }
