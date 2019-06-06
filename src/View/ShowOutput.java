@@ -2,9 +2,50 @@ package View;
 
 import Controller.*;
 import Model.*;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Font;
 
 public class ShowOutput
 {
+    private static ShowOutput showOutput = null;
+    private Group rootSignUpMenu = Main.getRootSignUpMenu();
+    private Scene sceneSignUpMenu = Main.getSceneSignUpMenu();
+    private Group rootLoginMenu = Main.getRootLoginMenu();
+    private Scene sceneLoginMenu = Main.getSceneLoginMenu();
+    private Group rootMainMenu = Main.getRootMainMenu();
+    private Scene sceneMainMenu = Main.getSceneMainMenu();
+    private Group rootLeaderBoard = Main.getRootLeaderBoard();
+    private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
+    private Group rootShop = Main.getRootShop();
+    private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
+    private Scene sceneShop = Main.getSceneShop();
+    private Group rootCollection = Main.getRootCollection();
+    private ScrollPane scrollPaneCollection = Main.getScrollPaneCollection();
+    private Scene sceneCollection = Main.getSceneCollection();
+    private Group rootBattleMenu = Main.getRootBattle();
+    private Scene sceneBattleMenu = Main.getSceneBattle();
+    private Group rootSinglePlayer = Main.getRootSinglePlayer();
+    private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
+    private Group rootMultiPlayer = Main.getRootMultiPlayer();
+    private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
+
+    public ShowOutput()
+    {
+        //just added to make ShowOutput singleton
+    }
+
+    public static ShowOutput getInstance()
+    {
+        if (showOutput == null)
+        {
+            showOutput = new ShowOutput();
+        }
+        return showOutput;
+    }
+
     public void printOutput(String command)
     {
         System.out.println(command);
@@ -21,12 +62,25 @@ public class ShowOutput
         printOutput("Exit");
     }
 
-    public void showAccountsLeaderBoard()
+    void showRankingPlayers()
     {
         int counter = 1;
         for (Account account : AccountManager.getAccounts())
         {
-            printOutput(counter + "- UserName : " + account.getAccountName() + "- Wins : " + account.getNumOfWins());
+            if (counter > 10)
+            {
+                return;
+            }
+            Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
+            labelPlayerName.setFont(Font.font(15));
+            labelPlayerName.relocate(25, counter * 50);
+            rootLeaderBoard.getChildren().add(labelPlayerName);
+
+            Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
+            labelPlayerHighScore.setFont(Font.font(15));
+            labelPlayerHighScore.relocate(250, counter * 50);
+            rootLeaderBoard.getChildren().add(labelPlayerHighScore);
+
             counter++;
         }
     }

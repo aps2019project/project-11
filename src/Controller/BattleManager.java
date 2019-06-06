@@ -5,7 +5,7 @@ import View.ShowOutput;
 
 public class BattleManager
 {
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     public Player selectSecondPlayer(String userName)
     {

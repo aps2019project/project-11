@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     public void createAccount(String userName, String password)
     {

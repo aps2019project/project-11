@@ -5,7 +5,7 @@ import View.*;
 
 public class ShopManager
 {
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     public void searchShop(String name)
     {

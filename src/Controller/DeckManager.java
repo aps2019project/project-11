@@ -5,7 +5,7 @@ import View.*;
 
 public class DeckManager
 {
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     public static Deck findDeck(String deckName)
     {

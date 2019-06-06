@@ -11,7 +11,7 @@ public class CallTheAppropriateFunction extends Thread
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
     private Request request = Request.getInstance();
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     @Override
     public void run()

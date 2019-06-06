@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shop
 {
-    private static Shop shop = new Shop();
+    private static Shop shop = null;
     private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
@@ -17,7 +17,7 @@ public class Shop
     {
         if (shop == null)
         {
-            return new Shop();
+            shop = new Shop();
         }
         return shop;
     }

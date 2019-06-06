@@ -6,7 +6,7 @@ import View.ShowOutput;
 public class CollectionManager
 {
     private DeckManager deckManager = new DeckManager();
-    private ShowOutput showOutput = new ShowOutput();
+    private ShowOutput showOutput = ShowOutput.getInstance();
 
     public void detectID(String ID, String deckName, String command)
     {
