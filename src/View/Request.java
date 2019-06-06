@@ -4,7 +4,6 @@ import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -751,8 +750,9 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 5);
-                    } catch (IOException e)
+                        setBattleField(primaryStage, 3);
+                    }
+                    catch (IOException e)
                     {
                         e.printStackTrace();
                     }
@@ -789,33 +789,33 @@ public class Request
     public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
         Parent root;
-        Scene scene = null;
+        Scene battleScene = null;
         switch (mapNumber)
         {
             case 1:
                 root = FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                scene = new Scene(root);
+                battleScene = new Scene(root);
                 break;
             case 2:
                 root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML2.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                scene = new Scene(root);
+                battleScene = new Scene(root);
                 break;
             case 3:
                 root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML3.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                scene = new Scene(root);
+                battleScene = new Scene(root);
                 break;
             case 4:
                 root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML4.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                scene = new Scene(root);
+                battleScene = new Scene(root);
                 break;
             case 5:
                 root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML5.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                scene = new Scene(root);
+                battleScene = new Scene(root);
                 break;
         }
 
         primaryStage.centerOnScreen();
-        primaryStage.setScene(scene);
+        primaryStage.setScene(battleScene);
         primaryStage.centerOnScreen();
 
         primaryStage.setFullScreen(true);
