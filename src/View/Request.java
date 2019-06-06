@@ -90,6 +90,8 @@ public class Request
     private static final int ROW_BLANK = 20;
     private static final int COLUMN_BLANK = 80;
     private static final int BLANK_BETWEEN_CARDS = 50;
+    private static final int CARDS_RECTANGLE_WIDTH = 200;
+    private static final int CARDS_RECTANGLE_HEIGHT = 250;
 
     private static Request request = new Request();
     private CommandType command;
@@ -465,19 +467,20 @@ public class Request
         scrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        setShopMenuText(rootShop, "Heroes", 50);
+        setShopMenuText("Heroes", 50);
 
         int counterX = 0, counterY = 0, x = 0, y = 0;
         for (Hero hero : Hero.getHeroes())
         {
             x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showNonSpellCards(rootShop, x, y, hero);
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero);
+            setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
             counterX ++;
             counterY ++;
         }
 
-        setShopMenuText(rootShop, "Minions", y + 250 + 50);
+        setShopMenuText("Minions", y + 250 + 50);
 
         counterX = 0;
         if (counterY % 4 !=0)
@@ -488,12 +491,13 @@ public class Request
         {
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
-            showNonSpellCards(rootShop, x, y, minion);
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, minion);
+            setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             counterX ++;
             counterY ++;
         }
 
-        setShopMenuText(rootShop, "Spells", y + 250 + 50);
+        setShopMenuText("Spells", y + 250 + 50);
 
         counterX = 0;
         if (counterY % 4 !=0)
@@ -504,12 +508,13 @@ public class Request
         {
             x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
+            setShopStackPanesOnMouseClicked(stackPane, spell.getCardName(), spell.getPrice());
             counterX ++;
             counterY ++;
         }
 
-        setShopMenuText(rootShop, "Items", y + 250 + 50);
+        setShopMenuText("Items", y + 250 + 50);
 
         counterX = 0;
         if (counterY % 4 !=0)
@@ -524,7 +529,8 @@ public class Request
             }
             x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
+            setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
             counterX ++;
             counterY ++;
         }
@@ -565,11 +571,13 @@ public class Request
                             {
                                 if (card instanceof NonSpellCard)
                                 {
-                                    showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card);
+                                    StackPane stackPane = showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card);
+                                    setShopStackPanesOnMouseClicked(stackPane, card.getCardName(), card.getPrice());
                                 }
                                 else
                                 {
-                                    showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, card.getCardName(), card.getPrice());
+                                    StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, card.getCardName(), card.getPrice());
+                                    setShopStackPanesOnMouseClicked(stackPane, card.getCardName(), card.getPrice());
                                 }
                             }
                         }
@@ -577,7 +585,8 @@ public class Request
                         {
                             if (item.getItemName().equals(searchField.getText()))
                             {
-                                showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, item.getItemName(), item.getPrice());
+                                StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, item.getItemName(), item.getPrice());
+                                setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
                             }
                         }
                     }
@@ -588,50 +597,82 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
-    private void setShopMenuText(Group root, String str, int y)
+    private void setShopMenuText(String str, int y)
     {
         Text text = new Text(str);
         text.setLayoutX((sceneShop.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        root.getChildren().addAll(text);
+        rootShop.getChildren().addAll(text);
     }
 
-    private void showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
+    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
     {
         String cardName = nonSpellCard.getCardName();
         int AP = nonSpellCard.getDefaultAP();
         int HP = nonSpellCard.getDefaultHP();
         int price = nonSpellCard.getPrice();
 
-        Rectangle rectangle = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
+        StackPane stackPane = showCardAndItemImageAndFeatures(root, x, y, cardName, price);
 
         Text textAP = new Text(Integer.toString(AP));
         textAP.setFont(Font.font(15));
         textAP.setFill(RED);
-        textAP.setLayoutX(x + (rectangle.getWidth() - textAP.getLayoutBounds().getWidth()) / 2 - 40);
+        textAP.setLayoutX(x + (CARDS_RECTANGLE_WIDTH - textAP.getLayoutBounds().getWidth()) / 2 - 40);
         textAP.setLayoutY(y + 200);
 
         Text textHP = new Text(Integer.toString(HP));
         textHP.setFill(YELLOW);
         textHP.setFont(Font.font(15));
-        textHP.setLayoutX(x + (rectangle.getWidth() - textHP.getLayoutBounds().getWidth()) / 2 + 40);
+        textHP.setLayoutX(x + (CARDS_RECTANGLE_WIDTH - textHP.getLayoutBounds().getWidth()) / 2 + 40);
         textHP.setLayoutY(y + 200);
 
         root.getChildren().addAll(textAP, textHP);
+
+        return stackPane;
     }
 
-    private Rectangle showCardAndItemImageAndFeatures(Group root, int x, int y, String name, int price)
+    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String name, int price)
     {
         Image image = new Image("file:download.jpg");
         ImageView imageView = new ImageView(image);
 
-        Rectangle rectangle = new Rectangle(200, 250);
-        rectangle.setFill(DARKGRAY);
+        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT);
+        rectangle.setFill(GRAY);
 
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.relocate(x, y);
+
+        Text textCardName = new Text(name);
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
+        textCardName.setLayoutY(y + 160);
+
+        Text textPrice = new Text(Integer.toString(price));
+        textPrice.setFont(Font.font(15));
+        textPrice.setFill(GREEN);
+        textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth()) / 2);
+        textPrice.setLayoutY(y + 240);
+
+        root.getChildren().addAll(stackPane, textCardName, textPrice);
+
+        return stackPane;
+    }
+
+    private void battleMenu(Stage primaryStage)
+    {
+        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
+
+        setBattleMenu("Single Player", primaryStage, 170);
+        setBattleMenu("Multi Player", primaryStage, 270);
+        backButton(primaryStage, rootBattleMenu, 50, 450);
+
+        primaryStage.setScene(sceneBattleMenu);
+    }
+
+    private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
+    {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -657,32 +698,6 @@ public class Request
                 }
             }
         });
-
-        Text textCardName = new Text(name);
-        textCardName.setFont(Font.font(15));
-        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
-        textCardName.setLayoutY(y + 160);
-
-        Text textPrice = new Text(Integer.toString(price));
-        textPrice.setFont(Font.font(15));
-        textPrice.setFill(GREEN);
-        textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth()) / 2);
-        textPrice.setLayoutY(y + 240);
-
-        root.getChildren().addAll(stackPane, textCardName, textPrice);
-
-        return rectangle;
-    }
-
-    private void battleMenu(Stage primaryStage)
-    {
-        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
-
-        setBattleMenu("Single Player", primaryStage, 170);
-        setBattleMenu("Multi Player", primaryStage, 270);
-        backButton(primaryStage, rootBattleMenu, 50, 450);
-
-        primaryStage.setScene(sceneBattleMenu);
     }
 
     private void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
@@ -854,65 +869,65 @@ public class Request
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        setShopMenuText(rootCollection, "Heroes", 50);
+        setCollectionMenuText("Heroes", 50);
 
         int counterX = 0, counterY = 0, x, y = 0;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
             if (card instanceof Hero)
             {
-                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
-                y = COLUMN_BLANK + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-                showNonSpellCards(rootCollection, x, y, (Hero) card);
+                x = ROW_BLANK + (counterX % 3) * (200 + BLANK_BETWEEN_CARDS);
+                y = COLUMN_BLANK + counterY / 3 * (250 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card);
                 counterX ++;
                 counterY ++;
             }
         }
 
-        setShopMenuText(rootCollection, "Minions", y + 250 + 50);
+        setCollectionMenuText("Minions", y + 250 + 50);
 
         counterX = 0;
-        if (counterY % 4 !=0)
+        if (counterY % 3 !=0)
         {
-            counterY = counterY + 4 - counterY % 4;
+            counterY = counterY + 3 - counterY % 3;
         }
         for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
             if (card instanceof Minion)
             {
-                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
-                showNonSpellCards(rootCollection, x, y, (Minion) card);
+                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + counterY / 3 * (250 + BLANK_BETWEEN_CARDS);
+                x = ROW_BLANK + (counterX % 3) * (200 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card);
                 counterX ++;
                 counterY ++;
             }
         }
 
-        setShopMenuText(rootCollection, "Spells", y + 250 + 50);
+        setCollectionMenuText("Spells", y + 250 + 50);
 
         counterX = 0;
-        if (counterY % 4 !=0)
+        if (counterY % 3 !=0)
         {
-            counterY = counterY + 4 - counterY % 4;
+            counterY = counterY + 3 - counterY % 3;
         }
         for (Card card : Account.loggedInAccount.getCollection().getCards())
         {
             if (card instanceof Spell)
             {
-                x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
-                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-                showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardName(), card.getPrice());
+                x = ROW_BLANK + (counterX % 3) * (200 + BLANK_BETWEEN_CARDS);
+                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + counterY / 3 * (250 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardName(), card.getPrice());
                 counterX ++;
                 counterY ++;
             }
         }
 
-        setShopMenuText(rootCollection, "Items", y + 250 + 50);
+        setCollectionMenuText("Items", y + 250 + 50);
 
         counterX = 0;
-        if (counterY % 4 !=0)
+        if (counterY % 3 !=0)
         {
-            counterY = counterY + 4 - counterY % 4;
+            counterY = counterY + 3 - counterY % 3;
         }
         for (Item item : Account.loggedInAccount.getCollection().getItems())
         {
@@ -920,9 +935,9 @@ public class Request
             {
                 continue;
             }
-            x = ROW_BLANK + (counterX % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counterY / 4 * (250 + BLANK_BETWEEN_CARDS);
-            showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemName(), item.getPrice());
+            x = ROW_BLANK + (counterX % 3) * (200 + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + counterY / 3 * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemName(), item.getPrice());
             counterX ++;
             counterY ++;
         }
@@ -931,6 +946,15 @@ public class Request
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();
+    }
+
+    private void setCollectionMenuText(String str, int y)
+    {
+        Text text = new Text(str);
+        text.setLayoutX((sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40);
+        text.setLayoutY(y);
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
+        rootCollection.getChildren().addAll(text);
     }
 
     public void getCollectionCommands()
