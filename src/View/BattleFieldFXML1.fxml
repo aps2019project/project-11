@@ -45,7 +45,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <effect>
-            <BoxBlur iterations="2" />
+            <BoxBlur iterations="0" />
          </effect>
          <opaqueInsets>
             <Insets />
@@ -53,7 +53,14 @@
          <children>
             <Pane prefHeight="87.2" prefWidth="82.0" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="player1Hero" fitHeight="84.0" fitWidth="73.0" layoutX="6.0" layoutY="1.0" nodeOrientation="RIGHT_TO_LEFT" onDragDetected="#handleDragDetection">
+                     <image>
+                        <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" />
@@ -65,7 +72,6 @@
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
@@ -93,9 +99,19 @@
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="player2Hero" fitHeight="84.0" fitWidth="73.0" layoutX="3.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="imageView" fitHeight="106.0" fitWidth="98.0" layoutX="-10.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
          </children>
       </GridPane>
       <Circle fill="#1f93ff00" layoutX="484.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
@@ -123,7 +139,6 @@
             <BoxBlur />
          </effect>
       </Circle>
-      <Circle fill="#1f93ff00" layoutX="135.0" layoutY="684.0" radius="94.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="150.0" layoutX="79.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="150.0" AnchorPane.bottomAnchor="662.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="1144.0" AnchorPane.topAnchor="38.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="150.0" layoutX="1157.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="150.0" />
       <Label layoutX="261.0" layoutY="104.0" text="Label">
@@ -138,10 +153,9 @@
       </Label>
       <Circle fill="#1f93ff00" layoutX="146.0" layoutY="237.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <Circle fill="#1f93ff00" layoutX="1238.0" layoutY="238.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="362.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="168.0" fitWidth="222.0" layoutX="1079.0" layoutY="636.0" onKeyPressed="#endTurn">
          <image>
-            <Image url="@../../battleField%20BackGround/button_icon_right@2x.png" />
+            <Image url="@../../battleField BackGround/button_icon_right@2x.png" />
          </image>
       </ImageView>
    </children>
