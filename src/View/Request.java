@@ -324,9 +324,9 @@ public class Request
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setBackGroundImage(Group root, String ur2l)
+    private void setBackGroundImage(Group root, String url)
     {
-        Image backGroundImage = new Image(ur2l);
+        Image backGroundImage = new Image(url);
         ImageView backGroundImageView = new ImageView(backGroundImage);
         root.getChildren().add(backGroundImageView);
     }
