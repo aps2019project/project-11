@@ -1001,7 +1001,7 @@ public class Request
                     setCommand(CommandType.STORY);
                     try
                     {
-                        setBattleField(primaryStage, 5);
+                        setBattleField(primaryStage, 1);
                     }
                     catch (IOException e)
                     {
