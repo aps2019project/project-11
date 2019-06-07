@@ -60,8 +60,11 @@ public class Request
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
+    private static Request request = null;
     private ShowOutput showOutput = ShowOutput.getInstance();
     private AccountManager accountManager = new AccountManager();
+    private CommandType command;
+    public final Object requestLock = new Object();
 
     public CommandType getCommand()
     {
@@ -93,9 +96,6 @@ public class Request
     private static final int CARDS_RECTANGLE_WIDTH = 200;
     private static final int CARDS_RECTANGLE_HEIGHT = 250;
 
-    private static Request request = null;
-    private CommandType command;
-    public final Object requestLock = new Object();
     private Group rootSignUpMenu = Main.getRootSignUpMenu();
     private Scene sceneSignUpMenu = Main.getSceneSignUpMenu();
     private Group rootLoginMenu = Main.getRootLoginMenu();
@@ -120,7 +120,7 @@ public class Request
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
-        TextField textFieldPassword = new TextField();
+        PasswordField textFieldPassword = new PasswordField();
         nameAndPasswordFields(rootSignUpMenu, textFieldName, textFieldPassword);
 
         Label labelSignUp = new Label("Sign Up");
@@ -194,7 +194,7 @@ public class Request
         labelLogin.setTextFill(Color.BLACK);
 
         TextField textFieldName = new TextField();
-        TextField textFieldPassword = new TextField();
+        PasswordField textFieldPassword = new PasswordField();
         nameAndPasswordFields(rootLoginMenu, textFieldName, textFieldPassword);
 
         Button buttonLogin = new Button("Submit");
@@ -269,7 +269,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void nameAndPasswordFields(Group root, TextField textFieldName, TextField textFieldPassword)
+    private void nameAndPasswordFields(Group root, TextField textFieldName, PasswordField textFieldPassword)
     {
         Label labelName = new Label("Name");
         root.getChildren().add(labelName);
@@ -455,7 +455,7 @@ public class Request
         TextField searchField = new TextField();
         searchField.setFont(Font.font("SanSerif", 15));
         searchField.setPromptText("Search");
-        searchField.setMaxWidth(200);
+        searchField.setMaxWidth(150);
         searchField.relocate(150, 20);
         root.getChildren().addAll(searchField);
         return searchField;
