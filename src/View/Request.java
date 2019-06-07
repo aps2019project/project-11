@@ -455,7 +455,7 @@ public class Request
         TextField searchField = new TextField();
         searchField.setFont(Font.font("SanSerif", 15));
         searchField.setPromptText("Search");
-        searchField.setMaxWidth(250);
+        searchField.setMaxWidth(200);
         searchField.relocate(150, 20);
         root.getChildren().addAll(searchField);
         return searchField;
@@ -592,7 +592,7 @@ public class Request
         }
         for (Item item : Shop.getInstance().getItems())
         {
-            if (item.getItemName().equals(searchedElementName))
+            if (item.getItemName().equalsIgnoreCase(searchedElementName))
             {
                 StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, item.getItemName(), item.getPrice());
                 setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
@@ -952,9 +952,75 @@ public class Request
         }
 
         backButton(primaryStage, rootCollection, 20, 15);
+        TextField searchField = searchField(primaryStage, rootCollection);
+
+        sceneCollection.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER))
+                {
+                    if (!searchField.getText().isEmpty())
+                    {
+                        rootCollection.getChildren().clear();
+                        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+                        Button button = backButton(primaryStage, rootCollection, 20, 15);
+                        button.setOnMouseClicked(new EventHandler<MouseEvent>()
+                        {
+                            @Override
+                            public void handle(MouseEvent event)
+                            {
+                                try
+                                {
+                                    collectionMenu(primaryStage);
+                                }
+                                catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        showCollectionSearchedElement(searchField.getText());
+                    }
+                }
+            }
+        });
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();
+    }
+
+    private void showCollectionSearchedElement(String searchedElementName)
+    {
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card.getCardID().contains(searchedElementName))
+            {
+                if (card instanceof NonSpellCard)
+                {
+                    StackPane stackPane = showNonSpellCards(rootCollection, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card, card.getCardID());
+                }
+                else
+                {
+                    StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, ROW_BLANK, COLUMN_BLANK, card.getCardID(), card.getPrice());
+                }
+            }
+        }
+        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        {
+            if (item.getItemName().contains(searchedElementName))
+            {
+                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, ROW_BLANK, COLUMN_BLANK, item.getItemID(), item.getPrice());
+            }
+        }
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            if (deck.getDeckName().contains(searchedElementName))
+            {
+                StackPane stackPane = showDecksImageAndFeatures(rootCollection, ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS), COLUMN_BLANK, deck);
+            }
+        }
     }
 
     private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
