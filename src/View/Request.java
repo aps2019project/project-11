@@ -352,7 +352,7 @@ public class Request
                         {
                             requestLock.notify();
                         }
-                        shopMenu(primaryStage);
+                        shopMenu(primaryStage, false, null);
                         break;
                     case "Collection":
                         setCommand(CommandType.ENTER_COLLECTION);
@@ -434,10 +434,10 @@ public class Request
                 {
                     requestLock.notify();
                 }
-                primaryStage.setScene(sceneMainMenu);
-                primaryStage.centerOnScreen();
                 try
                 {
+                    primaryStage.setScene(sceneMainMenu);
+                    primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
                 }
                 catch (Exception e)
@@ -461,7 +461,7 @@ public class Request
         return searchField;
     }
 
-    public void shopMenu(Stage primaryStage)
+    public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
         setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
 
@@ -469,64 +469,110 @@ public class Request
         scrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        setShopMenuText("Heroes", 50);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
+        setShopMenuText("Heroes", 50);
         for (Hero hero : Hero.getHeroes())
         {
-            x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
+            if (isSearchedElement)
+            {
+                if (!hero.getCardName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition ++;
             yPosition ++;
             StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
         }
 
-        setShopMenuText("Minions", y + 250 + 50);
+        if (xPosition == 0)
+        {
+            y += BLANK_BETWEEN_CARDS;
+            yPosition += 4;
+        }
         xPosition = 0;
         if (yPosition % 4 !=0)
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
+        setShopMenuText("Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Minion minion : Minion.getMinions())
         {
-            x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
+            if (isSearchedElement)
+            {
+                if (!minion.getCardName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             xPosition ++;
             yPosition++;
         }
 
-        setShopMenuText("Spells", y + 250 + 50);
+        if (xPosition == 0)
+        {
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 4;
+        }
         xPosition = 0;
         if (yPosition % 4 !=0)
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
+        setShopMenuText("Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Spell spell : Spell.getSpells())
         {
-            x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
+            if (isSearchedElement)
+            {
+                if (!spell.getCardName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
             setShopStackPanesOnMouseClicked(stackPane, spell.getCardName(), spell.getPrice());
             xPosition ++;
             yPosition ++;
         }
 
-        setShopMenuText("Items", y + 250 + 50);
-        xPosition = 0;
-        if (yPosition % 4 !=0)
+        if (xPosition == 0)
         {
-            yPosition = yPosition + 4 - yPosition % 4;
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 4;
         }
+        else
+        {
+            xPosition = 0;
+            if (yPosition % 4 !=0)
+            {
+                yPosition = yPosition + 4 - yPosition % 4;
+            }
+        }
+        setShopMenuText("Items", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Item item : Item.getItems())
         {
             if (item.getItemType() == ItemType.collectible)
             {
                 continue;
             }
-            x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
-            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
+            if (isSearchedElement)
+            {
+                if (!item.getItemName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
             setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
             xPosition ++;
@@ -546,58 +592,13 @@ public class Request
                     if (!searchField.getText().isEmpty())
                     {
                         rootShop.getChildren().clear();
-                        setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
-                        Button button = backButton(primaryStage, rootShop, 20, 15);
-                        button.setOnMouseClicked(new EventHandler<MouseEvent>()
-                        {
-                            @Override
-                            public void handle(MouseEvent event)
-                            {
-                                try
-                                {
-                                    shopMenu(primaryStage);
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                        showShopSearchedElement(searchField.getText());
+                        shopMenu(primaryStage, true, searchField.getText());
                     }
                 }
             }
         });
 
         primaryStage.setScene(sceneShop);
-    }
-
-    private void showShopSearchedElement(String searchedElementName)
-    {
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card.getCardName().equalsIgnoreCase(searchedElementName))
-            {
-                if (card instanceof NonSpellCard)
-                {
-                    StackPane stackPane = showNonSpellCards(rootShop, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card, card.getCardName());
-                    setShopStackPanesOnMouseClicked(stackPane, card.getCardName(), card.getPrice());
-                }
-                else
-                {
-                    StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, card.getCardName(), card.getPrice());
-                    setShopStackPanesOnMouseClicked(stackPane, card.getCardName(), card.getPrice());
-                }
-            }
-        }
-        for (Item item : Shop.getInstance().getItems())
-        {
-            if (item.getItemName().equalsIgnoreCase(searchedElementName))
-            {
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, ROW_BLANK, COLUMN_BLANK, item.getItemName(), item.getPrice());
-                setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
-            }
-        }
     }
 
     private void setShopMenuText(String str, int y)
