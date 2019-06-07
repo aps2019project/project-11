@@ -48,12 +48,15 @@ public class CallTheAppropriateFunction extends Thread
             switch (request.getCommand())
             {
                 case ENTER_SHOP:
+                    request.setCommand(null);
                     determineShopCommand();
                     break;
                 case ENTER_COLLECTION:
+                    request.setCommand(null);
                     determineCollectionCommand();
                     break;
                 case ENTER_BATTLE:
+                    request.setCommand(null);
                     determineBattleMenuCommand();
                     break;
                 case SHOW_LEADER_BOARD:
