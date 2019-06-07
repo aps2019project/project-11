@@ -361,7 +361,7 @@ public class Request
                             requestLock.notify();
                         }
                         rootCollection.getChildren().clear();
-                        collectionMenu(primaryStage);
+                        collectionMenu(primaryStage, false, null);
                         break;
                     case "Battle":
                         setCommand(CommandType.ENTER_BATTLE);
@@ -663,17 +663,6 @@ public class Request
         return stackPane;
     }
 
-    private void battleMenu(Stage primaryStage)
-    {
-        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
-
-        setBattleMenu("Single Player", primaryStage, 170);
-        setBattleMenu("Multi Player", primaryStage, 270);
-        backButton(primaryStage, rootBattleMenu, 50, 450);
-
-        primaryStage.setScene(sceneBattleMenu);
-    }
-
     private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -701,6 +690,227 @@ public class Request
                 }
             }
         });
+    }
+
+    public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
+    {
+        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+
+        scrollPaneCollection.setContent(rootCollection);
+        scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        setCollectionMenuText("Heroes", 50, false);
+        int xPosition = 0, yPosition = 0, x = 0, y = 0;
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Hero)
+            {
+                if (isSearchedElement)
+                {
+                    if (!card.getCardName().contains(searchedElement))
+                    {
+                        continue;
+                    }
+                }
+                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+                y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
+                xPosition ++;
+                yPosition ++;
+            }
+        }
+
+        if (xPosition == 0)
+        {
+            y += BLANK_BETWEEN_CARDS;
+            yPosition += 3;
+        }
+        if (yPosition % 3 !=0)
+        {
+            yPosition = yPosition + 3 - yPosition % 3;
+        }
+        xPosition = 0;
+        setCollectionMenuText("Minions", y + 250 + 50, false);
+        if (yPosition % 3 !=0)
+        {
+            yPosition = yPosition + 3 - yPosition % 3;
+        }
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Minion)
+            {
+                if (isSearchedElement)
+                {
+                    if (!card.getCardName().contains(searchedElement))
+                    {
+                        continue;
+                    }
+                }
+                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
+                xPosition ++;
+                yPosition ++;
+            }
+        }
+
+        if (xPosition == 0)
+        {
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 3;
+        }
+        xPosition = 0;
+        if (yPosition % 3 !=0)
+        {
+            yPosition = yPosition + 3 - yPosition % 3;
+        }
+        setCollectionMenuText("Spells", y + 250 + 50, false);
+        if (yPosition % 3 !=0)
+        {
+            yPosition = yPosition + 3 - yPosition % 3;
+        }
+        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        {
+            if (card instanceof Spell)
+            {
+                if (isSearchedElement)
+                {
+                    if (!card.getCardName().contains(searchedElement))
+                    {
+                        continue;
+                    }
+                }
+                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
+                xPosition ++;
+                yPosition ++;
+            }
+        }
+
+        if (xPosition == 0)
+        {
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 3;
+        }
+        else
+        {
+            xPosition = 0;
+            if (yPosition % 3 !=0)
+            {
+                yPosition = yPosition + 3 - yPosition % 3;
+            }
+        }
+        setCollectionMenuText("Items", y + 250 + 50, false);
+        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        {
+            if (isSearchedElement)
+            {
+                if (!item.getItemName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            if (item.getItemType() == ItemType.collectible)
+            {
+                continue;
+            }
+            x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
+            xPosition ++;
+            yPosition ++;
+        }
+
+        setCollectionMenuText("Decks", 50, true);
+        yPosition = 0;
+        x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            if (isSearchedElement)
+            {
+                if (!deck.getDeckName().contains(searchedElement))
+                {
+                    continue;
+                }
+            }
+            y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
+            yPosition ++;
+        }
+
+        backButton(primaryStage, rootCollection, 20, 15);
+        TextField searchField = searchField(primaryStage, rootCollection);
+
+        sceneCollection.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER))
+                {
+                    if (!searchField.getText().isEmpty())
+                    {
+                        rootCollection.getChildren().clear();
+                        collectionMenu(primaryStage, true, searchField.getText());
+                    }
+                }
+            }
+        });
+
+        primaryStage.setScene(sceneCollection);
+        primaryStage.centerOnScreen();
+    }
+
+    private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
+    {
+        Image image = new Image("file:Deck.jpg");
+        ImageView imageView = new ImageView(image);
+
+        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
+
+        StackPane stackPane = new StackPane(rectangle, imageView);
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.relocate(x, y);
+
+        Text textCardName = new Text(deck.getDeckName());
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
+        textCardName.setLayoutY(y + 160);
+
+        root.getChildren().addAll(stackPane, textCardName);
+
+        return stackPane;
+    }
+
+    private void setCollectionMenuText(String str, int y, boolean isDeckText)
+    {
+        Text text = new Text(str);
+        double x;
+        if (isDeckText)
+        {
+            x = (sceneCollection.getWidth() * 1/4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3/4;
+        }
+        else
+        {
+            x = (sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40;
+        }
+        text.setLayoutX(x);
+        text.setLayoutY(y);
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
+        rootCollection.getChildren().addAll(text);
+    }
+
+    private void battleMenu(Stage primaryStage)
+    {
+        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
+
+        setBattleMenu("Single Player", primaryStage, 170);
+        setBattleMenu("Multi Player", primaryStage, 270);
+        backButton(primaryStage, rootBattleMenu, 50, 450);
+
+        primaryStage.setScene(sceneBattleMenu);
     }
 
     private void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
@@ -863,204 +1073,6 @@ public class Request
 
         primaryStage.show();
 
-    }
-
-    public void collectionMenu(Stage primaryStage)
-    {
-        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
-
-        scrollPaneCollection.setContent(rootCollection);
-        scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-        setCollectionMenuText("Heroes", 50, false);
-        int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
-        {
-            if (card instanceof Hero)
-            {
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
-                xPosition ++;
-                yPosition ++;
-            }
-        }
-
-        setCollectionMenuText("Minions", y + 250 + 50, false);
-        xPosition = 0;
-        if (yPosition % 3 !=0)
-        {
-            yPosition = yPosition + 3 - yPosition % 3;
-        }
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
-        {
-            if (card instanceof Minion)
-            {
-                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
-                xPosition ++;
-                yPosition ++;
-            }
-        }
-
-        setCollectionMenuText("Spells", y + 250 + 50, false);
-        xPosition = 0;
-        if (yPosition % 3 !=0)
-        {
-            yPosition = yPosition + 3 - yPosition % 3;
-        }
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
-        {
-            if (card instanceof Spell)
-            {
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
-                xPosition ++;
-                yPosition ++;
-            }
-        }
-
-        setCollectionMenuText("Items", y + 250 + 50, false);
-        xPosition = 0;
-        if (yPosition % 3 !=0)
-        {
-            yPosition = yPosition + 3 - yPosition % 3;
-        }
-        for (Item item : Account.loggedInAccount.getCollection().getItems())
-        {
-            if (item.getItemType() == ItemType.collectible)
-            {
-                continue;
-            }
-            x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
-            xPosition ++;
-            yPosition ++;
-        }
-
-        setCollectionMenuText("Decks", 50, true);
-        yPosition = 0;
-        x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
-            y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
-            yPosition ++;
-        }
-
-        backButton(primaryStage, rootCollection, 20, 15);
-        TextField searchField = searchField(primaryStage, rootCollection);
-
-        sceneCollection.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
-            {
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    if (!searchField.getText().isEmpty())
-                    {
-                        rootCollection.getChildren().clear();
-                        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
-                        Button button = backButton(primaryStage, rootCollection, 20, 15);
-                        button.setOnMouseClicked(new EventHandler<MouseEvent>()
-                        {
-                            @Override
-                            public void handle(MouseEvent event)
-                            {
-                                try
-                                {
-                                    collectionMenu(primaryStage);
-                                }
-                                catch (Exception e)
-                                {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                        showCollectionSearchedElement(searchField.getText());
-                    }
-                }
-            }
-        });
-
-        primaryStage.setScene(sceneCollection);
-        primaryStage.centerOnScreen();
-    }
-
-    private void showCollectionSearchedElement(String searchedElementName)
-    {
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
-        {
-            if (card.getCardID().contains(searchedElementName))
-            {
-                if (card instanceof NonSpellCard)
-                {
-                    StackPane stackPane = showNonSpellCards(rootCollection, ROW_BLANK, COLUMN_BLANK, (NonSpellCard) card, card.getCardID());
-                }
-                else
-                {
-                    StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, ROW_BLANK, COLUMN_BLANK, card.getCardID(), card.getPrice());
-                }
-            }
-        }
-        for (Item item : Account.loggedInAccount.getCollection().getItems())
-        {
-            if (item.getItemName().contains(searchedElementName))
-            {
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, ROW_BLANK, COLUMN_BLANK, item.getItemID(), item.getPrice());
-            }
-        }
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
-            if (deck.getDeckName().contains(searchedElementName))
-            {
-                StackPane stackPane = showDecksImageAndFeatures(rootCollection, ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS), COLUMN_BLANK, deck);
-            }
-        }
-    }
-
-    private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
-    {
-        Image image = new Image("file:Deck.jpg");
-        ImageView imageView = new ImageView(image);
-
-        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
-
-        StackPane stackPane = new StackPane(rectangle, imageView);
-        stackPane.setAlignment(Pos.TOP_CENTER);
-        stackPane.relocate(x, y);
-
-        Text textCardName = new Text(deck.getDeckName());
-        textCardName.setFont(Font.font(15));
-        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
-        textCardName.setLayoutY(y + 160);
-
-        root.getChildren().addAll(stackPane, textCardName);
-
-        return stackPane;
-    }
-
-    private void setCollectionMenuText(String str, int y, boolean isDeckText)
-    {
-        Text text = new Text(str);
-        double x;
-        if (isDeckText)
-        {
-            x = (sceneCollection.getWidth() * 1/4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3/4;
-        }
-        else
-        {
-            x = (sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40;
-        }
-        text.setLayoutX(x);
-        text.setLayoutY(y);
-        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        rootCollection.getChildren().addAll(text);
     }
 
     public void getCollectionCommands()
