@@ -450,15 +450,36 @@ public class Request
         return backButton;
     }
 
-    private TextField searchField(Stage primaryStage, Group root)
+    private void searchField(Stage primaryStage, Scene scene, Group root, String menuName)
     {
         TextField searchField = new TextField();
         searchField.setFont(Font.font("SanSerif", 15));
         searchField.setPromptText("Search");
         searchField.setMaxWidth(150);
         searchField.relocate(150, 20);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER))
+                {
+                    if (!searchField.getText().isEmpty())
+                    {
+                        root.getChildren().clear();
+                        if (menuName.equalsIgnoreCase("CollectionMenu"))
+                        {
+                            collectionMenu(primaryStage, true, searchField.getText());
+                        }
+                        else if (menuName.equals("ShopMenu"))
+                        {
+                            shopMenu(primaryStage, true, searchField.getText());
+                        }
+                    }
+                }
+            }
+        });
         root.getChildren().addAll(searchField);
-        return searchField;
     }
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
@@ -580,23 +601,7 @@ public class Request
         }
 
         backButton(primaryStage, rootShop, 20, 15);
-        TextField searchField = searchField(primaryStage, rootShop);
-
-        sceneShop.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
-            {
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    if (!searchField.getText().isEmpty())
-                    {
-                        rootShop.getChildren().clear();
-                        shopMenu(primaryStage, true, searchField.getText());
-                    }
-                }
-            }
-        });
+        searchField(primaryStage, sceneShop, rootShop, "ShopMenu");
 
         primaryStage.setScene(sceneShop);
     }
@@ -841,23 +846,7 @@ public class Request
         }
 
         backButton(primaryStage, rootCollection, 20, 15);
-        TextField searchField = searchField(primaryStage, rootCollection);
-
-        sceneCollection.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
-            {
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    if (!searchField.getText().isEmpty())
-                    {
-                        rootCollection.getChildren().clear();
-                        collectionMenu(primaryStage, true, searchField.getText());
-                    }
-                }
-            }
-        });
+        searchField(primaryStage, sceneCollection, rootCollection, "CollectionMenu");
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();

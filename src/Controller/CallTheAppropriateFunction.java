@@ -61,6 +61,11 @@ public class CallTheAppropriateFunction extends Thread
                     break;
                 case SHOW_LEADER_BOARD:
                     accountManager.sortAccountsByWins();
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
                     break;
                 case LOGOUT:
                     accountManager.logout();
