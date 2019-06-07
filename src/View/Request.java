@@ -348,19 +348,35 @@ public class Request
                 {
                     case "Shop":
                         setCommand(CommandType.ENTER_SHOP);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         shopMenu(primaryStage);
                         break;
                     case "Collection":
                         setCommand(CommandType.ENTER_COLLECTION);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         rootCollection.getChildren().clear();
                         collectionMenu(primaryStage);
                         break;
                     case "Battle":
                         setCommand(CommandType.ENTER_BATTLE);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         battleMenu(primaryStage);
                         break;
                     case "LeaderBoard":
                         setCommand(CommandType.SHOW_LEADER_BOARD);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         leaderBoard(primaryStage);
                         break;
                     case "Save":
@@ -369,15 +385,19 @@ public class Request
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         login(primaryStage);
                         break;
                     case "Exit":
                         setCommand(CommandType.EXIT);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
                         break;
-                }
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
                 }
             }
         });
@@ -410,6 +430,10 @@ public class Request
             public void handle(MouseEvent event)
             {
                 setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 try
