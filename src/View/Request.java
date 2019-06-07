@@ -451,10 +451,10 @@ public class Request
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
-            setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
             xPosition ++;
             yPosition ++;
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
+            setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
         }
 
         setShopMenuText("Minions", y + 250 + 50);
@@ -465,8 +465,8 @@ public class Request
         }
         for (Minion minion : Minion.getMinions())
         {
-            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             xPosition ++;
@@ -612,7 +612,7 @@ public class Request
 
     private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price)
     {
-        Image image = new Image("file:download.jpg");
+        Image image = new Image("file:Cards.jpg");
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT);
