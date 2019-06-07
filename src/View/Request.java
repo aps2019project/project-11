@@ -269,7 +269,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void nameAndPasswordFields(Group root, TextField textFieldName, PasswordField textFieldPassword)
+    private void nameAndPasswordFields(Group root, TextField textFieldName, PasswordField passwordFieldPassword)
     {
         Label labelName = new Label("Name");
         root.getChildren().add(labelName);
@@ -278,6 +278,7 @@ public class Request
         labelName.setTextFill(Color.BLACK);
 
         HBox hBoxName = new HBox(textFieldName);
+        textFieldName.setPromptText("Name");
         hBoxName.relocate(115, 130);
         root.getChildren().add(hBoxName);
 
@@ -287,7 +288,8 @@ public class Request
         labelPassword.setFont(Font.font(15));
         labelPassword.setTextFill(Color.BLACK);
 
-        HBox hBoxPassword = new HBox(textFieldPassword);
+        HBox hBoxPassword = new HBox(passwordFieldPassword);
+        passwordFieldPassword.setPromptText("Password");
         hBoxPassword.relocate(115, 210);
         root.getChildren().add(hBoxPassword);
     }
