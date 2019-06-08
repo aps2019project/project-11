@@ -14,6 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import View.ImageViewWithCard?>
 <AnchorPane prefHeight="766.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
 
     <children>
@@ -55,16 +56,16 @@
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2">
                <children>
-                  <ImageView fx:id="player1Hero" fitHeight="84.0" fitWidth="73.0" layoutX="6.0" layoutY="1.0" nodeOrientation="RIGHT_TO_LEFT" onDragDetected="#handleDragDetection">
+                  <ImageViewWithCard fx:id="player1Hero" fitHeight="84.0" fitWidth="73.0" layoutX="6.0" layoutY="1.0" nodeOrientation="RIGHT_TO_LEFT" onDragDetected="#handleDragDetection">
                      <image>
                         <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
                      </image>
-                  </ImageView>
+                  </ImageViewWithCard>
                </children></Pane>
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -72,16 +73,16 @@
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
@@ -101,16 +102,16 @@
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
                <children>
-                  <ImageView fx:id="player2Hero" fitHeight="84.0" fitWidth="73.0" layoutX="3.0" layoutY="2.0">
+                  <ImageViewWithCard fx:id="player2Hero" fitHeight="84.0" fitWidth="73.0" layoutX="3.0" layoutY="2.0">
                      <image>
                         <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
                      </image>
-                  </ImageView>
+                  </ImageViewWithCard>
                </children></Pane>
             <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
             <Pane onDragOver="#handleImageDragOver" prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <ImageView fx:id="imageView" fitHeight="106.0" fitWidth="98.0" layoutX="-10.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageViewWithCard fx:id="imageView" fitHeight="106.0" fitWidth="98.0" layoutX="-10.0" layoutY="-10.0" onDragOver="#handleImageDragOver" pickOnBounds="true" preserveRatio="true" />
                </children></Pane>
          </children>
       </GridPane>
