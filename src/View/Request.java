@@ -1013,8 +1013,35 @@ public class Request
 
     private void multiPlayerMenu(Stage primaryStage)
     {
-        setMultiPlayerMenu("Choose  One Player", primaryStage, 100);
+        setBackGroundImage(rootMultiPlayer,"file:MultiPlayerrr.jpg");
+        setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
+        Button backButton = new Button("Back");
+        backButton.relocate(50,490);
+        backButton.setFont(Font.font(25));
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                try
+                {
+                    primaryStage.setScene(sceneMainMenu);
+                    primaryStage.centerOnScreen();
+                    battleMenu(primaryStage);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
         primaryStage.setScene(sceneMultiPlayer);
+        rootMultiPlayer.getChildren().add(backButton);
     }
 
     private void setMultiPlayerMenu(String s, Stage primaryStage, int location)
