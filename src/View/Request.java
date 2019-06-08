@@ -116,6 +116,8 @@ public class Request
     private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
     private Group rootMultiPlayer = Main.getRootMultiPlayer();
     private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
+    private Scene sceneSave = Main.getSaveScene();
+    private Group rootSave = Main.getRootSave();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -383,7 +385,11 @@ public class Request
                         break;
                     case "Save":
                         setCommand(CommandType.SAVE);
-                        //todo
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        saveMenu(primaryStage);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -893,6 +899,22 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
+    private void saveMenu(Stage stage)
+    {
+        Text text = new Text("Save");
+        text.setFill(BLACK);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.BLACK, 50));
+        text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        stage.setScene(sceneSave);
+        rootSave.getChildren().add(text);
+    }
+
+    private void setSaveMenu(String string,Stage stage,int location)
+    {
+
+
+    }
     private void battleMenu(Stage primaryStage)
     {
         setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
