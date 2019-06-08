@@ -902,18 +902,18 @@ public class Request
     private void saveMenu(Stage stage)
     {
         setBackGroundImage(rootSave,"file:save3.jpg");
-        Text text = new Text("Save");
+        setSaveMenu("Save",stage);
+        stage.setScene(sceneSave);
+    }
+
+    private void setSaveMenu(String string,Stage stage)
+    {
+        Text text = new Text(string);
         text.setFill(BLACK);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.BLACK, 50));
         text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
-        stage.setScene(sceneSave);
         rootSave.getChildren().add(text);
-    }
-
-    private void setSaveMenu(String string,Stage stage,int location)
-    {
-
 
     }
     private void battleMenu(Stage primaryStage)
