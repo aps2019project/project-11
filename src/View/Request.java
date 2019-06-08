@@ -899,23 +899,6 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void saveMenu(Stage stage)
-    {
-        setBackGroundImage(rootSave,"file:save3.jpg");
-        setSaveMenu("Save",stage);
-        stage.setScene(sceneSave);
-    }
-
-    private void setSaveMenu(String string,Stage stage)
-    {
-        Text text = new Text(string);
-        text.setFill(BLACK);
-        text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.BLACK, 50));
-        text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
-        rootSave.getChildren().add(text);
-
-    }
     private void battleMenu(Stage primaryStage)
     {
         setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
@@ -1078,7 +1061,44 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
+    private void saveMenu(Stage stage)
+    {
+        setBackGroundImage(rootSave,"file:save3.jpg");
+        setSaveMenu("Save",stage);
+        Button backButton = new Button("Back");
+        backButton.relocate(50,490);
+        backButton.setFont(Font.font(25));
+        backButton.setOnMouseClicked(event -> {
+            setCommand(CommandType.EXIT);
+            synchronized (requestLock)
+            {
+                requestLock.notify();
+            }
+            try
+            {
+                stage.setScene(sceneMainMenu);
+                stage.centerOnScreen();
+                mainMenu(stage);
+            }
+            catch (Exception e)
+            {
+                System.out.println("we have problem");
+            }
+        });
+        rootSave.getChildren().add(backButton);
+        stage.setScene(sceneSave);
+    }
+
+    private void setSaveMenu(String string,Stage stage) {
+        Text text = new Text(string);
+        text.setFill(BLACK);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font(null, FontWeight.BLACK, 50));
+        text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
+        stage.setScene(sceneSave);
+        rootSave.getChildren().addAll(text);
+    }
+        public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
         Parent root;
         Scene battleScene = null;
