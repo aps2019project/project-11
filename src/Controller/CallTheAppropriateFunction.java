@@ -268,6 +268,7 @@ public class CallTheAppropriateFunction extends Thread
                     showOutput.showMenuSinglePlayerMatch();
                     break;
                 case EXIT:
+                    request.setCommand(null);
                     return;
             }
             request.setCommand(null);
@@ -288,15 +289,17 @@ public class CallTheAppropriateFunction extends Thread
         return null;
     }
 
-    private void selectSecondPlayerInMultiPlayerMatch()
+    private void selectSecondPlayerInMultiPlayerMatch() throws InterruptedException
     {
         while (true)
         {
             accountManager.showAllPlayers();
-            request.getSecondPlayerInMultiPlayerMatch();
             if (request.getCommand() == null)
             {
-                continue;
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.wait();
+                }
             }
             switch (request.getCommand())
             {
@@ -312,8 +315,10 @@ public class CallTheAppropriateFunction extends Thread
                     showOutput.showMenuSelectUserForMultiPlayerMatch();
                     break;
                 case EXIT:
+                    request.setCommand(null);
                     return;
             }
+            request.setCommand(null);
         }
     }
 
