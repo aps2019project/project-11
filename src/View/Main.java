@@ -10,8 +10,7 @@ import javafx.stage.Stage;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
-public class Main extends Application
-{
+public class Main extends Application {
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
     private static Group rootLoginMenu = new Group();
@@ -36,8 +35,7 @@ public class Main extends Application
     private static Scene sceneSave = new Scene(rootSave, 1000, 562);
 
     @Override
-    public void start(Stage primaryStage) throws Exception
-    {
+    public void start(Stage primaryStage) throws Exception {
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -46,119 +44,90 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();
         callTheAppropriateFunction.setDaemon(true);
         callTheAppropriateFunction.start();
         launch(args);
     }
 
-    public static Group getRootSignUpMenu()
-    {
+    public static Group getRootSignUpMenu() {
         return rootSignUpMenu;
     }
 
-    public static Scene getSceneSignUpMenu()
-    {
+    public static Scene getSceneSignUpMenu() {
         return sceneSignUpMenu;
     }
 
-    public static Group getRootLoginMenu()
-    {
+    public static Group getRootLoginMenu() {
         return rootLoginMenu;
     }
 
-    public static Scene getSceneLoginMenu()
-    {
+    public static Scene getSceneLoginMenu() {
         return sceneLoginMenu;
     }
 
-    public static Group getRootMainMenu()
-    {
+    public static Group getRootMainMenu() {
         return rootMainMenu;
     }
 
-    public static Scene getSceneMainMenu()
-    {
+    public static Scene getSceneMainMenu() {
         return sceneMainMenu;
     }
 
-    public static Group getRootLeaderBoard()
-    {
+    public static Group getRootLeaderBoard() {
         return rootLeaderBoard;
     }
 
-    public static Scene getSceneLeaderBoard()
-    {
+    public static Scene getSceneLeaderBoard() {
         return sceneLeaderBoard;
     }
 
-    public static Group getRootShop()
-    {
+    public static Group getRootShop() {
         return rootShop;
     }
 
-    public static ScrollPane getScrollPaneShop()
-    {
+    public static ScrollPane getScrollPaneShop() {
         return scrollPaneShop;
     }
 
-    public static Scene getSceneShop()
-    {
+    public static Scene getSceneShop() {
         return sceneShop;
     }
 
-    public static Group getRootCollection()
-    {
+    public static Group getRootCollection() {
         return rootCollection;
     }
 
-    public static ScrollPane getScrollPaneCollection()
-    {
+    public static ScrollPane getScrollPaneCollection() {
         return scrollPaneCollection;
     }
 
-    public static Scene getSceneCollection()
-    {
+    public static Scene getSceneCollection() {
         return sceneCollection;
     }
 
-    public static Group getRootBattle()
-    {
+    public static Group getRootBattle() {
         return rootBattle;
     }
 
-    public static Scene getSceneBattle()
-    {
+    public static Scene getSceneBattle() {
         return sceneBattle;
     }
 
-    public static Group getRootSinglePlayer()
-    {
+    public static Group getRootSinglePlayer() {
         return rootSinglePlayer;
     }
 
-    public static Scene getSceneSinglePlayer()
-    {
+    public static Scene getSceneSinglePlayer() {
         return sceneSinglePlayer;
     }
 
-    public static Group getRootMultiPlayer()
-    {
+    public static Group getRootMultiPlayer() {
         return rootMultiPlayer;
     }
 
-    public static Scene getSceneMultiPlayer()
-    {
+    public static Scene getSceneMultiPlayer() {
         return sceneMultiPlayer;
-    }
-    public static Scene getSaveScene()
-    {
-        return sceneSave;
-    }
-    public static Group getRootSave()
-    {
-        return rootSave;
     }
 }

@@ -116,8 +116,6 @@ public class Request
     private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
     private Group rootMultiPlayer = Main.getRootMultiPlayer();
     private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
-    private Scene sceneSave = Main.getSaveScene();
-    private Group rootSave = Main.getRootSave();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -389,7 +387,6 @@ public class Request
                         {
                             requestLock.notify();
                         }
-                        saveMenu(primaryStage);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -1061,43 +1058,6 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void saveMenu(Stage stage)
-    {
-        setBackGroundImage(rootSave,"file:save3.jpg");
-        setSaveMenu("Save",stage);
-        Button backButton = new Button("Back");
-        backButton.relocate(50,490);
-        backButton.setFont(Font.font(25));
-        backButton.setOnMouseClicked(event -> {
-            setCommand(CommandType.EXIT);
-            synchronized (requestLock)
-            {
-                requestLock.notify();
-            }
-            try
-            {
-                stage.setScene(sceneMainMenu);
-                stage.centerOnScreen();
-                mainMenu(stage);
-            }
-            catch (Exception e)
-            {
-                System.out.println("we have problem");
-            }
-        });
-        rootSave.getChildren().add(backButton);
-        stage.setScene(sceneSave);
-    }
-
-    private void setSaveMenu(String string,Stage stage) {
-        Text text = new Text(string);
-        text.setFill(BLACK);
-        text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.BLACK, 50));
-        text.layoutXProperty().bind(sceneBattleMenu.widthProperty().subtract(text.prefWidth(-2)).divide(2));
-        stage.setScene(sceneSave);
-        rootSave.getChildren().addAll(text);
-    }
         public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
         Parent root;
