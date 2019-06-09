@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
@@ -37,6 +38,8 @@ public class Main extends Application
     {
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
+        Image iconImage = new Image("file:Icon Image.jpg");
+        primaryStage.getIcons().add(iconImage);
         primaryStage.setTitle("Duelyst");
         primaryStage.show();
     }
