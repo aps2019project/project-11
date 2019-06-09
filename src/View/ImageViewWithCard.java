@@ -2,6 +2,7 @@ package View;
 
 import Model.Hero;
 import Model.NonSpellCard;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -10,13 +11,12 @@ public class ImageViewWithCard extends ImageView {
     private int row;
     private int column;
     private NonSpellCard card;
+    private ArrayList<ImageViewWithCard> imageViewWithCards = new ArrayList<>();
 
     public ImageViewWithCard(){}
 
-    public ImageViewWithCard(int row, int column, NonSpellCard card) {
-        this.row = row;
-        this.column = column;
-        this.card = card;
+    public ImageViewWithCard(String url) {
+        setImage(new Image(url));
     }
 
     public int getRow() {
