@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -116,6 +117,8 @@ public class Request
     private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
     private Group rootMultiPlayer = Main.getRootMultiPlayer();
     private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
+    private Group rootStoryMode = Main.getRootMultiPlayer();
+    private Scene sceneStoryMode = Main.getSceneMultiPlayer();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -954,6 +957,7 @@ public class Request
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
+            @SuppressWarnings("Duplicates")
             @Override
             public void handle(MouseEvent event)
             {
@@ -976,6 +980,7 @@ public class Request
         primaryStage.setScene(sceneSinglePlayer);
     }
 
+    @SuppressWarnings("Duplicates")
     private void setSinglePlayerMenu(String string, Stage primaryStage, int place)
     {
         Text title = new Text(string);
@@ -993,14 +998,7 @@ public class Request
             {
                 case "Story":
                     setCommand(CommandType.STORY);
-                    try
-                    {
-                        setBattleField(primaryStage, 1);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    storyModeMenu(primaryStage);
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
@@ -1014,6 +1012,87 @@ public class Request
         rootSinglePlayer.getChildren().add(title);
     }
 
+    @SuppressWarnings("Duplicates")
+    private void storyModeMenu(Stage primaryStage) {
+        setBackGroundImage(rootStoryMode , "file:StoryModeBackground.jpg");
+        setStoryModeMenu("Mode1" , primaryStage , 100);
+        setStoryModeMenu("Mode2" , primaryStage , 200);
+        setStoryModeMenu("Mode3" , primaryStage , 300);
+        Button backButton = backButton(primaryStage, rootStoryMode, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        primaryStage.setScene(sceneStoryMode);
+    }
+///////////////////////////////////////////
+@SuppressWarnings("Duplicates")
+private void setStoryModeMenu(String string, Stage primaryStage, int place)
+{
+    Text title = new Text(string);
+    title.setTextOrigin(VPos.TOP);
+    title.setFont(Font.font(null, FontWeight.THIN, 45));
+    title.setFill(BLUE);
+    title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
+    title.setY(place);
+    title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
+    title.setOnMouseEntered(event -> title.setFill(AQUA));
+    title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
+    title.setOnMouseExited(event -> title.setFill(BLACK));    title.setOnMouseClicked(event -> {
+        switch (string)
+        {
+            case "Mode1":
+               // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
+                try {
+                    setBattleField(primaryStage ,1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Mode2":
+               // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                try {
+                    setBattleField(primaryStage , 2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Mode3":
+                //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
+                try {
+                    setBattleField(primaryStage , 3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+        synchronized (requestLock)
+        {
+            requestLock.notify();
+        }
+    });
+    rootStoryMode.getChildren().add(title);
+}
+
+
+    ///////////////////////////////////////
     private void multiPlayerMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMultiPlayer,"file:MultiPlayerrr.jpg");
@@ -1062,6 +1141,7 @@ public class Request
     {
         Parent root;
         Scene battleScene = null;
+        setBeforeGame();
         switch (mapNumber)
         {
             case 1:
@@ -1094,6 +1174,11 @@ public class Request
 
         primaryStage.show();
 
+    }
+
+    private void setBeforeGame() {
+        Controller.setFirstPlayerMana(new Label("2"));
+        Controller.setSecondPlayerMana(new Label("2"));
     }
 
     public void getCollectionCommands()
