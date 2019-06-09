@@ -1042,7 +1042,7 @@ public class Request
         });
         primaryStage.setScene(sceneStoryMode);
     }
-///////////////////////////////////////////
+
 @SuppressWarnings("Duplicates")
 private void setStoryModeMenu(String string, Stage primaryStage, int place)
 {
@@ -1092,7 +1092,6 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
 }
 
 
-    ///////////////////////////////////////
     private void multiPlayerMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMultiPlayer,"file:MultiPlayerrr.jpg");
