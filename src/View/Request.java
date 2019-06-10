@@ -122,7 +122,6 @@ public class Request
         TextField textFieldName = new TextField();
         PasswordField textFieldPassword = new PasswordField();
         nameAndPasswordFields(rootSignUpMenu, textFieldName, textFieldPassword);
-
         Label labelSignUp = new Label("Sign Up");
         rootSignUpMenu.getChildren().add(labelSignUp);
         labelSignUp.setFont(Font.font(25));
@@ -387,6 +386,7 @@ public class Request
                         {
                             requestLock.notify();
                         }
+                        saving(Battle.getCurrentBattle().getPlayerTurn());
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -611,6 +611,10 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
+    private void saving(Player player)
+    {
+        //todo for json
+    }
     private void setShopMenuText(String str, int y)
     {
         Text text = new Text(str);
@@ -709,7 +713,20 @@ public class Request
         scrollPaneCollection.setContent(rootCollection);
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
+        Button importButton = new Button();
+        importButton.relocate(600,30);
+        importButton.setText("import Deck");
+        importButton.setOnMouseClicked(event ->
+                importingDeck()
+        );
+        Button exportButton = new Button();
+        exportButton.relocate(700,30);
+        exportButton.setText("export Deck");
+        exportButton.setOnMouseClicked(event ->
+               exportingDeck()
+        );
+        rootCollection.getChildren().add(importButton);
+        rootCollection.getChildren().addAll(exportButton);
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
@@ -857,6 +874,14 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
+    private void importingDeck()
+    {
+
+    }
+    private void exportingDeck()
+    {
+
+    }
     private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
     {
         Image image = new Image("file:Deck.jpg");
@@ -952,25 +977,20 @@ public class Request
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        backButton.setOnMouseClicked(event -> {
+            setCommand(CommandType.EXIT);
+            synchronized (requestLock)
             {
-                setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
-                primaryStage.setScene(sceneBattleMenu);
-                primaryStage.centerOnScreen();
-                try
-                {
-                    battleMenu(primaryStage);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                requestLock.notify();
+            }
+            primaryStage.setScene(sceneBattleMenu);
+            primaryStage.centerOnScreen();
+            try
+            {
+                battleMenu(primaryStage);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
             }
         });
         primaryStage.setScene(sceneSinglePlayer);
@@ -1047,9 +1067,9 @@ public class Request
         rootMultiPlayer.getChildren().add(backButton);
     }
 
-    private void setMultiPlayerMenu(String s, Stage primaryStage, int location)
+    private void setMultiPlayerMenu(String string, Stage primaryStage, int location)
     {
-        Text multiPlayerText = new Text(s);
+        Text multiPlayerText = new Text(string);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
         multiPlayerText.setTextOrigin(VPos.TOP);
         multiPlayerText.setFill(BLUE);
