@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -119,6 +118,8 @@ public class Request
     private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
     private Group rootStoryMode = Main.getRootMultiPlayer();
     private Scene sceneStoryMode = Main.getSceneMultiPlayer();
+    private Group rootCustomGame = Main.getRootCustomGame();
+    private Scene sceneCustomGame= Main.getSceneCustomGame();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -1017,6 +1018,7 @@ public class Request
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
+                    customGameMenuToChooseDeck(primaryStage);
                     break;
             }
             synchronized (requestLock)
@@ -1028,11 +1030,147 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
+    private void customGameMenuToChooseDeck(Stage primaryStage) {
+        setBackGroundImage(rootCustomGame , "file:CustomGame1.png");
+        showDecksLists(rootCustomGame );
+
+        Button nextButton = new Button("Next");
+        nextButton.relocate(500 , 270);
+        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //todo to choose AI Deck
+                customGameMenuToChooseMode(primaryStage);
+            }
+        });
+        rootCustomGame.getChildren().add(nextButton);
+
+        Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        primaryStage.setScene(sceneCustomGame);
+    }
+
+    private void customGameMenuToChooseMode(Stage primaryStage) {
+        rootCustomGame.getChildren().clear();
+        setBackGroundImage(rootCustomGame , "file:CustomGame2.jpg");
+        setCustomGameMenuToChooseMode("Mode 1" , primaryStage , 100);
+        setCustomGameMenuToChooseMode("Mode 2" , primaryStage , 200);
+        setCustomGameMenuToChooseMode("Mode 3" , primaryStage , 300);
+        Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        primaryStage.setScene(sceneCustomGame);
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void setCustomGameMenuToChooseMode(String string, Stage primaryStage, int place) {
+        Text title = new Text(string);
+        title.setTextOrigin(VPos.TOP);
+        title.setFont(Font.font(null, FontWeight.THIN, 45));
+        title.setFill(BLUE);
+        title.layoutXProperty().bind(sceneCustomGame.widthProperty().subtract(title.prefWidth(-1)).divide(2));
+        title.setY(place);
+        title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
+        title.setOnMouseEntered(event -> title.setFill(AQUA));
+        title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
+        title.setOnMouseExited(event -> title.setFill(BLACK));    title.setOnMouseClicked(event -> {
+            switch (string)
+            {
+                case "Mode 1":
+                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
+                    try {
+                        //todo
+                        setBattleField(primaryStage ,4);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mode 2":
+                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    try {
+                        //todo
+                        setBattleField(primaryStage , 4);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mode 3":
+                    //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
+                    try {
+                        //todo
+                        setBattleField(primaryStage , 4);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+            synchronized (requestLock)
+            {
+                requestLock.notify();
+            }
+        });
+        rootCustomGame.getChildren().add(title);
+    }
+
+    private void showDecksLists(Group rootCustomGame) {
+        Menu decksMenu = new Menu("Decks");
+
+        for(Deck deck : Account.loggedInAccount.getPlayerDecks()){
+            decksMenu.getItems().add(new MenuItem(deck.getDeckName()));
+        }
+
+        MenuBar menuBar = new MenuBar(decksMenu);
+        menuBar.relocate(500 , 230);
+        rootCustomGame.getChildren().add(menuBar);
+    }
+
+    @SuppressWarnings("Duplicates")
     private void storyModeMenu(Stage primaryStage) {
         setBackGroundImage(rootStoryMode , "file:StoryModeBackground.jpg");
-        setStoryModeMenu("Mode1" , primaryStage , 100);
-        setStoryModeMenu("Mode2" , primaryStage , 200);
-        setStoryModeMenu("Mode3" , primaryStage , 300);
+        setStoryModeMenu("Mission 1" , primaryStage , 100);
+        setStoryModeMenu("Mission 2" , primaryStage , 200);
+        setStoryModeMenu("Mission 3" , primaryStage , 300);
         Button backButton = backButton(primaryStage, rootStoryMode, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1073,7 +1211,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
     title.setOnMouseExited(event -> title.setFill(BLACK));    title.setOnMouseClicked(event -> {
         switch (string)
         {
-            case "Mode1":
+            case "Mission 1":
                // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
                 try {
                     setBattleField(primaryStage ,1);
@@ -1081,7 +1219,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
                     e.printStackTrace();
                 }
                 break;
-            case "Mode2":
+            case "Mission 2":
                // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
                 try {
                     setBattleField(primaryStage , 2);
@@ -1089,7 +1227,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
                     e.printStackTrace();
                 }
                 break;
-            case "Mode3":
+            case "Mission 3":
                 //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
                 try {
                     setBattleField(primaryStage , 3);
