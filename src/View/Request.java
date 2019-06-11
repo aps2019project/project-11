@@ -196,15 +196,6 @@ public class Request
 
     private void savingAccount(String Name , String passwprd)
     {
-        /*String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(passwprd);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.add("name",);
-        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldName);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldPassword);
-
-        writingForAccount(nameJson,passwordJson);
-*/
         writingForAccount(Name,passwprd);
     }
 
@@ -345,7 +336,7 @@ public class Request
     {
         setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
 
-        Text duelyst = new Text("Duelyst");
+        Text duelyst = new Text("Duelist");
         duelyst.setTextOrigin(VPos.TOP);
         duelyst.setFont(Font.font(null, FontWeight.BOLD, 60));
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
@@ -738,7 +729,11 @@ public class Request
 
     private void saving(Account account)
     {
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        Gson gson = gsonBuilder.create();
+        String json = gson.toJson(account);
+
         System.out.println(json);
         write(json);
     }
@@ -755,28 +750,23 @@ public class Request
     }
     private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
     {
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        stackPane.setOnMouseClicked(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Buy");
+            alert.setHeaderText(null);
+            alert.setContentText("Want to buy " + name + " for " + price + "?");
+            alert.getButtonTypes().clear();
+            ButtonType buttonTypeBuy = new ButtonType("Buy");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel");
+            alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get() == buttonTypeBuy)
             {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Buy");
-                alert.setHeaderText(null);
-                alert.setContentText("Want to buy " + name + " for " + price + "?");
-                alert.getButtonTypes().clear();
-                ButtonType buttonTypeBuy = new ButtonType("Buy");
-                ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
-                Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy)
+                setCommand(CommandType.BUY);
+                request.getCommand().cardOrItemName = name;
+                synchronized (requestLock)
                 {
-                    setCommand(CommandType.BUY);
-                    request.getCommand().cardOrItemName = name;
-                    synchronized (requestLock)
-                    {
-                        requestLock.notify();
-                    }
+                    requestLock.notify();
                 }
             }
         });

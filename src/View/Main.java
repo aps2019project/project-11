@@ -42,11 +42,12 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        //todo
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
         primaryStage.getIcons().add(iconImage);
-        primaryStage.setTitle("Duelyst");
+        primaryStage.setTitle("Duelist");
         primaryStage.show();
     }
 
