@@ -1,12 +1,17 @@
 package View;
 
 import Controller.*;
+import Model.Account;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
@@ -42,7 +47,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        //todo
+        reading();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -50,7 +55,19 @@ public class Main extends Application
         primaryStage.setTitle("Duelist");
         primaryStage.show();
     }
+    private void reading() {
+        try {
+            FileReader fileReader = new FileReader("savingAccount.txt");
+           int x = fileReader.read();
+            while (x == -1)
+            {
+                fileReader.read();
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args)
     {
         CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();

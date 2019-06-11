@@ -194,18 +194,12 @@ public class Request
         primaryStage.show();
     }
 
-    private void savingAccount(String Name , String passwprd)
-    {
-        /*String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(passwprd);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.add("name",);
-        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldName);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldPassword);
 
+    private void savingAccount(String Name , String password)
+    {
+        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
+        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
         writingForAccount(nameJson,passwordJson);
-*/
-        writingForAccount(Name,passwprd);
     }
 
     private void  writingForAccount(String nameJson,String passwordJson )
