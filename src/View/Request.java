@@ -30,11 +30,13 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 import static javafx.scene.paint.Color.*;
 
+@SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
 public class Request
 {
     public static Scanner myScanner = new Scanner(System.in);
@@ -197,9 +199,9 @@ public class Request
 
     private void savingAccount(String Name , String password)
     {
-        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
-        writingForAccount(nameJson,passwordJson);
+        //String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
+      //  String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
+        //writingForAccount(nameJson,passwordJson);
     }
 
     private void  writingForAccount(String nameJson,String passwordJson )

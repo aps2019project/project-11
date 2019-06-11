@@ -507,6 +507,7 @@ public class Battle
         }
     }
 
+    //todo
     public void AIPlayerWorks(BattleManager battleManager)
     {
         for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++)
