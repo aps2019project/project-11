@@ -9,7 +9,6 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .idea*
-
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids

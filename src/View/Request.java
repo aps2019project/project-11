@@ -210,12 +210,13 @@ public class Request
         {
             System.out.println(nameJson);
             System.out.println(passwordJson);
-            FileWriter fileWriter = new FileWriter("savingAccount.txt", true);
-            fileWriter.write(nameJson + '\n');
-            fileWriter.write(passwordJson + '\n');
+            FileWriter fileWriter = new FileWriter(nameJson.substring(1,nameJson.length()-1) + ".txt", true);
+            fileWriter.write("name :"+ nameJson + '\n');
+            fileWriter.write("password :" + passwordJson + '\n');
             fileWriter.close();
         }
-        catch (IOException e) {
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
