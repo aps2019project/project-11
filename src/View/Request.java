@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import static javafx.scene.paint.Color.*;
 
 public class Request
@@ -193,7 +194,7 @@ public class Request
         primaryStage.show();
     }
 
-    private void savingAccount(String Name , String passwprd)
+    private void savingAccount(String Name, String password)
     {
         /*String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
         String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(passwprd);
@@ -204,24 +205,25 @@ public class Request
 
         writingForAccount(nameJson,passwordJson);
 */
-        writingForAccount(Name,passwprd);
+        writingForAccount(Name, password);
     }
 
-    private void  writingForAccount(String nameJson,String passwordJson )
+    private void writingForAccount(String nameJson, String passwordJson)
     {
         try
         {
             System.out.println(nameJson);
             System.out.println(passwordJson);
-            FileWriter fileWriter = new FileWriter("savingAccount.txt",true);
-            fileWriter.write(nameJson);
-            fileWriter.write(passwordJson);
+            FileWriter fileWriter = new FileWriter("savingAccount.txt", true);
+            fileWriter.write(nameJson + '\n');
+            fileWriter.write(passwordJson + '\n');
             fileWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
+
     private void login(Stage primaryStage)
     {
         Label labelLogin = new Label("Login");
@@ -743,14 +745,17 @@ public class Request
 
     private void write(String json)
     {
-           try {
-               FileWriter fileWriter = new FileWriter("saving.txt", true);
-               fileWriter.write(json);
-               fileWriter.close();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
+        try
+        {
+            FileWriter fileWriter = new FileWriter("saving.txt", true);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
+
     private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -1026,7 +1031,7 @@ public class Request
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Deck");
                 alert.setHeaderText(null);
-                alert.setContentText("Want to remove " + deck.getDeckName() +  "?");
+                alert.setContentText("Want to remove " + deck.getDeckName() + "?");
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeBuy = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
