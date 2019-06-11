@@ -24,11 +24,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import static javafx.scene.paint.Color.*;
 
 public class Request
@@ -155,6 +158,7 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     accountManager.createAccount(userName, password);
+                    savingAccount(userName, password);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -189,6 +193,35 @@ public class Request
         primaryStage.show();
     }
 
+    private void savingAccount(String Name , String passwprd)
+    {
+        /*String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
+        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(passwprd);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("name",);
+        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldName);
+        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(textFieldPassword);
+
+        writingForAccount(nameJson,passwordJson);
+*/
+        writingForAccount(Name,passwprd);
+    }
+
+    private void  writingForAccount(String nameJson,String passwordJson )
+    {
+        try
+        {
+            System.out.println(nameJson);
+            System.out.println(passwordJson);
+            FileWriter fileWriter = new FileWriter("savingAccount.txt",true);
+            fileWriter.write(nameJson);
+            fileWriter.write(passwordJson);
+            fileWriter.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void login(Stage primaryStage)
     {
         Label labelLogin = new Label("Login");
@@ -701,6 +734,23 @@ public class Request
         return stackPane;
     }
 
+    private void saving(Account account)
+    {
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        System.out.println(json);
+        write(json);
+    }
+
+    private void write(String json)
+    {
+           try {
+               FileWriter fileWriter = new FileWriter("saving.txt", true);
+               fileWriter.write(json);
+               fileWriter.close();
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+    }
     private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -888,7 +938,6 @@ public class Request
             }
             y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
-            setCollectionDeckStackPanesOnMouseClicked(stackPane, deck);
             yPosition++;
         }
 
@@ -1140,20 +1189,25 @@ public class Request
         rootCustomGame.getChildren().add(nextButton);
 
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
-        backButton.setOnMouseClicked(event -> {
-            setCommand(CommandType.EXIT);
-            synchronized (requestLock)
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
             {
-                requestLock.notify();
-            }
-            primaryStage.setScene(sceneBattleMenu);
-            primaryStage.centerOnScreen();
-            try
-            {
-                singlePlayerMenu(primaryStage);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -1168,20 +1222,25 @@ public class Request
         setCustomGameMenuToChooseMode("Mode 2", primaryStage, 200);
         setCustomGameMenuToChooseMode("Mode 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
-        backButton.setOnMouseClicked(event -> {
-            setCommand(CommandType.EXIT);
-            synchronized (requestLock)
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
             {
-                requestLock.notify();
-            }
-            primaryStage.setScene(sceneSinglePlayer);
-            primaryStage.centerOnScreen();
-            try
-            {
-                singlePlayerMenu(primaryStage);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneSinglePlayer);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
 
