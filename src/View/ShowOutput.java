@@ -66,7 +66,6 @@ public class ShowOutput
     void showRankingPlayers()
     {
         int counter = 1;
-        rootLeaderBoard.getChildren().clear();
         for (Account account : AccountManager.getAccounts())
         {
             if (counter > 10)
