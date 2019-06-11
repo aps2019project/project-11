@@ -933,6 +933,10 @@ public class Request
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
+        if (deck.getDeckName().equals(Account.loggedInAccount.getMainDeck().getDeckName()))
+        {
+            rectangle.setFill(LIGHTGREEN);
+        }
 
         StackPane stackPane = new StackPane(rectangle, imageView);
         stackPane.setAlignment(Pos.TOP_CENTER);
@@ -978,11 +982,11 @@ public class Request
                 alert.setHeaderText(null);
                 alert.setContentText("Want to sell " + ID + " for " + price + "?");
                 alert.getButtonTypes().clear();
-                ButtonType buttonTypeBuy = new ButtonType("Sell");
+                ButtonType buttonTypeSell = new ButtonType("Sell");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy)
+                if (option.get() == buttonTypeSell)
                 {
                     setCommand(CommandType.SELL);
                     request.getCommand().cardOrItemID = ID;
@@ -1003,22 +1007,36 @@ public class Request
             public void handle(MouseEvent event)
             {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Deck");
+                alert.setTitle("Deck operations");
                 alert.setHeaderText(null);
                 alert.setContentText("Want to remove " + deck.getDeckName() +  "?");
                 alert.getButtonTypes().clear();
+                ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
+                ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
                 ButtonType buttonTypeBuy = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeBuy, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeBuy)
                 {
                     setCommand(CommandType.DELETE_DECK);
-                    request.getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
-                        requestLock.notify();
-                    }
+                }
+                else if (option.get() == buttonTypeSetMainDeck)
+                {
+                    setCommand(CommandType.SET_MAIN_DECK);
+                }
+                else if (option.get() == buttonTypeValidateDeck)
+                {
+                    setCommand(CommandType.VALIDATE_DECK);
+                }
+                else
+                {
+                    return;
+                }
+                request.getCommand().deckName = deck.getDeckName();
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
                 }
             }
         });
