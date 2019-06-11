@@ -119,7 +119,7 @@ public class Request
     private Group rootStoryMode = Main.getRootMultiPlayer();
     private Scene sceneStoryMode = Main.getSceneMultiPlayer();
     private Group rootCustomGame = Main.getRootCustomGame();
-    private Scene sceneCustomGame= Main.getSceneCustomGame();
+    private Scene sceneCustomGame = Main.getSceneCustomGame();
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -448,8 +448,7 @@ public class Request
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -512,8 +511,8 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            xPosition ++;
-            yPosition ++;
+            xPosition++;
+            yPosition++;
             StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
         }
@@ -524,7 +523,7 @@ public class Request
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 !=0)
+        if (yPosition % 4 != 0)
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
@@ -542,7 +541,7 @@ public class Request
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
-            xPosition ++;
+            xPosition++;
             yPosition++;
         }
 
@@ -552,7 +551,7 @@ public class Request
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 !=0)
+        if (yPosition % 4 != 0)
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
@@ -570,8 +569,8 @@ public class Request
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
             setShopStackPanesOnMouseClicked(stackPane, spell.getCardName(), spell.getPrice());
-            xPosition ++;
-            yPosition ++;
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -582,7 +581,7 @@ public class Request
         else
         {
             xPosition = 0;
-            if (yPosition % 4 !=0)
+            if (yPosition % 4 != 0)
             {
                 yPosition = yPosition + 4 - yPosition % 4;
             }
@@ -605,8 +604,8 @@ public class Request
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
             setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
-            xPosition ++;
-            yPosition ++;
+            xPosition++;
+            yPosition++;
         }
 
         backButton(primaryStage, rootShop, 20, 15);
@@ -739,17 +738,13 @@ public class Request
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         Button importButton = new Button();
-        importButton.relocate(600,30);
+        importButton.relocate(600, 30);
         importButton.setText("import Deck");
-        importButton.setOnMouseClicked(event ->
-                importingDeck()
-        );
+        importButton.setOnMouseClicked(event -> importingDeck());
         Button exportButton = new Button();
-        exportButton.relocate(700,30);
+        exportButton.relocate(700, 30);
         exportButton.setText("export Deck");
-        exportButton.setOnMouseClicked(event ->
-               exportingDeck()
-        );
+        exportButton.setOnMouseClicked(event -> exportingDeck());
         rootCollection.getChildren().add(importButton);
         rootCollection.getChildren().addAll(exportButton);
         setCollectionMenuText("Heroes", 50, false);
@@ -768,8 +763,9 @@ public class Request
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
-                xPosition ++;
-                yPosition ++;
+                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                xPosition++;
+                yPosition++;
             }
         }
 
@@ -778,13 +774,13 @@ public class Request
             y += BLANK_BETWEEN_CARDS;
             yPosition += 3;
         }
-        if (yPosition % 3 !=0)
+        if (yPosition % 3 != 0)
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
         xPosition = 0;
         setCollectionMenuText("Minions", y + 250 + 50, false);
-        if (yPosition % 3 !=0)
+        if (yPosition % 3 != 0)
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
@@ -802,8 +798,9 @@ public class Request
                 y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
-                xPosition ++;
-                yPosition ++;
+                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                xPosition++;
+                yPosition++;
             }
         }
 
@@ -813,12 +810,12 @@ public class Request
             yPosition += 3;
         }
         xPosition = 0;
-        if (yPosition % 3 !=0)
+        if (yPosition % 3 != 0)
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
         setCollectionMenuText("Spells", y + 250 + 50, false);
-        if (yPosition % 3 !=0)
+        if (yPosition % 3 != 0)
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
@@ -836,8 +833,9 @@ public class Request
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
-                xPosition ++;
-                yPosition ++;
+                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                xPosition++;
+                yPosition++;
             }
         }
 
@@ -849,7 +847,7 @@ public class Request
         else
         {
             xPosition = 0;
-            if (yPosition % 3 !=0)
+            if (yPosition % 3 != 0)
             {
                 yPosition = yPosition + 3 - yPosition % 3;
             }
@@ -871,8 +869,9 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
-            xPosition ++;
-            yPosition ++;
+            setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, item.getItemID(), item.getPrice());
+            xPosition++;
+            yPosition++;
         }
 
         setCollectionMenuText("Decks", 50, true);
@@ -889,7 +888,7 @@ public class Request
             }
             y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
-            yPosition ++;
+            yPosition++;
         }
 
         backButton(primaryStage, rootCollection, 20, 15);
@@ -926,16 +925,45 @@ public class Request
         double x;
         if (isDeckText)
         {
-            x = (sceneCollection.getWidth() * 1/4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3/4;
+            x = (sceneCollection.getWidth() * 1 / 4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3 / 4;
         }
         else
         {
-            x = (sceneCollection.getWidth() * 3/4 - text.getLayoutBounds().getWidth()) / 2 - 40;
+            x = (sceneCollection.getWidth() * 3 / 4 - text.getLayoutBounds().getWidth()) / 2 - 40;
         }
         text.setLayoutX(x);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
         rootCollection.getChildren().addAll(text);
+    }
+
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(StackPane stackPane, String ID, int price)
+    {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Sell");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to sell " + ID + " for " + price + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBuy = new ButtonType("Sell");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBuy)
+                {
+                    setCommand(CommandType.SELL);
+                    request.getCommand().cardOrItemID = ID;
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                }
+            }
+        });
     }
 
     private void importingDeck()
@@ -1063,15 +1091,18 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void customGameMenuToChooseDeck(Stage primaryStage) {
-        setBackGroundImage(rootCustomGame , "file:CustomGame1.png");
-        showDecksLists(rootCustomGame );
+    private void customGameMenuToChooseDeck(Stage primaryStage)
+    {
+        setBackGroundImage(rootCustomGame, "file:CustomGame1.png");
+        showDecksLists(rootCustomGame);
 
         Button nextButton = new Button("Next");
-        nextButton.relocate(500 , 270);
-        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        nextButton.relocate(500, 270);
+        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 //todo to choose AI Deck
                 customGameMenuToChooseMode(primaryStage);
             }
@@ -1104,12 +1135,13 @@ public class Request
         primaryStage.setScene(sceneCustomGame);
     }
 
-    private void customGameMenuToChooseMode(Stage primaryStage) {
+    private void customGameMenuToChooseMode(Stage primaryStage)
+    {
         rootCustomGame.getChildren().clear();
-        setBackGroundImage(rootCustomGame , "file:CustomGame2.jpg");
-        setCustomGameMenuToChooseMode("Mode 1" , primaryStage , 100);
-        setCustomGameMenuToChooseMode("Mode 2" , primaryStage , 200);
-        setCustomGameMenuToChooseMode("Mode 3" , primaryStage , 300);
+        setBackGroundImage(rootCustomGame, "file:CustomGame2.jpg");
+        setCustomGameMenuToChooseMode("Mode 1", primaryStage, 100);
+        setCustomGameMenuToChooseMode("Mode 2", primaryStage, 200);
+        setCustomGameMenuToChooseMode("Mode 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1121,7 +1153,7 @@ public class Request
                 {
                     requestLock.notify();
                 }
-                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.setScene(sceneSinglePlayer);
                 primaryStage.centerOnScreen();
                 try
                 {
@@ -1137,7 +1169,8 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void setCustomGameMenuToChooseMode(String string, Stage primaryStage, int place) {
+    private void setCustomGameMenuToChooseMode(String string, Stage primaryStage, int place)
+    {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.THIN, 45));
@@ -1147,33 +1180,40 @@ public class Request
         title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
         title.setOnMouseEntered(event -> title.setFill(AQUA));
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
-        title.setOnMouseExited(event -> title.setFill(BLACK));    title.setOnMouseClicked(event -> {
+        title.setOnMouseExited(event -> title.setFill(BLACK));
+        title.setOnMouseClicked(event -> {
             switch (string)
             {
                 case "Mode 1":
                     // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
-                    try {
+                    try
+                    {
                         //todo
-                        setBattleField(primaryStage ,4);
-                    } catch (IOException e) {
+                        setBattleField(primaryStage, 4);
+                    } catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 2":
                     // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    try {
+                    try
+                    {
                         //todo
-                        setBattleField(primaryStage , 4);
-                    } catch (IOException e) {
+                        setBattleField(primaryStage, 4);
+                    } catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 3":
                     //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
-                    try {
+                    try
+                    {
                         //todo
-                        setBattleField(primaryStage , 4);
-                    } catch (IOException e) {
+                        setBattleField(primaryStage, 4);
+                    } catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                     break;
@@ -1186,24 +1226,27 @@ public class Request
         rootCustomGame.getChildren().add(title);
     }
 
-    private void showDecksLists(Group rootCustomGame) {
+    private void showDecksLists(Group rootCustomGame)
+    {
         Menu decksMenu = new Menu("Decks");
 
-        for(Deck deck : Account.loggedInAccount.getPlayerDecks()){
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
             decksMenu.getItems().add(new MenuItem(deck.getDeckName()));
         }
 
         MenuBar menuBar = new MenuBar(decksMenu);
-        menuBar.relocate(500 , 230);
+        menuBar.relocate(500, 230);
         rootCustomGame.getChildren().add(menuBar);
     }
 
     @SuppressWarnings("Duplicates")
-    private void storyModeMenu(Stage primaryStage) {
-        setBackGroundImage(rootStoryMode , "file:StoryModeBackground.jpg");
-        setStoryModeMenu("Mission 1" , primaryStage , 100);
-        setStoryModeMenu("Mission 2" , primaryStage , 200);
-        setStoryModeMenu("Mission 3" , primaryStage , 300);
+    private void storyModeMenu(Stage primaryStage)
+    {
+        setBackGroundImage(rootStoryMode, "file:StoryModeBackground.jpg");
+        setStoryModeMenu("Mission 1", primaryStage, 100);
+        setStoryModeMenu("Mission 2", primaryStage, 200);
+        setStoryModeMenu("Mission 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootStoryMode, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1229,61 +1272,68 @@ public class Request
         primaryStage.setScene(sceneStoryMode);
     }
 
-@SuppressWarnings("Duplicates")
-private void setStoryModeMenu(String string, Stage primaryStage, int place)
-{
-    Text title = new Text(string);
-    title.setTextOrigin(VPos.TOP);
-    title.setFont(Font.font(null, FontWeight.THIN, 45));
-    title.setFill(BLUE);
-    title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
-    title.setY(place);
-    title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
-    title.setOnMouseEntered(event -> title.setFill(AQUA));
-    title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
-    title.setOnMouseExited(event -> title.setFill(BLACK));    title.setOnMouseClicked(event -> {
-        switch (string)
-        {
-            case "Mission 1":
-               // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
-                try {
-                    setBattleField(primaryStage ,1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "Mission 2":
-               // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                try {
-                    setBattleField(primaryStage , 2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "Mission 3":
-                //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
-                try {
-                    setBattleField(primaryStage , 3);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-        synchronized (requestLock)
-        {
-            requestLock.notify();
-        }
-    });
-    rootStoryMode.getChildren().add(title);
-}
+    @SuppressWarnings("Duplicates")
+    private void setStoryModeMenu(String string, Stage primaryStage, int place)
+    {
+        Text title = new Text(string);
+        title.setTextOrigin(VPos.TOP);
+        title.setFont(Font.font(null, FontWeight.THIN, 45));
+        title.setFill(BLUE);
+        title.layoutXProperty().bind(sceneSinglePlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
+        title.setY(place);
+        title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
+        title.setOnMouseEntered(event -> title.setFill(AQUA));
+        title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
+        title.setOnMouseExited(event -> title.setFill(BLACK));
+        title.setOnMouseClicked(event -> {
+            switch (string)
+            {
+                case "Mission 1":
+                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
+                    try
+                    {
+                        setBattleField(primaryStage, 1);
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mission 2":
+                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    try
+                    {
+                        setBattleField(primaryStage, 2);
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mission 3":
+                    //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
+                    try
+                    {
+                        setBattleField(primaryStage, 3);
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+            synchronized (requestLock)
+            {
+                requestLock.notify();
+            }
+        });
+        rootStoryMode.getChildren().add(title);
+    }
 
 
     private void multiPlayerMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootMultiPlayer,"file:MultiPlayerrr.jpg");
+        setBackGroundImage(rootMultiPlayer, "file:MultiPlayerrr.jpg");
         setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
         Button backButton = new Button("Back");
-        backButton.relocate(50,490);
+        backButton.relocate(50, 490);
         backButton.setFont(Font.font(25));
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1300,8 +1350,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     battleMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -1322,7 +1371,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-        public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
+    public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
         Parent root;
         Scene battleScene = null;

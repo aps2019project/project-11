@@ -172,15 +172,6 @@ public class CallTheAppropriateFunction extends Thread
                 case SET_MAIN_DECK:
                     deckManager.setDeckAsMainDeck(request.getCommand().deckName);
                     break;
-                case SHOW_DECK:
-                    showOutput.showDeckInfo(request.getCommand().deckName);
-                    break;
-                case SHOW_ALL_DECKS:
-                    showOutput.showAllDecksInfo();
-                    break;
-                case HELP:
-                    showOutput.collectionHelp();
-                    break;
                 case EXIT:
                     request.setCommand(null);
                     determineMainMenuCommand();
