@@ -43,7 +43,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        reading();
+        //reading();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
