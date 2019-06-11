@@ -419,7 +419,6 @@ public class Request
                         {
                             requestLock.notify();
                         }
-                        saving(Account.loggedInAccount);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -730,23 +729,6 @@ public class Request
         return stackPane;
     }
 
-    private void saving(Account account)
-    {
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        System.out.println(json);
-        write(json);
-    }
-
-    private void write(String json)
-    {
-           try {
-               FileWriter fileWriter = new FileWriter("saving.txt", true);
-               fileWriter.write(json);
-               fileWriter.close();
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-    }
     private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
