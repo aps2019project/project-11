@@ -611,8 +611,33 @@ public class Request
 
         backButton(primaryStage, rootShop, 20, 15);
         searchField(primaryStage, sceneShop, rootShop, "ShopMenu");
+        showCollectionText(primaryStage, rootShop);
 
         primaryStage.setScene(sceneShop);
+    }
+
+    private void showCollectionText(Stage primaryStage, Group root)
+    {
+        Text text = new Text("Show Collection");
+        text.setFont(Font.font(25));
+        text.relocate(700, 20);
+        text.setOnMouseEntered(event -> text.setFill(RED));
+        text.setOnMouseExited(event -> text.setFill(BLACK));
+        text.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.SHOW_COLLECTION);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                rootCollection.getChildren().clear();
+                collectionMenu(primaryStage, false, null);
+            }
+        });
+        root.getChildren().add(text);
     }
 
     private void setShopMenuText(String str, int y)
@@ -874,14 +899,6 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void importingDeck()
-    {
-
-    }
-    private void exportingDeck()
-    {
-
-    }
     private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
     {
         Image image = new Image("file:Deck.jpg");
@@ -919,6 +936,16 @@ public class Request
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
         rootCollection.getChildren().addAll(text);
+    }
+
+    private void importingDeck()
+    {
+
+    }
+
+    private void exportingDeck()
+    {
+
     }
 
     private void battleMenu(Stage primaryStage)
@@ -977,20 +1004,26 @@ public class Request
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
-        backButton.setOnMouseClicked(event -> {
-            setCommand(CommandType.EXIT);
-            synchronized (requestLock)
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @SuppressWarnings("Duplicates")
+            @Override
+            public void handle(MouseEvent event)
             {
-                requestLock.notify();
-            }
-            primaryStage.setScene(sceneBattleMenu);
-            primaryStage.centerOnScreen();
-            try
-            {
-                battleMenu(primaryStage);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try
+                {
+                    battleMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
         primaryStage.setScene(sceneSinglePlayer);
@@ -1293,6 +1326,7 @@ private void setStoryModeMenu(String string, Stage primaryStage, int place)
     {
         Parent root;
         Scene battleScene = null;
+        //setBeforeGame();
         switch (mapNumber)
         {
             case 1:

@@ -98,13 +98,11 @@ public class CallTheAppropriateFunction extends Thread
             switch (request.getCommand())
             {
                 case SHOW_COLLECTION:
-                    showOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
+                    request.setCommand(null);
+                    determineCollectionCommand();
                     break;
                 case SEARCH:
                     shopManager.searchShop(request.getCommand().cardOrItemName);
-                    break;
-                case SEARCH_COLLECTION:
-                    collectionManager.searchCollection(request.getCommand().cardOrItemName);
                     break;
                 case BUY:
                     try
@@ -124,9 +122,6 @@ public class CallTheAppropriateFunction extends Thread
                     {
 
                     }
-                    break;
-                case SELL:
-                    shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;
                 case EXIT:
                     request.setCommand(null);
@@ -150,11 +145,11 @@ public class CallTheAppropriateFunction extends Thread
             }
             switch (request.getCommand())
             {
-                case SHOW:
-                    showOutput.showCollectionInfo(Account.loggedInAccount.getCollection());
-                    break;
                 case SEARCH:
                     collectionManager.searchCollection(request.getCommand().cardOrItemName);
+                    break;
+                case SELL:
+                    shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;
                 case SAVE:
                     //todo
