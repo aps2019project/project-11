@@ -32,12 +32,8 @@ public class Main extends Application
     private static Scene sceneSinglePlayer = new Scene(rootSinglePlayer, 1000, 562);
     private static Group rootMultiPlayer = new Group();
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
-    private static Group rootSave = new Group();
-    private static Scene sceneSave = new Scene(rootSave, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception

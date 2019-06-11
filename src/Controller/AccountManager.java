@@ -2,7 +2,10 @@ package Controller;
 
 import Model.*;
 import View.*;
+import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AccountManager
@@ -25,6 +28,24 @@ public class AccountManager
     public void logout()
     {
         Account.logout();
+    }
+
+    public void saving(Account account)
+    {
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        System.out.println(json);
+        write(json);
+    }
+
+    private void write(String json)
+    {
+        try {
+            FileWriter fileWriter = new FileWriter("saving.txt", true);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sortAccountsByWins()
