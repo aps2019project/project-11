@@ -765,7 +765,7 @@ public class Request
         scrollPaneCollection.setContent(rootCollection);
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        Button importButton = new Button();
+        /*Button importButton = new Button();
         importButton.relocate(600, 30);
         importButton.setText("import Deck");
         importButton.setOnMouseClicked(event -> importingDeck());
@@ -774,7 +774,7 @@ public class Request
         exportButton.setText("export Deck");
         exportButton.setOnMouseClicked(event -> exportingDeck());
         rootCollection.getChildren().add(importButton);
-        rootCollection.getChildren().add(exportButton);
+        rootCollection.getChildren().add(exportButton);*/
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
@@ -916,6 +916,7 @@ public class Request
             }
             y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
+            setCollectionDeckStackPanesOnMouseClicked(stackPane, deck);
             yPosition++;
         }
 
@@ -985,6 +986,35 @@ public class Request
                 {
                     setCommand(CommandType.SELL);
                     request.getCommand().cardOrItemID = ID;
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setCollectionDeckStackPanesOnMouseClicked(StackPane stackPane, Deck deck)
+    {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deck");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to remove " + deck.getDeckName() +  "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBuy = new ButtonType("Remove deck");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBuy)
+                {
+                    setCommand(CommandType.DELETE_DECK);
+                    request.getCommand().deckName = deck.getDeckName();
                     synchronized (requestLock)
                     {
                         requestLock.notify();

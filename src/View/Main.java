@@ -51,19 +51,24 @@ public class Main extends Application
         primaryStage.setTitle("Duelist");
         primaryStage.show();
     }
-    private void reading() {
-        try {
+
+    private void reading()
+    {
+        try
+        {
             FileReader fileReader = new FileReader("savingAccount.txt");
-           int x = fileReader.read();
-            while (x == -1)
+            int x = fileReader.read();
+            while (x != -1)
             {
-                fileReader.read();
+                x = fileReader.read();
             }
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args)
     {
         CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();
@@ -172,11 +177,13 @@ public class Main extends Application
         return sceneMultiPlayer;
     }
 
-    public static Scene getSceneCustomGame() {
+    public static Scene getSceneCustomGame()
+    {
         return sceneCustomGame;
     }
 
-    public static Group getRootCustomGame() {
+    public static Group getRootCustomGame()
+    {
         return rootCustomGame;
     }
 }
