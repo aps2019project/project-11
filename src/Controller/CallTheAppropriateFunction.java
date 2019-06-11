@@ -151,9 +151,6 @@ public class CallTheAppropriateFunction extends Thread
                 case SELL:
                     shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;
-                case SAVE:
-                    //todo
-                    break;
                 case CREATE_DECK:
                     collectionManager.createDeck(request.getCommand().deckName);
                     break;
