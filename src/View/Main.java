@@ -1,7 +1,6 @@
 package View;
 
 import Controller.*;
-import Model.Account;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -17,6 +15,8 @@ import static javafx.scene.paint.Color.BURLYWOOD;
 
 public class Main extends Application
 {
+    private static CallTheAppropriateFunction callTheAppropriateFunction;
+
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
     private static Group rootLoginMenu = new Group();
@@ -71,7 +71,7 @@ public class Main extends Application
 
     public static void main(String[] args)
     {
-        CallTheAppropriateFunction callTheAppropriateFunction = new CallTheAppropriateFunction();
+        callTheAppropriateFunction = new CallTheAppropriateFunction();
         callTheAppropriateFunction.setDaemon(true);
         callTheAppropriateFunction.start();
         launch(args);
@@ -185,5 +185,9 @@ public class Main extends Application
     public static Group getRootCustomGame()
     {
         return rootCustomGame;
+    }
+
+    public static CallTheAppropriateFunction getCallTheAppropriateFunction() {
+        return callTheAppropriateFunction;
     }
 }

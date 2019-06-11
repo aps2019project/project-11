@@ -529,4 +529,16 @@ public class CallTheAppropriateFunction extends Thread
             }
         }
     }
+
+    public void storyModeBattleMaker(int numberOfLevel){
+        Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
+        BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
+        new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+    }
+
+    public void customGameBattleMaker(Deck selectedDeck , int number){
+        Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
+        new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+
+    }
 }

@@ -128,6 +128,9 @@ public class Request
     private Group rootCustomGame = Main.getRootCustomGame();
     private Scene sceneCustomGame = Main.getSceneCustomGame();
 
+    private Deck selectedDeckForCustomGame = null;
+
+
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
@@ -1182,7 +1185,6 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                //todo to choose AI Deck
                 customGameMenuToChooseMode(primaryStage);
             }
         });
@@ -1264,10 +1266,9 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 1);
                     try
                     {
-                        //todo
                         setBattleField(primaryStage, 4);
                     } catch (IOException e)
                     {
@@ -1275,10 +1276,9 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 2);
                     try
                     {
-                        //todo
                         setBattleField(primaryStage, 4);
                     } catch (IOException e)
                     {
@@ -1286,10 +1286,9 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 3);
                     try
                     {
-                        //todo
                         setBattleField(primaryStage, 4);
                     } catch (IOException e)
                     {
@@ -1311,7 +1310,11 @@ public class Request
 
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
         {
-            decksMenu.getItems().add(new MenuItem(deck.getDeckName()));
+            MenuItem menuItem = new MenuItem(deck.getDeckName());
+            decksMenu.getItems().add(menuItem);
+            menuItem.setOnAction(e -> {
+                selectedDeckForCustomGame = deck;
+            });
         }
 
         MenuBar menuBar = new MenuBar(decksMenu);
@@ -1368,7 +1371,7 @@ public class Request
             switch (string)
             {
                 case "Mission 1":
-                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KILLING_ENEMY_HERO);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
                     try
                     {
                         setBattleField(primaryStage, 1);
@@ -1378,7 +1381,7 @@ public class Request
                     }
                     break;
                 case "Mission 2":
-                    // Battle.getCurrentBattle().setBattleMode(BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
                     try
                     {
                         setBattleField(primaryStage, 2);
@@ -1388,7 +1391,7 @@ public class Request
                     }
                     break;
                 case "Mission 3":
-                    //Battle.getCurrentBattle().setBattleMode(BattleMode.GATHERING_FLAGS);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
                     try
                     {
                         setBattleField(primaryStage, 3);
