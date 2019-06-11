@@ -2,6 +2,7 @@ package View;
 
 import Controller.AccountManager;
 import Model.*;
+import com.google.gson.GsonBuilder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -199,9 +200,9 @@ public class Request
 
     private void savingAccount(String Name , String password)
     {
-        //String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
-      //  String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
-        //writingForAccount(nameJson,passwordJson);
+        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
+        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
+        writingForAccount(nameJson,passwordJson);
     }
 
     private void  writingForAccount(String nameJson,String passwordJson )
