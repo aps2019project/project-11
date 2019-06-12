@@ -1014,11 +1014,12 @@ public class Request
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Sell");
                 alert.setHeaderText(null);
-                alert.setContentText("Want to sell " + ID + " for " + price + "?");
+                alert.setContentText("Want to sell " + ID + " for " + price + "or adding it to a deck ?");
                 alert.getButtonTypes().clear();
+                ButtonType buttonTypeAddToDeck = new ButtonType("Add to deck");
                 ButtonType buttonTypeSell = new ButtonType("Sell");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeAddToDeck, buttonTypeSell, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
@@ -1029,6 +1030,10 @@ public class Request
                         requestLock.notify();
                     }
                     collectionMenu(primaryStage, false, null);
+                }
+                else if (option.get() == buttonTypeAddToDeck)
+                {
+                    showAllDecks(primaryStage, ID);
                 }
             }
         });
@@ -1100,6 +1105,52 @@ public class Request
         });
     }
 
+    private void showAllDecks(Stage primaryStage, String ID)
+    {
+        rootCollection.getChildren().clear();
+
+        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+
+        int xPosition = 0, yPosition = 0, x, y;
+        setShopAndDeckMenuText(rootCollection, sceneCollection, "Decks", 50);
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        {
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            xPosition++;
+            yPosition++;
+            StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
+            stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent event)
+                {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Add");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Want to add " + ID + " to " + deck.getDeckName() + "?");
+                    alert.getButtonTypes().clear();
+                    ButtonType buttonTypeSell = new ButtonType("Add");
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                    alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                    Optional<ButtonType> option = alert.showAndWait();
+                    if (option.get() == buttonTypeSell)
+                    {
+                        setCommand(CommandType.ADD_TO_DECK);
+                        getCommand().cardOrItemID = ID;
+                        getCommand().deckName = deck.getDeckName();
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        rootCollection.getChildren().clear();
+                        collectionMenu(primaryStage, false, null);
+                    }
+                }
+            });
+        }
+    }
+
     private void createDeck(Stage primaryStage, Scene scene, Group root)
     {
         TextField createDeckTextField = new TextField();
@@ -1142,6 +1193,8 @@ public class Request
 
     private void deckMenu(Stage primaryStage, Deck deck)
     {
+        rootDeck.getChildren().clear();
+
         setBackGroundImage(rootDeck, "file:Duelyst Menu Blurred.jpg");
 
         scrollPaneDeck.setContent(rootDeck);
