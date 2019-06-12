@@ -16,7 +16,7 @@ public class Account
     private int defaultID = 1;
     private int AIAccountDefaultID = 10000;
 
-    public Account(String userName,String password)
+    public Account(String userName, String password)
     {
         this.password = password;
         this.accountName = userName;
@@ -54,8 +54,7 @@ public class Account
             this.getCollection().addCard(account, (Card) Card.findCard("shock").clone());
             this.getCollection().addCard(account, (Card) Card.findCard("godStrength").clone());
             addDefaultDeck();
-        }
-        catch (CloneNotSupportedException ignored)
+        } catch (CloneNotSupportedException ignored)
         {
 
         }
@@ -87,7 +86,11 @@ public class Account
 
     public void deleteDeck(Deck deck)
     {
-        Account.loggedInAccount.getPlayerDecks().remove(deck);
+        getPlayerDecks().remove(deck);
+        if (getMainDeck().equals(deck))
+        {
+            setMainDeck(null);
+        }
     }
 
     public static void login(Account account)
@@ -152,18 +155,21 @@ public class Account
 
     public void increaseNumberOfWins()
     {
-        numOfWins ++;
+        numOfWins++;
     }
 
-    public void setMainDeck(Deck mainDeck) {
+    public void setMainDeck(Deck mainDeck)
+    {
         this.mainDeck = mainDeck;
     }
 
-    public String getAccountName() {
+    public String getAccountName()
+    {
         return accountName;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
@@ -174,7 +180,7 @@ public class Account
 
     public void increaseDefaultID()
     {
-        this.defaultID ++;
+        this.defaultID++;
     }
 
     public int getAIAccountDefaultID()
@@ -184,7 +190,7 @@ public class Account
 
     public void increaseAIAccountDefaultID()
     {
-        this.AIAccountDefaultID ++;
+        this.AIAccountDefaultID++;
     }
 }
 
