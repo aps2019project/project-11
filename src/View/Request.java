@@ -510,7 +510,7 @@ public class Request
                     if (!searchField.getText().isEmpty())
                     {
                         root.getChildren().clear();
-                        if (menuName.equalsIgnoreCase("CollectionMenu"))
+                        if (menuName.equals("CollectionMenu"))
                         {
                             collectionMenu(primaryStage, true, searchField.getText());
                         }
@@ -922,12 +922,12 @@ public class Request
         searchField(primaryStage, sceneCollection, rootCollection, "CollectionMenu");
         createDeck(primaryStage, sceneCollection, rootCollection);
 
-        /*Button importButton = new Button();
-        importButton.relocate(600, 30);
+        Button importButton = new Button();
+        importButton.relocate(480, 20);
+        importButton.setFont(Font.font(15));
         importButton.setText("import Deck");
         importButton.setOnMouseClicked(event -> importingDeck());
-        Button exportButton = new Button();
-        rootCollection.getChildren().add(importButton);*/
+        rootCollection.getChildren().add(importButton);
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();
@@ -1016,7 +1016,7 @@ public class Request
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Deck operations");
                 alert.setHeaderText(null);
-                alert.setContentText("Want to remove " + deck.getDeckName() +  "?");
+                alert.setContentText("Select the option to apply to " + deck.getDeckName());
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
                 ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
@@ -1059,10 +1059,10 @@ public class Request
     {
         TextField createDeckTextField = new TextField();
         createDeckTextField.setFont(Font.font("SanSerif", 15));
-        createDeckTextField.setPromptText("Enter deck name to create");
+        createDeckTextField.setPromptText("Enter deckName to create");
         createDeckTextField.setMaxWidth(200);
         createDeckTextField.relocate(600, 20);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>()
+        createDeckTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
             public void handle(KeyEvent event)
