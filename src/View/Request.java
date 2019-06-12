@@ -171,7 +171,7 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);
-                    writingInEachAccountsFile(account,userName, password);
+                    writingInEachAccountsFile(account,userName);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -207,26 +207,21 @@ public class Request
     }
 
 
-    public void writingInEachAccountsFile(Account account,String Name , String password)
+    public void writingInEachAccountsFile(Account account,String name)
     {
-        GsonBuilder nameGson = new GsonBuilder();
-        GsonBuilder passwordGson = new GsonBuilder();
-        String nameJson = nameGson.setPrettyPrinting().create().toJson(Name);
-        String passwordJson = passwordGson.setPrettyPrinting().create().toJson(password);
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.serializeNulls();
         String json = gsonBuilder.setPrettyPrinting().create().toJson(account);
-        writingForAccount(nameJson,passwordJson,json);
+        writingForAccount(json,name);
         System.out.println(json);
-        System.out.println(nameJson + " " + passwordJson);
+
 
     }
-    private void  writingForAccount(String nameJson,String passwordJson ,String json)
+    private void  writingForAccount(String json,String name)
     {
         try
         {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + nameJson.substring(1,nameJson.length()-1) + ".txt", false);
-            fileWriter.write("name :"+nameJson+ "password :"+ passwordJson + json+ '\n');
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name.substring(1,name.length()-1) + ".txt", false);
+            fileWriter.write( json+ '\n');
             fileWriter.close();
         }
         catch (IOException e)
