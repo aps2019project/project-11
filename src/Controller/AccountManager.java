@@ -14,11 +14,12 @@ public class AccountManager
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public void createAccount(String userName, String password)
+    public Account createAccount(String userName, String password)
     {
         Account account = new Account(userName, password);
         account.addDefaultCardsToCollection(account);
         AccountManager.getAccounts().add(account);
+        return account;
     }
 
     public void login(Account account)

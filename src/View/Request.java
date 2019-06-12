@@ -170,9 +170,8 @@ public class Request
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                    accountManager.createAccount(userName, password);
-                    writingInEachAccountsFile(Account.loggedInAccount,userName, password);
-                    saving(Account.loggedInAccount);
+                    account = accountManager.createAccount(userName, password);
+                    writingInEachAccountsFile(account,userName, password);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -219,7 +218,7 @@ public class Request
         String json = gsonBuilder.setPrettyPrinting().create().toJson(account);
         writingForAccount(nameJson,passwordJson,json);
         System.out.println(json);
-        System.out.println(nameJson + password);
+        System.out.println(nameJson + " " + passwordJson);
 
     }
     private void  writingForAccount(String nameJson,String passwordJson ,String json)
