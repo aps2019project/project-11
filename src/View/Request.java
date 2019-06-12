@@ -2,7 +2,9 @@ package View;
 
 import Controller.AccountManager;
 import Model.*;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -134,6 +136,7 @@ public class Request
     private Deck selectedDeckForCustomGame = null;
     private Controller battleFieldController;
 
+
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
@@ -168,7 +171,8 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     accountManager.createAccount(userName, password);
-                    savingAccount(userName, password);
+                    writingInEachAccountsFile(Account.loggedInAccount,userName, password);
+                    saving(Account.loggedInAccount);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -204,22 +208,26 @@ public class Request
     }
 
 
-    private void savingAccount(String Name , String password)
+    public void writingInEachAccountsFile(Account account,String Name , String password)
     {
-        String nameJson = new GsonBuilder().setPrettyPrinting().create().toJson(Name);
-        String passwordJson = new GsonBuilder().setPrettyPrinting().create().toJson(password);
-        writingForAccount(nameJson,passwordJson);
-    }
+        GsonBuilder nameGson = new GsonBuilder();
+        GsonBuilder passwordGson = new GsonBuilder();
+        String nameJson = nameGson.setPrettyPrinting().create().toJson(Name);
+        String passwordJson = passwordGson.setPrettyPrinting().create().toJson(password);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        String json = gsonBuilder.setPrettyPrinting().create().toJson(account);
+        writingForAccount(nameJson,passwordJson,json);
+        System.out.println(json);
+        System.out.println(nameJson + password);
 
-    private void  writingForAccount(String nameJson,String passwordJson )
+    }
+    private void  writingForAccount(String nameJson,String passwordJson ,String json)
     {
         try
         {
-            System.out.println(nameJson);
-            System.out.println(passwordJson);
-            FileWriter fileWriter = new FileWriter(nameJson.substring(1,nameJson.length()-1) + ".txt", true);
-            fileWriter.write("name :"+ nameJson + '\n');
-            fileWriter.write("password :" + passwordJson + '\n');
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + nameJson.substring(1,nameJson.length()-1) + ".txt", false);
+            fileWriter.write("name :"+nameJson+ "password :"+ passwordJson + json+ '\n');
             fileWriter.close();
         }
         catch (IOException e)
@@ -227,6 +235,22 @@ public class Request
             e.printStackTrace();
         }
     }
+
+    private void saving(Account account)
+    {
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        System.out.println(json);
+
+        try {
+            FileWriter fileWriter = new FileWriter("saving.txt",false);
+            fileWriter.write(json);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void login(Stage primaryStage)
     {
         Label labelLogin = new Label("Login");
@@ -429,6 +453,7 @@ public class Request
                         {
                             requestLock.notify();
                         }
+                        //saving(Account.loggedInAccount);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -1699,6 +1724,118 @@ public class Request
         //Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane();
         Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage , 2 , 0);
         Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage , 2 , 8);
+    }
+
+    public void getCollectionCommands()
+    {
+        String input = myScanner.nextLine();
+        String[] inputParts = input.split(" ");
+        if (input.equals("show"))
+        {
+            setCommand(CommandType.SHOW);
+        }
+        else if (patternSearch.matcher(input).matches())
+        {
+            setCommand(CommandType.SEARCH);
+            getCommand().cardOrItemName = inputParts[1];
+        }
+        else if (input.equals("save"))
+        {
+            setCommand(CommandType.SAVE);
+        }
+        else if (patternCreateDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.CREATE_DECK);
+            getCommand().deckName = inputParts[2];
+        }
+        else if (patternDeleteDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.DELETE_DECK);
+            getCommand().deckName = inputParts[2];
+        }
+        else if (patternAddCardToDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.ADD_TO_DECK);
+            getCommand().deckName = inputParts[4];
+            getCommand().cardOrItemID = inputParts[1];
+        }
+        else if (patternRemoveCardFromDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.REMOVE_FROM_DECK);
+            getCommand().deckName = inputParts[4];
+            getCommand().cardOrItemID = inputParts[1];
+        }
+        else if (patternValidateDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.VALIDATE_DECK);
+            getCommand().deckName = inputParts[2];
+        }
+        else if (patternSelectMainDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.SET_MAIN_DECK);
+            getCommand().deckName = inputParts[2];
+        }
+        else if (patternShowDeck.matcher(input).matches())
+        {
+            setCommand(CommandType.SHOW_DECK);
+            getCommand().deckName = inputParts[2];
+        }
+        else if (input.equals("show all decks"))
+        {
+            setCommand(CommandType.SHOW_ALL_DECKS);
+        }
+        else if (input.equals("help"))
+        {
+            setCommand(CommandType.HELP);
+        }
+        else if (input.equals("exit"))
+        {
+            setCommand(CommandType.EXIT);
+        }
+        else
+        {
+            showOutput.printOutput("invalid command");
+            setCommand(null);
+        }
+    }
+
+    public void getBattleMenuCommands()
+    {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("Single Player"))
+        {
+            setCommand(CommandType.SINGLE_PLAYER);
+        }
+        else if (input.equalsIgnoreCase("Multi Player"))
+        {
+            setCommand(CommandType.MULTI_PLAYER);
+        }
+        else if (input.equals("exit"))
+        {
+            setCommand(CommandType.EXIT);
+        }
+        else
+        {
+            showOutput.printOutput("invalid command");
+            setCommand(null);
+        }
+    }
+
+    public void getSinglePlayerMatchMode()
+    {
+        String input = myScanner.nextLine();
+        if (input.equalsIgnoreCase("Story"))
+        {
+            setCommand(CommandType.STORY);
+        }
+        else if (input.equalsIgnoreCase("Custom Game"))
+        {
+            setCommand(CommandType.CUSTOM_GAME);
+        }
+        else
+        {
+            getShowMenuAndExitCommand(input);
+        }
     }
 
     public void getSecondPlayerInMultiPlayerMatch()

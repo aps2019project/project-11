@@ -42,8 +42,10 @@ public class Main extends Application
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
-
-    @Override
+    /*private static Group rootDeck = new Group();
+    private static ScrollPane scrollPaneDeck = new ScrollPane();
+    private static Scene sceneDeck = new Scene(scrollPaneDeck, 1000, 562);
+    */@Override
     public void start(Stage primaryStage) throws Exception
     {
         //reading();
@@ -55,11 +57,10 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void reading()
+   /* private void reading()
     {
         try
         {
-            FileReader fileReader = new FileReader("savingAccount.txt");
             int x = fileReader.read();
             while (x != -1)
             {
@@ -71,7 +72,7 @@ public class Main extends Application
             e.printStackTrace();
         }
     }
-
+*/
     public static void main(String[] args)
     {
         callTheAppropriateFunction = new CallTheAppropriateFunction();

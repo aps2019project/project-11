@@ -71,7 +71,7 @@ public class CallTheAppropriateFunction extends Thread
                     accountManager.logout();
                     break;
                 case SAVE:
-                    accountManager.saving(Account.loggedInAccount);
+                   // Request.saving(Account.loggedInAccount);
                     break;
                 case HELP:
                     showOutput.printMainMenuCommands();
