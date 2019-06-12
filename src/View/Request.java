@@ -240,13 +240,13 @@ public class Request
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
         System.out.println(json);
 
-        try {
+        /*try {
             FileWriter fileWriter = new FileWriter("saving.txt",false);
             fileWriter.write(json);
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
