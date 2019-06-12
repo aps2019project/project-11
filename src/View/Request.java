@@ -215,7 +215,6 @@ public class Request
             System.out.println(nameJson);
             System.out.println(passwordJson);
             FileWriter fileWriter = new FileWriter(nameJson.substring(1,nameJson.length()-1) + ".txt", true);
-
             fileWriter.write("name :"+ nameJson + '\n');
             fileWriter.write("password :" + passwordJson + '\n');
             fileWriter.close();
@@ -799,7 +798,7 @@ public class Request
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
-                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
                 xPosition++;
                 yPosition++;
             }
@@ -834,7 +833,7 @@ public class Request
                 y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
-                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
                 xPosition++;
                 yPosition++;
             }
@@ -869,7 +868,7 @@ public class Request
                 x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
                 y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
                 StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
-                setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, card.getCardID(), card.getPrice());
+                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
                 xPosition++;
                 yPosition++;
             }
@@ -905,7 +904,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
-            setCollectionCardAndItemStackPanesOnMouseClicked(stackPane, item.getItemID(), item.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice());
             xPosition++;
             yPosition++;
         }
@@ -924,7 +923,7 @@ public class Request
             }
             y = COLUMN_BLANK + yPosition * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
-            setCollectionDeckStackPanesOnMouseClicked(stackPane, deck);
+            setCollectionDeckStackPanesOnMouseClicked(primaryStage, stackPane, deck);
             yPosition++;
         }
 
@@ -978,7 +977,7 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(StackPane stackPane, String ID, int price)
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1002,12 +1001,13 @@ public class Request
                     {
                         requestLock.notify();
                     }
+                    collectionMenu(primaryStage, false, null);
                 }
             }
         });
     }
 
-    private void setCollectionDeckStackPanesOnMouseClicked(StackPane stackPane, Deck deck)
+    private void setCollectionDeckStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1046,6 +1046,7 @@ public class Request
                 {
                     requestLock.notify();
                 }
+                collectionMenu(primaryStage, false, null);
             }
         });
     }
