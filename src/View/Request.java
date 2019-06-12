@@ -74,7 +74,6 @@ public class Request
     private AccountManager accountManager = new AccountManager();
     private CommandType command;
     public final Object requestLock = new Object();
-    public static String UserName = null;
 
     public CommandType getCommand()
     {
@@ -172,8 +171,7 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);
-                    UserName = userName;
-                    saveAccountInfo(account,userName);
+                    accountManager.saveAccountInfo(account,userName);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -208,36 +206,6 @@ public class Request
         primaryStage.show();
     }
 
-    public void saving (Account account)
-    {
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        System.out.println(json);
-        try
-        {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + UserName + ".txt", false);
-            fileWriter.write(json + '\n');
-            fileWriter.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-    public void saveAccountInfo(Account account,String name)
-    {
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        System.out.println(json);
-        try
-        {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
-            fileWriter.write( name+ '\n'+ json + '\n');
-            fileWriter.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     private void login(Stage primaryStage)
     {
@@ -441,7 +409,6 @@ public class Request
                         {
                             requestLock.notify();
                         }
-                        saving(Account.loggedInAccount);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
@@ -1137,6 +1104,19 @@ public class Request
                 }
             });
         }
+
+        Button backButton = backButton(primaryStage, rootCollection, 20, 15);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                rootCollection.getChildren().clear();
+                primaryStage.setScene(sceneCollection);
+                primaryStage.centerOnScreen();
+                collectionMenu(primaryStage, false, null);
+            }
+        });
     }
 
     private void createDeck(Stage primaryStage, Scene scene, Group root)
