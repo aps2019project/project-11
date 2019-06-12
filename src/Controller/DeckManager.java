@@ -140,6 +140,7 @@ public class DeckManager
             if (item.getItemID().equals(deckItem.getItemID()))
             {
                 deck.deleteItemFromDeck(item);
+                showOutput.printOutput("Item removed from deck");
                 return;
             }
         }

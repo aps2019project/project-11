@@ -116,6 +116,9 @@ public class Request
     private Scene sceneShop = Main.getSceneShop();
     private Group rootCollection = Main.getRootCollection();
     private ScrollPane scrollPaneCollection = Main.getScrollPaneCollection();
+    private Group rootDeck = Main.getRootDeck();
+    private ScrollPane scrollPaneDeck = Main.getScrollPaneDeck();
+    private Scene sceneDeck = Main.getSceneDeck();
     private Scene sceneCollection = Main.getSceneCollection();
     private Group rootBattleMenu = Main.getRootBattle();
     private Scene sceneBattleMenu = Main.getSceneBattle();
@@ -534,7 +537,7 @@ public class Request
         scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        setShopMenuText("Heroes", 50);
+        setShopAndDeckMenuText(rootShop, sceneShop, "Heroes", 50);
         for (Hero hero : Hero.getHeroes())
         {
             if (isSearchedElement)
@@ -562,7 +565,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopMenuText("Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Minion minion : Minion.getMinions())
         {
             if (isSearchedElement)
@@ -590,7 +593,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopMenuText("Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Spell spell : Spell.getSpells())
         {
             if (isSearchedElement)
@@ -621,7 +624,7 @@ public class Request
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
-        setShopMenuText("Items", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Item item : Item.getItems())
         {
             if (item.getItemType() == ItemType.collectible)
@@ -674,13 +677,13 @@ public class Request
         root.getChildren().add(text);
     }
 
-    private void setShopMenuText(String str, int y)
+    private void setShopAndDeckMenuText(Group root, Scene scene, String str, int y)
     {
         Text text = new Text(str);
-        text.setLayoutX((sceneShop.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
+        text.setLayoutX((scene.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        rootShop.getChildren().addAll(text);
+        root.getChildren().addAll(text);
     }
 
     private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID)
@@ -1018,24 +1021,47 @@ public class Request
                 alert.setHeaderText(null);
                 alert.setContentText("Select the option to apply to " + deck.getDeckName());
                 alert.getButtonTypes().clear();
+                ButtonType buttonTypeShowDeck = new ButtonType("Show Deck");
                 ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
                 ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
                 ButtonType buttonTypeExportDeck = new ButtonType("Export Deck");
                 ButtonType buttonTypeRemoveDeck = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeExportDeck, buttonTypeRemoveDeck, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeShowDeck, buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeExportDeck, buttonTypeRemoveDeck, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeRemoveDeck)
+                if (option.get() == buttonTypeShowDeck)
+                {
+                    deckMenu(primaryStage, deck);
+                }
+                else if (option.get() == buttonTypeRemoveDeck)
                 {
                     setCommand(CommandType.DELETE_DECK);
+                    request.getCommand().deckName = deck.getDeckName();
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                    collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeSetMainDeck)
                 {
                     setCommand(CommandType.SET_MAIN_DECK);
+                    request.getCommand().deckName = deck.getDeckName();
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                    collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeValidateDeck)
                 {
                     setCommand(CommandType.VALIDATE_DECK);
+                    request.getCommand().deckName = deck.getDeckName();
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                    collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeExportDeck)
                 {
@@ -1045,12 +1071,6 @@ public class Request
                 {
                     return;
                 }
-                request.getCommand().deckName = deck.getDeckName();
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
-                collectionMenu(primaryStage, false, null);
             }
         });
     }
@@ -1093,6 +1113,147 @@ public class Request
     private void exportingDeck()
     {
 
+    }
+
+    private void deckMenu(Stage primaryStage, Deck deck)
+    {
+        setBackGroundImage(rootDeck, "file:Duelyst Menu Blurred.jpg");
+
+        scrollPaneDeck.setContent(rootDeck);
+        scrollPaneDeck.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneDeck.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        int xPosition = 0, yPosition = 0, x = 0, y = 0;
+        setShopAndDeckMenuText(rootDeck, sceneDeck, "Heroes", 50);
+        for (Hero hero : deck.getHero())
+        {
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            xPosition++;
+            yPosition++;
+            StackPane stackPane = showNonSpellCards(rootDeck, x, y, hero, hero.getCardID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, hero.getCardID());
+        }
+
+        if (xPosition == 0)
+        {
+            y += BLANK_BETWEEN_CARDS;
+            yPosition += 4;
+        }
+        xPosition = 0;
+        if (yPosition % 4 != 0)
+        {
+            yPosition = yPosition + 4 - yPosition % 4;
+        }
+        setShopAndDeckMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
+        for (Card card : deck.getNonHeroCards())
+        {
+            if (card instanceof Minion)
+            {
+                Minion minion = (Minion) card;
+                x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID());
+                setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID());
+                xPosition++;
+                yPosition++;
+            }
+        }
+
+        if (xPosition == 0)
+        {
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 4;
+        }
+        xPosition = 0;
+        if (yPosition % 4 != 0)
+        {
+            yPosition = yPosition + 4 - yPosition % 4;
+        }
+        setShopAndDeckMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
+        for (Card card : deck.getNonHeroCards())
+        {
+            if (card instanceof Spell)
+            {
+                Spell spell = (Spell) card;
+                x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+                StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice());
+                setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID());
+                xPosition++;
+                yPosition++;
+            }
+        }
+
+        if (xPosition == 0)
+        {
+            y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
+            yPosition += 4;
+        }
+        else
+        {
+            xPosition = 0;
+            if (yPosition % 4 != 0)
+            {
+                yPosition = yPosition + 4 - yPosition % 4;
+            }
+        }
+        setShopAndDeckMenuText(rootDeck, sceneDeck, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
+        for (Item item : deck.getItem())
+        {
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, item.getItemID(), item.getPrice());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, item.getItemID());
+            xPosition++;
+            yPosition++;
+        }
+
+        Button backButton = backButton(primaryStage, rootDeck, 20, 15);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneCollection);
+                primaryStage.centerOnScreen();
+                collectionMenu(primaryStage, false, null);
+            }
+        });
+
+        primaryStage.setScene(sceneDeck);
+    }
+
+    private void setDeckCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck, String ID)
+    {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Remove");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to remove " + ID + " from " + deck.getDeckName() + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeSell = new ButtonType("Remove");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeSell)
+                {
+                    setCommand(CommandType.REMOVE_FROM_DECK);
+                    getCommand().cardOrItemID = ID;
+                    getCommand().deckName = deck.getDeckName();
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
+                    rootDeck.getChildren().clear();
+                    deckMenu(primaryStage, deck);
+                }
+            }
+        });
     }
 
     private void battleMenu(Stage primaryStage)

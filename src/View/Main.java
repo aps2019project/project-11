@@ -31,6 +31,9 @@ public class Main extends Application
     private static Group rootCollection = new Group();
     private static ScrollPane scrollPaneCollection = new ScrollPane();
     private static Scene sceneCollection = new Scene(scrollPaneCollection, 1000, 562);
+    private static Group rootDeck = new Group();
+    private static ScrollPane scrollPaneDeck = new ScrollPane();
+    private static Scene sceneDeck = new Scene(scrollPaneDeck, 1000, 562);
     private static Group rootBattle = new Group();
     private static Scene sceneBattle = new Scene(rootBattle, 1000, 562);
     private static Group rootSinglePlayer = new Group();
@@ -145,6 +148,21 @@ public class Main extends Application
     public static Scene getSceneCollection()
     {
         return sceneCollection;
+    }
+
+    public static Group getRootDeck()
+    {
+        return rootDeck;
+    }
+
+    public static ScrollPane getScrollPaneDeck()
+    {
+        return scrollPaneDeck;
+    }
+
+    public static Scene getSceneDeck()
+    {
+        return sceneDeck;
     }
 
     public static Group getRootBattle()

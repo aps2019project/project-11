@@ -4,6 +4,7 @@ import Controller.*;
 import Model.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
@@ -45,6 +46,16 @@ public class ShowOutput
             showOutput = new ShowOutput();
         }
         return showOutput;
+    }
+
+    public void showAlert(String text)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Deck operations");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.getButtonTypes().clear();
+        alert.showAndWait();
     }
 
     public void printOutput(String command)
