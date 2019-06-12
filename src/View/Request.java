@@ -214,7 +214,7 @@ public class Request
         System.out.println(json);
         try
         {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + UserName.substring(0,UserName.length()-1) + ".txt", false);
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + UserName + ".txt", false);
             fileWriter.write(json + '\n');
             fileWriter.close();
         }
@@ -229,7 +229,7 @@ public class Request
         System.out.println(json);
         try
         {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name.substring(0,name.length()-1) + ".txt", false);
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
             fileWriter.write( name+ '\n'+ json + '\n');
             fileWriter.close();
         }
