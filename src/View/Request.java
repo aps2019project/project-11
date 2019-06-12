@@ -212,7 +212,7 @@ public class Request
         System.out.println(json);
         try
         {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name.substring(0,name.length()-1) + ".txt", false);
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
             fileWriter.write( json+ '\n');
             fileWriter.close();
         }
