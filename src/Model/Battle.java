@@ -21,7 +21,7 @@ public class Battle
     private Random random = new Random();
     private Player victoriousPlayer = null;
     private Player loserPlayer = null;
-    private GridPane battleFieldGridPane;
+    private transient GridPane battleFieldGridPane;
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
     {

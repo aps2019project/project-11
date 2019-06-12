@@ -14,7 +14,7 @@ public class Cell
     private boolean toxicCell = false;
     private boolean fieryCell = false;
     private ArrayList<SpellChange> spellChanges = new ArrayList<>();
-    private Pane cellPane;
+    private transient Pane cellPane;
 
     public void setCard(Card card)
     {

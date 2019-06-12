@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Account
 {
-    private String accountName;
     public static Account loggedInAccount;
+    private String accountName;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
     private ArrayList<Deck> playerDecks = new ArrayList<>();

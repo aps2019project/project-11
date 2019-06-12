@@ -11,7 +11,7 @@ public abstract class Card implements Cloneable
     private String cardName;
     private int row;
     private int column;
-    private ImageView cardImageView;
+    private transient ImageView cardImageView;
 
     public int getColumn()
     {
