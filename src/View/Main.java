@@ -1,6 +1,8 @@
 package View;
 
 import Controller.*;
+import Model.Account;
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -48,7 +50,7 @@ public class Main extends Application
     */@Override
     public void start(Stage primaryStage) throws Exception
     {
-        //reading();
+        convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -57,6 +59,13 @@ public class Main extends Application
         primaryStage.show();
     }
 
+    private void convertingToAccounts()
+    {
+        String json = AccountManager.JsonOfAccount;
+        Gson gson = new Gson();
+        Account account = gson.fromJson(json, Account.class);
+        AccountManager.getAccounts().add(account);
+    }
    /* private void reading()
     {
         try

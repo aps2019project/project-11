@@ -12,6 +12,7 @@ public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
+    public static String JsonOfAccount = null;
 
     public Account createAccount(String userName, String password)
     {
@@ -34,6 +35,7 @@ public class AccountManager
     public void saveAccountInfo(Account account,String name)
     {
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        JsonOfAccount = json;
         System.out.println(json);
         try
         {

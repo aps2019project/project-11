@@ -137,6 +137,7 @@ public class Request
     private Controller battleFieldController;
 
 
+
     public void signUpMenu(Stage primaryStage)
     {
         TextField textFieldName = new TextField();
