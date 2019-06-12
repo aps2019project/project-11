@@ -539,6 +539,5 @@ public class CallTheAppropriateFunction extends Thread
     public void customGameBattleMaker(Deck selectedDeck , int number){
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
         new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
-
     }
 }

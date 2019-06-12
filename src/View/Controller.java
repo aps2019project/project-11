@@ -2,6 +2,8 @@ package View;
 
 import Model.*;
 import javafx.animation.Animation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -16,7 +18,10 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 
 public class Controller {
-    public GridPane gridPane;
+    private ObservableList<GridPane> gridPane = FXCollections.observableArrayList();
+    private ObservableList<Pane> battleFieldPanes = FXCollections.observableArrayList();
+
+    public GridPane battleFieldGridPane = new GridPane();
     public ImageView player1Hero;
     public ImageView player2Hero;
     public static Label firstPlayerMana ;
@@ -26,6 +31,7 @@ public class Controller {
     public void endTurn() {
         Battle.getCurrentBattle().endTurn();
     }
+
 
     /*@FXML
     public void handleDragDetection(MouseEvent mouseEvent) {
@@ -55,5 +61,19 @@ public class Controller {
 
     public static void setSecondPlayerMana(Label secondPlayerMana) {
         Controller.secondPlayerMana = secondPlayerMana;
+    }
+
+
+
+    void setCells() {
+        for(int row = 0 ; row < 5 ; row++){
+            for(int column = 0 ; column < 9 ; column++){
+                Pane pane = new Pane();
+                battleFieldPanes.add(pane);
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].setCellPane(pane);
+            }
+        }
+        gridPane.add(battleFieldGridPane);
+        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane.get(0));
     }
 }

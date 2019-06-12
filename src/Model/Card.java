@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.scene.image.ImageView;
+
 public abstract class Card implements Cloneable
 {
     private boolean cardSelectedInBattle = false;
@@ -9,6 +11,7 @@ public abstract class Card implements Cloneable
     private String cardName;
     private int row;
     private int column;
+    private ImageView cardImageView;
 
     public int getColumn()
     {
@@ -131,5 +134,13 @@ public abstract class Card implements Cloneable
         String cardID = "SinglePlayer_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
         account.increaseAIAccountDefaultID();
+    }
+
+    public ImageView getCardImageView() {
+        return cardImageView;
+    }
+
+    public void setCardImageView(ImageView cardImageView) {
+        this.cardImageView = cardImageView;
     }
 }

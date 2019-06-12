@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.*;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class Battle
     private Random random = new Random();
     private Player victoriousPlayer = null;
     private Player loserPlayer = null;
+    private GridPane battleFieldGridPane;
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
     {
@@ -630,5 +632,13 @@ public class Battle
         secondPlayer.getMainDeck().getHero().get(0).setColumn(8);
         currentBattle.getBattleField().addCardInTheBattleField(firstPlayer.getMainDeck().getHero().get(0));
         currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
+    }
+
+    public GridPane getBattleFieldGridPane() {
+        return battleFieldGridPane;
+    }
+
+    public void setBattleFieldGridPane(GridPane battleFieldGridPane) {
+        this.battleFieldGridPane = battleFieldGridPane;
     }
 }

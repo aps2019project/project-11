@@ -55,15 +55,7 @@
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1" />
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2">
                <children>
-                      <Pane prefHeight="87.2" prefWidth="82.0">
-                     <children>
-                              <ImageView fx:id="player1Hero" fitHeight="84.0" fitWidth="73.0" layoutX="5.0" layoutY="2.0" nodeOrientation="RIGHT_TO_LEFT">
-                                  <image>
-                                      <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
-                                  </image>
-                              </ImageView>
-                     </children>
-                  </Pane>
+                      <Pane prefHeight="87.2" prefWidth="82.0" />
                </children></Pane>
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3" />
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4" />
@@ -93,14 +85,7 @@
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" />
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
-                    <children>
-                        <ImageView fx:id="player2Hero" fitHeight="84.0" fitWidth="73.0" layoutX="3.0" layoutY="2.0">
-                            <image>
-                                <Image url="@../battleField BackGround/speech_portrait_shadow_lord.png" />
-                            </image>
-                        </ImageView>
-                    </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
                 <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
             </children>
         </GridPane>
