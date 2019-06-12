@@ -74,6 +74,7 @@ public class Request
     private AccountManager accountManager = new AccountManager();
     private CommandType command;
     public final Object requestLock = new Object();
+    public static String UserName = null;
 
     public CommandType getCommand()
     {
@@ -171,6 +172,7 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);
+                    UserName = userName;
                     saveAccountInfo(account,userName);
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
@@ -206,6 +208,21 @@ public class Request
         primaryStage.show();
     }
 
+    public void saving (Account account)
+    {
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        System.out.println(json);
+        try
+        {
+            FileWriter fileWriter = new FileWriter("SavedAccounts/" + UserName.substring(0,UserName.length()-1) + ".txt", false);
+            fileWriter.write(json + '\n');
+            fileWriter.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
     public void saveAccountInfo(Account account,String name)
     {
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
@@ -213,7 +230,7 @@ public class Request
         try
         {
             FileWriter fileWriter = new FileWriter("SavedAccounts/" + name.substring(0,name.length()-1) + ".txt", false);
-            fileWriter.write( json+ '\n');
+            fileWriter.write( name+ '\n'+ json + '\n');
             fileWriter.close();
         }
         catch (IOException e)
@@ -424,7 +441,7 @@ public class Request
                         {
                             requestLock.notify();
                         }
-                        //saving(Account.loggedInAccount);
+                        saving(Account.loggedInAccount);
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
