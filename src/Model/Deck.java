@@ -129,4 +129,17 @@ public class Deck
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Deck)
+        {
+            if (((Deck) obj).getDeckName().equals(this.getDeckName()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

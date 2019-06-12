@@ -511,7 +511,7 @@ public class Request
                     if (!searchField.getText().isEmpty())
                     {
                         root.getChildren().clear();
-                        if (menuName.equalsIgnoreCase("CollectionMenu"))
+                        if (menuName.equals("CollectionMenu"))
                         {
                             collectionMenu(primaryStage, true, searchField.getText());
                         }
@@ -773,16 +773,7 @@ public class Request
         scrollPaneCollection.setContent(rootCollection);
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneCollection.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        /*Button importButton = new Button();
-        importButton.relocate(600, 30);
-        importButton.setText("import Deck");
-        importButton.setOnMouseClicked(event -> importingDeck());
-        Button exportButton = new Button();
-        exportButton.relocate(700, 30);
-        exportButton.setText("export Deck");
-        exportButton.setOnMouseClicked(event -> exportingDeck());
-        rootCollection.getChildren().add(importButton);
-        rootCollection.getChildren().add(exportButton);*/
+
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
@@ -930,6 +921,14 @@ public class Request
 
         backButton(primaryStage, rootCollection, 20, 15);
         searchField(primaryStage, sceneCollection, rootCollection, "CollectionMenu");
+        createDeck(primaryStage, sceneCollection, rootCollection);
+
+        Button importButton = new Button();
+        importButton.relocate(480, 20);
+        importButton.setFont(Font.font(15));
+        importButton.setText("import Deck");
+        importButton.setOnMouseClicked(event -> importingDeck());
+        rootCollection.getChildren().add(importButton);
 
         primaryStage.setScene(sceneCollection);
         primaryStage.centerOnScreen();
@@ -941,7 +940,7 @@ public class Request
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
-        if (deck.getDeckName().equals(Account.loggedInAccount.getMainDeck().getDeckName()))
+        if (Account.loggedInAccount.getMainDeck() != null && deck.equals(Account.loggedInAccount.getMainDeck()))
         {
             rectangle.setFill(LIGHTGREEN);
         }
@@ -1018,15 +1017,16 @@ public class Request
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Deck operations");
                 alert.setHeaderText(null);
-                alert.setContentText("Want to remove " + deck.getDeckName() +  "?");
+                alert.setContentText("Select the option to apply to " + deck.getDeckName());
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
                 ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
-                ButtonType buttonTypeBuy = new ButtonType("Remove deck");
+                ButtonType buttonTypeExportDeck = new ButtonType("Export Deck");
+                ButtonType buttonTypeRemoveDeck = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeBuy, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeExportDeck, buttonTypeRemoveDeck, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy)
+                if (option.get() == buttonTypeRemoveDeck)
                 {
                     setCommand(CommandType.DELETE_DECK);
                 }
@@ -1037,6 +1037,10 @@ public class Request
                 else if (option.get() == buttonTypeValidateDeck)
                 {
                     setCommand(CommandType.VALIDATE_DECK);
+                }
+                else if (option.get() == buttonTypeExportDeck)
+                {
+                    //todo
                 }
                 else
                 {
@@ -1050,6 +1054,36 @@ public class Request
                 collectionMenu(primaryStage, false, null);
             }
         });
+    }
+
+    private void createDeck(Stage primaryStage, Scene scene, Group root)
+    {
+        TextField createDeckTextField = new TextField();
+        createDeckTextField.setFont(Font.font("SanSerif", 15));
+        createDeckTextField.setPromptText("Enter deckName to create");
+        createDeckTextField.setMaxWidth(200);
+        createDeckTextField.relocate(600, 20);
+        createDeckTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if (event.getCode().equals(KeyCode.ENTER))
+                {
+                    if (!createDeckTextField.getText().isEmpty())
+                    {
+                        setCommand(CommandType.CREATE_DECK);
+                        getCommand().deckName = createDeckTextField.getText();
+                        synchronized (request.requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        collectionMenu(primaryStage, false, null);
+                    }
+                }
+            }
+        });
+        root.getChildren().add(createDeckTextField);
     }
 
     private void importingDeck()
