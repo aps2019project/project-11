@@ -129,6 +129,7 @@ public class Request
     private Scene sceneCustomGame = Main.getSceneCustomGame();
 
     private Deck selectedDeckForCustomGame = null;
+    private Controller battleFieldController;
 
 
     public void signUpMenu(Stage primaryStage)
@@ -1460,27 +1461,28 @@ public class Request
     {
         Parent root;
         Scene battleScene = null;
-        //setBeforeGame();
+        battleFieldController = new Controller();
+        setBeforeGame();
         switch (mapNumber)
         {
             case 1:
-                root = FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
                 battleScene = new Scene(root);
                 break;
             case 2:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML2.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML2.fxml"));
                 battleScene = new Scene(root);
                 break;
             case 3:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML3.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML3.fxml"));
                 battleScene = new Scene(root);
                 break;
             case 4:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML4.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML4.fxml"));
                 battleScene = new Scene(root);
                 break;
             case 5:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML5.fxml"));//FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
+                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML5.fxml"));
                 battleScene = new Scene(root);
                 break;
         }
@@ -1493,6 +1495,16 @@ public class Request
 
         primaryStage.show();
 
+    }
+
+    private void setBeforeGame() {
+        battleFieldController.setCells();
+
+        ImageView firstPlayerHeroImage = Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCardImageView();
+        ImageView secondPlayerHeroImage = Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCardImageView();
+        //Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane();
+        Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage , 2 , 0);
+        Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage , 2 , 8);
     }
 
     public void getCollectionCommands()
