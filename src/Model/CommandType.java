@@ -12,6 +12,7 @@ public enum CommandType
     ENTER_SHOP,
     ENTER_COLLECTION,
     ENTER_BATTLE,
+    SHOW_PROFILE,
     LOGOUT,
     SAVE,
     SHOW_COLLECTION,

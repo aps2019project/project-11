@@ -24,6 +24,8 @@ public class Main extends Application
     private static Scene sceneMainMenu = new Scene(rootMainMenu, 1000, 562);
     private static Group rootLeaderBoard = new Group();
     private static Scene sceneLeaderBoard = new Scene(rootLeaderBoard, 300, 700);
+    private static Group rootProfile = new Group();
+    private static Scene sceneProfile = new Scene(rootProfile, 300, 300);
     private static Group rootShop = new Group();
     private static ScrollPane scrollPaneShop = new ScrollPane();
     private static Scene sceneShop = new Scene(scrollPaneShop, 1000, 562, BURLYWOOD);
@@ -197,5 +199,15 @@ public class Main extends Application
 
     public static CallTheAppropriateFunction getCallTheAppropriateFunction() {
         return callTheAppropriateFunction;
+    }
+
+    public static Group getRootProfile()
+    {
+        return rootProfile;
+    }
+
+    public static Scene getSceneProfile()
+    {
+        return sceneProfile;
     }
 }

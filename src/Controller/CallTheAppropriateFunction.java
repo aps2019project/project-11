@@ -69,6 +69,13 @@ public class CallTheAppropriateFunction extends Thread
                 case LOGOUT:
                     accountManager.logout();
                     break;
+                case SHOW_PROFILE:
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    break;
                 case SAVE:
                     accountManager.saveAccountInfo(Account.loggedInAccount, Account.loggedInAccount.getAccountName());
                     break;

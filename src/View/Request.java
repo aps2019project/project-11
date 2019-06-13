@@ -2,9 +2,6 @@ package View;
 
 import Controller.AccountManager;
 import Model.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -113,6 +110,8 @@ public class Request
     private Scene sceneMainMenu = Main.getSceneMainMenu();
     private Group rootLeaderBoard = Main.getRootLeaderBoard();
     private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
+    private Group rootProfile = Main.getRootProfile();
+    private Scene sceneProfile = Main.getSceneProfile();
     private Group rootShop = Main.getRootShop();
     private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
     private Scene sceneShop = Main.getSceneShop();
@@ -334,13 +333,14 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
-        setMainMenuText(primaryStage, "Battle", 100);
-        setMainMenuText(primaryStage, "Shop", 160);
-        setMainMenuText(primaryStage, "Collection", 220);
-        setMainMenuText(primaryStage, "LeaderBoard", 280);
-        setMainMenuText(primaryStage, "Save", 340);
-        setMainMenuText(primaryStage, "Logout", 400);
-        setMainMenuText(primaryStage, "Exit", 460);
+        setMainMenuText(primaryStage, "Battle", 80);
+        setMainMenuText(primaryStage, "Shop", 140);
+        setMainMenuText(primaryStage, "Collection", 200);
+        setMainMenuText(primaryStage, "LeaderBoard", 260);
+        setMainMenuText(primaryStage, "Save", 320);
+        setMainMenuText(primaryStage, "Profile", 380);
+        setMainMenuText(primaryStage, "Logout", 440);
+        setMainMenuText(primaryStage, "Exit", 500);
 
         primaryStage.setScene(sceneMainMenu);
     }
@@ -409,6 +409,14 @@ public class Request
                             requestLock.notify();
                         }
                         break;
+                    case "Profile":
+                        setCommand(CommandType.SHOW_PROFILE);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        showProfile(primaryStage);
+                        break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
                         synchronized (requestLock)
@@ -428,6 +436,30 @@ public class Request
             }
         });
         rootMainMenu.getChildren().add(text);
+    }
+
+    private void showProfile(Stage primaryStage)
+    {
+        rootProfile.getChildren().clear();
+
+        Label labelProfile = new Label(Account.loggedInAccount.getAccountName());
+        labelProfile.setFont(Font.font(40));
+        labelProfile.setTextFill(Color.RED);
+        labelProfile.relocate(50, 25);
+        labelProfile.layoutXProperty().bind(sceneProfile.widthProperty().subtract(labelProfile.prefWidth(-1)).divide(2));
+        labelProfile.setLayoutY(25);
+        rootProfile.getChildren().add(labelProfile);
+
+        Label labelMoney = new Label("your Money : " + Account.loggedInAccount.getMoney());
+        labelMoney.setFont(Font.font(20));
+        labelMoney.setTextFill(Color.GREEN);
+        labelMoney.relocate(75, 120);
+        rootProfile.getChildren().add(labelMoney);
+
+        backButton(primaryStage, rootProfile, 110, 200);
+
+        primaryStage.setScene(sceneProfile);
+        primaryStage.centerOnScreen();
     }
 
     private void leaderBoard(Stage primaryStage)
@@ -465,7 +497,8 @@ public class Request
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
