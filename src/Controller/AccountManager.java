@@ -12,6 +12,7 @@ public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
+
     public static String JsonOfAccount = null;
 
 
@@ -33,17 +34,28 @@ public class AccountManager
         Account.logout();
     }
 
-    public void saveAccountInfo(Account account,String name)
+    public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
+        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
+        if (isNewAccount)
+        {
+            SavedAccountPath.write(name + "\n");
+            SavedAccountPath.close();
+        }
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        JsonOfAccount = json;
         System.out.println(json);
         try
         {
+
+            FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
+            saveAccountInfo.write(json);
+            saveAccountInfo.close();
+
             FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
             fileWriter.write( name+ '\n'+ json + '\n');
 
             fileWriter.close();
+
 
         }
         catch (IOException e)

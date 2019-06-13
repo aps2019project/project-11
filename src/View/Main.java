@@ -49,6 +49,9 @@ public class Main extends Application
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
+    private static Group rootImportingDeck = new Group();
+    private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
+
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -224,4 +227,12 @@ public class Main extends Application
     {
         return sceneProfile;
     }
+    public static Scene getSceneImportingDeck() {
+        return sceneImportingDeck;
+    }
+    public static Group getRootImportingDeck()
+    {
+        return rootImportingDeck;
+    }
+
 }
