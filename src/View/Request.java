@@ -941,9 +941,11 @@ public class Request
         importButton.setFont(Font.font(15));
         importButton.setText("import Deck");
         importButton.setOnMouseClicked(event -> {
-            try {
+            try
+            {
                 importingDeck(primaryStage);
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
         });
@@ -1090,22 +1092,22 @@ public class Request
                 {
                     String accountName = Account.loggedInAccount.getAccountName();
                     String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
-                    try {
-                        FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
-                        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt" , true);
-                        savedDecksPath.write(deck.getDeckName() + '\n');
+                    try
+                    {
+                        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
+                        savedDecksPath.write(accountName + deck.getDeckName() + "\n");
                         savedDecksPath.close();
+
+                        FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
                         fileWriter.write(exportingDeckJson);
                         System.out.println(accountName + deck.getDeckName());
                         fileWriter.close();
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
 
-                }
-                else
-                {
-                    return;
                 }
             }
         });
@@ -1200,52 +1202,98 @@ public class Request
         root.getChildren().add(createDeckTextField);
     }
 
-    private void importingDeck(Stage primaryStage) throws IOException {
+    private void importingDeck(Stage primaryStage) throws IOException
+    {
+        rootImportingDeck.getChildren().clear();
+
+        setBackGroundImage(rootImportingDeck, "file:ImportingDeck.jpg");
 
         InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
         ArrayList<String> deckNames = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNextLine())
+        while (scanner.hasNext())
         {
             deckNames.add(scanner.nextLine());
-            System.out.println(deckNames.get(0));
-            makingText(deckNames);
+            makingText(primaryStage, deckNames);
         }
-        setBackGroundImage(rootImportingDeck,"file:ImportingDeck.jpg");
+
+        Button backButton = backButton(primaryStage, rootImportingDeck, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneCollection);
+                primaryStage.centerOnScreen();
+                collectionMenu(primaryStage, false, null);
+            }
+        });
+
         primaryStage.setScene(sceneImportingDeck);
+        primaryStage.centerOnScreen();
     }
 
-    private void makingText(ArrayList<String> decks)
+    private void makingText(Stage primaryStage, ArrayList<String> deckNames)
     {
-        for (int i = 0 ; i<decks.size() ; i++)
+        for (int i = 0; i < deckNames.size(); i++)
         {
-            Text text = new Text();
-            text.setText(decks.get(i));
-            text.setFont(Font.font(null,FontWeight.SEMI_BOLD,45));
-            text.setFill(YELLOW);
-            text.relocate(i*100 + 200,i * 100 + 200);
+            Text deckName = new Text();
+            deckName.setText(deckNames.get(i));
+            deckName.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+            deckName.setFill(YELLOW);
+            deckName.layoutXProperty().bind(sceneImportingDeck.widthProperty().subtract(deckName.prefWidth(-1)).divide(2));
+            deckName.setY(i * 50 + 100);
             int finalI = i;
-            text.setOnMouseClicked(event -> {
-                try {
-                    importingToCollection(decks.get(finalI));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
+            deckName.setOnMouseEntered(event -> deckName.setFill(GREEN));
+            deckName.setOnMouseExited(event -> deckName.setFill(YELLOW));
+            deckName.setOnMouseClicked(event -> {
+                try
+                {
+                    importingToCollection(deckNames.get(finalI));
+                    primaryStage.setScene(sceneCollection);
+                    primaryStage.centerOnScreen();
+                    collectionMenu(primaryStage, false, null);
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             });
-            System.out.println(text.getText());
-            rootImportingDeck.getChildren().add(text);
+            System.out.println(deckName.getText());
+            rootImportingDeck.getChildren().add(deckName);
         }
     }
 
-    private void importingToCollection(String deckName) throws IOException, ParseException {
-         JSONParser jsonParser = new JSONParser();
-           FileReader reader = new FileReader("SavedDecks/" + Account.loggedInAccount.getAccountName() + deckName + ".json");
+    private void importingToCollection(String deckName) throws IOException, ParseException
+    {
+        JSONParser jsonParser = new JSONParser();
+        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
         Object obj = jsonParser.parse(reader);
         System.out.println(obj);
         Account.loggedInAccount.getPlayerDecks().add(new Gson().fromJson(obj.toString(), Deck.class));
+        addImportedDeckCardsAndItemsToCollection(new Gson().fromJson(obj.toString(), Deck.class));
     }
+
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        for (Hero hero : deck.getHero())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero);
+        }
+        for (Minion minion : deck.getMinions())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion);
+        }
+        for (Spell spell : deck.getSpells())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell);
+        }
+        for (Item item : deck.getItem())
+        {
+            Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item);
+        }
+    }
+
     private void deckMenu(Stage primaryStage, Deck deck)
     {
         rootDeck.getChildren().clear();
