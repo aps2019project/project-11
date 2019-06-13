@@ -120,4 +120,17 @@ public class Hero extends NonSpellCard
     {
         this.coolDown = coolDown;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Hero)
+        {
+            if (((Hero) obj).getCardID().equals(this.getCardID()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

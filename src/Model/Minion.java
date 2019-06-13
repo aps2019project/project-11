@@ -155,4 +155,17 @@ public class Minion extends NonSpellCard
     {
         this.ableToCombo = ableToCombo;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Minion)
+        {
+            if (((Minion) obj).getCardID().equals(this.getCardID()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -40,7 +40,7 @@ public class Deck
     {
         if (card instanceof Minion)
         {
-            minions.remove(card);
+            System.out.println(minions.remove(card));
         }
         else if (card instanceof Spell)
         {
