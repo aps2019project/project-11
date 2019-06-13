@@ -10,10 +10,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import static javafx.scene.paint.Color.BURLYWOOD;
 
 public class Main extends Application
@@ -45,13 +41,11 @@ public class Main extends Application
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
-    /*private static Group rootDeck = new Group();
-    private static ScrollPane scrollPaneDeck = new ScrollPane();
-    private static Scene sceneDeck = new Scene(scrollPaneDeck, 1000, 562);
-    */@Override
+
+    @Override
     public void start(Stage primaryStage) throws Exception
     {
-       // convertingToAccounts();
+        //convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -62,36 +56,12 @@ public class Main extends Application
 
     private void convertingToAccounts()
     {
-        String filePath;
-        int x = 0;
-        while(x !=-1)
-        {
-            try {
-                FileReader fileReader = new FileReader("SavedAccount/SavedAccountPath.txt");
-                x = fileReader.read();
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
+        String json = AccountManager.JsonOfAccount;
+        Gson gson = new Gson();
+        Account account = gson.fromJson(json, Account.class);
+        AccountManager.getAccounts().add(account);
     }
-   /* private void reading()
-    {
-        try
-        {
-            int x = fileReader.read();
-            while (x != -1)
-            {
-                x = fileReader.read();
-            }
 
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-*/
     public static void main(String[] args)
     {
         callTheAppropriateFunction = new CallTheAppropriateFunction();

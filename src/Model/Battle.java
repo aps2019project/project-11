@@ -295,7 +295,7 @@ public class Battle
             return this.getFirstPlayer().getInsertedCards();
         }
         else
-            {
+        {
             return this.getSecondPlayer().getInsertedCards();
         }
     }
@@ -634,11 +634,13 @@ public class Battle
         currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
     }
 
-    public GridPane getBattleFieldGridPane() {
+    public GridPane getBattleFieldGridPane()
+    {
         return battleFieldGridPane;
     }
 
-    public void setBattleFieldGridPane(GridPane battleFieldGridPane) {
+    public void setBattleFieldGridPane(GridPane battleFieldGridPane)
+    {
         this.battleFieldGridPane = battleFieldGridPane;
     }
 }

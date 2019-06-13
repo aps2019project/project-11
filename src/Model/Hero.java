@@ -21,7 +21,7 @@ public class Hero extends NonSpellCard
         setCoolDown(coolDown);
         setImpactType(impactType);
         setRangeOfAttack(rangeOfAttack);
-        this.setCardImageView(imageView);
+        setCardImageView(imageView);
         heroes.add(this);
         Shop.getInstance().addCardToShop(this);
     }

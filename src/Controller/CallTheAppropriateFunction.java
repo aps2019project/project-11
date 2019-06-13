@@ -19,8 +19,7 @@ public class CallTheAppropriateFunction extends Thread
         try
         {
             setPrimarySettings();
-        }
-        catch (InterruptedException e)
+        } catch (InterruptedException e)
         {
             e.printStackTrace();
         }
@@ -117,8 +116,7 @@ public class CallTheAppropriateFunction extends Thread
                         {
                             shopManager.buyItem((Item) item.clone());
                         }
-                    }
-                    catch (CloneNotSupportedException ignored)
+                    } catch (CloneNotSupportedException ignored)
                     {
 
                     }
@@ -448,9 +446,6 @@ public class CallTheAppropriateFunction extends Thread
                     Battle.getCurrentBattle().getSelectedCard().getSpecialPower().applySpecialPower(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
                     battleManager.useSpecialPower(Battle.getCurrentBattle().getSelectedCard().getSpecialPower(), request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
                     break;
-                case SHOW_MENU:
-                    showOutput.showMenuAfterSelectCard();
-                    break;
                 case EXIT:
                     showOutput.printOutput("exited");
                     return;
@@ -530,13 +525,15 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    public void storyModeBattleMaker(int numberOfLevel){
+    public void storyModeBattleMaker(int numberOfLevel)
+    {
         Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
         new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
     }
 
-    public void customGameBattleMaker(Deck selectedDeck , int number){
+    public void customGameBattleMaker(Deck selectedDeck, int number)
+    {
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
         new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
     }
