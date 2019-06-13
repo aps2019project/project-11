@@ -10,9 +10,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
@@ -51,7 +53,7 @@ public class Main extends Application
     */@Override
     public void start(Stage primaryStage) throws Exception
     {
-       // convertingToAccounts();
+        convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -62,19 +64,23 @@ public class Main extends Application
 
     private void convertingToAccounts()
     {
-        String filePath;
-        int x = 0;
-        while(x !=-1)
+        String fileName;
+        Scanner scanner = new Scanner("SavedAccounts/SavedAccountPath.txt");
+        do
         {
-            try {
-                FileReader fileReader = new FileReader("SavedAccount/SavedAccountPath.txt");
-                x = fileReader.read();
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
+            Gson json = new Gson();
+            fileName = scanner.nextLine();
+            Scanner fileScanner = new Scanner("SavedAccounts/SavedAccountPath.txt" + fileName);
+            StringBuilder text;
+             StringBuilder t = new StringBuilder() ;
+          do
+           {
+               text = t.append(fileScanner.nextLine());
+               AccountManager.getAccounts().add(json.fromJson(text.toString(),Account.class));
+           }while (fileScanner.hasNextLine());
 
-        }
 
+        }while (scanner.hasNextLine());
     }
    /* private void reading()
     {
