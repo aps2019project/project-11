@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -50,7 +51,7 @@ public class Main extends Application
     */@Override
     public void start(Stage primaryStage) throws Exception
     {
-        convertingToAccounts();
+       // convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -61,10 +62,19 @@ public class Main extends Application
 
     private void convertingToAccounts()
     {
-        String json = AccountManager.JsonOfAccount;
-        Gson gson = new Gson();
-        Account account = gson.fromJson(json, Account.class);
-        AccountManager.getAccounts().add(account);
+        String filePath;
+        int x = 0;
+        while(x !=-1)
+        {
+            try {
+                FileReader fileReader = new FileReader("SavedAccount/SavedAccountPath.txt");
+                x = fileReader.read();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
    /* private void reading()
     {

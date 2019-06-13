@@ -13,6 +13,15 @@ public class AccountManager
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
     public static String JsonOfAccount = null;
+    public static FileWriter SavedAccountPath;
+
+    static {
+        try {
+            SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Account createAccount(String userName, String password)
     {
@@ -41,7 +50,10 @@ public class AccountManager
         {
             FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
             fileWriter.write( name+ '\n'+ json + '\n');
+            SavedAccountPath.write(name + ".txt" + '\n');
+            SavedAccountPath.close();
             fileWriter.close();
+
         }
         catch (IOException e)
         {
