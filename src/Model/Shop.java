@@ -34,7 +34,7 @@ public class Shop
 
     public void buyCard(Card card)
     {
-        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, card);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, card, false);
         Account.loggedInAccount.decreaseMoney(card.getPrice());
     }
 
@@ -47,7 +47,7 @@ public class Shop
 
      public void buyItem(Item item)
      {
-         Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item);
+         Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, false);
          Account.loggedInAccount.decreaseMoney(item.getPrice());
      }
 

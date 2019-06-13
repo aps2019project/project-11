@@ -31,28 +31,28 @@ public class Account
     {
         try
         {
-            this.getCollection().addCard(account, (Hero) Hero.findHero("Rostam").clone());
-            this.getCollection().addItem(account, (Item) Item.findItem("CrownOfWisdom").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("asbsavarFars").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("GorzdarTorani").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("gholabsangdarTorani").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("DivGorazSavar").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("Iraj").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("EzhdehayeAtashAndaz").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("GhoulBozorg").clone());
-            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarTorani").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("areaDispel").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("fireball").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("shock").clone());
-            this.getCollection().addCard(account, (Spell) Card.findCard("godStrength").clone());
+            this.getCollection().addCard(account, (Hero) Hero.findHero("Rostam").clone(), false);
+            this.getCollection().addItem(account, (Item) Item.findItem("CrownOfWisdom").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("asbsavarFars").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("GorzdarTorani").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("gholabsangdarTorani").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("DivGorazSavar").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("Iraj").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("EzhdehayeAtashAndaz").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("GhoulBozorg").clone(), false);
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarTorani").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("areaDispel").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("fireball").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("shock").clone(), false);
+            this.getCollection().addCard(account, (Spell) Card.findCard("godStrength").clone(), false);
             addDefaultDeck();
         }
         catch (CloneNotSupportedException ignored)

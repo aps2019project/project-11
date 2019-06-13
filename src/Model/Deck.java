@@ -156,4 +156,9 @@ public class Deck
     {
         return spells;
     }
+
+    public void setDeckName(String deckName)
+    {
+        this.deckName = deckName;
+    }
 }

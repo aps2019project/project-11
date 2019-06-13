@@ -1270,27 +1270,29 @@ public class Request
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
         Object obj = jsonParser.parse(reader);
         System.out.println(obj);
-        Account.loggedInAccount.getPlayerDecks().add(new Gson().fromJson(obj.toString(), Deck.class));
-        addImportedDeckCardsAndItemsToCollection(new Gson().fromJson(obj.toString(), Deck.class));
+        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
+        deck.setDeckName("Imported " + deck.getDeckName());
+        Account.loggedInAccount.getPlayerDecks().add(deck);
+        addImportedDeckCardsAndItemsToCollection(deck);
     }
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
         for (Hero hero : deck.getHero())
         {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero);
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         }
         for (Minion minion : deck.getMinions())
         {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion);
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
         }
         for (Spell spell : deck.getSpells())
         {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell);
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, true);
         }
         for (Item item : deck.getItem())
         {
-            Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item);
+            Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, true);
         }
     }
 
