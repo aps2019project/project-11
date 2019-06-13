@@ -24,15 +24,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
-
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
 
 import static javafx.scene.paint.Color.*;
 
@@ -169,7 +164,13 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);
-                    accountManager.saveAccountInfo(account,userName);
+                    try
+                    {
+                        accountManager.saveAccountInfo(account, userName, true);
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
@@ -497,8 +498,7 @@ public class Request
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -790,24 +790,21 @@ public class Request
 
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
         {
-            if (card instanceof Hero)
+            if (isSearchedElement)
             {
-                if (isSearchedElement)
+                if (!hero.getCardName().contains(searchedElement))
                 {
-                    if (!card.getCardName().contains(searchedElement))
-                    {
-                        continue;
-                    }
+                    continue;
                 }
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Hero) card, card.getCardID());
-                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
-                xPosition++;
-                yPosition++;
             }
+            x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice());
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -825,24 +822,21 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
         {
-            if (card instanceof Minion)
+            if (isSearchedElement)
             {
-                if (isSearchedElement)
+                if (!minion.getCardName().contains(searchedElement))
                 {
-                    if (!card.getCardName().contains(searchedElement))
-                    {
-                        continue;
-                    }
+                    continue;
                 }
-                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootCollection, x, y, (Minion) card, card.getCardID());
-                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
-                xPosition++;
-                yPosition++;
             }
+            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+            x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice());
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -860,24 +854,21 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
         {
-            if (card instanceof Spell)
+            if (isSearchedElement)
             {
-                if (isSearchedElement)
+                if (!spell.getCardName().contains(searchedElement))
                 {
-                    if (!card.getCardName().contains(searchedElement))
-                    {
-                        continue;
-                    }
+                    continue;
                 }
-                x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, card.getCardID(), card.getPrice());
-                setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, card.getCardID(), card.getPrice());
-                xPosition++;
-                yPosition++;
             }
+            x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
+            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice());
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -1224,18 +1215,14 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Card card : deck.getNonHeroCards())
+        for (Minion minion : deck.getMinions())
         {
-            if (card instanceof Minion)
-            {
-                Minion minion = (Minion) card;
-                x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
-                y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID());
-                setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID());
-                xPosition++;
-                yPosition++;
-            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID());
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -1249,18 +1236,14 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Card card : deck.getNonHeroCards())
+        for (Spell spell : deck.getSpells())
         {
-            if (card instanceof Spell)
-            {
-                Spell spell = (Spell) card;
-                x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
-                y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-                StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice());
-                setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID());
-                xPosition++;
-                yPosition++;
-            }
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID());
+            xPosition++;
+            yPosition++;
         }
 
         if (xPosition == 0)
@@ -1542,7 +1525,7 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 1);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
                     try
                     {
                         setBattleField(primaryStage, 4);
@@ -1552,7 +1535,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 2);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
                     try
                     {
                         setBattleField(primaryStage, 4);
@@ -1562,7 +1545,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame , 3);
+                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
                     try
                     {
                         setBattleField(primaryStage, 4);
@@ -1774,8 +1757,8 @@ public class Request
         ImageView firstPlayerHeroImage = Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCardImageView();
         ImageView secondPlayerHeroImage = Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCardImageView();
         //Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane();
-        Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage , 2 , 0);
-        Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage , 2 , 8);
+        Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage, 2, 0);
+        Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage, 2, 8);
     }
 
     public void getSecondPlayerInMultiPlayerMatch()

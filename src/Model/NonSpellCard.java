@@ -1,10 +1,8 @@
 package Model;
 
-import View.ShowOutput;
-
 import java.util.ArrayList;
 
-public abstract class NonSpellCard extends Card
+public class NonSpellCard extends Card
 {
     private Cell currentCell = new Cell();
     private int defaultHP;

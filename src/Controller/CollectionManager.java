@@ -32,22 +32,27 @@ public class CollectionManager
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
-            for (Card card : Account.loggedInAccount.getCollection().getCards())
+            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
             {
-                if (ID.equals(card.getCardID()))
+                if (ID.equals(hero.getCardID()))
                 {
-                    if (card instanceof Hero)
-                    {
-                        deckManager.checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card);
-                    }
-                    else
-                    {
-                        deckManager.checkCircumstancesToAddNonHeroCardToDeck(deck, card);
-                    }
-                    return;
+                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero);
                 }
             }
-            showOutput.printOutput("This card isn't in the collection");
+            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            {
+                if (ID.equals(minion.getCardID()))
+                {
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion);
+                }
+            }
+            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            {
+                if (ID.equals(spell.getCardID()))
+                {
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell);
+                }
+            }
         }
         else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
@@ -71,22 +76,27 @@ public class CollectionManager
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
-            for (Card card : Account.loggedInAccount.getCollection().getCards())
+            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
             {
-                if (ID.equals(card.getCardID()))
+                if (ID.equals(hero.getCardID()))
                 {
-                    if (card instanceof Hero)
-                    {
-                        deckManager.checkHeroCardExistenceInDeckToRemove(deck, (Hero) card);
-                    }
-                    else
-                    {
-                        deckManager.checkNonHeroCardExistenceInDeckToRemove(deck, card);
-                    }
-                    return;
+                    deckManager.checkCardExistenceInDeckToRemove(deck, hero);
                 }
             }
-            showOutput.printOutput("This card isn't in the collection");
+            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            {
+                if (ID.equals(minion.getCardID()))
+                {
+                    deckManager.checkCardExistenceInDeckToRemove(deck, minion);
+                }
+            }
+            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            {
+                if (ID.equals(spell.getCardID()))
+                {
+                    deckManager.checkCardExistenceInDeckToRemove(deck, spell);
+                }
+            }
         }
         else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
         {
@@ -106,7 +116,7 @@ public class CollectionManager
         }
     }
 
-    public void searchCollection(String name)
+    /*public void searchCollection(String name)
     {
         boolean existInTheCollection = false;
         for (Card card : Account.loggedInAccount.getCollection().getCards())
@@ -131,7 +141,7 @@ public class CollectionManager
         {
             showOutput.printOutput("The item or card doesn't exist in the collection");
         }
-    }
+    }*/
 
     public void createDeck(String deckName)
     {

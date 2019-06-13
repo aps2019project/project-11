@@ -3,6 +3,8 @@ package Controller;
 import Model.*;
 import View.*;
 
+import java.io.IOException;
+
 public class CallTheAppropriateFunction extends Thread
 {
     private AccountManager accountManager = new AccountManager();
@@ -19,20 +21,20 @@ public class CallTheAppropriateFunction extends Thread
         try
         {
             setPrimarySettings();
-        } catch (InterruptedException e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
     }
 
-    public void setPrimarySettings() throws InterruptedException
+    public void setPrimarySettings() throws InterruptedException, IOException
     {
         Card.setCards();
         Item.setItems();
         determineMainMenuCommand();
     }
 
-    private void determineMainMenuCommand() throws InterruptedException
+    private void determineMainMenuCommand() throws InterruptedException, IOException
     {
         showOutput.printMainMenuCommands();
         while (true)
@@ -77,7 +79,7 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     break;
                 case SAVE:
-                    accountManager.saveAccountInfo(Account.loggedInAccount, Account.loggedInAccount.getAccountName());
+                    accountManager.saveAccountInfo(Account.loggedInAccount, Account.loggedInAccount.getAccountName(), false);
                     break;
                 case HELP:
                     showOutput.printMainMenuCommands();
@@ -90,7 +92,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineShopCommand() throws InterruptedException
+    private void determineShopCommand() throws InterruptedException, IOException
     {
         while (true)
         {
@@ -137,7 +139,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineCollectionCommand() throws InterruptedException
+    private void determineCollectionCommand() throws InterruptedException, IOException
     {
         while (true)
         {
@@ -150,9 +152,6 @@ public class CallTheAppropriateFunction extends Thread
             }
             switch (request.getCommand())
             {
-                case SEARCH:
-                    collectionManager.searchCollection(request.getCommand().cardOrItemName);
-                    break;
                 case SELL:
                     shopManager.detectIDToSell(request.getCommand().cardOrItemID);
                     break;

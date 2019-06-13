@@ -146,102 +146,6 @@ public class ShowOutput
         printOutput(counter + "- Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power : " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
     }
 
-    public void showCollectionInfo(Collection collection)
-    {
-        int counter = 1;
-        printOutput("Heroes :");
-        for (Card card : collection.getCards())
-        {
-            if (card instanceof Hero)
-            {
-                printHeroStats((Hero) card, counter);
-                counter++;
-            }
-        }
-
-        counter = 1;
-        printOutput("Items :");
-        for (Item item : collection.getItems())
-        {
-            printItemStats(counter, item);
-            counter++;
-        }
-
-        counter = 1;
-        printOutput("Cards :");
-        for (Card card : collection.getCards())
-        {
-            if (card instanceof Hero)
-            {
-                continue;
-            }
-            printCardStats(counter, card);
-            counter++;
-        }
-    }
-
-    public void showAllDecksInfo()
-    {
-        int counter = 1;
-        Deck mainDeck = Account.loggedInAccount.getMainDeck();
-        if (mainDeck != null)
-        {
-            printOutput(counter + "- " + mainDeck.getDeckName() + " : ");
-            printDeckStats(mainDeck);
-            counter++;
-        }
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
-            if (mainDeck != null && deck.getDeckName().equals(mainDeck.getDeckName()))
-            {
-                continue;
-            }
-            printOutput(counter + "- " + deck.getDeckName() + " : ");
-            printDeckStats(deck);
-            counter++;
-        }
-    }
-
-    public void showDeckInfo(String deckName)
-    {
-        Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null)
-        {
-            printDeckStats(deck);
-        }
-        else
-        {
-            printOutput("There is no deck with this name");
-        }
-    }
-
-    public void printDeckStats(Deck deck)
-    {
-        int counter = 1;
-        printOutput("Heroes :");
-        for (Hero hero : deck.getHero())
-        {
-            printHeroStats(hero, counter);
-            counter++;
-        }
-
-        counter = 1;
-        printOutput("Items :");
-        for (Item item : deck.getItem())
-        {
-            printItemStats(counter, item);
-            counter++;
-        }
-
-        counter = 1;
-        printOutput("Cards :");
-        for (Card card : deck.getNonHeroCards())
-        {
-            printCardStats(counter, card);
-            counter++;
-        }
-    }
-
     public void showGameInfo()
     {
         printOutput("First Player : " + Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
@@ -544,7 +448,6 @@ public class ShowOutput
 
     public void showCustomGameInfo()
     {
-        showAllDecksInfo();
         showBattleModes();
     }
 

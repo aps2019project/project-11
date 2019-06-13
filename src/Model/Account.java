@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Account
 {
-    public static Account loggedInAccount;
+    public transient static Account loggedInAccount;
     private String accountName;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
@@ -31,30 +31,31 @@ public class Account
     {
         try
         {
-            this.getCollection().addCard(account, (Card) Hero.findHero("Rostam").clone());
+            this.getCollection().addCard(account, (Hero) Hero.findHero("Rostam").clone());
             this.getCollection().addItem(account, (Item) Item.findItem("CrownOfWisdom").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("kamandarFars").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("kamandarFars").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("neizedarFars").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("neizedarFars").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("asbsavarFars").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("kamandarTorani").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("kamandarTorani").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("GorzdarTorani").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("gholabsangdarTorani").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("DivGorazSavar").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("Iraj").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("EzhdehayeAtashAndaz").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("GhoulBozorg").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("neizedarTorani").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("totalDisarm").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("totalDisarm").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("areaDispel").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("fireball").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("shock").clone());
-            this.getCollection().addCard(account, (Card) Card.findCard("godStrength").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarFars").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarFars").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("asbsavarFars").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("kamandarTorani").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("GorzdarTorani").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("gholabsangdarTorani").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("DivGorazSavar").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("Iraj").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("EzhdehayeAtashAndaz").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("GhoulBozorg").clone());
+            this.getCollection().addCard(account, (Minion) Card.findCard("neizedarTorani").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("totalDisarm").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("areaDispel").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("fireball").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("shock").clone());
+            this.getCollection().addCard(account, (Spell) Card.findCard("godStrength").clone());
             addDefaultDeck();
-        } catch (CloneNotSupportedException ignored)
+        }
+        catch (CloneNotSupportedException ignored)
         {
 
         }
@@ -63,25 +64,26 @@ public class Account
     public void addDefaultDeck()
     {
         Deck deck = new Deck("defaultDeck");
-        for (Card card : this.getCollection().getCards())
+        for (Hero hero : getCollection().getHeroes())
         {
-            if (card instanceof Hero)
-            {
-                deck.addHeroToDeck((Hero) card, false);
-            }
-            else
-            {
-                deck.addNonHeroCardToDeck(card, false);
-            }
+            deck.addCardToDeck(hero, false);
+        }
+        for (Minion minion : getCollection().getMinions())
+        {
+            deck.addCardToDeck(minion, false);
+        }
+        for (Spell spell : getCollection().getSpells())
+        {
+            deck.addCardToDeck(spell, false);
         }
         deck.addItemToDeck(this.getCollection().getItems().get(0), false);
-        this.addDeck(deck);
-        this.setMainDeck(deck);
+        addDeck(deck);
+        setMainDeck(deck);
     }
 
     public void addDeck(Deck deck)
     {
-        this.playerDecks.add(deck);
+        getPlayerDecks().add(deck);
     }
 
     public void deleteDeck(Deck deck)

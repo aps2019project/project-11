@@ -9,11 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
@@ -49,10 +49,8 @@ public class Main extends Application
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
-    /*private static Group rootDeck = new Group();
-    private static ScrollPane scrollPaneDeck = new ScrollPane();
-    private static Scene sceneDeck = new Scene(scrollPaneDeck, 1000, 562);
-    */@Override
+
+    @Override
     public void start(Stage primaryStage) throws Exception
     {
         convertingToAccounts();
@@ -64,42 +62,22 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void convertingToAccounts()
+    private void convertingToAccounts() throws IOException, ParseException
     {
-        String fileName;
-        Scanner scanner = new Scanner("SavedAccounts/SavedAccountPath.txt");
-        do
+        InputStream inputStream = new FileInputStream("SavedAccounts/SavedAccountPath.txt");
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNextLine())
         {
-            Gson json = new Gson();
-            fileName = scanner.nextLine();
-            Scanner fileScanner = new Scanner("SavedAccounts/SavedAccountPath.txt" + fileName);
-            StringBuilder text;
-             StringBuilder t = new StringBuilder() ;
-          do
-           {
-               text = t.append(fileScanner.nextLine());
-               AccountManager.getAccounts().add(json.fromJson(text.toString(),Account.class));
-           }while (fileScanner.hasNextLine());
+            String fileName = scanner.nextLine();
 
-
-        }while (scanner.hasNextLine());
-    }
-   /* private void reading()
-    {
-        try
-        {
-            int x = fileReader.read();
-            while (x != -1)
-            {
-                x = fileReader.read();
-            }
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+            JSONParser jsonParser = new JSONParser();
+            FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
+            Object obj = jsonParser.parse(reader);
+            System.out.println(obj);
+            AccountManager.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
         }
     }
-*/
+
     public static void main(String[] args)
     {
         callTheAppropriateFunction = new CallTheAppropriateFunction();

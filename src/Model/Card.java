@@ -2,7 +2,7 @@ package Model;
 
 import javafx.scene.image.ImageView;
 
-public abstract class Card implements Cloneable
+public class Card implements Cloneable
 {
     private boolean cardSelectedInBattle = false;
     private String cardID;

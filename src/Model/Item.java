@@ -242,12 +242,9 @@ public class Item implements Cloneable
                     }
                     break;
                 case OWN_MINION:
-                    for (Card card: player.getMainDeck().getNonHeroCards())
+                    for (Card card: player.getMainDeck().getMinions())
                     {
-                        if (card instanceof Minion)
-                        {
-                            ((Minion) card).addActiveItemOnThisCard(itemChange);
-                        }
+                        ((Minion) card).addActiveItemOnThisCard(itemChange);
                     }
                     break;
             }

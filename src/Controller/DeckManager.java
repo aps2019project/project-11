@@ -19,23 +19,38 @@ public class DeckManager
         return null;
     }
 
-    public void checkCircumstancesToAddNonHeroCardToDeck(Deck deck, Card card)
+    public void checkCircumstancesToAddCardToDeck(Deck deck, Card card)
     {
-        for (Card deckCard : deck.getNonHeroCards())
+        if (card instanceof  Hero)
         {
-            if (card.getCardID().equals(deckCard.getCardID()))
+            checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card);
+        }
+        else
+        {
+            for (Minion deckMinion : deck.getMinions())
             {
-                showOutput.printOutput("This card is in the deck");
+                if (card.getCardID().equals(deckMinion.getCardID()))
+                {
+                    showOutput.printOutput("This card is in the deck");
+                    return;
+                }
+            }
+            for (Spell deckSpell : deck.getSpells())
+            {
+                if (card.getCardID().equals(deckSpell.getCardID()))
+                {
+                    showOutput.printOutput("This card is in the deck");
+                    return;
+                }
+            }
+            if (deck.getMinions().size() + deck.getSpells().size() == 20)
+            {
+                showOutput.printOutput("Deck is full");
                 return;
             }
+            deck.addCardToDeck(card, false);
+            showOutput.printOutput("Card added to deck");
         }
-        if (deck.getNonHeroCards().size() == 20)
-        {
-            showOutput.printOutput("Deck is full");
-            return;
-        }
-        deck.addNonHeroCardToDeck(card, false);
-        showOutput.printOutput("Card added to deck");
     }
 
     public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero)
@@ -53,7 +68,7 @@ public class DeckManager
             showOutput.printOutput("Deck is full");
             return;
         }
-        deck.addHeroToDeck(hero, false);
+        deck.addCardToDeck(hero, false);
         showOutput.printOutput("Card added to deck");
     }
 
@@ -75,13 +90,31 @@ public class DeckManager
         deck.addItemToDeck(item, false);
     }
 
-    public void checkNonHeroCardExistenceInDeckToRemove(Deck deck, Card card)
+    public void checkCardExistenceInDeckToRemove(Deck deck, Card card)
     {
-        for (Card deckCard : deck.getNonHeroCards())
+        for (Minion minion : deck.getMinions())
         {
-            if (card.getCardName().equals(deckCard.getCardName()))
+            if (card.getCardName().equals(minion.getCardName()))
             {
-                deck.deleteNonHeroCardFromDeck(card);
+                deck.deleteCardFromDeck(card);
+                showOutput.printOutput("Card removed from deck");
+                return;
+            }
+        }
+        for (Spell spell : deck.getSpells())
+        {
+            if (card.getCardName().equals(spell.getCardName()))
+            {
+                deck.deleteCardFromDeck(card);
+                showOutput.printOutput("Card removed from deck");
+                return;
+            }
+        }
+        for (Hero deckHero : deck.getHero())
+        {
+            if (card.getCardID().equals(deckHero.getCardID()))
+            {
+                deck.deleteCardFromDeck(card);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -89,45 +122,32 @@ public class DeckManager
         showOutput.printOutput("This card isn't in the deck");
     }
 
-    public void searchDecksToRemoveNonHeroCardOnSale(Card card)
-    {
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
-            for (Card deckCard : deck.getNonHeroCards())
-            {
-                if (card.getCardName().equals(deckCard.getCardName()))
-                {
-                    deck.deleteNonHeroCardFromDeck(card);
-                    return;
-                }
-            }
-        }
-    }
-
-    public void checkHeroCardExistenceInDeckToRemove(Deck deck, Hero hero)
-    {
-        for (Hero deckHero : deck.getHero())
-        {
-            if (hero.getCardID().equals(deckHero.getCardID()))
-            {
-                deck.deleteHeroFromDeck(hero);
-                showOutput.printOutput("Card removed from deck");
-                return;
-            }
-        }
-        showOutput.printOutput("This hero isn't in the deck");
-    }
-
-    public void searchDecksToRemoveHeroOnSale(Hero hero)
+    public void searchDecksToRemoveCardOnSale(Card card)
     {
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
         {
             for (Hero deckHero : deck.getHero())
             {
-                if (hero.getCardID().equals(deckHero.getCardID()))
+                if (card.getCardID().equals(deckHero.getCardID()))
                 {
-                    deck.deleteHeroFromDeck(hero);
-                    return;
+                    deck.deleteCardFromDeck(card);
+                    break;
+                }
+            }
+            for (Minion deckMinion : deck.getMinions())
+            {
+                if (card.getCardID().equals(deckMinion.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card);
+                    break;
+                }
+            }
+            for (Spell deckSpell : deck.getSpells())
+            {
+                if (card.getCardID().equals(deckSpell.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card);
+                    break;
                 }
             }
         }
@@ -167,7 +187,7 @@ public class DeckManager
         Deck deck = findDeck(deckName);
         if (deck != null)
         {
-            if (deck.getNonHeroCards().size() == 20 && deck.getHero().size() == 1)
+            if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
             {
                 showOutput.printOutput("Deck is valid");
                 return true;

@@ -170,9 +170,9 @@ public class BattleManager
                     System.out.println("Hero sat in BattleField");
                 }
                 Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCard) card);
-                if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().size() > 5)
+                if (Battle.getCurrentBattle().getPlayerTurn().getNonHeroCards().size() > 5)
                 {
-                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getNonHeroCards().get(5));
+                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getNonHeroCards().get(5));
                 }
                 return true;
             }

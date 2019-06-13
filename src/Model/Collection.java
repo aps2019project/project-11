@@ -4,16 +4,32 @@ import java.util.ArrayList;
 
 public class Collection
 {
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Hero> heroes = new ArrayList<>();
+    private ArrayList<Minion> minions = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
     public Card findCardinCollection(String cardID)
     {
-        for (Card card : this.getCards())
+        for (Hero hero : getHeroes())
         {
-            if (card.getCardID().equals(cardID))
+            if (hero.getCardID().equals(cardID))
             {
-                return card;
+                return hero;
+            }
+        }
+        for (Spell spell : getSpells())
+        {
+            if (spell.getCardID().equals(cardID))
+            {
+                return spell;
+            }
+        }
+        for (Minion minion : getMinions())
+        {
+            if (minion.getCardID().equals(cardID))
+            {
+                return minion;
             }
         }
         return null;
@@ -31,15 +47,36 @@ public class Collection
         return null;
     }
 
-    public ArrayList<Card> getCards()
+    public ArrayList<Hero> getHeroes()
     {
-        return cards;
+        return heroes;
+    }
+
+    public ArrayList<Minion> getMinions()
+    {
+        return minions;
+    }
+
+    public ArrayList<Spell> getSpells()
+    {
+        return spells;
     }
 
     public void addCard(Account account, Card card)
     {
         Shop.getInstance().setCardID(account, card);
-        this.cards.add(card);
+        if (card instanceof Hero)
+        {
+            heroes.add((Hero) card);
+        }
+        else if (card instanceof Minion)
+        {
+            minions.add((Minion) card);
+        }
+        else
+        {
+            spells.add((Spell) card);
+        }
     }
 
     public ArrayList<Item> getItems()

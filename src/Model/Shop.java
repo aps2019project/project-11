@@ -60,7 +60,19 @@ public class Shop
 
     public void sellCard(Card cardToSell)
     {
-        Account.loggedInAccount.getCollection().getCards().remove(cardToSell);
+        if (cardToSell instanceof Hero)
+        {
+            Account.loggedInAccount.getCollection().getHeroes().remove(cardToSell);
+        }
+        if (cardToSell instanceof Minion)
+        {
+            Account.loggedInAccount.getCollection().getMinions().remove(cardToSell);
+        }
+        if (cardToSell instanceof Spell)
+        {
+            Account.loggedInAccount.getCollection().getSpells().remove(cardToSell);
+        }
+
         Account.loggedInAccount.addMoney(cardToSell.getPrice());
     }
 

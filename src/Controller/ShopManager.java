@@ -60,11 +60,27 @@ public class ShopManager
 
     public void detectIDToSell(String ID)
     {
-        for (Card card : Account.loggedInAccount.getCollection().getCards())
+        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
         {
-            if (card.getCardID().equals(ID))
+            if (hero.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(card);
+                removeCardFromDeckToSell(hero);
+                return;
+            }
+        }
+        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+        {
+            if (minion.getCardID().equals(ID))
+            {
+                removeCardFromDeckToSell(minion);
+                return;
+            }
+        }
+        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+        {
+            if (spell.getCardID().equals(ID))
+            {
+                removeCardFromDeckToSell(spell);
                 return;
             }
         }
@@ -81,14 +97,7 @@ public class ShopManager
 
     private void removeCardFromDeckToSell(Card cardToSell)
     {
-        if (cardToSell instanceof Hero)
-        {
-            new DeckManager().searchDecksToRemoveHeroOnSale((Hero) cardToSell);
-        }
-        else
-        {
-            new DeckManager().searchDecksToRemoveNonHeroCardOnSale(cardToSell);
-        }
+        new DeckManager().searchDecksToRemoveCardOnSale(cardToSell);
         Shop.getInstance().sellCard(cardToSell);
         showOutput.printOutput("Successful Sale");
     }

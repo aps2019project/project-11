@@ -12,16 +12,6 @@ public class AccountManager
 {
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
-    public static String JsonOfAccount = null;
-    public static FileWriter SavedAccountPath;
-
-    static {
-        try {
-            SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public Account createAccount(String userName, String password)
     {
@@ -41,19 +31,21 @@ public class AccountManager
         Account.logout();
     }
 
-    public void saveAccountInfo(Account account,String name)
+    public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
+        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
+        if (isNewAccount)
+        {
+            SavedAccountPath.write(name + "\n");
+            SavedAccountPath.close();
+        }
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        JsonOfAccount = json;
         System.out.println(json);
         try
         {
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
-            fileWriter.write( name+ '\n'+ json + '\n');
-            SavedAccountPath.write(name + ".txt" + '\n');
-            SavedAccountPath.close();
-            fileWriter.close();
-
+            FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
+            saveAccountInfo.write(json);
+            saveAccountInfo.close();
         }
         catch (IOException e)
         {
