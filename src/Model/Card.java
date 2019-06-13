@@ -136,11 +136,13 @@ public abstract class Card implements Cloneable
         account.increaseAIAccountDefaultID();
     }
 
-    public ImageView getCardImageView() {
+    public ImageView getCardImageView()
+    {
         return cardImageView;
     }
 
-    public void setCardImageView(ImageView cardImageView) {
+    public void setCardImageView(ImageView cardImageView)
+    {
         this.cardImageView = cardImageView;
     }
 }

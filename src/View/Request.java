@@ -2,9 +2,6 @@ package View;
 
 import Controller.AccountManager;
 import Model.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -113,6 +110,8 @@ public class Request
     private Scene sceneMainMenu = Main.getSceneMainMenu();
     private Group rootLeaderBoard = Main.getRootLeaderBoard();
     private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
+    private Group rootProfile = Main.getRootProfile();
+    private Scene sceneProfile = Main.getSceneProfile();
     private Group rootShop = Main.getRootShop();
     private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
     private Scene sceneShop = Main.getSceneShop();
@@ -135,8 +134,6 @@ public class Request
 
     private Deck selectedDeckForCustomGame = null;
     private Controller battleFieldController;
-
-
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -336,13 +333,14 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
-        setMainMenuText(primaryStage, "Battle", 100);
-        setMainMenuText(primaryStage, "Shop", 160);
-        setMainMenuText(primaryStage, "Collection", 220);
-        setMainMenuText(primaryStage, "LeaderBoard", 280);
-        setMainMenuText(primaryStage, "Save", 340);
-        setMainMenuText(primaryStage, "Logout", 400);
-        setMainMenuText(primaryStage, "Exit", 460);
+        setMainMenuText(primaryStage, "Battle", 80);
+        setMainMenuText(primaryStage, "Shop", 140);
+        setMainMenuText(primaryStage, "Collection", 200);
+        setMainMenuText(primaryStage, "LeaderBoard", 260);
+        setMainMenuText(primaryStage, "Save", 320);
+        setMainMenuText(primaryStage, "Profile", 380);
+        setMainMenuText(primaryStage, "Logout", 440);
+        setMainMenuText(primaryStage, "Exit", 500);
 
         primaryStage.setScene(sceneMainMenu);
     }
@@ -411,6 +409,14 @@ public class Request
                             requestLock.notify();
                         }
                         break;
+                    case "Profile":
+                        setCommand(CommandType.SHOW_PROFILE);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        showProfile(primaryStage);
+                        break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
                         synchronized (requestLock)
@@ -430,6 +436,30 @@ public class Request
             }
         });
         rootMainMenu.getChildren().add(text);
+    }
+
+    private void showProfile(Stage primaryStage)
+    {
+        rootProfile.getChildren().clear();
+
+        Label labelProfile = new Label(Account.loggedInAccount.getAccountName());
+        labelProfile.setFont(Font.font(40));
+        labelProfile.setTextFill(Color.RED);
+        labelProfile.relocate(50, 25);
+        labelProfile.layoutXProperty().bind(sceneProfile.widthProperty().subtract(labelProfile.prefWidth(-1)).divide(2));
+        labelProfile.setLayoutY(25);
+        rootProfile.getChildren().add(labelProfile);
+
+        Label labelMoney = new Label("your Money : " + Account.loggedInAccount.getMoney());
+        labelMoney.setFont(Font.font(20));
+        labelMoney.setTextFill(Color.GREEN);
+        labelMoney.relocate(75, 120);
+        rootProfile.getChildren().add(labelMoney);
+
+        backButton(primaryStage, rootProfile, 110, 200);
+
+        primaryStage.setScene(sceneProfile);
+        primaryStage.centerOnScreen();
     }
 
     private void leaderBoard(Stage primaryStage)
@@ -467,7 +497,8 @@ public class Request
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -1731,14 +1762,13 @@ public class Request
         primaryStage.centerOnScreen();
         primaryStage.setScene(battleScene);
         primaryStage.centerOnScreen();
-
         primaryStage.setFullScreen(true);
 
         primaryStage.show();
-
     }
 
-    private void setBeforeGame() {
+    private void setBeforeGame()
+    {
         battleFieldController.setCells();
 
         ImageView firstPlayerHeroImage = Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCardImageView();
@@ -1746,118 +1776,6 @@ public class Request
         //Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane();
         Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage , 2 , 0);
         Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage , 2 , 8);
-    }
-
-    public void getCollectionCommands()
-    {
-        String input = myScanner.nextLine();
-        String[] inputParts = input.split(" ");
-        if (input.equals("show"))
-        {
-            setCommand(CommandType.SHOW);
-        }
-        else if (patternSearch.matcher(input).matches())
-        {
-            setCommand(CommandType.SEARCH);
-            getCommand().cardOrItemName = inputParts[1];
-        }
-        else if (input.equals("save"))
-        {
-            setCommand(CommandType.SAVE);
-        }
-        else if (patternCreateDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.CREATE_DECK);
-            getCommand().deckName = inputParts[2];
-        }
-        else if (patternDeleteDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.DELETE_DECK);
-            getCommand().deckName = inputParts[2];
-        }
-        else if (patternAddCardToDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.ADD_TO_DECK);
-            getCommand().deckName = inputParts[4];
-            getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternRemoveCardFromDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.REMOVE_FROM_DECK);
-            getCommand().deckName = inputParts[4];
-            getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternValidateDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.VALIDATE_DECK);
-            getCommand().deckName = inputParts[2];
-        }
-        else if (patternSelectMainDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.SET_MAIN_DECK);
-            getCommand().deckName = inputParts[2];
-        }
-        else if (patternShowDeck.matcher(input).matches())
-        {
-            setCommand(CommandType.SHOW_DECK);
-            getCommand().deckName = inputParts[2];
-        }
-        else if (input.equals("show all decks"))
-        {
-            setCommand(CommandType.SHOW_ALL_DECKS);
-        }
-        else if (input.equals("help"))
-        {
-            setCommand(CommandType.HELP);
-        }
-        else if (input.equals("exit"))
-        {
-            setCommand(CommandType.EXIT);
-        }
-        else
-        {
-            showOutput.printOutput("invalid command");
-            setCommand(null);
-        }
-    }
-
-    public void getBattleMenuCommands()
-    {
-        String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("Single Player"))
-        {
-            setCommand(CommandType.SINGLE_PLAYER);
-        }
-        else if (input.equalsIgnoreCase("Multi Player"))
-        {
-            setCommand(CommandType.MULTI_PLAYER);
-        }
-        else if (input.equals("exit"))
-        {
-            setCommand(CommandType.EXIT);
-        }
-        else
-        {
-            showOutput.printOutput("invalid command");
-            setCommand(null);
-        }
-    }
-
-    public void getSinglePlayerMatchMode()
-    {
-        String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("Story"))
-        {
-            setCommand(CommandType.STORY);
-        }
-        else if (input.equalsIgnoreCase("Custom Game"))
-        {
-            setCommand(CommandType.CUSTOM_GAME);
-        }
-        else
-        {
-            getShowMenuAndExitCommand(input);
-        }
     }
 
     public void getSecondPlayerInMultiPlayerMatch()
