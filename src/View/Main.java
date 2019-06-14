@@ -9,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
@@ -49,6 +51,9 @@ public class Main extends Application
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
+    private static Group rootBattleField = new Group();
+    private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
+
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -223,5 +228,13 @@ public class Main extends Application
     public static Scene getSceneProfile()
     {
         return sceneProfile;
+    }
+
+    public static Scene getSceneBattleField() {
+        return sceneBattleField;
+    }
+
+    public static Group getRootBattleField() {
+        return rootBattleField;
     }
 }

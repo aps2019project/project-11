@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="766.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
+<fx:root prefHeight="766.0" prefWidth="1366.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
 
     <children>
         <ImageView fitHeight="860.0" fitWidth="1378.0" layoutX="-5.0" layoutY="-6.0">
@@ -51,42 +51,185 @@
                 <Insets />
             </opaqueInsets>
             <children>
-                <Pane prefHeight="87.2" prefWidth="82.0" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="2">
+                <Pane prefHeight="87.2" prefWidth="82.0">
                <children>
-                      <Pane prefHeight="87.2" prefWidth="82.0" />
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
                </children></Pane>
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+                <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Pane prefHeight="87.2" prefWidth="82.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <children>
+                  <ImageView fitHeight="87.2" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <ImageView fx:id="imageView1" fitHeight="87.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
             </children>
         </GridPane>
         <Circle accessibleRole="IMAGE_VIEW" fill="#1f93ff00" layoutX="484.0" layoutY="730.0" radius="56.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
@@ -127,6 +270,106 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <ImageView fx:id="minion1">
+         <image>
+            <Image url="@../Cards Images/hero-10.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minion2">
+         <image>
+            <Image url="@../Cards Images/minion-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minion3">
+         <image>
+            <Image url="@../Cards Images/minion-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minion4">
+         <image>
+            <Image url="@../Cards Images/minion-3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero1">
+         <image>
+            <Image url="@../Cards Images/minion-4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero3">
+         <image>
+            <Image url="@../Cards Images/minion-5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero4">
+         <image>
+            <Image url="@../Cards Images/speech_portrait_decepticle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero2">
+         <image>
+            <Image url="@../Cards Images/speech_portrait_legion.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero5">
+         <image>
+            <Image url="@../Cards Images/speech_portrait_taskmaster.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero6">
+         <image>
+            <Image url="@../Cards Images/speech_portrait_umbra.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero7">
+         <image>
+            <Image url="@../Cards Images/speech_portrait_unhallowed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero8">
+         <image>
+            <Image url="@../Cards Images/hero-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero9">
+         <image>
+            <Image url="@../Cards Images/hero-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero10">
+         <image>
+            <Image url="@../Cards Images/hero-3.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-4.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-5.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-6.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-7.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-8.png" />
+         </image>
+      </ImageView>
+      <ImageView>
+         <image>
+            <Image url="@../Cards Images/hero-9.png" />
+         </image>
+      </ImageView>
     </children>
 
-</AnchorPane>
+</fx:root>

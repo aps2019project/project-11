@@ -3,11 +3,10 @@ package View;
 import Controller.AccountManager;
 import Model.*;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -126,9 +125,11 @@ public class Request
     private Scene sceneStoryMode = Main.getSceneMultiPlayer();
     private Group rootCustomGame = Main.getRootCustomGame();
     private Scene sceneCustomGame = Main.getSceneCustomGame();
+    private Group rootBattleField = Main.getRootBattleField();
+    private Scene sceneBattleField = Main.getSceneBattleField();
+
 
     private Deck selectedDeckForCustomGame = null;
-    private Controller battleFieldController;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -1712,53 +1713,32 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    public void setBattleField(Stage primaryStage, int mapNumber) throws IOException
+    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
-        Parent root;
-        Scene battleScene = null;
-        battleFieldController = new Controller();
-        setBeforeGame();
-        switch (mapNumber)
-        {
-            case 1:
-                root = FXMLLoader.load(getClass().getResource("BattleFieldFXML1.fxml"));
-                battleScene = new Scene(root);
-                break;
-            case 2:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML2.fxml"));
-                battleScene = new Scene(root);
-                break;
-            case 3:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML3.fxml"));
-                battleScene = new Scene(root);
-                break;
-            case 4:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML4.fxml"));
-                battleScene = new Scene(root);
-                break;
-            case 5:
-                root = FXMLLoader.load(Request.class.getResource("BattleFieldFXML5.fxml"));
-                battleScene = new Scene(root);
-                break;
-        }
-
-        primaryStage.centerOnScreen();
-        primaryStage.setScene(battleScene);
-        primaryStage.centerOnScreen();
-        primaryStage.setFullScreen(true);
-
+        setBackGroundImage(rootBattleField , "file:H:\\project-11\\src\\battleField BackGround\\backgroundStory1.jpg");
+        setGridPane(rootBattleField);
+        primaryStage.setScene(sceneBattleField);
         primaryStage.show();
     }
 
-    private void setBeforeGame()
-    {
-        battleFieldController.setCells();
+    private void setGridPane(Group rootBattleField) {
+        GridPane gridPane = new GridPane();
+        Pane[][] panes = new Pane[5][9];
 
-        ImageView firstPlayerHeroImage = Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCardImageView();
-        ImageView secondPlayerHeroImage = Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCardImageView();
-        //Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane();
-        Battle.getCurrentBattle().getBattleFieldGridPane().add(firstPlayerHeroImage, 2, 0);
-        Battle.getCurrentBattle().getBattleFieldGridPane().add(secondPlayerHeroImage, 2, 8);
+        gridPane.setGridLinesVisible(true);
+        gridPane.setPadding(new Insets(50 , 50 , 50 , 50));
+        for(int row = 0 ; row < 5 ; row ++){
+            for(int column = 0 ; column < 9 ; column++){
+                Pane pane = new Pane();
+                panes[row][column] = pane;
+                gridPane.add(pane , row , column);
+            }
+        }
+        gridPane.setGridLinesVisible(true);
+
+        rootBattleField.getChildren().add(gridPane);
+        gridPane.setGridLinesVisible(true);
+
     }
 
     public void getSecondPlayerInMultiPlayerMatch()
