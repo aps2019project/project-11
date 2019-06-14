@@ -54,9 +54,10 @@ public class Main extends Application
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
     private static Group rootBattleField = new Group();
     private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
-
     private static Group rootImportingDeck = new Group();
     private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
+    private static Group rootCardInfo = new Group();
+    private static Scene sceneCardInfo = new Scene(rootCardInfo,800, 400);
 
 
     @Override
@@ -248,5 +249,15 @@ public class Main extends Application
 
     public static Group getRootBattleField() {
         return rootBattleField;
+    }
+
+    public static Group getRootCardInfo()
+    {
+        return rootCardInfo;
+    }
+
+    public static Scene getSceneCardInfo()
+    {
+        return sceneCardInfo;
     }
 }

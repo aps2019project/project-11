@@ -82,6 +82,62 @@
     }
   ],
   "minions": [],
-  "spells": [],
+  "spells": [
+    {
+      "descriptionTypeOfSpell": "stun",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 1,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 1,
+            "numOfOwnBothNonSpellCards": 0,
+            "startRow": 0,
+            "startColumn": 0,
+            "endRow": 0,
+            "endColumn": 0,
+            "maxAttackRange": 0,
+            "allOwnMinion": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 2,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": true,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "cardID": "a_shock_21",
+      "price": 1200,
+      "requiredMP": 1,
+      "cardName": "shock",
+      "row": 0,
+      "column": 0
+    }
+  ],
   "item": []
 }

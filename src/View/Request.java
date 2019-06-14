@@ -135,6 +135,8 @@ public class Request
     private Scene sceneCustomGame = Main.getSceneCustomGame();
     private Scene sceneImportingDeck = Main.getSceneImportingDeck();
     private Group rootImportingDeck = Main.getRootImportingDeck();
+    private Group rootCardInfo = Main.getRootCardInfo();
+    private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
 
@@ -575,7 +577,7 @@ public class Request
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition++;
             yPosition++;
-            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName());
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName(), hero.getRequiredMP());
             setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
         }
 
@@ -601,7 +603,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName());
+            StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName(), minion.getRequiredMP());
             setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
             xPosition++;
             yPosition++;
@@ -629,7 +631,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice(), spell.getRequiredMP());
             setShopStackPanesOnMouseClicked(stackPane, spell.getCardName(), spell.getPrice());
             xPosition++;
             yPosition++;
@@ -664,7 +666,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice(), 0);
             setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
             xPosition++;
             yPosition++;
@@ -710,13 +712,13 @@ public class Request
         root.getChildren().addAll(text);
     }
 
-    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID)
+    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID, int MP)
     {
         int AP = nonSpellCard.getDefaultAP();
         int HP = nonSpellCard.getDefaultHP();
         int price = nonSpellCard.getPrice();
 
-        StackPane stackPane = showCardAndItemImageAndFeatures(root, x, y, cardNameOrID, price);
+        StackPane stackPane = showCardAndItemImageAndFeatures(root, x, y, cardNameOrID, price, MP);
 
         Text textAP = new Text(Integer.toString(AP));
         textAP.setFont(Font.font(15));
@@ -735,7 +737,7 @@ public class Request
         return stackPane;
     }
 
-    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price)
+    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price, int MP)
     {
         Image image = new Image("file:Cards.jpg");
         ImageView imageView = new ImageView(image);
@@ -752,13 +754,19 @@ public class Request
         textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
         textCardName.setLayoutY(y + 160);
 
+        Text textCardMP = new Text(Integer.toString(MP));
+        textCardMP.setFont(Font.font(15));
+        textCardMP.setFill(BLUE);
+        textCardMP.setLayoutX(x + (rectangle.getWidth() - textCardMP.getLayoutBounds().getWidth()) / 2);
+        textCardMP.setLayoutY(y + 200);
+
         Text textPrice = new Text(Integer.toString(price));
         textPrice.setFont(Font.font(15));
         textPrice.setFill(GREEN);
         textPrice.setLayoutX(x + (rectangle.getWidth() - textPrice.getLayoutBounds().getWidth()) / 2);
         textPrice.setLayoutY(y + 240);
 
-        root.getChildren().addAll(stackPane, textCardName, textPrice);
+        root.getChildren().addAll(stackPane, textCardName, textCardMP, textPrice);
 
         return stackPane;
     }
@@ -813,7 +821,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID());
+            StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID(), hero.getRequiredMP());
             setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice());
             xPosition++;
             yPosition++;
@@ -845,7 +853,7 @@ public class Request
             }
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID());
+            StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID(), minion.getRequiredMP());
             setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice());
             xPosition++;
             yPosition++;
@@ -877,7 +885,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
             setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice());
             xPosition++;
             yPosition++;
@@ -912,7 +920,7 @@ public class Request
             }
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice(), 0);
             setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice());
             xPosition++;
             yPosition++;
@@ -1332,7 +1340,7 @@ public class Request
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition++;
             yPosition++;
-            StackPane stackPane = showNonSpellCards(rootDeck, x, y, hero, hero.getCardID());
+            StackPane stackPane = showNonSpellCards(rootDeck, x, y, hero, hero.getCardID(), hero.getRequiredMP());
             setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, hero.getCardID());
         }
 
@@ -1351,7 +1359,7 @@ public class Request
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID());
+            StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID(), minion.getRequiredMP());
             setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID());
             xPosition++;
             yPosition++;
@@ -1372,7 +1380,7 @@ public class Request
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
             setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID());
             xPosition++;
             yPosition++;
@@ -1396,7 +1404,7 @@ public class Request
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, item.getItemID(), item.getPrice());
+            StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, item.getItemID(), item.getPrice(), 0);
             setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, item.getItemID());
             xPosition++;
             yPosition++;

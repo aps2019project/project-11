@@ -98,47 +98,8 @@ public class ShowOutput
                 labelPlayerName.setTextFill(Color.RED);
                 labelPlayerHighScore.setTextFill(Color.RED);
             }
-
             counter++;
         }
-    }
-
-    public void accountHelp()
-    {
-        printOutput("create account [user name]");
-        printOutput("login [user name]");
-        printOutput("show leaderBoard");
-        printOutput("help");
-        printOutput("exit");
-    }
-
-    public void shopHelp()
-    {
-        printOutput("show collection");
-        printOutput("search [item name | card name]");
-        printOutput("search collection [item name | card name]");
-        printOutput("buy [card name | item name]");
-        printOutput("sell [card ID | item ID]");
-        printOutput("show");
-        printOutput("help");
-        printOutput("exit");
-    }
-
-    public void collectionHelp()
-    {
-        printOutput("search [cardName | itemName]");
-        printOutput("create deck [deckName]");
-        printOutput("delete deck [deckName]");
-        printOutput("add [cardID | heroID | itemID] to deck [deckName]");
-        printOutput("remove [cardID | heroID | itemID] from deck [deckName]");
-        printOutput("validate deck [deckName]");
-        printOutput("select deck [deckName]");
-        printOutput("show all decks");
-        printOutput("show deck [deckName]");
-        printOutput("save");
-        printOutput("show");
-        printOutput("help");
-        printOutput("exit");
     }
 
     public void printHeroStats(Hero hero, int counter)

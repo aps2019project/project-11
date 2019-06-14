@@ -50,13 +50,6 @@ public class AccountManager
             FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
             saveAccountInfo.write(json);
             saveAccountInfo.close();
-
-            FileWriter fileWriter = new FileWriter("SavedAccounts/" + name + ".txt", false);
-            fileWriter.write( name+ '\n'+ json + '\n');
-
-            fileWriter.close();
-
-
         }
         catch (IOException e)
         {
