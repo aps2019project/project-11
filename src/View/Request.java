@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,7 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -30,7 +32,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -1220,6 +1221,7 @@ public class Request
             makingText(primaryStage, deckNames);
         }
 
+
         Button backButton = backButton(primaryStage, rootImportingDeck, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1232,6 +1234,69 @@ public class Request
             }
         });
 
+    }
+
+    private void makingText(Stage primaryStage, ArrayList<String> deckNames)
+    {
+        for (int i = 0; i < deckNames.size(); i++)
+        {
+            Text deckName = new Text();
+            deckName.setText(deckNames.get(i));
+            deckName.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+            deckName.setFill(YELLOW);
+            deckName.layoutXProperty().bind(sceneImportingDeck.widthProperty().subtract(deckName.prefWidth(-1)).divide(2));
+            deckName.setY(i * 50 + 100);
+            int finalI = i;
+            deckName.setOnMouseEntered(event -> deckName.setFill(GREEN));
+            deckName.setOnMouseExited(event -> deckName.setFill(YELLOW));
+            deckName.setOnMouseClicked(event -> {
+                try
+                {
+                    importingToCollection(deckNames.get(finalI));
+                    primaryStage.setScene(sceneCollection);
+                    primaryStage.centerOnScreen();
+                    collectionMenu(primaryStage, false, null);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            });
+            System.out.println(deckName.getText());
+            rootImportingDeck.getChildren().add(deckName);
+        }
+    }
+
+    private void importingToCollection(String deckName) throws IOException, ParseException
+    {
+        JSONParser jsonParser = new JSONParser();
+        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
+        Object obj = jsonParser.parse(reader);
+        System.out.println(obj);
+        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
+        deck.setDeckName("Imported " + deck.getDeckName());
+        Account.loggedInAccount.getPlayerDecks().add(deck);
+        addImportedDeckCardsAndItemsToCollection(deck);
+    }
+
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        for (Hero hero : deck.getHero())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
+        }
+        for (Minion minion : deck.getMinions())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
+        }
+        for (Spell spell : deck.getSpells())
+        {
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, true);
+        }
+        for (Item item : deck.getItem())
+        {
+            Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, true);
+        }
     }
 
     private void deckMenu(Stage primaryStage, Deck deck)
