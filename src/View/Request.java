@@ -1831,17 +1831,38 @@ public class Request
 
     private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
+
         setBackGroundImage(rootBattleField , "file:H:\\project-11\\src\\battleField BackGround\\backgroundStory1.jpg");
         setGridPane(rootBattleField);
+        setHandIcons(rootBattleField);
         primaryStage.setScene(sceneBattleField);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
+    }
+
+    private void setHandIcons(Group rootBattleField) {
+        Pane panes[] = new Pane[5];
+        for(int number = 0 ; number < 5 ; number++){
+            panes[number] = new Pane();
+            System.out.println(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getCardIcon());
+            ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\SpellICon.png"/*Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getCardIcon().getImage()*/);
+            panes[number].getChildren().add(imageView);
+        }
+        panes[0].relocate(400 , 600);
+        panes[1].relocate(500 , 600);
+        panes[2].relocate(600 , 600);
+        panes[3].relocate(700 , 600);
+        panes[4].relocate(800 , 600);
+        for(int number = 0 ; number < 5 ; number++) {
+            rootBattleField.getChildren().add(panes[number]);
+        }
     }
 
     private void setGridPane(Group rootBattleField) {
         GridPane gridPane = new GridPane();
         Pane[][] panes = new Pane[9][5];
 
-        gridPane.setPadding(new Insets(50 , 50 , 50 , 50));
+        gridPane.setPadding(new Insets(250 , 50 , 50 , 190));
         for(int row = 0 ; row < 9 ; row ++){
             for(int column = 0 ; column < 5 ; column++){
                 Pane pane = new Pane();
