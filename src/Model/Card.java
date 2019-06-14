@@ -12,6 +12,7 @@ public class Card implements Cloneable
     private int row;
     private int column;
     private transient ImageView cardImageView;
+    private transient ImageView cardIcon;
     private transient int imageNumber;
 
     public int getColumn()
@@ -153,5 +154,13 @@ public class Card implements Cloneable
 
     public void setImageNumber(int imageNumber) {
         this.imageNumber = imageNumber;
+    }
+
+    public ImageView getCardIcon() {
+        return cardIcon;
+    }
+
+    public void setCardIcon(ImageView cardIcon) {
+        this.cardIcon = cardIcon;
     }
 }

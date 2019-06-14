@@ -10,7 +10,7 @@ public class Hero extends NonSpellCard
     private int turnsRemainingToEndCoolDown;
     private int coolDown;
 
-    public Hero(String name, int price, int HP, int AP, int Mp, int coolDown, SpecialPower specialPower, ImpactType impactType, int rangeOfAttack , ImageView imageView , int imageNumber)
+    public Hero(String name, int price, int HP, int AP, int Mp, int coolDown, SpecialPower specialPower, ImpactType impactType, int rangeOfAttack , ImageView cardImage , ImageView cardIcon, int imageNumber)
     {
         setCardName(name);
         setPrice(price);
@@ -21,7 +21,8 @@ public class Hero extends NonSpellCard
         setCoolDown(coolDown);
         setImpactType(impactType);
         setRangeOfAttack(rangeOfAttack);
-        setCardImageView(imageView);
+        setCardImageView(cardImage);
+        setCardIcon(cardIcon);
         this.setImageNumber(imageNumber);
         heroes.add(this);
         Shop.getInstance().addCardToShop(this);
@@ -32,52 +33,52 @@ public class Hero extends NonSpellCard
         SpecialPower specialPowerHero1 = new SpecialPower("Activate a power buff with 4 units Increase impact strength permanently on itself");
         specialPowerHero1.getSpellEffect().addSpellChange(new SpellChange(0, true, true, 4, 0, 0, false, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero1.getSpellEffect().addTarget(new Target(0, 0, true, false, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
-        new Hero("Dave White", 8000, 50, 4, 1, 2, specialPowerHero1, ImpactType.melee, 0 , new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-1.png") , 5);
+        new Hero("Dave White", 8000, 50, 4, 1, 2, specialPowerHero1, ImpactType.melee, 0 , new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-1.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero1.png") , 5);
 
         SpecialPower specialPowerHero2 = new SpecialPower("Stun all opponents forces for 1 turn");
         specialPowerHero2.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero2.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, 0, null, false, true, false));
-        new Hero("Simurgh", 9000, 50, 4, 5, 8, specialPowerHero2, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-2.png") , 6);
+        new Hero("Simurgh", 9000, 50, 4, 5, 8, specialPowerHero2, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-2.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero2.png"), 6);
 
         SpecialPower specialPowerHero3 = new SpecialPower("Disarm one opponent force");
         specialPowerHero3.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, false, true, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero3.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
-        new Hero("SevenHeadedDragon", 8000, 50, 4, 0, 1, specialPowerHero3, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-3.png") , 7);
+        new Hero("SevenHeadedDragon", 8000, 50, 4, 0, 1, specialPowerHero3, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-3.png"), new ImageView("file:H:\\project-11\\src\\cardIcons\\hero3.png") , 7);
 
         SpecialPower specialPowerHero4 = new SpecialPower("Stun 1 opponent force for 1 turn");
         specialPowerHero4.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, true, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero4.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
-        new Hero("Rakhsh", 8000, 50, 4, 1, 2, specialPowerHero4, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-4.png") , 8);
+        new Hero("Rakhsh", 8000, 50, 4, 1, 2, specialPowerHero4, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-4.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero4.png"), 8);
 
         SpecialPower specialPowerHero5 = new SpecialPower("Poison opponent for 3 turns when it hurts");
         specialPowerHero5.getSpellEffect().addSpellChange(new SpellChange(3, false, false, 0, -1, 0, false, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero5.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 0, null, false, false, false));
-        new Hero("Zahak", 10000, 50, 2, 0, 0, specialPowerHero5, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-5.png") , 9);
+        new Hero("Zahak", 10000, 50, 2, 0, 0, specialPowerHero5, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-5.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero5.png"), 9);
 
         SpecialPower specialPowerHero6 = new SpecialPower("Hallow a cell for 3 turns");
         specialPowerHero6.getSpellEffect().addSpellChange(new SpellChange(3, true, false, 0, 0, 0, false, false, false, 0, false, false, true, false, false, false, false, false));
         specialPowerHero6.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 1, 1, 1, 1, 0, null, false, false, false));
-        new Hero("Kaveh", 8000, 50, 4, 1, 3, specialPowerHero6, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-6.png") , 10);
+        new Hero("Kaveh", 8000, 50, 4, 1, 3, specialPowerHero6, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-6.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero6.png"), 10);
 
         SpecialPower specialPowerHero7 = new SpecialPower("Impact 4 units to all forces in heroes row");
         specialPowerHero7.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, -4, 0, false, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero7.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 1, 1, 1, 9, 6, null, false, true, false));
-        new Hero("Arash", 10000, 30, 2, 2, 2, specialPowerHero7, ImpactType.ranged, 6, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-7.png") , 11);
+        new Hero("Arash", 10000, 30, 2, 2, 2, specialPowerHero7, ImpactType.ranged, 6, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-7.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero7.png"), 11);
 
         SpecialPower specialPowerHero8 = new SpecialPower("Dispel 1 opponent force");
         specialPowerHero8.getSpellEffect().addSpellChange(new SpellChange(1, false, false, 0, 0, 0, false, false, false, 0, false, false, false, false, false, false, true, false));
         specialPowerHero8.getSpellEffect().addTarget(new Target(0, 0, false, false, 1, 0, 0, 0, 0, 0, 3, null, false, false, false));
-        new Hero("Afsaneh", 11000, 40, 3, 1, 2, specialPowerHero8, ImpactType.ranged, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-8.png") ,12);
+        new Hero("Afsaneh", 11000, 40, 3, 1, 2, specialPowerHero8, ImpactType.ranged, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-8.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero8.png"),12);
 
         SpecialPower specialPowerHero9 = new SpecialPower("3 continuous holly buffs");
         specialPowerHero9.getSpellEffect().addSpellChange(new SpellChange(0, true, false, 0, 0, 0, false, false, true, 3, false, false, false, false, false, false, false, true));
         specialPowerHero9.getSpellEffect().addTarget(new Target(0, 0, true, false, 0, 0, 0, 0, 0, 0, 3, null, false, false, false));
-        new Hero("Esfandiar", 12000, 35, 3, 0, 0, specialPowerHero9, ImpactType.hybrid, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-9.png") , 13);
+        new Hero("Esfandiar", 12000, 35, 3, 0, 0, specialPowerHero9, ImpactType.hybrid, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-9.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero9.png"), 13);
 
         SpecialPower specialPowerHero10 = new SpecialPower("Rostam has no specialPower");
         specialPowerHero10.getSpellEffect().addSpellChange(new SpellChange(0, false, false, 0, 0, 0, false, false, false, 0, false, false, false, false, false, false, false, false));
         specialPowerHero10.getSpellEffect().addTarget(new Target(0, 0, false, false, 0, 0, 0, 0, 0, 0, 4, null, false, false, false));
-        new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10, ImpactType.hybrid, 4, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-10.png") , 14);
+        new Hero("Rostam", 8000, 55, 7, 0, 0, specialPowerHero10, ImpactType.hybrid, 4, new ImageView("file:H:\\project-11\\src\\Cards Images\\hero-10.png") , new ImageView("file:H:\\project-11\\src\\cardIcons\\hero10.png"), 14);
     }
 
     public static Hero findHero(String name)
