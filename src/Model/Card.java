@@ -2,8 +2,9 @@ package Model;
 
 import javafx.scene.image.ImageView;
 
-public class Card implements Cloneable
-{
+import java.util.ArrayList;
+
+public class Card implements Cloneable {
     private boolean cardSelectedInBattle = false;
     private String cardID;
     private int price;
@@ -14,110 +15,91 @@ public class Card implements Cloneable
     private transient ImageView cardImageView;
     private transient ImageView cardIcon;
     private transient int imageNumber;
+    private static final Card card = new Card();
+    private static ArrayList<ImageView> imageViews = new ArrayList<>();
 
-    public int getColumn()
-    {
+
+    public int getColumn() {
         return column;
     }
 
-    public void setColumn(int column)
-    {
+    public void setColumn(int column) {
         this.column = column;
     }
 
-    public int getRow()
-    {
+    public int getRow() {
         return row;
     }
 
-    public void setRow(int row)
-    {
+    public void setRow(int row) {
         this.row = row;
     }
 
-    public int getRequiredMP()
-    {
+    public int getRequiredMP() {
         return requiredMP;
     }
 
-    public String getCardID()
-    {
+    public String getCardID() {
         return cardID;
     }
 
-    public int getPrice()
-    {
+    public int getPrice() {
         return price;
     }
 
-    public static Card findCard(String cardName)
-    {
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card.getCardName().equals(cardName))
-            {
+    public static Card findCard(String cardName) {
+        for (Card card : Shop.getInstance().getCards()) {
+            if (card.getCardName().equals(cardName)) {
                 return card;
             }
         }
         return null;
     }
 
-    public boolean isCardSelectedInBattle()
-    {
+    public boolean isCardSelectedInBattle() {
         return cardSelectedInBattle;
     }
 
-    public void setCardSelectedInBattle(boolean cardSelectedInBattle)
-    {
+    public void setCardSelectedInBattle(boolean cardSelectedInBattle) {
         this.cardSelectedInBattle = cardSelectedInBattle;
     }
 
-    public String getCardName()
-    {
+    public String getCardName() {
         return cardName;
     }
 
-    public static void setCards()
-    {
+    public static void setCards() {
         Spell.setSpells();
         NonSpellCard.setNonSpellCards();
     }
 
-    public void setPrice(int price)
-    {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public void setRequiredMP(int requiredMP)
-    {
+    public void setRequiredMP(int requiredMP) {
         this.requiredMP = requiredMP;
     }
 
-    public void setCardName(String cardName)
-    {
+    public void setCardName(String cardName) {
         this.cardName = cardName;
     }
 
-    public void setCardID(String cardID)
-    {
+    public void setCardID(String cardID) {
         this.cardID = cardID;
     }
 
-    public static int findDestination(Card card1, Card card2)
-    {
+    public static int findDestination(Card card1, Card card2) {
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
-    public static boolean checkNeighborhood(Card card1, Card card2)
-    {
+    public static boolean checkNeighborhood(Card card1, Card card2) {
         int[][] matrix = new int[5][9];
         int row = card1.getRow();
         int column = card1.getColumn();
         matrix[row][column] = 1;
-        for (int rowCounter = row - 1; rowCounter <= row + 1; rowCounter++)
-        {
-            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++)
-            {
+        for (int rowCounter = row - 1; rowCounter <= row + 1; rowCounter++) {
+            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++) {
                 matrix[rowCounter][columnCounter] = 1;
             }
         }
@@ -125,26 +107,22 @@ public class Card implements Cloneable
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException
-    {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-    public void setDefaultCardID()
-    {
+    public void setDefaultCardID() {
         Account account = Account.loggedInAccount;
         String cardID = "SinglePlayer_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
         account.increaseAIAccountDefaultID();
     }
 
-    public ImageView getCardImageView()
-    {
+    public ImageView getCardImageView() {
         return cardImageView;
     }
 
-    public void setCardImageView(ImageView cardImageView)
-    {
+    public void setCardImageView(ImageView cardImageView) {
         this.cardImageView = cardImageView;
     }
 
@@ -162,5 +140,47 @@ public class Card implements Cloneable
 
     public void setCardIcon(ImageView cardIcon) {
         this.cardIcon = cardIcon;
+    }
+
+    public static Card getCard() {
+        return card;
+    }
+
+    public static ArrayList<ImageView> getImageViews() {
+        return imageViews;
+    }
+
+    public static void setCardIcons() {
+        ImageView imageView0 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero1.png");
+        ImageView imageView1 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero2.png");
+        ImageView imageView2 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero3.png");
+        ImageView imageView3 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero4.png");
+        ImageView imageView4 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero5.png");
+        ImageView imageView5 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero6.png");
+        ImageView imageView6 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero7.png");
+        ImageView imageView7 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero8.png");
+        ImageView imageView8 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero9.png");
+        ImageView imageView9 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero10.png");
+        ImageView imageView10 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion1.png");
+        ImageView imageView11 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion2.png");
+        ImageView imageView12 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion3.png");
+        ImageView imageView13 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion4.png");
+        ImageView imageView14 = new ImageView("file:H:\\project-11\\src\\cardIcons\\SpellICon.png");
+        imageViews.add(imageView0);
+        imageViews.add(imageView1);
+        imageViews.add(imageView2);
+        imageViews.add(imageView3);
+        imageViews.add(imageView4);
+        imageViews.add(imageView5);
+        imageViews.add(imageView6);
+        imageViews.add(imageView7);
+        imageViews.add(imageView8);
+        imageViews.add(imageView9);
+        imageViews.add(imageView10);
+        imageViews.add(imageView11);
+        imageViews.add(imageView12);
+        imageViews.add(imageView13);
+        imageViews.add(imageView14);
+
     }
 }

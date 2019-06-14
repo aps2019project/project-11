@@ -1865,10 +1865,16 @@ public class Request
 
     private void setHandIcons(Group rootBattleField) {
         Pane panes[] = new Pane[5];
+        Card.setCardIcons();
         for(int number = 0 ; number < 5 ; number++){
+            ImageView imageView;
             panes[number] = new Pane();
-            System.out.println(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getCardIcon());
-            ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\SpellICon.png"/*Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getCardIcon().getImage()*/);
+            if(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number) instanceof Spell){
+                imageView = new ImageView(Card.getImageViews().get(14).getImage());
+            }
+            else {
+                imageView = new ImageView(Card.getImageViews().get(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getImageNumber()).getImage());
+            }
             panes[number].getChildren().add(imageView);
         }
         panes[0].relocate(400 , 600);
@@ -1885,13 +1891,13 @@ public class Request
         GridPane gridPane = new GridPane();
         Pane[][] panes = new Pane[9][5];
 
-        gridPane.setPadding(new Insets(250 , 50 , 50 , 190));
+        gridPane.setPadding(new Insets(200 , 50 , 50 , 260));
         for(int row = 0 ; row < 9 ; row ++){
             for(int column = 0 ; column < 5 ; column++){
                 Pane pane = new Pane();
                 panes[row][column] = pane;
                 gridPane.add(pane , row , column);
-                ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\paneBackGround.png");
+                ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\normal.png");
                 gridPane.add(imageView, row , column);
             }
         }

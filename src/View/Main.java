@@ -81,7 +81,7 @@ public class Main extends Application
             String fileName = scanner.nextLine();
 
             JSONParser jsonParser = new JSONParser();
-            FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
+            FileReader reader = new FileReader("SavedAccounts" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
             AccountManager.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));

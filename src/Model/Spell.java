@@ -1,7 +1,5 @@
 package Model;
 
-import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 
 public class Spell extends Card
@@ -16,7 +14,6 @@ public class Spell extends Card
         this.setPrice(price);
         this.setRequiredMP(MP);
         this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
-        this.setCardIcon(new ImageView("file:H:\\project-11\\src\\battleField BackGround\\SpellICon.png"));
         spells.add(this);
         Shop.getInstance().addCardToShop(this);
     }
