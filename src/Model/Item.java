@@ -345,6 +345,19 @@ public class Item implements Cloneable
     }
 
     public void setDefaultCardID() {
+        //todo why is this method empty???
+    }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Item)
+        {
+            if (((Item) obj).getItemID().equals(this.getItemID()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

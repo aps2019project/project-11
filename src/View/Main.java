@@ -1,6 +1,7 @@
 package View;
 
-import Controller.*;
+import Controller.AccountManager;
+import Controller.CallTheAppropriateFunction;
 import Model.Account;
 import com.google.gson.Gson;
 import javafx.application.Application;
@@ -53,6 +54,9 @@ public class Main extends Application
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
     private static Group rootBattleField = new Group();
     private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
+
+    private static Group rootImportingDeck = new Group();
+    private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
 
 
     @Override
@@ -229,6 +233,14 @@ public class Main extends Application
     {
         return sceneProfile;
     }
+    public static Scene getSceneImportingDeck() {
+        return sceneImportingDeck;
+    }
+    public static Group getRootImportingDeck()
+    {
+        return rootImportingDeck;
+    }
+
 
     public static Scene getSceneBattleField() {
         return sceneBattleField;

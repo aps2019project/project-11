@@ -40,7 +40,7 @@ public class Deck
     {
         if (card instanceof Minion)
         {
-            minions.remove(card);
+            System.out.println(minions.remove(card));
         }
         else if (card instanceof Spell)
         {
@@ -155,5 +155,10 @@ public class Deck
     public ArrayList<Spell> getSpells()
     {
         return spells;
+    }
+
+    public void setDeckName(String deckName)
+    {
+        this.deckName = deckName;
     }
 }

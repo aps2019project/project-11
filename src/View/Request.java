@@ -2,11 +2,14 @@ package View;
 
 import Controller.AccountManager;
 import Model.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,8 +25,12 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -125,11 +132,14 @@ public class Request
     private Scene sceneStoryMode = Main.getSceneMultiPlayer();
     private Group rootCustomGame = Main.getRootCustomGame();
     private Scene sceneCustomGame = Main.getSceneCustomGame();
+    private Scene sceneImportingDeck = Main.getSceneImportingDeck();
+    private Group rootImportingDeck = Main.getRootImportingDeck();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
 
 
     private Deck selectedDeckForCustomGame = null;
+    private Controller battleFieldController;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -933,7 +943,16 @@ public class Request
         importButton.relocate(480, 20);
         importButton.setFont(Font.font(15));
         importButton.setText("import Deck");
-        importButton.setOnMouseClicked(event -> importingDeck());
+        importButton.setOnMouseClicked(event -> {
+            try
+            {
+                importingDeck(primaryStage);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
+
         rootCollection.getChildren().add(importButton);
 
         primaryStage.setScene(sceneCollection);
@@ -1074,11 +1093,24 @@ public class Request
                 }
                 else if (option.get() == buttonTypeExportDeck)
                 {
-                    //todo
-                }
-                else
-                {
-                    return;
+                    String accountName = Account.loggedInAccount.getAccountName();
+                    String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
+                    try
+                    {
+                        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
+                        savedDecksPath.write(accountName + deck.getDeckName() + "\n");
+                        savedDecksPath.close();
+
+                        FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
+                        fileWriter.write(exportingDeckJson);
+                        System.out.println(accountName + deck.getDeckName());
+                        fileWriter.close();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -1173,13 +1205,32 @@ public class Request
         root.getChildren().add(createDeckTextField);
     }
 
-    private void importingDeck()
+    private void importingDeck(Stage primaryStage) throws IOException
     {
+        rootImportingDeck.getChildren().clear();
 
-    }
+        setBackGroundImage(rootImportingDeck, "file:ImportingDeck.jpg");
 
-    private void exportingDeck()
-    {
+        InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
+        ArrayList<String> deckNames = new ArrayList<>();
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNext())
+        {
+            deckNames.add(scanner.nextLine());
+            makingText(primaryStage, deckNames);
+        }
+
+        Button backButton = backButton(primaryStage, rootImportingDeck, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneCollection);
+                primaryStage.centerOnScreen();
+                collectionMenu(primaryStage, false, null);
+            }
+        });
 
     }
 

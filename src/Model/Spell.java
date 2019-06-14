@@ -123,4 +123,17 @@ public class Spell extends Card
     {
         return spells;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Spell)
+        {
+            if (((Spell) obj).getCardID().equals(this.getCardID()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

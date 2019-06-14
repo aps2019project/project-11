@@ -62,9 +62,12 @@ public class Collection
         return spells;
     }
 
-    public void addCard(Account account, Card card)
+    public void addCard(Account account, Card card, boolean isImported)
     {
-        Shop.getInstance().setCardID(account, card);
+        if (!isImported)
+        {
+            Shop.getInstance().setCardID(account, card);
+        }
         if (card instanceof Hero)
         {
             heroes.add((Hero) card);
@@ -84,9 +87,12 @@ public class Collection
         return items;
     }
 
-    public void addItem(Account account, Item item)
+    public void addItem(Account account, Item item, boolean isImported)
     {
-        Shop.getInstance().setItemID(account, item);
+        if (!isImported)
+        {
+            Shop.getInstance().setItemID(account, item);
+        }
         this.items.add(item);
     }
 }
