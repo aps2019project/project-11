@@ -948,7 +948,8 @@ public class Request
             try
             {
                 importingDeck(primaryStage);
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
             }
@@ -1098,23 +1099,36 @@ public class Request
                     String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
                     try
                     {
-                        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
-                        savedDecksPath.write(accountName + deck.getDeckName() + "\n");
-                        savedDecksPath.close();
+                        writeExportedDeckNameInFile(accountName + deck.getDeckName());
 
                         FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
                         fileWriter.write(exportingDeckJson);
                         System.out.println(accountName + deck.getDeckName());
                         fileWriter.close();
                     }
-                    catch (IOException e)
+                    catch (Exception e)
                     {
                         e.printStackTrace();
                     }
-
                 }
             }
         });
+    }
+
+    private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception
+    {
+        InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNext())
+        {
+            if (scanner.nextLine().equals(exportedDeckName))
+            {
+                return;
+            }
+        }
+        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
+        savedDecksPath.write(exportedDeckName + "\n");
+        savedDecksPath.close();
     }
 
     private void showAllDecks(Stage primaryStage, String ID)
@@ -1221,7 +1235,6 @@ public class Request
             makingText(primaryStage, deckNames);
         }
 
-
         Button backButton = backButton(primaryStage, rootImportingDeck, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1234,6 +1247,8 @@ public class Request
             }
         });
 
+        primaryStage.setScene(sceneImportingDeck);
+        primaryStage.centerOnScreen();
     }
 
     private void makingText(Stage primaryStage, ArrayList<String> deckNames)
