@@ -1839,22 +1839,19 @@ public class Request
 
     private void setGridPane(Group rootBattleField) {
         GridPane gridPane = new GridPane();
-        Pane[][] panes = new Pane[5][9];
+        Pane[][] panes = new Pane[9][5];
 
-        gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(50 , 50 , 50 , 50));
-        for(int row = 0 ; row < 5 ; row ++){
-            for(int column = 0 ; column < 9 ; column++){
+        for(int row = 0 ; row < 9 ; row ++){
+            for(int column = 0 ; column < 5 ; column++){
                 Pane pane = new Pane();
                 panes[row][column] = pane;
                 gridPane.add(pane , row , column);
+                ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\paneBackGround.png");
+                gridPane.add(imageView, row , column);
             }
         }
-        gridPane.setGridLinesVisible(true);
-
         rootBattleField.getChildren().add(gridPane);
-        gridPane.setGridLinesVisible(true);
-
     }
 
     public void getSecondPlayerInMultiPlayerMatch()
