@@ -68,7 +68,7 @@ public class Main extends Application
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
         primaryStage.getIcons().add(iconImage);
-        primaryStage.setTitle("Duelist");
+        primaryStage.setTitle("Duelyst");
         primaryStage.show();
     }
 
@@ -76,12 +76,12 @@ public class Main extends Application
     {
         InputStream inputStream = new FileInputStream("SavedAccounts/SavedAccountPath.txt");
         Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNextLine())
+        while (scanner.hasNext())
         {
             String fileName = scanner.nextLine();
 
             JSONParser jsonParser = new JSONParser();
-            FileReader reader = new FileReader("SavedAccounts" + fileName + ".json");
+            FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
             AccountManager.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
