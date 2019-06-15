@@ -16,7 +16,9 @@ public class Card implements Cloneable {
     private transient ImageView cardIcon;
     private transient int imageNumber;
     private static final Card card = new Card();
-    private static ArrayList<ImageView> imageViews = new ArrayList<>();
+    private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
+    private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
+
 
 
     public int getColumn() {
@@ -147,7 +149,7 @@ public class Card implements Cloneable {
     }
 
     public static ArrayList<ImageView> getCardsIcon() {
-        return imageViews;
+        return cardsIcons;
     }
 
     public static void setCardIcons() {
@@ -166,21 +168,43 @@ public class Card implements Cloneable {
         ImageView imageView12 = new ImageView("cardIcons/minion3.png");
         ImageView imageView13 = new ImageView("cardIcons/minion4.png");
         ImageView imageView14 = new ImageView("cardIcons/SpellICon.png");
-        imageViews.add(imageView0);
-        imageViews.add(imageView1);
-        imageViews.add(imageView2);
-        imageViews.add(imageView3);
-        imageViews.add(imageView4);
-        imageViews.add(imageView5);
-        imageViews.add(imageView6);
-        imageViews.add(imageView7);
-        imageViews.add(imageView8);
-        imageViews.add(imageView9);
-        imageViews.add(imageView10);
-        imageViews.add(imageView11);
-        imageViews.add(imageView12);
-        imageViews.add(imageView13);
-        imageViews.add(imageView14);
+        cardsIcons.add(imageView0);
+        cardsIcons.add(imageView1);
+        cardsIcons.add(imageView2);
+        cardsIcons.add(imageView3);
+        cardsIcons.add(imageView4);
+        cardsIcons.add(imageView5);
+        cardsIcons.add(imageView6);
+        cardsIcons.add(imageView7);
+        cardsIcons.add(imageView8);
+        cardsIcons.add(imageView9);
+        cardsIcons.add(imageView10);
+        cardsIcons.add(imageView11);
+        cardsIcons.add(imageView12);
+        cardsIcons.add(imageView13);
+        cardsIcons.add(imageView14);
 
     }
+
+    public static ArrayList<ImageView> getCardsImageView() {
+        return cardsImageView;
+    }
+
+    public static void setCardsImageView() {
+        cardsImageView.add(new ImageView("Cards Images/hero-1.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-2.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-3.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-4.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-5.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-6.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-7.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-8.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-9.png"));
+        cardsImageView.add(new ImageView("Cards Images/hero-10.png"));
+        cardsImageView.add(new ImageView("Cards Images/minion-1.png"));
+        cardsImageView.add(new ImageView("Cards Images/minion-2.png"));
+        cardsImageView.add(new ImageView("Cards Images/minion-3.png"));
+        cardsImageView.add(new ImageView("Cards Images/minion-4.png"));
+    }
+
 }
