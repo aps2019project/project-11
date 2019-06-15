@@ -146,7 +146,7 @@ public class Card implements Cloneable {
         return card;
     }
 
-    public static ArrayList<ImageView> getImageViews() {
+    public static ArrayList<ImageView> getCardsIcon() {
         return imageViews;
     }
 

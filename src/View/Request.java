@@ -139,6 +139,7 @@ public class Request
     private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
+    private GridPane BattleFieldGridPane = new GridPane();
 
 
     private Deck selectedDeckForCustomGame = null;
@@ -1854,13 +1855,25 @@ public class Request
 
     private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
-
         setBackGroundImage(rootBattleField , "file:H:\\project-11\\src\\battleField BackGround\\backgroundStory1.jpg");
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
+        setHeroIcons(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.setFullScreen(true);
         primaryStage.show();
+    }
+
+    private void setHeroIcons(Group rootBattleField) {
+        Pane paneHero1 = new Pane();
+        Pane paneHero2 = new Pane();
+        paneHero1.relocate(100 , -40);
+        paneHero2.relocate(1100 , -40);
+        ImageView firstPlayerHeroIcon = Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getImageNumber());
+        ImageView secondPlayerHeroIcon = Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getImageNumber());
+        paneHero1.getChildren().addAll(firstPlayerHeroIcon);
+        paneHero2.getChildren().addAll(secondPlayerHeroIcon);
+        rootBattleField.getChildren().addAll(paneHero1 , paneHero2);
     }
 
     private void setHandIcons(Group rootBattleField) {
@@ -1870,38 +1883,38 @@ public class Request
             ImageView imageView;
             panes[number] = new Pane();
             if(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number) instanceof Spell){
-                imageView = new ImageView(Card.getImageViews().get(14).getImage());
+                imageView = new ImageView(Card.getCardsIcon().get(14).getImage());
             }
             else {
-                imageView = new ImageView(Card.getImageViews().get(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getImageNumber()).getImage());
             }
             panes[number].getChildren().add(imageView);
         }
-        panes[0].relocate(400 , 600);
-        panes[1].relocate(500 , 600);
+        panes[0].relocate(350 , 600);
+        panes[1].relocate(475 , 600);
         panes[2].relocate(600 , 600);
-        panes[3].relocate(700 , 600);
-        panes[4].relocate(800 , 600);
+        panes[3].relocate(725 , 600);
+        panes[4].relocate(850 , 600);
         for(int number = 0 ; number < 5 ; number++) {
             rootBattleField.getChildren().add(panes[number]);
         }
     }
 
     private void setGridPane(Group rootBattleField) {
-        GridPane gridPane = new GridPane();
         Pane[][] panes = new Pane[9][5];
 
-        gridPane.setPadding(new Insets(200 , 50 , 50 , 260));
+        getBattleFieldGridPane().setPadding(new Insets(200 , 50 , 50 , 260));
         for(int row = 0 ; row < 9 ; row ++){
             for(int column = 0 ; column < 5 ; column++){
                 Pane pane = new Pane();
                 panes[row][column] = pane;
-                gridPane.add(pane , row , column);
+                getBattleFieldGridPane().add(pane , row , column);
                 ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\normal.png");
-                gridPane.add(imageView, row , column);
+                getBattleFieldGridPane().add(imageView, row , column);
             }
         }
-        rootBattleField.getChildren().add(gridPane);
+
+        rootBattleField.getChildren().add(getBattleFieldGridPane());
     }
 
     public void getSecondPlayerInMultiPlayerMatch()
@@ -2147,5 +2160,9 @@ public class Request
         {
             getCommand().customGameFlagNumber = Integer.parseInt(partedLine[4]);
         }
+    }
+
+    public GridPane getBattleFieldGridPane() {
+        return BattleFieldGridPane;
     }
 }
