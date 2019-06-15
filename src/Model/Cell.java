@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 
 public class Cell
@@ -12,6 +14,7 @@ public class Cell
     private boolean toxicCell = false;
     private boolean fieryCell = false;
     private ArrayList<SpellChange> spellChanges = new ArrayList<>();
+    private transient Pane cellPane;
 
     public void setCard(Card card)
     {
@@ -111,5 +114,13 @@ public class Cell
 
     public void remove(NonSpellCard selectedCard) {
         this.setCard(null);
+    }
+
+    public Pane getCellPane() {
+        return cellPane;
+    }
+
+    public void setCellPane(Pane cellPane) {
+        this.cellPane = cellPane;
     }
 }

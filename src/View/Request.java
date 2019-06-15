@@ -1855,13 +1855,19 @@ public class Request
 
     private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
-        setBackGroundImage(rootBattleField , "file:H:\\project-11\\src\\battleField BackGround\\backgroundStory1.jpg");
+        setBackGroundImage(rootBattleField , "battleField BackGround/backgroundStory1.jpg");
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
         setHeroIcons(rootBattleField);
+       // setHeroFirstPlace(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.setFullScreen(true);
         primaryStage.show();
+    }
+
+    private void setHeroFirstPlace(Group rootBattleField) {
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCardImageView());
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCardImageView());
     }
 
     private void setHeroIcons(Group rootBattleField) {
@@ -1909,11 +1915,12 @@ public class Request
                 Pane pane = new Pane();
                 panes[row][column] = pane;
                 getBattleFieldGridPane().add(pane , row , column);
-                ImageView imageView = new ImageView("file:H:\\project-11\\src\\battleField BackGround\\normal.png");
+//                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].setCellPane(pane);
+
+                ImageView imageView = new ImageView("battleField BackGround/normal.png");
                 getBattleFieldGridPane().add(imageView, row , column);
             }
         }
-
         rootBattleField.getChildren().add(getBattleFieldGridPane());
     }
 

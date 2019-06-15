@@ -9,7 +9,7 @@ public class Minion extends NonSpellCard
     private static ArrayList<Minion> minions = new ArrayList<>();
     private boolean ableToCombo;
 
-    public Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower, boolean ableToCombo, ImpactType impactType, int rangeOfAttack , ImageView cardImage , int imageNumber)
+    public Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower, boolean ableToCombo, ImpactType impactType, int rangeOfAttack , int imageNumber)
     {
         this.setCardName(name);
         this.setPrice(price);
@@ -20,7 +20,6 @@ public class Minion extends NonSpellCard
         this.ableToCombo = ableToCombo;
         this.setImpactType(impactType);
         this.setRangeOfAttack(rangeOfAttack);
-        this.setCardImageView(cardImage);
         this.setImageNumber(imageNumber);
         minions.add(this);
         Shop.getInstance().addCardToShop(this);
@@ -104,46 +103,46 @@ public class Minion extends NonSpellCard
         minionSpell38.getSpellEffect().addSpellChange(new SpellChange(1, false, false, TimeToActivateSpecialPower.onDeath, 0, -6, 0, false, false, true, false, false, false, false, false, false, false));
         minionSpell38.getSpellEffect().addTarget(new Target(0, 0, false, true, 0, 0, 0, 0, 0, 0, 0, null, false, false, false));
 
-        new Minion("kamandarFars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7 , new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png") , 10);
-        new Minion("shamsirzanFars", 400, 2, 6, 4 ,minionSpell2,false,ImpactType.melee, 0 , new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("neizedarFars", 500, 1, 5, 3, null,false, ImpactType.hybrid, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("asbsavarFars", 200, 4, 10, 6, null,false,ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("pahlavanFars", 600, 9, 24, 6, null,false,ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("sepahsalarFars", 800, 7, 12, 4, null,true,ImpactType.melee ,0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("kamandarTorani", 500, 1, 3, 4,null,false,ImpactType.ranged, 5 , new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("gholabsangdarTorani", 600, 1, 4, 2, null,false,ImpactType.ranged, 7, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("neizedarTorani", 600, 1, 4, 4, null,false,ImpactType.hybrid, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("jasosTorani", 700, 4, 6, 6, minionSpell10,false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-1.png"), 10);
-        new Minion("GorzdarTorani", 450, 2, 3, 10, null, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("ShahzadeTorani", 800, 6, 6, 10, null, true, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("Divesiah", 300, 9, 14, 10, null, false, ImpactType.hybrid, 7, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("GhoulSangAndaz", 300, 9, 12, 12, null, false, ImpactType.ranged, 7, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("Oghab", 200, 2, 0, 2, minionSpell15, false, ImpactType.ranged, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("DivGorazSavar", 300, 6, 16, 8, null, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("GhoulTakCheshm", 500, 7, 12, 11, minionSpell17, false, ImpactType.hybrid, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("MarSammi", 300, 4, 5, 6, minionSpell18, false, ImpactType.ranged, 4, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("EzhdehayeAtashAndaz", 250, 5, 9, 5, null, false, ImpactType.ranged, 4, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("ShirDarande", 600, 2, 1, 8, minionSpell20, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-2.png"), 11);
-        new Minion("MarGhoulPeykar", 500, 8, 14, 7, minionSpell21, false, ImpactType.ranged, 5, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion3.png"), 12);
-        new Minion("GorgSefid" ,400 , 5 ,8 , 2 , null , false , ImpactType.melee , 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Palang", 400, 4, 6, 2, minionSpell23, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Gorg", 400, 3, 6, 1, minionSpell24, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("JadoGar", 550, 4, 5, 4, minionSpell25, false, ImpactType.ranged, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("JadoGarAzam", 550, 6, 6, 6, minionSpell26, false, ImpactType.ranged, 5, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Genn", 500, 6, 10, 4, minionSpell27, false, ImpactType.ranged, 4, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("GorazVahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Piran", 400, 8, 20, 12, null, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Giv", 450, 4, 5, 7, null, false, ImpactType.ranged, 5, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-3.png"), 12);
-        new Minion("Bahman", 450, 8, 16, 9, minionSpell31, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("AshkBos", 400, 7, 14, 8, null, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("Iraj", 500, 4, 6, 20, null, false, ImpactType.ranged, 3, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("GhoulBozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("GhoulDosar", 550, 4, 10, 4, minionSpell35, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("NaneSarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("FoladZereh", 650, 3, 1, 1, minionSpell37, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("ShahGhoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
-        new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0, new ImageView("file:H:\\project-11\\src\\Cards Images\\minion-4.png"), 13);
+        new Minion("kamandarFars" ,300, 2, 6, 4, null, false,ImpactType.ranged, 7 , 10);
+        new Minion("shamsirzanFars", 400, 2, 6, 4 ,minionSpell2,false,ImpactType.melee, 0 , 10);
+        new Minion("neizedarFars", 500, 1, 5, 3, null,false, ImpactType.hybrid, 3, 10);
+        new Minion("asbsavarFars", 200, 4, 10, 6, null,false,ImpactType.melee, 0, 10);
+        new Minion("pahlavanFars", 600, 9, 24, 6, null,false,ImpactType.melee, 0, 10);
+        new Minion("sepahsalarFars", 800, 7, 12, 4, null,true,ImpactType.melee ,0, 10);
+        new Minion("kamandarTorani", 500, 1, 3, 4,null,false,ImpactType.ranged, 5 , 10);
+        new Minion("gholabsangdarTorani", 600, 1, 4, 2, null,false,ImpactType.ranged, 7, 10);
+        new Minion("neizedarTorani", 600, 1, 4, 4, null,false,ImpactType.hybrid, 3, 10);
+        new Minion("jasosTorani", 700, 4, 6, 6, minionSpell10,false, ImpactType.melee, 0, 10);
+        new Minion("GorzdarTorani", 450, 2, 3, 10, null, false, ImpactType.melee, 0, 11);
+        new Minion("ShahzadeTorani", 800, 6, 6, 10, null, true, ImpactType.melee, 0 , 11);
+        new Minion("Divesiah", 300, 9, 14, 10, null, false, ImpactType.hybrid, 7,  11);
+        new Minion("GhoulSangAndaz", 300, 9, 12, 12, null, false, ImpactType.ranged, 7 , 11);
+        new Minion("Oghab", 200, 2, 0, 2, minionSpell15, false, ImpactType.ranged, 3, 11);
+        new Minion("DivGorazSavar", 300, 6, 16, 8, null, false, ImpactType.melee, 0,  11);
+        new Minion("GhoulTakCheshm", 500, 7, 12, 11, minionSpell17, false, ImpactType.hybrid, 3, 11);
+        new Minion("MarSammi", 300, 4, 5, 6, minionSpell18, false, ImpactType.ranged, 4,  11);
+        new Minion("EzhdehayeAtashAndaz", 250, 5, 9, 5, null, false, ImpactType.ranged, 4, 11);
+        new Minion("ShirDarande", 600, 2, 1, 8, minionSpell20, false, ImpactType.melee, 0,  11);
+        new Minion("MarGhoulPeykar", 500, 8, 14, 7, minionSpell21, false, ImpactType.ranged, 5, 12);
+        new Minion("GorgSefid" ,400 , 5 ,8 , 2 , null , false , ImpactType.melee , 0, 12);
+        new Minion("Palang", 400, 4, 6, 2, minionSpell23, false, ImpactType.melee, 0 , 12);
+        new Minion("Gorg", 400, 3, 6, 1, minionSpell24, false, ImpactType.melee, 0,  12);
+        new Minion("JadoGar", 550, 4, 5, 4, minionSpell25, false, ImpactType.ranged, 3,  12);
+        new Minion("JadoGarAzam", 550, 6, 6, 6, minionSpell26, false, ImpactType.ranged, 5 , 12);
+        new Minion("Genn", 500, 6, 10, 4, minionSpell27, false, ImpactType.ranged, 4,  12);
+        new Minion("GorazVahshi", 500, 6, 10, 14, null, false, ImpactType.melee, 0, 12);
+        new Minion("Piran", 400, 8, 20, 12, null, false, ImpactType.melee, 0, 12);
+        new Minion("Giv", 450, 4, 5, 7, null, false, ImpactType.ranged, 5, 12);
+        new Minion("Bahman", 450, 8, 16, 9, minionSpell31, false, ImpactType.melee, 0, 13);
+        new Minion("AshkBos", 400, 7, 14, 8, null, false, ImpactType.melee, 0 , 13);
+        new Minion("Iraj", 500, 4, 6, 20, null, false, ImpactType.ranged, 3,  13);
+        new Minion("GhoulBozorg", 600, 9, 30, 8, null, false, ImpactType.hybrid, 2 , 13);
+        new Minion("GhoulDosar", 550, 4, 10, 4, minionSpell35, false, ImpactType.melee, 0 , 13);
+        new Minion("NaneSarma", 500, 3, 3, 4, minionSpell36, false, ImpactType.ranged, 5,  13);
+        new Minion("FoladZereh", 650, 3, 1, 1, minionSpell37, false, ImpactType.melee, 0 , 13);
+        new Minion("Siavash", 350, 4, 8, 5, minionSpell38, false, ImpactType.melee, 0,  13);
+        new Minion("ShahGhoul", 600, 5, 10, 4, null, true, ImpactType.melee, 0 , 13);
+        new Minion("ArzhangDiv", 600, 3, 6, 6, null, true, ImpactType.melee, 0 , 13);
     }
 
     public boolean isAbleToCombo()

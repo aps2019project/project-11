@@ -151,21 +151,21 @@ public class Card implements Cloneable {
     }
 
     public static void setCardIcons() {
-        ImageView imageView0 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero1.png");
-        ImageView imageView1 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero2.png");
-        ImageView imageView2 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero3.png");
-        ImageView imageView3 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero4.png");
-        ImageView imageView4 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero5.png");
-        ImageView imageView5 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero6.png");
-        ImageView imageView6 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero7.png");
-        ImageView imageView7 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero8.png");
-        ImageView imageView8 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero9.png");
-        ImageView imageView9 = new ImageView("file:H:\\project-11\\src\\cardIcons\\hero10.png");
-        ImageView imageView10 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion1.png");
-        ImageView imageView11 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion2.png");
-        ImageView imageView12 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion3.png");
-        ImageView imageView13 = new ImageView("file:H:\\project-11\\src\\cardIcons\\minion4.png");
-        ImageView imageView14 = new ImageView("file:H:\\project-11\\src\\cardIcons\\SpellICon.png");
+        ImageView imageView0 = new ImageView("cardIcons/hero1.png");
+        ImageView imageView1 = new ImageView("cardIcons/hero2.png");
+        ImageView imageView2 = new ImageView("cardIcons/hero3.png");
+        ImageView imageView3 = new ImageView("cardIcons/hero4.png");
+        ImageView imageView4 = new ImageView("cardIcons/hero5.png");
+        ImageView imageView5 = new ImageView("cardIcons/hero6.png");
+        ImageView imageView6 = new ImageView("cardIcons/hero7.png");
+        ImageView imageView7 = new ImageView("cardIcons/hero8.png");
+        ImageView imageView8 = new ImageView("cardIcons/hero9.png");
+        ImageView imageView9 = new ImageView("cardIcons/hero10.png");
+        ImageView imageView10 = new ImageView("cardIcons/minion1.png");
+        ImageView imageView11 = new ImageView("cardIcons/minion2.png");
+        ImageView imageView12 = new ImageView("cardIcons/minion3.png");
+        ImageView imageView13 = new ImageView("cardIcons/minion4.png");
+        ImageView imageView14 = new ImageView("cardIcons/SpellICon.png");
         imageViews.add(imageView0);
         imageViews.add(imageView1);
         imageViews.add(imageView2);
