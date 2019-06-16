@@ -132,7 +132,6 @@ public class Request {
     private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
-    private GridPane BattleFieldGridPane = new GridPane();
 
 
 
@@ -1653,20 +1652,23 @@ public class Request {
 
     private void setGridPane(Group rootBattleField) {
         Pane[][] panes = new Pane[9][5];
-        getBattleFieldGridPane().relocate(300 , 200);
+        GridPane gridPane = new GridPane();
+
+        gridPane.relocate(300 , 200);
 
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 5; column++) {
                 Pane pane = new Pane();
                 panes[row][column] = pane;
-                getBattleFieldGridPane().add(pane, row, column);
+                gridPane.add(pane, row, column);
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[column][row].setCellPane(pane);
 
                 ImageView imageView = new ImageView("battleField BackGround/normal.png");
-                getBattleFieldGridPane().add(imageView, row, column);
+                gridPane.add(imageView, row, column);
             }
         }
-        rootBattleField.getChildren().add(getBattleFieldGridPane());
+        rootBattleField.getChildren().add(gridPane);
+        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 
     public void getSecondPlayerInMultiPlayerMatch() {
@@ -1837,7 +1839,4 @@ public class Request {
         }
     }
 
-    public GridPane getBattleFieldGridPane() {
-        return BattleFieldGridPane;
-    }
 }
