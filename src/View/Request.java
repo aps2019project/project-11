@@ -38,7 +38,8 @@ import java.util.regex.Pattern;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
-public class Request {
+public class Request
+{
     public static Scanner myScanner = new Scanner(System.in);
 
     private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
@@ -72,20 +73,25 @@ public class Request {
     private CommandType command;
     public final Object requestLock = new Object();
 
-    public CommandType getCommand() {
+    public CommandType getCommand()
+    {
         return command;
     }
 
-    public void setCommand(CommandType command) {
+    public void setCommand(CommandType command)
+    {
         Request.getInstance().command = command;
     }
 
-    private Request() {
+    private Request()
+    {
         //just added to make Request singleton
     }
 
-    public static Request getInstance() {
-        if (request == null) {
+    public static Request getInstance()
+    {
+        if (request == null)
+        {
             request = new Request();
         }
         return request;
@@ -132,13 +138,16 @@ public class Request {
     private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
-
+    private GridPane BattleFieldGridPane = new GridPane();
 
 
     private Deck selectedDeckForCustomGame = null;
     private Controller battleFieldController;
 
-    public void signUpMenu(Stage primaryStage) {
+    public void signUpMenu(Stage primaryStage)
+    {
+        rootSignUpMenu.getChildren().clear();
+
         TextField textFieldName = new TextField();
         PasswordField textFieldPassword = new PasswordField();
         nameAndPasswordFields(rootSignUpMenu, textFieldName, textFieldPassword);
@@ -1581,14 +1590,16 @@ public class Request {
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException {
-        setBackGroundImage(rootBattleField, "battleField BackGround/backgroundStory1.jpg");
+    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
+    {
+        setBackGroundImage(rootBattleField, "battleField BackGround/backgroundStory" + mapNumber + ".jpg");
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
         setHeroIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
         setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
+        primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
         primaryStage.show();
     }
@@ -1731,68 +1742,105 @@ public class Request {
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 
-    public void getSecondPlayerInMultiPlayerMatch() {
+    public void getSecondPlayerInMultiPlayerMatch()
+    {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternSelectUser.matcher(input).matches()) {
+        if (patternSelectUser.matcher(input).matches())
+        {
             setCommand(CommandType.SELECT_USER);
             getCommand().username = inputParts[2];
-        } else {
+        }
+        else
+        {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getMultiPlayerMatchMode() {
+    public void getMultiPlayerMatchMode()
+    {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternStartMultiPlayerGame.matcher(input).matches()) {
+        if (patternStartMultiPlayerGame.matcher(input).matches())
+        {
             setCommand(CommandType.START_MULTI_PLAYER_GAME);
             getCommand().multiPlayerMatchMode = inputParts[3];
-            if (inputParts.length > 4) {
+            if (inputParts.length > 4)
+            {
                 getCommand().numOfFlags = Integer.parseInt(inputParts[4]);
             }
-        } else {
+        }
+        else
+        {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getBattleCommands() {
+    public void getBattleCommands()
+    {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equalsIgnoreCase("Game Info")) {
+        if (input.equalsIgnoreCase("Game Info"))
+        {
             setCommand(CommandType.GAME_INFO);
-        } else if (input.equalsIgnoreCase("Show My Minions")) {
+        }
+        else if (input.equalsIgnoreCase("Show My Minions"))
+        {
             setCommand(CommandType.SHOW_MY_MINIONS);
-        } else if (input.equalsIgnoreCase("Show Opponent Minions")) {
+        }
+        else if (input.equalsIgnoreCase("Show Opponent Minions"))
+        {
             setCommand(CommandType.SHOW_OPPONENT_MINIONS);
-        } else if (patternShowCardInfo.matcher(input).matches()) {
+        }
+        else if (patternShowCardInfo.matcher(input).matches())
+        {
             setCommand(CommandType.SHOW_CARD_INFO);
             getCommand().cardOrItemID = inputParts[3];
-        } else if (patternSelect.matcher(input).matches()) {
+        }
+        else if (patternSelect.matcher(input).matches())
+        {
             setCommand(CommandType.SELECT);
             getCommand().cardOrItemID = inputParts[1];
-        } else if (input.equalsIgnoreCase("Show collectibles")) {
+        }
+        else if (input.equalsIgnoreCase("Show collectibles"))
+        {
             setCommand(CommandType.SHOW_COLLECTIBLES);
-        } else if (patternSelectItem.matcher(input).matches()) {
+        }
+        else if (patternSelectItem.matcher(input).matches())
+        {
             setCommand(CommandType.SELECT_ITEM);
             getCommand().cardOrItemID = inputParts[1];
-        } else if (patternInsertCard.matcher(input).matches()) {
+        }
+        else if (patternInsertCard.matcher(input).matches())
+        {
             setCommand(CommandType.INSERT_CARD);
             getCommand().insertRow = Integer.parseInt(inputParts[4]);
             getCommand().insertColumn = Integer.parseInt(inputParts[6]);
             getCommand().insertCardName = inputParts[1];
 
-        } else if (input.equalsIgnoreCase("Show Hand")) {
+        }
+        else if (input.equalsIgnoreCase("Show Hand"))
+        {
             setCommand(CommandType.SHOW_HAND);
-        } else if (input.equalsIgnoreCase("Show Next Card")) {
+        }
+        else if (input.equalsIgnoreCase("Show Next Card"))
+        {
             setCommand(CommandType.SHOW_NEXT_CARD);
-        } else if (input.equalsIgnoreCase("Enter graveyard")) {
+        }
+        else if (input.equalsIgnoreCase("Enter graveyard"))
+        {
             setCommand(CommandType.ENTER_GRAVEYARD);
-        } else if (input.equalsIgnoreCase("Help")) {
+        }
+        else if (input.equalsIgnoreCase("Help"))
+        {
             setCommand(CommandType.HELP_BATTLE);
-        } else if (input.equalsIgnoreCase("End Turn")) {
+        }
+        else if (input.equalsIgnoreCase("End Turn"))
+        {
             setCommand(CommandType.END_TURN);
-        } else if (input.equalsIgnoreCase("Surrender")) {
+        }
+        else if (input.equalsIgnoreCase("Surrender"))
+        {
             setCommand(CommandType.SURRENDER);
         } else {
             getShowMenuAndExitCommand(input);

@@ -1,12 +1,21 @@
 package View;
 
-import Controller.CallTheAppropriateFunction;
+import Controller.*;
+import Model.*;
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import org.json.simple.parser.*;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
@@ -45,14 +54,11 @@ public class Main extends Application
     private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
     private static Group rootImportingDeck = new Group();
     private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
-    private static Group rootCardInfo = new Group();
-    private static Scene sceneCardInfo = new Scene(rootCardInfo,800, 400);
-
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        //convertingToAccounts();
+        convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -61,7 +67,7 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    /*private void convertingToAccounts() throws IOException, ParseException
+    private void convertingToAccounts() throws Exception
     {
         InputStream inputStream = new FileInputStream("SavedAccounts/SavedAccountPath.txt");
         Scanner scanner = new Scanner(inputStream);
@@ -75,7 +81,7 @@ public class Main extends Application
             System.out.println(obj);
             AccountManager.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
         }
-    }*/
+    }
 
     public static void main(String[] args)
     {
@@ -238,15 +244,5 @@ public class Main extends Application
 
     public static Group getRootBattleField() {
         return rootBattleField;
-    }
-
-    public static Group getRootCardInfo()
-    {
-        return rootCardInfo;
-    }
-
-    public static Scene getSceneCardInfo()
-    {
-        return sceneCardInfo;
     }
 }
