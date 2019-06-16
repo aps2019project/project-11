@@ -132,7 +132,7 @@ public class Request {
     private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
-
+    private GridPane BattleFieldGridPane = new GridPane();
 
 
     private Deck selectedDeckForCustomGame = null;
