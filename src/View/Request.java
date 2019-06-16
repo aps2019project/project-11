@@ -1853,7 +1853,7 @@ public class Request
 
     private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
     {
-        setBackGroundImage(rootBattleField, "battleField BackGround/backgroundStory1.jpg");
+        setBackGroundImage(rootBattleField, "battleField BackGround/backgroundStory" + mapNumber + ".jpg");
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
         setHeroIcons(rootBattleField);
