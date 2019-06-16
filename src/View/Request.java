@@ -135,6 +135,7 @@ public class Request {
     private GridPane BattleFieldGridPane = new GridPane();
 
 
+
     private Deck selectedDeckForCustomGame = null;
     private Controller battleFieldController;
 
@@ -1611,31 +1612,47 @@ public class Request {
     }
 
     private void setHandIcons(Group rootBattleField) {
-        Pane panes[] = new Pane[5];
+        Pane[] firstPlayerPanes = new Pane[5];
+        Pane[] secondPlayerPanes = new Pane[5];
         Card.setCardIcons();
+
         for (int number = 0; number < 5; number++) {
-            ImageView imageView;
-            panes[number] = new Pane();
-            if (Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number) instanceof Spell) {
-                imageView = new ImageView(Card.getCardsIcon().get(14).getImage());
+            ImageView imageView1;
+            ImageView imageView2;
+            firstPlayerPanes[number] = new Pane();
+            secondPlayerPanes[number] = new Pane();
+            if (Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number) instanceof Spell) {
+                imageView1 = new ImageView(Card.getCardsIcon().get(14).getImage());
             } else {
-                imageView = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView1 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
             }
-            panes[number].getChildren().add(imageView);
+            if(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number) instanceof Spell){
+                imageView2 = new ImageView(Card.getCardsIcon().get(14).getImage());
+            }
+            else {
+                imageView2 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
+            }
+            firstPlayerPanes[number].getChildren().add(imageView1);
+            secondPlayerPanes[number].getChildren().add(imageView2);
         }
-        panes[0].relocate(350, 600);
-        panes[1].relocate(475, 600);
-        panes[2].relocate(600, 600);
-        panes[3].relocate(725, 600);
-        panes[4].relocate(850, 600);
+
+        firstPlayerPanes[0].relocate(350, 600);
+        firstPlayerPanes[1].relocate(475, 600);
+        firstPlayerPanes[2].relocate(600, 600);
+        firstPlayerPanes[3].relocate(725, 600);
+        firstPlayerPanes[4].relocate(850, 600);
+        secondPlayerPanes[0].relocate(350, 600);
+        secondPlayerPanes[1].relocate(475, 600);
+        secondPlayerPanes[2].relocate(600, 600);
+        secondPlayerPanes[3].relocate(725, 600);
+        secondPlayerPanes[4].relocate(850, 600);
         for (int number = 0; number < 5; number++) {
-            rootBattleField.getChildren().add(panes[number]);
+            rootBattleField.getChildren().add(firstPlayerPanes[number]);
         }
     }
 
     private void setGridPane(Group rootBattleField) {
         Pane[][] panes = new Pane[9][5];
-
         getBattleFieldGridPane().relocate(300 , 200);
 
         for (int row = 0; row < 9; row++) {

@@ -1,7 +1,8 @@
 package Model;
 
-import Controller.*;
+import Controller.BattleManager;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +23,9 @@ public class Battle
     private Player victoriousPlayer = null;
     private Player loserPlayer = null;
     private transient GridPane battleFieldGridPane;
+    private transient Pane[] firstPlayerHandPanes ;
+    private transient Pane[] secondPlayerHandPanes ;
+
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
     {
@@ -642,5 +646,30 @@ public class Battle
     public void setBattleFieldGridPane(GridPane battleFieldGridPane)
     {
         this.battleFieldGridPane = battleFieldGridPane;
+    }
+
+    public Pane[] getFirstPlayerHandPanes() {
+        return firstPlayerHandPanes;
+    }
+
+    public Pane[] getSecondPlayerHandPanes() {
+        return secondPlayerHandPanes;
+    }
+
+    public void setFirstPlayerHandPanes(Pane[] firstPlayerHandPanes) {
+        this.firstPlayerHandPanes = firstPlayerHandPanes;
+    }
+
+    public void setSecondPlayerHandPanes(Pane[] secondPlayerHandPanes) {
+        this.secondPlayerHandPanes = secondPlayerHandPanes;
+    }
+
+    public Pane[] getCurrentPlayerHand() {
+        if(getPlayerTurn() == firstPlayer){
+            return firstPlayerHandPanes;
+        }if(getPlayerTurn() == secondPlayer){
+            return secondPlayerHandPanes;
+        }
+        return null;
     }
 }
