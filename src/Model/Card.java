@@ -19,6 +19,92 @@ public class Card implements Cloneable {
     private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
     private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
 
+    public static ImageView getCardImageView(Card card) {
+        if(card.getCardName().equals("Dave White")){
+            return new ImageView("Cards Images/hero-1.png");
+        }
+        if(card.getCardName().equals("Simurgh")){
+            return new ImageView("Cards Images/hero-2.png");
+        }
+        if(card.getCardName().equals("SevenHeadedDragon")){
+            return new ImageView("Cards Images/hero-3.png");
+        }
+        if(card.getCardName().equals("Rakhsh")){
+            return new ImageView("Cards Images/hero-4.png");
+        }
+        if(card.getCardName().equals("Zahak")){
+            return new ImageView("Cards Images/hero-5.png");
+        }
+        if(card.getCardName().equals("Kaveh")){
+            return new ImageView("Cards Images/hero-6.png");
+        }
+        if(card.getCardName().equals("Arash")){
+            return new ImageView("Cards Images/hero-7.png");
+        }
+        if(card.getCardName().equals("Afsaneh")){
+            return new ImageView("Cards Images/hero-8.png");
+        }
+        if(card.getCardName().equals("Esfandiar")){
+            return new ImageView("Cards Images/hero-9.png");
+        }
+        if(card.getCardName().equals("Rostam")){
+            return new ImageView("Cards Images/hero-10.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.ranged){
+            new ImageView("Cards Images/minion-1.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.melee){
+            new ImageView("Cards Images/minion-2.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.hybrid){
+            new ImageView("Cards Images/minion-3.png");
+        }
+        return null;
+
+    }
+
+    public static ImageView getCardIcon(Card card) {
+        if(card.getCardName().equals("Dave White")){
+            return new ImageView("cardIcons/hero1.png");
+        }
+        if(card.getCardName().equals("Simurgh")){
+            return new ImageView("cardIcons/hero2.png");
+        }
+        if(card.getCardName().equals("SevenHeadedDragon")){
+            return new ImageView("cardIcons/hero3.png");
+        }
+        if(card.getCardName().equals("Rakhsh")){
+            return new ImageView("cardIcons/hero4.png");
+        }
+        if(card.getCardName().equals("Zahak")){
+            return new ImageView("cardIcons/hero5.png");
+        }
+        if(card.getCardName().equals("Kaveh")){
+            return new ImageView("cardIcons/hero6.png");
+        }
+        if(card.getCardName().equals("Arash")){
+            return new ImageView("cardIcons/hero7.png");
+        }
+        if(card.getCardName().equals("Afsaneh")){
+            return new ImageView("cardIcons/hero8.png");
+        }
+        if(card.getCardName().equals("Esfandiar")){
+            return new ImageView("cardIcons/hero9.png");
+        }
+        if(card.getCardName().equals("Rostam")){
+            return new ImageView("cardIcons/hero10.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.ranged){
+            new ImageView("cardIcons/minion1.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.melee){
+            new ImageView("cardIcons/minion2.png");
+        }
+        if(((Minion) card).getImpactType() == ImpactType.hybrid){
+            new ImageView("cardIcons/minion3.png");
+        }
+        return new ImageView("cardIcons/SpellICon.png");
+    }
 
 
     public int getColumn() {
@@ -134,10 +220,6 @@ public class Card implements Cloneable {
 
     public void setImageNumber(int imageNumber) {
         this.imageNumber = imageNumber;
-    }
-
-    public ImageView getCardIcon() {
-        return cardIcon;
     }
 
     public void setCardIcon(ImageView cardIcon) {

@@ -134,8 +134,8 @@ public class Request
     private Scene sceneCustomGame = Main.getSceneCustomGame();
     private Scene sceneImportingDeck = Main.getSceneImportingDeck();
     private Group rootImportingDeck = Main.getRootImportingDeck();
-    private Group rootCardInfo = Main.getRootCardInfo();
-    private Scene sceneCardInfo = Main.getSceneCardInfo();
+    //private Group rootCardInfo = Main.getRootCardInfo();
+    //private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
     private GridPane BattleFieldGridPane = new GridPane();
@@ -1631,18 +1631,23 @@ public class Request
         for (int number = 0; number < 5; number++) {
             ImageView imageView1;
             ImageView imageView2;
+
+            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+
+
             firstPlayerHandPanes[number] = new Pane();
             secondPlayerHandPanes[number] = new Pane();
             if (Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number) instanceof Spell) {
                 imageView1 = new ImageView(Card.getCardsIcon().get(14).getImage());
             } else {
-                imageView1 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView1 = Card.getCardIcon(card1);
             }
             if(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number) instanceof Spell){
                 imageView2 = new ImageView(Card.getCardsIcon().get(14).getImage());
             }
             else {
-                imageView2 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView2 = Card.getCardIcon(card2);
             }
             firstPlayerHandPanes[number].getChildren().add(imageView1);
             secondPlayerHandPanes[number].getChildren().add(imageView2);
@@ -1664,8 +1669,8 @@ public class Request
 
     private void setHeroFirstPlace(Group rootBattleField) {
         Card.setCardsImageView();
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Card.getCardsImageView().get(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getImageNumber()));
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardsImageView().get(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getImageNumber()));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0)));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0)));
     }
 
     private void setHeroIcons(Group rootBattleField) {
@@ -1673,8 +1678,8 @@ public class Request
         Pane paneHero2 = new Pane();
         paneHero1.relocate(100, -40);
         paneHero2.relocate(1100, -40);
-        ImageView firstPlayerHeroIcon = Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getImageNumber());
-        ImageView secondPlayerHeroIcon = Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getImageNumber());
+        ImageView firstPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        ImageView secondPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
         paneHero1.getChildren().addAll(firstPlayerHeroIcon);
         paneHero2.getChildren().addAll(secondPlayerHeroIcon);
         rootBattleField.getChildren().addAll(paneHero1, paneHero2);
@@ -1687,18 +1692,22 @@ public class Request
         for (int number = 0; number < 5; number++) {
             ImageView imageView1;
             ImageView imageView2;
+
+            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+
             firstPlayerHandPanes[number] = new Pane();
             secondPlayerHandPanes[number] = new Pane();
             if (Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number) instanceof Spell) {
                 imageView1 = new ImageView(Card.getCardsIcon().get(14).getImage());
             } else {
-                imageView1 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView1 = Card.getCardIcon(card1);
             }
             if(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number) instanceof Spell){
                 imageView2 = new ImageView(Card.getCardsIcon().get(14).getImage());
             }
             else {
-                imageView2 = new ImageView(Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number).getImageNumber()).getImage());
+                imageView2 = Card.getCardIcon(card2);
             }
             firstPlayerHandPanes[number].getChildren().add(imageView1);
             secondPlayerHandPanes[number].getChildren().add(imageView2);
