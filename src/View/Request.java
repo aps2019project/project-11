@@ -1859,6 +1859,7 @@ public class Request
         setHeroIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
         primaryStage.setScene(sceneBattleField);
+        primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
         primaryStage.show();
     }
@@ -2166,11 +2167,6 @@ public class Request
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
-    }
-
-    public String getPassword()
-    {
-        return myScanner.nextLine();
     }
 
     public int getStoryMatchLevel()
