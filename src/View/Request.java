@@ -484,7 +484,7 @@ public class Request
         nameField.setFont(Font.font("SanSerif", 15));
         nameField.setPromptText("name");
         nameField.setMaxWidth(150);
-        nameField.relocate(100, 30);
+        nameField.relocate(120, 30);
 
         Text typeText = new Text("type :");
         typeText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
@@ -493,43 +493,43 @@ public class Request
         typeField.setFont(Font.font("SanSerif", 15));
         typeField.setPromptText("type");
         typeField.setMaxWidth(150);
-        typeField.relocate(100, 100);
+        typeField.relocate(110, 100);
 
         Text SpellText = new Text("spell target :");
         SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        SpellText.relocate(40,250);
+        SpellText.relocate(30,160);
         TextField SpellField = new TextField();
         SpellField.setFont(Font.font("SanSerif", 15));
         SpellField.setPromptText("spell target");
         SpellField.setMaxWidth(150);
-        SpellField.relocate(250, 250);
+        SpellField.relocate(200, 160);
 
         Text buffText = new Text("spell buff :");
         buffText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        buffText.relocate(40,350);
+        buffText.relocate(30,210);
         TextField buffField = new TextField();
         buffField.setFont(Font.font("SanSerif", 15));
         buffField.setPromptText("spell buff");
         buffField.setMaxWidth(150);
-        buffField.relocate(250, 350);
+        buffField.relocate(200, 210);
 
         Text APText = new Text("AP :");
         APText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        APText.relocate(40,450);
+        APText.relocate(30,270);
         TextField APField = new TextField();
         APField.setFont(Font.font("SanSerif", 15));
         APField.setPromptText("AP");
         APField.setMaxWidth(150);
-        APField.relocate(200, 450);
+        APField.relocate(100, 270);
 
         Text HPText = new Text("HP :");
         HPText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        HPText.relocate(350,50);
+        HPText.relocate(30,330);
         TextField HPField = new TextField();
         HPField.setFont(Font.font("SanSerif", 15));
         HPField.setPromptText("HP");
         HPField.setMaxWidth(150);
-        HPField.relocate(400, 50);
+        HPField.relocate(100, 330);
 
 
         rootMakingCustomCard.getChildren().addAll(HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
