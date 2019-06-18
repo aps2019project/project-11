@@ -2021,6 +2021,7 @@ public class Request
                     Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
                 }
                 Battle.getCurrentBattle().endTurn();
+                setMPIcons(rootBattleField);
                 setHandIconsForEndTurn();
                 for (int number = 0; number < 5; number++)
                 {
