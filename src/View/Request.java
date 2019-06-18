@@ -1897,6 +1897,18 @@ public class Request
 
             rootBattleField.getChildren().add(MPIcon);
         }
+
+        for (int i=0;i < 10;i++)
+        {
+            ImageView MPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
+            {
+                MPIcon = new ImageView("ManaIcons/icon_mana.png");
+            }
+            MPIcon.relocate(1100 - i * 20, 90);
+
+            rootBattleField.getChildren().add(MPIcon);
+        }
     }
 
     private void setEndTurnButton(Group rootBattleField)
