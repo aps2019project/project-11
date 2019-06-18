@@ -550,7 +550,25 @@ public class Request
         rangeField.setMaxWidth(150);
         rangeField.relocate(135, 450);
 
-        rootMakingCustomCard.getChildren().addAll(rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
+        Text SpecialPowerText = new Text("SpecialPower :");
+        SpecialPowerText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        SpecialPowerText.relocate(300,30);
+        TextField SpecialPowerField = new TextField();
+        SpecialPowerField.setFont(Font.font("SanSerif", 15));
+        SpecialPowerField.setPromptText("SpecialPower");
+        SpecialPowerField.setMaxWidth(150);
+        SpecialPowerField.relocate(500, 30);
+
+        Text PowerActivationText = new Text("powerActivation :");
+        PowerActivationText.relocate(300,100);
+        PowerActivationText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        TextField PowerActivationField = new TextField();
+        PowerActivationField.setFont(Font.font("SanSerif",15));
+        PowerActivationField.setPromptText("powerActivation");
+        PowerActivationField.setMaxWidth(150);
+        PowerActivationField.relocate(550,100);
+
+        rootMakingCustomCard.getChildren().addAll(PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
     private void showProfile(Stage primaryStage)
     {
