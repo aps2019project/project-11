@@ -436,7 +436,7 @@ public class Request
                         }
                         showProfile(primaryStage);
                         break;
-                    case "CustomCards" :
+                    case "CustomCard" :
                         setCommand(CommandType.CUSTOMCARDS);
                         synchronized (requestLock)
                         {
@@ -468,9 +468,89 @@ public class Request
     private void makingCustomCards(Stage stage)
     {
         setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
+        customCardInfo(stage,rootMakingCustomCard);
+
+        //rootMakingCustomCard.getChildren().add(nameText);
+
         stage.setScene(sceneMakingCutomCards);
     }
 
+    private void customCardInfo(Stage stage,Group rootMakingCustomCard)
+    {
+        Text nameText = new Text("name :");
+        nameText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        nameText.relocate(30,30);
+        TextField nameField = new TextField();
+        nameField.setFont(Font.font("SanSerif", 15));
+        nameField.setPromptText("name");
+        nameField.setMaxWidth(150);
+        nameField.relocate(100, 30);
+
+        Text typeText = new Text("type :");
+        typeText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        typeText.relocate(30,100);
+        TextField typeField = new TextField();
+        typeField.setFont(Font.font("SanSerif", 15));
+        typeField.setPromptText("type");
+        typeField.setMaxWidth(150);
+        typeField.relocate(100, 100);
+/*
+        Text SpellText = new Text("spell target :");
+        SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        SpellText.relocate(40,250);
+        TextField SpellField = new TextField();
+        SpellField.setFont(Font.font("SanSerif", 15));
+        SpellField.setPromptText("spell target");
+        SpellField.setMaxWidth(150);
+        SpellField.relocate(250, 250);
+
+        Text buffText = new Text("spell buff :");
+        buffText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        buffText.relocate(40,350);
+        TextField buffField = new TextField();
+        buffField.setFont(Font.font("SanSerif", 15));
+        buffField.setPromptText("spell buff");
+        buffField.setMaxWidth(150);
+        buffField.relocate(250, 350);
+
+        Text APText = new Text("AP :");
+        APText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        APText.relocate(40,450);
+        TextField APField = new TextField();
+        APField.setFont(Font.font("SanSerif", 15));
+        APField.setPromptText("AP");
+        APField.setMaxWidth(150);
+        APField.relocate(200, 450);
+
+        Text HPText = new Text("HP :");
+        HPText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        HPText.relocate(350,50);
+        TextField HPField = new TextField();
+        HPField.setFont(Font.font("SanSerif", 15));
+        HPField.setPromptText("HP");
+        HPField.setMaxWidth(150);
+        HPField.relocate(400, 50);
+
+        Text SpellText = new Text("spell target :");
+        SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        SpellText.relocate(50,250);
+        TextField SpellField = new TextField();
+        SpellField.setFont(Font.font("SanSerif", 15));
+        SpellField.setPromptText("spell target");
+        SpellField.setMaxWidth(150);
+        SpellField.relocate(250, 250);
+
+        Text SpellText = new Text("spell target :");
+        SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        SpellText.relocate(50,250);
+        TextField SpellField = new TextField();
+        SpellField.setFont(Font.font("SanSerif", 15));
+        SpellField.setPromptText("spell target");
+        SpellField.setMaxWidth(150);
+        SpellField.relocate(250, 250);
+        */
+        rootMakingCustomCard.getChildren().addAll(nameText,nameField,typeField,typeText);
+    }
     private void showProfile(Stage primaryStage)
     {
         rootProfile.getChildren().clear();
