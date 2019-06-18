@@ -23,8 +23,8 @@ public class Battle
     private Player victoriousPlayer = null;
     private Player loserPlayer = null;
     private transient GridPane battleFieldGridPane;
-    private transient Pane[] firstPlayerHandPanes ;
-    private transient Pane[] secondPlayerHandPanes ;
+    private transient Pane[] firstPlayerHandPanes;
+    private transient Pane[] secondPlayerHandPanes;
 
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
@@ -648,26 +648,34 @@ public class Battle
         this.battleFieldGridPane = battleFieldGridPane;
     }
 
-    public Pane[] getFirstPlayerHandPanes() {
+    public Pane[] getFirstPlayerHandPanes()
+    {
         return firstPlayerHandPanes;
     }
 
-    public Pane[] getSecondPlayerHandPanes() {
+    public Pane[] getSecondPlayerHandPanes()
+    {
         return secondPlayerHandPanes;
     }
 
-    public void setFirstPlayerHandPanes(Pane[] firstPlayerHandPanes) {
+    public void setFirstPlayerHandPanes(Pane[] firstPlayerHandPanes)
+    {
         this.firstPlayerHandPanes = firstPlayerHandPanes;
     }
 
-    public void setSecondPlayerHandPanes(Pane[] secondPlayerHandPanes) {
+    public void setSecondPlayerHandPanes(Pane[] secondPlayerHandPanes)
+    {
         this.secondPlayerHandPanes = secondPlayerHandPanes;
     }
 
-    public Pane[] getCurrentPlayerHand() {
-        if(getPlayerTurn() == firstPlayer){
+    public Pane[] getCurrentPlayerHand()
+    {
+        if (getPlayerTurn() == firstPlayer)
+        {
             return firstPlayerHandPanes;
-        }if(getPlayerTurn() == secondPlayer){
+        }
+        if (getPlayerTurn() == secondPlayer)
+        {
             return secondPlayerHandPanes;
         }
         return null;
