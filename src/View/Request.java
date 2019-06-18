@@ -144,7 +144,7 @@ public class Request
     private Scene sceneMakingCutomCards =Main.getSceneMakingCustomCards();
 
     private Deck selectedDeckForCustomGame = null;
-    private Controller battleFieldController;
+    private BattleFieldController  battleFieldController;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -1976,9 +1976,9 @@ public class Request
         setPlayersName(rootBattleField);
         setMPIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
-        setEndTurnButton(rootBattleField);
-        BattleFieldController battleFieldController = new BattleFieldController();
+        battleFieldController = new BattleFieldController();
         battleFieldController.start();
+        setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
@@ -2048,6 +2048,8 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
+                battleFieldController = new BattleFieldController();
+                battleFieldController.start();
             }
         });
         rootBattleField.getChildren().add(endTurnButton);

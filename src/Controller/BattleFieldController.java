@@ -1,6 +1,10 @@
 package Controller;
 
+import Model.Battle;
 import Model.Card;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 public class BattleFieldController extends Thread {
     private boolean isCardSelected = false;
@@ -9,10 +13,29 @@ public class BattleFieldController extends Thread {
     @Override
     public void run() {
         super.run();
-
+        checkInsertingCard();
     }
 
+    public void checkInsertingCard(){
+        Pane[] firstPlayerHandPanes = Battle.getCurrentBattle().getFirstPlayerHandPanes();
+        Pane[] secondPlayerHandPanes = Battle.getCurrentBattle().getSecondPlayerHandPanes();
 
+        for(Pane pane : firstPlayerHandPanes){
+            pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                }
+            });
+        }
+
+        for(Pane pane : secondPlayerHandPanes){
+            pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                }
+            });
+        }
+    }
 
     public Card getSelectedCard() {
         return selectedCard;
