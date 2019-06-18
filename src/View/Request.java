@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AccountManager;
+import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1958,6 +1959,8 @@ public class Request
         setMPIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
         setEndTurnButton(rootBattleField);
+        BattleFieldController battleFieldController = new BattleFieldController();
+        battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
