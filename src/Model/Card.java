@@ -22,123 +22,29 @@ public class Card implements Cloneable
 
     public static ImageView getCardImageView(Card card)
     {
-        if (card.getCardName().equals("Dave White"))
+        if (card instanceof Hero)
         {
-            return new ImageView("Cards Images/hero-1.png");
+            return new ImageView("Cards Images/" + card.getCardName() + ".png");
         }
-        if (card.getCardName().equals("Simurgh"))
+        if (card instanceof Minion)
         {
-            return new ImageView("Cards Images/hero-2.png");
-        }
-        if (card.getCardName().equals("SevenHeadedDragon"))
-        {
-            return new ImageView("Cards Images/hero-3.png");
-        }
-        if (card.getCardName().equals("Rakhsh"))
-        {
-            return new ImageView("Cards Images/hero-4.png");
-        }
-        if (card.getCardName().equals("Zahak"))
-        {
-            return new ImageView("Cards Images/hero-5.png");
-        }
-        if (card.getCardName().equals("Kaveh"))
-        {
-            return new ImageView("Cards Images/hero-6.png");
-        }
-        if (card.getCardName().equals("Arash"))
-        {
-            return new ImageView("Cards Images/hero-7.png");
-        }
-        if (card.getCardName().equals("Afsaneh"))
-        {
-            return new ImageView("Cards Images/hero-8.png");
-        }
-        if (card.getCardName().equals("Esfandiar"))
-        {
-            return new ImageView("Cards Images/hero-9.png");
-        }
-        if (card.getCardName().equals("Rostam"))
-        {
-            return new ImageView("Cards Images/hero-10.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.ranged)
-        {
-            new ImageView("Cards Images/minion-1.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.melee)
-        {
-            new ImageView("Cards Images/minion-2.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.hybrid)
-        {
-            new ImageView("Cards Images/minion-3.png");
+            return new ImageView("Cards Images/" + ((Minion) card).getImpactType()+ ".png");
         }
         return null;
-
     }
 
     public static ImageView getCardIcon(Card card)
     {
         if (card instanceof Hero)
         {
-            if (card.getCardName().equals("Dave White"))
-            {
-                return new ImageView("cardIcons/hero1.png");
-            }
-            if (card.getCardName().equals("Simurgh"))
-            {
-                return new ImageView("cardIcons/hero2.png");
-            }
-            if (card.getCardName().equals("SevenHeadedDragon"))
-            {
-                return new ImageView("cardIcons/hero3.png");
-            }
-            if (card.getCardName().equals("Rakhsh"))
-            {
-                return new ImageView("cardIcons/hero4.png");
-            }
-            if (card.getCardName().equals("Zahak"))
-            {
-                return new ImageView("cardIcons/hero5.png");
-            }
-            if (card.getCardName().equals("Kaveh"))
-            {
-                return new ImageView("cardIcons/hero6.png");
-            }
-            if (card.getCardName().equals("Arash"))
-            {
-                return new ImageView("cardIcons/hero7.png");
-            }
-            if (card.getCardName().equals("Afsaneh"))
-            {
-                return new ImageView("cardIcons/hero8.png");
-            }
-            if (card.getCardName().equals("Esfandiar"))
-            {
-                return new ImageView("cardIcons/hero9.png");
-            }
-            if (card.getCardName().equals("Rostam"))
-            {
-                return new ImageView("cardIcons/hero10.png");
-            }
+            return new ImageView("cardIcons/" + card.getCardName() + ".png");
         }
-        if (card instanceof Minion)
+        else if (card instanceof Minion)
         {
-            if (((Minion) card).getImpactType() == ImpactType.ranged)
-            {
-                return new ImageView("cardIcons/minion1.png");
-            }
-            if (((Minion) card).getImpactType() == ImpactType.melee)
-            {
-                return new ImageView("cardIcons/minion2.png");
-            }
-            if (((Minion) card).getImpactType() == ImpactType.hybrid)
-            {
-                return new ImageView("cardIcons/minion3.png");
-            }
+            System.out.println(((Minion) card).getImpactType());
+            return new ImageView("cardIcons/" + ((Minion) card).getImpactType()+ ".png");
         }
-        return new ImageView("cardIcons/SpellICon.png");
+        return new ImageView("cardIcons/Spell.png");
     }
 
 
@@ -302,36 +208,11 @@ public class Card implements Cloneable
 
     public static void setCardIcons()
     {
-        ImageView imageView0 = new ImageView("cardIcons/hero1.png");
-        ImageView imageView1 = new ImageView("cardIcons/hero2.png");
-        ImageView imageView2 = new ImageView("cardIcons/hero3.png");
-        ImageView imageView3 = new ImageView("cardIcons/hero4.png");
-        ImageView imageView4 = new ImageView("cardIcons/hero5.png");
-        ImageView imageView5 = new ImageView("cardIcons/hero6.png");
-        ImageView imageView6 = new ImageView("cardIcons/hero7.png");
-        ImageView imageView7 = new ImageView("cardIcons/hero8.png");
-        ImageView imageView8 = new ImageView("cardIcons/hero9.png");
-        ImageView imageView9 = new ImageView("cardIcons/hero10.png");
-        ImageView imageView10 = new ImageView("cardIcons/minion1.png");
-        ImageView imageView11 = new ImageView("cardIcons/minion2.png");
-        ImageView imageView12 = new ImageView("cardIcons/minion3.png");
-        ImageView imageView13 = new ImageView("cardIcons/minion4.png");
-        ImageView imageView14 = new ImageView("cardIcons/SpellICon.png");
-        cardsIcons.add(imageView0);
-        cardsIcons.add(imageView1);
-        cardsIcons.add(imageView2);
-        cardsIcons.add(imageView3);
-        cardsIcons.add(imageView4);
-        cardsIcons.add(imageView5);
-        cardsIcons.add(imageView6);
-        cardsIcons.add(imageView7);
-        cardsIcons.add(imageView8);
-        cardsIcons.add(imageView9);
-        cardsIcons.add(imageView10);
-        cardsIcons.add(imageView11);
-        cardsIcons.add(imageView12);
-        cardsIcons.add(imageView13);
-        cardsIcons.add(imageView14);
+        for (Hero hero : Hero.getHeroes())
+        {
+            ImageView imageView = new ImageView("cardIcons/" + hero.getCardName() + ".png");
+            cardsIcons.add(imageView);
+        }
     }
 
     public static ArrayList<ImageView> getCardsImageView()
@@ -341,20 +222,14 @@ public class Card implements Cloneable
 
     public static void setCardsImageView()
     {
-        cardsImageView.add(new ImageView("Cards Images/hero-1.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-2.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-3.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-4.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-5.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-6.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-7.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-8.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-9.png"));
-        cardsImageView.add(new ImageView("Cards Images/hero-10.png"));
-        cardsImageView.add(new ImageView("Cards Images/minion-1.png"));
-        cardsImageView.add(new ImageView("Cards Images/minion-2.png"));
-        cardsImageView.add(new ImageView("Cards Images/minion-3.png"));
+        for (Hero hero : Hero.getHeroes())
+        {
+            ImageView imageView = new ImageView("Cards Images/" + hero.getCardName() + ".png");
+            cardsImageView.add(imageView);
+        }
+        cardsImageView.add(new ImageView("Cards Images/ranged.png"));
+        cardsImageView.add(new ImageView("Cards Images/melee.png"));
+        cardsImageView.add(new ImageView("Cards Images/hybrid.png"));
         cardsImageView.add(new ImageView("Cards Images/minion-4.png"));
     }
-
 }
