@@ -1921,7 +1921,6 @@ public class Request
             Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
             Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
 
-
             firstPlayerHandPanes[number] = new Pane();
             secondPlayerHandPanes[number] = new Pane();
             if (Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number) instanceof Spell)
@@ -1993,22 +1992,10 @@ public class Request
 
             firstPlayerHandPanes[number] = new Pane();
             secondPlayerHandPanes[number] = new Pane();
-            if (card1 instanceof Spell)
-            {
-                imageView1 = new ImageView(Card.getCardsIcon().get(14).getImage());
-            }
-            else
-            {
-                imageView1 = Card.getCardIcon(card1);
-            }
-            if (card2 instanceof Spell)
-            {
-                imageView2 = new ImageView(Card.getCardsIcon().get(14).getImage());
-            }
-            else
-            {
-                imageView2 = Card.getCardIcon(card2);
-            }
+
+            imageView1 = Card.getCardIcon(card1);
+            imageView2 = Card.getCardIcon(card2);
+
             firstPlayerHandPanes[number].getChildren().add(imageView1);
             secondPlayerHandPanes[number].getChildren().add(imageView2);
         }
