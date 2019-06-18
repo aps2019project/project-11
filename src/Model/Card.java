@@ -80,57 +80,63 @@ public class Card implements Cloneable
 
     public static ImageView getCardIcon(Card card)
     {
-        if (card.getCardName().equals("Dave White"))
+        if (card instanceof Hero)
         {
-            return new ImageView("cardIcons/hero1.png");
+            if (card.getCardName().equals("Dave White"))
+            {
+                return new ImageView("cardIcons/hero1.png");
+            }
+            if (card.getCardName().equals("Simurgh"))
+            {
+                return new ImageView("cardIcons/hero2.png");
+            }
+            if (card.getCardName().equals("SevenHeadedDragon"))
+            {
+                return new ImageView("cardIcons/hero3.png");
+            }
+            if (card.getCardName().equals("Rakhsh"))
+            {
+                return new ImageView("cardIcons/hero4.png");
+            }
+            if (card.getCardName().equals("Zahak"))
+            {
+                return new ImageView("cardIcons/hero5.png");
+            }
+            if (card.getCardName().equals("Kaveh"))
+            {
+                return new ImageView("cardIcons/hero6.png");
+            }
+            if (card.getCardName().equals("Arash"))
+            {
+                return new ImageView("cardIcons/hero7.png");
+            }
+            if (card.getCardName().equals("Afsaneh"))
+            {
+                return new ImageView("cardIcons/hero8.png");
+            }
+            if (card.getCardName().equals("Esfandiar"))
+            {
+                return new ImageView("cardIcons/hero9.png");
+            }
+            if (card.getCardName().equals("Rostam"))
+            {
+                return new ImageView("cardIcons/hero10.png");
+            }
         }
-        if (card.getCardName().equals("Simurgh"))
+        if (card instanceof Minion)
         {
-            return new ImageView("cardIcons/hero2.png");
-        }
-        if (card.getCardName().equals("SevenHeadedDragon"))
-        {
-            return new ImageView("cardIcons/hero3.png");
-        }
-        if (card.getCardName().equals("Rakhsh"))
-        {
-            return new ImageView("cardIcons/hero4.png");
-        }
-        if (card.getCardName().equals("Zahak"))
-        {
-            return new ImageView("cardIcons/hero5.png");
-        }
-        if (card.getCardName().equals("Kaveh"))
-        {
-            return new ImageView("cardIcons/hero6.png");
-        }
-        if (card.getCardName().equals("Arash"))
-        {
-            return new ImageView("cardIcons/hero7.png");
-        }
-        if (card.getCardName().equals("Afsaneh"))
-        {
-            return new ImageView("cardIcons/hero8.png");
-        }
-        if (card.getCardName().equals("Esfandiar"))
-        {
-            return new ImageView("cardIcons/hero9.png");
-        }
-        if (card.getCardName().equals("Rostam"))
-        {
-            return new ImageView("cardIcons/hero10.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.ranged)
-        {
-            return new ImageView("cardIcons/minion1.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.melee)
-        {
-            return new ImageView("cardIcons/minion2.png");
-        }
-        if (((Minion) card).getImpactType() == ImpactType.hybrid)
-        {
-            return new ImageView("cardIcons/minion3.png");
+            if (((Minion) card).getImpactType() == ImpactType.ranged)
+            {
+                return new ImageView("cardIcons/minion1.png");
+            }
+            if (((Minion) card).getImpactType() == ImpactType.melee)
+            {
+                return new ImageView("cardIcons/minion2.png");
+            }
+            if (((Minion) card).getImpactType() == ImpactType.hybrid)
+            {
+                return new ImageView("cardIcons/minion3.png");
+            }
         }
         return new ImageView("cardIcons/SpellICon.png");
     }
@@ -326,7 +332,6 @@ public class Card implements Cloneable
         cardsIcons.add(imageView12);
         cardsIcons.add(imageView13);
         cardsIcons.add(imageView14);
-
     }
 
     public static ArrayList<ImageView> getCardsImageView()
