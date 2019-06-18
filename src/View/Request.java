@@ -494,7 +494,7 @@ public class Request
         typeField.setPromptText("type");
         typeField.setMaxWidth(150);
         typeField.relocate(100, 100);
-/*
+
         Text SpellText = new Text("spell target :");
         SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         SpellText.relocate(40,250);
@@ -513,43 +513,8 @@ public class Request
         buffField.setMaxWidth(150);
         buffField.relocate(250, 350);
 
-        Text APText = new Text("AP :");
-        APText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        APText.relocate(40,450);
-        TextField APField = new TextField();
-        APField.setFont(Font.font("SanSerif", 15));
-        APField.setPromptText("AP");
-        APField.setMaxWidth(150);
-        APField.relocate(200, 450);
 
-        Text HPText = new Text("HP :");
-        HPText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        HPText.relocate(350,50);
-        TextField HPField = new TextField();
-        HPField.setFont(Font.font("SanSerif", 15));
-        HPField.setPromptText("HP");
-        HPField.setMaxWidth(150);
-        HPField.relocate(400, 50);
-
-        Text SpellText = new Text("spell target :");
-        SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        SpellText.relocate(50,250);
-        TextField SpellField = new TextField();
-        SpellField.setFont(Font.font("SanSerif", 15));
-        SpellField.setPromptText("spell target");
-        SpellField.setMaxWidth(150);
-        SpellField.relocate(250, 250);
-
-        Text SpellText = new Text("spell target :");
-        SpellText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        SpellText.relocate(50,250);
-        TextField SpellField = new TextField();
-        SpellField.setFont(Font.font("SanSerif", 15));
-        SpellField.setPromptText("spell target");
-        SpellField.setMaxWidth(150);
-        SpellField.relocate(250, 250);
-        */
-        rootMakingCustomCard.getChildren().addAll(nameText,nameField,typeField,typeText);
+        rootMakingCustomCard.getChildren().addAll(buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
     private void showProfile(Stage primaryStage)
     {
