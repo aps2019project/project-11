@@ -58,6 +58,7 @@ public enum CommandType
     USE_SPECIAL_POWER,
     END_TURN,
     SURRENDER,
+    CUSTOMCARDS,
     END_GAME,
     ;
 

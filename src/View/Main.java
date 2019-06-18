@@ -54,7 +54,8 @@ public class Main extends Application
     private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
     private static Group rootImportingDeck = new Group();
     private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
-
+    private static Group rootMakingCustomCards = new Group();
+    private static Scene sceneMakingCustomCards = new Scene(rootMakingCustomCards,1000,505);
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -244,5 +245,14 @@ public class Main extends Application
 
     public static Group getRootBattleField() {
         return rootBattleField;
+    }
+    public static Scene getSceneMakingCustomCards()
+    {
+        return sceneMakingCustomCards;
+    }
+
+    public static Group getRootMakingCustomCards()
+    {
+        return rootMakingCustomCards;
     }
 }

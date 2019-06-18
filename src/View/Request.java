@@ -30,6 +30,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -139,7 +140,8 @@ public class Request
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
     private GridPane BattleFieldGridPane = new GridPane();
-
+    private Group rootMakingCustomCard = Main.getRootMakingCustomCards();
+    private Scene sceneMakingCutomCards =Main.getSceneMakingCustomCards();
 
     private Deck selectedDeckForCustomGame = null;
     private Controller battleFieldController;
@@ -354,9 +356,10 @@ public class Request
         setMainMenuText(primaryStage, "Shop", 140);
         setMainMenuText(primaryStage, "Collection", 200);
         setMainMenuText(primaryStage, "LeaderBoard", 260);
-        setMainMenuText(primaryStage, "Save", 320);
-        setMainMenuText(primaryStage, "Profile", 380);
-        setMainMenuText(primaryStage, "Logout", 440);
+        setMainMenuText(primaryStage, "Save", 300);
+        setMainMenuText(primaryStage, "Profile", 350);
+        setMainMenuText(primaryStage, "CustomCards",400 );
+        setMainMenuText(primaryStage, "Logout", 450);
         setMainMenuText(primaryStage, "Exit", 500);
 
         primaryStage.setScene(sceneMainMenu);
@@ -434,6 +437,14 @@ public class Request
                         }
                         showProfile(primaryStage);
                         break;
+                    case "CustomCards" :
+                        setCommand(CommandType.CUSTOMCARDS);
+                        synchronized (requestLock)
+                        {
+                            requestLock.notify();
+                        }
+                        makingCustomCards(primaryStage);
+                        break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
                         synchronized (requestLock)
@@ -453,6 +464,12 @@ public class Request
             }
         });
         rootMainMenu.getChildren().add(text);
+    }
+
+    private void makingCustomCards(Stage stage)
+    {
+        setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
+        stage.setScene(sceneMakingCutomCards);
     }
 
     private void showProfile(Stage primaryStage)
