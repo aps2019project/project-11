@@ -531,8 +531,25 @@ public class Request
         HPField.setMaxWidth(150);
         HPField.relocate(100, 330);
 
+        Text AttackText = new Text("AttackType :");
+        AttackText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        AttackText.relocate(30,380);
+        TextField AttackField = new TextField();
+        AttackField.setFont(Font.font("SanSerif", 15));
+        AttackField.setPromptText("AttackType");
+        AttackField.setMaxWidth(150);
+        AttackField.relocate(200, 380);
 
-        rootMakingCustomCard.getChildren().addAll(HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
+        Text rangeText = new Text("Range :");
+        rangeText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        rangeText.relocate(30,450);
+        TextField rangeField = new TextField();
+        rangeField.setFont(Font.font("SanSerif", 15));
+        rangeField.setPromptText("Range");
+        rangeField.setMaxWidth(150);
+        rangeField.relocate(135, 450);
+
+        rootMakingCustomCard.getChildren().addAll(rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
     private void showProfile(Stage primaryStage)
     {
