@@ -30,7 +30,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -1875,39 +1874,55 @@ public class Request
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
         setHeroIcons(rootBattleField);
+        setPlayersName(rootBattleField);
+        setMPIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
         setEndTurnButton(rootBattleField);
-        setMPIcons(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
+    private void setPlayersName(Group rootBattleField)
+    {
+        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
+        firstPlayerName.relocate(250, 50);
+        firstPlayerName.setFont(Font.font(20));
+        firstPlayerName.setTextFill(BLACK);
+        rootBattleField.getChildren().add(firstPlayerName);
+
+        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());
+        secondPlayerName.relocate(920, 50);
+        secondPlayerName.setFont(Font.font(20));
+        secondPlayerName.setTextFill(BLACK);
+        rootBattleField.getChildren().add(secondPlayerName);
+    }
+
     private void setMPIcons(Group rootBattleField)
     {
         for (int i=0;i < 10;i++)
         {
-            ImageView MPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
             if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
             {
-                MPIcon = new ImageView("ManaIcons/icon_mana.png");
+                firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
-            MPIcon.relocate(250 + i * 20, 90);
+            firstPlayerMPIcon.relocate(250 + i * 20, 90);
 
-            rootBattleField.getChildren().add(MPIcon);
+            rootBattleField.getChildren().add(firstPlayerMPIcon);
         }
 
         for (int i=0;i < 10;i++)
         {
-            ImageView MPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
             if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
             {
-                MPIcon = new ImageView("ManaIcons/icon_mana.png");
+                secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
-            MPIcon.relocate(1100 - i * 20, 90);
+            secondPlayerMPIcon.relocate(1100 - i * 20, 90);
 
-            rootBattleField.getChildren().add(MPIcon);
+            rootBattleField.getChildren().add(secondPlayerMPIcon);
         }
     }
 

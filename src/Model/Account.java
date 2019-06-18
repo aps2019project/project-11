@@ -22,9 +22,9 @@ public class Account
         this.accountName = userName;
     }
 
-    public Account()
+    public Account(String AIAccountName)
     {
-
+        accountName = AIAccountName;
     }
 
     public void addDefaultCardsToCollection(Account account)

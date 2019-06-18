@@ -99,19 +99,19 @@ public class AccountManager
         switch (selectedNumber)
         {
             case 1:
-                Account account1 = new Account();
+                Account account1 = new Account("StoryPlayerOne");
                 Deck deck1 = Deck.createMainDeckForStoryAccount(1);
                 account1.addDeck(deck1);
                 account1.setMainDeck(deck1);
                 return new Player(account1, true);
             case 2:
-                Account account2 = new Account();
+                Account account2 = new Account("StoryPlayerTwo");
                 Deck deck2 = Deck.createMainDeckForStoryAccount(2);
                 account2.addDeck(deck2);
                 account2.setMainDeck(deck2);
                 return new Player(account2, true);
             case 3:
-                Account account3 = new Account();
+                Account account3 = new Account("StoryPlayerThree");
                 Deck deck3 = Deck.createMainDeckForStoryAccount(3);
                 account3.addDeck(deck3);
                 account3.setMainDeck(deck3);
@@ -122,7 +122,7 @@ public class AccountManager
 
     public Player makeCustomGamePlayer(String deckNameForCustomGame)
     {
-        Account account = new Account();
+        Account account = new Account("CustomPlayer");
         account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
         account.setMainDeck(DeckManager.findDeck(deckNameForCustomGame));
         return new Player(account, true);
