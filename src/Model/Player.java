@@ -18,11 +18,11 @@ public class Player
     private ArrayList<Card> nonHeroCards = new ArrayList<>();
     private boolean isAIPlayer = false;
 
-    public Player(Account account , boolean isAIPlayer)
+    public Player(Account account ,boolean isAIPlayer)
     {
         this.account = account;
         this.mainDeck = account.getMainDeck();
-        this.setAIPlayer(isAIPlayer);
+        setAIPlayer(isAIPlayer);
 
         nonHeroCards.addAll(account.getMainDeck().getMinions());
         nonHeroCards.addAll(account.getMainDeck().getSpells());

@@ -115,19 +115,56 @@ public class Deck
                 case 2:
                     Deck deck2 = new Deck("storyDeck2");
                     deck2.addCardToDeck((Hero) Hero.findHero("Zahak").clone(), true);
-                    deck2.addCardToDeck((Spell) Card.findCard("areaDispel").clone(), true).addCardToDeck((Spell) Card.findCard("empower").clone(), true).addCardToDeck((Spell) Card.findCard("godStrength"), true).addCardToDeck((Spell) Card.findCard("madness").clone(), true).addCardToDeck((Spell) Card.findCard("poisonLake").clone(), true).addCardToDeck((Spell) Card.findCard("healthWithProfit").clone(), true).addCardToDeck((Spell) Card.findCard("kingGuard").clone(), true).
-                            addCardToDeck((Minion) Card.findCard("shamsirzanFars").clone(), true).addCardToDeck((Minion) Card.findCard("neizedarFars").clone(), true).addCardToDeck((Minion) Card.findCard("pahlavanFars").clone(), true).addCardToDeck((Minion) Card.findCard("gholabsangdarTorani").clone(), true).addCardToDeck((Minion) Card.findCard("ShahzadeTorani").clone(), true).addCardToDeck((Minion) Card.findCard("Oghab").clone(), true).addCardToDeck((Minion) Card.findCard("Oghab").clone(), true).addCardToDeck((Minion) Card.findCard("EzhdehayeAtashAndaz").clone(), true).addCardToDeck((Minion) Card.findCard("Palang").clone(), true).addCardToDeck((Minion) Card.findCard("Genn").clone(), true).
-                            addCardToDeck((Minion) Card.findCard("Giv").clone(), true).addCardToDeck((Minion) Card.findCard("Iraj").clone(), true).addCardToDeck((Minion) Card.findCard("ShahGhoul").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("areaDispel").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("empower").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("godStrength"), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("madness").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("poisonLake").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("healthWithProfit").clone(), true);
+                    deck2.addCardToDeck((Spell) Card.findCard("kingGuard").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("shamsirzanFars").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("neizedarFars").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("pahlavanFars").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("gholabsangdarTorani").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("ShahzadeTorani").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Oghab").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Oghab").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("EzhdehayeAtashAndaz").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Palang").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Genn").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Giv").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("Iraj").clone(), true);
+                    deck2.addCardToDeck((Minion) Card.findCard("ShahGhoul").clone(), true);
                     deck2.addItemToDeck((Item) Item.findItem("Soul Eater").clone(), true);
                     return deck2;
                 case 3:
                     Deck deck3 = new Deck("storyDeck3");
                     deck3.addCardToDeck((Hero) Hero.findHero("Arash").clone(), true);
-                    deck3.addCardToDeck((Spell) Card.findCard("hellFire").clone(), true).addCardToDeck((Spell) Card.findCard("allDisarm").clone(), true).addCardToDeck((Spell) Card.findCard("dispel").clone(), true).addCardToDeck((Spell) Card.findCard("powerUp").clone(), true).addCardToDeck((Spell) Card.findCard("allPower").clone(), true).addCardToDeck((Spell) Card.findCard("allAttack").clone(), true).addCardToDeck((Spell) Card.findCard("weakening").clone(), true).addCardToDeck((Minion) Card.findCard("jasosTorani").clone(), true).addCardToDeck((Minion) Card.findCard("kamandarTorani").clone(), true).addCardToDeck((Card) Card.findCard("sepahsalarFars").clone(), true).addCardToDeck((Minion) Card.findCard("GhoulSangAndaz").clone(), true).
-                            addCardToDeck((Minion) Card.findCard("DivGorazSavar").clone(), true).addCardToDeck((Minion) Card.findCard("DivGorazSavar").clone(), true).addCardToDeck((Minion) Card.findCard("GorazVahshi").clone(), true).addCardToDeck((Minion) Card.findCard("JadoGar").clone(), true).addCardToDeck((Minion) Card.findCard("Gorg").clone(), true).addCardToDeck((Minion) Card.findCard("ShirDarande").clone(), true).addCardToDeck((Minion) Card.findCard("Piran").clone(), true).addCardToDeck((Minion) Card.findCard("Bahman").clone(), true).addCardToDeck((Minion) Card.findCard("GhoulBozorg").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("hellFire").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("allDisarm").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("dispel").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("powerUp").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("allPower").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("allAttack").clone(), true);
+                    deck3.addCardToDeck((Spell) Card.findCard("weakening").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("jasosTorani").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("kamandarTorani").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("sepahsalarFars").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("GhoulSangAndaz").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("DivGorazSavar").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("DivGorazSavar").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("GorazVahshi").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("JadoGar").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("Gorg").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("ShirDarande").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("Piran").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("Bahman").clone(), true);
+                    deck3.addCardToDeck((Minion) Card.findCard("GhoulBozorg").clone(), true);
                     deck3.addItemToDeck((Item) Item.findItem("Terror Hood").clone(), true);
+                    return deck3;
             }
-        } catch (CloneNotSupportedException ignored)
+        }
+        catch (CloneNotSupportedException ignored)
         {
 
         }
