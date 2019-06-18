@@ -376,7 +376,7 @@ public class Request
     {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
-        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 35));
+        text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 30));
         text.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(text.prefWidth(-1)).divide(2));
         text.setY(yProperty);
         text.setFill(Color.BLUE);
@@ -1877,10 +1877,26 @@ public class Request
         setHeroIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
         setEndTurnButton(rootBattleField);
+        setMPIcons(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
         primaryStage.show();
+    }
+
+    private void setMPIcons(Group rootBattleField)
+    {
+        for (int i=0;i < 10;i++)
+        {
+            ImageView MPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
+            {
+                MPIcon = new ImageView("ManaIcons/icon_mana.png");
+            }
+            MPIcon.relocate(250 + i * 20, 90);
+
+            rootBattleField.getChildren().add(MPIcon);
+        }
     }
 
     private void setEndTurnButton(Group rootBattleField)
