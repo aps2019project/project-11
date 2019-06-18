@@ -15,7 +15,7 @@ public class Player
     private ArrayList<Minion> insertedCards = new ArrayList<>();
     private ArrayList<ItemChange> activeItemsOnPlayer = new ArrayList<>();
     private ArrayList<SpellChange> activeSpellsOnPlayer = new ArrayList<>();
-    private  ArrayList<Card> nonHeroCards = new ArrayList<>();
+    private ArrayList<Card> nonHeroCards = new ArrayList<>();
     private boolean isAIPlayer = false;
 
     public Player(Account account , boolean isAIPlayer)
@@ -29,9 +29,10 @@ public class Player
         Collections.shuffle(nonHeroCards);
         for (int i = 0;i < 5;i++)
         {
-            this.getHand().addCardToHand(nonHeroCards.get(i));
+            System.out.println(nonHeroCards.get(i).getCardID());
+            getHand().addCardToHand(nonHeroCards.get(i));
         }
-        this.getHand().setNextCard(nonHeroCards.get(5));
+        getHand().setNextCard(nonHeroCards.get(5));
         for (Card card : nonHeroCards)
         {
             if (card instanceof Minion)

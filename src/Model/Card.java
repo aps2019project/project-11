@@ -4,7 +4,8 @@ import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
-public class Card implements Cloneable {
+public class Card implements Cloneable
+{
     private boolean cardSelectedInBattle = false;
     private String cardID;
     private int price;
@@ -19,175 +20,225 @@ public class Card implements Cloneable {
     private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
     private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
 
-    public static ImageView getCardImageView(Card card) {
-        if(card.getCardName().equals("Dave White")){
+    public static ImageView getCardImageView(Card card)
+    {
+        if (card.getCardName().equals("Dave White"))
+        {
             return new ImageView("Cards Images/hero-1.png");
         }
-        if(card.getCardName().equals("Simurgh")){
+        if (card.getCardName().equals("Simurgh"))
+        {
             return new ImageView("Cards Images/hero-2.png");
         }
-        if(card.getCardName().equals("SevenHeadedDragon")){
+        if (card.getCardName().equals("SevenHeadedDragon"))
+        {
             return new ImageView("Cards Images/hero-3.png");
         }
-        if(card.getCardName().equals("Rakhsh")){
+        if (card.getCardName().equals("Rakhsh"))
+        {
             return new ImageView("Cards Images/hero-4.png");
         }
-        if(card.getCardName().equals("Zahak")){
+        if (card.getCardName().equals("Zahak"))
+        {
             return new ImageView("Cards Images/hero-5.png");
         }
-        if(card.getCardName().equals("Kaveh")){
+        if (card.getCardName().equals("Kaveh"))
+        {
             return new ImageView("Cards Images/hero-6.png");
         }
-        if(card.getCardName().equals("Arash")){
+        if (card.getCardName().equals("Arash"))
+        {
             return new ImageView("Cards Images/hero-7.png");
         }
-        if(card.getCardName().equals("Afsaneh")){
+        if (card.getCardName().equals("Afsaneh"))
+        {
             return new ImageView("Cards Images/hero-8.png");
         }
-        if(card.getCardName().equals("Esfandiar")){
+        if (card.getCardName().equals("Esfandiar"))
+        {
             return new ImageView("Cards Images/hero-9.png");
         }
-        if(card.getCardName().equals("Rostam")){
+        if (card.getCardName().equals("Rostam"))
+        {
             return new ImageView("Cards Images/hero-10.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.ranged){
+        if (((Minion) card).getImpactType() == ImpactType.ranged)
+        {
             new ImageView("Cards Images/minion-1.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.melee){
+        if (((Minion) card).getImpactType() == ImpactType.melee)
+        {
             new ImageView("Cards Images/minion-2.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.hybrid){
+        if (((Minion) card).getImpactType() == ImpactType.hybrid)
+        {
             new ImageView("Cards Images/minion-3.png");
         }
         return null;
 
     }
 
-    public static ImageView getCardIcon(Card card) {
-        if(card.getCardName().equals("Dave White")){
+    public static ImageView getCardIcon(Card card)
+    {
+        if (card.getCardName().equals("Dave White"))
+        {
             return new ImageView("cardIcons/hero1.png");
         }
-        if(card.getCardName().equals("Simurgh")){
+        if (card.getCardName().equals("Simurgh"))
+        {
             return new ImageView("cardIcons/hero2.png");
         }
-        if(card.getCardName().equals("SevenHeadedDragon")){
+        if (card.getCardName().equals("SevenHeadedDragon"))
+        {
             return new ImageView("cardIcons/hero3.png");
         }
-        if(card.getCardName().equals("Rakhsh")){
+        if (card.getCardName().equals("Rakhsh"))
+        {
             return new ImageView("cardIcons/hero4.png");
         }
-        if(card.getCardName().equals("Zahak")){
+        if (card.getCardName().equals("Zahak"))
+        {
             return new ImageView("cardIcons/hero5.png");
         }
-        if(card.getCardName().equals("Kaveh")){
+        if (card.getCardName().equals("Kaveh"))
+        {
             return new ImageView("cardIcons/hero6.png");
         }
-        if(card.getCardName().equals("Arash")){
+        if (card.getCardName().equals("Arash"))
+        {
             return new ImageView("cardIcons/hero7.png");
         }
-        if(card.getCardName().equals("Afsaneh")){
+        if (card.getCardName().equals("Afsaneh"))
+        {
             return new ImageView("cardIcons/hero8.png");
         }
-        if(card.getCardName().equals("Esfandiar")){
+        if (card.getCardName().equals("Esfandiar"))
+        {
             return new ImageView("cardIcons/hero9.png");
         }
-        if(card.getCardName().equals("Rostam")){
+        if (card.getCardName().equals("Rostam"))
+        {
             return new ImageView("cardIcons/hero10.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.ranged){
-            new ImageView("cardIcons/minion1.png");
+        if (((Minion) card).getImpactType() == ImpactType.ranged)
+        {
+            return new ImageView("cardIcons/minion1.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.melee){
-            new ImageView("cardIcons/minion2.png");
+        if (((Minion) card).getImpactType() == ImpactType.melee)
+        {
+            return new ImageView("cardIcons/minion2.png");
         }
-        if(((Minion) card).getImpactType() == ImpactType.hybrid){
-            new ImageView("cardIcons/minion3.png");
+        if (((Minion) card).getImpactType() == ImpactType.hybrid)
+        {
+            return new ImageView("cardIcons/minion3.png");
         }
         return new ImageView("cardIcons/SpellICon.png");
     }
 
 
-    public int getColumn() {
+    public int getColumn()
+    {
         return column;
     }
 
-    public void setColumn(int column) {
+    public void setColumn(int column)
+    {
         this.column = column;
     }
 
-    public int getRow() {
+    public int getRow()
+    {
         return row;
     }
 
-    public void setRow(int row) {
+    public void setRow(int row)
+    {
         this.row = row;
     }
 
-    public int getRequiredMP() {
+    public int getRequiredMP()
+    {
         return requiredMP;
     }
 
-    public String getCardID() {
+    public String getCardID()
+    {
         return cardID;
     }
 
-    public int getPrice() {
+    public int getPrice()
+    {
         return price;
     }
 
-    public static Card findCard(String cardName) {
-        for (Card card : Shop.getInstance().getCards()) {
-            if (card.getCardName().equals(cardName)) {
+    public static Card findCard(String cardName)
+    {
+        for (Card card : Shop.getInstance().getCards())
+        {
+            if (card.getCardName().equals(cardName))
+            {
                 return card;
             }
         }
         return null;
     }
 
-    public boolean isCardSelectedInBattle() {
+    public boolean isCardSelectedInBattle()
+    {
         return cardSelectedInBattle;
     }
 
-    public void setCardSelectedInBattle(boolean cardSelectedInBattle) {
+    public void setCardSelectedInBattle(boolean cardSelectedInBattle)
+    {
         this.cardSelectedInBattle = cardSelectedInBattle;
     }
 
-    public String getCardName() {
+    public String getCardName()
+    {
         return cardName;
     }
 
-    public static void setCards() {
+    public static void setCards()
+    {
         Spell.setSpells();
         NonSpellCard.setNonSpellCards();
     }
 
-    public void setPrice(int price) {
+    public void setPrice(int price)
+    {
         this.price = price;
     }
 
-    public void setRequiredMP(int requiredMP) {
+    public void setRequiredMP(int requiredMP)
+    {
         this.requiredMP = requiredMP;
     }
 
-    public void setCardName(String cardName) {
+    public void setCardName(String cardName)
+    {
         this.cardName = cardName;
     }
 
-    public void setCardID(String cardID) {
+    public void setCardID(String cardID)
+    {
         this.cardID = cardID;
     }
 
-    public static int findDestination(Card card1, Card card2) {
+    public static int findDestination(Card card1, Card card2)
+    {
         return Math.abs(card1.getRow() - card2.getRow()) + Math.abs(card1.getColumn() - card2.getColumn());
     }
 
-    public static boolean checkNeighborhood(Card card1, Card card2) {
+    public static boolean checkNeighborhood(Card card1, Card card2)
+    {
         int[][] matrix = new int[5][9];
         int row = card1.getRow();
         int column = card1.getColumn();
         matrix[row][column] = 1;
-        for (int rowCounter = row - 1; rowCounter <= row + 1; rowCounter++) {
-            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++) {
+        for (int rowCounter = row - 1; rowCounter <= row + 1; rowCounter++)
+        {
+            for (int columnCounter = column - 1; columnCounter <= column + 1; columnCounter++)
+            {
                 matrix[rowCounter][columnCounter] = 1;
             }
         }
@@ -195,46 +246,56 @@ public class Card implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException
+    {
         return super.clone();
     }
 
-    public void setDefaultCardID() {
+    public void setDefaultCardID()
+    {
         Account account = Account.loggedInAccount;
         String cardID = "SinglePlayer_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
         account.increaseAIAccountDefaultID();
     }
 
-    public ImageView getCardImageView() {
+    public ImageView getCardImageView()
+    {
         return cardImageView;
     }
 
-    public void setCardImageView(ImageView cardImageView) {
+    public void setCardImageView(ImageView cardImageView)
+    {
         this.cardImageView = cardImageView;
     }
 
-    public int getImageNumber() {
+    public int getImageNumber()
+    {
         return imageNumber;
     }
 
-    public void setImageNumber(int imageNumber) {
+    public void setImageNumber(int imageNumber)
+    {
         this.imageNumber = imageNumber;
     }
 
-    public void setCardIcon(ImageView cardIcon) {
+    public void setCardIcon(ImageView cardIcon)
+    {
         this.cardIcon = cardIcon;
     }
 
-    public static Card getCard() {
+    public static Card getCard()
+    {
         return card;
     }
 
-    public static ArrayList<ImageView> getCardsIcon() {
+    public static ArrayList<ImageView> getCardsIcon()
+    {
         return cardsIcons;
     }
 
-    public static void setCardIcons() {
+    public static void setCardIcons()
+    {
         ImageView imageView0 = new ImageView("cardIcons/hero1.png");
         ImageView imageView1 = new ImageView("cardIcons/hero2.png");
         ImageView imageView2 = new ImageView("cardIcons/hero3.png");
@@ -268,11 +329,13 @@ public class Card implements Cloneable {
 
     }
 
-    public static ArrayList<ImageView> getCardsImageView() {
+    public static ArrayList<ImageView> getCardsImageView()
+    {
         return cardsImageView;
     }
 
-    public static void setCardsImageView() {
+    public static void setCardsImageView()
+    {
         cardsImageView.add(new ImageView("Cards Images/hero-1.png"));
         cardsImageView.add(new ImageView("Cards Images/hero-2.png"));
         cardsImageView.add(new ImageView("Cards Images/hero-3.png"));
