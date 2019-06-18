@@ -1684,7 +1684,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
                     try
                     {
-                        setBattleField(primaryStage, 4);
+                        setBattleField(primaryStage, "customGameBackGround");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1694,7 +1694,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
                     try
                     {
-                        setBattleField(primaryStage, 4);
+                        setBattleField(primaryStage, "customGameBackGround");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1704,7 +1704,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
                     try
                     {
-                        setBattleField(primaryStage, 4);
+                        setBattleField(primaryStage, "customGameBackGround");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1789,7 +1789,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
                     try
                     {
-                        setBattleField(primaryStage, 1);
+                        setBattleField(primaryStage, "backgroundStory1");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1799,7 +1799,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
                     try
                     {
-                        setBattleField(primaryStage, 2);
+                        setBattleField(primaryStage, "backgroundStory2");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1809,7 +1809,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
                     try
                     {
-                        setBattleField(primaryStage, 3);
+                        setBattleField(primaryStage, "backgroundStory3");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1868,9 +1868,9 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, int mapNumber) throws IOException
+    private void setBattleField(Stage primaryStage, String map) throws IOException
     {
-        setBackGroundImage(rootBattleField, "battleField BackGround/backgroundStory" + mapNumber + ".jpg");
+        setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");
         setGridPane(rootBattleField);
         setHandIcons(rootBattleField);
         setHeroIcons(rootBattleField);
