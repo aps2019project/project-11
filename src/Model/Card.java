@@ -41,7 +41,6 @@ public class Card implements Cloneable
         }
         else if (card instanceof Minion)
         {
-            System.out.println(((Minion) card).getImpactType());
             return new ImageView("cardIcons/" + ((Minion) card).getImpactType()+ ".png");
         }
         return new ImageView("cardIcons/Spell.png");

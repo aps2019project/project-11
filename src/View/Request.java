@@ -353,14 +353,14 @@ public class Request
         rootMainMenu.getChildren().add(duelyst);
 
         setMainMenuText(primaryStage, "Battle", 80);
-        setMainMenuText(primaryStage, "Shop", 140);
-        setMainMenuText(primaryStage, "Collection", 200);
-        setMainMenuText(primaryStage, "LeaderBoard", 260);
+        setMainMenuText(primaryStage, "Shop", 135);
+        setMainMenuText(primaryStage, "Collection", 190);
+        setMainMenuText(primaryStage, "LeaderBoard", 245);
         setMainMenuText(primaryStage, "Save", 300);
-        setMainMenuText(primaryStage, "Profile", 350);
-        setMainMenuText(primaryStage, "CustomCards",400 );
-        setMainMenuText(primaryStage, "Logout", 450);
-        setMainMenuText(primaryStage, "Exit", 500);
+        setMainMenuText(primaryStage, "Profile", 355);
+        setMainMenuText(primaryStage, "CustomCard",410);
+        setMainMenuText(primaryStage, "Logout", 465);
+        setMainMenuText(primaryStage, "Exit", 520);
 
         primaryStage.setScene(sceneMainMenu);
     }
