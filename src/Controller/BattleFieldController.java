@@ -65,7 +65,6 @@ public class BattleFieldController extends Thread {
     private void insertCard(){
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
-
         for (int row = 0; row < 5; row++) {
             for (int column = 0; column < 9; column++) {
                 int finalRow = row;
@@ -77,7 +76,7 @@ public class BattleFieldController extends Thread {
                     public void handle(MouseEvent event) {
                         if (isCardSelected){
                             BattleManager battleManager = new BattleManager();
-                            if(battleManager.insertCardToBattleField(selectedCard , finalRow, finalColumn)){
+                            if(){
                                 ImageView imageView = Card.getCardImageView(selectedCard);
                                 battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
                             }
@@ -87,8 +86,6 @@ public class BattleFieldController extends Thread {
                         }
                     }
                 });
-
-
             }
         }
     }
