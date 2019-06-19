@@ -5,9 +5,7 @@ import Model.Card;
 import Model.Cell;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
 public class BattleFieldController extends Thread {
@@ -26,7 +24,7 @@ public class BattleFieldController extends Thread {
 
         for (int number = 0; number < firstPlayerHandPanes.length; number++) {
             int finalNumber = number;
-            firstPlayerHandPanes[number].setOnDragDetected(new EventHandler<MouseEvent>() {
+            firstPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                 @Override
                 public void handle(MouseEvent event) {
@@ -35,8 +33,7 @@ public class BattleFieldController extends Thread {
                     } else {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
-                        Dragboard dragboard = firstPlayerHandPanes[finalNumber].startDragAndDrop(TransferMode.ANY);
-                        event.consume();
+                        insertCard();
                     }
                 }
             });
@@ -44,7 +41,7 @@ public class BattleFieldController extends Thread {
 
         for (int number = 0; number < secondPlayerHandPanes.length; number++) {
             int finalNumber = number;
-            secondPlayerHandPanes[number].setOnDragDetected(new EventHandler<MouseEvent>() {
+            secondPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                 @Override
                 public void handle(MouseEvent event) {
@@ -53,14 +50,17 @@ public class BattleFieldController extends Thread {
                     } else {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
-                        Dragboard dragboard = firstPlayerHandPanes[finalNumber].startDragAndDrop(TransferMode.ANY);
-                        event.consume();
+                        insertCard();
                     }
                 }
             });
         }
 
 
+
+    }
+
+    private void insertCard(){
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
 
@@ -89,10 +89,6 @@ public class BattleFieldController extends Thread {
 
             }
         }
-    }
-
-    private void insertCard(){
-
     }
 
     public Card getSelectedCard() {
