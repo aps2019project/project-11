@@ -2167,12 +2167,12 @@ public class Request
                 panes[row][column] = pane;
                 gridPane.add(pane, row, column);
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[column][row].setCellPane(pane);
-
                 ImageView imageView = new ImageView("battleField BackGround/normal.png");
-                gridPane.add(imageView, row, column);
+                pane.getChildren().add(imageView);
             }
         }
         rootBattleField.getChildren().add(gridPane);
+        Battle.getCurrentBattle().setBattleFieldPanes(panes);
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 

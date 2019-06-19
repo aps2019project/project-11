@@ -25,6 +25,7 @@ public class Battle
     private transient GridPane battleFieldGridPane;
     private transient Pane[] firstPlayerHandPanes;
     private transient Pane[] secondPlayerHandPanes;
+    private transient Pane[][] battleFieldPanes;
 
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
@@ -679,5 +680,13 @@ public class Battle
             return secondPlayerHandPanes;
         }
         return null;
+    }
+
+    public Pane[][] getBattleFieldPanes() {
+        return battleFieldPanes;
+    }
+
+    public void setBattleFieldPanes(Pane[][] battleFieldPanes) {
+        this.battleFieldPanes = battleFieldPanes;
     }
 }
