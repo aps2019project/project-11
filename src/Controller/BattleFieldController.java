@@ -34,6 +34,7 @@ public class BattleFieldController extends Thread {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
+                        Battle.getCurrentBattle().setHandIcons(null, false);
                     }
                 }
             });
@@ -51,6 +52,8 @@ public class BattleFieldController extends Thread {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
+                        Battle.getCurrentBattle().setHandIcons(null, false);
+
                     }
                 }
             });
