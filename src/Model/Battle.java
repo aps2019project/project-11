@@ -1,7 +1,6 @@
 package Model;
 
 import Controller.BattleManager;
-import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -9,6 +8,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Random;
 
+@SuppressWarnings("Duplicates")
 public class Battle {
     private static Battle currentBattle;
     private Player firstPlayer;
@@ -551,17 +551,10 @@ public class Battle {
         this.battleFieldPanes = battleFieldPanes;
     }
 
-    public void setHandIcons(Group rootBattleField, boolean isFirst) {
-        Pane[] secondPlayerHandPanes;
-        Pane[] firstPlayerHandPanes;
-        if (isFirst) {
-            firstPlayerHandPanes = new Pane[5];
-            secondPlayerHandPanes = new Pane[5];
-        } else {
-            firstPlayerHandPanes = Battle.getCurrentBattle().getFirstPlayerHandPanes();
-            secondPlayerHandPanes = Battle.getCurrentBattle().getSecondPlayerHandPanes();
-        }
-        for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size() ; number++) {
+    public void setHandIcons() {
+        Pane[] firstPlayerHandPanes = new Pane[5];
+        Pane[] secondPlayerHandPanes = new Pane[5];
+        for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size(); number++) {
             ImageView imageView1;
 
             Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
@@ -570,9 +563,12 @@ public class Battle {
 
             imageView1 = Card.getCardIcon(card1);
 
+            firstPlayerHandPanes[number].getChildren().clear();
+
             firstPlayerHandPanes[number].getChildren().add(imageView1);
         }
-        for(int number = 0; number < Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size() ; number++){
+
+        for (int number = 0; number < Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size(); number++) {
             ImageView imageView2;
 
             Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
@@ -580,6 +576,8 @@ public class Battle {
             secondPlayerHandPanes[number] = new Pane();
 
             imageView2 = Card.getCardIcon(card2);
+
+            secondPlayerHandPanes[number].getChildren().clear();
 
             secondPlayerHandPanes[number].getChildren().add(imageView2);
         }
@@ -597,27 +595,6 @@ public class Battle {
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
 
-        if (isFirst) {
-            if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer()) {
-                for (int number = 0; number < 5; number++) {
-                    rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
-                }
-            } else {
-                for (int number = 0; number < 5; number++) {
-                    rootBattleField.getChildren().add(secondPlayerHandPanes[number]);
-                }
-            }
-        } else {
-            if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer()) {
-                for (int number = 0; number < 5; number++) {
-                    Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
-                }
-            } else {
-                for (int number = 0; number < 5; number++) {
-                    Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
-                }
-            }
-        }
     }
 }
 

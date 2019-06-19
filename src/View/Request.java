@@ -2043,7 +2043,11 @@ public class Request
                 }
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
-                Battle.getCurrentBattle().setHandIcons(null, false);
+                Battle.getCurrentBattle().setHandIcons();
+                for (int number = 0; number < 5; number++)
+                {
+                    rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
+                }
                 battleFieldController = new BattleFieldController();
                 battleFieldController.start();
             }
@@ -2073,10 +2077,45 @@ public class Request
 
     private void setHandIcons(Group rootBattleField)
     {
+        Pane[] firstPlayerHandPanes = new Pane[5];
+        Pane[] secondPlayerHandPanes = new Pane[5];
         Card.setCardIcons();
-        Battle.getCurrentBattle().setHandIcons(rootBattleField , true);
+        for (int number = 0; number < 5; number++)
+        {
+            ImageView imageView1;
+            ImageView imageView2;
 
+            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+
+            firstPlayerHandPanes[number] = new Pane();
+            secondPlayerHandPanes[number] = new Pane();
+
+            imageView1 = Card.getCardIcon(card1);
+            imageView2 = Card.getCardIcon(card2);
+
+            firstPlayerHandPanes[number].getChildren().add(imageView1);
+            secondPlayerHandPanes[number].getChildren().add(imageView2);
+        }
+
+        firstPlayerHandPanes[0].relocate(350, 600);
+        firstPlayerHandPanes[1].relocate(475, 600);
+        firstPlayerHandPanes[2].relocate(600, 600);
+        firstPlayerHandPanes[3].relocate(725, 600);
+        firstPlayerHandPanes[4].relocate(850, 600);
+        secondPlayerHandPanes[0].relocate(350, 600);
+        secondPlayerHandPanes[1].relocate(475, 600);
+        secondPlayerHandPanes[2].relocate(600, 600);
+        secondPlayerHandPanes[3].relocate(725, 600);
+        secondPlayerHandPanes[4].relocate(850, 600);
+        for (int number = 0; number < 5; number++)
+        {
+            rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
+        }
+        Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
+        Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
+
 
     private void setGridPane(Group rootBattleField)
     {
