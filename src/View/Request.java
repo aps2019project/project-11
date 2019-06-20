@@ -2111,7 +2111,8 @@ public class Request
     private void setHeroFirstPlace(Group rootBattleField)
     {
         Card.setCardsImageView();
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0)));
+        ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
         Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0)));
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
@@ -2172,7 +2173,6 @@ public class Request
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
-
 
     private void setGridPane(Group rootBattleField)
     {
