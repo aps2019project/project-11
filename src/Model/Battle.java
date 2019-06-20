@@ -552,8 +552,9 @@ public class Battle {
     }
 
     public void setHandIcons() {
-        Pane[] firstPlayerHandPanes = new Pane[5];
-        Pane[] secondPlayerHandPanes = new Pane[5];
+        Pane[] firstPlayerHandPanes = new Pane[Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size()];
+        Pane[] secondPlayerHandPanes = new Pane[Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size()];
+
         for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size(); number++) {
             ImageView imageView1;
 

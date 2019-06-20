@@ -80,6 +80,9 @@ public class BattleFieldController extends Thread {
                             }
                             else if(selectedCard instanceof Spell){
                                 if(battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCard , finalRow1 , finalColumn1)){
+
+                                    Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
+                                    Battle.getCurrentBattle().setHandIcons();
                                     //todo Animation
                                 }
                             }
