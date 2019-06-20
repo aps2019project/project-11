@@ -2110,6 +2110,10 @@ public class Request
         Card.setCardsImageView();
         Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0)));
         Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0)));
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
     }
 
     private void setHeroIcons(Group rootBattleField)
