@@ -148,6 +148,7 @@ public class BattleManager
         showOutput.printOutput("Invalid card name");
     }
 
+
     public boolean insertCardToBattleField(Card card, int x, int y)
     {
         if (!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull()))

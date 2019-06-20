@@ -1,6 +1,7 @@
 package View;
 
 import Controller.AccountManager;
+import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -143,7 +144,7 @@ public class Request
     private Scene sceneMakingCutomCards =Main.getSceneMakingCustomCards();
 
     private Deck selectedDeckForCustomGame = null;
-    private Controller battleFieldController;
+    private BattleFieldController  battleFieldController;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -1984,6 +1985,8 @@ public class Request
         setPlayersName(rootBattleField);
         setMPIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
+        battleFieldController = new BattleFieldController();
+        battleFieldController.start();
         setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2049,50 +2052,16 @@ public class Request
                 }
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
-                setHandIconsForEndTurn();
+                Battle.getCurrentBattle().setHandIcons();
                 for (int number = 0; number < 5; number++)
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
+                battleFieldController = new BattleFieldController();
+                battleFieldController.start();
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
-    }
-
-    private void setHandIconsForEndTurn()
-    {
-        Pane[] firstPlayerHandPanes = new Pane[5];
-        Pane[] secondPlayerHandPanes = new Pane[5];
-        for (int number = 0; number < 5; number++)
-        {
-            ImageView imageView1;
-            ImageView imageView2;
-
-            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
-            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
-
-            firstPlayerHandPanes[number] = new Pane();
-            secondPlayerHandPanes[number] = new Pane();
-
-            imageView1 = Card.getCardIcon(card1);
-            imageView2 = Card.getCardIcon(card2);
-
-            firstPlayerHandPanes[number].getChildren().add(imageView1);
-            secondPlayerHandPanes[number].getChildren().add(imageView2);
-        }
-
-        firstPlayerHandPanes[0].relocate(350, 600);
-        firstPlayerHandPanes[1].relocate(475, 600);
-        firstPlayerHandPanes[2].relocate(600, 600);
-        firstPlayerHandPanes[3].relocate(725, 600);
-        firstPlayerHandPanes[4].relocate(850, 600);
-        secondPlayerHandPanes[0].relocate(350, 600);
-        secondPlayerHandPanes[1].relocate(475, 600);
-        secondPlayerHandPanes[2].relocate(600, 600);
-        secondPlayerHandPanes[3].relocate(725, 600);
-        secondPlayerHandPanes[4].relocate(850, 600);
-        Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
-        Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
     private void setHeroFirstPlace(Group rootBattleField)
@@ -2156,6 +2125,7 @@ public class Request
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
+
     private void setGridPane(Group rootBattleField)
     {
         Pane[][] panes = new Pane[9][5];
@@ -2171,12 +2141,12 @@ public class Request
                 panes[row][column] = pane;
                 gridPane.add(pane, row, column);
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[column][row].setCellPane(pane);
-
                 ImageView imageView = new ImageView("battleField BackGround/normal.png");
-                gridPane.add(imageView, row, column);
+                pane.getChildren().add(imageView);
             }
         }
         rootBattleField.getChildren().add(gridPane);
+        Battle.getCurrentBattle().setBattleFieldPanes(panes);
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 
