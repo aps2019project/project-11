@@ -34,7 +34,6 @@ public class BattleFieldController extends Thread {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
-                        Battle.getCurrentBattle().setHandIcons();
                     }
                 }
             });
@@ -52,7 +51,6 @@ public class BattleFieldController extends Thread {
                         setCardSelected(true);
                         setSelectedCard(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
-                        Battle.getCurrentBattle().setHandIcons();
                     }
                 }
             });
@@ -67,8 +65,6 @@ public class BattleFieldController extends Thread {
 
         for (int row = 0; row < 5; row++) {
             for (int column = 0; column < 9; column++) {
-                int finalRow = row;
-                int finalColumn = column;
                 int finalColumn1 = column;
                 int finalRow1 = row;
                 battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -76,9 +72,10 @@ public class BattleFieldController extends Thread {
                     public void handle(MouseEvent event) {
                         if (isCardSelected){
                             BattleManager battleManager = new BattleManager();
-                            if(true){
+                            if(battleManager.insertCardToBattleField(selectedCard , finalRow1 , finalColumn1)){
                                 ImageView imageView = Card.getCardImageView(selectedCard);
                                 battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
+                                Battle.getCurrentBattle().setHandIcons();
                             }
                         }
                         else {
