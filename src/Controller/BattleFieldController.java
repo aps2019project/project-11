@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Battle;
-import Model.Card;
-import Model.Cell;
+import Model.*;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -72,11 +70,20 @@ public class BattleFieldController extends Thread {
                     public void handle(MouseEvent event) {
                         if (isCardSelected){
                             BattleManager battleManager = new BattleManager();
-                            if(battleManager.insertCardToBattleField(selectedCard , finalRow1 , finalColumn1)){
-                                ImageView imageView = Card.getCardImageView(selectedCard);
-                                battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
-                                Battle.getCurrentBattle().setHandIcons();
+                            if(selectedCard instanceof Minion){
+                                if(battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCard , finalRow1 , finalColumn1)){
+                                    ImageView imageView = Card.getCardImageView(selectedCard);
+                                    battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
+                                    Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
+                                    Battle.getCurrentBattle().setHandIcons();
+                                }
                             }
+                            else if(selectedCard instanceof Spell){
+                                if(battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCard , finalRow1 , finalColumn1)){
+                                    //todo Animation
+                                }
+                            }
+
                         }
                         else {
                             //todo error
