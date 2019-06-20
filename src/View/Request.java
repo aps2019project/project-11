@@ -567,7 +567,16 @@ public class Request
         PowerActivationField.setMaxWidth(150);
         PowerActivationField.relocate(550,100);
 
-        rootMakingCustomCard.getChildren().addAll(PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
+        Text coolDownText = new Text("specialPowerCoolDown :");
+        coolDownText.relocate(380,170);
+        coolDownText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        TextField coolDownField = new TextField();
+        coolDownField.setFont(Font.font("SanSerif",15));
+        coolDownField.setPromptText("specialPowerCoolDown");
+        coolDownField.setMaxWidth(150);
+        coolDownField.relocate(710,157);
+
+        rootMakingCustomCard.getChildren().addAll(coolDownField,coolDownText,PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
     private void showProfile(Stage primaryStage)
     {
