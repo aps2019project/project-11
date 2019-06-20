@@ -5,8 +5,10 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,6 +29,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
