@@ -2026,7 +2026,7 @@ public class Request
         setPlayersName(rootBattleField);
         setMPIcons(rootBattleField);
         setHeroFirstPlace(rootBattleField);
-        battleFieldController = new BattleFieldController();
+        battleFieldController = new BattleFieldController(rootBattleField);
         battleFieldController.start();
         setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
@@ -2098,7 +2098,7 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController();
+                battleFieldController = new BattleFieldController(rootBattleField);
                 battleFieldController.start();
             }
         });

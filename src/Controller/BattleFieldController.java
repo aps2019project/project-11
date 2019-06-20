@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -9,6 +10,11 @@ import javafx.scene.layout.Pane;
 public class BattleFieldController extends Thread {
     private boolean isCardSelected = false;
     private Card selectedCard;
+    private Group rootBattleField;
+
+    public BattleFieldController(Group rootBattleField) {
+        setRootBattleField(rootBattleField);
+    }
 
     @Override
     public void run() {
@@ -76,6 +82,7 @@ public class BattleFieldController extends Thread {
                                     battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
+                                    Battle.getCurrentBattle().setMPIcons(rootBattleField);
                                 }
                             }
                             else if(selectedCard instanceof Spell){
@@ -83,6 +90,8 @@ public class BattleFieldController extends Thread {
 
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
+                                    Battle.getCurrentBattle().setMPIcons(rootBattleField);
+
                                     //todo Animation
                                 }
                             }
@@ -111,5 +120,13 @@ public class BattleFieldController extends Thread {
 
     public void setCardSelected(boolean cardSelected) {
         isCardSelected = cardSelected;
+    }
+
+    public Group getRootBattleField() {
+        return rootBattleField;
+    }
+
+    public void setRootBattleField(Group rootBattleField) {
+        this.rootBattleField = rootBattleField;
     }
 }

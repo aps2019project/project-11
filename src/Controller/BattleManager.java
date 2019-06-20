@@ -62,12 +62,6 @@ public class BattleManager
     {
         if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
         {
-            for(int i = 0 ; i < 5 ; i++){
-                for(int j = 0 ; j < 9 ; j++){
-                    System.out.print(setInsertAbleCellsMatrixForMinion()[i][j] + " ");
-                }
-                System.out.println();
-            }
             showOutput.printOutput("Invalid target");
             return false;
         }
