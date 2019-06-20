@@ -577,7 +577,17 @@ public class Request
         coolDownField.setMaxWidth(150);
         coolDownField.relocate(710,157);
 
-        rootMakingCustomCard.getChildren().addAll(coolDownField,coolDownText,PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
+        Text costText = new Text("cost :");
+        costText.relocate(400,230);
+        costText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
+        TextField costField = new TextField();
+        costField.setFont(Font.font("SanSerif",15));
+        costField.setPromptText("cost");
+        costField.setMaxWidth(150);
+        costField.relocate(480,220);
+
+
+        rootMakingCustomCard.getChildren().addAll(costField,costText,coolDownField,coolDownText,PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
     private void showProfile(Stage primaryStage)
     {

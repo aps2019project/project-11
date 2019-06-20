@@ -76,7 +76,7 @@ public class BattleFieldController extends Thread {
                     public void handle(MouseEvent event) {
                         if (isCardSelected){
                             BattleManager battleManager = new BattleManager();
-                            if(){
+                            if(true){
                                 ImageView imageView = Card.getCardImageView(selectedCard);
                                 battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
                             }
