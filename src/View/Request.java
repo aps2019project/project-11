@@ -470,10 +470,18 @@ public class Request
     {
         setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
         customCardInfo(stage,rootMakingCustomCard);
-
-        //rootMakingCustomCard.getChildren().add(nameText);
-
+        Button back = new Button("Back");
+        back.setFont(Font.font(25));
+        back.relocate(900,450);
+        back.setOnMouseClicked(event -> {
+            stage.setScene(sceneMainMenu);
+        });
+        Button apply = new Button("Apply");
+        apply.relocate(780,450);
+        apply.setFont(Font.font(25));
+        rootMakingCustomCard.getChildren().addAll(back,apply);
         stage.setScene(sceneMakingCutomCards);
+
     }
 
     private void customCardInfo(Stage stage,Group rootMakingCustomCard)
@@ -585,7 +593,6 @@ public class Request
         costField.setPromptText("cost");
         costField.setMaxWidth(150);
         costField.relocate(480,220);
-
 
         rootMakingCustomCard.getChildren().addAll(costField,costText,coolDownField,coolDownText,PowerActivationField,PowerActivationText,SpecialPowerField,SpecialPowerText,rangeField,rangeText,AttackField,AttackText,HPField,HPText,APField,APText,buffField,buffText,SpellField,SpellText,nameText,nameField,typeField,typeText);
     }
