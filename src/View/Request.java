@@ -2,6 +2,7 @@ package View;
 
 import Controller.AccountManager;
 import Controller.BattleFieldController;
+import Controller.ShopManager;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -526,26 +527,58 @@ public class Request
        int price = Integer.parseInt(cost);
        int rangeOfAttack = Integer.parseInt(range);
        Card card = new Card();
-       if (type.equalsIgnoreCase("hero") || type.equalsIgnoreCase("minion"))
+       if (type.equalsIgnoreCase("hero"))
        {
-           NonSpellCard nonSpellCard = (NonSpellCard) card;
-           nonSpellCard.setCardName(name);
-           nonSpellCard.setDefaultAP(AP);
-           nonSpellCard.setDefaultHP(HP);
-           nonSpellCard.setRangeOfAttack(rangeOfAttack);
+           Hero hero = new Hero();
+           hero.setCardName(name);
+           hero.setDefaultAP(AP);
+           hero.setDefaultHP(HP);
+           hero.setRangeOfAttack(rangeOfAttack);
            if (attackType.equalsIgnoreCase("melee"))
            {
-               nonSpellCard.setImpactType(ImpactType.melee);
+               hero.setImpactType(ImpactType.melee);
            }
            if (attackType.equalsIgnoreCase("ranged"))
            {
-               nonSpellCard.setImpactType(ImpactType.ranged);
+               hero.setImpactType(ImpactType.ranged);
            }
            if (attackType.equalsIgnoreCase("hybrid"))
            {
-               nonSpellCard.setImpactType(ImpactType.hybrid);
+               hero.setImpactType(ImpactType.hybrid);
            }
-           //todo
+           hero.setPrice(price);
+
+           Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,hero,true);
+           Shop.getInstance().addCardToShop(hero);
+
+       }
+       else if (type.equalsIgnoreCase("minion"))
+       {
+           Minion minion = new Minion();
+           minion.setCardName(name);
+           minion.setDefaultAP(AP);
+           minion.setDefaultHP(HP);
+           minion.setRangeOfAttack(rangeOfAttack);
+           if (attackType.equalsIgnoreCase("melee"))
+           {
+               minion.setImpactType(ImpactType.melee);
+           }
+           if (attackType.equalsIgnoreCase("ranged"))
+           {
+               minion.setImpactType(ImpactType.ranged);
+           }
+           if (attackType.equalsIgnoreCase("hybrid"))
+           {
+               minion.setImpactType(ImpactType.hybrid);
+           }
+           minion.setPrice(price);
+
+           Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,minion,true);
+           Shop.getInstance().addCardToShop(minion);
+       }
+       else if (type.equalsIgnoreCase("spell"))
+       {
+
        }
 
     }

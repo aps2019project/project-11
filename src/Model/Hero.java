@@ -23,6 +23,10 @@ public class Hero extends NonSpellCard
         heroes.add(this);
         Shop.getInstance().addCardToShop(this);
     }
+    public Hero()
+    {
+
+    }
 
     public static void setHeroes()
     {

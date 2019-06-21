@@ -25,6 +25,10 @@ public class Minion extends NonSpellCard
         Shop.getInstance().addCardToShop(this);
     }
 
+    public Minion()
+    {
+
+    }
     public static ArrayList<Minion> getMinions()
     {
         return minions;
