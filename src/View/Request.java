@@ -2081,14 +2081,14 @@ public class Request
     private void setGraveYardButton(Group rootBattleField)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
-        graveYardButton.relocate(50, 620);
+        graveYardButton.relocate(50, 640);
         rootBattleField.getChildren().add(graveYardButton);
     }
 
     private void setEndTurnButton(Group rootBattleField)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
-        endTurnButton.relocate(1100, 600);
+        endTurnButton.relocate(1100, 620);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 @SuppressWarnings("Duplicates")
-public class Battle {
+public class Battle
+{
     private static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
@@ -30,7 +31,8 @@ public class Battle {
     private transient Pane[][] battleFieldPanes;
 
 
-    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType) {
+    public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
+    {
         this.setFirstPlayer(firstPlayer);
         this.setSecondPlayer(secondPlayer);
         this.setPlayerTurn(firstPlayer);
@@ -44,25 +46,30 @@ public class Battle {
         usableItemSecondPlayer.applyUsableItem(this.getSecondPlayer());*/
     }
 
-    public static Battle getCurrentBattle() {
+    public static Battle getCurrentBattle()
+    {
         return currentBattle;
     }
 
-    private static void setCurrentBattle(Battle currentBattle) {
+    private static void setCurrentBattle(Battle currentBattle)
+    {
         Battle.currentBattle = currentBattle;
     }
 
-    public void selectCard(NonSpellCard card) {
+    public void selectCard(NonSpellCard card)
+    {
         setSelectedCard(card);
         card.setCardSelectedInBattle(true);
     }
 
-    public void selectCollectibleItem(Item item) {
+    public void selectCollectibleItem(Item item)
+    {
         setSelectedICollectibleItem(item);
         item.setCollectibleItemSelectedInBattle(true);
     }
 
-    public void moveCard(NonSpellCard selectedCard, int x, int y) {
+    public void moveCard(NonSpellCard selectedCard, int x, int y)
+    {
         this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].remove(selectedCard);
         selectedCard.setRow(x);
         selectedCard.setColumn(y);
@@ -70,29 +77,41 @@ public class Battle {
         selectedCard.setMoveAble(false);
     }
 
-    public void damageCard(NonSpellCard selectedCard, NonSpellCard opponentCard) {
+    public void damageCard(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    {
         int currentHP = opponentCard.getCurrentHP();
         opponentCard.setCurrentHP(currentHP - selectedCard.getCurrentAP());
     }
 
-    public void attackToOpponent(NonSpellCard selectedCard, NonSpellCard opponentCard) {
+    public void attackToOpponent(NonSpellCard selectedCard, NonSpellCard opponentCard)
+    {
         Battle.getCurrentBattle().damageCard(selectedCard, opponentCard);
         Battle.getCurrentBattle().counterAttack(opponentCard);
         (selectedCard).setAttackAble(false);
     }
 
-    public void counterAttack(NonSpellCard opponentCard) {
-        if (opponentCard.isCounterAttackAble()) {
-            if (opponentCard.getImpactType() == ImpactType.melee) {
-                if (Card.checkNeighborhood(selectedCard, opponentCard)) {
+    public void counterAttack(NonSpellCard opponentCard)
+    {
+        if (opponentCard.isCounterAttackAble())
+        {
+            if (opponentCard.getImpactType() == ImpactType.melee)
+            {
+                if (Card.checkNeighborhood(selectedCard, opponentCard))
+                {
                     damageCard(opponentCard, selectedCard);
                 }
-            } else if (opponentCard.getImpactType() == ImpactType.ranged) {
-                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard))) {
+            }
+            else if (opponentCard.getImpactType() == ImpactType.ranged)
+            {
+                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
+                {
                     damageCard(opponentCard, selectedCard);
                 }
-            } else if (opponentCard.getImpactType() == ImpactType.hybrid) {
-                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack()) {
+            }
+            else if (opponentCard.getImpactType() == ImpactType.hybrid)
+            {
+                if (Card.findDestination(selectedCard, opponentCard) <= opponentCard.getRangeOfAttack())
+                {
                     damageCard(opponentCard, selectedCard);
                 }
             }
@@ -100,101 +119,131 @@ public class Battle {
     }
 
     //TODO how below method works?? i apply some changes check it works properly(to Ali)
-    private void counterAttack(String cardID1, String cardID2) {
+    private void counterAttack(String cardID1, String cardID2)
+    {
         selectedCard = (NonSpellCard) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID1);
         NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID2);
         counterAttack(opponentCard);
         setSelectedCard(null);
     }
 
-    public void comboAttack(String enemyCardID, ArrayList<String> cardsIDForComboAttack) {
+    public void comboAttack(String enemyCardID, ArrayList<String> cardsIDForComboAttack)
+    {
         checkComboCondition(cardsIDForComboAttack);
         NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(enemyCardID);
-        for (String cardID : cardsIDForComboAttack) {
+        for (String cardID : cardsIDForComboAttack)
+        {
             NonSpellCard selectedCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
             attackToOpponent(selectedCard, opponentCard);
         }
     }
 
-    private void checkComboCondition(ArrayList<String> cardsIDForComboAttack) {
-        for (String cardID : cardsIDForComboAttack) {
-            if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null) {
+    private void checkComboCondition(ArrayList<String> cardsIDForComboAttack)
+    {
+        for (String cardID : cardsIDForComboAttack)
+        {
+            if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+            {
                 continue;
             }
             Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
-            if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo()) {
+            if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo())
+            {
                 cardsIDForComboAttack.removeIf(n -> n.equals(cardID));
             }
         }
     }
 
-    public void checkInsertedCardsToApplySpellChange() {
-        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField()) {
-            for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard()) {
-                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onAttack) {
+    public void checkInsertedCardsToApplySpellChange()
+    {
+        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        {
+            for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard())
+            {
+                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onAttack)
+                {
                     spellChange.applySpellChangeOnCard(nonSpellCard);
                 }
-                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onDefend) {
+                if (spellChange.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onDefend)
+                {
 
                 }
             }
         }
     }
 
-    public void checkUsedItemsToApplyItemChange() {
-        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField()) {
-            for (ItemChange itemChange : nonSpellCard.getActiveItemsOnThisCard()) {
+    public void checkUsedItemsToApplyItemChange()
+    {
+        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        {
+            for (ItemChange itemChange : nonSpellCard.getActiveItemsOnThisCard())
+            {
                 //todo
                 itemChange.applyItemChange(nonSpellCard);
             }
         }
     }
 
-    public void endTurn() {
+    public void endTurn()
+    {
         this.getPlayerTurn().increaseDefaultMP();
-        if (this.getPlayerTurn() == this.getFirstPlayer()) {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
             this.setPlayerTurn(this.getSecondPlayer());
-        } else {
+        }
+        else
+        {
             this.setPlayerTurn(this.getFirstPlayer());
         }
-        for (NonSpellCard card : playerTurn.getInsertedCards()) {
+        for (NonSpellCard card : playerTurn.getInsertedCards())
+        {
             card.setMoveAble(true);
         }
         playerTurn.getMainDeck().getHero().get(0).setMoveAble(true);
         this.getPlayerTurn().setMP();
         checkInsertedCardsToApplySpellChange();
         checkUsedItemsToApplyItemChange();
-        for (ItemChange itemChange : this.getPlayerTurn().getActiveItemsOnPlayer()) {
+        for (ItemChange itemChange : this.getPlayerTurn().getActiveItemsOnPlayer())
+        {
             itemChange.applyItemChange(this.getPlayerTurn());
         }
     }
 
-    public NonSpellCard findRandomOwnForce() {
+    public NonSpellCard findRandomOwnForce()
+    {
         ArrayList<NonSpellCard> ownNonSpellCards = new ArrayList<>();
-        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField()) {
-            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards()) {
-                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID())) {
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
+            {
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
+                {
                     ownNonSpellCards.add(ownNonSpellCard);
                 }
             }
         }
         int randomMinionNumber = (int) (Math.random() % ownNonSpellCards.size());
-        if (randomMinionNumber == 0) {
+        if (randomMinionNumber == 0)
+        {
             return null;
         }
         return ownNonSpellCards.get(randomMinionNumber);
     }
 
-    public Minion findRandomOwnMinionToApplyItem() {
+    public Minion findRandomOwnMinionToApplyItem()
+    {
         int numOfInsertedMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().size();
         int randomMinionNumber = random.nextInt(numOfInsertedMinions);
         return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
     }
 
-    public Minion findRandomOwnRangedHybridMinionToApplyItem() {
+    public Minion findRandomOwnRangedHybridMinionToApplyItem()
+    {
         ArrayList<Minion> minions = new ArrayList<>();
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards()) {
-            if (minion.getImpactType() == ImpactType.hybrid || minion.getImpactType() == ImpactType.ranged) {
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        {
+            if (minion.getImpactType() == ImpactType.hybrid || minion.getImpactType() == ImpactType.ranged)
+            {
                 minions.add(minion);
             }
         }
@@ -202,12 +251,16 @@ public class Battle {
         return minions.get(randomMinionNumber);
     }
 
-    public NonSpellCard findRandomOpponentNonSpellCardToApplyUsableItem() {
+    public NonSpellCard findRandomOpponentNonSpellCardToApplyUsableItem()
+    {
         ArrayList<NonSpellCard> opponentNonSpellCards = new ArrayList<>();
         Outer:
-        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField()) {
-            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards()) {
-                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID())) {
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
+            {
+                if (nonSpellCard.getCardID().equals(ownNonSpellCard.getCardID()))
+                {
                     continue Outer;
                 }
             }
@@ -217,38 +270,54 @@ public class Battle {
         return opponentNonSpellCards.get(randomMinionNumber);
     }
 
-    public Hero getOpponentHero() {
+    public Hero getOpponentHero()
+    {
         Hero opponentHero;
-        if (this.getPlayerTurn() == this.getFirstPlayer()) {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
             opponentHero = this.getSecondPlayer().getMainDeck().getHero().get(0);
-        } else {
+        }
+        else
+        {
             opponentHero = this.getFirstPlayer().getMainDeck().getHero().get(0);
         }
         return opponentHero;
     }
 
-    public ArrayList<Minion> getOpponentMinions() {
-        if (this.getPlayerTurn() == this.getFirstPlayer()) {
+    public ArrayList<Minion> getOpponentMinions()
+    {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
             return this.getSecondPlayer().getInsertedCards();
-        } else {
+        }
+        else
+        {
             return this.getFirstPlayer().getInsertedCards();
         }
     }
 
-    public ArrayList<Minion> getOwnMinion() {
-        if (this.getPlayerTurn() == this.getFirstPlayer()) {
+    public ArrayList<Minion> getOwnMinion()
+    {
+        if (this.getPlayerTurn() == this.getFirstPlayer())
+        {
             return this.getFirstPlayer().getInsertedCards();
-        } else {
+        }
+        else
+        {
             return this.getSecondPlayer().getInsertedCards();
         }
     }
 
-    public ArrayList<NonSpellCard> findingOpponentNonSpellCards() {
+    public ArrayList<NonSpellCard> findingOpponentNonSpellCards()
+    {
         ArrayList<NonSpellCard> opponentNonSpellCards = new ArrayList<>();
         FirstFor:
-        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField()) {
-            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards()) {
-                if (Integer.parseInt(nonSpellCard.getCardID()) == Integer.parseInt(ownNonSpellCard.getCardID())) {
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCard ownNonSpellCard : this.getPlayerTurn().getInsertedCards())
+            {
+                if (Integer.parseInt(nonSpellCard.getCardID()) == Integer.parseInt(ownNonSpellCard.getCardID()))
+                {
                     continue FirstFor;
                 }
             }
@@ -257,11 +326,15 @@ public class Battle {
         return opponentNonSpellCards;
     }
 
-    public ArrayList<NonSpellCard> findingOwnNonSpellCards() {
+    public ArrayList<NonSpellCard> findingOwnNonSpellCards()
+    {
         ArrayList<NonSpellCard> ownNonSpellCards = new ArrayList<>();
-        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField()) {
-            for (NonSpellCard allOwnNonSpellCard : this.getFirstPlayer().getInsertedCards()) {
-                if (Integer.parseInt(allOwnNonSpellCard.getCardID()) == Integer.parseInt(nonSpellCard.getCardID())) {
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
+        {
+            for (NonSpellCard allOwnNonSpellCard : this.getFirstPlayer().getInsertedCards())
+            {
+                if (Integer.parseInt(allOwnNonSpellCard.getCardID()) == Integer.parseInt(nonSpellCard.getCardID()))
+                {
                     ownNonSpellCards.add(allOwnNonSpellCard);
                 }
             }
@@ -269,14 +342,19 @@ public class Battle {
         return ownNonSpellCards;
     }
 
-    public boolean isGameEnded(int gameMode) {
-        switch (gameMode) {
+    public boolean isGameEnded(int gameMode)
+    {
+        switch (gameMode)
+        {
             case 1:
-                if ((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0) {
+                if ((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
+                {
                     setVictoriousPlayer(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
-                } else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0) {
+                }
+                else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
+                {
                     setVictoriousPlayer(firstPlayer);
                     setLoserPlayer(secondPlayer);
                     return true;
@@ -285,105 +363,132 @@ public class Battle {
         return false;
     }
 
-    public Player getPlayerTurn() {
+    public Player getPlayerTurn()
+    {
         return playerTurn;
     }
 
-    public void setPlayerTurn(Player playerTurn) {
+    public void setPlayerTurn(Player playerTurn)
+    {
         this.playerTurn = playerTurn;
     }
 
-    public Player getSecondPlayer() {
+    public Player getSecondPlayer()
+    {
         return secondPlayer;
     }
 
-    public void setSecondPlayer(Player secondPlayer) {
+    public void setSecondPlayer(Player secondPlayer)
+    {
         this.secondPlayer = secondPlayer;
         this.getSecondPlayer().setMP();
     }
 
-    public Player getFirstPlayer() {
+    public Player getFirstPlayer()
+    {
         return firstPlayer;
     }
 
-    public void setFirstPlayer(Player firstPlayer) {
+    public void setFirstPlayer(Player firstPlayer)
+    {
         this.firstPlayer = firstPlayer;
         this.getFirstPlayer().setMP();
     }
 
-    public Player getLoserPlayer() {
+    public Player getLoserPlayer()
+    {
         return loserPlayer;
     }
 
-    public void setLoserPlayer(Player loserPlayer) {
+    public void setLoserPlayer(Player loserPlayer)
+    {
         this.loserPlayer = loserPlayer;
     }
 
-    public Player getVictoriousPlayer() {
+    public Player getVictoriousPlayer()
+    {
         return victoriousPlayer;
     }
 
-    public void setVictoriousPlayer(Player victoriousPlayer) {
+    public void setVictoriousPlayer(Player victoriousPlayer)
+    {
         this.victoriousPlayer = victoriousPlayer;
     }
 
-    public BattleField getBattleField() {
+    public BattleField getBattleField()
+    {
         return battleField;
     }
 
-    public NonSpellCard getSelectedCard() {
+    public NonSpellCard getSelectedCard()
+    {
         return selectedCard;
     }
 
-    public void setSelectedCard(NonSpellCard selectedCard) {
+    public void setSelectedCard(NonSpellCard selectedCard)
+    {
         this.selectedCard = selectedCard;
     }
 
-    public Item getSelectedICollectibleItem() {
+    public Item getSelectedICollectibleItem()
+    {
         return selectedICollectibleItem;
     }
 
-    public void setSelectedICollectibleItem(Item selectedICollectibleItem) {
+    public void setSelectedICollectibleItem(Item selectedICollectibleItem)
+    {
         this.selectedICollectibleItem = selectedICollectibleItem;
     }
 
-    public BattleMode getBattleMode() {
+    public BattleMode getBattleMode()
+    {
         return battleMode;
     }
 
-    public void setBattleMode(BattleMode battleMode) {
+    public void setBattleMode(BattleMode battleMode)
+    {
         this.battleMode = battleMode;
     }
 
-    public int getNumOfFlagsInGatheringFlagsMatchMode() {
+    public int getNumOfFlagsInGatheringFlagsMatchMode()
+    {
         return numOfFlagsInGatheringFlagsMatchMode;
     }
 
-    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode) {
+    public void setNumOfFlagsInGatheringFlagsMatchMode(int numOfFlagsInGatheringFlagsMatchMode)
+    {
         this.numOfFlagsInGatheringFlagsMatchMode = numOfFlagsInGatheringFlagsMatchMode;
     }
 
-    private BattleType getBattleType() {
+    private BattleType getBattleType()
+    {
         return battleType;
     }
 
-    private void setBattleType(BattleType battleType) {
+    private void setBattleType(BattleType battleType)
+    {
         this.battleType = battleType;
     }
 
-    public void tasksWhenSurrender() {
+    public void tasksWhenSurrender()
+    {
         this.setLoserPlayer(this.getPlayerTurn());
-        if (this.getSecondPlayer() == this.getPlayerTurn()) {
+        if (this.getSecondPlayer() == this.getPlayerTurn())
+        {
             this.setVictoriousPlayer(this.getFirstPlayer());
-        } else {
+        }
+        else
+        {
             this.setVictoriousPlayer(this.getSecondPlayer());
         }
         tasksAtEndOfGame();
     }
 
-    public void tasksAtEndOfGame() {
+    public void tasksAtEndOfGame()
+    {
 
-        switch (this.getBattleType()) {
+        switch (this.getBattleType())
+        {
             case STORY_GAME_1:
                 victoriousPlayer.getAccount().addMoney(500);
                 victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
@@ -413,13 +518,16 @@ public class Battle {
     }
 
     //todo
-    public void AIPlayerWorks(BattleManager battleManager) {
-        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++) {
+    public void AIPlayerWorks(BattleManager battleManager)
+    {
+        for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++)
+        {
             String randomCardName = playerTurn.getHand().getCards().get((int) (Math.random() % playerTurn.getHand().getCards().size())).getCardName();
             battleManager.selectCard(randomCardName);
             battleManager.CheckCircumstancesToInsertCard(selectedCard);
         }
-        for (int counter = 1; counter <= 20; counter++) {
+        for (int counter = 1; counter <= 20; counter++)
+        {
             selectedCard = playerTurn.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
             NonSpellCard firstPlayerCard = firstPlayer.getInsertedCards().get((int) (Math.random() % playerTurn.getInsertedCards().size()));
             battleManager.attackToOpponent(firstPlayerCard.getCardID());
@@ -430,39 +538,54 @@ public class Battle {
     }
 
 
-    public void help() {
-        for (Card card : playerTurn.getInsertedCards()) {
-            if (((NonSpellCard) card).isMoveAble()) {
+    public void help()
+    {
+        for (Card card : playerTurn.getInsertedCards())
+        {
+            if (((NonSpellCard) card).isMoveAble())
+            {
                 System.out.println(card.getCardName() + " is movable");
             }
         }
-        for (Card card : playerTurn.getInsertedCards()) {
-            if (((NonSpellCard) card).isAttackAble()) {
+        for (Card card : playerTurn.getInsertedCards())
+        {
+            if (((NonSpellCard) card).isAttackAble())
+            {
                 int[][] matrix = setAttackRangeMatrix((NonSpellCard) card);
-                for (NonSpellCard enemyCard : getOpponentPlayer().getInsertedCards()) {
-                    try {
+                for (NonSpellCard enemyCard : getOpponentPlayer().getInsertedCards())
+                {
+                    try
+                    {
                         assert matrix != null;
-                        if (matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1) {
+                        if (matrix[enemyCard.getRow()][enemyCard.getColumn()] == 1)
+                        {
                             System.out.println(card.getCardName() + " can attack to " + enemyCard.getCardName());
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ignored)
+                    {
                     }
                 }
             }
         }
-        for (Card card : playerTurn.getHand().getCards()) {
-            if (card.getRequiredMP() <= playerTurn.getMP()) {
+        for (Card card : playerTurn.getHand().getCards())
+        {
+            if (card.getRequiredMP() <= playerTurn.getMP())
+            {
                 System.out.println(playerTurn.getAccount().getAccountName() + " can insert " + card.getCardName());
             }
         }
     }
 
-    private int[][] setAttackRangeMatrix(NonSpellCard card) {
-        switch (card.getImpactType()) {
+    private int[][] setAttackRangeMatrix(NonSpellCard card)
+    {
+        switch (card.getImpactType())
+        {
             case melee:
                 int[][] matrix1 = new int[3][3];
-                for (int row = 0; row < 3; row++) {
-                    for (int column = 0; column < 3; column++) {
+                for (int row = 0; row < 3; row++)
+                {
+                    for (int column = 0; column < 3; column++)
+                    {
                         matrix1[row][column] = 1;
                     }
                 }
@@ -470,13 +593,17 @@ public class Battle {
             case ranged:
                 int rangeOfAttack = card.getRangeOfAttack();
                 int[][] matrix2 = new int[rangeOfAttack][rangeOfAttack];
-                for (int row = 0; row < rangeOfAttack; row++) {
-                    for (int column = 0; column < rangeOfAttack; column++) {
+                for (int row = 0; row < rangeOfAttack; row++)
+                {
+                    for (int column = 0; column < rangeOfAttack; column++)
+                    {
                         matrix2[row][column] = 1;
                     }
                 }
-                for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0; row++) {
-                    for (int column = card.getColumn() - 1; column <= card.getColumn() + 1 && column >= 0; column++) {
+                for (int row = card.getRow() - 1; row <= card.getRow() + 1 && row >= 0; row++)
+                {
+                    for (int column = card.getColumn() - 1; column <= card.getColumn() + 1 && column >= 0; column++)
+                    {
                         matrix2[row][column] = 0;
                     }
                 }
@@ -484,8 +611,10 @@ public class Battle {
             case hybrid:
                 rangeOfAttack = card.getRangeOfAttack();
                 int[][] matrix3 = new int[rangeOfAttack][rangeOfAttack];
-                for (int row = 0; row < rangeOfAttack; row++) {
-                    for (int column = 0; column < rangeOfAttack; column++) {
+                for (int row = 0; row < rangeOfAttack; row++)
+                {
+                    for (int column = 0; column < rangeOfAttack; column++)
+                    {
                         matrix3[row][column] = 1;
                     }
                 }
@@ -494,14 +623,17 @@ public class Battle {
         return null;
     }
 
-    public Player getOpponentPlayer() {
-        if (playerTurn == firstPlayer) {
+    public Player getOpponentPlayer()
+    {
+        if (playerTurn == firstPlayer)
+        {
             return secondPlayer;
         }
         return firstPlayer;
     }
 
-    public void setHeroesInBattlefield() {
+    public void setHeroesInBattlefield()
+    {
         firstPlayer.getMainDeck().getHero().get(0).setRow(2);
         firstPlayer.getMainDeck().getHero().get(0).setColumn(0);
         secondPlayer.getMainDeck().getHero().get(0).setRow(2);
@@ -510,53 +642,66 @@ public class Battle {
         currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
     }
 
-    public GridPane getBattleFieldGridPane() {
+    public GridPane getBattleFieldGridPane()
+    {
         return battleFieldGridPane;
     }
 
-    public void setBattleFieldGridPane(GridPane battleFieldGridPane) {
+    public void setBattleFieldGridPane(GridPane battleFieldGridPane)
+    {
         this.battleFieldGridPane = battleFieldGridPane;
     }
 
-    public Pane[] getFirstPlayerHandPanes() {
+    public Pane[] getFirstPlayerHandPanes()
+    {
         return firstPlayerHandPanes;
     }
 
-    public Pane[] getSecondPlayerHandPanes() {
+    public Pane[] getSecondPlayerHandPanes()
+    {
         return secondPlayerHandPanes;
     }
 
-    public void setFirstPlayerHandPanes(Pane[] firstPlayerHandPanes) {
+    public void setFirstPlayerHandPanes(Pane[] firstPlayerHandPanes)
+    {
         this.firstPlayerHandPanes = firstPlayerHandPanes;
     }
 
-    public void setSecondPlayerHandPanes(Pane[] secondPlayerHandPanes) {
+    public void setSecondPlayerHandPanes(Pane[] secondPlayerHandPanes)
+    {
         this.secondPlayerHandPanes = secondPlayerHandPanes;
     }
 
-    public Pane[] getCurrentPlayerHand() {
-        if (getPlayerTurn() == firstPlayer) {
+    public Pane[] getCurrentPlayerHand()
+    {
+        if (getPlayerTurn() == firstPlayer)
+        {
             return firstPlayerHandPanes;
         }
-        if (getPlayerTurn() == secondPlayer) {
+        if (getPlayerTurn() == secondPlayer)
+        {
             return secondPlayerHandPanes;
         }
         return null;
     }
 
-    public Pane[][] getBattleFieldPanes() {
+    public Pane[][] getBattleFieldPanes()
+    {
         return battleFieldPanes;
     }
 
-    public void setBattleFieldPanes(Pane[][] battleFieldPanes) {
+    public void setBattleFieldPanes(Pane[][] battleFieldPanes)
+    {
         this.battleFieldPanes = battleFieldPanes;
     }
 
-    public void setHandIcons() {
+    public void setHandIcons()
+    {
         Pane[] firstPlayerHandPanes = new Pane[Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size()];
         Pane[] secondPlayerHandPanes = new Pane[Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size()];
 
-        for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size(); number++) {
+        for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size(); number++)
+        {
             ImageView imageView1;
 
             Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
@@ -570,7 +715,8 @@ public class Battle {
             firstPlayerHandPanes[number].getChildren().add(imageView1);
         }
 
-        for (int number = 0; number < Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size(); number++) {
+        for (int number = 0; number < Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size(); number++)
+        {
             ImageView imageView2;
 
             Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
@@ -584,24 +730,24 @@ public class Battle {
             secondPlayerHandPanes[number].getChildren().add(imageView2);
         }
 
-        firstPlayerHandPanes[0].relocate(350, 600);
-        firstPlayerHandPanes[1].relocate(475, 600);
-        firstPlayerHandPanes[2].relocate(600, 600);
-        firstPlayerHandPanes[3].relocate(725, 600);
-        firstPlayerHandPanes[4].relocate(850, 600);
-        secondPlayerHandPanes[0].relocate(350, 600);
-        secondPlayerHandPanes[1].relocate(475, 600);
-        secondPlayerHandPanes[2].relocate(600, 600);
-        secondPlayerHandPanes[3].relocate(725, 600);
-        secondPlayerHandPanes[4].relocate(850, 600);
+        firstPlayerHandPanes[0].relocate(400, 620);
+        firstPlayerHandPanes[1].relocate(525, 620);
+        firstPlayerHandPanes[2].relocate(650, 620);
+        firstPlayerHandPanes[3].relocate(775, 620);
+        firstPlayerHandPanes[4].relocate(900, 620);
+        secondPlayerHandPanes[0].relocate(400, 620);
+        secondPlayerHandPanes[1].relocate(525, 620);
+        secondPlayerHandPanes[2].relocate(650, 620);
+        secondPlayerHandPanes[3].relocate(775, 620);
+        secondPlayerHandPanes[4].relocate(900, 620);
+
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
-
     }
 
     public void setMPIcons(Group rootBattleField)
     {
-        for (int i=0;i < 10;i++)
+        for (int i = 0; i < 10; i++)
         {
             ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
             if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
@@ -613,7 +759,7 @@ public class Battle {
             rootBattleField.getChildren().add(firstPlayerMPIcon);
         }
 
-        for (int i=0;i < 10;i++)
+        for (int i = 0; i < 10; i++)
         {
             ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
             if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
