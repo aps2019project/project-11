@@ -235,7 +235,12 @@ public class CallTheAppropriateFunction extends Thread
             {
                 case STORY:
                     showOutput.showStoryBattleInfo();
-                    determineBattleCommand();
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    //determineBattleCommand();
                     break;
                 case CUSTOM_GAME:
                     showOutput.showCustomGameInfo();
