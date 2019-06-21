@@ -40,7 +40,7 @@ public class Deck
     {
         if (card instanceof Minion)
         {
-            System.out.println(minions.remove(card));
+            minions.remove(card);
         }
         else if (card instanceof Spell)
         {
@@ -49,6 +49,10 @@ public class Deck
         else if (card instanceof Hero)
         {
             hero.remove(card);
+        }
+        if (this.equals(Account.loggedInAccount.getMainDeck()))
+        {
+            Account.loggedInAccount.setMainDeck(null);
         }
     }
 
@@ -64,6 +68,10 @@ public class Deck
     public void deleteItemFromDeck(Item item)
     {
         this.item.remove(item);
+        if (this.equals(Account.loggedInAccount.getMainDeck()))
+        {
+            Account.loggedInAccount.setMainDeck(null);
+        }
     }
 
     public ArrayList<Hero> getHero()
