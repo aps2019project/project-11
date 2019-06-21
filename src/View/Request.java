@@ -1879,7 +1879,7 @@ public class Request
                 {
                     requestLock.notify();
                 }
-                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.setScene(sceneSinglePlayer);
                 primaryStage.centerOnScreen();
                 try
                 {
