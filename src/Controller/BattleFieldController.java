@@ -114,9 +114,11 @@ public class BattleFieldController extends Thread
                                     setSpriteAnimation(imageView);
                                     battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
 
+                                    Battle.getCurrentBattle().setNextCardPane(rootBattleField);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
                                     Request.getInstance().setMPIcons(rootBattleField);
+
 
                                     setCardSelectedForInsert(false);
                                     setSelectedCardForInsertingCard(null);
@@ -218,7 +220,7 @@ public class BattleFieldController extends Thread
 
                         else if (!battleFieldCells[finalRow1][finalColumn1].isFull())
                         {
-                            System.out.println("move");
+                            moveTo(finalRow1 , finalColumn1);
                         }
 
 
@@ -226,6 +228,10 @@ public class BattleFieldController extends Thread
                 });
             }
         }
+    }
+
+    private void moveTo(int finalRow1, int finalColumn1) {
+
     }
 
     private void attackTo()

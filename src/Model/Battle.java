@@ -29,6 +29,7 @@ public class Battle
     private transient Pane[] firstPlayerHandPanes;
     private transient Pane[] secondPlayerHandPanes;
     private transient Pane[][] battleFieldPanes;
+    private transient Pane nextCardPane;
 
 
     public Battle(Player firstPlayer, Player secondPlayer, BattleMode battleMode, BattleType battleType)
@@ -743,6 +744,18 @@ public class Battle
 
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
+    }
+
+    public Pane getNextCardPane() {
+        return nextCardPane;
+    }
+
+    public void setNextCardPane(Group rootBattleField) {
+        Pane pane = new Pane();
+        pane.relocate(100, 400);
+        pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
+        nextCardPane = pane;
+        rootBattleField.getChildren().add(nextCardPane);
     }
 }
 

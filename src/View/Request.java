@@ -2,7 +2,6 @@ package View;
 
 import Controller.AccountManager;
 import Controller.BattleFieldController;
-import Controller.ShopManager;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -2006,6 +2005,7 @@ public class Request
             setMPIcons(rootBattleField);
             setHeroFirstPlace(rootBattleField);
             setGraveYardButton(primaryStage, rootBattleField, map);
+            setNextCard(rootBattleField);
             setEndTurnButton(rootBattleField);
         }
         battleFieldController = new BattleFieldController(rootBattleField);
@@ -2015,6 +2015,11 @@ public class Request
         primaryStage.setFullScreen(true);
         primaryStage.show();
     }
+
+    private void setNextCard(Group rootBattleField) {
+        Battle.getCurrentBattle().setNextCardPane(rootBattleField);
+    }
+
 
     private void setPlayersName(Group rootBattleField)
     {
@@ -2131,9 +2136,13 @@ public class Request
                     Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
                     Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
                 }
+
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
                 Battle.getCurrentBattle().setHandIcons();
+
+                setNextCard(rootBattleField);
+
                 for (int number = 0; number < 5; number++)
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
