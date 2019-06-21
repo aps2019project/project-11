@@ -526,7 +526,6 @@ public class Request
        int HP = Integer.parseInt(hp);
        int price = Integer.parseInt(cost);
        int rangeOfAttack = Integer.parseInt(range);
-       Card card = new Card();
        if (type.equalsIgnoreCase("hero"))
        {
            Hero hero = new Hero();
@@ -572,7 +571,6 @@ public class Request
                minion.setImpactType(ImpactType.hybrid);
            }
            minion.setPrice(price);
-
            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,minion,true);
            Shop.getInstance().addCardToShop(minion);
        }
