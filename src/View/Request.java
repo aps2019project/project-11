@@ -135,13 +135,14 @@ public class Request
     private Scene sceneCustomGame = Main.getSceneCustomGame();
     private Scene sceneImportingDeck = Main.getSceneImportingDeck();
     private Group rootImportingDeck = Main.getRootImportingDeck();
-    //private Group rootCardInfo = Main.getRootCardInfo();
-    //private Scene sceneCardInfo = Main.getSceneCardInfo();
     private Group rootBattleField = Main.getRootBattleField();
     private Scene sceneBattleField = Main.getSceneBattleField();
     private GridPane BattleFieldGridPane = new GridPane();
     private Group rootMakingCustomCard = Main.getRootMakingCustomCards();
-    private Scene sceneMakingCutomCards =Main.getSceneMakingCustomCards();
+    private Scene sceneMakingCustomCards = Main.getSceneMakingCustomCards();
+    private Group rootGraveYard = Main.getRootGraveYard();
+    private ScrollPane scrollPaneGraveYard = Main.getScrollPaneGraveYard();
+    private Scene sceneGraveYard = Main.getSceneGraveYard();
 
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController  battleFieldController;
@@ -493,7 +494,7 @@ public class Request
 
         });
         rootMakingCustomCard.getChildren().addAll(back,apply);
-        stage.setScene(sceneMakingCutomCards);
+        stage.setScene(sceneMakingCustomCards);
 
     }
 
@@ -730,7 +731,7 @@ public class Request
         scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        setShopAndDeckMenuText(rootShop, sceneShop, "Heroes", 50);
+        setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Heroes", 50);
         for (Hero hero : Hero.getHeroes())
         {
             if (isSearchedElement)
@@ -758,7 +759,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopAndDeckMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Minion minion : Minion.getMinions())
         {
             if (isSearchedElement)
@@ -786,7 +787,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopAndDeckMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Spell spell : Spell.getSpells())
         {
             if (isSearchedElement)
@@ -817,7 +818,7 @@ public class Request
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
-        setShopAndDeckMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Item item : Item.getItems())
         {
             if (item.getItemType() == ItemType.collectible)
@@ -870,7 +871,7 @@ public class Request
         root.getChildren().add(text);
     }
 
-    private void setShopAndDeckMenuText(Group root, Scene scene, String str, int y)
+    private void setShopAndDeckAndGraveYardMenuText(Group root, Scene scene, String str, int y)
     {
         Text text = new Text(str);
         text.setLayoutX((scene.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
@@ -1311,7 +1312,7 @@ public class Request
         setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
 
         int xPosition = 0, yPosition = 0, x, y;
-        setShopAndDeckMenuText(rootCollection, sceneCollection, "Decks", 50);
+        setShopAndDeckAndGraveYardMenuText(rootCollection, sceneCollection, "Decks", 50);
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -1497,7 +1498,7 @@ public class Request
         scrollPaneDeck.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        setShopAndDeckMenuText(rootDeck, sceneDeck, "Heroes", 50);
+        setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Heroes", 50);
         for (Hero hero : deck.getHero())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -1518,7 +1519,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopAndDeckMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Minion minion : deck.getMinions())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -1539,7 +1540,7 @@ public class Request
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopAndDeckMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Spell spell : deck.getSpells())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -1563,7 +1564,7 @@ public class Request
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
-        setShopAndDeckMenuText(rootDeck, sceneDeck, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Item item : deck.getItem())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -1833,7 +1834,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround");
+                        setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1843,7 +1844,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround");
+                        setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1853,7 +1854,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround");
+                        setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1909,7 +1910,8 @@ public class Request
                 try
                 {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -1938,8 +1940,9 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory1");
-                    } catch (IOException e)
+                        setBattleField(primaryStage, "backgroundStory1", false);
+                    }
+                    catch (IOException e)
                     {
                         e.printStackTrace();
                     }
@@ -1948,7 +1951,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory2");
+                        setBattleField(primaryStage, "backgroundStory2", false);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -1958,7 +1961,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory3");
+                        setBattleField(primaryStage, "backgroundStory3", false);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2017,18 +2020,22 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, String map) throws IOException
+    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard) throws IOException
     {
-        setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");
-        setGridPane(rootBattleField);
-        setHandIcons(rootBattleField);
-        setHeroIcons(rootBattleField);
-        setPlayersName(rootBattleField);
-        setMPIcons(rootBattleField);
-        setHeroFirstPlace(rootBattleField);
-        battleFieldController = new BattleFieldController();
+        if (!backFromGraveYard)
+        {
+            setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");
+            setGridPane(rootBattleField);
+            setHeroIcons(rootBattleField);
+            setHandIcons(rootBattleField);
+            setPlayersName(rootBattleField);
+            setMPIcons(rootBattleField);
+            setHeroFirstPlace(rootBattleField);
+            setGraveYardButton(primaryStage, rootBattleField, map);
+            setEndTurnButton(rootBattleField);
+        }
+        battleFieldController = new BattleFieldController(rootBattleField);
         battleFieldController.start();
-        setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
@@ -2077,10 +2084,69 @@ public class Request
         }
     }
 
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String map)
+    {
+        ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
+        graveYardButton.relocate(50, 640);
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneGraveYard);
+                primaryStage.centerOnScreen();
+                showGraveYard(primaryStage, map);
+            }
+        });
+        rootBattleField.getChildren().add(graveYardButton);
+    }
+
+    private void showGraveYard(Stage primaryStage, String map)
+    {
+        rootGraveYard.getChildren().clear();
+
+        setBackGroundImage(rootGraveYard, "file:GraveYard Image.jpg");
+
+        scrollPaneGraveYard.setContent(rootGraveYard);
+        scrollPaneGraveYard.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneGraveYard.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
+
+        int xPosition = 0, yPosition = 0, x, y;
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())
+        {
+            x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
+            showNonSpellCards(rootGraveYard, x, y, minion, minion.getCardID(), minion.getRequiredMP());
+            xPosition++;
+            yPosition++;
+        }
+
+        Button backButton = backButton(primaryStage, rootGraveYard, 20, 15);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                try
+                {
+                    primaryStage.setScene(sceneBattleField);
+                    primaryStage.centerOnScreen();
+                    setBattleField(primaryStage, map, true);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void setEndTurnButton(Group rootBattleField)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
-        endTurnButton.relocate(1000, 600);
+        endTurnButton.relocate(1100, 620);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -2098,7 +2164,7 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController();
+                battleFieldController = new BattleFieldController(rootBattleField);
                 battleFieldController.start();
             }
         });
@@ -2108,8 +2174,21 @@ public class Request
     private void setHeroFirstPlace(Group rootBattleField)
     {
         Card.setCardsImageView();
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0)));
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0)));
+        ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(firstPlayerHero);
+
+        ImageView secondPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(secondPlayerHero);
+
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(secondPlayerHero);
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
+
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].setCard(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].setCard(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
     }
 
     private void setHeroIcons(Group rootBattleField)
@@ -2148,16 +2227,16 @@ public class Request
             secondPlayerHandPanes[number].getChildren().add(imageView2);
         }
 
-        firstPlayerHandPanes[0].relocate(350, 600);
-        firstPlayerHandPanes[1].relocate(475, 600);
-        firstPlayerHandPanes[2].relocate(600, 600);
-        firstPlayerHandPanes[3].relocate(725, 600);
-        firstPlayerHandPanes[4].relocate(850, 600);
-        secondPlayerHandPanes[0].relocate(350, 600);
-        secondPlayerHandPanes[1].relocate(475, 600);
-        secondPlayerHandPanes[2].relocate(600, 600);
-        secondPlayerHandPanes[3].relocate(725, 600);
-        secondPlayerHandPanes[4].relocate(850, 600);
+        firstPlayerHandPanes[0].relocate(400, 620);
+        firstPlayerHandPanes[1].relocate(525, 620);
+        firstPlayerHandPanes[2].relocate(650, 620);
+        firstPlayerHandPanes[3].relocate(775, 620);
+        firstPlayerHandPanes[4].relocate(900, 620);
+        secondPlayerHandPanes[0].relocate(400, 620);
+        secondPlayerHandPanes[1].relocate(525, 620);
+        secondPlayerHandPanes[2].relocate(650, 620);
+        secondPlayerHandPanes[3].relocate(775, 620);
+        secondPlayerHandPanes[4].relocate(900, 620);
         for (int number = 0; number < 5; number++)
         {
             rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
@@ -2165,7 +2244,6 @@ public class Request
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
-
 
     private void setGridPane(Group rootBattleField)
     {

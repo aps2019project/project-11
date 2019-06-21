@@ -41,7 +41,7 @@ public class BattleManager
         }
     }
 
-    private void checkCircumstancesToInsertMinion(Minion minion, int x, int y)
+    public void checkCircumstancesToInsertMinion(Minion minion, int x, int y)
     {
         if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
         {
@@ -58,6 +58,25 @@ public class BattleManager
         }
     }
 
+    boolean checkCircumstancesToInsertMinionBoolean(Minion minion, int x, int y)
+    {
+        if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
+        {
+            showOutput.printOutput("Invalid target");
+            return false;
+        }
+        if (insertCardToBattleField(minion, x, y))
+        {
+            System.out.println(minion.getCardName() + " with " + minion.getCardID() + " inserted to (" + x + ", " + y + ")");
+            return true;
+        }
+        else
+        {
+            System.out.println("Card insertion failed!");
+            return false;
+        }
+    }
+
     private void checkCircumstancesToInsertSpell(Spell spell, int x, int y)
     {
         NonSpellCard nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
@@ -68,6 +87,21 @@ public class BattleManager
         else
         {
             System.out.println("Invalid target");
+        }
+    }
+
+    public boolean checkCircumstancesToInsertSpellBoolean(Spell spell, int x, int y)
+    {
+        NonSpellCard nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+        if (getPossibilityToInsertSpell(spell, nonSpellCard))
+        {
+            System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
+            return true;
+        }
+        else
+        {
+            System.out.println("Invalid target");
+            return false;
         }
     }
 
@@ -96,7 +130,6 @@ public class BattleManager
         {
             insertAbleCells[card.getRow()][card.getColumn()] = 0;
         }
-        showOutput.printMatrixValues(insertAbleCells, "InsertAble Cells :");
         return insertAbleCells;
     }
 
@@ -160,6 +193,7 @@ public class BattleManager
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
                 Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
                 Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(card);
                 if (card instanceof Minion)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
@@ -247,7 +281,6 @@ public class BattleManager
         }
         NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
         int[][] moveAbleCells = selectedCard.getMoveAbleCells();
-        showOutput.printMatrixValues(moveAbleCells, "MoveAble Cells :");
         if (selectedCard.isMoveAble())
         {
             if (moveAbleCells[x][y] == 1)

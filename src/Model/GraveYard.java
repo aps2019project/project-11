@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class GraveYard
 {
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Minion> cards = new ArrayList<>();
 
-    public ArrayList<Card> getCards()
+    public ArrayList<Minion> getCards()
     {
         return cards;
     }

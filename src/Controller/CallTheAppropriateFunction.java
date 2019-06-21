@@ -182,7 +182,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineBattleMenuCommand() throws InterruptedException
+    private void determineBattleMenuCommand() throws InterruptedException, IOException
     {
         if (Account.loggedInAccount.getMainDeck() != null)
         {
@@ -205,6 +205,8 @@ public class CallTheAppropriateFunction extends Thread
                         selectSecondPlayerInMultiPlayerMatch();
                         break;
                     case EXIT:
+                        request.setCommand(null);
+                        determineMainMenuCommand();
                         return;
                 }
                 request.setCommand(null);
@@ -216,7 +218,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void selectSinglePlayerMatchMode() throws InterruptedException
+    private void selectSinglePlayerMatchMode() throws InterruptedException, IOException
     {
         showOutput.printOutput("Story");
         showOutput.printOutput("Custom Game");
@@ -233,15 +235,6 @@ public class CallTheAppropriateFunction extends Thread
             {
                 case STORY:
                     showOutput.showStoryBattleInfo();
-                    int numberOfLevel = request.getStoryMatchLevel();
-                    while (numberOfLevel < 1 || numberOfLevel > 3)
-                    {
-                        showOutput.printOutput("Entered number is invalid");
-                        numberOfLevel = request.getStoryMatchLevel();
-                    }
-                    Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
-                    BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                     determineBattleCommand();
                     break;
                 case CUSTOM_GAME:
@@ -251,12 +244,10 @@ public class CallTheAppropriateFunction extends Thread
                     new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(request.getCommand().customGameMode), BattleType.CUSTOM_GAME);
                     determineBattleCommand();
                     break;
-                case SHOW_MENU:
-                    showOutput.showMenuSinglePlayerMatch();
-                    break;
                 case EXIT:
                     request.setCommand(null);
-                    return;
+                    determineBattleMenuCommand();
+                    break;
             }
             request.setCommand(null);
         }
@@ -456,7 +447,6 @@ public class CallTheAppropriateFunction extends Thread
                     showOutput.printOutput("exited");
                     return;
             }
-
         }
     }
 
