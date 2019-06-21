@@ -482,6 +482,7 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,300,170,"PowerActivation"));
         textFields.add(makingTextField(rootMakingCustomCard,300,240,"coolDown"));
         textFields.add(makingTextField(rootMakingCustomCard,300,310,"cost"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,380,"AttackType"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,450);
@@ -513,8 +514,43 @@ public class Request
         String SpecialPowerActivation = textFields.get(9).getText();
         String coolDown = textFields.get(10).getText();
         String cost = textFields.get(11).getText();
+        String AttackType = textFields.get(12).getText();
+        makingCard(name,type,numOfTarget,kindOfMinion,buff,AP,HP,Range,SpecialPower,SpecialPowerActivation,coolDown,cost,AttackType);
 
     }
+
+    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String buff, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType)
+    {
+       int AP = Integer.parseInt(ap);
+       int HP = Integer.parseInt(hp);
+       int price = Integer.parseInt(cost);
+       int rangeOfAttack = Integer.parseInt(range);
+       Card card = new Card();
+       if (type.equalsIgnoreCase("hero") || type.equalsIgnoreCase("minion"))
+       {
+           NonSpellCard nonSpellCard = (NonSpellCard) card;
+           nonSpellCard.setCardName(name);
+           nonSpellCard.setDefaultAP(AP);
+           nonSpellCard.setDefaultHP(HP);
+           nonSpellCard.setRangeOfAttack(rangeOfAttack);
+           if (attackType.equalsIgnoreCase("melee"))
+           {
+               nonSpellCard.setImpactType(ImpactType.melee);
+           }
+           if (attackType.equalsIgnoreCase("ranged"))
+           {
+               nonSpellCard.setImpactType(ImpactType.ranged);
+           }
+           if (attackType.equalsIgnoreCase("hybrid"))
+           {
+               nonSpellCard.setImpactType(ImpactType.hybrid);
+           }
+           //todo
+       }
+
+    }
+
+
     private TextField makingTextField(Group root,int x,int y,String text)
     {
       TextField textField = new TextField();
