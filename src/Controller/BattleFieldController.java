@@ -107,16 +107,7 @@ public class BattleFieldController extends Thread
                                 if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCard, finalRow1, finalColumn1))
                                 {
                                     ImageView imageView = Card.getCardImageView(selectedCard);
-
-                                    final Animation animation = new SpriteAnimation(
-                                            imageView,
-                                            Duration.millis(1000),
-                                            3, 3,
-                                            0, 0,
-                                            80, 80
-                                    );
-                                    animation.setCycleCount(Animation.INDEFINITE);
-                                    animation.play();
+                                    setSpriteAnimation(imageView);
 
                                     battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
@@ -146,6 +137,19 @@ public class BattleFieldController extends Thread
                 });
             }
         }
+    }
+
+    public static void setSpriteAnimation(ImageView imageView)
+    {
+        final Animation animation = new SpriteAnimation(
+                imageView,
+                Duration.millis(1000),
+                3, 3,
+                0, 0,
+                80, 80
+        );
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.play();
     }
 
     public Card getSelectedCard()

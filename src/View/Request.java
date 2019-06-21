@@ -2112,8 +2112,13 @@ public class Request
     {
         Card.setCardsImageView();
         ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(firstPlayerHero);
+
+        ImageView secondPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(secondPlayerHero);
+
         Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0)));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(secondPlayerHero);
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
