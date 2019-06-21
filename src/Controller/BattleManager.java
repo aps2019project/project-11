@@ -58,7 +58,7 @@ public class BattleManager
         }
     }
 
-    public boolean checkCircumstancesToInsertMinionBoolean(Minion minion, int x, int y)
+    boolean checkCircumstancesToInsertMinionBoolean(Minion minion, int x, int y)
     {
         if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
         {
@@ -193,6 +193,7 @@ public class BattleManager
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
                 Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
                 Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
+                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(card);
                 if (card instanceof Minion)
                 {
                     Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);

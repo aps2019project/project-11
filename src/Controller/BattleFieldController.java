@@ -24,6 +24,7 @@ public class BattleFieldController extends Thread {
     public void run() {
         super.run();
         checkInsertingCard();
+        checkSelectingCard();
     }
 
     private void checkInsertingCard() {
@@ -93,6 +94,7 @@ public class BattleFieldController extends Thread {
 
                                     setSelectedCard(null);
                                     setCardSelectedForInsert(false);
+                                    checkSelectingCard();
                                 }
                             } else if (selectedCard instanceof Spell) {
                                 if (battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCard, finalRow1, finalColumn1)) {
@@ -103,6 +105,8 @@ public class BattleFieldController extends Thread {
 
                                     setSelectedCard(null);
                                     setCardSelectedForInsert(false);
+                                    checkSelectingCard();
+
 
                                     //todo Animation
                                 }

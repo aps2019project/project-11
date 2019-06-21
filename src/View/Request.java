@@ -5,10 +5,8 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -29,7 +27,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -2123,6 +2120,9 @@ public class Request
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
+
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].setCard(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].setCard(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
     }
 
     private void setHeroIcons(Group rootBattleField)
