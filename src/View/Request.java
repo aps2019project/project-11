@@ -492,13 +492,29 @@ public class Request
         apply.relocate(780,450);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-
+        workingOnTextFields(textFields);
         });
         rootMakingCustomCard.getChildren().addAll(back,apply);
         stage.setScene(sceneMakingCustomCards);
 
     }
 
+    private void workingOnTextFields(ArrayList<TextField> textFields)
+    {
+        String name = textFields.get(0).getText();
+        String type = textFields.get(1).getText();
+        String numOfTarget = textFields.get(2).getText();
+        String kindOfMinion = textFields.get(3).getText();
+        String buff = textFields.get(4).getText();
+        String AP = textFields.get(5).getText();
+        String HP = textFields.get(6).getText();
+        String Range = textFields.get(7).getText();
+        String SpecialPower = textFields.get(8).getText();
+        String SpecialPowerActivation = textFields.get(9).getText();
+        String coolDown = textFields.get(10).getText();
+        String cost = textFields.get(11).getText();
+
+    }
     private TextField makingTextField(Group root,int x,int y,String text)
     {
       TextField textField = new TextField();
