@@ -468,7 +468,18 @@ public class Request
     private void makingCustomCards(Stage stage)
     {
         setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
-        customCardInfo(stage,rootMakingCustomCard);
+        makingTextField(rootMakingCustomCard,30,30,"name");
+        makingTextField(rootMakingCustomCard,30,100,"type");
+        makingTextField(rootMakingCustomCard,30,170,"numberOfTarget");
+        makingTextField(rootMakingCustomCard,150,170,"kindOfMinion");
+        makingTextField(rootMakingCustomCard,30,240,"buffs");
+        makingTextField(rootMakingCustomCard,30,310,"AP");
+        makingTextField(rootMakingCustomCard,30,380,"HP");
+        makingTextField(rootMakingCustomCard,252,30,"range");
+        makingTextField(rootMakingCustomCard,252,100,"SpecialPower");
+        makingTextField(rootMakingCustomCard,252,170,"PowerActivation");
+        makingTextField(rootMakingCustomCard,252,240,"coolDown");
+        makingTextField(rootMakingCustomCard,252,310,"cost");
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,450);
@@ -486,19 +497,18 @@ public class Request
 
     }
 
+    private TextField makingTextField(Group root,int x,int y,String text)
+    {
+      TextField textField = new TextField();
+      textField.setFont(Font.font("SanSerif", 15));
+      textField.setPromptText(text);
+      textField.setMaxWidth(100);
+      textField.relocate(x, y);
+      root.getChildren().add(textField);
+      return textField;
+    }
     private void customCardInfo(Stage stage,Group rootMakingCustomCard)
     {
-        String type;
-        String target ;
-        String buffs ;
-        String AP ;
-        String HP ;
-        String AttackType ;
-        String range ;
-        String specialPower;
-        String powerActivation;
-        String cost ;
-        String coolDown;
         Text nameText = new Text("name :");
         nameText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         nameText.relocate(30,30);
@@ -516,7 +526,6 @@ public class Request
         typeField.setFont(Font.font("SanSerif", 15));
         typeField.setPromptText("type");
         typeField.setMaxWidth(150);
-        type = typeField.getText();
         typeField.relocate(110, 100);
 
         Text SpellText = new Text("spell target :");
@@ -530,7 +539,6 @@ public class Request
 
         Text buffText = new Text("spell buff :");
         buffText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        buffs = buffText.getText();
         buffText.relocate(30,210);
         TextField buffField = new TextField();
         buffField.setFont(Font.font("SanSerif", 15));
@@ -540,7 +548,6 @@ public class Request
 
         Text APText = new Text("AP :");
         APText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        AP = APText.getText();
         APText.relocate(30,270);
         TextField APField = new TextField();
         APField.setFont(Font.font("SanSerif", 15));
@@ -550,7 +557,6 @@ public class Request
 
         Text HPText = new Text("HP :");
         HPText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        HP = HPText.getText();
         HPText.relocate(30,330);
         TextField HPField = new TextField();
         HPField.setFont(Font.font("SanSerif", 15));
@@ -560,7 +566,6 @@ public class Request
 
         Text AttackText = new Text("AttackType :");
         AttackText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
-        AttackType = AttackText.getText();
         AttackText.relocate(30,380);
         TextField AttackField = new TextField();
         AttackField.setFont(Font.font("SanSerif", 15));
@@ -571,7 +576,6 @@ public class Request
         Text rangeText = new Text("Range :");
         rangeText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         rangeText.relocate(30,450);
-        range = rangeText.getText();
         TextField rangeField = new TextField();
         rangeField.setFont(Font.font("SanSerif", 15));
         rangeField.setPromptText("Range");
@@ -581,7 +585,6 @@ public class Request
         Text SpecialPowerText = new Text("SpecialPower :");
         SpecialPowerText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         SpecialPowerText.relocate(300,30);
-        specialPower = SpecialPowerText.getText();
         TextField SpecialPowerField = new TextField();
         SpecialPowerField.setFont(Font.font("SanSerif", 15));
         SpecialPowerField.setPromptText("SpecialPower");
@@ -590,7 +593,6 @@ public class Request
 
         Text PowerActivationText = new Text("powerActivation :");
         PowerActivationText.relocate(300,100);
-        powerActivation = PowerActivationText.getText();
         PowerActivationText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         TextField PowerActivationField = new TextField();
         PowerActivationField.setFont(Font.font("SanSerif",15));
@@ -600,7 +602,6 @@ public class Request
 
         Text coolDownText = new Text("specialPowerCoolDown :");
         coolDownText.relocate(380,170);
-        coolDown = coolDownText.getText();
         coolDownText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         TextField coolDownField = new TextField();
         coolDownField.setFont(Font.font("SanSerif",15));
@@ -610,7 +611,6 @@ public class Request
 
         Text costText = new Text("cost :");
         costText.relocate(400,230);
-        cost = costText.getText();
         costText.setFont(Font.font(null,FontWeight.SEMI_BOLD,30));
         TextField costField = new TextField();
         costField.setFont(Font.font("SanSerif",15));
