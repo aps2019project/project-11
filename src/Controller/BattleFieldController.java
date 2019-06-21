@@ -98,7 +98,6 @@ public class BattleFieldController extends Thread
 
                 battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
-
                     @Override
                     public void handle(MouseEvent event)
                     {
@@ -120,6 +119,10 @@ public class BattleFieldController extends Thread
                                     setCardSelectedForInsert(false);
                                     setSelectedCard(null);
                                     checkSelectingCard();
+                                    event.consume();
+                                }
+                                else {
+                                    event.consume();
                                 }
                             }
                             else if (selectedCard instanceof Spell)
@@ -137,6 +140,11 @@ public class BattleFieldController extends Thread
 
 
                                     //todo Animation
+
+                                    event.consume();
+                                }
+                                else {
+                                    event.consume();
                                 }
                             }
 
@@ -166,9 +174,11 @@ public class BattleFieldController extends Thread
                 battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
                     @Override
-                    public void handle(MouseEvent event)
-                    {
-                        System.out.println(battleFieldCells[finalRow1][finalColumn1].getCard().getCardName());
+                    public void handle(MouseEvent event) {
+                        if (Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow1][finalColumn1].getCard()) ||
+                                Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow1][finalColumn1].getCard()))) {
+                            System.out.println(battleFieldCells[finalRow1][finalColumn1].getCard().getCardName());
+                        }
                     }
                 });
             }
