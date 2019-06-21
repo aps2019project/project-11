@@ -2028,6 +2028,7 @@ public class Request
         setHeroFirstPlace(rootBattleField);
         battleFieldController = new BattleFieldController(rootBattleField);
         battleFieldController.start();
+        setGraveYardButton(rootBattleField);
         setEndTurnButton(rootBattleField);
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2077,10 +2078,17 @@ public class Request
         }
     }
 
+    private void setGraveYardButton(Group rootBattleField)
+    {
+        ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
+        graveYardButton.relocate(50, 620);
+        rootBattleField.getChildren().add(graveYardButton);
+    }
+
     private void setEndTurnButton(Group rootBattleField)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
-        endTurnButton.relocate(1000, 600);
+        endTurnButton.relocate(1100, 600);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -2161,16 +2169,16 @@ public class Request
             secondPlayerHandPanes[number].getChildren().add(imageView2);
         }
 
-        firstPlayerHandPanes[0].relocate(350, 600);
-        firstPlayerHandPanes[1].relocate(475, 600);
-        firstPlayerHandPanes[2].relocate(600, 600);
-        firstPlayerHandPanes[3].relocate(725, 600);
-        firstPlayerHandPanes[4].relocate(850, 600);
-        secondPlayerHandPanes[0].relocate(350, 600);
-        secondPlayerHandPanes[1].relocate(475, 600);
-        secondPlayerHandPanes[2].relocate(600, 600);
-        secondPlayerHandPanes[3].relocate(725, 600);
-        secondPlayerHandPanes[4].relocate(850, 600);
+        firstPlayerHandPanes[0].relocate(400, 620);
+        firstPlayerHandPanes[1].relocate(525, 620);
+        firstPlayerHandPanes[2].relocate(650, 620);
+        firstPlayerHandPanes[3].relocate(775, 620);
+        firstPlayerHandPanes[4].relocate(900, 620);
+        secondPlayerHandPanes[0].relocate(400, 620);
+        secondPlayerHandPanes[1].relocate(525, 620);
+        secondPlayerHandPanes[2].relocate(650, 620);
+        secondPlayerHandPanes[3].relocate(775, 620);
+        secondPlayerHandPanes[4].relocate(900, 620);
         for (int number = 0; number < 5; number++)
         {
             rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
