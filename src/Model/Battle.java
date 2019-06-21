@@ -744,32 +744,5 @@ public class Battle
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
-
-    public void setMPIcons(Group rootBattleField)
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
-            {
-                firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
-            }
-            firstPlayerMPIcon.relocate(250 + i * 20, 90);
-
-            rootBattleField.getChildren().add(firstPlayerMPIcon);
-        }
-
-        for (int i = 0; i < 10; i++)
-        {
-            ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
-            {
-                secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
-            }
-            secondPlayerMPIcon.relocate(1100 - i * 20, 90);
-
-            rootBattleField.getChildren().add(secondPlayerMPIcon);
-        }
-    }
 }
 

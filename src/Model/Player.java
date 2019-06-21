@@ -128,7 +128,10 @@ public class Player
 
     public void increaseDefaultMP()
     {
-        this.defaultMP = defaultMP + 1;
+        if (defaultMP < 10)
+        {
+            this.defaultMP = defaultMP + 1;
+        }
     }
 
     public void decreaseMP(int number){

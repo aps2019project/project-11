@@ -2031,7 +2031,7 @@ public class Request
         rootBattleField.getChildren().add(secondPlayerName);
     }
 
-    private void setMPIcons(Group rootBattleField)
+    public void setMPIcons(Group rootBattleField)
     {
         for (int i=0;i < 10;i++)
         {
