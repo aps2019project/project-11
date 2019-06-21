@@ -469,18 +469,19 @@ public class Request
     private void makingCustomCards(Stage stage)
     {
         setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
-        makingTextField(rootMakingCustomCard,30,30,"name");
-        makingTextField(rootMakingCustomCard,30,100,"type");
-        makingTextField(rootMakingCustomCard,30,170,"numberOfTarget");
-        makingTextField(rootMakingCustomCard,150,170,"kindOfMinion");
-        makingTextField(rootMakingCustomCard,30,240,"buffs");
-        makingTextField(rootMakingCustomCard,30,310,"AP");
-        makingTextField(rootMakingCustomCard,30,380,"HP");
-        makingTextField(rootMakingCustomCard,252,30,"range");
-        makingTextField(rootMakingCustomCard,252,100,"SpecialPower");
-        makingTextField(rootMakingCustomCard,252,170,"PowerActivation");
-        makingTextField(rootMakingCustomCard,252,240,"coolDown");
-        makingTextField(rootMakingCustomCard,252,310,"cost");
+        ArrayList<TextField> textFields = new ArrayList<>();
+        textFields.add(makingTextField(rootMakingCustomCard,30,30,"name"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,100,"type"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,170,"numberOfTarget"));
+        textFields.add(makingTextField(rootMakingCustomCard,150,170,"kindOfMinion"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,240,"buffs"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,310,"AP"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,380,"HP"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,30,"range"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,100,"SpecialPower"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,170,"PowerActivation"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,240,"coolDown"));
+        textFields.add(makingTextField(rootMakingCustomCard,300,310,"cost"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,450);
