@@ -56,6 +56,10 @@ public class Main extends Application
     private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
     private static Group rootMakingCustomCards = new Group();
     private static Scene sceneMakingCustomCards = new Scene(rootMakingCustomCards,1000,505);
+    private static Group rootGraveYard = new Group();
+    private static ScrollPane scrollPaneGraveYard = new ScrollPane();
+    private static Scene sceneGraveYard = new Scene(scrollPaneGraveYard, 1000, 562);
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -254,5 +258,20 @@ public class Main extends Application
     public static Group getRootMakingCustomCards()
     {
         return rootMakingCustomCards;
+    }
+
+    public static Group getRootGraveYard()
+    {
+        return rootGraveYard;
+    }
+
+    public static ScrollPane getScrollPaneGraveYard()
+    {
+        return scrollPaneGraveYard;
+    }
+
+    public static Scene getSceneGraveYard()
+    {
+        return sceneGraveYard;
     }
 }
