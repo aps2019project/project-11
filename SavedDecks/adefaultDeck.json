@@ -3,7 +3,7 @@
   "hero": [
     {
       "turnsRemainingToEndCoolDown": 0,
-      "coolDown": 0,
+      "coolDown": 2,
       "currentCell": {
         "row": 0,
         "column": 0,
@@ -12,12 +12,12 @@
         "fieryCell": false,
         "spellChanges": []
       },
-      "defaultHP": 55,
-      "defaultAP": 7,
+      "defaultHP": 50,
+      "defaultAP": 4,
       "currentHP": 0,
       "currentAP": 0,
       "specialPower": {
-        "descriptionTypeOfSpecialPower": "Rostam has no specialPower",
+        "descriptionTypeOfSpecialPower": "Stun 1 opponent force for 1 turn",
         "spellEffect": {
           "targets": [
             {
@@ -25,13 +25,13 @@
               "numOfOpponentMinions": 0,
               "ownHero": false,
               "opponentHero": false,
-              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
               "startRow": 0,
               "startColumn": 0,
               "endRow": 0,
               "endColumn": 0,
-              "maxAttackRange": 4,
+              "maxAttackRange": 0,
               "allOwnMinion": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
@@ -39,7 +39,7 @@
           ],
           "spellChanges": [
             {
-              "turnsToApplyChange": 0,
+              "turnsToApplyChange": 1,
               "positiveChange": false,
               "applyChangeUntilEndOfTheGame": false,
               "removeOpponentPositiveBuffs": false,
@@ -47,7 +47,7 @@
               "changeAP": 0,
               "changeHP": 0,
               "changeMP": 0,
-              "stunOpponent": false,
+              "stunOpponent": true,
               "disarmOpponent": false,
               "activateHolyBuff": false,
               "numOfHolyBuffs": 0,
@@ -70,13 +70,13 @@
       "attackAble": true,
       "counterAttackAble": true,
       "numOfHolyBuffs": 0,
-      "rangeOfAttack": 4,
-      "impactType": "hybrid",
+      "rangeOfAttack": 0,
+      "impactType": "melee",
       "cardSelectedInBattle": false,
-      "cardID": "a_Rostam_1",
+      "cardID": "a_Rakhsh_24",
       "price": 8000,
-      "requiredMP": 0,
-      "cardName": "Rostam",
+      "requiredMP": 1,
+      "cardName": "Rakhsh",
       "row": 0,
       "column": 0
     }
