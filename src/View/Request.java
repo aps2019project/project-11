@@ -525,6 +525,7 @@ public class Request
        int HP = Integer.parseInt(hp);
        int price = Integer.parseInt(cost);
        int rangeOfAttack = Integer.parseInt(range);
+       int cooldown = Integer.parseInt(coolDown);
        if (type.equalsIgnoreCase("hero"))
        {
            Hero hero = new Hero();
@@ -545,7 +546,7 @@ public class Request
                hero.setImpactType(ImpactType.hybrid);
            }
            hero.setPrice(price);
-
+            hero.setCoolDown(cooldown);
            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,hero,true);
            Shop.getInstance().addCardToShop(hero);
 
@@ -569,12 +570,41 @@ public class Request
            {
                minion.setImpactType(ImpactType.hybrid);
            }
+           if (specialPowerActivation.equalsIgnoreCase("combo"))
+           {
+               minion.setAbleToCombo(true);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("onTurn"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onTurn);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("passive"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.passive);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("onAttack"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onAttack);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("onSpawn"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onSpawn);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("onDeath"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDeath);
+           }
+           else if (specialPowerActivation.equalsIgnoreCase("onDefend"))
+           {
+               minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
+           }
            minion.setPrice(price);
            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,minion,true);
            Shop.getInstance().addCardToShop(minion);
        }
        else if (type.equalsIgnoreCase("spell"))
        {
+            Spell spell = new Spell();
 
        }
 

@@ -18,6 +18,10 @@ public class Spell extends Card
         Shop.getInstance().addCardToShop(this);
     }
 
+    public Spell()
+    {
+
+    }
     public static void setSpells()
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
