@@ -81,6 +81,13 @@ public class CallTheAppropriateFunction extends Thread
                 case SAVE:
                     accountManager.saveAccountInfo(Account.loggedInAccount, Account.loggedInAccount.getAccountName(), false);
                     break;
+                case CUSTOMCARDS:
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    break;
                 case HELP:
                     showOutput.printMainMenuCommands();
                     break;

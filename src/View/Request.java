@@ -468,6 +468,8 @@ public class Request
     }
     private void makingCustomCards(Stage stage)
     {
+        rootMakingCustomCard.getChildren().clear();
+
         setBackGroundImage(rootMakingCustomCard,"file:custom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootMakingCustomCard,30,30,"name"));
@@ -489,19 +491,14 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,800,310,"cost"));
         textFields.add(makingTextField(rootMakingCustomCard,800,380,"AttackType"));
 
-        Button back = new Button("Back");
-        back.setFont(Font.font(25));
-        back.relocate(900,450);
-        back.setOnMouseClicked(event -> {
-            stage.setScene(sceneMainMenu);
-        });
+        Button backButton = backButton(stage, rootMakingCustomCard, 900, 450);
         Button apply = new Button("Apply");
         apply.relocate(780,450);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
         workingOnTextFields(textFields);
         });
-        rootMakingCustomCard.getChildren().addAll(back,apply);
+        rootMakingCustomCard.getChildren().add(apply);
         stage.setScene(sceneMakingCustomCards);
     }
 
@@ -666,12 +663,7 @@ public class Request
         rootLeaderBoard.getChildren().clear();
         rootLeaderBoard.getChildren().add(labelTop10);
         showOutput.showRankingPlayers();
-        Button back = new Button("Back");
-        back.setFont(Font.font(25));
-        back.relocate(100,600);
-        back.setOnMouseClicked(event -> {
-            primaryStage.setScene(sceneMainMenu);
-        });
+        backButton(primaryStage, rootLeaderBoard, 100, 600);
 
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
