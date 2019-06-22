@@ -563,16 +563,16 @@ public class Request
        }
        else if (type.equalsIgnoreCase("minion"))
        {
-           //int AP = Integer.parseInt(ap);
-           //int HP = Integer.parseInt(hp);
-           //int price = Integer.parseInt(cost);
-           //int rangeOfAttack = Integer.parseInt(range);
-           //int cooldown = Integer.parseInt(coolDown);
+           int AP = Integer.parseInt(ap);
+           int HP = Integer.parseInt(hp);
+           int price = Integer.parseInt(cost);
+           int rangeOfAttack = Integer.parseInt(range);
+           int cooldown = Integer.parseInt(coolDown);
            Minion minion = new Minion();
            minion.setCardName(name);
-           //minion.setDefaultAP(AP);
-           //minion.setDefaultHP(HP);
-           //minion.setRangeOfAttack(rangeOfAttack);
+           minion.setDefaultAP(AP);
+           minion.setDefaultHP(HP);
+           minion.setRangeOfAttack(rangeOfAttack);
            if (attackType.equalsIgnoreCase("melee"))
            {
                minion.setImpactType(ImpactType.melee);
