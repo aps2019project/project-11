@@ -663,8 +663,12 @@ public class Request
         rootLeaderBoard.getChildren().clear();
         rootLeaderBoard.getChildren().add(labelTop10);
         showOutput.showRankingPlayers();
-        backButton(primaryStage, rootLeaderBoard, 100, 600);
-
+       // backButton(primaryStage, rootLeaderBoard, 100, 600);
+        Button back = new Button();
+        back.relocate(100,600);
+        back.setText("Back");
+        back.setFont(Font.font(25));
+        rootLeaderBoard.getChildren().add(back);
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
     }
