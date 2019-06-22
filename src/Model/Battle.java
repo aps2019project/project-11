@@ -72,6 +72,7 @@ public class Battle
     public void moveCard(NonSpellCard selectedCard, int x, int y)
     {
         this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].remove(selectedCard);
+        this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].setCard(null);
         selectedCard.setRow(x);
         selectedCard.setColumn(y);
         this.getBattleField().getBattleFieldMatrix()[x][y].setCard(selectedCard);

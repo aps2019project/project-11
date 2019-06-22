@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.Request;
+import View.ShowOutput;
 import View.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
@@ -27,8 +28,26 @@ public class BattleFieldController extends Thread {
     @Override
     public void run() {
         super.run();
+        getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+    }
+
+    private void getCardInformation() {
+        int counter = 0;
+
+        ShowOutput showOutput = new ShowOutput();
+
+        for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+            int finalCounter = counter;
+            pane.setOnScroll(new EventHandler<ScrollEvent>() {
+                @Override
+                public void handle(ScrollEvent event) {
+                    showOutput.showCardInfo(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
+                }
+            });
+            counter++;
+        }
     }
 
     private void checkInsertingCard() {
