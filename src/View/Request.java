@@ -531,13 +531,13 @@ public class Request
 
     private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String nameOfBuff,String buffType,String effectValue,String delay ,String last,String friendOrEnemy, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType,String numOfFriendOrEnemy,String all)
     {
-       int AP = Integer.parseInt(ap);
-       int HP = Integer.parseInt(hp);
-       int price = Integer.parseInt(cost);
-       int rangeOfAttack = Integer.parseInt(range);
-       int cooldown = Integer.parseInt(coolDown);
        if (type.equalsIgnoreCase("hero"))
        {
+           int AP = Integer.parseInt(ap);
+           int HP = Integer.parseInt(hp);
+           int price = Integer.parseInt(cost);
+           int rangeOfAttack = Integer.parseInt(range);
+           int cooldown = Integer.parseInt(coolDown);
            Hero hero = new Hero();
            hero.setCardName(name);
            hero.setDefaultAP(AP);
@@ -563,11 +563,16 @@ public class Request
        }
        else if (type.equalsIgnoreCase("minion"))
        {
+           //int AP = Integer.parseInt(ap);
+           //int HP = Integer.parseInt(hp);
+           //int price = Integer.parseInt(cost);
+           //int rangeOfAttack = Integer.parseInt(range);
+           //int cooldown = Integer.parseInt(coolDown);
            Minion minion = new Minion();
            minion.setCardName(name);
-           minion.setDefaultAP(AP);
-           minion.setDefaultHP(HP);
-           minion.setRangeOfAttack(rangeOfAttack);
+           //minion.setDefaultAP(AP);
+           //minion.setDefaultHP(HP);
+           //minion.setRangeOfAttack(rangeOfAttack);
            if (attackType.equalsIgnoreCase("melee"))
            {
                minion.setImpactType(ImpactType.melee);
@@ -608,7 +613,7 @@ public class Request
            {
                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
            }
-           minion.setPrice(price);
+          // minion.setPrice(price);
            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,minion,true);
            Shop.getInstance().addCardToShop(minion);
        }
