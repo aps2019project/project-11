@@ -474,15 +474,20 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,30,100,"type"));
         textFields.add(makingTextField(rootMakingCustomCard,30,170,"numberOfTarget"));
         textFields.add(makingTextField(rootMakingCustomCard,150,170,"kindOfMinion"));
-        textFields.add(makingTextField(rootMakingCustomCard,30,240,"buffs"));
+        textFields.add(makingTextField(rootMakingCustomCard,30,240,"nameOfBuffs"));
+        textFields.add(makingTextField(rootMakingCustomCard,150,240,"typeOfBuff"));
+        textFields.add(makingTextField(rootMakingCustomCard,270,240,"effectValue"));
+        textFields.add(makingTextField(rootMakingCustomCard,390,240,"delay"));
+        textFields.add(makingTextField(rootMakingCustomCard,510,240,"last"));
+        textFields.add(makingTextField(rootMakingCustomCard,630,240,"friendOrEnemy"));
         textFields.add(makingTextField(rootMakingCustomCard,30,310,"AP"));
         textFields.add(makingTextField(rootMakingCustomCard,30,380,"HP"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,30,"range"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,100,"SpecialPower"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,170,"PowerActivation"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,240,"coolDown"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,310,"cost"));
-        textFields.add(makingTextField(rootMakingCustomCard,300,380,"AttackType"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,30,"range"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,100,"SpecialPower"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,170,"PowerActivation"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,240,"coolDown"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,310,"cost"));
+        textFields.add(makingTextField(rootMakingCustomCard,800,380,"AttackType"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,450);
@@ -506,20 +511,25 @@ public class Request
         String type = textFields.get(1).getText();
         String numOfTarget = textFields.get(2).getText();
         String kindOfMinion = textFields.get(3).getText();
-        String buff = textFields.get(4).getText();
-        String AP = textFields.get(5).getText();
-        String HP = textFields.get(6).getText();
-        String Range = textFields.get(7).getText();
-        String SpecialPower = textFields.get(8).getText();
-        String SpecialPowerActivation = textFields.get(9).getText();
-        String coolDown = textFields.get(10).getText();
-        String cost = textFields.get(11).getText();
-        String AttackType = textFields.get(12).getText();
-        makingCard(name,type,numOfTarget,kindOfMinion,buff,AP,HP,Range,SpecialPower,SpecialPowerActivation,coolDown,cost,AttackType);
+        String nameOfBuff = textFields.get(4).getText();
+        String buffType = textFields.get(5).getText();
+        String effectValue = textFields.get(6).getText();
+        String delay = textFields.get(7).getText();
+        String last = textFields.get(8).getText();
+        String friendOrEnemy = textFields.get(9).getText();
+        String AP = textFields.get(10).getText();
+        String HP = textFields.get(11).getText();
+        String Range = textFields.get(12).getText();
+        String SpecialPower = textFields.get(13).getText();
+        String SpecialPowerActivation = textFields.get(14).getText();
+        String coolDown = textFields.get(15).getText();
+        String cost = textFields.get(16).getText();
+        String AttackType = textFields.get(17).getText();
+        makingCard(name,type,numOfTarget,kindOfMinion,nameOfBuff,buffType,effectValue,delay,last,friendOrEnemy,AP,HP,Range,SpecialPower,SpecialPowerActivation,coolDown,cost,AttackType);
 
     }
 
-    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String buff, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType)
+    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String nameOfBuff,String buffType,String effectValue,String delay ,String last,String friendOrEnemy, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType)
     {
        int AP = Integer.parseInt(ap);
        int HP = Integer.parseInt(hp);
@@ -605,7 +615,8 @@ public class Request
        else if (type.equalsIgnoreCase("spell"))
        {
             Spell spell = new Spell();
-
+            spell.setCardName(nameOfBuff);
+            //spell.getSpellEffect().getSpellChanges().get(0)
        }
 
     }
