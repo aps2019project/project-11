@@ -188,7 +188,7 @@ public class BattleFieldController extends Thread
                             setSelectedCard(battleFieldCells[finalRow1][finalColumn1].getCard());
                             setCardSelectedInBattle(true);
                             Battle.getCurrentBattle().selectCard(battleFieldCells[finalRow1][finalColumn1].getCard());
-                            selectedCardActions();
+                            selectedCardActions(finalRow1 , finalColumn1);
                         }
                     }
                 });
@@ -196,7 +196,7 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void selectedCardActions()
+    private void selectedCardActions(int sourceRow, int sourceColumn)
     {
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
@@ -205,23 +205,23 @@ public class BattleFieldController extends Thread
             for (int column = 0; column < 9; column++)
             {
 
-                int finalColumn1 = column;
-                int finalRow1 = row;
+                int finalRow = row;
+                int finalColumn = column;
 
                 battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
                 {
                     @Override
                     public void handle(MouseEvent event)
                     {
-                        if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow1][finalColumn1].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow1][finalColumn1].getCard())))
+                        if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
                             System.out.println("attackTo");
                             attackTo();
                         }
 
-                        else if (!battleFieldCells[finalRow1][finalColumn1].isFull())
+                        else if (!battleFieldCells[finalRow][finalColumn].isFull())
                         {
-                            moveTo(finalRow1 , finalColumn1);
+                            moveTo(finalRow , finalColumn , sourceRow , sourceColumn);
                         }
 
 
@@ -231,8 +231,11 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void moveTo(int finalRow, int finalColumn) {
-        battleManager.moveCard(finalRow , finalColumn);
+    private void moveTo(int destinationRow, int destinationColumn , int sourceRow , int sourceColumn ) {
+        battleManager.moveCard(destinationRow , destinationColumn);
+        Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
+        Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().add(Card.getCardImageView(selectedCard));
+
     }
 
     private void attackTo()
