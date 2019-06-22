@@ -488,21 +488,16 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,800,240,"coolDown"));
         textFields.add(makingTextField(rootMakingCustomCard,800,310,"cost"));
         textFields.add(makingTextField(rootMakingCustomCard,800,380,"AttackType"));
-        Button back = new Button("Back");
-        back.setFont(Font.font(25));
-        back.relocate(900,450);
-        back.setOnMouseClicked(event -> {
-            stage.setScene(sceneMainMenu);
-        });
+
+        Button backButton = backButton(stage, rootMakingCustomCard, 900, 450);
         Button apply = new Button("Apply");
         apply.relocate(780,450);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
         workingOnTextFields(textFields);
         });
-        rootMakingCustomCard.getChildren().addAll(back,apply);
+        rootMakingCustomCard.getChildren().addAll(backButton,apply);
         stage.setScene(sceneMakingCustomCards);
-
     }
 
     private void workingOnTextFields(ArrayList<TextField> textFields)
