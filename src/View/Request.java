@@ -613,7 +613,26 @@ public class Request
        {
             Spell spell = new Spell();
             spell.setCardName(nameOfBuff);
-            //spell.getSpellEffect().getSpellChanges().get(0)
+            int numBuffs =Integer.parseInt(effectValue);
+            if (buffType.equalsIgnoreCase("holyBuff"))
+            {
+                spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
+            }
+            else if (buffType.equalsIgnoreCase("stun"))
+            {
+                spell.getSpellEffect().getSpellChanges().get(0).isStunOpponent();
+            }
+            else if (buffType.equalsIgnoreCase("disarm"))
+            {
+                spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
+            }
+            if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
+            {
+                spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(numBuffs);
+            }
+            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
+            Shop.getInstance().addCardToShop(spell);
+
        }
 
     }
