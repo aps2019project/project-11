@@ -177,7 +177,6 @@ public class BattleFieldController extends Thread {
                             moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
                     }
-
                 });
             }
         }
