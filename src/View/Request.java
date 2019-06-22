@@ -490,7 +490,8 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,340,100,"coolDown"));
         textFields.add(makingTextField(rootMakingCustomCard,340,170,"cost"));
         textFields.add(makingTextField(rootMakingCustomCard,340,240,"AttackType"));
-
+        textFields.add(makingTextField(rootMakingCustomCard,340,310,"numOfFriendOrEnemy"));
+        textFields.add(makingTextField(rootMakingCustomCard,340,380,"isAll"));
         backButton(stage, rootMakingCustomCard, 900, 450);
         Button apply = new Button("Apply");
         apply.relocate(780,450);
@@ -522,11 +523,13 @@ public class Request
         String coolDown = textFields.get(15).getText();
         String cost = textFields.get(16).getText();
         String AttackType = textFields.get(17).getText();
-        makingCard(name,type,numOfTarget,kindOfMinion,nameOfBuff,buffType,effectValue,delay,last,friendOrEnemy,AP,HP,Range,SpecialPower,SpecialPowerActivation,coolDown,cost,AttackType);
+        String numOfFriendOrEnemy = textFields.get(18).getText();
+        String isAll = textFields.get(19).getText();
+        makingCard(name,type,numOfTarget,kindOfMinion,nameOfBuff,buffType,effectValue,delay,last,friendOrEnemy,AP,HP,Range,SpecialPower,SpecialPowerActivation,coolDown,cost,AttackType,numOfFriendOrEnemy,isAll);
 
     }
 
-    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String nameOfBuff,String buffType,String effectValue,String delay ,String last,String friendOrEnemy, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType)
+    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String nameOfBuff,String buffType,String effectValue,String delay ,String last,String friendOrEnemy, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost,String attackType,String numOfFriendOrEnemy,String all)
     {
        int AP = Integer.parseInt(ap);
        int HP = Integer.parseInt(hp);
@@ -614,7 +617,9 @@ public class Request
             Spell spell = new Spell();
             spell.setCardName(nameOfBuff);
             int numBuffs =Integer.parseInt(effectValue);
-            if (buffType.equalsIgnoreCase("holyBuff"))
+            int lasting = Integer.parseInt(last);
+            int number = Integer.parseInt(numOfFriendOrEnemy);
+            if (buffType.equalsIgnoreCase("holy"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
             }
@@ -626,10 +631,28 @@ public class Request
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
             }
-            if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
+            else if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(numBuffs);
             }
+            spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+            if (friendOrEnemy.equalsIgnoreCase("friend"))
+            {
+                spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(number);
+                if (all.equalsIgnoreCase("true"))
+                {
+                    spell.getSpellEffect().getTargets().get(0).isAllOwnBothNonSpellCards();
+                }
+            }
+            else if (friendOrEnemy.equalsIgnoreCase("enemy"))
+            {
+                spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(number);
+                if (all.equalsIgnoreCase("true"))
+                {
+                    spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
+                }
+            }
+
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
 

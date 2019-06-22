@@ -136,4 +136,20 @@ public class Target
     public void setAllOwnBothNonSpellCards(boolean allOwnBothNonSpellCards) {
         this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
+
+    public void setNumOfOpponentBothNonSpellCards(int numOfOpponentBothNonSpellCards) {
+        this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
+    }
+
+    public void setNumOfOwnMinions(int numOfOwnMinions) {
+        this.numOfOwnMinions = numOfOwnMinions;
+    }
+
+    public void setNumOfOpponentMinions(int numOfOpponentMinions) {
+        this.numOfOpponentMinions = numOfOpponentMinions;
+    }
+
+    public void setOpponentHero(boolean opponentHero) {
+        this.opponentHero = opponentHero;
+    }
 }
