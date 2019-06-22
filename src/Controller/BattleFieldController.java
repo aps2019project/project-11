@@ -215,10 +215,14 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void moveTo(int destinationRow, int destinationColumn, int sourceRow, int sourceColumn) {
-        if (battleManager.moveCardBoolean(destinationRow, destinationColumn)) {
+    private void moveTo(int destinationRow, int destinationColumn, int sourceRow, int sourceColumn)
+    {
+        if (battleManager.moveCardBoolean(destinationRow, destinationColumn))
+        {
             Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
-            Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().add(Card.getCardImageView(selectedCard));
+            ImageView imageView = Card.getCardImageView(Battle.getCurrentBattle().getSelectedCard());
+            setSpriteAnimation(imageView);
+            Battle.getCurrentBattle().getBattleFieldPanes()[destinationColumn][destinationRow].getChildren().add(imageView);
         }
     }
 
