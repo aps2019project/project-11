@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.Request;
+import View.ShowOutput;
 import View.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
@@ -12,7 +13,8 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class BattleFieldController extends Thread {
+public class BattleFieldController extends Thread
+{
     private boolean isCardSelectedForInsert = false;
     private boolean isCardSelectedInBattle = false;
     private Card selectedCardForInsertingCard;
@@ -20,30 +22,57 @@ public class BattleFieldController extends Thread {
     private Group rootBattleField;
     private BattleManager battleManager = new BattleManager();
 
-    public BattleFieldController(Group rootBattleField) {
+    public BattleFieldController(Group rootBattleField)
+    {
         setRootBattleField(rootBattleField);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         super.run();
+
+        getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+    }
+
+    private void getCardInformation() {
+        int counter = 0;
+
+        ShowOutput showOutput = new ShowOutput();
+
+        for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+            int finalCounter = counter;
+            pane.setOnScroll(new EventHandler<ScrollEvent>() {
+                @Override
+                public void handle(ScrollEvent event) {
+                    showOutput.showCardInfo(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
+                }
+            });
+            counter++;
+        }
     }
 
     private void checkInsertingCard() {
         Pane[] firstPlayerHandPanes = Battle.getCurrentBattle().getFirstPlayerHandPanes();
         Pane[] secondPlayerHandPanes = Battle.getCurrentBattle().getSecondPlayerHandPanes();
 
-        for (int number = 0; number < firstPlayerHandPanes.length; number++) {
+        for (int number = 0; number < firstPlayerHandPanes.length; number++)
+        {
             int finalNumber = number;
 
-            firstPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>() {
+            firstPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
                 @Override
-                public void handle(MouseEvent event) {
-                    if (isCardSelectedForInsert) {
+                public void handle(MouseEvent event)
+                {
+                    if (isCardSelectedForInsert)
+                    {
                         //todo to Show error
-                    } else {
+                    }
+                    else
+                    {
 
                         setCardSelectedForInsert(true);
                         setSelectedCardForInsertingCard(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
@@ -53,10 +82,12 @@ public class BattleFieldController extends Thread {
             });
         }
 
-        for (int number = 0; number < secondPlayerHandPanes.length; number++) {
+        for (int number = 0; number < secondPlayerHandPanes.length; number++)
+        {
             int finalNumber = number;
 
-            secondPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>() {
+            secondPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
 
                 @Override
                 public void handle(MouseEvent event) {
@@ -169,8 +200,10 @@ public class BattleFieldController extends Thread {
 
                 battleFieldCells[row][column].getCellPane().setOnScroll(new EventHandler<ScrollEvent>() {
                     @Override
-                    public void handle(ScrollEvent event) {
-                        if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard()))) {
+                    public void handle(ScrollEvent event)
+                    {
+                        if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
+                        {
                             System.out.println("attackTo");
                             attackTo();
                         } else if (!battleFieldCells[finalRow][finalColumn].isFull()) {

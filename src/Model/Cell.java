@@ -55,6 +55,7 @@ public class Cell
         return true;
     }
 
+
     public  boolean isHolyCell()
     {
         return holyCell;
