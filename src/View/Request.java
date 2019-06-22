@@ -666,7 +666,12 @@ public class Request
         rootLeaderBoard.getChildren().clear();
         rootLeaderBoard.getChildren().add(labelTop10);
         showOutput.showRankingPlayers();
-        backButton(primaryStage, rootLeaderBoard, 100, 600);
+        Button back = new Button("Back");
+        back.setFont(Font.font(25));
+        back.relocate(100,600);
+        back.setOnMouseClicked(event -> {
+            primaryStage.setScene(sceneMainMenu);
+        });
 
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
