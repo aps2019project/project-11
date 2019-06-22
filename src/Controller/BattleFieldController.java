@@ -18,6 +18,7 @@ public class BattleFieldController extends Thread
     private Card selectedCardForInsertingCard;
     private Card selectedCard;
     private Group rootBattleField;
+    private BattleManager battleManager = new BattleManager();
 
     public BattleFieldController(Group rootBattleField)
     {
@@ -105,7 +106,6 @@ public class BattleFieldController extends Thread
                     {
                         if (isCardSelectedForInsert)
                         {
-                            BattleManager battleManager = new BattleManager();
                             if (selectedCardForInsertingCard instanceof Minion)
                             {
                                 if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCardForInsertingCard, finalRow1, finalColumn1))
@@ -187,6 +187,7 @@ public class BattleFieldController extends Thread
                             System.out.println(battleFieldCells[finalRow1][finalColumn1].getCard().getCardName());
                             setSelectedCard(battleFieldCells[finalRow1][finalColumn1].getCard());
                             setCardSelectedInBattle(true);
+                            Battle.getCurrentBattle().selectCard(battleFieldCells[finalRow1][finalColumn1].getCard());
                             selectedCardActions();
                         }
                     }
@@ -230,8 +231,8 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void moveTo(int finalRow1, int finalColumn1) {
-
+    private void moveTo(int finalRow, int finalColumn) {
+        battleManager.moveCard(finalRow , finalColumn);
     }
 
     private void attackTo()
@@ -293,5 +294,13 @@ public class BattleFieldController extends Thread
     public void setSelectedCard(Card selectedCard)
     {
         this.selectedCard = selectedCard;
+    }
+
+    public BattleManager getBattleManager() {
+        return battleManager;
+    }
+
+    public void setBattleManager(BattleManager battleManager) {
+        this.battleManager = battleManager;
     }
 }
