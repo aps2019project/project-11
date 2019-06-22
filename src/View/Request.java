@@ -491,7 +491,7 @@ public class Request
         textFields.add(makingTextField(rootMakingCustomCard,800,310,"cost"));
         textFields.add(makingTextField(rootMakingCustomCard,800,380,"AttackType"));
 
-        Button backButton = backButton(stage, rootMakingCustomCard, 900, 450);
+        backButton(stage, rootMakingCustomCard, 900, 450);
         Button apply = new Button("Apply");
         apply.relocate(780,450);
         apply.setFont(Font.font(25));
@@ -663,12 +663,7 @@ public class Request
         rootLeaderBoard.getChildren().clear();
         rootLeaderBoard.getChildren().add(labelTop10);
         showOutput.showRankingPlayers();
-       // backButton(primaryStage, rootLeaderBoard, 100, 600);
-        Button back = new Button();
-        back.relocate(100,600);
-        back.setText("Back");
-        back.setFont(Font.font(25));
-        rootLeaderBoard.getChildren().add(back);
+        backButton(primaryStage, rootLeaderBoard, 100, 600);
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
     }
