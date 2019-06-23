@@ -50,7 +50,7 @@ public class BattleFieldController extends Thread
     private void getCardInformation() {
         int counter = 0;
 
-        ShowOutput showOutput = new ShowOutput();
+        ShowOutput showOutput = ShowOutput.getInstance();
 
         final Text[] text = new Text[1];
 
