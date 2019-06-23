@@ -641,7 +641,6 @@ public class Request
             {
                 spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(Integer.parseInt(effectValue));
             }
-            //spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(Integer.parseInt(last));
             if (friendOrEnemy.equalsIgnoreCase("friend"))
             {
                 spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
@@ -658,11 +657,10 @@ public class Request
                     spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
                 }
             }
-
+           //spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(Integer.parseInt(last));
            System.out.println("salam");
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
-
        }
 
     }
