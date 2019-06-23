@@ -567,7 +567,6 @@ public class Request
            int HP = Integer.parseInt(hp);
            int price = Integer.parseInt(cost);
            int rangeOfAttack = Integer.parseInt(range);
-           int cooldown = Integer.parseInt(coolDown);
            Minion minion = new Minion();
            minion.setCardName(name);
            minion.setDefaultAP(AP);
@@ -613,7 +612,7 @@ public class Request
            {
                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
            }
-          // minion.setPrice(price);
+            minion.setPrice(price);
            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,minion,true);
            Shop.getInstance().addCardToShop(minion);
        }
@@ -624,6 +623,7 @@ public class Request
             int numBuffs =Integer.parseInt(effectValue);
             int lasting = Integer.parseInt(last);
             int number = Integer.parseInt(numOfFriendOrEnemy);
+            int numberOfTarget = Integer.parseInt(numOfTarget);
             if (buffType.equalsIgnoreCase("holy"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
@@ -657,6 +657,7 @@ public class Request
                     spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
                 }
             }
+            //if ()
 
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
