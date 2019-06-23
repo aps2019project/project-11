@@ -369,6 +369,38 @@ public class BattleManager
         }
     }
 
+    public void attackToOpponent(Card opponentCard)
+    {
+        if (!Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().contains(opponentCard))
+        {
+            showOutput.printOutput("Invalid card name");
+            return;
+        }
+        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+        if (selectedCard.isCardSelectedInBattle())
+        {
+            if ((selectedCard).isAttackAble())
+            {
+                if ((selectedCard).getImpactType() == ImpactType.melee)
+                {
+                    meleeCardAttack(selectedCard, (NonSpellCard) opponentCard);
+                }
+                else if ((selectedCard).getImpactType() == ImpactType.ranged)
+                {
+                    rangedCardAttack(selectedCard,(NonSpellCard) opponentCard);
+                }
+                else if ((selectedCard).getImpactType() == ImpactType.hybrid)
+                {
+                    hybridCardAttack(selectedCard,(NonSpellCard) opponentCard);
+                }
+            }
+            else
+            {
+                showOutput.printOutput("Card with " + selectedCard.getCardID() + " can′t attack");
+            }
+        }
+    }
+
     private void meleeCardAttack(NonSpellCard selectedCard, NonSpellCard opponentCard)
     {
         if (Card.checkNeighborhood(selectedCard, opponentCard))
