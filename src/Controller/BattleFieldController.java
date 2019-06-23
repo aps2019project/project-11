@@ -138,6 +138,8 @@ public class BattleFieldController extends Thread
                                     ImageView imageView = Card.getCardImageView(selectedCardForInsertingCard);
                                     setSpriteAnimation(imageView);
                                     battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
+                                    battleFieldCells[finalRow1][finalColumn1].setCard(selectedCardForInsertingCard);
+
 
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
