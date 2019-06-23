@@ -140,6 +140,7 @@ public class BattleFieldController extends Thread
                                     battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
                                     battleFieldCells[finalRow1][finalColumn1].setCard(selectedCardForInsertingCard);
 
+                                    ((NonSpellCard) selectedCardForInsertingCard).setMoveAble(false);
 
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
