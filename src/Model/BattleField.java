@@ -35,6 +35,18 @@ public class BattleField
         return null;
     }
 
+    public NonSpellCard findCardInBattleFieldByName(String cardName)
+    {
+        for (NonSpellCard nonSpellCard : this.getAllCardsInTheBattleField())
+        {
+            if (nonSpellCard.getCardName().equals(cardName))
+            {
+                return nonSpellCard;
+            }
+        }
+        return null;
+    }
+
     public Cell getCellWithGivenCoordinate (int x, int y)
     {
         return battleFieldMatrix[x][y];

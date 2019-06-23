@@ -113,7 +113,9 @@ public class BattleManager
             return true;
         }
         else
+        {
             return target.getNumOfOwnMinions() > 0 && nonSpellCard instanceof Minion;
+        }
     }
 
     private int[][] setInsertAbleCellsMatrixForMinion()
@@ -301,39 +303,47 @@ public class BattleManager
 
     boolean moveCardBoolean(int x, int y)
     {
-        if (Battle.getCurrentBattle().getSelectedCard() != null) {
-            if (x < 0 || x > 4 || y < 0 || y > 8) {
+        if (Battle.getCurrentBattle().getSelectedCard() != null)
+        {
+            if (x < 0 || x > 4 || y < 0 || y > 8)
+            {
                 showOutput.printOutput("Invalid target");
                 return false;
             }
             NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
             int[][] moveAbleCells = selectedCard.getMoveAbleCells();
-            if (selectedCard.isMoveAble()) {
-                if (moveAbleCells[x][y] == 1) {
+            if (selectedCard.isMoveAble())
+            {
+                if (moveAbleCells[x][y] == 1)
+                {
                     Battle.getCurrentBattle().moveCard(selectedCard, x, y);
                     showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
                     return true;
-                } else {
+                }
+                else
+                {
                     showOutput.printOutput("Invalid Target");
                     return false;
                 }
-            } else {
+            }
+            else
+            {
                 showOutput.printOutput("this card is not movable");
                 return false;
             }
         }
-        showOutput.printOutput("You Didn't Selected Card");
+        showOutput.printOutput("You Didn't Select any Card");
         return false;
     }
 
-    public void attackToOpponent(String cardID)
+    public void attackToOpponent(String cardName)
     {
-        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
+        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollectionByName(cardName) == null)
         {
-            showOutput.printOutput("Invalid card ID");
+            showOutput.printOutput("Invalid card name");
             return;
         }
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleFieldByName(cardName);
         NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
         if (selectedCard.isCardSelectedInBattle())
         {

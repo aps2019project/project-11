@@ -12,13 +12,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+@SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
     private boolean isCardSelectedForInsert = false;
     private boolean isCardSelectedInBattle = false;
-    private Card selectedCardForInsertingCard;
+    private Card selectedCardForInserting;
     private Card selectedCard;
     private Group rootBattleField;
     private BattleManager battleManager = new BattleManager();
@@ -36,42 +38,54 @@ public class BattleFieldController extends Thread
         super.run();
 
         setSelectedCard(null);
-        setSelectedCardForInsertingCard(null);
+        setSelectedCardForInserting(null);
         Battle.getCurrentBattle().unSelectCard();
-
 
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+
     }
 
-    private void getCardInformation() {
+    private void getCardInformation()
+    {
         int counter = 0;
 
-        ShowOutput showOutput = new ShowOutput();
+        ShowOutput showOutput = ShowOutput.getInstance();
 
-        /*for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+        final Text[] text = new Text[1];
+
+        for (Pane pane : Battle.getCurrentBattle().getTurnPlayerHandPane())
+        {
             int finalCounter = counter;
-            pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            pane.setOnMouseEntered(new EventHandler<MouseEvent>()
+            {
                 @Override
-                public void handle(MouseEvent event) {
-                    showOutput.showCardInfo(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
-                    Text text = new Text("asfsfsddfsdfaaaaaaaaaaaaaaaaa");
-                    text.relocate(100 , 110);
-                    rootBattleField.getChildren().add(text);
+                public void handle(MouseEvent event)
+                {
+                    text[0] = new Text();
+                    rootBattleField.getChildren().add(text[0]);
+                    String s = showOutput.showCardInfoString(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(finalCounter).getCardName());
+                    assert false;
+                    text[0].setText(s);
+                    text[0].relocate(100, 140);
                 }
             });
-            pane.setOnMouseExited(new EventHandler<MouseEvent>() {
+            pane.setOnMouseExited(new EventHandler<MouseEvent>()
+            {
                 @Override
-                public void handle(MouseEvent event) {
-                    rootBattleField.getChildren().remove(rootBattleField.getChildren().size() - 1);
+                public void handle(MouseEvent event)
+                {
+                    text[0].setText("");
                 }
             });
             counter++;
-        }*/
+        }
+
     }
 
-    private void checkInsertingCard() {
+    private void checkInsertingCard()
+    {
         Pane[] firstPlayerHandPanes = Battle.getCurrentBattle().getFirstPlayerHandPanes();
         Pane[] secondPlayerHandPanes = Battle.getCurrentBattle().getSecondPlayerHandPanes();
 
@@ -90,9 +104,8 @@ public class BattleFieldController extends Thread
                     }
                     else
                     {
-
                         setCardSelectedForInsert(true);
-                        setSelectedCardForInsertingCard(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
+                        setSelectedCardForInserting(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
                     }
                 }
@@ -107,12 +120,16 @@ public class BattleFieldController extends Thread
             {
 
                 @Override
-                public void handle(MouseEvent event) {
-                    if (isCardSelectedForInsert) {
+                public void handle(MouseEvent event)
+                {
+                    if (isCardSelectedForInsert)
+                    {
                         //todo to show error
-                    } else {
+                    }
+                    else
+                    {
                         setCardSelectedForInsert(true);
-                        setSelectedCardForInsertingCard(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
+                        setSelectedCardForInserting(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
                     }
                 }
@@ -121,26 +138,34 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void insertCard() {
+    private void insertCard()
+    {
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
-        for (int row = 0; row < 5; row++) {
-            for (int column = 0; column < 9; column++) {
-                int finalColumn1 = column;
-                int finalRow1 = row;
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                int finalColumn = column;
+                int finalRow = row;
 
-                battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
+                {
                     @Override
-                    public void handle(MouseEvent event) {
-                        if (isCardSelectedForInsert) {
-                            if (selectedCardForInsertingCard instanceof Minion) {
-                                if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCardForInsertingCard, finalRow1, finalColumn1)) {
-                                    ImageView imageView = Card.getCardImageView(selectedCardForInsertingCard);
+                    public void handle(MouseEvent event)
+                    {
+                        if (isCardSelectedForInsert)
+                        {
+                            if (selectedCardForInserting instanceof Minion)
+                            {
+                                if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCardForInserting, finalRow, finalColumn))
+                                {
+                                    ImageView imageView = Card.getCardImageView(selectedCardForInserting);
                                     setSpriteAnimation(imageView);
-                                    battleFieldCells[finalRow1][finalColumn1].getCellPane().getChildren().add(imageView);
-                                    battleFieldCells[finalRow1][finalColumn1].setCard(selectedCardForInsertingCard);
+                                    battleFieldCells[finalRow][finalColumn].getCellPane().getChildren().add(imageView);
+                                    battleFieldCells[finalRow][finalColumn].setCard(selectedCardForInserting);
 
-                                    ((NonSpellCard) selectedCardForInsertingCard).setMoveAble(false);
+                                    ((NonSpellCard) selectedCardForInserting).setMoveAble(false);
 
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
@@ -148,18 +173,21 @@ public class BattleFieldController extends Thread
                                     Request.getInstance().setMPIcons(rootBattleField);
 
                                     setCardSelectedForInsert(false);
-                                    setSelectedCardForInsertingCard(null);
+                                    setSelectedCardForInserting(null);
                                     checkSelectingCard();
                                     run();
                                 }
-                            } else if (selectedCardForInsertingCard instanceof Spell) {
-                                if (battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCardForInsertingCard, finalRow1, finalColumn1)) {
+                            }
+                            else if (selectedCardForInserting instanceof Spell)
+                            {
+                                if (battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCardForInserting, finalRow, finalColumn))
+                                {
 
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
                                     Request.getInstance().setMPIcons(rootBattleField);
 
-                                    setSelectedCardForInsertingCard(null);
+                                    setSelectedCardForInserting(null);
                                     setCardSelectedForInsert(false);
                                     checkSelectingCard();
 
@@ -169,7 +197,9 @@ public class BattleFieldController extends Thread
                                 }
                             }
 
-                        } else {
+                        }
+                        else
+                        {
                             //todo error
                         }
                     }
@@ -178,19 +208,25 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void checkSelectingCard() {
+    private void checkSelectingCard()
+    {
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
-        for (int row = 0; row < 5; row++) {
-            for (int column = 0; column < 9; column++) {
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
 
                 int finalColumn = column;
                 int finalRow = row;
 
-                battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
+                {
                     @Override
-                    public void handle(MouseEvent event) {
-                        if (Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard()))) {
+                    public void handle(MouseEvent event)
+                    {
+                        if (Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
+                        {
                             System.out.println(battleFieldCells[finalRow][finalColumn].getCard().getCardName());
                             setSelectedCard(battleFieldCells[finalRow][finalColumn].getCard());
                             setCardSelectedInBattle(true);
@@ -203,24 +239,30 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void selectedCardActions(int sourceRow, int sourceColumn) {
+    private void selectedCardActions(int sourceRow, int sourceColumn)
+    {
         Cell[][] battleFieldCells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
 
-        for (int row = 0; row < 5; row++) {
-            for (int column = 0; column < 9; column++) {
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
 
                 int finalRow = row;
                 int finalColumn = column;
 
-                battleFieldCells[row][column].getCellPane().setOnScroll(new EventHandler<ScrollEvent>() {
+                battleFieldCells[row][column].getCellPane().setOnScroll(new EventHandler<ScrollEvent>()
+                {
                     @Override
                     public void handle(ScrollEvent event)
                     {
                         if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
-                            System.out.println("attackTo");
-                            attackTo();
-                        } else if (!battleFieldCells[finalRow][finalColumn].isFull()) {
+                            Card opponentCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
+                            attackTo(opponentCard, sourceRow, sourceColumn);
+                        }
+                        else if (!battleFieldCells[finalRow][finalColumn].isFull())
+                        {
                             moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
                     }
@@ -237,71 +279,89 @@ public class BattleFieldController extends Thread
             ImageView imageView = Card.getCardImageView(selectedCard);
             setSpriteAnimation(imageView);
             Battle.getCurrentBattle().getBattleFieldPanes()[destinationColumn][destinationRow].getChildren().add(imageView);
+            Battle.getCurrentBattle().unSelectCard();
         }
     }
 
-    private void attackTo() {
+    private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
+    {
+        battleManager.attackToOpponent(opponentCard.getCardName());
     }
 
-    public static void setSpriteAnimation(ImageView imageView) {
+    public static void setSpriteAnimation(ImageView imageView)
+    {
         final Animation animation = new SpriteAnimation(imageView, Duration.millis(1000), 3, 3, 0, 0, 80, 80);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
     }
 
-    public Card getSelectedCardForInsertingCard() {
-        return selectedCardForInsertingCard;
+    public Card getSelectedCardForInserting()
+    {
+        return selectedCardForInserting;
     }
 
-    private void setSelectedCardForInsertingCard(Card selectedCardForInsertingCard) {
-        this.selectedCardForInsertingCard = selectedCardForInsertingCard;
+    private void setSelectedCardForInserting(Card selectedCardForInserting)
+    {
+        this.selectedCardForInserting = selectedCardForInserting;
     }
 
-    public boolean isCardSelectedForInsert() {
+    public boolean isCardSelectedForInsert()
+    {
         return isCardSelectedForInsert;
     }
 
-    private void setCardSelectedForInsert(boolean cardSelectedForInsert) {
+    private void setCardSelectedForInsert(boolean cardSelectedForInsert)
+    {
         isCardSelectedForInsert = cardSelectedForInsert;
     }
 
-    public Group getRootBattleField() {
+    public Group getRootBattleField()
+    {
         return rootBattleField;
     }
 
-    private void setRootBattleField(Group rootBattleField) {
+    private void setRootBattleField(Group rootBattleField)
+    {
         this.rootBattleField = rootBattleField;
     }
 
-    public boolean isCardSelectedInBattle() {
+    public boolean isCardSelectedInBattle()
+    {
         return isCardSelectedInBattle;
     }
 
-    public void setCardSelectedInBattle(boolean cardSelectedInBattle) {
+    public void setCardSelectedInBattle(boolean cardSelectedInBattle)
+    {
         isCardSelectedInBattle = cardSelectedInBattle;
     }
 
-    public Card getSelectedCard() {
+    public Card getSelectedCard()
+    {
         return selectedCard;
     }
 
-    public void setSelectedCard(Card selectedCard) {
+    public void setSelectedCard(Card selectedCard)
+    {
         this.selectedCard = selectedCard;
     }
 
-    public BattleManager getBattleManager() {
+    public BattleManager getBattleManager()
+    {
         return battleManager;
     }
 
-    public void setBattleManager(BattleManager battleManager) {
+    public void setBattleManager(BattleManager battleManager)
+    {
         this.battleManager = battleManager;
     }
 
-    public Scene getSceneBattleField() {
+    public Scene getSceneBattleField()
+    {
         return sceneBattleField;
     }
 
-    public void setSceneBattleField(Scene sceneBattleField) {
+    public void setSceneBattleField(Scene sceneBattleField)
+    {
         this.sceneBattleField = sceneBattleField;
     }
 }

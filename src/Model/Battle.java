@@ -766,5 +766,13 @@ public class Battle
             setSelectedCard(null);
         }
     }
+
+    public Pane[] getTurnPlayerHandPane() {
+        if(getPlayerTurn() == firstPlayer){
+            return firstPlayerHandPanes;
+        }
+
+        return secondPlayerHandPanes;
+    }
 }
 
