@@ -71,6 +71,7 @@ public class Battle
 
     public void moveCard(NonSpellCard selectedCard, int x, int y)
     {
+        this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].isFull();
         this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].remove(selectedCard);
         this.getBattleField().getBattleFieldMatrix()[selectedCard.getRow()][selectedCard.getColumn()].setCard(null);
         selectedCard.setRow(x);
@@ -757,6 +758,13 @@ public class Battle
         pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
         nextCardPane = pane;
         rootBattleField.getChildren().add(nextCardPane);
+    }
+
+    public void unSelectCard() {
+        if(selectedCard != null) {
+            selectedCard.setCardSelectedInBattle(false);
+            setSelectedCard(null);
+        }
     }
 }
 

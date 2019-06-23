@@ -26,6 +26,10 @@ public class Cell
         {
             this.minion = (Minion) card;
         }
+        else {
+            this.minion = null;
+            this.hero = null;
+        }
     }
 
     public NonSpellCard getCard()
