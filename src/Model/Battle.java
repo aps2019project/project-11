@@ -758,5 +758,12 @@ public class Battle
         nextCardPane = pane;
         rootBattleField.getChildren().add(nextCardPane);
     }
+
+    public void unSelectCard() {
+        if(selectedCard != null) {
+            selectedCard.setCardSelectedInBattle(false);
+            setSelectedCard(null);
+        }
+    }
 }
 
