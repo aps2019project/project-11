@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class BattleFieldController extends Thread
@@ -49,13 +50,16 @@ public class BattleFieldController extends Thread
 
         ShowOutput showOutput = new ShowOutput();
 
-        /*for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+        Text text = null;
+
+        for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
             int finalCounter = counter;
             pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    showOutput.showCardInfo(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
-                    Text text = new Text("asfsfsddfsdfaaaaaaaaaaaaaaaaa");
+                    String s = showOutput.showCardInfoString(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
+                    assert false;
+                    text.setText(s);
                     text.relocate(100 , 110);
                     rootBattleField.getChildren().add(text);
                 }
@@ -63,11 +67,12 @@ public class BattleFieldController extends Thread
             pane.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    rootBattleField.getChildren().remove(rootBattleField.getChildren().size() - 1);
+                    assert false;
+                    text.setText("");
                 }
             });
             counter++;
-        }*/
+        }
     }
 
     private void checkInsertingCard() {
