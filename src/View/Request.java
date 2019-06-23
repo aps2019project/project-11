@@ -618,32 +618,33 @@ public class Request
        }
        else if (type.equalsIgnoreCase("spell"))
        {
-            Spell spell = new Spell();
+
+               //int lasting = Integer.parseInt(last);
+               //int number = Integer.parseInt(numOfFriendOrEnemy);
+           //int numberOfTarget = Integer.parseInt(numOfTarget);
+            //String effect = effectValue.substring(1,effectValue.length()-1);
+           Spell spell = new Spell();
             spell.setCardName(nameOfBuff);
-            //int numBuffs =Integer.parseInt(effectValue);
-            //int lasting = Integer.parseInt(last);
-            //int number = Integer.parseInt(numOfFriendOrEnemy);
-            //int numberOfTarget = Integer.parseInt(numOfTarget);
             if (buffType.equalsIgnoreCase("holy"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
             }
-            else if (buffType.equalsIgnoreCase("stun"))
+            if (buffType.equalsIgnoreCase("stun"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isStunOpponent();
             }
-            else if (buffType.equalsIgnoreCase("disarm"))
+            if (buffType.equalsIgnoreCase("disarm"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
             }
-            else if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
+            if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
             {
-               // spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(numBuffs);
+                spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(Integer.parseInt(effectValue));
             }
-           // spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+            //spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(Integer.parseInt(last));
             if (friendOrEnemy.equalsIgnoreCase("friend"))
             {
-               // spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(number);
+                spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
                 if (all.equalsIgnoreCase("true"))
                 {
                     spell.getSpellEffect().getTargets().get(0).isAllOwnBothNonSpellCards();
@@ -651,13 +652,13 @@ public class Request
             }
             else if (friendOrEnemy.equalsIgnoreCase("enemy"))
             {
-                //spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(number);
+                spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(Integer.parseInt(numOfFriendOrEnemy));
                 if (all.equalsIgnoreCase("true"))
                 {
                     spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
                 }
             }
-            //if ()
+
            System.out.println("salam");
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
