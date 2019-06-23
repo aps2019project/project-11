@@ -301,32 +301,29 @@ public class BattleManager
 
     boolean moveCardBoolean(int x, int y)
     {
-        if (x < 0 || x > 4 || y < 0 || y > 8)
-        {
-            showOutput.printOutput("Invalid target");
-            return false;
-        }
-        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
-        int[][] moveAbleCells = selectedCard.getMoveAbleCells();
-        if (selectedCard.isMoveAble())
-        {
-            if (moveAbleCells[x][y] == 1)
-            {
-                Battle.getCurrentBattle().moveCard(selectedCard, x, y);
-                showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
-                return true;
+        if (Battle.getCurrentBattle().getSelectedCard() != null) {
+            if (x < 0 || x > 4 || y < 0 || y > 8) {
+                showOutput.printOutput("Invalid target");
+                return false;
             }
-            else
-            {
-                showOutput.printOutput("Invalid Target");
+            NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+            int[][] moveAbleCells = selectedCard.getMoveAbleCells();
+            if (selectedCard.isMoveAble()) {
+                if (moveAbleCells[x][y] == 1) {
+                    Battle.getCurrentBattle().moveCard(selectedCard, x, y);
+                    showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
+                    return true;
+                } else {
+                    showOutput.printOutput("Invalid Target");
+                    return false;
+                }
+            } else {
+                showOutput.printOutput("this card is not movable");
                 return false;
             }
         }
-        else
-        {
-            showOutput.printOutput("this card is not movable");
-            return false;
-        }
+        showOutput.printOutput("You Didn't Selected Card");
+        return false;
     }
 
     public void attackToOpponent(String cardID)

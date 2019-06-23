@@ -2090,7 +2090,7 @@ public class Request
             setNextCard(rootBattleField);
             setEndTurnButton(rootBattleField);
         }
-        battleFieldController = new BattleFieldController(rootBattleField);
+        battleFieldController = new BattleFieldController(rootBattleField , sceneBattleField);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2229,7 +2229,7 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController(rootBattleField);
+                battleFieldController = new BattleFieldController(rootBattleField , sceneBattleField);
                 battleFieldController.start();
             }
         });

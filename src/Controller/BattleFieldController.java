@@ -7,6 +7,7 @@ import View.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -21,9 +22,11 @@ public class BattleFieldController extends Thread
     private Card selectedCard;
     private Group rootBattleField;
     private BattleManager battleManager = new BattleManager();
+    private Scene sceneBattleField;
 
-    public BattleFieldController(Group rootBattleField)
+    public BattleFieldController(Group rootBattleField, Scene sceneBattleField)
     {
+        setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
     }
 
@@ -47,16 +50,25 @@ public class BattleFieldController extends Thread
 
         ShowOutput showOutput = new ShowOutput();
 
-        for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+        /*for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
             int finalCounter = counter;
-            pane.setOnScroll(new EventHandler<ScrollEvent>() {
+            pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(ScrollEvent event) {
+                public void handle(MouseEvent event) {
                     showOutput.showCardInfo(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
+                    Text text = new Text("asfsfsddfsdfaaaaaaaaaaaaaaaaa");
+                    text.relocate(100 , 110);
+                    rootBattleField.getChildren().add(text);
+                }
+            });
+            pane.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    rootBattleField.getChildren().remove(rootBattleField.getChildren().size() - 1);
                 }
             });
             counter++;
-        }
+        }*/
     }
 
     private void checkInsertingCard() {
@@ -280,5 +292,13 @@ public class BattleFieldController extends Thread
 
     public void setBattleManager(BattleManager battleManager) {
         this.battleManager = battleManager;
+    }
+
+    public Scene getSceneBattleField() {
+        return sceneBattleField;
+    }
+
+    public void setSceneBattleField(Scene sceneBattleField) {
+        this.sceneBattleField = sceneBattleField;
     }
 }
