@@ -748,11 +748,13 @@ public class Battle
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
-    public Pane getNextCardPane() {
+    public Pane getNextCardPane()
+    {
         return nextCardPane;
     }
 
-    public void setNextCardPane(Group rootBattleField) {
+    public void setNextCardPane(Group rootBattleField)
+    {
         Pane pane = new Pane();
         pane.relocate(100, 400);
         pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
@@ -760,18 +762,21 @@ public class Battle
         rootBattleField.getChildren().add(nextCardPane);
     }
 
-    public void unSelectCard() {
-        if(selectedCard != null) {
+    public void unSelectCard()
+    {
+        if (selectedCard != null)
+        {
             selectedCard.setCardSelectedInBattle(false);
             setSelectedCard(null);
         }
     }
 
-    public Pane[] getTurnPlayerHandPane() {
-        if(getPlayerTurn() == firstPlayer){
+    public Pane[] getTurnPlayerHandPane()
+    {
+        if (getPlayerTurn() == firstPlayer)
+        {
             return firstPlayerHandPanes;
         }
-
         return secondPlayerHandPanes;
     }
 }

@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -44,7 +45,6 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
-
     }
 
     private void getCardInformation()
@@ -68,7 +68,8 @@ public class BattleFieldController extends Thread
                     String s = showOutput.showCardInfoString(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(finalCounter).getCardName());
                     assert false;
                     text[0].setText(s);
-                    text[0].relocate(100, 140);
+                    text[0].setFont(Font.font(15));
+                    text[0].relocate(50, 170);
                 }
             });
             pane.setOnMouseExited(new EventHandler<MouseEvent>()
@@ -79,7 +80,7 @@ public class BattleFieldController extends Thread
                     text[0].setText("");
                 }
             });
-            counter++;
+            counter ++;
         }
 
     }
