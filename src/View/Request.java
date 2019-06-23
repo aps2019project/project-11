@@ -618,11 +618,6 @@ public class Request
        }
        else if (type.equalsIgnoreCase("spell"))
        {
-
-               //int lasting = Integer.parseInt(last);
-               //int number = Integer.parseInt(numOfFriendOrEnemy);
-           //int numberOfTarget = Integer.parseInt(numOfTarget);
-            //String effect = effectValue.substring(1,effectValue.length()-1);
            Spell spell = new Spell();
             spell.setCardName(nameOfBuff);
             if (buffType.equalsIgnoreCase("holy"))
@@ -657,8 +652,6 @@ public class Request
                     spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
                 }
             }
-           //spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(Integer.parseInt(last));
-           System.out.println("salam");
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
        }
