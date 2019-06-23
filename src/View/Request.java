@@ -620,10 +620,10 @@ public class Request
        {
             Spell spell = new Spell();
             spell.setCardName(nameOfBuff);
-            int numBuffs =Integer.parseInt(effectValue);
-            int lasting = Integer.parseInt(last);
-            int number = Integer.parseInt(numOfFriendOrEnemy);
-            int numberOfTarget = Integer.parseInt(numOfTarget);
+            //int numBuffs =Integer.parseInt(effectValue);
+            //int lasting = Integer.parseInt(last);
+            //int number = Integer.parseInt(numOfFriendOrEnemy);
+            //int numberOfTarget = Integer.parseInt(numOfTarget);
             if (buffType.equalsIgnoreCase("holy"))
             {
                 spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
@@ -638,12 +638,12 @@ public class Request
             }
             else if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness"))
             {
-                spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(numBuffs);
+               // spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(numBuffs);
             }
-            spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+           // spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
             if (friendOrEnemy.equalsIgnoreCase("friend"))
             {
-                spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(number);
+               // spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(number);
                 if (all.equalsIgnoreCase("true"))
                 {
                     spell.getSpellEffect().getTargets().get(0).isAllOwnBothNonSpellCards();
@@ -651,14 +651,14 @@ public class Request
             }
             else if (friendOrEnemy.equalsIgnoreCase("enemy"))
             {
-                spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(number);
+                //spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(number);
                 if (all.equalsIgnoreCase("true"))
                 {
                     spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
                 }
             }
             //if ()
-
+           System.out.println("salam");
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount,spell,true);
             Shop.getInstance().addCardToShop(spell);
 
