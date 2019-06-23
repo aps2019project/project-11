@@ -75,7 +75,6 @@ public class BattleFieldController extends Thread
             counter++;
         }
 
-
     }
 
     private void checkInsertingCard() {
