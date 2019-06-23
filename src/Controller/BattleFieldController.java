@@ -165,6 +165,8 @@ public class BattleFieldController extends Thread
                                     battleFieldCells[finalRow][finalColumn].getCellPane().getChildren().add(imageView);
                                     battleFieldCells[finalRow][finalColumn].setCard(selectedCardForInserting);
 
+                                    Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCard) selectedCardForInserting);
+
                                     ((NonSpellCard) selectedCardForInserting).setMoveAble(false);
 
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);
@@ -285,7 +287,7 @@ public class BattleFieldController extends Thread
 
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
     {
-        battleManager.attackToOpponent(opponentCard.getCardName());
+        battleManager.attackToOpponent(opponentCard);
     }
 
     public static void setSpriteAnimation(ImageView imageView)
