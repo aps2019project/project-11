@@ -224,9 +224,10 @@ public class ShowOutput
         }
     }
 
-    public String showCardInfoString(String cardID)
+    public String showCardInfoString(String cardName)
     {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
+        System.out.println(cardName);
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);//getAccount().getCollection().findCardinCollection(cardID);
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)
         {

@@ -35,6 +35,33 @@ public class Collection
         return null;
     }
 
+    public Card findCardinCollectionByName(String cardName)
+    {
+        for (Hero hero : getHeroes())
+        {
+            if (hero.getCardName().equals(cardName))
+            {
+                return hero;
+            }
+        }
+        for (Spell spell : getSpells())
+        {
+            if (spell.getCardName().equals(cardName))
+            {
+                return spell;
+            }
+        }
+        for (Minion minion : getMinions())
+        {
+            if (minion.getCardName().equals(cardName))
+            {
+                return minion;
+            }
+        }
+        return null;
+    }
+
+
     public Item findItemInTheCollection(String itemID)
     {
         for (Item item : this.getItems())

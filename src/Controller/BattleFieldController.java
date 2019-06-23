@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+@SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
     private boolean isCardSelectedForInsert = false;
@@ -50,29 +51,31 @@ public class BattleFieldController extends Thread
 
         ShowOutput showOutput = new ShowOutput();
 
-        Text text = null;
+        final Text[] text = new Text[1];
 
-        for(Pane pane : Battle.getCurrentBattle().getFirstPlayerHandPanes()){
+        for(Pane pane : Battle.getCurrentBattle().getTurnPlayerHandPane()){
             int finalCounter = counter;
-            pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    String s = showOutput.showCardInfoString(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalCounter).getCardID());
+                    text[0] = new Text();
+                    rootBattleField.getChildren().add(text[0]);
+                    String s = showOutput.showCardInfoString(Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().get(finalCounter).getCardName());
                     assert false;
-                    text.setText(s);
-                    text.relocate(100 , 110);
-                    rootBattleField.getChildren().add(text);
+                    text[0].setText(s);
+                    text[0].relocate(100 , 140);
                 }
             });
             pane.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    assert false;
-                    text.setText("");
+                    text[0].setText("");
                 }
             });
             counter++;
         }
+
+
     }
 
     private void checkInsertingCard() {
