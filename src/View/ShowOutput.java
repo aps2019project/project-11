@@ -248,8 +248,8 @@ public class ShowOutput
             Minion minion = (Minion) card;
             str.append("Minion: ");
             str.append("Name: ").append(minion.getCardName()).append("\n");
-            str.append("HP: ").append(minion.getCurrentHP()).append("\n");
-            str.append("AP: ").append(minion.getCurrentAP()).append("\n");
+            str.append("HP: ").append(minion.getDefaultHP()).append("\n");
+            str.append("AP: ").append(minion.getDefaultAP()).append("\n");
             str.append("MP: ").append(minion.getRequiredMP()).append("\n");
             str.append("Range: ").append(minion.getImpactType()).append("\n");
             str.append("Combo Ability: ").append(minion.getImpactType()).append("\n");
