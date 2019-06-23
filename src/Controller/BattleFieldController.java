@@ -44,6 +44,7 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+
     }
 
     private void getCardInformation() {
@@ -223,8 +224,8 @@ public class BattleFieldController extends Thread
                     {
                         if (Battle.getCurrentBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || Battle.getCurrentBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
-                            System.out.println("attackTo");
-                            attackTo();
+                            Card opponentCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
+                            attackTo(opponentCard ,  sourceRow, sourceColumn);
                         } else if (!battleFieldCells[finalRow][finalColumn].isFull()) {
                             moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
@@ -246,7 +247,8 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void attackTo() {
+    private void attackTo(Card opponentCard, int sourceRow, int sourceColumn) {
+        battleManager.attackToOpponent(opponentCard.getCardName());
     }
 
     public static void setSpriteAnimation(ImageView imageView) {

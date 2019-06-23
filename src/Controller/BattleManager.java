@@ -326,14 +326,14 @@ public class BattleManager
         return false;
     }
 
-    public void attackToOpponent(String cardID)
+    public void attackToOpponent(String cardName)
     {
-        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollection(cardID) == null)
+        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollectionByName(cardName) == null)
         {
-            showOutput.printOutput("Invalid card ID");
+            showOutput.printOutput("Invalid card name");
             return;
         }
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleFieldByName(cardName);
         NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
         if (selectedCard.isCardSelectedInBattle())
         {
