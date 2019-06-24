@@ -21,6 +21,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -361,8 +363,13 @@ public class Request
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
         text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                switch (string) {
+            public void handle(MouseEvent event)
+            {
+                Media sound = new Media(new File("Sounds and Music/Click.mp3").toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                mediaPlayer.play();
+                switch (string)
+                {
                     case "Shop":
                         setCommand(CommandType.ENTER_SHOP);
                         synchronized (requestLock) {
@@ -1074,7 +1081,11 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy) {
+                if (option.get() == buttonTypeBuy)
+                {
+                    Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    mediaPlayer.play();
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = name;
                     synchronized (requestLock) {
@@ -1385,7 +1396,11 @@ public class Request
                     ButtonType buttonTypeCancel = new ButtonType("Cancel");
                     alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
                     Optional<ButtonType> option = alert.showAndWait();
-                    if (option.get() == buttonTypeSell) {
+                    if (option.get() == buttonTypeSell)
+                    {
+                        Media sound = new Media(new File("Sounds and Music/Add card to deck.wav").toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
                         setCommand(CommandType.ADD_TO_DECK);
                         getCommand().cardOrItemID = ID;
                         getCommand().deckName = deck.getDeckName();
