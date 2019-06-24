@@ -425,8 +425,6 @@ public class Request {
     }
 
     private void makingCustomCards(Stage stage) {
-        //rootMakingCustomCard.getChildren().clear();
-
         setBackGroundImage(rootMakingCustomCard, "file:custom1.jpg");
 
         Text text = new Text("Choose one of the below");
@@ -441,48 +439,23 @@ public class Request {
         Text minion = new Text("Minion");
         minion.relocate(450, 400);
         minion.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-
+        hero.setOnMouseEntered(event -> hero.setFill(BLACK));
+        hero.setOnMouseExited(event -> hero.setFill(Color.BLUE));
         hero.setOnMouseClicked(event -> {
             heroPage(stage);
         });
+        minion.setOnMouseEntered(event -> minion.setFill(BLACK));
+        minion.setOnMouseExited(event -> minion.setFill(BLUE));
         minion.setOnMouseClicked(event -> {
             minionPage(stage);
         });
+        spell.setOnMouseEntered(event -> spell.setFill(BLACK));
+        spell.setOnMouseExited(event -> spell.setFill(BLUE));
         spell.setOnMouseClicked(event -> {
             spellPage(stage);
         });
         backButton(stage, rootMakingCustomCard, 900, 450);
         rootMakingCustomCard.getChildren().addAll(minion, spell, hero, text);
-        /*ArrayList<TextField> textFields = new ArrayList<>();
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 30, "name"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 100, "type"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 170, "numberOfTarget"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 240, "kindOfMinion"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 310, "nameOfBuffs"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 380, "typeOfBuff"));
-        textFields.add(makingTextField(rootMakingCustomCard, 30, 450, "effectValue"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 30, "delay"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 100, "last"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 170, "friendOrEnemy"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 240, "AP"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 310, "HP"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 380, "range"));
-        textFields.add(makingTextField(rootMakingCustomCard, 185, 450, "SpecialPower"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 30, "PowerActivation"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 100, "coolDown"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 170, "cost"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 240, "AttackType"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 310, "numOfFriendOrEnemy"));
-        textFields.add(makingTextField(rootMakingCustomCard, 340, 380, "isAll"));
-        backButton(stage, rootMakingCustomCard, 900, 450);
-        Button apply = new Button("Apply");
-        apply.relocate(780, 450);
-        apply.setFont(Font.font(25));
-        apply.setOnMouseClicked(event -> {
-            workingOnTextFields(textFields);
-        });
-        rootMakingCustomCard.getChildren().add(apply);
-       */
         stage.setScene(sceneMakingCustomCards);
     }
 
@@ -708,128 +681,6 @@ public class Request {
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         Shop.getInstance().addCardToShop(hero);
     }
-
-    private void workingOnTextFields(ArrayList<TextField> textFields) {
-        String name = textFields.get(0).getText();
-        String type = textFields.get(1).getText();
-        String numOfTarget = textFields.get(2).getText();
-        String kindOfMinion = textFields.get(3).getText();
-        String nameOfBuff = textFields.get(4).getText();
-        String buffType = textFields.get(5).getText();
-        String effectValue = textFields.get(6).getText();
-        String delay = textFields.get(7).getText();
-        String last = textFields.get(8).getText();
-        String friendOrEnemy = textFields.get(9).getText();
-        String AP = textFields.get(10).getText();
-        String HP = textFields.get(11).getText();
-        String Range = textFields.get(12).getText();
-        String SpecialPower = textFields.get(13).getText();
-        String SpecialPowerActivation = textFields.get(14).getText();
-        String coolDown = textFields.get(15).getText();
-        String cost = textFields.get(16).getText();
-        String AttackType = textFields.get(17).getText();
-        String numOfFriendOrEnemy = textFields.get(18).getText();
-        String isAll = textFields.get(19).getText();
-        makingCard(name, type, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, AP, HP, Range, SpecialPower, SpecialPowerActivation, coolDown, cost, AttackType, numOfFriendOrEnemy, isAll);
-
-    }
-
-    private void makingCard(String name, String type, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String ap, String hp, String range, String specialPower, String specialPowerActivation, String coolDown, String cost, String attackType, String numOfFriendOrEnemy, String all) {
-      /* if (type.equalsIgnoreCase("hero")) {
-
-            Hero hero = new Hero();
-            hero.setCardName(name);
-            hero.setDefaultAP(AP);
-            hero.setDefaultHP(HP);
-            hero.setRangeOfAttack(rangeOfAttack);
-            if (attackType.equalsIgnoreCase("melee")) {
-                hero.setImpactType(ImpactType.melee);
-            }
-            if (attackType.equalsIgnoreCase("ranged")) {
-                hero.setImpactType(ImpactType.ranged);
-            }
-            if (attackType.equalsIgnoreCase("hybrid")) {
-                hero.setImpactType(ImpactType.hybrid);
-            }
-            hero.setPrice(price);
-            hero.setCoolDown(cooldown);
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
-            Shop.getInstance().addCardToShop(hero);
-
-        } else if (type.equalsIgnoreCase("minion")) {
-            int AP = Integer.parseInt(ap);
-            int HP = Integer.parseInt(hp);
-            int price = Integer.parseInt(cost);
-            int rangeOfAttack = Integer.parseInt(range);
-            Minion minion = new Minion();
-            minion.setCardName(name);
-            minion.setDefaultAP(AP);
-            minion.setDefaultHP(HP);
-            minion.setRangeOfAttack(rangeOfAttack);
-            if (attackType.equalsIgnoreCase("melee")) {
-                minion.setImpactType(ImpactType.melee);
-            }
-            if (attackType.equalsIgnoreCase("ranged")) {
-                minion.setImpactType(ImpactType.ranged);
-            }
-            if (attackType.equalsIgnoreCase("hybrid")) {
-                minion.setImpactType(ImpactType.hybrid);
-            }
-            if (specialPowerActivation.equalsIgnoreCase("combo")) {
-                minion.setAbleToCombo(true);
-            } else if (specialPowerActivation.equalsIgnoreCase("onTurn")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onTurn);
-            } else if (specialPowerActivation.equalsIgnoreCase("passive")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.passive);
-            } else if (specialPowerActivation.equalsIgnoreCase("onAttack")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onAttack);
-            } else if (specialPowerActivation.equalsIgnoreCase("onSpawn")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onSpawn);
-            } else if (specialPowerActivation.equalsIgnoreCase("onDeath")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDeath);
-            } else if (specialPowerActivation.equalsIgnoreCase("onDefend")) {
-                minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
-            }
-            minion.setPrice(price);
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
-            Shop.getInstance().addCardToShop(minion);
-        } else if (type.equalsIgnoreCase("spell")) {
-            Spell spell = new Spell();
-            spell.setCardName(nameOfBuff);
-            if (buffType.equalsIgnoreCase("holy")) {
-                spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
-            }
-            if (buffType.equalsIgnoreCase("stun")) {
-                spell.getSpellEffect().getSpellChanges().get(0).isStunOpponent();
-            }
-            if (buffType.equalsIgnoreCase("disarm")) {
-                spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
-            }
-            if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness")) {
-                spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(Integer.parseInt(effectValue));
-                numOfTarget = effectValue;
-            }
-            if (friendOrEnemy.equalsIgnoreCase("friend")) {
-                spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
-                kindOfMinion = "friend";
-                if (all.equalsIgnoreCase("true")) {
-                    spell.getSpellEffect().getTargets().get(0).isAllOwnBothNonSpellCards();
-                }
-            } else if (friendOrEnemy.equalsIgnoreCase("enemy")) {
-                spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(Integer.parseInt(numOfFriendOrEnemy));
-                kindOfMinion = "enemy";
-                if (all.equalsIgnoreCase("true")) {
-                    spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
-                }
-            }
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, true);
-            Shop.getInstance().addCardToShop(spell);
-    }
-       */
-
-}
-
-
     private TextField makingTextField(Group root, int x, int y, String text) {
         TextField textField = new TextField();
         textField.setFont(Font.font("SanSerif", 15));
