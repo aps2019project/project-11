@@ -31,6 +31,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -403,6 +404,7 @@ public class Request {
                         synchronized (requestLock) {
                             requestLock.notify();
                         }
+
                         makingCustomCards(primaryStage);
                         break;
                     case "Logout":
@@ -580,15 +582,15 @@ public class Request {
     }
 
     private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost) {
-        //int AP = Integer.parseInt(ap);
-        //int HP = Integer.parseInt(hp);
-        //int price = Integer.parseInt(cost);
-        //int rangeOfAttack = Integer.parseInt(range);
+        int AP = Integer.parseInt(ap,10);
+        int HP = Integer.parseInt(hp,10);
+        int price = Integer.parseInt(cost,10);
+        int rangeOfAttack = Integer.parseInt(range,10);
         Minion minion = new Minion();
         minion.setCardName(name);
-        //minion.setDefaultAP(AP);
-        //minion.setDefaultHP(HP);
-        //minion.setRangeOfAttack(rangeOfAttack);
+        minion.setDefaultAP(AP);
+        minion.setDefaultHP(HP);
+        minion.setRangeOfAttack(rangeOfAttack);
         if (attackType.equalsIgnoreCase("melee")) {
             minion.setImpactType(ImpactType.melee);
         }
@@ -613,7 +615,7 @@ public class Request {
         } else if (specialPowerActivation.equalsIgnoreCase("onDefend")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
         }
-        //minion.setPrice(price);
+        minion.setPrice(price);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
         Shop.getInstance().addCardToShop(minion);
     }
