@@ -427,10 +427,10 @@ public class Request {
     private void makingCustomCards(Stage stage) {
         setBackGroundImage(rootMakingCustomCard, "file:custom1.jpg");
 
-        Text text = new Text("Choose one of the below");
+        Text text = new Text("Choose one of the items");
         text.setFont(Font.font(45));
-        text.relocate(210, 30);
-        text.setFill(BLACK);
+        text.relocate(220, 30);
+        text.setFill(YELLOW);
 
         Text hero = new Text("Hero");
         hero.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
@@ -461,9 +461,8 @@ public class Request {
         stage.setScene(sceneMakingCustomCards);
     }
 
-    private void spellPage(Stage stage)
-    {
-        setBackGroundImage(rootSpellCustom,"file:spellCustom1.jpg");
+    private void spellPage(Stage stage) {
+        setBackGroundImage(rootSpellCustom, "file:spellCustom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootSpellCustom, 30, 30, "name"));
         textFields.add(makingTextField(rootSpellCustom, 30, 130, "numOfTarget"));
@@ -474,11 +473,11 @@ public class Request {
         textFields.add(makingTextField(rootSpellCustom, 200, 130, "delay"));
         textFields.add(makingTextField(rootSpellCustom, 200, 230, "last"));
         textFields.add(makingTextField(rootSpellCustom, 200, 330, "friendOrEnemy"));
-        textFields.add(makingTextField(rootSpellCustom,200,450,"numOfFriendOrEnemy"));
+        textFields.add(makingTextField(rootSpellCustom, 200, 450, "numOfFriendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom, 370, 30, "isAll"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
-        back.relocate(900,490);
+        back.relocate(900, 490);
         back.setOnMouseClicked(event -> {
             stage.setScene(sceneMakingCustomCards);
         });
@@ -488,7 +487,7 @@ public class Request {
         apply.setOnMouseClicked(event -> {
             workingOnSpellText(textFields);
         });
-        rootSpellCustom.getChildren().addAll(back,apply);
+        rootSpellCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneSpellCustom);
     }
 
@@ -553,7 +552,7 @@ public class Request {
         textFields.add(makingTextField(rootMinionCustom, 200, 230, "cost"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
-        back.relocate(900,505);
+        back.relocate(900, 505);
         back.setOnMouseClicked(event -> {
             stage.setScene(sceneMakingCustomCards);
         });
@@ -564,7 +563,7 @@ public class Request {
             workingOnMinionText(textFields);
         });
 
-        rootMinionCustom.getChildren().addAll(back,apply);
+        rootMinionCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneMinionCustom);
     }
 
@@ -637,12 +636,12 @@ public class Request {
             workingOnHeroText(textFields);
         });
         Button back = new Button("Back");
-        back.relocate(900,505);
+        back.relocate(900, 505);
         back.setFont(Font.font(25));
         back.setOnMouseClicked(event -> {
             stage.setScene(sceneMakingCustomCards);
         });
-        rootHeroCustom.getChildren().addAll(back,apply);
+        rootHeroCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneHeroCustom);
     }
 
@@ -659,7 +658,7 @@ public class Request {
     }
 
     private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost) {
-       // int AP = Integer.parseInt(ap);
+        // int AP = Integer.parseInt(ap);
         //int HP = Integer.parseInt(hp);
         //int price = Integer.parseInt(cost);
         //int rangeOfAttack = Integer.parseInt(range);
@@ -683,6 +682,7 @@ public class Request {
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         Shop.getInstance().addCardToShop(hero);
     }
+
     private TextField makingTextField(Group root, int x, int y, String text) {
         TextField textField = new TextField();
         textField.setFont(Font.font("SanSerif", 15));
@@ -1845,7 +1845,7 @@ public class Request {
         nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                MultiPlayerChooseModeMenu(rootBattleField , primaryStage);
+                MultiPlayerChooseModeMenu(rootBattleField, primaryStage);
 
             }
         });
@@ -1867,10 +1867,10 @@ public class Request {
             }
         });
         primaryStage.setScene(sceneMultiPlayer);
-        rootMultiPlayer.getChildren().addAll(backButton , nextButton);
+        rootMultiPlayer.getChildren().addAll(backButton, nextButton);
     }
 
-    private void MultiPlayerChooseModeMenu(Group rootBattleField , Stage primaryStage) {
+    private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage) {
         rootBattleField.getChildren().clear();
         setBackGroundImage(rootBattleField, "file:CustomGame2.jpg");
         setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
@@ -1910,7 +1910,7 @@ public class Request {
         title.setOnMouseClicked(event -> {
             switch (s) {
                 case "Mode 1":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker( 1 , new Player(multiPlayerAccountToBattle , false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
                     try {
                         setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e) {
@@ -1918,7 +1918,7 @@ public class Request {
                     }
                     break;
                 case "Mode 2":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2 , new Player(multiPlayerAccountToBattle , false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
                     try {
                         setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e) {
@@ -1926,7 +1926,7 @@ public class Request {
                     }
                     break;
                 case "Mode 3":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3 , new Player(multiPlayerAccountToBattle , false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
                     try {
                         setBattleField(primaryStage, "customGameBackGround", false);
                     } catch (IOException e) {
@@ -1944,7 +1944,7 @@ public class Request {
     private void showChoosePlayerMenu(Group rootMultiPlayer) {
         Menu decksMenu = new Menu("Players");
 
-        for (Account account: AccountManager.getAccounts()) {
+        for (Account account : AccountManager.getAccounts()) {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);
             menuItem.setOnAction(e -> {
