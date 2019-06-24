@@ -12,7 +12,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.applet.AudioClip;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -109,10 +108,11 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        convertingToAccounts();
-        Media sound = new Media(new File("StarSky.mp3").toURI().toString());
+        Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+
+        convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
