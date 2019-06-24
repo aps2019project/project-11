@@ -16,18 +16,18 @@ public class NonSpellCard extends Card
     private boolean attackAble = true;
     private boolean counterAttackAble = true;
     private int numOfHolyBuffs;
-    private int rangeOfAttack ;
+    private int rangeOfAttack;
     private ImpactType impactType;
 
-    public int [][] getMoveAbleCells()
+    public int[][] getMoveAbleCells()
     {
         Cell[][] cells = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix();
-        int[][] moveAbleCells = new int [5][9];
+        int[][] moveAbleCells = new int[5][9];
         currentCell.setRow(this.getRow());
         currentCell.setColumn(this.getColumn());
-        for (int i = 0;i < 5;i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0;j < 9;j++)
+            for (int j = 0; j < 9; j++)
             {
                 if (Math.abs(this.currentCell.getRow() - i) + Math.abs(this.currentCell.getColumn() - j) < 3)
                 {
@@ -49,19 +49,23 @@ public class NonSpellCard extends Card
         Minion.setMinions();
     }
 
-    public int getDefaultHP() {
+    public int getDefaultHP()
+    {
         return defaultHP;
     }
 
-    public void setDefaultHP(int defaultHP) {
+    public void setDefaultHP(int defaultHP)
+    {
         this.defaultHP = defaultHP;
     }
 
-    public int getDefaultAP() {
+    public int getDefaultAP()
+    {
         return defaultAP;
     }
 
-    public void setDefaultAP(int defaultAP) {
+    public void setDefaultAP(int defaultAP)
+    {
         this.defaultAP = defaultAP;
     }
 
@@ -70,47 +74,58 @@ public class NonSpellCard extends Card
         return currentHP;
     }
 
-    public int getCurrentAP() {
+    public int getCurrentAP()
+    {
         return currentAP;
     }
 
-    public SpecialPower getSpecialPower() {
+    public SpecialPower getSpecialPower()
+    {
         return specialPower;
     }
 
-    public void setSpecialPower(SpecialPower specialPower) {
+    public void setSpecialPower(SpecialPower specialPower)
+    {
         this.specialPower = specialPower;
     }
 
-    public boolean isMoveAble() {
+    public boolean isMoveAble()
+    {
         return moveAble;
     }
 
-    public void setMoveAble(boolean moveAble) {
+    public void setMoveAble(boolean moveAble)
+    {
         this.moveAble = moveAble;
     }
 
-    public boolean isAttackAble() {
+    public boolean isAttackAble()
+    {
         return attackAble;
     }
 
-    public void setAttackAble(boolean attackAble) {
+    public void setAttackAble(boolean attackAble)
+    {
         this.attackAble = attackAble;
     }
 
-    public boolean isCounterAttackAble() {
+    public boolean isCounterAttackAble()
+    {
         return counterAttackAble;
     }
 
-    public void setCounterAttackAble(boolean counterAttackAble) {
+    public void setCounterAttackAble(boolean counterAttackAble)
+    {
         this.counterAttackAble = counterAttackAble;
     }
 
-    public void setCurrentHP(int currentHP) {
+    public void setCurrentHP(int currentHP)
+    {
         this.currentHP = currentHP;
     }
 
-    public void setCurrentAP(int currentAP) {
+    public void setCurrentAP(int currentAP)
+    {
         this.currentAP = currentAP;
     }
 
@@ -124,7 +139,8 @@ public class NonSpellCard extends Card
         activeSpellsOnThisCard.add(activeSpellOnThisCard);
     }
 
-    public ArrayList<ItemChange> getActiveItemsOnThisCard() {
+    public ArrayList<ItemChange> getActiveItemsOnThisCard()
+    {
         return activeItemsOnThisCard;
     }
 
@@ -143,19 +159,23 @@ public class NonSpellCard extends Card
         this.impactType = impactType;
     }
 
-    public int getRangeOfAttack() {
+    public int getRangeOfAttack()
+    {
         return rangeOfAttack;
     }
 
-    public void setRangeOfAttack(int rangeOfAttack) {
+    public void setRangeOfAttack(int rangeOfAttack)
+    {
         this.rangeOfAttack = rangeOfAttack;
     }
 
-    public Cell getCurrentCell() {
+    public Cell getCurrentCell()
+    {
         return currentCell;
     }
 
-    public void setCurrentCell(Cell currentCell) {
+    public void setCurrentCell(Cell currentCell)
+    {
         this.currentCell = currentCell;
     }
 

@@ -80,7 +80,7 @@ public class BattleFieldController extends Thread
                     text[0].setText("");
                 }
             });
-            counter ++;
+            counter++;
         }
 
     }
