@@ -718,6 +718,11 @@ public class Request
         int price = Integer.parseInt(cost,10);
         int rangeOfAttack = Integer.parseInt(range);
         int cooldown = Integer.parseInt(coolDown,10);
+        int turn = Integer.parseInt(turnsToApply);
+        int apChange = Integer.parseInt(changeAp);
+        int hpChange = Integer.parseInt(changeHp);
+        int mpChange = Integer.parseInt(changeMP);
+        int holyNumber = Integer.parseInt(numOfHolyBuff);
         Hero hero = new Hero();
         hero.setCardName(name);
         hero.setDefaultAP(AP);
@@ -731,6 +736,43 @@ public class Request
         if (attackType.equalsIgnoreCase("hybrid")) {
             hero.setImpactType(ImpactType.hybrid);
         }
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turn);
+        if (isPositive.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isPositiveChange();
+        }
+        if (untilEnd.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isApplyChangeUntilEndOfTheGame();
+        }
+        if (stun.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isStunOpponent();
+        }
+        if (disarm.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
+        }
+        if(toxic.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellToxic();
+        }
+        if (kill.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isKilling();
+        }
+        if (fiery.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellFiery();
+        }
+        if (holyCell.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellHoly();
+        }
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyNumber);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeHP(hpChange);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeAP(apChange);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeMP(mpChange);
         hero.setPrice(price);
         hero.setCoolDown(cooldown);
         hero.setRangeOfAttack(rangeOfAttack);
