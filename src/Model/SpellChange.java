@@ -25,7 +25,12 @@ public class SpellChange
     private boolean continuous;
     private boolean currentTurn;
 
-    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff , boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery , boolean deleteAllPositiveBuff,boolean combo,boolean currentTurn)
+    public SpellChange()
+    {
+
+    }
+
+    public SpellChange(int turnsToApplyChange, boolean positiveChange, boolean applyChangeUntilEndOfTheGame, TimeToActivateSpecialPower timeToActivateSpecialPower, int changeAP, int changeHP, int changeMP, boolean stunOpponent, boolean disarmOpponent, boolean activateHolyBuff, boolean activateReverseHolyBuff, boolean madeCellToxic, boolean madeCellHoly, boolean madeCellFiery, boolean deleteAllPositiveBuff, boolean combo, boolean currentTurn)
     {
         this.turnsToApplyChange = turnsToApplyChange;
         this.positiveChange = positiveChange;
@@ -102,7 +107,7 @@ public class SpellChange
         {
             this.setTurnsToApplyChange(getTurnsToApplyChange());
         }
-        if (this.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onTurn )
+        if (this.getTimeToActivateSpecialPower() == TimeToActivateSpecialPower.onTurn)
         {
             this.setTurnsToApplyChange(getTurnsToApplyChange());
         }
@@ -128,7 +133,7 @@ public class SpellChange
         }
         if (this.isRemoveOwnNegativeBuffs())
         {
-            for (int counter = 0;counter < Battle.getCurrentBattle().findingOwnNonSpellCards().size(); counter++)
+            for (int counter = 0; counter < Battle.getCurrentBattle().findingOwnNonSpellCards().size(); counter++)
             {
                 if (!Battle.getCurrentBattle().findingOwnNonSpellCards().get(counter).getActiveSpellsOnThisCard().get(counter).isPositiveChange())
                 {
@@ -151,91 +156,113 @@ public class SpellChange
         this.setTurnsToApplyChange(this.getTurnsToApplyChange() - 1);
     }
 
-    public int getTurnsToApplyChange() {
+    public int getTurnsToApplyChange()
+    {
         return turnsToApplyChange;
     }
 
-    public void setTurnsToApplyChange(int turnsToApplyChange) {
+    public void setTurnsToApplyChange(int turnsToApplyChange)
+    {
         this.turnsToApplyChange = turnsToApplyChange;
     }
 
-    public boolean isPositiveChange() {
+    public boolean isPositiveChange()
+    {
         return positiveChange;
     }
 
-    public void setPositiveChange(boolean positiveChange) {
+    public void setPositiveChange(boolean positiveChange)
+    {
         this.positiveChange = positiveChange;
     }
 
-    public boolean isRemoveOpponentPositiveBuffs() {
+    public boolean isRemoveOpponentPositiveBuffs()
+    {
         return removeOpponentPositiveBuffs;
     }
 
-    public void setRemoveOpponentPositiveBuffs(boolean removeOpponentPositiveBuffs) {
+    public void setRemoveOpponentPositiveBuffs(boolean removeOpponentPositiveBuffs)
+    {
         this.removeOpponentPositiveBuffs = removeOpponentPositiveBuffs;
     }
 
-    public boolean isRemoveOwnNegativeBuffs() {
+    public boolean isRemoveOwnNegativeBuffs()
+    {
         return removeOwnNegativeBuffs;
     }
 
-    public void setRemoveOwnNegativeBuffs(boolean removeOwnNegativeBuffs) {
+    public void setRemoveOwnNegativeBuffs(boolean removeOwnNegativeBuffs)
+    {
         this.removeOwnNegativeBuffs = removeOwnNegativeBuffs;
     }
 
-    public boolean isApplyChangeUntilEndOfTheGame() {
+    public boolean isApplyChangeUntilEndOfTheGame()
+    {
         return applyChangeUntilEndOfTheGame;
     }
 
-    public void setApplyChangeUntilEndOfTheGame(boolean applyChangeUntilEndOfTheGame) {
+    public void setApplyChangeUntilEndOfTheGame(boolean applyChangeUntilEndOfTheGame)
+    {
         this.applyChangeUntilEndOfTheGame = applyChangeUntilEndOfTheGame;
     }
 
-    public TimeToActivateSpecialPower getTimeToActivateSpecialPower() {
+    public TimeToActivateSpecialPower getTimeToActivateSpecialPower()
+    {
         return timeToActivateSpecialPower;
     }
 
-    public void setTimeToActivateSpecialPower(TimeToActivateSpecialPower timeToActivateSpecialPower) {
+    public void setTimeToActivateSpecialPower(TimeToActivateSpecialPower timeToActivateSpecialPower)
+    {
         this.timeToActivateSpecialPower = timeToActivateSpecialPower;
     }
 
-    public int getChangeAP() {
+    public int getChangeAP()
+    {
         return changeAP;
     }
 
-    public void setChangeAP(int changeAP) {
+    public void setChangeAP(int changeAP)
+    {
         this.changeAP = changeAP;
     }
 
-    public int getChangeHP() {
+    public int getChangeHP()
+    {
         return changeHP;
     }
 
-    public void setChangeHP(int changeHP) {
+    public void setChangeHP(int changeHP)
+    {
         this.changeHP = changeHP;
     }
 
-    public int getChangeMP() {
+    public int getChangeMP()
+    {
         return changeMP;
     }
 
-    public void setChangeMP(int changeMP) {
+    public void setChangeMP(int changeMP)
+    {
         this.changeMP = changeMP;
     }
 
-    public boolean isStunOpponent() {
+    public boolean isStunOpponent()
+    {
         return stunOpponent;
     }
 
-    public void setStunOpponent(boolean stunOpponent) {
+    public void setStunOpponent(boolean stunOpponent)
+    {
         this.stunOpponent = stunOpponent;
     }
 
-    public boolean isDisarmOpponent() {
+    public boolean isDisarmOpponent()
+    {
         return disarmOpponent;
     }
 
-    public void setDisarmOpponent(boolean disarmOpponent) {
+    public void setDisarmOpponent(boolean disarmOpponent)
+    {
         this.disarmOpponent = disarmOpponent;
     }
 
@@ -244,87 +271,108 @@ public class SpellChange
         return activateHolyBuff;
     }
 
-    public void setActivateHolyBuff(boolean activateHolyBuff) {
+    public void setActivateHolyBuff(boolean activateHolyBuff)
+    {
         this.activateHolyBuff = activateHolyBuff;
     }
 
-    public boolean isMadeCellToxic() {
+    public boolean isMadeCellToxic()
+    {
         return madeCellToxic;
     }
 
-    public void setMadeCellToxic(boolean madeCellToxic) {
+    public void setMadeCellToxic(boolean madeCellToxic)
+    {
         this.madeCellToxic = madeCellToxic;
     }
 
-    public boolean isMadeCellHoly() {
+    public boolean isMadeCellHoly()
+    {
         return madeCellHoly;
     }
 
-    public void setMadeCellHoly(boolean madeCellHoly) {
+    public void setMadeCellHoly(boolean madeCellHoly)
+    {
         this.madeCellHoly = madeCellHoly;
     }
 
-    public boolean isMadeCellFiery() {
+    public boolean isMadeCellFiery()
+    {
         return madeCellFiery;
     }
 
-    public void setMadeCellFiery(boolean madeCellFiery) {
+    public void setMadeCellFiery(boolean madeCellFiery)
+    {
         this.madeCellFiery = madeCellFiery;
     }
 
-    public boolean isActivateReverseHolyBuff() {
+    public boolean isActivateReverseHolyBuff()
+    {
         return activateReverseHolyBuff;
     }
 
-    public void setActivateReverseHolyBuff(boolean activateReverseHolyBuff) {
+    public void setActivateReverseHolyBuff(boolean activateReverseHolyBuff)
+    {
         this.activateReverseHolyBuff = activateReverseHolyBuff;
     }
 
-    public boolean isDeleteAllPositiveBuff() {
+    public boolean isDeleteAllPositiveBuff()
+    {
         return deleteAllPositiveBuff;
     }
 
-    public void setDeleteAllPositiveBuff(boolean deleteAllPositiveBuff) {
+    public void setDeleteAllPositiveBuff(boolean deleteAllPositiveBuff)
+    {
         this.deleteAllPositiveBuff = deleteAllPositiveBuff;
     }
 
-    public boolean isKilling() {
+    public boolean isKilling()
+    {
         return killing;
     }
 
-    public void setKilling(boolean killing) {
+    public void setKilling(boolean killing)
+    {
         this.killing = killing;
     }
 
-    public boolean isDispel() {
+    public boolean isDispel()
+    {
         return dispel;
     }
 
-    public void setDispel(boolean dispel) {
+    public void setDispel(boolean dispel)
+    {
         this.dispel = dispel;
     }
 
-    public boolean isContinuous() {
+    public boolean isContinuous()
+    {
         return continuous;
     }
 
-    public void setContinuous(boolean continuous) {
+    public void setContinuous(boolean continuous)
+    {
         this.continuous = continuous;
     }
 
-    public int getNumOfHolyBuffs() {
+    public int getNumOfHolyBuffs()
+    {
         return numOfHolyBuffs;
     }
 
-    public void setNumOfHolyBuffs(int numOfHolyBuffs) {
+    public void setNumOfHolyBuffs(int numOfHolyBuffs)
+    {
         this.numOfHolyBuffs = numOfHolyBuffs;
     }
 
-    public boolean isCurrentTurn() {
+    public boolean isCurrentTurn()
+    {
         return currentTurn;
     }
 
-    public void setCurrentTurn(boolean currentTurn) {
+    public void setCurrentTurn(boolean currentTurn)
+    {
         this.currentTurn = currentTurn;
     }
 }

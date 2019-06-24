@@ -18,6 +18,11 @@ public class Target
     private boolean allOwnBothNonSpellCards;
     private boolean allOpponentNonSpellCards;
 
+    public Target()
+    {
+
+    }
+
     public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, int maxAttackRange , NonSpellCard nextNoneSpellCard , boolean allOwnMinion, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;

@@ -22,6 +22,7 @@ public class Spell extends Card
     {
 
     }
+
     public static void setSpells()
     {
         Spell spellOne = new Spell("totalDisarm",1000,0, "disarm");
