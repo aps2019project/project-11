@@ -6,6 +6,7 @@ import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -489,6 +490,9 @@ public class Request
         textFields.add(makingTextField(rootSpellCustom, 200, 330, "friendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom,200,450,"numOfFriendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom, 370, 30, "isAll"));
+        textFields.add(makingTextField(rootSpellCustom,370,130,"numOfHolyBuff"));
+        textFields.add(makingTextField(rootSpellCustom,370,230,"changingHP"));
+        textFields.add(makingTextField(rootSpellCustom,370,330,"changingAp"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,490);
@@ -518,14 +522,24 @@ public class Request
         String numOfFriendOrEnemy = textFields.get(9).getText();
         String isAll = textFields.get(10).getText();
         String mp = textFields.get(11).getText();
-        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll,mp);
+        String numOfHolyBuff = textFields.get(12).getText();
+        String changingHP = textFields.get(13).getText();
+        String changingAP = textFields.get(14).getText();
+        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll,mp,numOfHolyBuff,changingAP,changingHP);
     }
 
-    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll) {
+    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp , String changingHp)
+    {
         Spell spell = new Spell();
         spell.setCardName(nameOfBuff);
+        int mp = Integer.parseInt(MP);
+        spell.setRequiredMP(mp);
+        int holyBuffNumber = Integer.parseInt(numOfHolyBuff);
+        int apChanging = Integer.parseInt(changingAp);
+        int HpChanging = Integer.parseInt(changingHp);
         if (buffType.equalsIgnoreCase("holy")) {
             spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
+            spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
         }
         if (buffType.equalsIgnoreCase("stun")) {
             spell.getSpellEffect().getSpellChanges().get(0).isStunOpponent();
@@ -534,18 +548,16 @@ public class Request
             spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
         }
         if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness")) {
-            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(Integer.parseInt(effectValue));
-            numOfTarget = effectValue;
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
         }
         if (friendOrEnemy.equalsIgnoreCase("friend")) {
             spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
-            kindOfMinion = "friend";
             if (isAll.equalsIgnoreCase("true")) {
                 spell.getSpellEffect().getTargets().get(0).isAllOwnBothNonSpellCards();
             }
         } else if (friendOrEnemy.equalsIgnoreCase("enemy")) {
             spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(Integer.parseInt(numOfFriendOrEnemy));
-            kindOfMinion = "enemy";
             if (isAll.equalsIgnoreCase("true")) {
                 spell.getSpellEffect().getTargets().get(0).isAllOpponentNonSpellCards();
             }
