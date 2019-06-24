@@ -490,9 +490,10 @@ public class Request
         textFields.add(makingTextField(rootSpellCustom, 200, 330, "friendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom,200,450,"numOfFriendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom, 370, 30, "isAll"));
-        textFields.add(makingTextField(rootSpellCustom,370,130,"numOfHolyBuff"));
-        textFields.add(makingTextField(rootSpellCustom,370,230,"changingHP"));
-        textFields.add(makingTextField(rootSpellCustom,370,330,"changingAp"));
+        textFields.add(makingTextField(rootSpellCustom,370,130,"Mp"));
+        textFields.add(makingTextField(rootSpellCustom,370,230,"numOfHolyBuff"));
+        textFields.add(makingTextField(rootSpellCustom,370,330,"changingHP"));
+        textFields.add(makingTextField(rootSpellCustom,370,450,"changingAp"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,490);
