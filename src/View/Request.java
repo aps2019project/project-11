@@ -520,6 +520,8 @@ public class Request {
     private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll,String Mp) {
         Spell spell = new Spell();
         spell.setCardName(nameOfBuff);
+        int MP = Integer.parseInt(Mp);
+        spell.setRequiredMP(MP);
         if (buffType.equalsIgnoreCase("holy")) {
             spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
         }
@@ -597,10 +599,12 @@ public class Request {
         int HP = Integer.parseInt(hp,10);
         int price = Integer.parseInt(cost,10);
         int rangeOfAttack = Integer.parseInt(range,10);
+        int mp = Integer.parseInt(MP);
         Minion minion = new Minion();
         minion.setCardName(name);
         minion.setDefaultAP(AP);
         minion.setDefaultHP(HP);
+        minion.setRequiredMP(mp);
         minion.setRangeOfAttack(rangeOfAttack);
         if (attackType.equalsIgnoreCase("melee")) {
             minion.setImpactType(ImpactType.melee);
@@ -674,14 +678,15 @@ public class Request {
 
     private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost,String Mp)
     {
-         int AP = Integer.parseInt(ap);
+        int AP = Integer.parseInt(ap,10);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost,10);
         int rangeOfAttack = Integer.parseInt(range);
         int cooldown = Integer.parseInt(coolDown,10);
+        int MP = Integer.parseInt(Mp);
         Hero hero = new Hero();
         hero.setCardName(name);
-        hero.setDefaultAP(AP);
+      //  hero.setDefaultAP(AP);
         hero.setDefaultHP(HP);
         if (attackType.equalsIgnoreCase("melee")) {
             hero.setImpactType(ImpactType.melee);
@@ -694,6 +699,7 @@ public class Request {
         }
         hero.setPrice(price);
         hero.setCoolDown(cooldown);
+        hero.setRequiredMP(MP);
         hero.setRangeOfAttack(rangeOfAttack);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         Shop.getInstance().addCardToShop(hero);
