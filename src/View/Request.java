@@ -634,15 +634,22 @@ public class Request
         String toxic = textFields.get(16).getText();
         String holyCell = textFields.get(17).getText();
         String fiery = textFields.get(18).getText();
-        String kill = textFields.get(19).getText();
-        makingMinionCard(name, Ap, Hp, AttackType, Range, specialPowerActivation, cost);
+        String combo = textFields.get(19).getText();
+        makingMinionCard(name, Ap, Hp, AttackType, Range, specialPowerActivation, cost,turnsToApply,isPositive,untilEnd,changeAp,changeHp,changeMp,stun,disarm,numOfHolyBuff,toxic,holyCell,fiery,combo);
     }
 
-    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost) {
+    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost,String turn , String isPositive,String end,String changeAP,String changeHP , String ChangeMP, String stun , String disarm, String numOfHolyBuff, String toxic,String holycell,String fiery, String combo)
+    {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp,10);
         int price = Integer.parseInt(cost,10);
         int rangeOfAttack = Integer.parseInt(range,10);
+        int apChange = Integer.parseInt(changeAP);
+        int hpChange = Integer.parseInt(changeHP);
+        int MpChange = Integer.parseInt(ChangeMP);
+        int turnToApply = Integer.parseInt(turn);
+        int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
+
         Minion minion = new Minion();
         minion.setCardName(name);
         minion.setDefaultAP(AP);
