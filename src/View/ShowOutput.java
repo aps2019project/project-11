@@ -77,28 +77,35 @@ public class ShowOutput
     void showRankingPlayers()
     {
         int counter = 1;
-        for (Account account : AccountManager.getAccounts())
+        try
         {
-            if (counter > 10)
+            for (Account account : AccountManager.getAccounts())
             {
-                return;
-            }
-            Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
-            labelPlayerName.setFont(Font.font(15));
-            labelPlayerName.relocate(25, counter * 50);
-            rootLeaderBoard.getChildren().add(labelPlayerName);
+                if (counter > 10)
+                {
+                    break;
+                }
+                Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
+                labelPlayerName.setFont(Font.font(15));
+                labelPlayerName.relocate(25, counter * 50);
+                rootLeaderBoard.getChildren().add(labelPlayerName);
 
-            Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
-            labelPlayerHighScore.setFont(Font.font(15));
-            labelPlayerHighScore.relocate(250, counter * 50);
-            rootLeaderBoard.getChildren().add(labelPlayerHighScore);
+                Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
+                labelPlayerHighScore.setFont(Font.font(15));
+                labelPlayerHighScore.relocate(250, counter * 50);
+                rootLeaderBoard.getChildren().add(labelPlayerHighScore);
 
-            if (account.equals(Account.loggedInAccount))
-            {
-                labelPlayerName.setTextFill(Color.RED);
-                labelPlayerHighScore.setTextFill(Color.RED);
+                if (account.equals(Account.loggedInAccount))
+                {
+                    labelPlayerName.setTextFill(Color.RED);
+                    labelPlayerHighScore.setTextFill(Color.RED);
+                }
+                counter++;
             }
-            counter++;
+        }
+        catch (Exception e)
+        {
+            showRankingPlayers();
         }
     }
 
@@ -227,7 +234,7 @@ public class ShowOutput
     public String showCardInfoString(String cardName)
     {
         System.out.println(cardName);
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);//getAccount().getCollection().findCardinCollection(cardID);
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)
         {
@@ -241,7 +248,6 @@ public class ShowOutput
             {
                 str.append("This hero has no special power");
             }
-
         }
         if (card instanceof Minion)
         {
