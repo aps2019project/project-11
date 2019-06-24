@@ -672,6 +672,18 @@ public class Request
         {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isPositiveChange();
         }
+        if (stun.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isStunOpponent();
+        }
+        if (fiery.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellFiery();
+        }
+        if (combo.equalsIgnoreCase("true"))
+        {
+            minion.setAbleToCombo(true);
+        }
         if (UntilEnd.equalsIgnoreCase("true"))
         {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isApplyChangeUntilEndOfTheGame();
@@ -683,6 +695,10 @@ public class Request
         if (toxic.equalsIgnoreCase("true"))
         {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellToxic();
+        }
+        if (holycell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).isMadeCellHoly();
         }
         if (specialPowerActivation.equalsIgnoreCase("combo")) {
             minion.setAbleToCombo(true);
