@@ -247,7 +247,6 @@ public class CallTheAppropriateFunction extends Thread
                         request.requestLock.wait();
                     }
                     request.setCommand(null);
-                    //determineBattleCommand();
                     break;
                 case CUSTOM_GAME:
                     showOutput.showCustomGameInfo();
@@ -279,7 +278,7 @@ public class CallTheAppropriateFunction extends Thread
         return null;
     }
 
-    private void selectSecondPlayerInMultiPlayerMatch() throws InterruptedException
+    private void selectSecondPlayerInMultiPlayerMatch() throws InterruptedException, IOException
     {
         while (true)
         {
@@ -291,22 +290,10 @@ public class CallTheAppropriateFunction extends Thread
                     request.requestLock.wait();
                 }
             }
-            switch (request.getCommand())
+            if (request.getCommand() == CommandType.EXIT)
             {
-                case SELECT_USER:
-                    Player firstPlayer = new Player(Account.loggedInAccount, false);
-                    Player secondPlayer = battleManager.selectSecondPlayer(request.getCommand().username);
-                    if (secondPlayer != null)
-                    {
-                        selectMultiPlayerMatchMode(firstPlayer, secondPlayer);
-                    }
-                    break;
-                case SHOW_MENU:
-                    showOutput.showMenuSelectUserForMultiPlayerMatch();
-                    break;
-                case EXIT:
-                    request.setCommand(null);
-                    return;
+                request.setCommand(null);
+                determineBattleMenuCommand();
             }
             request.setCommand(null);
         }
