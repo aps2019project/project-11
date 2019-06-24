@@ -437,6 +437,9 @@ public class Request {
         minion.relocate(450,400);
         minion.setFont(Font.font(null,FontWeight.SEMI_BOLD,40));
 
+        hero.setOnMouseClicked(event -> {
+            heroPage(stage);
+        });
 
 
 
@@ -478,6 +481,27 @@ public class Request {
         rootMakingCustomCard.getChildren().add(apply);
        */
         stage.setScene(sceneMakingCustomCards);
+    }
+
+    private void heroPage(Stage stage)
+    {
+        ArrayList<TextField> textFields = new ArrayList<>();
+        textFields.add(makingTextField(rootHeroCustom,30,30,"name"));
+        textFields.add(makingTextField(rootHeroCustom,30,130,"Ap"));
+        textFields.add(makingTextField(rootHeroCustom,30,230,"Hp"));
+        textFields.add(makingTextField(rootHeroCustom,30,330,"AttackType"));
+        textFields.add(makingTextField(rootHeroCustom,30,450,"Range"));
+        textFields.add(makingTextField(rootHeroCustom,200,30,"specialPower"));
+        textFields.add(makingTextField(rootHeroCustom,200,130,"collDown"));
+        textFields.add(makingTextField(rootHeroCustom,200,230,"cost"));
+        workingOnHeroText (textFields);
+
+        stage.setScene(sceneHeroCustom);
+    }
+
+    private void workingOnHeroText(ArrayList<TextField> textFields)
+    {
+
     }
 
     private void workingOnTextFields(ArrayList<TextField> textFields) {
