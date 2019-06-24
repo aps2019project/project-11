@@ -437,25 +437,31 @@ public class Request {
 
         Text hero = new Text("Hero");
         hero.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        hero.relocate(450, 150);
+        hero.layoutXProperty().bind(sceneMakingCustomCards.widthProperty().subtract(hero.prefWidth(-1)).divide(2));
+        hero.setY(150);
+
         Text spell = new Text("Spell");
         spell.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        spell.relocate(450, 260);
+        spell.layoutXProperty().bind(sceneMakingCustomCards.widthProperty().subtract(spell.prefWidth(-1)).divide(2));
+        spell.setY(250);
+
         Text minion = new Text("Minion");
-        minion.relocate(450, 400);
         minion.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
-        hero.setOnMouseEntered(event -> hero.setFill(BLACK));
-        hero.setOnMouseExited(event -> hero.setFill(Color.BLUE));
+        minion.layoutXProperty().bind(sceneMakingCustomCards.widthProperty().subtract(minion.prefWidth(-1)).divide(2));
+        minion.setY(350);
+
+        hero.setOnMouseEntered(event -> hero.setFill(BLUE));
+        hero.setOnMouseExited(event -> hero.setFill(BLACK));
         hero.setOnMouseClicked(event -> {
             heroPage(stage);
         });
-        minion.setOnMouseEntered(event -> minion.setFill(BLACK));
-        minion.setOnMouseExited(event -> minion.setFill(BLUE));
+        minion.setOnMouseEntered(event -> minion.setFill(BLUE));
+        minion.setOnMouseExited(event -> minion.setFill(BLACK));
         minion.setOnMouseClicked(event -> {
             minionPage(stage);
         });
-        spell.setOnMouseEntered(event -> spell.setFill(BLACK));
-        spell.setOnMouseExited(event -> spell.setFill(BLUE));
+        minion.setOnMouseEntered(event -> minion.setFill(BLUE));
+        minion.setOnMouseExited(event -> minion.setFill(BLACK));
         spell.setOnMouseClicked(event -> {
             spellPage(stage);
         });
