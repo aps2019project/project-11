@@ -460,8 +460,8 @@ public class Request {
         minion.setOnMouseClicked(event -> {
             minionPage(stage);
         });
-        minion.setOnMouseEntered(event -> minion.setFill(BLUE));
-        minion.setOnMouseExited(event -> minion.setFill(BLACK));
+        spell.setOnMouseEntered(event -> spell.setFill(BLUE));
+        spell.setOnMouseExited(event -> spell.setFill(BLACK));
         spell.setOnMouseClicked(event -> {
             spellPage(stage);
         });
