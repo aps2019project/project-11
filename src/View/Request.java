@@ -2210,7 +2210,8 @@ public class Request
                 try
                 {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }

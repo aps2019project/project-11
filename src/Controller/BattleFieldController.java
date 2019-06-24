@@ -19,7 +19,7 @@ import javafx.util.Duration;
 @SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
-    private boolean isCardSelectedForInsert = false;
+    private boolean isCardSelectedToInsert = false;
     private boolean isCardSelectedInBattle = false;
     private Card selectedCardForInserting;
     private Card selectedCard;
@@ -99,13 +99,13 @@ public class BattleFieldController extends Thread
                 @Override
                 public void handle(MouseEvent event)
                 {
-                    if (isCardSelectedForInsert)
+                    if (isCardSelectedToInsert)
                     {
                         //todo to Show error
                     }
                     else
                     {
-                        setCardSelectedForInsert(true);
+                        setCardSelectedToInsert(true);
                         setSelectedCardForInserting(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
                     }
@@ -123,13 +123,13 @@ public class BattleFieldController extends Thread
                 @Override
                 public void handle(MouseEvent event)
                 {
-                    if (isCardSelectedForInsert)
+                    if (isCardSelectedToInsert)
                     {
                         //todo to show error
                     }
                     else
                     {
-                        setCardSelectedForInsert(true);
+                        setCardSelectedToInsert(true);
                         setSelectedCardForInserting(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
                     }
@@ -155,7 +155,7 @@ public class BattleFieldController extends Thread
                     @Override
                     public void handle(MouseEvent event)
                     {
-                        if (isCardSelectedForInsert)
+                        if (isCardSelectedToInsert)
                         {
                             if (selectedCardForInserting instanceof Minion)
                             {
@@ -175,7 +175,7 @@ public class BattleFieldController extends Thread
                                     Battle.getCurrentBattle().setHandIcons();
                                     Request.getInstance().setMPIcons(rootBattleField);
 
-                                    setCardSelectedForInsert(false);
+                                    setCardSelectedToInsert(false);
                                     setSelectedCardForInserting(null);
                                     checkSelectingCard();
                                     run();
@@ -191,7 +191,7 @@ public class BattleFieldController extends Thread
                                     Request.getInstance().setMPIcons(rootBattleField);
 
                                     setSelectedCardForInserting(null);
-                                    setCardSelectedForInsert(false);
+                                    setCardSelectedToInsert(false);
                                     checkSelectingCard();
 
                                     //todo Animation
@@ -308,14 +308,14 @@ public class BattleFieldController extends Thread
         this.selectedCardForInserting = selectedCardForInserting;
     }
 
-    public boolean isCardSelectedForInsert()
+    public boolean isCardSelectedToInsert()
     {
-        return isCardSelectedForInsert;
+        return isCardSelectedToInsert;
     }
 
-    private void setCardSelectedForInsert(boolean cardSelectedForInsert)
+    private void setCardSelectedToInsert(boolean cardSelectedToInsert)
     {
-        isCardSelectedForInsert = cardSelectedForInsert;
+        isCardSelectedToInsert = cardSelectedToInsert;
     }
 
     public Group getRootBattleField()
