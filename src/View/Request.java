@@ -484,6 +484,7 @@ public class Request {
         textFields.add(makingTextField(rootSpellCustom, 200, 330, "friendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom,200,450,"numOfFriendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom, 370, 30, "isAll"));
+        textFields.add(makingTextField(rootSpellCustom,370,130,"MP"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,490);
@@ -512,10 +513,11 @@ public class Request {
         String friendOrEnemy = textFields.get(8).getText();
         String numOfFriendOrEnemy = textFields.get(9).getText();
         String isAll = textFields.get(10).getText();
-        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll);
+        String mp = textFields.get(11).getText();
+        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll,mp);
     }
 
-    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll) {
+    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll,String Mp) {
         Spell spell = new Spell();
         spell.setCardName(nameOfBuff);
         if (buffType.equalsIgnoreCase("holy")) {
@@ -559,6 +561,7 @@ public class Request {
         textFields.add(makingTextField(rootMinionCustom, 200, 30, "specialPower"));
         textFields.add(makingTextField(rootMinionCustom, 200, 130, "specialActivation"));
         textFields.add(makingTextField(rootMinionCustom, 200, 230, "cost"));
+        textFields.add(makingTextField(rootMinionCustom,200,330,"MP"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,505);
@@ -585,10 +588,11 @@ public class Request {
         String SpecialPower = textFields.get(5).getText();
         String specialPowerActivation = textFields.get(6).getText();
         String cost = textFields.get(7).getText();
-        makingMinionCard(name, Ap, Hp, AttackType, Range, SpecialPower, specialPowerActivation, cost);
+        String Mp = textFields.get(8).getText();
+        makingMinionCard(name, Ap, Hp, AttackType, Range, SpecialPower, specialPowerActivation, cost,Mp);
     }
 
-    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost) {
+    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost,String MP) {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp,10);
         int price = Integer.parseInt(cost,10);
@@ -638,6 +642,7 @@ public class Request {
         textFields.add(makingTextField(rootHeroCustom, 200, 30, "specialPower"));
         textFields.add(makingTextField(rootHeroCustom, 200, 130, "coolDown"));
         textFields.add(makingTextField(rootHeroCustom, 200, 230, "cost"));
+        textFields.add(makingTextField(rootHeroCustom,200,330,"MP"));
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
@@ -663,10 +668,12 @@ public class Request {
         String SpecialPower = textFields.get(5).getText();
         String coolDown = textFields.get(6).getText();
         String cost = textFields.get(7).getText();
-        makingHeroCard(name, Ap, Hp, AttackType, Range, SpecialPower, coolDown, cost);
+        String MP = textFields.get(8).getText();
+        makingHeroCard(name, Ap, Hp, AttackType, Range, SpecialPower, coolDown, cost,MP);
     }
 
-    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost) {
+    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost,String Mp)
+    {
          int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost,10);
