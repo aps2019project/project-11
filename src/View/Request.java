@@ -716,7 +716,8 @@ public class Request
         stage.setScene(sceneHeroCustom);
     }
 
-    private void workingOnHeroText(ArrayList<TextField> textFields) {
+    private void workingOnHeroText(ArrayList<TextField> textFields)
+    {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
         String Hp = textFields.get(2).getText();

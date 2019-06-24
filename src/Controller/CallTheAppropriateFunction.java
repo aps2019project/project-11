@@ -247,13 +247,16 @@ public class CallTheAppropriateFunction extends Thread
                         request.requestLock.wait();
                     }
                     request.setCommand(null);
+                    selectSinglePlayerMatchMode();
                     break;
                 case CUSTOM_GAME:
                     showOutput.showCustomGameInfo();
-                    request.getCustomGameCommands();
-                    Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(request.getCommand().deckNameForCustomGame);
-                    new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(request.getCommand().customGameMode), BattleType.CUSTOM_GAME);
-                    determineBattleCommand();
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    selectSinglePlayerMatchMode();
                     break;
                 case EXIT:
                     request.setCommand(null);
@@ -280,9 +283,9 @@ public class CallTheAppropriateFunction extends Thread
 
     private void selectSecondPlayerInMultiPlayerMatch() throws InterruptedException, IOException
     {
+        accountManager.showAllPlayers();
         while (true)
         {
-            accountManager.showAllPlayers();
             if (request.getCommand() == null)
             {
                 synchronized (request.requestLock)
