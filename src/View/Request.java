@@ -451,7 +451,7 @@ public class Request {
         spell.setOnMouseClicked(event -> {
             spellPage(stage);
         });
-
+        backButton(stage, rootMakingCustomCard, 900, 450);
         rootMakingCustomCard.getChildren().addAll(minion, spell, hero, text);
         /*ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootMakingCustomCard, 30, 30, "name"));
@@ -501,7 +501,19 @@ public class Request {
         textFields.add(makingTextField(rootSpellCustom, 200, 330, "friendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom,200,450,"numOfFriendOrEnemy"));
         textFields.add(makingTextField(rootSpellCustom, 370, 30, "isAll"));
-        workingOnSpellText(textFields);
+        Button back = new Button("Back");
+        back.setFont(Font.font(25));
+        back.relocate(900,490);
+        back.setOnMouseClicked(event -> {
+            stage.setScene(sceneMakingCustomCards);
+        });
+        Button apply = new Button("Apply");
+        apply.relocate(780, 490);
+        apply.setFont(Font.font(25));
+        apply.setOnMouseClicked(event -> {
+            workingOnSpellText(textFields);
+        });
+        rootSpellCustom.getChildren().addAll(back,apply);
         stage.setScene(sceneSpellCustom);
     }
 
@@ -564,8 +576,20 @@ public class Request {
         textFields.add(makingTextField(rootMinionCustom, 200, 30, "specialPower"));
         textFields.add(makingTextField(rootMinionCustom, 200, 130, "specialActivation"));
         textFields.add(makingTextField(rootMinionCustom, 200, 230, "cost"));
-        workingOnMinionText(textFields);
+        Button back = new Button("Back");
+        back.setFont(Font.font(25));
+        back.relocate(900,505);
+        back.setOnMouseClicked(event -> {
+            stage.setScene(sceneMakingCustomCards);
+        });
+        Button apply = new Button("Apply");
+        apply.relocate(780, 505);
+        apply.setFont(Font.font(25));
+        apply.setOnMouseClicked(event -> {
+            workingOnMinionText(textFields);
+        });
 
+        rootMinionCustom.getChildren().addAll(back,apply);
         stage.setScene(sceneMinionCustom);
     }
 
@@ -631,8 +655,19 @@ public class Request {
         textFields.add(makingTextField(rootHeroCustom, 200, 30, "specialPower"));
         textFields.add(makingTextField(rootHeroCustom, 200, 130, "coolDown"));
         textFields.add(makingTextField(rootHeroCustom, 200, 230, "cost"));
-        workingOnHeroText(textFields);
-
+        Button apply = new Button("Apply");
+        apply.relocate(780, 500);
+        apply.setFont(Font.font(25));
+        apply.setOnMouseClicked(event -> {
+            workingOnHeroText(textFields);
+        });
+        Button back = new Button("Back");
+        back.relocate(900,505);
+        back.setFont(Font.font(25));
+        back.setOnMouseClicked(event -> {
+            stage.setScene(sceneMakingCustomCards);
+        });
+        rootHeroCustom.getChildren().addAll(back,apply);
         stage.setScene(sceneHeroCustom);
     }
 
