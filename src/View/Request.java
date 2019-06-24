@@ -137,7 +137,8 @@ public class Request {
     private Group rootGraveYard = Main.getRootGraveYard();
     private ScrollPane scrollPaneGraveYard = Main.getScrollPaneGraveYard();
     private Scene sceneGraveYard = Main.getSceneGraveYard();
-
+    private Scene sceneHeroCustom = Main.getSceneHeroCustom();
+    private Group rootHeroCustom = Main.getRootHeroCustom();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
 
@@ -419,10 +420,34 @@ public class Request {
     }
 
     private void makingCustomCards(Stage stage) {
-        rootMakingCustomCard.getChildren().clear();
+        //rootMakingCustomCard.getChildren().clear();
 
         setBackGroundImage(rootMakingCustomCard, "file:custom1.jpg");
-        ArrayList<TextField> textFields = new ArrayList<>();
+
+        Text text = new Text("Choose one of the below");
+        text.setFont(Font.font(45));
+        text.relocate(160,30);
+        Text hero = new Text("Hero");
+        hero.setFont(Font.font(null,FontWeight.SEMI_BOLD,40));
+        hero.relocate(450,150);
+        Text spell = new Text("Spell");
+        spell.setFont(Font.font(null,FontWeight.SEMI_BOLD,40));
+        spell.relocate(450,260);
+        Text minion = new Text("Minion");
+        minion.relocate(450,400);
+        minion.setFont(Font.font(null,FontWeight.SEMI_BOLD,40));
+
+
+
+
+
+
+
+
+
+
+        rootMakingCustomCard.getChildren().addAll(minion,spell,hero,text);
+        /*ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootMakingCustomCard, 30, 30, "name"));
         textFields.add(makingTextField(rootMakingCustomCard, 30, 100, "type"));
         textFields.add(makingTextField(rootMakingCustomCard, 30, 170, "numberOfTarget"));
@@ -451,6 +476,7 @@ public class Request {
             workingOnTextFields(textFields);
         });
         rootMakingCustomCard.getChildren().add(apply);
+       */
         stage.setScene(sceneMakingCustomCards);
     }
 

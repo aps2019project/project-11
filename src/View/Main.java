@@ -59,6 +59,20 @@ public class Main extends Application
     private static Group rootGraveYard = new Group();
     private static ScrollPane scrollPaneGraveYard = new ScrollPane();
     private static Scene sceneGraveYard = new Scene(scrollPaneGraveYard, 1000, 562);
+    private static Group rootHeroCustom = new Group();
+    private static Scene sceneHeroCustom = new Scene(rootHeroCustom,1000,562);
+
+    public static Scene getSceneHeroCustom() {
+        return sceneHeroCustom;
+    }
+
+    public static void setSceneHeroCustom(Scene sceneHeroCustom) {
+        Main.sceneHeroCustom = sceneHeroCustom;
+    }
+
+    public static Group getRootHeroCustom() {
+        return rootHeroCustom;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception
