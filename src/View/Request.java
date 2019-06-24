@@ -5,6 +5,7 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.xml.internal.bind.v2.runtime.AttributeAccessor;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -492,7 +493,7 @@ public class Request {
         textFields.add(makingTextField(rootHeroCustom,30,330,"AttackType"));
         textFields.add(makingTextField(rootHeroCustom,30,450,"Range"));
         textFields.add(makingTextField(rootHeroCustom,200,30,"specialPower"));
-        textFields.add(makingTextField(rootHeroCustom,200,130,"collDown"));
+        textFields.add(makingTextField(rootHeroCustom,200,130,"coolDown"));
         textFields.add(makingTextField(rootHeroCustom,200,230,"cost"));
         workingOnHeroText (textFields);
 
@@ -500,6 +501,19 @@ public class Request {
     }
 
     private void workingOnHeroText(ArrayList<TextField> textFields)
+    {
+        String name = textFields.get(0).getText();
+        String Ap = textFields.get(1).getText();
+        String Hp = textFields.get(2).getText();
+        String AttackType = textFields.get(3).getText();
+        String Range = textFields.get(4).getText();
+        String SpecialPower = textFields.get(5).getText();
+        String coolDown = textFields.get(6).getText();
+        String cost = textFields.get(7).getText();
+        makingHeroCard(name,Ap,Hp, AttackType,Range,SpecialPower,coolDown,cost);
+    }
+
+    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost)
     {
 
     }
