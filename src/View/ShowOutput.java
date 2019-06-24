@@ -233,7 +233,6 @@ public class ShowOutput
 
     public String showCardInfoString(String cardName)
     {
-        System.out.println(cardName);
         Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)
