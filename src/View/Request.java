@@ -492,6 +492,7 @@ public class Request {
 
     private void minionPage(Stage stage)
     {
+        setBackGroundImage(rootMinionCustom,"file:minionCustom1.jpg");
      ArrayList<TextField> textFields = new ArrayList<>();
      textFields.add(makingTextField(rootMinionCustom,30,30,"name"));
         textFields.add(makingTextField(rootMinionCustom,30,130,"Ap"));
@@ -521,15 +522,15 @@ public class Request {
 
     private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost)
     {
-        int AP = Integer.parseInt(ap);
-        int HP = Integer.parseInt(hp);
-        int price = Integer.parseInt(cost);
-        int rangeOfAttack = Integer.parseInt(range);
+        //int AP = Integer.parseInt(ap);
+        //int HP = Integer.parseInt(hp);
+        //int price = Integer.parseInt(cost);
+        //int rangeOfAttack = Integer.parseInt(range);
         Minion minion = new Minion();
         minion.setCardName(name);
-        minion.setDefaultAP(AP);
-        minion.setDefaultHP(HP);
-        minion.setRangeOfAttack(rangeOfAttack);
+        //minion.setDefaultAP(AP);
+        //minion.setDefaultHP(HP);
+        //minion.setRangeOfAttack(rangeOfAttack);
         if (attackType.equalsIgnoreCase("melee")) {
             minion.setImpactType(ImpactType.melee);
         }
@@ -566,7 +567,7 @@ public class Request {
         {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
         }
-        minion.setPrice(price);
+        //minion.setPrice(price);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
         Shop.getInstance().addCardToShop(minion);
     }
