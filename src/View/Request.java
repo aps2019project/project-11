@@ -501,6 +501,7 @@ public class Request
         textFields.add(makingTextField(rootSpellCustom,370,230,"numOfHolyBuff"));
         textFields.add(makingTextField(rootSpellCustom,370,330,"changingHP"));
         textFields.add(makingTextField(rootSpellCustom,370,450,"changingAp"));
+        textFields.add(makingTextField(rootSpellCustom,540,30,"changingMp"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,490);
@@ -533,10 +534,11 @@ public class Request
         String numOfHolyBuff = textFields.get(12).getText();
         String changingHP = textFields.get(13).getText();
         String changingAP = textFields.get(14).getText();
-        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll,mp,numOfHolyBuff,changingAP,changingHP);
+        String changingMp = textFields.get(15).getText();
+        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll,mp,numOfHolyBuff,changingAP,changingHP,changingMp);
     }
 
-    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp , String changingHp)
+    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp , String changingHp,String changingMp)
     {
         Spell spell = new Spell();
         spell.setCardName(nameOfBuff);
@@ -545,6 +547,11 @@ public class Request
         int holyBuffNumber = Integer.parseInt(numOfHolyBuff);
         int apChanging = Integer.parseInt(changingAp);
         int HpChanging = Integer.parseInt(changingHp);
+        int MPChanging = Integer.parseInt(changingMp);
+        int lasting = Integer.parseInt(last);
+
+        spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+        spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
         if (buffType.equalsIgnoreCase("holy")) {
             spell.getSpellEffect().getSpellChanges().get(0).isActivateHolyBuff();
             spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
@@ -555,9 +562,14 @@ public class Request
         if (buffType.equalsIgnoreCase("disarm")) {
             spell.getSpellEffect().getSpellChanges().get(0).isDisarmOpponent();
         }
-        if (buffType.equalsIgnoreCase("power") || buffType.equalsIgnoreCase("weakness")) {
+        if (buffType.equalsIgnoreCase("power")) {
             spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
             spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+        }
+        if (buffType.equalsIgnoreCase("weakness"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
         }
         if (friendOrEnemy.equalsIgnoreCase("friend")) {
             spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
