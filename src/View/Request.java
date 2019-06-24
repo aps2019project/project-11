@@ -667,15 +667,15 @@ public class Request {
     }
 
     private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost) {
-        // int AP = Integer.parseInt(ap);
-        //int HP = Integer.parseInt(hp);
-        //int price = Integer.parseInt(cost);
-        //int rangeOfAttack = Integer.parseInt(range);
-        //int cooldown = Integer.parseInt(coolDown);
+         int AP = Integer.parseInt(ap);
+        int HP = Integer.parseInt(hp);
+        int price = Integer.parseInt(cost,10);
+        int rangeOfAttack = Integer.parseInt(range);
+        int cooldown = Integer.parseInt(coolDown,10);
         Hero hero = new Hero();
         hero.setCardName(name);
-        //hero.setDefaultAP(Integer.parseInt(AP));
-        //hero.setDefaultHP(Integer.parseInt(HP));
+        hero.setDefaultAP(AP);
+        hero.setDefaultHP(HP);
         if (attackType.equalsIgnoreCase("melee")) {
             hero.setImpactType(ImpactType.melee);
         }
@@ -685,9 +685,9 @@ public class Request {
         if (attackType.equalsIgnoreCase("hybrid")) {
             hero.setImpactType(ImpactType.hybrid);
         }
-        //hero.setPrice(price);
-        //hero.setCoolDown(Integer.parseInt(cooldown));
-        //hero.setRangeOfAttack(Integer.parseInt(rangeOfAttack));
+        hero.setPrice(price);
+        hero.setCoolDown(cooldown);
+        hero.setRangeOfAttack(rangeOfAttack);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         Shop.getInstance().addCardToShop(hero);
     }
