@@ -429,7 +429,9 @@ public class Request {
 
         Text text = new Text("Choose one of the below");
         text.setFont(Font.font(45));
-        text.relocate(160, 30);
+        text.relocate(210, 30);
+        text.setFill(BLACK);
+
         Text hero = new Text("Hero");
         hero.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
         hero.relocate(450, 150);
@@ -629,7 +631,7 @@ public class Request {
         textFields.add(makingTextField(rootHeroCustom, 200, 130, "coolDown"));
         textFields.add(makingTextField(rootHeroCustom, 200, 230, "cost"));
         Button apply = new Button("Apply");
-        apply.relocate(780, 500);
+        apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
             workingOnHeroText(textFields);
@@ -657,11 +659,11 @@ public class Request {
     }
 
     private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost) {
-        int AP = Integer.parseInt(ap);
-        int HP = Integer.parseInt(hp);
-        int price = Integer.parseInt(cost);
-        int rangeOfAttack = Integer.parseInt(range);
-        int cooldown = Integer.parseInt(coolDown);
+       // int AP = Integer.parseInt(ap);
+        //int HP = Integer.parseInt(hp);
+        //int price = Integer.parseInt(cost);
+        //int rangeOfAttack = Integer.parseInt(range);
+        //int cooldown = Integer.parseInt(coolDown);
         Hero hero = new Hero();
         hero.setCardName(name);
         //hero.setDefaultAP(Integer.parseInt(AP));
@@ -675,7 +677,7 @@ public class Request {
         if (attackType.equalsIgnoreCase("hybrid")) {
             hero.setImpactType(ImpactType.hybrid);
         }
-        hero.setPrice(price);
+        //hero.setPrice(price);
         //hero.setCoolDown(Integer.parseInt(cooldown));
         //hero.setRangeOfAttack(Integer.parseInt(rangeOfAttack));
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
