@@ -508,7 +508,67 @@ public class Request {
 
     private void workingOnMinionText(ArrayList<TextField> textFields)
     {
+        String name = textFields.get(0).getText();
+        String Ap = textFields.get(1).getText();
+        String Hp = textFields.get(2).getText();
+        String AttackType = textFields.get(3).getText();
+        String Range = textFields.get(4).getText();
+        String SpecialPower = textFields.get(5).getText();
+        String specialPowerActivation = textFields.get(6).getText();
+        String cost = textFields.get(7).getText();
+        makingMinionCard(name,Ap,Hp, AttackType,Range,SpecialPower,specialPowerActivation,cost);
+    }
 
+    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost)
+    {
+        int AP = Integer.parseInt(ap);
+        int HP = Integer.parseInt(hp);
+        int price = Integer.parseInt(cost);
+        int rangeOfAttack = Integer.parseInt(range);
+        Minion minion = new Minion();
+        minion.setCardName(name);
+        minion.setDefaultAP(AP);
+        minion.setDefaultHP(HP);
+        minion.setRangeOfAttack(rangeOfAttack);
+        if (attackType.equalsIgnoreCase("melee")) {
+            minion.setImpactType(ImpactType.melee);
+        }
+        if (attackType.equalsIgnoreCase("ranged")) {
+            minion.setImpactType(ImpactType.ranged);
+        }
+        if (attackType.equalsIgnoreCase("hybrid")) {
+            minion.setImpactType(ImpactType.hybrid);
+        }
+        if (specialPowerActivation.equalsIgnoreCase("combo"))
+        {
+            minion.setAbleToCombo(true);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onTurn"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onTurn);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("passive"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.passive);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onAttack"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onAttack);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onSpawn"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onSpawn);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onDeath")) {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDeath);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onDefend"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
+        }
+        minion.setPrice(price);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
+        Shop.getInstance().addCardToShop(minion);
     }
 
     private void heroPage(Stage stage)
