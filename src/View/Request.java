@@ -582,9 +582,21 @@ public class Request
         textFields.add(makingTextField(rootMinionCustom, 30, 230, "Hp"));
         textFields.add(makingTextField(rootMinionCustom, 30, 330, "AttackType"));
         textFields.add(makingTextField(rootMinionCustom, 30, 450, "Range"));
-        textFields.add(makingTextField(rootMinionCustom, 200, 30, "specialPower"));
-        textFields.add(makingTextField(rootMinionCustom, 200, 130, "specialActivation"));
-        textFields.add(makingTextField(rootMinionCustom, 200, 230, "cost"));
+        textFields.add(makingTextField(rootMinionCustom, 200, 30, "specialActivation"));
+        textFields.add(makingTextField(rootMinionCustom, 200, 130, "cost"));
+        textFields.add(makingTextField(rootMinionCustom,200,230,"turnsToApply"));
+        textFields.add(makingTextField(rootMinionCustom,200,330,"isPositive"));
+        textFields.add(makingTextField(rootMinionCustom,200,450,"applyChangeToUntil"));
+        textFields.add(makingTextField(rootMinionCustom,370,30,"changeAp"));
+        textFields.add(makingTextField(rootMinionCustom,370,130,"changeHP"));
+        textFields.add(makingTextField(rootMinionCustom,370,230,"changeMP"));
+        textFields.add(makingTextField(rootMinionCustom,370,330,"stun"));
+        textFields.add(makingTextField(rootMinionCustom,370,450,"disarm"));
+        textFields.add(makingTextField(rootMinionCustom,540,30,"numOfHolyBuff"));
+        textFields.add(makingTextField(rootMinionCustom,540,130,"toxic"));
+        textFields.add(makingTextField(rootMinionCustom,540,230,"cellHoly"));
+        textFields.add(makingTextField(rootMinionCustom,540,330,"Fiery"));
+        textFields.add(makingTextField(rootMinionCustom,540,450,"combo"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900,505);
@@ -608,13 +620,25 @@ public class Request
         String Hp = textFields.get(2).getText();
         String AttackType = textFields.get(3).getText();
         String Range = textFields.get(4).getText();
-        String SpecialPower = textFields.get(5).getText();
-        String specialPowerActivation = textFields.get(6).getText();
-        String cost = textFields.get(7).getText();
-        makingMinionCard(name, Ap, Hp, AttackType, Range, SpecialPower, specialPowerActivation, cost);
+        String specialPowerActivation = textFields.get(5).getText();
+        String cost = textFields.get(6).getText();
+        String turnsToApply = textFields.get(7).getText();
+        String isPositive = textFields.get(8).getText();
+        String untilEnd = textFields.get(9).getText();
+        String changeAp = textFields.get(10).getText();
+        String changeHp = textFields.get(11).getText();
+        String changeMp = textFields.get(12).getText();
+        String stun = textFields.get(13).getText();
+        String disarm = textFields.get(14).getText();
+        String numOfHolyBuff = textFields.get(15).getText();
+        String toxic = textFields.get(16).getText();
+        String holyCell = textFields.get(17).getText();
+        String fiery = textFields.get(18).getText();
+        String kill = textFields.get(19).getText();
+        makingMinionCard(name, Ap, Hp, AttackType, Range, specialPowerActivation, cost);
     }
 
-    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPower, String specialPowerActivation, String cost) {
+    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost) {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp,10);
         int price = Integer.parseInt(cost,10);
