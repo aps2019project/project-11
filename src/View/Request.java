@@ -5,7 +5,6 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.xml.internal.bind.v2.runtime.AttributeAccessor;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -146,6 +145,7 @@ public class Request {
     private Scene sceneSpellCustom = Main.getSceneSpellCustom();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
+    private Account multiPlayerAccountToBattle;
 
     public void signUpMenu(Stage primaryStage) {
         rootSignUpMenu.getChildren().clear();
@@ -1833,9 +1833,25 @@ public class Request {
     private void multiPlayerMenu(Stage primaryStage) {
         setBackGroundImage(rootMultiPlayer, "file:MultiPlayerrr.jpg");
         setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
+        showChoosePlayerMenu(rootMultiPlayer);
+
         Button backButton = new Button("Back");
         backButton.relocate(50, 490);
         backButton.setFont(Font.font(25));
+        Button nextButton = new Button("Next");
+        nextButton.relocate(500, 270);
+        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    setBattleField(primaryStage, "customGameBackGround", false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -1853,7 +1869,23 @@ public class Request {
             }
         });
         primaryStage.setScene(sceneMultiPlayer);
-        rootMultiPlayer.getChildren().add(backButton);
+        rootMultiPlayer.getChildren().addAll(backButton , nextButton);
+    }
+
+    private void showChoosePlayerMenu(Group rootMultiPlayer) {
+        Menu decksMenu = new Menu("Players");
+
+        for (Account account: AccountManager.getAccounts()) {
+            MenuItem menuItem = new MenuItem(account.getAccountName());
+            decksMenu.getItems().add(menuItem);
+            menuItem.setOnAction(e -> {
+                multiPlayerAccountToBattle = account;
+            });
+        }
+
+        MenuBar menuBar = new MenuBar(decksMenu);
+        menuBar.relocate(500, 230);
+        rootMultiPlayer.getChildren().add(menuBar);
     }
 
     private void setMultiPlayerMenu(String string, Stage primaryStage, int location) {
