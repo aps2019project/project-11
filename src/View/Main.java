@@ -61,7 +61,8 @@ public class Main extends Application
     private static Scene sceneGraveYard = new Scene(scrollPaneGraveYard, 1000, 562);
     private static Group rootHeroCustom = new Group();
     private static Scene sceneHeroCustom = new Scene(rootHeroCustom,1000,562);
-
+    private static Group rootMinionCustom = new Group();
+    private static Scene sceneMinionCustom = new Scene(rootMinionCustom,1000,562);
     public static Scene getSceneHeroCustom() {
         return sceneHeroCustom;
     }
@@ -70,8 +71,20 @@ public class Main extends Application
         Main.sceneHeroCustom = sceneHeroCustom;
     }
 
+    public static Group getRootMinionCustom() {
+        return rootMinionCustom;
+    }
+
     public static Group getRootHeroCustom() {
         return rootHeroCustom;
+    }
+
+    public static Scene getSceneMinionCustom() {
+        return sceneMinionCustom;
+    }
+
+    public static void setSceneMinionCustom(Scene sceneMinionCustom) {
+        Main.sceneMinionCustom = sceneMinionCustom;
     }
 
     @Override

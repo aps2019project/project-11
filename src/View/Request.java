@@ -140,6 +140,9 @@ public class Request {
     private Scene sceneGraveYard = Main.getSceneGraveYard();
     private Scene sceneHeroCustom = Main.getSceneHeroCustom();
     private Group rootHeroCustom = Main.getRootHeroCustom();
+    private Scene sceneMinionCustom = Main.getSceneMinionCustom();
+    private Group rootMinionCustom = Main.getRootMinionCustom();
+
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
 
@@ -441,6 +444,9 @@ public class Request {
         hero.setOnMouseClicked(event -> {
             heroPage(stage);
         });
+        minion.setOnMouseClicked(event -> {
+            minionPage(stage);
+        });
 
 
 
@@ -482,6 +488,27 @@ public class Request {
         rootMakingCustomCard.getChildren().add(apply);
        */
         stage.setScene(sceneMakingCustomCards);
+    }
+
+    private void minionPage(Stage stage)
+    {
+     ArrayList<TextField> textFields = new ArrayList<>();
+     textFields.add(makingTextField(rootMinionCustom,30,30,"name"));
+        textFields.add(makingTextField(rootMinionCustom,30,130,"Ap"));
+        textFields.add(makingTextField(rootMinionCustom,30,230,"Hp"));
+        textFields.add(makingTextField(rootMinionCustom,30,330,"AttackType"));
+        textFields.add(makingTextField(rootMinionCustom,30,450,"Range"));
+        textFields.add(makingTextField(rootMinionCustom,200,30,"specialPower"));
+        textFields.add(makingTextField(rootMinionCustom,200,130,"specialActivation"));
+        textFields.add(makingTextField(rootMinionCustom,200,230,"cost"));
+        workingOnMinionText(textFields);
+
+     stage.setScene(sceneMinionCustom);
+    }
+
+    private void workingOnMinionText(ArrayList<TextField> textFields)
+    {
+
     }
 
     private void heroPage(Stage stage)
