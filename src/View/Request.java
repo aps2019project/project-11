@@ -657,6 +657,19 @@ public class Request
         textFields.add(makingTextField(rootHeroCustom, 200, 30, "specialPower"));
         textFields.add(makingTextField(rootHeroCustom, 200, 130, "coolDown"));
         textFields.add(makingTextField(rootHeroCustom, 200, 230, "cost"));
+        textFields.add(makingTextField(rootHeroCustom,200,330,"turnsToApply"));
+        textFields.add(makingTextField(rootHeroCustom,200,450,"isPositive"));
+        textFields.add(makingTextField(rootHeroCustom,370,30,"applyChangeToUntil"));
+        textFields.add(makingTextField(rootHeroCustom,370,130,"changeAp"));
+        textFields.add(makingTextField(rootHeroCustom,370,230,"changeHP"));
+        textFields.add(makingTextField(rootHeroCustom,370,330,"changeMP"));
+        textFields.add(makingTextField(rootHeroCustom,370,450,"stun"));
+        textFields.add(makingTextField(rootHeroCustom,540,30,"disarm"));
+        textFields.add(makingTextField(rootHeroCustom,540,130,"numOfHolyBuff"));
+        textFields.add(makingTextField(rootHeroCustom,540,230,"toxic"));
+        textFields.add(makingTextField(rootHeroCustom,540,330,"cellHoly"));
+        textFields.add(makingTextField(rootHeroCustom,540,450,"Fiery"));
+        textFields.add(makingTextField(rootHeroCustom,750,30,"killing"));
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
@@ -682,10 +695,24 @@ public class Request
         String SpecialPower = textFields.get(5).getText();
         String coolDown = textFields.get(6).getText();
         String cost = textFields.get(7).getText();
-        makingHeroCard(name, Ap, Hp, AttackType, Range, SpecialPower, coolDown, cost);
+        String turnsToApply = textFields.get(8).getText();
+        String isPositive = textFields.get(9).getText();
+        String untilEnd = textFields.get(10).getText();
+        String changeAp = textFields.get(11).getText();
+        String changeHp = textFields.get(12).getText();
+        String changeMp = textFields.get(13).getText();
+        String stun = textFields.get(14).getText();
+        String disarm = textFields.get(15).getText();
+        String numOfHolyBuff = textFields.get(16).getText();
+        String toxic = textFields.get(17).getText();
+        String holyCell = textFields.get(18).getText();
+        String fiery = textFields.get(19).getText();
+        String kill = textFields.get(20).getText();
+
+        makingHeroCard(name, Ap, Hp, AttackType, Range, SpecialPower, coolDown, cost,turnsToApply,isPositive,untilEnd,changeAp,changeHp,changeMp,stun,disarm,numOfHolyBuff,toxic,holyCell,fiery,kill);
     }
 
-    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost) {
+    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String specialPower, String coolDown, String cost,String turnsToApply,String isPositive,String untilEnd,String changeAp,String changeHp,String changeMP,String stun,String disarm,String numOfHolyBuff,String toxic,String holyCell,String fiery,String kill) {
          int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost,10);
