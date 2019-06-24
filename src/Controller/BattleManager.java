@@ -381,6 +381,7 @@ public class BattleManager
         {
             if ((selectedCard).isAttackAble())
             {
+                showOutput.printOutput("Card with " + selectedCard.getCardID() + " attacks " + opponentCard.getCardID());
                 if ((selectedCard).getImpactType() == ImpactType.melee)
                 {
                     meleeCardAttack(selectedCard, (NonSpellCard) opponentCard);
@@ -396,7 +397,7 @@ public class BattleManager
             }
             else
             {
-                showOutput.printOutput("Card with " + selectedCard.getCardID() + " can′t attack");
+                showOutput.printOutput("Card with " + selectedCard.getCardID() + " is not attackAble");
             }
         }
     }

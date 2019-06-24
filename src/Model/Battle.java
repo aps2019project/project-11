@@ -201,8 +201,10 @@ public class Battle
         for (NonSpellCard card : playerTurn.getInsertedCards())
         {
             card.setMoveAble(true);
+            card.setAttackAble(true);
         }
         playerTurn.getMainDeck().getHero().get(0).setMoveAble(true);
+        playerTurn.getMainDeck().getHero().get(0).setAttackAble(true);
         this.getPlayerTurn().setMP();
         checkInsertedCardsToApplySpellChange();
         checkUsedItemsToApplyItemChange();
