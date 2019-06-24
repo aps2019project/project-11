@@ -1845,11 +1845,7 @@ public class Request {
         nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    setBattleField(primaryStage, "customGameBackGround", false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                MultiPlayerChooseModeMenu(rootBattleField , primaryStage);
 
             }
         });
@@ -1872,6 +1868,77 @@ public class Request {
         });
         primaryStage.setScene(sceneMultiPlayer);
         rootMultiPlayer.getChildren().addAll(backButton , nextButton);
+    }
+
+    private void MultiPlayerChooseModeMenu(Group rootBattleField , Stage primaryStage) {
+        rootBattleField.getChildren().clear();
+        setBackGroundImage(rootBattleField, "file:CustomGame2.jpg");
+        setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
+        setMultiPalyerMenuToChooseMode("Mode 2", primaryStage, 200);
+        setMultiPalyerMenuToChooseMode("Mode 3", primaryStage, 300);
+        Button backButton = backButton(primaryStage, rootBattleField, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock) {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneBattleMenu);
+                primaryStage.centerOnScreen();
+                try {
+                    singlePlayerMenu(primaryStage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        primaryStage.setScene(sceneMultiPlayer);
+    }
+
+    private void setMultiPalyerMenuToChooseMode(String s, Stage primaryStage, int place) {
+        Text title = new Text(s);
+        title.setTextOrigin(VPos.TOP);
+        title.setFont(Font.font(null, FontWeight.THIN, 45));
+        title.setFill(BLUE);
+        title.layoutXProperty().bind(sceneMultiPlayer.widthProperty().subtract(title.prefWidth(-1)).divide(2));
+        title.setY(place);
+        title.setOnMouseEntered(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 50)));
+        title.setOnMouseEntered(event -> title.setFill(AQUA));
+        title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
+        title.setOnMouseExited(event -> title.setFill(BLACK));
+        title.setOnMouseClicked(event -> {
+            switch (s) {
+                case "Mode 1":
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker( 1 , new Player(multiPlayerAccountToBattle , false));
+                    try {
+                        setBattleField(primaryStage, "customGameBackGround", false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mode 2":
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2 , new Player(multiPlayerAccountToBattle , false));
+                    try {
+                        setBattleField(primaryStage, "customGameBackGround", false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "Mode 3":
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3 , new Player(multiPlayerAccountToBattle , false));
+                    try {
+                        setBattleField(primaryStage, "customGameBackGround", false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+            synchronized (requestLock) {
+                requestLock.notify();
+            }
+        });
+        rootMultiPlayer.getChildren().add(title);
     }
 
     private void showChoosePlayerMenu(Group rootMultiPlayer) {
