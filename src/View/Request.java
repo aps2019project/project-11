@@ -541,7 +541,7 @@ public class Request
     private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp , String changingHp,String changingMp)
     {
         Spell spell = new Spell();
-        spell.setCardName(nameOfBuff);
+        spell.setCardName(name);
         int mp = Integer.parseInt(MP);
         spell.setRequiredMP(mp);
         int holyBuffNumber = Integer.parseInt(numOfHolyBuff);
