@@ -63,6 +63,9 @@ public class Main extends Application
     private static Scene sceneHeroCustom = new Scene(rootHeroCustom,1000,562);
     private static Group rootMinionCustom = new Group();
     private static Scene sceneMinionCustom = new Scene(rootMinionCustom,1000,562);
+    private static Group rootSpellCustom = new Group();
+    private static Scene sceneSpellCustom = new Scene(rootSpellCustom,1000,562);
+
     public static Scene getSceneHeroCustom() {
         return sceneHeroCustom;
     }
@@ -85,6 +88,18 @@ public class Main extends Application
 
     public static void setSceneMinionCustom(Scene sceneMinionCustom) {
         Main.sceneMinionCustom = sceneMinionCustom;
+    }
+
+    public static Scene getSceneSpellCustom() {
+        return sceneSpellCustom;
+    }
+
+    public static Group getRootSpellCustom() {
+        return rootSpellCustom;
+    }
+
+    public static void setSceneSpellCustom(Scene sceneSpellCustom) {
+        Main.sceneSpellCustom = sceneSpellCustom;
     }
 
     @Override

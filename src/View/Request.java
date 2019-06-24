@@ -142,7 +142,8 @@ public class Request {
     private Group rootHeroCustom = Main.getRootHeroCustom();
     private Scene sceneMinionCustom = Main.getSceneMinionCustom();
     private Group rootMinionCustom = Main.getRootMinionCustom();
-
+    private Group rootSpellCustom = Main.getRootSpellCustom();
+    private Scene sceneSpellCustom = Main.getSceneSpellCustom();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
 
@@ -447,14 +448,9 @@ public class Request {
         minion.setOnMouseClicked(event -> {
             minionPage(stage);
         });
-
-
-
-
-
-
-
-
+        spell.setOnMouseClicked(event -> {
+            spellPage(stage);
+        });
 
         rootMakingCustomCard.getChildren().addAll(minion,spell,hero,text);
         /*ArrayList<TextField> textFields = new ArrayList<>();
@@ -488,6 +484,17 @@ public class Request {
         rootMakingCustomCard.getChildren().add(apply);
        */
         stage.setScene(sceneMakingCustomCards);
+    }
+
+    private void spellPage(Stage stage)
+    {
+        ArrayList<TextField> textFields = new ArrayList<>();
+        textFields.add(makingTextField(rootSpellCustom,30,30,"name"));
+        textFields.add(makingTextField(rootSpellCustom,30,130,"numOfTarget"));
+        textFields.add(makingTextField(rootSpellCustom,30,230,"kindOfMinion"));
+        textFields.add(makingTextField(rootSpellCustom,30,330,"nameOfBuff"));
+        textFields.add(makingTextField(rootSpellCustom,30,450,"buffType"));
+        stage.setScene(sceneSpellCustom);
     }
 
     private void minionPage(Stage stage)
