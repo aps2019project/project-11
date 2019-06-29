@@ -56,52 +56,61 @@ public class Main extends Application
     private static Group rootBattleField = new Group();
     private static Scene sceneBattleField = new Scene(rootBattleField, 1366, 768);
     private static Group rootImportingDeck = new Group();
-    private static Scene sceneImportingDeck = new Scene(rootImportingDeck,1000,562);
+    private static Scene sceneImportingDeck = new Scene(rootImportingDeck, 1000, 562);
     private static Group rootMakingCustomCards = new Group();
-    private static Scene sceneMakingCustomCards = new Scene(rootMakingCustomCards,1000,505);
+    private static Scene sceneMakingCustomCards = new Scene(rootMakingCustomCards, 1000, 505);
     private static Group rootGraveYard = new Group();
     private static ScrollPane scrollPaneGraveYard = new ScrollPane();
     private static Scene sceneGraveYard = new Scene(scrollPaneGraveYard, 1000, 562);
     private static Group rootHeroCustom = new Group();
-    private static Scene sceneHeroCustom = new Scene(rootHeroCustom,1000,562);
+    private static Scene sceneHeroCustom = new Scene(rootHeroCustom, 1000, 562);
     private static Group rootMinionCustom = new Group();
-    private static Scene sceneMinionCustom = new Scene(rootMinionCustom,1000,562);
+    private static Scene sceneMinionCustom = new Scene(rootMinionCustom, 1000, 562);
     private static Group rootSpellCustom = new Group();
-    private static Scene sceneSpellCustom = new Scene(rootSpellCustom,1000,548);
+    private static Scene sceneSpellCustom = new Scene(rootSpellCustom, 1000, 548);
 
-    public static Scene getSceneHeroCustom() {
+    public static Scene getSceneHeroCustom()
+    {
         return sceneHeroCustom;
     }
 
-    public static void setSceneHeroCustom(Scene sceneHeroCustom) {
+    public static void setSceneHeroCustom(Scene sceneHeroCustom)
+    {
         Main.sceneHeroCustom = sceneHeroCustom;
     }
 
-    public static Group getRootMinionCustom() {
+    public static Group getRootMinionCustom()
+    {
         return rootMinionCustom;
     }
 
-    public static Group getRootHeroCustom() {
+    public static Group getRootHeroCustom()
+    {
         return rootHeroCustom;
     }
 
-    public static Scene getSceneMinionCustom() {
+    public static Scene getSceneMinionCustom()
+    {
         return sceneMinionCustom;
     }
 
-    public static void setSceneMinionCustom(Scene sceneMinionCustom) {
+    public static void setSceneMinionCustom(Scene sceneMinionCustom)
+    {
         Main.sceneMinionCustom = sceneMinionCustom;
     }
 
-    public static Scene getSceneSpellCustom() {
+    public static Scene getSceneSpellCustom()
+    {
         return sceneSpellCustom;
     }
 
-    public static Group getRootSpellCustom() {
+    public static Group getRootSpellCustom()
+    {
         return rootSpellCustom;
     }
 
-    public static void setSceneSpellCustom(Scene sceneSpellCustom) {
+    public static void setSceneSpellCustom(Scene sceneSpellCustom)
+    {
         Main.sceneSpellCustom = sceneSpellCustom;
     }
 
@@ -270,7 +279,8 @@ public class Main extends Application
         return rootCustomGame;
     }
 
-    public static CallTheAppropriateFunction getCallTheAppropriateFunction() {
+    public static CallTheAppropriateFunction getCallTheAppropriateFunction()
+    {
         return callTheAppropriateFunction;
     }
 
@@ -283,22 +293,28 @@ public class Main extends Application
     {
         return sceneProfile;
     }
-    public static Scene getSceneImportingDeck() {
+
+    public static Scene getSceneImportingDeck()
+    {
         return sceneImportingDeck;
     }
+
     public static Group getRootImportingDeck()
     {
         return rootImportingDeck;
     }
 
 
-    public static Scene getSceneBattleField() {
+    public static Scene getSceneBattleField()
+    {
         return sceneBattleField;
     }
 
-    public static Group getRootBattleField() {
+    public static Group getRootBattleField()
+    {
         return rootBattleField;
     }
+
     public static Scene getSceneMakingCustomCards()
     {
         return sceneMakingCustomCards;

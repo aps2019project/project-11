@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -31,11 +30,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.parser.JSONParser;
-
 
 import java.io.*;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -2521,14 +2517,16 @@ public class Request
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
-    private void showGameInfo(Group rootBattleField) {
+    private void showGameInfo(Group rootBattleField)
+    {
         Text text = new Text();
         ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
         text.setText(string);
-        text.relocate(1050 , 200);
+        text.relocate(1050, 200);
         text.setFill(CYAN);
-        if(!rootBattleField.getChildren().contains(text)) {
+        if (!rootBattleField.getChildren().contains(text))
+        {
             rootBattleField.getChildren().add(text);
         }
     }
