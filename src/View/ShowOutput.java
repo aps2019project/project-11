@@ -304,6 +304,44 @@ public class ShowOutput
         return str.toString();
     }
 
+    public String showCardInfoInBattleString(String cardName)
+    {
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
+        StringBuilder str = new StringBuilder("");
+        if (card instanceof Hero)
+        {
+            Hero hero = (Hero) card;
+            str.append("Hero:\n" + "Name: ").append(hero.getCardName()).append("\n");
+            if (hero.getSpecialPower() != null)
+            {
+                str.append("Desc: ").append(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            }
+            else
+            {
+                str.append("This hero has no special power");
+            }
+        }
+        if (card instanceof Minion)
+        {
+            Minion minion = (Minion) card;
+            str.append("Minion: ");
+            str.append("Name: ").append(minion.getCardName()).append("\n");
+            str.append("HP: ").append(minion.getCurrentHP()).append("\n");
+            str.append("AP: ").append(minion.getCurrentAP()).append("\n");
+            str.append("Range: ").append(minion.getImpactType()).append("\n");
+            str.append("Combo Ability: ").append(minion.getImpactType()).append("\n");
+            if (minion.getSpecialPower() != null)
+            {
+                str.append("Special Power: ").append(minion.getSpecialPower().getDescriptionTypeOfSpecialPower()).append("\n");
+            }
+            else
+            {
+                str.append("This minion has no special power").append("\n");
+            }
+        }
+        return str.toString();
+    }
+
 
     public void showShopInfo()
     {

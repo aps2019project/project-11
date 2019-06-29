@@ -2527,6 +2527,7 @@ public class Request
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050 , 200);
+        text.setFill(CYAN);
         if(!rootBattleField.getChildren().contains(text)) {
             rootBattleField.getChildren().add(text);
         }

@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -69,6 +70,7 @@ public class BattleFieldController extends Thread {
                     text[0].setText(s);
                     text[0].setFont(Font.font(15));
                     text[0].relocate(50, 170);
+                    text[0].setFill(Color.CYAN);
                 }
             });
             pane.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -84,27 +86,32 @@ public class BattleFieldController extends Thread {
         for(int row = 0 ; row < 5 ; row++){
             for(int column = 0 ; column < 9 ; column++){
 
-
-                if(cells[row][column].isFull()) {
+                if(cells[row][column].isFull() && cells[row][column].getCard() != null) {
                     int finalColumn = column;
                     int finalRow = row;
                     cells[row][column].getCellPane().setOnMouseEntered(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            text[0] = new Text();
-                            rootBattleField.getChildren().add(text[0]);
-                            String s = showOutput.showCardInfoString( cells[finalRow][finalColumn].getCard().getCardName());
-                            assert false;
-                            text[0].setText(s);
-                            text[0].setFont(Font.font(15));
-                            text[0].relocate(50, 170);
+                            try {
+                                text[0] = new Text();
+                                rootBattleField.getChildren().add(text[0]);
+                                String s = showOutput.showCardInfoInBattleString(cells[finalRow][finalColumn].getCard().getCardName());
+                                assert false;
+                                text[0].setText(s);
+                                text[0].setFont(Font.font(15));
+                                text[0].relocate(50, 170);
+                                text[0].setFill(Color.CYAN);
+                            }
+                            catch (Exception e){}
                         }
                     });
 
                     cells[row][column].getCellPane().setOnMouseExited(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            text[0].setText("");
+                            if (text[0] != null) {
+                                text[0].setText("");
+                            }
                         }
                     });
                 }
@@ -186,6 +193,13 @@ public class BattleFieldController extends Thread {
                                     setSelectedCardForInserting(null);
                                     checkSelectingCard();
                                     preLoad();
+                                }
+                                else {
+                                    setSelectedCard(null);
+                                    setSelectedCardForInserting(null);
+                                    Battle.getCurrentBattle().unSelectCard();
+                                    checkInsertingCard();
+                                    checkSelectingCard();
                                 }
                             } else if (selectedCardForInserting instanceof Spell) {
                                 if (battleManager.checkCircumstancesToInsertSpellBoolean((Spell) selectedCardForInserting, finalRow, finalColumn)) {
