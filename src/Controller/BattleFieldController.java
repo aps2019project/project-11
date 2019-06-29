@@ -18,7 +18,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 @SuppressWarnings("ALL")
-public class BattleFieldController extends Thread {
+public class BattleFieldController extends Thread
+{
     private boolean isCardSelectedToInsert = false;
     private boolean isCardSelectedInBattle = false;
     private Card selectedCardForInserting;
@@ -28,7 +29,8 @@ public class BattleFieldController extends Thread {
     private Scene sceneBattleField;
     private Text attackedCardInfo;
 
-    public BattleFieldController(Group rootBattleField, Scene sceneBattleField) {
+    public BattleFieldController(Group rootBattleField, Scene sceneBattleField)
+    {
         setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
     }

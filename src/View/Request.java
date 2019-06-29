@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -31,11 +30,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.parser.JSONParser;
-
 
 import java.io.*;
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -2504,6 +2500,7 @@ public class Request
             setMPIcons(rootBattleField);
             setHeroFirstPlace(rootBattleField);
             setGraveYardButton(primaryStage, rootBattleField, map);
+            setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
             showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField);
@@ -2521,14 +2518,16 @@ public class Request
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
-    private void showGameInfo(Group rootBattleField) {
+    private void showGameInfo(Group rootBattleField)
+    {
         Text text = new Text();
         ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
         text.setText(string);
-        text.relocate(1050 , 200);
+        text.relocate(1050, 200);
         text.setFill(CYAN);
-        if(!rootBattleField.getChildren().contains(text)) {
+        if (!rootBattleField.getChildren().contains(text))
+        {
             rootBattleField.getChildren().add(text);
         }
     }
@@ -2576,7 +2575,25 @@ public class Request
         }
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String map)
+    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
+    {
+        ImageView graveYardButton = new ImageView("battleField BackGround/button_Surrender.png");
+        graveYardButton.relocate(1135, 530);
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Battle.getCurrentBattle().tasksWhenSurrender();
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                mainMenu(primaryStage);
+            }
+        });
+        rootBattleField.getChildren().add(graveYardButton);
+    }
+
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2587,7 +2604,7 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, map);
+                showGraveYard(primaryStage, url);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
