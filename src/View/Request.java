@@ -5,6 +5,7 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -30,11 +31,12 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import jdk.nashorn.internal.parser.JSONParser;
+
 
 import java.io.*;
 import java.math.BigInteger;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -1812,7 +1814,7 @@ public class Request
 
     private void importingToCollection(String deckName) throws IOException, ParseException
     {
-        JSONParser jsonParser = new JSONParser();
+        JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
         Object obj = jsonParser.parse(reader);
         System.out.println(obj);

@@ -8,7 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.5" level="project" />
-    <orderEntry type="library" exported="" name="gson" level="project" />
     <orderEntry type="library" exported="" name="@types/json-editor" level="application" />
     <orderEntry type="module-library" exported="">
       <library>
@@ -42,6 +41,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/json-simple-2.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/jar_files/gson-2.8.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

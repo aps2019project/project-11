@@ -3,6 +3,7 @@ package View;
 import Controller.*;
 import Model.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,7 +19,6 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import org.json.simple.parser.*;
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
@@ -129,7 +129,7 @@ public class Main extends Application
         {
             String fileName = scanner.nextLine();
 
-            JSONParser jsonParser = new JSONParser();
+            JsonParser jsonParser = new JsonParser();
             FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
