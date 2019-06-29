@@ -48,6 +48,8 @@ public class BattleFieldController extends Thread {
 
     }
 
+
+
     private void getCardInformation() {
         int counter = 0;
 
@@ -76,6 +78,37 @@ public class BattleFieldController extends Thread {
                 }
             });
             counter++;
+        }
+
+        Cell[][] cells = Battle.getCurrentBattle().getCurrentBattle().getBattleField().getBattleFieldMatrix();
+        for(int row = 0 ; row < 5 ; row++){
+            for(int column = 0 ; column < 9 ; column++){
+
+
+                if(cells[row][column].isFull()) {
+                    int finalColumn = column;
+                    int finalRow = row;
+                    cells[row][column].getCellPane().setOnMouseEntered(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            text[0] = new Text();
+                            rootBattleField.getChildren().add(text[0]);
+                            String s = showOutput.showCardInfoString( cells[finalRow][finalColumn].getCard().getCardName());
+                            assert false;
+                            text[0].setText(s);
+                            text[0].setFont(Font.font(15));
+                            text[0].relocate(50, 170);
+                        }
+                    });
+
+                    cells[row][column].getCellPane().setOnMouseExited(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            text[0].setText("");
+                        }
+                    });
+                }
+            }
         }
 
     }

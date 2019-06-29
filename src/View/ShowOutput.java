@@ -136,6 +136,30 @@ public class ShowOutput
 
     }
 
+    public String getGameInfo()
+    {
+        StringBuilder str = new StringBuilder("");
+        str.append("First Player : ").append(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName()).append("\n");
+        str.append("Second Player : ").append(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName()).append("\n");
+        str.append("First Player MP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMP()).append("\n");
+        str.append("Second Player MP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMP()).append("\n");
+        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
+        {
+            str.append("First Player Hero HP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+            str.append("Second Player Hero HP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
+        {
+
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
+        {
+
+        }
+
+        return str.toString();
+    }
+
     public void showMyMinions()
     {
         for (NonSpellCard minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())

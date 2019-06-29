@@ -2505,6 +2505,7 @@ public class Request
             setHeroFirstPlace(rootBattleField);
             setGraveYardButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
+            showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField);
         }
         battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField);
@@ -2518,6 +2519,17 @@ public class Request
     private void setNextCard(Group rootBattleField)
     {
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
+    }
+
+    private void showGameInfo(Group rootBattleField) {
+        Text text = new Text();
+        ShowOutput showOutput = ShowOutput.getInstance();
+        String string = showOutput.getGameInfo();
+        text.setText(string);
+        text.relocate(1050 , 200);
+        if(!rootBattleField.getChildren().contains(text)) {
+            rootBattleField.getChildren().add(text);
+        }
     }
 
 
