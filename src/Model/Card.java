@@ -230,4 +230,6 @@ public class Card implements Cloneable
         cardsImageView.add(new ImageView("Cards Images/melee.png"));
         cardsImageView.add(new ImageView("Cards Images/hybrid.png"));
     }
+
+
 }
