@@ -377,27 +377,20 @@ public class BattleManager
             return;
         }
         NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
-        if (selectedCard.isCardSelectedInBattle())
-        {
-            if ((selectedCard).isAttackAble())
-            {
-                showOutput.printOutput("Card with " + selectedCard.getCardID() + " attacks " + opponentCard.getCardID());
-                if ((selectedCard).getImpactType() == ImpactType.melee)
-                {
-                    meleeCardAttack(selectedCard, (NonSpellCard) opponentCard);
+        if(selectedCard != null) {
+            if (selectedCard.isCardSelectedInBattle()) {
+                if ((selectedCard).isAttackAble()) {
+                    showOutput.printOutput("Card with " + selectedCard.getCardID() + " attacks " + opponentCard.getCardID());
+                    if ((selectedCard).getImpactType() == ImpactType.melee) {
+                        meleeCardAttack(selectedCard, (NonSpellCard) opponentCard);
+                    } else if ((selectedCard).getImpactType() == ImpactType.ranged) {
+                        rangedCardAttack(selectedCard, (NonSpellCard) opponentCard);
+                    } else if ((selectedCard).getImpactType() == ImpactType.hybrid) {
+                        hybridCardAttack(selectedCard, (NonSpellCard) opponentCard);
+                    }
+                } else {
+                    showOutput.printOutput("Card with " + selectedCard.getCardID() + " is not attackAble");
                 }
-                else if ((selectedCard).getImpactType() == ImpactType.ranged)
-                {
-                    rangedCardAttack(selectedCard,(NonSpellCard) opponentCard);
-                }
-                else if ((selectedCard).getImpactType() == ImpactType.hybrid)
-                {
-                    hybridCardAttack(selectedCard,(NonSpellCard) opponentCard);
-                }
-            }
-            else
-            {
-                showOutput.printOutput("Card with " + selectedCard.getCardID() + " is not attackAble");
             }
         }
     }
