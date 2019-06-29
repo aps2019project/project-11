@@ -2500,6 +2500,7 @@ public class Request
             setMPIcons(rootBattleField);
             setHeroFirstPlace(rootBattleField);
             setGraveYardButton(primaryStage, rootBattleField, map);
+            setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
             showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField);
@@ -2574,7 +2575,25 @@ public class Request
         }
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String map)
+    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
+    {
+        ImageView graveYardButton = new ImageView("battleField BackGround/button_Surrender.png");
+        graveYardButton.relocate(1135, 530);
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Battle.getCurrentBattle().tasksWhenSurrender();
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                mainMenu(primaryStage);
+            }
+        });
+        rootBattleField.getChildren().add(graveYardButton);
+    }
+
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2585,7 +2604,7 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, map);
+                showGraveYard(primaryStage, url);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
