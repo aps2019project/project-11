@@ -2682,6 +2682,9 @@ public class Request
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
 
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+
         Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
         Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
 

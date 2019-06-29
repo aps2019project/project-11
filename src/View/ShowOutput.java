@@ -314,6 +314,8 @@ public class ShowOutput
             str.append("Hero:\n" + "Name: ").append(hero.getCardName()).append("\n");
             if (hero.getSpecialPower() != null)
             {
+                str.append("HP: ").append(hero.getCurrentHP()).append("\n");
+                str.append("AP: ").append(hero.getCurrentAP()).append("\n");
                 str.append("Desc: ").append(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
             }
             else

@@ -182,6 +182,8 @@ public class BattleFieldController extends Thread {
 
                                     Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCard) selectedCardForInserting);
 
+                                    ((Minion) selectedCardForInserting).setDefaultAPHP();
+
                                     ((NonSpellCard) selectedCardForInserting).setMoveAble(false);
 
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);

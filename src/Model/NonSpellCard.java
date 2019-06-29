@@ -188,4 +188,9 @@ public class NonSpellCard extends Card
     {
         this.numOfHolyBuffs = numOfHolyBuffs;
     }
+
+    public void setDefaultAPHP(){
+        this.setCurrentAP(defaultAP);
+        this.setCurrentHP(defaultHP);
+    }
 }
