@@ -241,6 +241,11 @@ public class BattleFieldController extends Thread {
 
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn) {
         battleManager.attackToOpponent(opponentCard);
+        setAttackAnimation();
+    }
+
+    private void setAttackAnimation() {
+
     }
 
     public static void setSpriteAnimation(ImageView imageView) {
