@@ -26,6 +26,7 @@ public class BattleFieldController extends Thread {
     private Group rootBattleField;
     private BattleManager battleManager = new BattleManager();
     private Scene sceneBattleField;
+    private Text attackedCardInfo;
 
     public BattleFieldController(Group rootBattleField, Scene sceneBattleField) {
         setSceneBattleField(sceneBattleField);
@@ -101,6 +102,7 @@ public class BattleFieldController extends Thread {
                                 text[0].setFont(Font.font(15));
                                 text[0].relocate(50, 170);
                                 text[0].setFill(Color.CYAN);
+                                attackedCardInfo = text[0];
                             }
                             catch (Exception e){}
                         }
@@ -292,6 +294,7 @@ public class BattleFieldController extends Thread {
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn) {
         battleManager.attackToOpponent(opponentCard);
         setAttackAnimation();
+        attackedCardInfo.setText("");
         preLoad();
     }
 
