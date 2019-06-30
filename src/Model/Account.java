@@ -157,7 +157,7 @@ public class Account
 
     public void increaseNumberOfWins()
     {
-        numOfWins++;
+        numOfWins ++;
     }
 
     public void setMainDeck(Deck mainDeck)
