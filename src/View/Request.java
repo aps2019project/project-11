@@ -759,6 +759,7 @@ public class Request
         minion.setRangeOfAttack(rangeOfAttack);
         SpecialPower specialPower = new SpecialPower("Custom card");
         specialPower.getSpellEffect().addSpellChange(new SpellChange());
+        specialPower.getSpellEffect().addTarget(new Target());
         minion.setSpecialPower(specialPower);
         minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(numberOfHolyBuff);
         minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeAP(apChange);
