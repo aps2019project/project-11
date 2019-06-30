@@ -2616,7 +2616,7 @@ public class Request
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
-    private void showGameInfo(Group rootBattleField)
+    public void showGameInfo(Group rootBattleField)
     {
         Text text = new Text();
         ShowOutput showOutput = ShowOutput.getInstance();
@@ -2683,6 +2683,11 @@ public class Request
             public void handle(MouseEvent event)
             {
                 Battle.getCurrentBattle().tasksWhenSurrender();
+                request.setCommand(CommandType.END_GAME);
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.notify();
+                }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 mainMenu(primaryStage);

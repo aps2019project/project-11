@@ -477,35 +477,38 @@ public class Battle
 
     public void tasksWhenSurrender()
     {
-        this.setLoserPlayer(this.getPlayerTurn());
-        if (this.getSecondPlayer() == this.getPlayerTurn())
+        setLoserPlayer(getPlayerTurn());
+        if (getSecondPlayer() == getPlayerTurn())
         {
-            this.setVictoriousPlayer(this.getFirstPlayer());
+            setVictoriousPlayer(getFirstPlayer());
         }
         else
         {
-            this.setVictoriousPlayer(this.getSecondPlayer());
+            setVictoriousPlayer(getSecondPlayer());
         }
         tasksAtEndOfGame();
     }
 
     public void tasksAtEndOfGame()
     {
-
+        victoriousPlayer.getAccount().increaseNumberOfWins();
         switch (this.getBattleType())
         {
             case STORY_GAME_1:
                 victoriousPlayer.getAccount().addMoney(500);
+                System.out.println("500 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
                 victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case STORY_GAME_2:
                 victoriousPlayer.getAccount().addMoney(1000);
+                System.out.println("1000 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
                 victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case STORY_GAME_3:
                 victoriousPlayer.getAccount().addMoney(1500);
+                System.out.println("1500 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
                 victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;

@@ -74,7 +74,6 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
-
     }
 
 

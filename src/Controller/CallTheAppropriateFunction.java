@@ -262,6 +262,10 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineBattleMenuCommand();
                     break;
+                case END_GAME:
+                    request.setCommand(null);
+                    determineMainMenuCommand();
+                    break;
             }
             request.setCommand(null);
         }
@@ -297,6 +301,12 @@ public class CallTheAppropriateFunction extends Thread
             {
                 request.setCommand(null);
                 determineBattleMenuCommand();
+            }
+            else if (request.getCommand() == CommandType.END_GAME)
+            {
+                request.setCommand(null);
+                determineMainMenuCommand();
+                break;
             }
             request.setCommand(null);
         }
