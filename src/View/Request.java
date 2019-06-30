@@ -672,6 +672,15 @@ public class Request
         textFields.add(makingTextField(rootMinionCustom, 540, 230, "cellHoly"));
         textFields.add(makingTextField(rootMinionCustom, 540, 330, "Fiery"));
         textFields.add(makingTextField(rootMinionCustom, 540, 450, "combo"));
+        textFields.add(makingTextField(rootMinionCustom,710,30,"numOfOwnMinion"));
+        textFields.add(makingTextField(rootMinionCustom,710,130,"numOfOpponentMinion"));
+        textFields.add(makingTextField(rootMinionCustom,710,230,"ownHero"));
+        textFields.add(makingTextField(rootMinionCustom,710,330,"opponentHero"));
+        textFields.add(makingTextField(rootMinionCustom,710,450,"numOfOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,880,30,"numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,880,130,"allOwnMinion"));
+        textFields.add(makingTextField(rootMinionCustom,880,230,"allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,880,330,"allOwnBothNonSpell"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900, 505);
