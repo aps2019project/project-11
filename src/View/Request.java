@@ -950,10 +950,19 @@ public class Request
         String allOpponentBothNonSpell = textFields.get(27).getText();
         String allOwnBothNonSpell = textFields.get(28).getText();
 
-        makingHeroCard(name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
+        makingHeroCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,
+                allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, Ap, Hp, AttackType, Range, coolDown, cost,
+                turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic,
+                holyCell, fiery, kill);
     }
 
-    private void makingHeroCard(String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)
+    private void makingHeroCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
+                                String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
+                                String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp,
+                                String attackType, String range, String coolDown, String cost, String turnsToApply,
+                                String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP,
+                                String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery,
+                                String kill)
     {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
@@ -965,10 +974,25 @@ public class Request
         int hpChange = Integer.parseInt(changeHp);
         int mpChange = Integer.parseInt(changeMP);
         int holyNumber = Integer.parseInt(numOfHolyBuff);
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
+        int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
         Hero hero = new Hero();
         hero.setCardName(name);
         hero.setDefaultAP(AP);
         hero.setDefaultHP(HP);
+        SpecialPower specialPower = new SpecialPower("Custom card");
+        specialPower.getSpellEffect().addTarget(new Target());
+        specialPower.getSpellEffect().addSpellChange(new SpellChange());
+        hero.setSpecialPower(specialPower);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turn);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(numberOfHolyBuff);
         if (attackType.equalsIgnoreCase("melee"))
         {
             hero.setImpactType(ImpactType.melee);
@@ -981,10 +1005,7 @@ public class Request
         {
             hero.setImpactType(ImpactType.hybrid);
         }
-        SpecialPower specialPower = new SpecialPower("Custom card");
-        specialPower.getSpellEffect().addSpellChange(new SpellChange());
-        hero.setSpecialPower(specialPower);
-        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turn);
+
         if (isPositive.equalsIgnoreCase("true"))
         {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setPositiveChange(true);
