@@ -304,19 +304,18 @@ public class ShowOutput
         return str.toString();
     }
 
-    public String showCardInfoInBattleString(String cardName)
+    public String showCardInfoInBattleString(Card card)
     {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
         System.out.println(card.getCardName());
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)
         {
             Hero hero = (Hero) card;
             str.append("Hero:\n" + "Name: ").append(hero.getCardName()).append("\n");
+            str.append("HP: ").append(hero.getCurrentHP()).append("\n");
+            str.append("AP: ").append(hero.getCurrentAP()).append("\n");
             if (hero.getSpecialPower() != null)
             {
-                str.append("HP: ").append(hero.getCurrentHP()).append("\n");
-                str.append("AP: ").append(hero.getCurrentAP()).append("\n");
                 str.append("Desc: ").append(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
             }
             else
