@@ -718,10 +718,26 @@ public class Request
         String holyCell = textFields.get(17).getText();
         String fiery = textFields.get(18).getText();
         String combo = textFields.get(19).getText();
-        makingMinionCard(name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
+        String numOfOwnMinion = textFields.get(20).getText();
+        String numOfOpponentMinion = textFields.get(21).getText();
+        String ownHero = textFields.get(22).getText();
+        String opponentHero = textFields.get(23).getText();
+        String numOfOpponentBothNonSpell = textFields.get(24).getText();
+        String numOfOwnBothNonSpell = textFields.get(25).getText();
+        String allOwnMinion = textFields.get(26).getText();
+        String allOpponentBothNonSpell = textFields.get(27).getText();
+        String allOwnBothNonSpell = textFields.get(28).getText();
+        makingMinionCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,allOwnMinion,
+                allOwnBothNonSpell,allOpponentBothNonSpell,name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply,
+                isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
     }
 
-    private void makingMinionCard(String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell, String fiery, String combo)
+    private void makingMinionCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
+                                  String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
+                                  String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp,
+                                  String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive,
+                                  String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff,
+                                  String toxic, String holycell, String fiery, String combo)
     {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp, 10);
@@ -731,6 +747,7 @@ public class Request
         int hpChange = Integer.parseInt(changeHP);
         int MpChange = Integer.parseInt(ChangeMP);
         int turnToApply = Integer.parseInt(turn);
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
         int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
         Minion minion = new Minion();
         minion.setCardName(name);
