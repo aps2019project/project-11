@@ -307,7 +307,6 @@ public class ShowOutput
     public String showCardInfoInBattleString(String cardName)
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
-        ((NonSpellCard) card).setDefaultAPHP();
         System.out.println(card.getCardName());
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)

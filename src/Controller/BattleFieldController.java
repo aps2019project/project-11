@@ -28,6 +28,7 @@ public class BattleFieldController extends Thread
     private BattleManager battleManager = new BattleManager();
     private Scene sceneBattleField;
     private Text attackedCardInfo;
+    private static boolean firstWorks = true;
 
     public BattleFieldController(Group rootBattleField, Scene sceneBattleField)
     {
@@ -38,7 +39,27 @@ public class BattleFieldController extends Thread
     @Override
     public void run() {
         super.run();
+        if(firstWorks){
+            firstLoad();
+        }
         preLoad();
+    }
+
+    private void firstLoad() {
+        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getNonHeroCards())
+        {
+            if (card instanceof Minion)
+            {
+                ((Minion) card).setCurrentAP(((Minion) card).getDefaultAP());
+                ((Minion) card).setCurrentHP(((Minion) card).getDefaultHP());
+            }
+        }
+        for (Hero hero : Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero())
+        {
+            hero.setCurrentAP(hero.getDefaultAP());
+            hero.setCurrentHP(hero.getDefaultHP());
+        }
+        firstWorks = false;
     }
 
     void preLoad(){

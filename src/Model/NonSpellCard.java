@@ -57,6 +57,7 @@ public class NonSpellCard extends Card
     public void setDefaultHP(int defaultHP)
     {
         this.defaultHP = defaultHP;
+        this.currentHP = defaultHP;
     }
 
     public int getDefaultAP()
@@ -67,6 +68,7 @@ public class NonSpellCard extends Card
     public void setDefaultAP(int defaultAP)
     {
         this.defaultAP = defaultAP;
+        this.currentAP = defaultAP;
     }
 
     public int getCurrentHP()
