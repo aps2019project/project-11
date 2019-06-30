@@ -75,6 +75,10 @@ public class Target
         return ownHero;
     }
 
+    public void setOwnHero(boolean ownHero) {
+        this.ownHero = ownHero;
+    }
+
     public boolean isOpponentHero() {
         return opponentHero;
     }
@@ -144,6 +148,10 @@ public class Target
 
     public void setNumOfOpponentBothNonSpellCards(int numOfOpponentBothNonSpellCards) {
         this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
+    }
+
+    public void setNumOfOwnBothNonSpellCards(int numOfOwnBothNonSpellCards) {
+        this.numOfOwnBothNonSpellCards = numOfOwnBothNonSpellCards;
     }
 
     public void setNumOfOwnMinions(int numOfOwnMinions) {

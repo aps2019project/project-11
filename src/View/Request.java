@@ -748,6 +748,9 @@ public class Request
         int MpChange = Integer.parseInt(ChangeMP);
         int turnToApply = Integer.parseInt(turn);
         int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
         int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
         Minion minion = new Minion();
         minion.setCardName(name);
@@ -762,6 +765,22 @@ public class Request
         minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeHP(hpChange);
         minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeMP(MpChange);
         minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turnToApply);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
+        if (ownHero.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOwnHero(true);
+        }
+        if (opponentHero.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
+        }
+        if(allOpponentBothNonSpell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
         if (attackType.equalsIgnoreCase("melee"))
         {
             minion.setImpactType(ImpactType.melee);
