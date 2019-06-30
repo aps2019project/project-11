@@ -740,9 +740,9 @@ public class Request
                                   String toxic, String holycell, String fiery, String combo)
     {
         int AP = Integer.parseInt(ap);
-        int HP = Integer.parseInt(hp, 10);
-        int price = Integer.parseInt(cost, 10);
-        int rangeOfAttack = Integer.parseInt(range, 10);
+        int HP = Integer.parseInt(hp);
+        int price = Integer.parseInt(cost);
+        int rangeOfAttack = Integer.parseInt(range);
         int apChange = Integer.parseInt(changeAP);
         int hpChange = Integer.parseInt(changeHP);
         int MpChange = Integer.parseInt(ChangeMP);
@@ -778,7 +778,7 @@ public class Request
         {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
         }
-        if(allOpponentBothNonSpell.equalsIgnoreCase("true"))
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
         {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
         }
@@ -893,6 +893,15 @@ public class Request
         textFields.add(makingTextField(rootHeroCustom, 540, 230, "cellHoly"));
         textFields.add(makingTextField(rootHeroCustom, 540, 330, "Fiery"));
         textFields.add(makingTextField(rootHeroCustom, 540, 450, "killing"));
+        textFields.add(makingTextField(rootHeroCustom,710,30,"numOfOwnMinion"));
+        textFields.add(makingTextField(rootHeroCustom,710,130,"numOfOpponentMinion"));
+        textFields.add(makingTextField(rootHeroCustom,710,230,"ownHero"));
+        textFields.add(makingTextField(rootHeroCustom,710,330,"opponentHero"));
+        textFields.add(makingTextField(rootHeroCustom,710,450,"numOfOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom,865,30,"numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom,865,130,"allOwnMinion"));
+        textFields.add(makingTextField(rootHeroCustom,865,230,"allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom,865,330,"allOwnBothNonSpell"));
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
@@ -931,6 +940,15 @@ public class Request
         String holyCell = textFields.get(17).getText();
         String fiery = textFields.get(18).getText();
         String kill = textFields.get(19).getText();
+        String numOfOwnMinion = textFields.get(20).getText();
+        String numOfOpponentMinion = textFields.get(21).getText();
+        String ownHero = textFields.get(22).getText();
+        String opponentHero = textFields.get(23).getText();
+        String numOfOpponentBothNonSpell = textFields.get(24).getText();
+        String numOfOwnBothNonSpell = textFields.get(25).getText();
+        String allOwnMinion = textFields.get(26).getText();
+        String allOpponentBothNonSpell = textFields.get(27).getText();
+        String allOwnBothNonSpell = textFields.get(28).getText();
 
         makingHeroCard(name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
     }
