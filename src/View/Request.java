@@ -41,8 +41,7 @@ import java.util.regex.Pattern;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
-public class Request
-{
+public class Request {
     public static Scanner myScanner = new Scanner(System.in);
 
     private final static Pattern patternSearch = Pattern.compile("search [a-zA-Z_0-9]+");
@@ -76,25 +75,20 @@ public class Request
     private CommandType command;
     public final Object requestLock = new Object();
 
-    public CommandType getCommand()
-    {
+    public CommandType getCommand() {
         return command;
     }
 
-    public void setCommand(CommandType command)
-    {
+    public void setCommand(CommandType command) {
         Request.getInstance().command = command;
     }
 
-    private Request()
-    {
+    private Request() {
         //just added to make Request singleton
     }
 
-    public static Request getInstance()
-    {
-        if (request == null)
-        {
+    public static Request getInstance() {
+        if (request == null) {
             request = new Request();
         }
         return request;
@@ -155,8 +149,7 @@ public class Request
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
 
-    public void signUpMenu(Stage primaryStage)
-    {
+    public void signUpMenu(Stage primaryStage) {
         rootSignUpMenu.getChildren().clear();
 
         TextField textFieldName = new TextField();
@@ -172,38 +165,30 @@ public class Request
         Button buttonSignUp = new Button("Submit");
         Label labelInvalidInput = new Label();
         submitButton(buttonSignUp, labelInvalidInput);
-        buttonSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (userName.isEmpty() || password.isEmpty())
-                {
+                if (userName.isEmpty() || password.isEmpty()) {
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
                 Account account = accountManager.findAccount(userName);
-                if (account == null)
-                {
+                if (account == null) {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);
-                    try
-                    {
+                    try {
                         accountManager.saveAccountInfo(account, userName, true);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     primaryStage.setScene(sceneLoginMenu);
                     primaryStage.centerOnScreen();
                     login(primaryStage);
-                }
-                else
-                {
+                } else {
                     labelInvalidInput.setText("Account exists with this name");
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
                 }
@@ -214,11 +199,9 @@ public class Request
         Button buttonAlreadyHaveAccount = new Button("Already have account");
         buttonAlreadyHaveAccount.relocate(150, 300);
         buttonAlreadyHaveAccount.setFont(Font.font(20));
-        buttonAlreadyHaveAccount.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonAlreadyHaveAccount.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneLoginMenu);
                 primaryStage.centerOnScreen();
@@ -233,8 +216,7 @@ public class Request
     }
 
 
-    private void login(Stage primaryStage)
-    {
+    private void login(Stage primaryStage) {
         Label labelLogin = new Label("Login");
         rootLoginMenu.getChildren().add(labelLogin);
         labelLogin.relocate(150, 30);
@@ -248,42 +230,32 @@ public class Request
         Button buttonLogin = new Button("Submit");
         Label labelInvalidInput = new Label();
         submitButton(buttonLogin, labelInvalidInput);
-        buttonLogin.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootLoginMenu.getChildren().remove(labelInvalidInput);
                 String name = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (name.isEmpty() || password.isEmpty())
-                {
+                if (name.isEmpty() || password.isEmpty()) {
                     labelInvalidInput.setText("you must Fill both TextFields");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
                     return;
                 }
                 Account account = accountManager.findAccount(name);
-                if (account == null)
-                {
+                if (account == null) {
                     labelInvalidInput.setText("Invalid name or password");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
-                }
-                else if (account.getPassword().equals(password))
-                {
+                } else if (account.getPassword().equals(password)) {
                     accountManager.login(account);
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
-                    try
-                    {
+                    try {
                         mainMenu(primaryStage);
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                else
-                {
+                } else {
                     labelInvalidInput.setText("Password is Wrong.Try again");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
                 }
@@ -294,19 +266,15 @@ public class Request
         Button buttonNeedToSignUp = new Button("Sign Up");
         buttonNeedToSignUp.relocate(260, 300);
         buttonNeedToSignUp.setFont(Font.font(20));
-        buttonNeedToSignUp.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        buttonNeedToSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneSignUpMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     signUpMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -317,8 +285,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void nameAndPasswordFields(Group root, TextField textFieldName, PasswordField passwordFieldPassword)
-    {
+    private void nameAndPasswordFields(Group root, TextField textFieldName, PasswordField passwordFieldPassword) {
         Label labelName = new Label("Name");
         root.getChildren().add(labelName);
         labelName.relocate(20, 130);
@@ -342,8 +309,7 @@ public class Request
         root.getChildren().add(hBoxPassword);
     }
 
-    private void submitButton(Button button, Label labelInvalidInput)
-    {
+    private void submitButton(Button button, Label labelInvalidInput) {
         button.relocate(25, 300);
         button.setFont(Font.font(20));
         labelInvalidInput.relocate(100, 100);
@@ -351,8 +317,7 @@ public class Request
         labelInvalidInput.setTextFill(Color.RED);
     }
 
-    private void mainMenu(Stage primaryStage)
-    {
+    private void mainMenu(Stage primaryStage) {
         setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -374,15 +339,13 @@ public class Request
         primaryStage.setScene(sceneMainMenu);
     }
 
-    private void setBackGroundImage(Group root, String url)
-    {
+    private void setBackGroundImage(Group root, String url) {
         Image backGroundImage = new Image(url);
         ImageView backGroundImageView = new ImageView(backGroundImage);
         root.getChildren().add(backGroundImageView);
     }
 
-    private void setMainMenuText(Stage primaryStage, String string, int yProperty)
-    {
+    private void setMainMenuText(Stage primaryStage, String string, int yProperty) {
         Text text = new Text(string);
         text.setTextOrigin(VPos.TOP);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 30));
@@ -391,28 +354,23 @@ public class Request
         text.setFill(Color.BLUE);
         text.setOnMouseEntered(event -> text.setFill(Color.RED));
         text.setOnMouseExited(event -> text.setFill(Color.BLUE));
-        text.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Media sound = new Media(new File("Sounds and Music/Click.mp3").toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
-                switch (string)
-                {
+                switch (string) {
                     case "Shop":
                         setCommand(CommandType.ENTER_SHOP);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         shopMenu(primaryStage, false, null);
                         break;
                     case "Collection":
                         setCommand(CommandType.ENTER_COLLECTION);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         rootCollection.getChildren().clear();
@@ -420,39 +378,34 @@ public class Request
                         break;
                     case "Battle":
                         setCommand(CommandType.ENTER_BATTLE);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         battleMenu(primaryStage);
                         break;
                     case "LeaderBoard":
                         setCommand(CommandType.SHOW_LEADER_BOARD);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         leaderBoard(primaryStage);
                         break;
                     case "Save":
                         setCommand(CommandType.SAVE);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         break;
                     case "Profile":
                         setCommand(CommandType.SHOW_PROFILE);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         showProfile(primaryStage);
                         break;
                     case "CustomCard":
                         setCommand(CommandType.CUSTOMCARDS);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
 
@@ -460,16 +413,14 @@ public class Request
                         break;
                     case "Logout":
                         setCommand(CommandType.LOGOUT);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         login(primaryStage);
                         break;
                     case "Exit":
                         setCommand(CommandType.EXIT);
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         break;
@@ -479,8 +430,7 @@ public class Request
         rootMainMenu.getChildren().add(text);
     }
 
-    private void makingCustomCards(Stage stage)
-    {
+    private void makingCustomCards(Stage stage) {
         setBackGroundImage(rootMakingCustomCard, "file:BackGround Images/custom1.jpg");
 
         Text text = new Text("Choose one of the below");
@@ -524,8 +474,7 @@ public class Request
         stage.setScene(sceneMakingCustomCards);
     }
 
-    private void spellPage(Stage stage)
-    {
+    private void spellPage(Stage stage) {
         setBackGroundImage(rootSpellCustom, "file:BackGround Images/spellCustom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootSpellCustom, 30, 30, "name"));
@@ -561,8 +510,7 @@ public class Request
         stage.setScene(sceneSpellCustom);
     }
 
-    private void workingOnSpellText(ArrayList<TextField> textFields)
-    {
+    private void workingOnSpellText(ArrayList<TextField> textFields) {
         String name = textFields.get(0).getText();
         String numOfTarget = textFields.get(1).getText();
         String kindOfMinion = textFields.get(2).getText();
@@ -583,8 +531,7 @@ public class Request
         makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
 
-    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
-    {
+    private void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost) {
         Spell spell = new Spell();
         spell.setCardName(name);
         int mp = Integer.parseInt(MP);
@@ -601,42 +548,32 @@ public class Request
         spell.getSpellEffect().addTarget(new Target());
         spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
         spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
-        if (buffType.equalsIgnoreCase("holy"))
-        {
+        if (buffType.equalsIgnoreCase("holy")) {
             spell.getSpellEffect().getSpellChanges().get(0).setActivateHolyBuff(true);
             spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
         }
-        if (buffType.equalsIgnoreCase("stun"))
-        {
+        if (buffType.equalsIgnoreCase("stun")) {
             spell.getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
         }
-        if (buffType.equalsIgnoreCase("disarm"))
-        {
+        if (buffType.equalsIgnoreCase("disarm")) {
             spell.getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
         }
-        if (buffType.equalsIgnoreCase("power"))
-        {
+        if (buffType.equalsIgnoreCase("power")) {
             spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
             spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
         }
-        if (buffType.equalsIgnoreCase("weakness"))
-        {
+        if (buffType.equalsIgnoreCase("weakness")) {
             spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
             spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
         }
-        if (friendOrEnemy.equalsIgnoreCase("friend"))
-        {
+        if (friendOrEnemy.equalsIgnoreCase("friend")) {
             spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
-            if (isAll.equalsIgnoreCase("true"))
-            {
+            if (isAll.equalsIgnoreCase("true")) {
                 spell.getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
             }
-        }
-        else if (friendOrEnemy.equalsIgnoreCase("enemy"))
-        {
+        } else if (friendOrEnemy.equalsIgnoreCase("enemy")) {
             spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(Integer.parseInt(numOfFriendOrEnemy));
-            if (isAll.equalsIgnoreCase("true"))
-            {
+            if (isAll.equalsIgnoreCase("true")) {
                 spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
             }
         }
@@ -646,8 +583,7 @@ public class Request
         showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");
     }
 
-    private void minionPage(Stage stage)
-    {
+    private void minionPage(Stage stage) {
         setBackGroundImage(rootMinionCustom, "file:BackGround Images/minionCustom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootMinionCustom, 30, 30, "name"));
@@ -670,15 +606,15 @@ public class Request
         textFields.add(makingTextField(rootMinionCustom, 540, 230, "cellHoly"));
         textFields.add(makingTextField(rootMinionCustom, 540, 330, "Fiery"));
         textFields.add(makingTextField(rootMinionCustom, 540, 450, "combo"));
-        textFields.add(makingTextField(rootMinionCustom,710,30,"numOfOwnMinion"));
-        textFields.add(makingTextField(rootMinionCustom,710,130,"numOfOpponentMinion"));
-        textFields.add(makingTextField(rootMinionCustom,710,230,"ownHero"));
-        textFields.add(makingTextField(rootMinionCustom,710,330,"opponentHero"));
-        textFields.add(makingTextField(rootMinionCustom,710,450,"numOfOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,865,30,"numOfOwnBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,865,130,"allOwnMinion"));
-        textFields.add(makingTextField(rootMinionCustom,865,230,"allOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,865,330,"allOwnBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom, 710, 30, "numOfOwnMinion"));
+        textFields.add(makingTextField(rootMinionCustom, 710, 130, "numOfOpponentMinion"));
+        textFields.add(makingTextField(rootMinionCustom, 710, 230, "ownHero"));
+        textFields.add(makingTextField(rootMinionCustom, 710, 330, "opponentHero"));
+        textFields.add(makingTextField(rootMinionCustom, 710, 450, "numOfOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom, 865, 30, "numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom, 865, 130, "allOwnMinion"));
+        textFields.add(makingTextField(rootMinionCustom, 865, 230, "allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom, 865, 330, "allOwnBothNonSpell"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900, 505);
@@ -696,8 +632,7 @@ public class Request
         stage.setScene(sceneMinionCustom);
     }
 
-    private void workingOnMinionText(ArrayList<TextField> textFields)
-    {
+    private void workingOnMinionText(ArrayList<TextField> textFields) {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
         String Hp = textFields.get(2).getText();
@@ -727,8 +662,8 @@ public class Request
         String allOwnMinion = textFields.get(26).getText();
         String allOpponentBothNonSpell = textFields.get(27).getText();
         String allOwnBothNonSpell = textFields.get(28).getText();
-        makingMinionCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,allOwnMinion,
-                allOwnBothNonSpell,allOpponentBothNonSpell,name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply,
+        makingMinionCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion,
+                allOwnBothNonSpell, allOpponentBothNonSpell, name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply,
                 isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
     }
 
@@ -737,8 +672,7 @@ public class Request
                                   String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp,
                                   String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive,
                                   String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff,
-                                  String toxic, String holycell, String fiery, String combo)
-    {
+                                  String toxic, String holycell, String fiery, String combo) {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost);
@@ -770,96 +704,67 @@ public class Request
         minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
         minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
         minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
-        if (ownHero.equalsIgnoreCase("true"))
-        {
+        if (ownHero.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOwnHero(true);
         }
-        if (opponentHero.equalsIgnoreCase("true"))
-        {
+        if (opponentHero.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
         }
-        if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
-        {
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
         }
-        if (allOwnBothNonSpell.equalsIgnoreCase("true"))
-        {
+        if (allOwnBothNonSpell.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
         }
-        if (allOwnMinion.equalsIgnoreCase("true"))
-        {
+        if (allOwnMinion.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinion(true);
         }
-        if (attackType.equalsIgnoreCase("melee"))
-        {
+        if (attackType.equalsIgnoreCase("melee")) {
             minion.setImpactType(ImpactType.melee);
         }
-        if (attackType.equalsIgnoreCase("ranged"))
-        {
+        if (attackType.equalsIgnoreCase("ranged")) {
             minion.setImpactType(ImpactType.ranged);
         }
-        if (attackType.equalsIgnoreCase("hybrid"))
-        {
+        if (attackType.equalsIgnoreCase("hybrid")) {
             minion.setImpactType(ImpactType.hybrid);
         }
-        if (isPositive.equalsIgnoreCase("true"))
-        {
+        if (isPositive.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setPositiveChange(true);
         }
-        if (stun.equalsIgnoreCase("true"))
-        {
+        if (stun.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
         }
-        if (fiery.equalsIgnoreCase("true"))
-        {
+        if (fiery.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellFiery(true);
         }
-        if (combo.equalsIgnoreCase("true"))
-        {
+        if (combo.equalsIgnoreCase("true")) {
             minion.setAbleToCombo(true);
         }
-        if (UntilEnd.equalsIgnoreCase("true"))
-        {
+        if (UntilEnd.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setApplyChangeUntilEndOfTheGame(true);
         }
-        if (disarm.equalsIgnoreCase("true"))
-        {
+        if (disarm.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
         }
-        if (toxic.equalsIgnoreCase("true"))
-        {
+        if (toxic.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellToxic(true);
         }
-        if (holycell.equalsIgnoreCase("true"))
-        {
+        if (holycell.equalsIgnoreCase("true")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellHoly(true);
         }
-        if (specialPowerActivation.equalsIgnoreCase("combo"))
-        {
+        if (specialPowerActivation.equalsIgnoreCase("combo")) {
             minion.setAbleToCombo(true);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("onTurn"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("onTurn")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onTurn);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("passive"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("passive")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.passive);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("onAttack"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("onAttack")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onAttack);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("onSpawn"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("onSpawn")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onSpawn);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("onDeath"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("onDeath")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDeath);
-        }
-        else if (specialPowerActivation.equalsIgnoreCase("onDefend"))
-        {
+        } else if (specialPowerActivation.equalsIgnoreCase("onDefend")) {
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
         }
         minion.setPrice(price);
@@ -869,8 +774,7 @@ public class Request
         showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");
     }
 
-    private void heroPage(Stage stage)
-    {
+    private void heroPage(Stage stage) {
         setBackGroundImage(rootHeroCustom, "file:BackGround Images/HeroCustom.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootHeroCustom, 30, 30, "name"));
@@ -893,15 +797,15 @@ public class Request
         textFields.add(makingTextField(rootHeroCustom, 540, 230, "cellHoly"));
         textFields.add(makingTextField(rootHeroCustom, 540, 330, "Fiery"));
         textFields.add(makingTextField(rootHeroCustom, 540, 450, "killing"));
-        textFields.add(makingTextField(rootHeroCustom,710,30,"numOfOwnMinion"));
-        textFields.add(makingTextField(rootHeroCustom,710,130,"numOfOpponentMinion"));
-        textFields.add(makingTextField(rootHeroCustom,710,230,"ownHero"));
-        textFields.add(makingTextField(rootHeroCustom,710,330,"opponentHero"));
-        textFields.add(makingTextField(rootHeroCustom,710,450,"numOfOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootHeroCustom,865,30,"numOfOwnBothNonSpell"));
-        textFields.add(makingTextField(rootHeroCustom,865,130,"allOwnMinion"));
-        textFields.add(makingTextField(rootHeroCustom,865,230,"allOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootHeroCustom,865,330,"allOwnBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom, 710, 30, "numOfOwnMinion"));
+        textFields.add(makingTextField(rootHeroCustom, 710, 130, "numOfOpponentMinion"));
+        textFields.add(makingTextField(rootHeroCustom, 710, 230, "ownHero"));
+        textFields.add(makingTextField(rootHeroCustom, 710, 330, "opponentHero"));
+        textFields.add(makingTextField(rootHeroCustom, 710, 450, "numOfOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom, 865, 30, "numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom, 865, 130, "allOwnMinion"));
+        textFields.add(makingTextField(rootHeroCustom, 865, 230, "allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootHeroCustom, 865, 330, "allOwnBothNonSpell"));
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
@@ -918,8 +822,7 @@ public class Request
         stage.setScene(sceneHeroCustom);
     }
 
-    private void workingOnHeroText(ArrayList<TextField> textFields)
-    {
+    private void workingOnHeroText(ArrayList<TextField> textFields) {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
         String Hp = textFields.get(2).getText();
@@ -950,8 +853,8 @@ public class Request
         String allOpponentBothNonSpell = textFields.get(27).getText();
         String allOwnBothNonSpell = textFields.get(28).getText();
 
-        makingHeroCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,
-                allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, Ap, Hp, AttackType, Range, coolDown, cost,
+        makingHeroCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell,
+                allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost,
                 turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic,
                 holyCell, fiery, kill);
     }
@@ -962,8 +865,7 @@ public class Request
                                 String attackType, String range, String coolDown, String cost, String turnsToApply,
                                 String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP,
                                 String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery,
-                                String kill)
-    {
+                                String kill) {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost, 10);
@@ -993,49 +895,53 @@ public class Request
         hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
         hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
         hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(numberOfHolyBuff);
-        if (attackType.equalsIgnoreCase("melee"))
-        {
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true")) {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
+        if (allOwnBothNonSpell.equalsIgnoreCase("true")) {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+        }
+        if (allOwnMinion.equalsIgnoreCase("true")) {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinion(true);
+        }
+        if (ownHero.equalsIgnoreCase("true")) {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setOwnHero(true);
+        }
+        if (opponentHero.equalsIgnoreCase("true")) {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
+        }
+        if (attackType.equalsIgnoreCase("melee")) {
             hero.setImpactType(ImpactType.melee);
         }
-        if (attackType.equalsIgnoreCase("ranged"))
-        {
+        if (attackType.equalsIgnoreCase("ranged")) {
             hero.setImpactType(ImpactType.ranged);
         }
-        if (attackType.equalsIgnoreCase("hybrid"))
-        {
+        if (attackType.equalsIgnoreCase("hybrid")) {
             hero.setImpactType(ImpactType.hybrid);
         }
 
-        if (isPositive.equalsIgnoreCase("true"))
-        {
+        if (isPositive.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setPositiveChange(true);
         }
-        if (untilEnd.equalsIgnoreCase("true"))
-        {
+        if (untilEnd.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setApplyChangeUntilEndOfTheGame(true);
         }
-        if (stun.equalsIgnoreCase("true"))
-        {
+        if (stun.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
         }
-        if (disarm.equalsIgnoreCase("true"))
-        {
+        if (disarm.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
         }
-        if (toxic.equalsIgnoreCase("true"))
-        {
+        if (toxic.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellToxic(true);
         }
-        if (kill.equalsIgnoreCase("true"))
-        {
+        if (kill.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setKilling(true);
         }
-        if (fiery.equalsIgnoreCase("true"))
-        {
+        if (fiery.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellFiery(true);
         }
-        if (holyCell.equalsIgnoreCase("true"))
-        {
+        if (holyCell.equalsIgnoreCase("true")) {
             hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellHoly(true);
         }
         hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyNumber);
@@ -1051,8 +957,7 @@ public class Request
         showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection");
     }
 
-    private TextField makingTextField(Group root, int x, int y, String text)
-    {
+    private TextField makingTextField(Group root, int x, int y, String text) {
         TextField textField = new TextField();
         textField.setFont(Font.font("SanSerif", 15));
         textField.setPromptText(text);
@@ -1062,8 +967,7 @@ public class Request
         return textField;
     }
 
-    private void showProfile(Stage primaryStage)
-    {
+    private void showProfile(Stage primaryStage) {
         rootProfile.getChildren().clear();
 
         Label labelProfile = new Label(Account.loggedInAccount.getAccountName());
@@ -1086,8 +990,7 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void leaderBoard(Stage primaryStage)
-    {
+    private void leaderBoard(Stage primaryStage) {
         Label labelTop10 = new Label("Top 10");
         labelTop10.setTextFill(YELLOW);
         labelTop10.setFont(Font.font(30));
@@ -1100,28 +1003,22 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    public Button backButton(Stage primaryStage, Group root, int x, int y)
-    {
+    public Button backButton(Stage primaryStage, Group root, int x, int y) {
         Button backButton = new Button("Back");
         backButton.setFont(Font.font(25));
         backButton.relocate(x, y);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
-                try
-                {
+                try {
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -1130,29 +1027,21 @@ public class Request
         return backButton;
     }
 
-    private void searchField(Stage primaryStage, Scene scene, Group root, String menuName)
-    {
+    private void searchField(Stage primaryStage, Scene scene, Group root, String menuName) {
         TextField searchField = new TextField();
         searchField.setFont(Font.font("SanSerif", 15));
         searchField.setPromptText("Search");
         searchField.setMaxWidth(150);
         searchField.relocate(150, 20);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event)
-            {
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    if (!searchField.getText().isEmpty())
-                    {
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    if (!searchField.getText().isEmpty()) {
                         root.getChildren().clear();
-                        if (menuName.equals("CollectionMenu"))
-                        {
+                        if (menuName.equals("CollectionMenu")) {
                             collectionMenu(primaryStage, true, searchField.getText());
-                        }
-                        else if (menuName.equals("ShopMenu"))
-                        {
+                        } else if (menuName.equals("ShopMenu")) {
                             shopMenu(primaryStage, true, searchField.getText());
                         }
                     }
@@ -1162,8 +1051,7 @@ public class Request
         root.getChildren().addAll(searchField);
     }
 
-    public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
-    {
+    public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement) {
         setBackGroundImage(rootShop, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneShop.setContent(rootShop);
@@ -1172,12 +1060,9 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Heroes", 50);
-        for (Hero hero : Hero.getHeroes())
-        {
-            if (isSearchedElement)
-            {
-                if (!hero.getCardName().contains(searchedElement))
-                {
+        for (Hero hero : Hero.getHeroes()) {
+            if (isSearchedElement) {
+                if (!hero.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1189,23 +1074,18 @@ public class Request
             setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += BLANK_BETWEEN_CARDS;
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 != 0)
-        {
+        if (yPosition % 4 != 0) {
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : Minion.getMinions())
-        {
-            if (isSearchedElement)
-            {
-                if (!minion.getCardName().contains(searchedElement))
-                {
+        for (Minion minion : Minion.getMinions()) {
+            if (isSearchedElement) {
+                if (!minion.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1217,23 +1097,18 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 != 0)
-        {
+        if (yPosition % 4 != 0) {
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : Spell.getSpells())
-        {
-            if (isSearchedElement)
-            {
-                if (!spell.getCardName().contains(searchedElement))
-                {
+        for (Spell spell : Spell.getSpells()) {
+            if (isSearchedElement) {
+                if (!spell.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1245,30 +1120,22 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 4;
-        }
-        else
-        {
+        } else {
             xPosition = 0;
-            if (yPosition % 4 != 0)
-            {
+            if (yPosition % 4 != 0) {
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : Item.getItems())
-        {
-            if (item.getItemType() == ItemType.collectible)
-            {
+        for (Item item : Item.getItems()) {
+            if (item.getItemType() == ItemType.collectible) {
                 continue;
             }
-            if (isSearchedElement)
-            {
-                if (!item.getItemName().contains(searchedElement))
-                {
+            if (isSearchedElement) {
+                if (!item.getItemName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1287,21 +1154,17 @@ public class Request
         primaryStage.setScene(sceneShop);
     }
 
-    private void showCollectionText(Stage primaryStage, Group root)
-    {
+    private void showCollectionText(Stage primaryStage, Group root) {
         Text text = new Text("Show Collection");
         text.setFont(Font.font(25));
         text.relocate(700, 20);
         text.setOnMouseEntered(event -> text.setFill(RED));
         text.setOnMouseExited(event -> text.setFill(BLACK));
-        text.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.SHOW_COLLECTION);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 rootCollection.getChildren().clear();
@@ -1311,8 +1174,7 @@ public class Request
         root.getChildren().add(text);
     }
 
-    private void setShopAndDeckAndGraveYardMenuText(Group root, Scene scene, String str, int y)
-    {
+    private void setShopAndDeckAndGraveYardMenuText(Group root, Scene scene, String str, int y) {
         Text text = new Text(str);
         text.setLayoutX((scene.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
@@ -1320,8 +1182,7 @@ public class Request
         root.getChildren().addAll(text);
     }
 
-    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID, int MP)
-    {
+    private StackPane showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard, String cardNameOrID, int MP) {
         int AP = nonSpellCard.getDefaultAP();
         int HP = nonSpellCard.getDefaultHP();
         int price = nonSpellCard.getPrice();
@@ -1345,8 +1206,7 @@ public class Request
         return stackPane;
     }
 
-    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price, int MP)
-    {
+    private StackPane showCardAndItemImageAndFeatures(Group root, int x, int y, String nameOrID, int price, int MP) {
         Image image = new Image("file:Cards.jpg");
         ImageView imageView = new ImageView(image);
 
@@ -1379,13 +1239,10 @@ public class Request
         return stackPane;
     }
 
-    private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
-    {
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+    private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price) {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Buy");
                 alert.setHeaderText(null);
@@ -1395,15 +1252,13 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeBuy)
-                {
+                if (option.get() == buttonTypeBuy) {
                     Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = name;
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                 }
@@ -1411,8 +1266,7 @@ public class Request
         });
     }
 
-    public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
-    {
+    public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement) {
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneCollection.setContent(rootCollection);
@@ -1421,12 +1275,9 @@ public class Request
 
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
-        {
-            if (isSearchedElement)
-            {
-                if (!hero.getCardName().contains(searchedElement))
-                {
+        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes()) {
+            if (isSearchedElement) {
+                if (!hero.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1438,27 +1289,21 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += BLANK_BETWEEN_CARDS;
             yPosition += 3;
         }
-        if (yPosition % 3 != 0)
-        {
+        if (yPosition % 3 != 0) {
             yPosition = yPosition + 3 - yPosition % 3;
         }
         xPosition = 0;
         setCollectionMenuText("Minions", y + 250 + 50, false);
-        if (yPosition % 3 != 0)
-        {
+        if (yPosition % 3 != 0) {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
-        {
-            if (isSearchedElement)
-            {
-                if (!minion.getCardName().contains(searchedElement))
-                {
+        for (Minion minion : Account.loggedInAccount.getCollection().getMinions()) {
+            if (isSearchedElement) {
+                if (!minion.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1470,27 +1315,21 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 3;
         }
         xPosition = 0;
-        if (yPosition % 3 != 0)
-        {
+        if (yPosition % 3 != 0) {
             yPosition = yPosition + 3 - yPosition % 3;
         }
         setCollectionMenuText("Spells", y + 250 + 50, false);
-        if (yPosition % 3 != 0)
-        {
+        if (yPosition % 3 != 0) {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
-        {
-            if (isSearchedElement)
-            {
-                if (!spell.getCardName().contains(searchedElement))
-                {
+        for (Spell spell : Account.loggedInAccount.getCollection().getSpells()) {
+            if (isSearchedElement) {
+                if (!spell.getCardName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1502,31 +1341,23 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 3;
-        }
-        else
-        {
+        } else {
             xPosition = 0;
-            if (yPosition % 3 != 0)
-            {
+            if (yPosition % 3 != 0) {
                 yPosition = yPosition + 3 - yPosition % 3;
             }
         }
         setCollectionMenuText("Items", y + 250 + 50, false);
-        for (Item item : Account.loggedInAccount.getCollection().getItems())
-        {
-            if (isSearchedElement)
-            {
-                if (!item.getItemName().contains(searchedElement))
-                {
+        for (Item item : Account.loggedInAccount.getCollection().getItems()) {
+            if (isSearchedElement) {
+                if (!item.getItemName().contains(searchedElement)) {
                     continue;
                 }
             }
-            if (item.getItemType() == ItemType.collectible)
-            {
+            if (item.getItemType() == ItemType.collectible) {
                 continue;
             }
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
@@ -1540,12 +1371,9 @@ public class Request
         setCollectionMenuText("Decks", 50, true);
         yPosition = 0;
         x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
-            if (isSearchedElement)
-            {
-                if (!deck.getDeckName().contains(searchedElement))
-                {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
+            if (isSearchedElement) {
+                if (!deck.getDeckName().contains(searchedElement)) {
                     continue;
                 }
             }
@@ -1564,11 +1392,9 @@ public class Request
         importButton.setFont(Font.font(15));
         importButton.setText("import Deck");
         importButton.setOnMouseClicked(event -> {
-            try
-            {
+            try {
                 importingDeck(primaryStage);
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -1579,14 +1405,12 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
-    {
+    private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck) {
         Image image = new Image("file:Deck.jpg");
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
-        if (Account.loggedInAccount.getMainDeck() != null && deck.equals(Account.loggedInAccount.getMainDeck()))
-        {
+        if (Account.loggedInAccount.getMainDeck() != null && deck.equals(Account.loggedInAccount.getMainDeck())) {
             rectangle.setFill(LIGHTGREEN);
         }
 
@@ -1604,16 +1428,12 @@ public class Request
         return stackPane;
     }
 
-    private void setCollectionMenuText(String str, int y, boolean isDeckText)
-    {
+    private void setCollectionMenuText(String str, int y, boolean isDeckText) {
         Text text = new Text(str);
         double x;
-        if (isDeckText)
-        {
+        if (isDeckText) {
             x = (sceneCollection.getWidth() * 1 / 4 - text.getLayoutBounds().getWidth()) / 2 - 40 + sceneCollection.getWidth() * 3 / 4;
-        }
-        else
-        {
+        } else {
             x = (sceneCollection.getWidth() * 3 / 4 - text.getLayoutBounds().getWidth()) / 2 - 40;
         }
         text.setLayoutX(x);
@@ -1622,13 +1442,10 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price)
-    {
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price) {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Sell");
                 alert.setHeaderText(null);
@@ -1639,31 +1456,24 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeAddToDeck, buttonTypeSell, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeSell)
-                {
+                if (option.get() == buttonTypeSell) {
                     setCommand(CommandType.SELL);
                     request.getCommand().cardOrItemID = ID;
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                     collectionMenu(primaryStage, false, null);
-                }
-                else if (option.get() == buttonTypeAddToDeck)
-                {
+                } else if (option.get() == buttonTypeAddToDeck) {
                     showAllDecks(primaryStage, ID);
                 }
             }
         });
     }
 
-    private void setCollectionDeckStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck)
-    {
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+    private void setCollectionDeckStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck) {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Deck operations");
                 alert.setHeaderText(null);
@@ -1677,54 +1487,40 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeShowDeck, buttonTypeValidateDeck, buttonTypeSetMainDeck, buttonTypeExportDeck, buttonTypeRemoveDeck, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeShowDeck)
-                {
+                if (option.get() == buttonTypeShowDeck) {
                     deckMenu(primaryStage, deck);
-                }
-                else if (option.get() == buttonTypeRemoveDeck)
-                {
+                } else if (option.get() == buttonTypeRemoveDeck) {
                     setCommand(CommandType.DELETE_DECK);
                     request.getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                     collectionMenu(primaryStage, false, null);
-                }
-                else if (option.get() == buttonTypeSetMainDeck)
-                {
+                } else if (option.get() == buttonTypeSetMainDeck) {
                     setCommand(CommandType.SET_MAIN_DECK);
                     request.getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                     collectionMenu(primaryStage, false, null);
-                }
-                else if (option.get() == buttonTypeValidateDeck)
-                {
+                } else if (option.get() == buttonTypeValidateDeck) {
                     setCommand(CommandType.VALIDATE_DECK);
                     request.getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                     collectionMenu(primaryStage, false, null);
-                }
-                else if (option.get() == buttonTypeExportDeck)
-                {
+                } else if (option.get() == buttonTypeExportDeck) {
                     String accountName = Account.loggedInAccount.getAccountName();
                     String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
-                    try
-                    {
+                    try {
                         writeExportedDeckNameInFile(accountName + deck.getDeckName());
 
                         FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
                         fileWriter.write(exportingDeckJson);
                         System.out.println(accountName + deck.getDeckName());
                         fileWriter.close();
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -1732,14 +1528,11 @@ public class Request
         });
     }
 
-    private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception
-    {
+    private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception {
         InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
         Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNext())
-        {
-            if (scanner.nextLine().equals(exportedDeckName))
-            {
+        while (scanner.hasNext()) {
+            if (scanner.nextLine().equals(exportedDeckName)) {
                 return;
             }
         }
@@ -1748,26 +1541,22 @@ public class Request
         savedDecksPath.close();
     }
 
-    private void showAllDecks(Stage primaryStage, String ID)
-    {
+    private void showAllDecks(Stage primaryStage, String ID) {
         rootCollection.getChildren().clear();
 
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         int xPosition = 0, yPosition = 0, x, y;
         setShopAndDeckAndGraveYardMenuText(rootCollection, sceneCollection, "Decks", 50);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition++;
             yPosition++;
             StackPane stackPane = showDecksImageAndFeatures(rootCollection, x, y, deck);
-            stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-            {
+            stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent event)
-                {
+                public void handle(MouseEvent event) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Add");
                     alert.setHeaderText(null);
@@ -1777,16 +1566,14 @@ public class Request
                     ButtonType buttonTypeCancel = new ButtonType("Cancel");
                     alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
                     Optional<ButtonType> option = alert.showAndWait();
-                    if (option.get() == buttonTypeSell)
-                    {
+                    if (option.get() == buttonTypeSell) {
                         Media sound = new Media(new File("Sounds and Music/Add card to deck.wav").toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
                         mediaPlayer.play();
                         setCommand(CommandType.ADD_TO_DECK);
                         getCommand().cardOrItemID = ID;
                         getCommand().deckName = deck.getDeckName();
-                        synchronized (requestLock)
-                        {
+                        synchronized (requestLock) {
                             requestLock.notify();
                         }
                         rootCollection.getChildren().clear();
@@ -1797,11 +1584,9 @@ public class Request
         }
 
         Button backButton = backButton(primaryStage, rootCollection, 20, 15);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 rootCollection.getChildren().clear();
                 primaryStage.setScene(sceneCollection);
                 primaryStage.centerOnScreen();
@@ -1810,26 +1595,20 @@ public class Request
         });
     }
 
-    private void createDeck(Stage primaryStage, Scene scene, Group root)
-    {
+    private void createDeck(Stage primaryStage, Scene scene, Group root) {
         TextField createDeckTextField = new TextField();
         createDeckTextField.setFont(Font.font("SanSerif", 15));
         createDeckTextField.setPromptText("Enter deckName to create");
         createDeckTextField.setMaxWidth(200);
         createDeckTextField.relocate(600, 20);
-        createDeckTextField.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        createDeckTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event)
-            {
-                if (event.getCode().equals(KeyCode.ENTER))
-                {
-                    if (!createDeckTextField.getText().isEmpty())
-                    {
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    if (!createDeckTextField.getText().isEmpty()) {
                         setCommand(CommandType.CREATE_DECK);
                         getCommand().deckName = createDeckTextField.getText();
-                        synchronized (request.requestLock)
-                        {
+                        synchronized (request.requestLock) {
                             requestLock.notify();
                         }
                         collectionMenu(primaryStage, false, null);
@@ -1840,8 +1619,7 @@ public class Request
         root.getChildren().add(createDeckTextField);
     }
 
-    private void importingDeck(Stage primaryStage) throws IOException
-    {
+    private void importingDeck(Stage primaryStage) throws IOException {
         rootImportingDeck.getChildren().clear();
 
         setBackGroundImage(rootImportingDeck, "file:BackGround Images/ImportingDeck.jpg");
@@ -1849,18 +1627,15 @@ public class Request
         InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
         ArrayList<String> deckNames = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNext())
-        {
+        while (scanner.hasNext()) {
             deckNames.add(scanner.nextLine());
             makingText(primaryStage, deckNames);
         }
 
         Button backButton = backButton(primaryStage, rootImportingDeck, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 primaryStage.setScene(sceneCollection);
                 primaryStage.centerOnScreen();
                 collectionMenu(primaryStage, false, null);
@@ -1871,10 +1646,8 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    private void makingText(Stage primaryStage, ArrayList<String> deckNames)
-    {
-        for (int i = 0; i < deckNames.size(); i++)
-        {
+    private void makingText(Stage primaryStage, ArrayList<String> deckNames) {
+        for (int i = 0; i < deckNames.size(); i++) {
             Text deckName = new Text();
             deckName.setText(deckNames.get(i));
             deckName.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
@@ -1885,14 +1658,12 @@ public class Request
             deckName.setOnMouseEntered(event -> deckName.setFill(GREEN));
             deckName.setOnMouseExited(event -> deckName.setFill(YELLOW));
             deckName.setOnMouseClicked(event -> {
-                try
-                {
+                try {
                     importingToCollection(deckNames.get(finalI));
                     primaryStage.setScene(sceneCollection);
                     primaryStage.centerOnScreen();
                     collectionMenu(primaryStage, false, null);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
@@ -1901,8 +1672,7 @@ public class Request
         }
     }
 
-    private void importingToCollection(String deckName) throws IOException, ParseException
-    {
+    private void importingToCollection(String deckName) throws IOException, ParseException {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
         Object obj = jsonParser.parse(reader);
@@ -1913,28 +1683,22 @@ public class Request
         addImportedDeckCardsAndItemsToCollection(deck);
     }
 
-    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
-    {
-        for (Hero hero : deck.getHero())
-        {
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck) {
+        for (Hero hero : deck.getHero()) {
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
         }
-        for (Minion minion : deck.getMinions())
-        {
+        for (Minion minion : deck.getMinions()) {
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
         }
-        for (Spell spell : deck.getSpells())
-        {
+        for (Spell spell : deck.getSpells()) {
             Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, true);
         }
-        for (Item item : deck.getItem())
-        {
+        for (Item item : deck.getItem()) {
             Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, true);
         }
     }
 
-    private void deckMenu(Stage primaryStage, Deck deck)
-    {
+    private void deckMenu(Stage primaryStage, Deck deck) {
         rootDeck.getChildren().clear();
 
         setBackGroundImage(rootDeck, "file:BackGround Images/Duelyst Menu Blurred.jpg");
@@ -1945,8 +1709,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Heroes", 50);
-        for (Hero hero : deck.getHero())
-        {
+        for (Hero hero : deck.getHero()) {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition++;
@@ -1955,19 +1718,16 @@ public class Request
             setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, hero.getCardID());
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += BLANK_BETWEEN_CARDS;
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 != 0)
-        {
+        if (yPosition % 4 != 0) {
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : deck.getMinions())
-        {
+        for (Minion minion : deck.getMinions()) {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID(), minion.getRequiredMP());
@@ -1976,19 +1736,16 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 4;
         }
         xPosition = 0;
-        if (yPosition % 4 != 0)
-        {
+        if (yPosition % 4 != 0) {
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : deck.getSpells())
-        {
+        for (Spell spell : deck.getSpells()) {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
@@ -1997,22 +1754,17 @@ public class Request
             yPosition++;
         }
 
-        if (xPosition == 0)
-        {
+        if (xPosition == 0) {
             y += CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS;
             yPosition += 4;
-        }
-        else
-        {
+        } else {
             xPosition = 0;
-            if (yPosition % 4 != 0)
-            {
+            if (yPosition % 4 != 0) {
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : deck.getItem())
-        {
+        for (Item item : deck.getItem()) {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, item.getItemID(), item.getPrice(), 0);
@@ -2022,11 +1774,9 @@ public class Request
         }
 
         Button backButton = backButton(primaryStage, rootDeck, 20, 15);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 primaryStage.setScene(sceneCollection);
                 primaryStage.centerOnScreen();
                 collectionMenu(primaryStage, false, null);
@@ -2036,13 +1786,10 @@ public class Request
         primaryStage.setScene(sceneDeck);
     }
 
-    private void setDeckCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck, String ID)
-    {
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+    private void setDeckCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck, String ID) {
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Remove");
                 alert.setHeaderText(null);
@@ -2052,13 +1799,11 @@ public class Request
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
                 alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeSell)
-                {
+                if (option.get() == buttonTypeSell) {
                     setCommand(CommandType.REMOVE_FROM_DECK);
                     getCommand().cardOrItemID = ID;
                     getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
+                    synchronized (requestLock) {
                         requestLock.notify();
                     }
                     rootDeck.getChildren().clear();
@@ -2068,8 +1813,7 @@ public class Request
         });
     }
 
-    private void battleMenu(Stage primaryStage)
-    {
+    private void battleMenu(Stage primaryStage) {
         setBackGroundImage(rootBattleMenu, "file:BackGround Images/duelystBattle.jpg");
 
         setBattleMenu("Single Player", primaryStage, 170);
@@ -2079,8 +1823,7 @@ public class Request
         primaryStage.setScene(sceneBattleMenu);
     }
 
-    private void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location)
-    {
+    private void setBattleMenu(String titleOfBattleMenu, Stage primaryStage, int location) {
         Text title = new Text("Select Duel");
         title.setFill(RED);
         title.setTextOrigin(VPos.TOP);
@@ -2097,8 +1840,7 @@ public class Request
         text.setOnMouseEntered(event -> text.setFill(PURPLE));
         text.setOnMouseExited(event -> text.setFill(BLACK));
         text.setOnMouseClicked(event -> {
-            switch (titleOfBattleMenu)
-            {
+            switch (titleOfBattleMenu) {
                 case "Single Player":
                     command = CommandType.SINGLE_PLAYER;
                     singlePlayerMenu(primaryStage);
@@ -2109,8 +1851,7 @@ public class Request
                     //todo battlefield
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
@@ -2118,30 +1859,24 @@ public class Request
         rootBattleMenu.getChildren().add(title);
     }
 
-    private void singlePlayerMenu(Stage primaryStage)
-    {
+    private void singlePlayerMenu(Stage primaryStage) {
         setBackGroundImage(rootSinglePlayer, "file:BackGround Images/SinglePlayer.jpg");
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @SuppressWarnings("Duplicates")
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneBattleMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     battleMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2150,8 +1885,7 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void setSinglePlayerMenu(String string, Stage primaryStage, int place)
-    {
+    private void setSinglePlayerMenu(String string, Stage primaryStage, int place) {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.BLACK, 45));
@@ -2163,8 +1897,7 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
-            switch (string)
-            {
+            switch (string) {
                 case "Story":
                     setCommand(CommandType.STORY);
                     storyModeMenu(primaryStage);
@@ -2174,8 +1907,7 @@ public class Request
                     customGameMenuToChooseDeck(primaryStage);
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
@@ -2183,41 +1915,33 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void customGameMenuToChooseDeck(Stage primaryStage)
-    {
+    private void customGameMenuToChooseDeck(Stage primaryStage) {
         setBackGroundImage(rootCustomGame, "file:BackGround Images/CustomGame1.png");
         showDecksLists(rootCustomGame);
 
         Button nextButton = new Button("Next");
         nextButton.relocate(500, 270);
-        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 customGameMenuToChooseMode(primaryStage);
             }
         });
         rootCustomGame.getChildren().add(nextButton);
 
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneBattleMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2226,31 +1950,25 @@ public class Request
         primaryStage.setScene(sceneCustomGame);
     }
 
-    private void customGameMenuToChooseMode(Stage primaryStage)
-    {
+    private void customGameMenuToChooseMode(Stage primaryStage) {
         rootCustomGame.getChildren().clear();
         setBackGroundImage(rootCustomGame, "file:BackGround Images/CustomGame2.jpg");
         setCustomGameMenuToChooseMode("Mode 1", primaryStage, 100);
         setCustomGameMenuToChooseMode("Mode 2", primaryStage, 200);
         setCustomGameMenuToChooseMode("Mode 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneSinglePlayer);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2260,8 +1978,7 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void setCustomGameMenuToChooseMode(String string, Stage primaryStage, int place)
-    {
+    private void setCustomGameMenuToChooseMode(String string, Stage primaryStage, int place) {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.THIN, 45));
@@ -2273,53 +1990,43 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
-            switch (string)
-            {
+            switch (string) {
                 case "Mode 1":
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 2":
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 3":
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
         rootCustomGame.getChildren().add(title);
     }
 
-    private void showDecksLists(Group rootCustomGame)
-    {
+    private void showDecksLists(Group rootCustomGame) {
         Menu decksMenu = new Menu("Decks");
 
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
-        {
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks()) {
             MenuItem menuItem = new MenuItem(deck.getDeckName());
             decksMenu.getItems().add(menuItem);
             menuItem.setOnAction(e -> {
@@ -2333,30 +2040,24 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void storyModeMenu(Stage primaryStage)
-    {
+    private void storyModeMenu(Stage primaryStage) {
         setBackGroundImage(rootStoryMode, "file:BackGround Images/StoryModeBackground.jpg");
         setStoryModeMenu("Mission 1", primaryStage, 100);
         setStoryModeMenu("Mission 2", primaryStage, 200);
         setStoryModeMenu("Mission 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootStoryMode, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneSinglePlayer);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2365,8 +2066,7 @@ public class Request
     }
 
     @SuppressWarnings("Duplicates")
-    private void setStoryModeMenu(String string, Stage primaryStage, int place)
-    {
+    private void setStoryModeMenu(String string, Stage primaryStage, int place) {
         Text title = new Text(string);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.THIN, 45));
@@ -2378,41 +2078,33 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
-            switch (string)
-            {
+            switch (string) {
                 case "Mission 1":
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "backgroundStory1", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mission 2":
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "backgroundStory2", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mission 3":
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "backgroundStory3", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
@@ -2420,8 +2112,7 @@ public class Request
     }
 
 
-    private void multiPlayerMenu(Stage primaryStage)
-    {
+    private void multiPlayerMenu(Stage primaryStage) {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
         setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
         showChoosePlayerMenu(rootMultiPlayer);
@@ -2431,33 +2122,26 @@ public class Request
         backButton.setFont(Font.font(25));
         Button nextButton = new Button("Next");
         nextButton.relocate(500, 270);
-        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 MultiPlayerChooseModeMenu(rootBattleField, primaryStage);
 
             }
         });
 
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
-                try
-                {
+                try {
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     battleMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2466,31 +2150,25 @@ public class Request
         rootMultiPlayer.getChildren().addAll(backButton, nextButton);
     }
 
-    private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
-    {
+    private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage) {
         rootBattleField.getChildren().clear();
         setBackGroundImage(rootBattleField, "file:BackGround Images/CustomGame2.jpg");
         setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
         setMultiPalyerMenuToChooseMode("Mode 2", primaryStage, 200);
         setMultiPalyerMenuToChooseMode("Mode 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootBattleField, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
+                synchronized (requestLock) {
                     requestLock.notify();
                 }
                 primaryStage.setScene(sceneBattleMenu);
                 primaryStage.centerOnScreen();
-                try
-                {
+                try {
                     singlePlayerMenu(primaryStage);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -2498,8 +2176,7 @@ public class Request
         primaryStage.setScene(sceneMultiPlayer);
     }
 
-    private void setMultiPalyerMenuToChooseMode(String s, Stage primaryStage, int place)
-    {
+    private void setMultiPalyerMenuToChooseMode(String s, Stage primaryStage, int place) {
         Text title = new Text(s);
         title.setTextOrigin(VPos.TOP);
         title.setFont(Font.font(null, FontWeight.THIN, 45));
@@ -2511,53 +2188,43 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
-            switch (s)
-            {
+            switch (s) {
                 case "Mode 1":
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 2":
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "Mode 3":
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
-                    try
-                    {
+                    try {
                         setBattleField(primaryStage, "customGameBackGround", false);
-                    } catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
             }
-            synchronized (requestLock)
-            {
+            synchronized (requestLock) {
                 requestLock.notify();
             }
         });
         rootMultiPlayer.getChildren().add(title);
     }
 
-    private void showChoosePlayerMenu(Group rootMultiPlayer)
-    {
+    private void showChoosePlayerMenu(Group rootMultiPlayer) {
         Menu decksMenu = new Menu("Players");
 
-        for (Account account : AccountManager.getAccounts())
-        {
+        for (Account account : AccountManager.getAccounts()) {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);
             menuItem.setOnAction(e -> {
@@ -2570,8 +2237,7 @@ public class Request
         rootMultiPlayer.getChildren().add(menuBar);
     }
 
-    private void setMultiPlayerMenu(String string, Stage primaryStage, int location)
-    {
+    private void setMultiPlayerMenu(String string, Stage primaryStage, int location) {
         Text multiPlayerText = new Text(string);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
         multiPlayerText.setTextOrigin(VPos.TOP);
@@ -2581,10 +2247,8 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard) throws IOException
-    {
-        if (!backFromGraveYard)
-        {
+    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard) throws IOException {
+        if (!backFromGraveYard) {
             setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");
             setGridPane(rootBattleField);
             setHeroIcons(rootBattleField);
@@ -2606,28 +2270,24 @@ public class Request
         primaryStage.show();
     }
 
-    private void setNextCard(Group rootBattleField)
-    {
+    private void setNextCard(Group rootBattleField) {
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
-    private void showGameInfo(Group rootBattleField)
-    {
+    private void showGameInfo(Group rootBattleField) {
         Text text = new Text();
         ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050, 200);
         text.setFill(CYAN);
-        if (!rootBattleField.getChildren().contains(text))
-        {
+        if (!rootBattleField.getChildren().contains(text)) {
             rootBattleField.getChildren().add(text);
         }
     }
 
 
-    private void setPlayersName(Group rootBattleField)
-    {
+    private void setPlayersName(Group rootBattleField) {
         Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
         firstPlayerName.relocate(250, 50);
         firstPlayerName.setFont(Font.font(20));
@@ -2641,13 +2301,10 @@ public class Request
         rootBattleField.getChildren().add(secondPlayerName);
     }
 
-    public void setMPIcons(Group rootBattleField)
-    {
-        for (int i = 0; i < 10; i++)
-        {
+    public void setMPIcons(Group rootBattleField) {
+        for (int i = 0; i < 10; i++) {
             ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
-            {
+            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i) {
                 firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
             firstPlayerMPIcon.relocate(250 + i * 20, 90);
@@ -2655,11 +2312,9 @@ public class Request
             rootBattleField.getChildren().add(firstPlayerMPIcon);
         }
 
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
-            {
+            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i) {
                 secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
             secondPlayerMPIcon.relocate(1100 - i * 20, 90);
@@ -2668,15 +2323,12 @@ public class Request
         }
     }
 
-    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
-    {
+    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url) {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_Surrender.png");
         graveYardButton.relocate(1135, 530);
-        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 Battle.getCurrentBattle().tasksWhenSurrender();
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
@@ -2686,15 +2338,12 @@ public class Request
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url)
-    {
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url) {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
-        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
+            public void handle(MouseEvent event) {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
                 showGraveYard(primaryStage, url);
@@ -2703,8 +2352,7 @@ public class Request
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void showGraveYard(Stage primaryStage, String map)
-    {
+    private void showGraveYard(Stage primaryStage, String map) {
         rootGraveYard.getChildren().clear();
 
         setBackGroundImage(rootGraveYard, "file:BackGround Images/GraveYard Image.jpg");
@@ -2716,8 +2364,7 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())
-        {
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards()) {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
             showNonSpellCards(rootGraveYard, x, y, minion, minion.getCardID(), minion.getRequiredMP());
@@ -2726,35 +2373,27 @@ public class Request
         }
 
         Button backButton = backButton(primaryStage, rootGraveYard, 20, 15);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
-                try
-                {
+            public void handle(MouseEvent event) {
+                try {
                     primaryStage.setScene(sceneBattleField);
                     primaryStage.centerOnScreen();
                     setBattleField(primaryStage, map, true);
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    private void setEndTurnButton(Group rootBattleField)
-    {
+    private void setEndTurnButton(Group rootBattleField) {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
-        endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event)
-            {
-                for (int number = 0; number < 5; number++)
-                {
+            public void handle(MouseEvent event) {
+                for (int number = 0; number < 5; number++) {
                     Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
                     Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
                 }
@@ -2765,8 +2404,7 @@ public class Request
 
                 setNextCard(rootBattleField);
 
-                for (int number = 0; number < 5; number++)
-                {
+                for (int number = 0; number < 5; number++) {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
                 battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField);
@@ -2776,8 +2414,7 @@ public class Request
         rootBattleField.getChildren().add(endTurnButton);
     }
 
-    private void setHeroFirstPlace(Group rootBattleField)
-    {
+    private void setHeroFirstPlace(Group rootBattleField) {
         Card.setCardsImageView();
         ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
         BattleFieldController.setSpriteAnimation(firstPlayerHero);
@@ -2802,8 +2439,7 @@ public class Request
         Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].setCard(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
     }
 
-    private void setHeroIcons(Group rootBattleField)
-    {
+    private void setHeroIcons(Group rootBattleField) {
         Pane paneHero1 = new Pane();
         Pane paneHero2 = new Pane();
         paneHero1.relocate(100, -40);
@@ -2815,13 +2451,11 @@ public class Request
         rootBattleField.getChildren().addAll(paneHero1, paneHero2);
     }
 
-    private void setHandIcons(Group rootBattleField)
-    {
+    private void setHandIcons(Group rootBattleField) {
         Pane[] firstPlayerHandPanes = new Pane[5];
         Pane[] secondPlayerHandPanes = new Pane[5];
         Card.setCardIcons();
-        for (int number = 0; number < 5; number++)
-        {
+        for (int number = 0; number < 5; number++) {
             ImageView imageView1;
             ImageView imageView2;
 
@@ -2848,25 +2482,21 @@ public class Request
         secondPlayerHandPanes[2].relocate(650, 620);
         secondPlayerHandPanes[3].relocate(775, 620);
         secondPlayerHandPanes[4].relocate(900, 620);
-        for (int number = 0; number < 5; number++)
-        {
+        for (int number = 0; number < 5; number++) {
             rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
         }
         Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
-    private void setGridPane(Group rootBattleField)
-    {
+    private void setGridPane(Group rootBattleField) {
         Pane[][] panes = new Pane[9][5];
         GridPane gridPane = new GridPane();
 
         gridPane.relocate(300, 200);
 
-        for (int row = 0; row < 9; row++)
-        {
-            for (int column = 0; column < 5; column++)
-            {
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 5; column++) {
                 Pane pane = new Pane();
                 panes[row][column] = pane;
                 gridPane.add(pane, row, column);
@@ -2880,241 +2510,164 @@ public class Request
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 
-    public void getSecondPlayerInMultiPlayerMatch()
-    {
+    public void getSecondPlayerInMultiPlayerMatch() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternSelectUser.matcher(input).matches())
-        {
+        if (patternSelectUser.matcher(input).matches()) {
             setCommand(CommandType.SELECT_USER);
             getCommand().username = inputParts[2];
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getMultiPlayerMatchMode()
-    {
+    public void getMultiPlayerMatchMode() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternStartMultiPlayerGame.matcher(input).matches())
-        {
+        if (patternStartMultiPlayerGame.matcher(input).matches()) {
             setCommand(CommandType.START_MULTI_PLAYER_GAME);
             getCommand().multiPlayerMatchMode = inputParts[3];
-            if (inputParts.length > 4)
-            {
+            if (inputParts.length > 4) {
                 getCommand().numOfFlags = Integer.parseInt(inputParts[4]);
             }
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getBattleCommands()
-    {
+    public void getBattleCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equalsIgnoreCase("Game Info"))
-        {
+        if (input.equalsIgnoreCase("Game Info")) {
             setCommand(CommandType.GAME_INFO);
-        }
-        else if (input.equalsIgnoreCase("Show My Minions"))
-        {
+        } else if (input.equalsIgnoreCase("Show My Minions")) {
             setCommand(CommandType.SHOW_MY_MINIONS);
-        }
-        else if (input.equalsIgnoreCase("Show Opponent Minions"))
-        {
+        } else if (input.equalsIgnoreCase("Show Opponent Minions")) {
             setCommand(CommandType.SHOW_OPPONENT_MINIONS);
-        }
-        else if (patternShowCardInfo.matcher(input).matches())
-        {
+        } else if (patternShowCardInfo.matcher(input).matches()) {
             setCommand(CommandType.SHOW_CARD_INFO);
             getCommand().cardOrItemID = inputParts[3];
-        }
-        else if (patternSelect.matcher(input).matches())
-        {
+        } else if (patternSelect.matcher(input).matches()) {
             setCommand(CommandType.SELECT);
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (input.equalsIgnoreCase("Show collectibles"))
-        {
+        } else if (input.equalsIgnoreCase("Show collectibles")) {
             setCommand(CommandType.SHOW_COLLECTIBLES);
-        }
-        else if (patternSelectItem.matcher(input).matches())
-        {
+        } else if (patternSelectItem.matcher(input).matches()) {
             setCommand(CommandType.SELECT_ITEM);
             getCommand().cardOrItemID = inputParts[1];
-        }
-        else if (patternInsertCard.matcher(input).matches())
-        {
+        } else if (patternInsertCard.matcher(input).matches()) {
             setCommand(CommandType.INSERT_CARD);
             getCommand().insertRow = Integer.parseInt(inputParts[4]);
             getCommand().insertColumn = Integer.parseInt(inputParts[6]);
             getCommand().insertCardName = inputParts[1];
 
-        }
-        else if (input.equalsIgnoreCase("Show Hand"))
-        {
+        } else if (input.equalsIgnoreCase("Show Hand")) {
             setCommand(CommandType.SHOW_HAND);
-        }
-        else if (input.equalsIgnoreCase("Show Next Card"))
-        {
+        } else if (input.equalsIgnoreCase("Show Next Card")) {
             setCommand(CommandType.SHOW_NEXT_CARD);
-        }
-        else if (input.equalsIgnoreCase("Enter graveyard"))
-        {
+        } else if (input.equalsIgnoreCase("Enter graveyard")) {
             setCommand(CommandType.ENTER_GRAVEYARD);
-        }
-        else if (input.equalsIgnoreCase("Help"))
-        {
+        } else if (input.equalsIgnoreCase("Help")) {
             setCommand(CommandType.HELP_BATTLE);
-        }
-        else if (input.equalsIgnoreCase("End Turn"))
-        {
+        } else if (input.equalsIgnoreCase("End Turn")) {
             setCommand(CommandType.END_TURN);
-        }
-        else if (input.equalsIgnoreCase("Surrender"))
-        {
+        } else if (input.equalsIgnoreCase("Surrender")) {
             setCommand(CommandType.SURRENDER);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterSelectCardCommands()
-    {
+    public void getAfterSelectCardCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternNormalAttack.matcher(input).matches())
-        {
+        if (patternNormalAttack.matcher(input).matches()) {
             setCommand(CommandType.NORMAL_ATTACK);
             getCommand().enemyCardIDForNormalAttack = inputParts[1];
-        }
-        else if (input.contains("Move To"))
-        {
+        } else if (input.contains("Move To")) {
             setCommand(CommandType.MOVE_TO);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[2]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
-        }
-        else if (patternUseSpecialPower.matcher(input).matches())
-        {
+        } else if (patternUseSpecialPower.matcher(input).matches()) {
             setCommand(CommandType.USE_SPECIAL_POWER);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[3]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[4]);
-        }
-        else if (patternComboAttack.matcher(input).matches())
-        {
+        } else if (patternComboAttack.matcher(input).matches()) {
             setCommand(CommandType.COMBO_ATTACK);
             getCommand().enemyCardIDForCombo = inputParts[2];
-            for (int counter = 3; counter < inputParts.length; counter++)
-            {
+            for (int counter = 3; counter < inputParts.length; counter++) {
                 getCommand().cardIDsForComboAttack.add(inputParts[counter]);
             }
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterSelectItemCommands()
-    {
+    public void getAfterSelectItemCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (input.equalsIgnoreCase("Show Info"))
-        {
+        if (input.equalsIgnoreCase("Show Info")) {
             setCommand(CommandType.SHOW_ITEM_INFO);
-        }
-        else if (patternUseItem.matcher(input).matches())
-        {
+        } else if (patternUseItem.matcher(input).matches()) {
             setCommand(CommandType.USE_ITEM);
             getCommand().rowOfTheCell = Integer.parseInt(inputParts[1]);
             getCommand().columnOfTheCell = Integer.parseInt(inputParts[2]);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getGraveYardCommands()
-    {
+    public void getGraveYardCommands() {
         String input = myScanner.nextLine();
         String[] inputParts = input.split(" ");
-        if (patternShowInfoOfCardInGraveYard.matcher(input).matches())
-        {
+        if (patternShowInfoOfCardInGraveYard.matcher(input).matches()) {
             setCommand(CommandType.SHOW_INFO);
             getCommand().cardOrItemIDInGraveYard = inputParts[2];
-        }
-        else if (input.equalsIgnoreCase("Show cards"))
-        {
+        } else if (input.equalsIgnoreCase("Show cards")) {
             setCommand(CommandType.SHOW_CARDS);
-        }
-        else
-        {
+        } else {
             getShowMenuAndExitCommand(input);
         }
     }
 
-    public void getAfterGameEndedCommand()
-    {
+    public void getAfterGameEndedCommand() {
         String input = myScanner.nextLine();
-        if (input.equalsIgnoreCase("End Game"))
-        {
+        if (input.equalsIgnoreCase("End Game")) {
             setCommand(CommandType.END_GAME);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public void getShowMenuAndExitCommand(String input)
-    {
-        if (input.equalsIgnoreCase("Show menu"))
-        {
+    public void getShowMenuAndExitCommand(String input) {
+        if (input.equalsIgnoreCase("Show menu")) {
             setCommand(CommandType.SHOW_MENU);
-        }
-        else if (input.equals("exit"))
-        {
+        } else if (input.equals("exit")) {
             setCommand(CommandType.EXIT);
-        }
-        else
-        {
+        } else {
             showOutput.printOutput("invalid command");
             setCommand(null);
         }
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return myScanner.nextLine();
     }
 
-    public int getStoryMatchLevel()
-    {
-        try
-        {
+    public int getStoryMatchLevel() {
+        try {
             showOutput.printOutput("Enter Level number");
             String input = myScanner.nextLine();
             getCommand().storyGameMode = Integer.parseInt(input);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             showOutput.printOutput("Try Again");
             getStoryMatchLevel();
         }
         return getCommand().storyGameMode;
     }
 
-    public void getCustomGameCommands()
-    {
+    public void getCustomGameCommands() {
         String line = myScanner.nextLine();
         String[] partedLine = line.split(" ");
         getCommand().deckNameForCustomGame = partedLine[2];
