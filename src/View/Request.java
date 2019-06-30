@@ -675,10 +675,10 @@ public class Request
         textFields.add(makingTextField(rootMinionCustom,710,230,"ownHero"));
         textFields.add(makingTextField(rootMinionCustom,710,330,"opponentHero"));
         textFields.add(makingTextField(rootMinionCustom,710,450,"numOfOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,880,30,"numOfOwnBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,880,130,"allOwnMinion"));
-        textFields.add(makingTextField(rootMinionCustom,880,230,"allOpponentBothNonSpell"));
-        textFields.add(makingTextField(rootMinionCustom,880,330,"allOwnBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,865,30,"numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,865,130,"allOwnMinion"));
+        textFields.add(makingTextField(rootMinionCustom,865,230,"allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootMinionCustom,865,330,"allOwnBothNonSpell"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900, 505);
@@ -781,6 +781,14 @@ public class Request
         if(allOpponentBothNonSpell.equalsIgnoreCase("true"))
         {
             minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
+        if (allOwnBothNonSpell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+        }
+        if (allOwnMinion.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinion(true);
         }
         if (attackType.equalsIgnoreCase("melee"))
         {
