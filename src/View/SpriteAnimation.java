@@ -10,7 +10,7 @@ public class SpriteAnimation extends Transition
 {
     private final ImageView imageView;
     private final int count;
-    private final int columns;
+    private final int rows;
     private final int offsetX;
     private final int offsetY;
     private final int width;
@@ -18,11 +18,11 @@ public class SpriteAnimation extends Transition
 
     private int lastIndex;
 
-    public SpriteAnimation(ImageView imageView, Duration duration, int count, int columns, int offsetX, int offsetY, int width, int height)
+    public SpriteAnimation(ImageView imageView, Duration duration, int count, int rows, int offsetX, int offsetY, int width, int height)
     {
         this.imageView = imageView;
         this.count = count;
-        this.columns = columns;
+        this.rows = rows;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.width = width;
@@ -37,8 +37,8 @@ public class SpriteAnimation extends Transition
         final int index = Math.min((int) Math.floor(k * count), count - 1);
         if (index != lastIndex)
         {
-            final int x = (index % columns) * width + offsetX;
-            final int y = (index / columns) * height + offsetY;
+            final int x = (index / rows) * width + offsetX;
+            final int y = (index % rows) * height + offsetY;
             imageView.setViewport(new Rectangle2D(x, y, width, height));
             lastIndex = index;
         }

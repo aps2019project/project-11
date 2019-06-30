@@ -136,6 +136,30 @@ public class ShowOutput
 
     }
 
+    public String getGameInfo()
+    {
+        StringBuilder str = new StringBuilder("");
+        str.append("First Player : ").append(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName()).append("\n");
+        str.append("Second Player : ").append(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName()).append("\n");
+        str.append("First Player MP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMP()).append("\n");
+        str.append("Second Player MP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMP()).append("\n");
+        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
+        {
+            str.append("First Player Hero HP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+            str.append("Second Player Hero HP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
+        {
+
+        }
+        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
+        {
+
+        }
+
+        return str.toString();
+    }
+
     public void showMyMinions()
     {
         for (NonSpellCard minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
@@ -276,6 +300,47 @@ public class ShowOutput
             str.append("MP: ").append(spell.getRequiredMP()).append("\n");
             str.append("Cost: ").append(spell.getPrice()).append("\n");
             str.append("Desc: ").append(spell.getDescriptionTypeOfSpell()).append("\n");
+        }
+        return str.toString();
+    }
+
+    public String showCardInfoInBattleString(String cardName)
+    {
+        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
+        System.out.println(card.getCardName());
+        StringBuilder str = new StringBuilder("");
+        if (card instanceof Hero)
+        {
+            Hero hero = (Hero) card;
+            str.append("Hero:\n" + "Name: ").append(hero.getCardName()).append("\n");
+            if (hero.getSpecialPower() != null)
+            {
+                str.append("HP: ").append(hero.getCurrentHP()).append("\n");
+                str.append("AP: ").append(hero.getCurrentAP()).append("\n");
+                str.append("Desc: ").append(hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
+            }
+            else
+            {
+                str.append("This hero has no special power");
+            }
+        }
+        if (card instanceof Minion)
+        {
+            Minion minion = (Minion) card;
+            str.append("Minion: ");
+            str.append("Name: ").append(minion.getCardName()).append("\n");
+            str.append("HP: ").append(minion.getCurrentHP()).append("\n");
+            str.append("AP: ").append(minion.getCurrentAP()).append("\n");
+            str.append("Range: ").append(minion.getImpactType()).append("\n");
+            str.append("Combo Ability: ").append(minion.getImpactType()).append("\n");
+            if (minion.getSpecialPower() != null)
+            {
+                str.append("Special Power: ").append(minion.getSpecialPower().getDescriptionTypeOfSpecialPower()).append("\n");
+            }
+            else
+            {
+                str.append("This minion has no special power").append("\n");
+            }
         }
         return str.toString();
     }

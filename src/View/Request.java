@@ -5,8 +5,8 @@ import Controller.BattleFieldController;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -30,11 +30,9 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.math.BigInteger;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -355,7 +353,7 @@ public class Request
 
     private void mainMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootMainMenu, "file:Duelyst Menu.jpg");
+        setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
         duelyst.setTextOrigin(VPos.TOP);
@@ -483,7 +481,7 @@ public class Request
 
     private void makingCustomCards(Stage stage)
     {
-        setBackGroundImage(rootMakingCustomCard, "file:custom1.jpg");
+        setBackGroundImage(rootMakingCustomCard, "file:BackGround Images/custom1.jpg");
 
         Text text = new Text("Choose one of the below");
         text.setFont(Font.font(45));
@@ -528,7 +526,7 @@ public class Request
 
     private void spellPage(Stage stage)
     {
-        setBackGroundImage(rootSpellCustom, "file:spellCustom1.jpg");
+        setBackGroundImage(rootSpellCustom, "file:BackGround Images/spellCustom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootSpellCustom, 30, 30, "name"));
         textFields.add(makingTextField(rootSpellCustom, 30, 130, "numOfTarget"));
@@ -650,7 +648,7 @@ public class Request
 
     private void minionPage(Stage stage)
     {
-        setBackGroundImage(rootMinionCustom, "file:minionCustom1.jpg");
+        setBackGroundImage(rootMinionCustom, "file:BackGround Images/minionCustom1.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootMinionCustom, 30, 30, "name"));
         textFields.add(makingTextField(rootMinionCustom, 30, 130, "Ap"));
@@ -828,7 +826,7 @@ public class Request
 
     private void heroPage(Stage stage)
     {
-        setBackGroundImage(rootHeroCustom, "file:HeroCustom.jpg");
+        setBackGroundImage(rootHeroCustom, "file:BackGround Images/HeroCustom.jpg");
         ArrayList<TextField> textFields = new ArrayList<>();
         textFields.add(makingTextField(rootHeroCustom, 30, 30, "name"));
         textFields.add(makingTextField(rootHeroCustom, 30, 130, "Ap"));
@@ -1082,7 +1080,7 @@ public class Request
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
-        setBackGroundImage(rootShop, "file:Duelyst Menu Blurred.jpg");
+        setBackGroundImage(rootShop, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneShop.setContent(rootShop);
         scrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -1331,7 +1329,7 @@ public class Request
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
-        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+        setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneCollection.setContent(rootCollection);
         scrollPaneCollection.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -1670,7 +1668,7 @@ public class Request
     {
         rootCollection.getChildren().clear();
 
-        setBackGroundImage(rootCollection, "file:Duelyst Menu Blurred.jpg");
+        setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         int xPosition = 0, yPosition = 0, x, y;
         setShopAndDeckAndGraveYardMenuText(rootCollection, sceneCollection, "Decks", 50);
@@ -1762,7 +1760,7 @@ public class Request
     {
         rootImportingDeck.getChildren().clear();
 
-        setBackGroundImage(rootImportingDeck, "file:ImportingDeck.jpg");
+        setBackGroundImage(rootImportingDeck, "file:BackGround Images/ImportingDeck.jpg");
 
         InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
         ArrayList<String> deckNames = new ArrayList<>();
@@ -1821,7 +1819,7 @@ public class Request
 
     private void importingToCollection(String deckName) throws IOException, ParseException
     {
-        JSONParser jsonParser = new JSONParser();
+        JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
         Object obj = jsonParser.parse(reader);
         System.out.println(obj);
@@ -1855,7 +1853,7 @@ public class Request
     {
         rootDeck.getChildren().clear();
 
-        setBackGroundImage(rootDeck, "file:Duelyst Menu Blurred.jpg");
+        setBackGroundImage(rootDeck, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneDeck.setContent(rootDeck);
         scrollPaneDeck.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -1988,7 +1986,7 @@ public class Request
 
     private void battleMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootBattleMenu, "file:duelystBattle.jpg");
+        setBackGroundImage(rootBattleMenu, "file:BackGround Images/duelystBattle.jpg");
 
         setBattleMenu("Single Player", primaryStage, 170);
         setBattleMenu("Multi Player", primaryStage, 270);
@@ -2038,7 +2036,7 @@ public class Request
 
     private void singlePlayerMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootSinglePlayer, "file:SinglePlayer.jpg");
+        setBackGroundImage(rootSinglePlayer, "file:BackGround Images/SinglePlayer.jpg");
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
@@ -2103,7 +2101,7 @@ public class Request
     @SuppressWarnings("Duplicates")
     private void customGameMenuToChooseDeck(Stage primaryStage)
     {
-        setBackGroundImage(rootCustomGame, "file:CustomGame1.png");
+        setBackGroundImage(rootCustomGame, "file:BackGround Images/CustomGame1.png");
         showDecksLists(rootCustomGame);
 
         Button nextButton = new Button("Next");
@@ -2147,7 +2145,7 @@ public class Request
     private void customGameMenuToChooseMode(Stage primaryStage)
     {
         rootCustomGame.getChildren().clear();
-        setBackGroundImage(rootCustomGame, "file:CustomGame2.jpg");
+        setBackGroundImage(rootCustomGame, "file:BackGround Images/CustomGame2.jpg");
         setCustomGameMenuToChooseMode("Mode 1", primaryStage, 100);
         setCustomGameMenuToChooseMode("Mode 2", primaryStage, 200);
         setCustomGameMenuToChooseMode("Mode 3", primaryStage, 300);
@@ -2253,7 +2251,7 @@ public class Request
     @SuppressWarnings("Duplicates")
     private void storyModeMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootStoryMode, "file:StoryModeBackground.jpg");
+        setBackGroundImage(rootStoryMode, "file:BackGround Images/StoryModeBackground.jpg");
         setStoryModeMenu("Mission 1", primaryStage, 100);
         setStoryModeMenu("Mission 2", primaryStage, 200);
         setStoryModeMenu("Mission 3", primaryStage, 300);
@@ -2340,7 +2338,7 @@ public class Request
 
     private void multiPlayerMenu(Stage primaryStage)
     {
-        setBackGroundImage(rootMultiPlayer, "file:MultiPlayerrr.jpg");
+        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
         setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
@@ -2387,7 +2385,7 @@ public class Request
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
     {
         rootBattleField.getChildren().clear();
-        setBackGroundImage(rootBattleField, "file:CustomGame2.jpg");
+        setBackGroundImage(rootBattleField, "file:BackGround Images/CustomGame2.jpg");
         setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
         setMultiPalyerMenuToChooseMode("Mode 2", primaryStage, 200);
         setMultiPalyerMenuToChooseMode("Mode 3", primaryStage, 300);
@@ -2511,7 +2509,9 @@ public class Request
             setMPIcons(rootBattleField);
             setHeroFirstPlace(rootBattleField);
             setGraveYardButton(primaryStage, rootBattleField, map);
+            setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
+            showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField);
         }
         battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField);
@@ -2525,6 +2525,20 @@ public class Request
     private void setNextCard(Group rootBattleField)
     {
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
+    }
+
+    private void showGameInfo(Group rootBattleField)
+    {
+        Text text = new Text();
+        ShowOutput showOutput = ShowOutput.getInstance();
+        String string = showOutput.getGameInfo();
+        text.setText(string);
+        text.relocate(1050, 200);
+        text.setFill(CYAN);
+        if (!rootBattleField.getChildren().contains(text))
+        {
+            rootBattleField.getChildren().add(text);
+        }
     }
 
 
@@ -2570,7 +2584,25 @@ public class Request
         }
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String map)
+    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
+    {
+        ImageView graveYardButton = new ImageView("battleField BackGround/button_Surrender.png");
+        graveYardButton.relocate(1135, 530);
+        graveYardButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Battle.getCurrentBattle().tasksWhenSurrender();
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                mainMenu(primaryStage);
+            }
+        });
+        rootBattleField.getChildren().add(graveYardButton);
+    }
+
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2581,7 +2613,7 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, map);
+                showGraveYard(primaryStage, url);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
@@ -2591,7 +2623,7 @@ public class Request
     {
         rootGraveYard.getChildren().clear();
 
-        setBackGroundImage(rootGraveYard, "file:GraveYard Image.jpg");
+        setBackGroundImage(rootGraveYard, "file:BackGround Images/GraveYard Image.jpg");
 
         scrollPaneGraveYard.setContent(rootGraveYard);
         scrollPaneGraveYard.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -2675,6 +2707,9 @@ public class Request
         Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
         Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
+
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
 
         Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
         Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
