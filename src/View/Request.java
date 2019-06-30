@@ -508,6 +508,7 @@ public class Request {
         });
         rootSpellCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneSpellCustom);
+
     }
 
     private void workingOnSpellText(ArrayList<TextField> textFields) {
@@ -2151,12 +2152,12 @@ public class Request {
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage) {
-        rootBattleField.getChildren().clear();
-        setBackGroundImage(rootBattleField, "file:BackGround Images/CustomGame2.jpg");
+        rootMultiPlayer.getChildren().clear();
+        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/CustomGame2.jpg");
         setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
         setMultiPalyerMenuToChooseMode("Mode 2", primaryStage, 200);
         setMultiPalyerMenuToChooseMode("Mode 3", primaryStage, 300);
-        Button backButton = backButton(primaryStage, rootBattleField, 50, 450);
+        Button backButton = backButton(primaryStage, rootMultiPlayer, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
