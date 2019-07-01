@@ -19,7 +19,16 @@ public class Card implements Cloneable
     private static final Card card = new Card();
     private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
     private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
+    private static int capacityOfSell;
 
+    public static void increseCapacityOfSell()
+    {
+        capacityOfSell++;
+    }
+    public static void decreaseCapacityOfSell()
+    {
+        capacityOfSell--;
+    }
     public static ImageView getCardImageView(Card card)
     {
         if (card instanceof Hero)
@@ -231,5 +240,9 @@ public class Card implements Cloneable
         cardsImageView.add(new ImageView("Cards Images/hybrid.png"));
     }
 
+
+    public static int getCapacityOfSell() {
+        return capacityOfSell;
+    }
 
 }
