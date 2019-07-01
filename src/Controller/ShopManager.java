@@ -34,6 +34,10 @@ public class ShopManager
         {
             showOutput.printOutput("you don't have enough money.");
         }
+        if (card.getCapacityOfSell()<=0)
+        {
+            showOutput.printOutput("you can not buy because of card capacity of sell");
+        }
         else
         {
             Shop.getInstance().buyCard(card);
@@ -46,6 +50,10 @@ public class ShopManager
         if (item.getPrice() > Account.loggedInAccount.getMoney())
         {
             showOutput.printOutput("you don't have enough money.");
+        }
+        if (item.getCapacityOfItemSell() < 0)
+        {
+            showOutput.printOutput("you can not buy because of card capacity of sell");
         }
         else if (Account.loggedInAccount.getCollection().getItems().size() == 3)
         {

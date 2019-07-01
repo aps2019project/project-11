@@ -1407,20 +1407,17 @@ public class Request
                     mediaPlayer.play();
                     if (specifyKindOfCard(name)==1)
                     {
-                        if (makingItem(name).getCapacityOfItemSell() <= 0)
+                        if (makingItem(name).getCapacityOfItemSell()>=0)
                         {
-                            System.out.println("you can not buy this Item");
+                            makingItem(name).decreaseCapacityOfItemSell();
+
                         }
-                        else {
-                        makingItem(name).decreaseCapacityOfItemSell();
-                        System.out.println(makingItem(name).getItemName() + makingItem(name).getCapacityOfItemSell());
-                    }}
-                    else {
-                        if (makingCard(name).getCapacityOfSell() <= 0) {
-                            System.out.println("you can not buy this Card");
-                        } else {
+                    }
+                    else
+                    {
+                        if (makingCard(name).getCapacityOfSell()>=0)
+                        {
                             makingCard(name).decreaseCapacityOfSell();
-                            System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
                         }
                     }
                     makingJson();
