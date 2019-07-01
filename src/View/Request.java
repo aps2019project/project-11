@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -1459,7 +1460,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID(), hero.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice(),hero.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1491,7 +1492,7 @@ public class Request
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID(), minion.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice(),minion.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1523,7 +1524,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice(),spell.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1558,7 +1559,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice(), 0);
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice(),item.getItemName());
             xPosition++;
             yPosition++;
         }
@@ -1648,7 +1649,7 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price)
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price,String name)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1667,8 +1668,15 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
+                    if (specifyKindOfCard(name) == 1)
+                    {
+                        Item.increaseCapacityOfItemSell();
+                    }
+                    else
+                    {
+                        Card.increseCapacityOfSell();
+                    }
                     setCommand(CommandType.SELL);
-
                     request.getCommand().cardOrItemID = ID;
                     synchronized (requestLock)
                     {
@@ -1683,7 +1691,6 @@ public class Request
             }
         });
     }
-
 
     private void setCollectionDeckStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck)
     {
