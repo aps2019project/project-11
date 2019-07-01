@@ -120,7 +120,7 @@ public class Main extends Application
         Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
-
+        convertingToShop();
         convertingToAccounts();
         Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
@@ -128,6 +128,11 @@ public class Main extends Application
         primaryStage.getIcons().add(iconImage);
         primaryStage.setTitle("Duelyst");
         primaryStage.show();
+    }
+
+    private void convertingToShop()
+    {
+
     }
 
     private void convertingToAccounts() throws Exception

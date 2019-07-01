@@ -1416,6 +1416,7 @@ public class Request
                         Card.decreaseCapacityOfSell();
                         System.out.println(Card.getCapacityOfSell());
                     }
+                    makingJson();
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = name;
                     synchronized (requestLock)
@@ -1427,6 +1428,19 @@ public class Request
         });
     }
 
+    public void makingJson()
+    {
+        String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Shop.getInstance());
+        try
+        {
+          FileWriter fileWriter = new FileWriter("shop.json");
+          fileWriter.write(shopJson);
+          fileWriter.close();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     public int specifyKindOfCard(String name)
     {
         for (int i = 0; i<Item.getItems().size();i++)
@@ -1676,6 +1690,7 @@ public class Request
                     {
                         Card.increseCapacityOfSell();
                     }
+                    makingJson();
                     setCommand(CommandType.SELL);
                     request.getCommand().cardOrItemID = ID;
                     synchronized (requestLock)
