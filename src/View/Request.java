@@ -1410,7 +1410,6 @@ public class Request
                         if (makingItem(name).getCapacityOfItemSell()>=0)
                         {
                             makingItem(name).decreaseCapacityOfItemSell();
-
                         }
                     }
                     else
@@ -1724,23 +1723,16 @@ public class Request
                 {
                     if (specifyKindOfCard(name) == 1)
                     {
-                        if (makingItem(name).getCapacityOfItemSell() > 5)
-                        {
-                            System.out.println("you can not sell this item");
-                        }
-                        else
+                        if (makingItem(name).getCapacityOfItemSell() <= 5)
                         {
                             makingItem(name).increaseCapacityOfItemSell();
-                            System.out.println(makingItem(name).getItemName()+ makingItem(name).getCapacityOfItemSell());
                         }
                     }
-                    else {
-                        if (makingCard(name).getCapacityOfSell() > 5) {
-                            System.out.println("you can not sell this card");
-                        } else
-                            {
+                    else
+                    {
+                        if (makingCard(name).getCapacityOfSell() <= 5)
+                        {
                             makingCard(name).increaseCapacityOfSell();
-                            System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
                         }
                     }
                     makingJson();

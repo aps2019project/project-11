@@ -1918,7 +1918,7 @@
       "cardName": "kamandarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": -1
+      "capacityOfSell": 5
     },
     {
       "ableToCombo": false,
@@ -2056,7 +2056,7 @@
       "cardName": "asbsavarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 4
     },
     {
       "ableToCombo": false,
@@ -3963,7 +3963,7 @@
           "START_BATTLE"
         ]
       },
-      "capacityOfItemSell": 2,
+      "capacityOfItemSell": 5,
       "collectibleItemSelectedInBattle": false
     },
     {

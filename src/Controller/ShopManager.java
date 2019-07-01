@@ -34,7 +34,7 @@ public class ShopManager
         {
             showOutput.printOutput("you don't have enough money.");
         }
-        if (card.getCapacityOfSell()<=0)
+        if (card.getCapacityOfSell()<0)
         {
             showOutput.printOutput("you can not buy because of card capacity of sell");
         }
@@ -51,7 +51,7 @@ public class ShopManager
         {
             showOutput.printOutput("you don't have enough money.");
         }
-        if (item.getCapacityOfItemSell() < 0)
+        if (item.getCapacityOfItemSell() <= 0)
         {
             showOutput.printOutput("you can not buy because of card capacity of sell");
         }
@@ -72,7 +72,14 @@ public class ShopManager
         {
             if (hero.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(hero);
+                if (hero.getCapacityOfSell() <=5)
+                {
+                    removeCardFromDeckToSell(hero);
+                }
+                else
+                {
+                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
+                }
                 return;
             }
         }
@@ -80,7 +87,14 @@ public class ShopManager
         {
             if (minion.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(minion);
+                if (minion.getCapacityOfSell() <= 5)
+                {
+                    removeCardFromDeckToSell(minion);
+                }
+                else
+                {
+                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
+                }
                 return;
             }
         }
@@ -88,7 +102,14 @@ public class ShopManager
         {
             if (spell.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(spell);
+                if (spell.getCapacityOfSell() <=5)
+                {
+                    removeCardFromDeckToSell(spell);
+                }
+                else
+                {
+                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
+                }
                 return;
             }
         }
@@ -96,7 +117,14 @@ public class ShopManager
         {
             if (item.getItemID().equals(ID))
             {
-                removeItemFromDeckToSell(item);
+                if (item.getCapacityOfItemSell() <= 5)
+                {
+                    removeItemFromDeckToSell(item);
+                }
+                else
+                {
+                    showOutput.printOutput("you can not sell this Item because of capacity Of ItemSell");
+                }
                 return;
             }
         }
