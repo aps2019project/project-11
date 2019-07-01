@@ -5,6 +5,7 @@ import View.Request;
 import View.ShowOutput;
 import View.SpriteAnimation;
 import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -384,11 +385,20 @@ public class BattleFieldController extends Thread
         {
             Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
             ImageView imageView = Card.getCardImageView(selectedCard);
+            try {
+                cardMoveAnimation(imageView ,sourceRow , sourceColumn, destinationRow , destinationColumn);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             setSpriteAnimation(imageView);
             Battle.getCurrentBattle().getBattleFieldPanes()[destinationColumn][destinationRow].getChildren().add(imageView);
             Battle.getCurrentBattle().unSelectCard();
             preLoad();
         }
+
+    }
+
+    private void cardMoveAnimation(ImageView imageView ,int sourceRow , int sourceColumn, int destinationRow , int destinationColumn) throws InterruptedException {
 
     }
 
