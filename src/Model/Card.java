@@ -19,13 +19,13 @@ public class Card implements Cloneable
     private static final Card card = new Card();
     private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
     private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
-    private static int capacityOfSell;
+    private int capacityOfSell = 5;
 
-    public static void increseCapacityOfSell()
+    public void increaseCapacityOfSell()
     {
         capacityOfSell++;
     }
-    public static void decreaseCapacityOfSell()
+    public void decreaseCapacityOfSell()
     {
         capacityOfSell--;
     }
@@ -241,7 +241,7 @@ public class Card implements Cloneable
     }
 
 
-    public static int getCapacityOfSell() {
+    public int getCapacityOfSell() {
         return capacityOfSell;
     }
 

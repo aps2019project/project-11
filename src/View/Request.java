@@ -34,7 +34,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -1408,13 +1407,13 @@ public class Request
                     mediaPlayer.play();
                     if (specifyKindOfCard(name)==1)
                     {
-                        Item.decreaseCapacityOfItemSell();
-                        System.out.println(Item.getCapacityOfItemSell());
+                        makingItem(name).decreaseCapacityOfItemSell();
+                        System.out.println(makingItem(name).getCapacityOfItemSell());
                     }
                     else
                     {
-                        Card.decreaseCapacityOfSell();
-                        System.out.println(Card.getCapacityOfSell());
+                        makingCard(name).decreaseCapacityOfSell();
+                        System.out.println(makingCard(name).getCapacityOfSell());
                     }
                     makingJson();
                     setCommand(CommandType.BUY);
@@ -1428,6 +1427,42 @@ public class Request
         });
     }
 
+    public Card makingCard(String name)
+    {
+        for (Spell spell :Spell.getSpells())
+        {
+            if (spell.getCardName() == name)
+            {
+                return spell;
+            }
+        }
+        for (Hero hero : Hero.getHeroes())
+        {
+            if (hero.getCardName() == name)
+            {
+                return hero;
+            }
+        }
+        for (Minion minion :Minion.getMinions())
+        {
+            if (minion.getCardName() == name)
+            {
+                return minion;
+            }
+        }
+        return null;
+    }
+    public Item makingItem(String name)
+    {
+        for (Item item: Item.getItems())
+        {
+            if (item.getItemName() == name)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
     public void makingJson()
     {
         String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Shop.getInstance());
@@ -1684,11 +1719,13 @@ public class Request
                 {
                     if (specifyKindOfCard(name) == 1)
                     {
-                        Item.increaseCapacityOfItemSell();
+                        makingItem(name).increaseCapacityOfItemSell();
+                        System.out.println(makingItem(name).getCapacityOfItemSell());
                     }
                     else
                     {
-                        Card.increseCapacityOfSell();
+                       makingCard(name).increaseCapacityOfSell();
+                        System.out.println(makingCard(name).getCapacityOfSell());
                     }
                     makingJson();
                     setCommand(CommandType.SELL);
