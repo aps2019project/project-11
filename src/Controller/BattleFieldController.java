@@ -378,9 +378,22 @@ public class BattleFieldController extends Thread
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
     {
         battleManager.attackToOpponent(opponentCard);
+        checkHPOfCards();
         setAttackAnimation();
         attackedCardInfo.setText("");
         preLoad();
+    }
+
+    private void checkHPOfCards() {
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                if(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard()!= null && Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard().getCurrentHP() <= 0){
+                    Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().remove(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().size() - 1);
+                }
+            }
+        }
     }
 
     private void setAttackAnimation()
