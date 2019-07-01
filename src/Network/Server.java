@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Server
 {
-    private static ArrayList<InputCommandHandler> commandHandlers = new ArrayList<>();
+    private static ArrayList<InputCommandHandlerForServer> commandHandlers = new ArrayList<>();
 
     public static void main(String[] args) throws IOException
     {
-        ServerSocket serverSocket = new ServerSocket(8000);
+        ServerSocket serverSocket = new ServerSocket(9000);
         while (true)
         {
             Socket socket = serverSocket.accept();
@@ -23,7 +23,7 @@ public class Server
             SendMessage sendMessage = new SendMessage(socket.getOutputStream());
             sendMessage.start();
 
-            InputCommandHandler handleCommand = new InputCommandHandler(sendMessage);
+            InputCommandHandlerForServer handleCommand = new InputCommandHandlerForServer(sendMessage);
             handleCommand.setDaemon(true);
             commandHandlers.add(handleCommand);
             handleCommand.start();
@@ -46,9 +46,9 @@ public class Server
         }
     }
 
-    /*public static InputCommandHandler findCommandHandler(Player player)
+    /*public static InputCommandHandlerForClient findCommandHandler(Player player)
     {
-        for (InputCommandHandler inputCommandHandler : commandHandlers)
+        for (InputCommandHandlerForClient inputCommandHandler : commandHandlers)
         {
             if (inputCommandHandler.getPlayer().getName().equals(player.getName()))
             {

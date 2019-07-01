@@ -3,13 +3,13 @@ package Network;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class InputCommandHandler extends Thread
+public class InputCommandHandlerForClient extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
     private SendMessage sendMessage;
 
-    public InputCommandHandler(SendMessage sendMessage)
+    public InputCommandHandlerForClient(SendMessage sendMessage)
     {
         this.sendMessage = sendMessage;
     }
@@ -17,6 +17,10 @@ public class InputCommandHandler extends Thread
     @Override
     public void run()
     {
+        checkMassage();
+    }
+
+    private void checkMassage() {
 
     }
 
@@ -33,6 +37,7 @@ public class InputCommandHandler extends Thread
             {
                 validMessageLock.wait();
             }
+
         }
         return message.trim();
     }

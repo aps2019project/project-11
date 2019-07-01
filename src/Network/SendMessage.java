@@ -10,7 +10,7 @@ public class SendMessage extends Thread
     private BlockingDeque<String> messages = new LinkedBlockingDeque<>();
     private OutputStream outputStream;
 
-    SendMessage(OutputStream outputStream)
+    public SendMessage(OutputStream outputStream)
     {
         this.outputStream = outputStream;
     }
@@ -32,7 +32,7 @@ public class SendMessage extends Thread
         }
     }
 
-    void addMessage(String message) throws InterruptedException
+    public void addMessage(String message) throws InterruptedException
     {
         messages.put(message);
     }
