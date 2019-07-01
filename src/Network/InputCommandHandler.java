@@ -17,23 +17,8 @@ public class InputCommandHandler extends Thread
     @Override
     public void run()
     {
-        try
-        {
-            while (true)
-            {
-                while (true) {
-                    System.out.println("Waiting to finish the game");
 
-                }
-            }
-        }
-        catch (Exception ignored)
-        {
-
-        }
     }
-
-
 
     public void setMessage(String message)
     {
