@@ -1,0 +1,4544 @@
+{
+  "cards": [
+    {
+      "descriptionTypeOfSpell": "disarm",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 1,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": true,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": true,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1000,
+      "requiredMP": 0,
+      "cardName": "totalDisarm",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "removingAllBadAndGoodBuffs",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 2,
+            "attackRangeWidth": 2,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": true,
+            "allOpponentNonSpellCards": true
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": true,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1500,
+      "requiredMP": 2,
+      "cardName": "areaDispel",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "addingAP",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 1,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 2,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 250,
+      "requiredMP": 1,
+      "cardName": "empower",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "impactToOpponent",
+      "spellEffect": {
+        "targets": [],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": -4,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 1,
+      "cardName": "fireball",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "addingAP",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": true,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 4,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 450,
+      "requiredMP": 2,
+      "cardName": "godStrength",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "fieryHouse",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": true,
+            "attackRangeLength": 2,
+            "attackRangeWidth": 2,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 2,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": true,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 3,
+      "cardName": "hellFire",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "impactToOpponent",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": true,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": -8,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1250,
+      "requiredMP": 2,
+      "cardName": "lightingBolt",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "toxicHouse",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": true,
+            "attackRangeLength": 3,
+            "attackRangeWidth": 3,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": true,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 900,
+      "requiredMP": 5,
+      "cardName": "poisonLake",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "addingAPButDisarm",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 1,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 3,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 4,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 650,
+      "requiredMP": 0,
+      "cardName": "madness",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "disarm",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 9,
+            "attackRangeWidth": 5,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": true
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": true,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 2000,
+      "requiredMP": 9,
+      "cardName": "allDisarm",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "toxic",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 9,
+            "attackRangeWidth": 5,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": true
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 4,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": true,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1500,
+      "requiredMP": 8,
+      "cardName": "allPoison",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "...",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 1,
+            "numOfOpponentMinions": 1,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1500,
+      "requiredMP": 0,
+      "cardName": "dispel",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "2hollyBuffFor3turn",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 1,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": -6,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          },
+          {
+            "turnsToApplyChange": 3,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": true,
+            "numOfHolyBuffs": 2,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 2250,
+      "requiredMP": 0,
+      "cardName": "healthWithProfit",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "powerUp",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 1,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 6,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 2500,
+      "requiredMP": 2,
+      "cardName": "powerUp",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "addingAP",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 9,
+            "attackRangeWidth": 5,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": true,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": true,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 2,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 2000,
+      "requiredMP": 4,
+      "cardName": "allPower",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "impactingToAllOpponent",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 5,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": true
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": -6,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1500,
+      "requiredMP": 4,
+      "cardName": "allAttack",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "weaknessBuff",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 1,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": -4,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1000,
+      "requiredMP": 1,
+      "cardName": "weakening",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "weaknessBuffAndPowerBuff",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 1,
+            "numOfOpponentMinions": 0,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": true,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 8,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          },
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": -6,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1600,
+      "requiredMP": 2,
+      "cardName": "sacrifice",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "killingOpponentMinion",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 1,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 0,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 3,
+            "attackRangeWidth": 3,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": false,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": true,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1750,
+      "requiredMP": 9,
+      "cardName": "kingGuard",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "descriptionTypeOfSpell": "stun",
+      "spellEffect": {
+        "targets": [
+          {
+            "numOfOwnMinions": 0,
+            "numOfOpponentMinions": 1,
+            "ownHero": false,
+            "opponentHero": false,
+            "numOfOpponentBothNonSpellCards": 1,
+            "numOfOwnBothNonSpellCards": 0,
+            "thisTroop": false,
+            "isCellBuff": false,
+            "attackRangeLength": 1,
+            "attackRangeWidth": 1,
+            "allOwnMinions": false,
+            "allOwnBothNonSpellCards": false,
+            "allOpponentNonSpellCards": false
+          }
+        ],
+        "spellChanges": [
+          {
+            "turnsToApplyChange": 2,
+            "positiveChange": false,
+            "applyChangeUntilEndOfTheGame": false,
+            "removeOpponentPositiveBuffs": false,
+            "removeOwnNegativeBuffs": false,
+            "changeAP": 0,
+            "changeHP": 0,
+            "changeMP": 0,
+            "stunOpponent": true,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activateReverseHolyBuff": false,
+            "madeCellToxic": false,
+            "madeCellHoly": false,
+            "madeCellFiery": false,
+            "deleteAllPositiveBuff": false,
+            "killing": false,
+            "dispel": false,
+            "continuous": false,
+            "currentTurn": false
+          }
+        ]
+      },
+      "cardSelectedInBattle": false,
+      "price": 1200,
+      "requiredMP": 1,
+      "cardName": "shock",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 2,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Activate a power buff with 4 units Increase impact strength permanently on itself",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": true,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": true,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 4,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 8000,
+      "requiredMP": 1,
+      "cardName": "Dave White",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 8,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Stun all opponents forces for 1 turn",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": true
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": true,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 9000,
+      "requiredMP": 5,
+      "cardName": "Simurgh",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 1,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Disarm one opponent force",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": true,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 8000,
+      "requiredMP": 0,
+      "cardName": "SevenHeadedDragon",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 2,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Stun 1 opponent force for 1 turn",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": true,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 8000,
+      "requiredMP": 1,
+      "cardName": "Rakhsh",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 0,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 2,
+      "currentHP": 50,
+      "currentAP": 2,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Poison opponent for 3 turns when it hurts",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 3,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": -1,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 10000,
+      "requiredMP": 0,
+      "cardName": "Zahak",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 3,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Hallow a cell for 3 turns",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": true,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 3,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": true,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 8000,
+      "requiredMP": 1,
+      "cardName": "Kaveh",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 2,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 30,
+      "defaultAP": 2,
+      "currentHP": 30,
+      "currentAP": 2,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Impact 4 units to all forces in heroes row",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": true
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": -4,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 6,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 10000,
+      "requiredMP": 2,
+      "cardName": "Arash",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 2,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 40,
+      "defaultAP": 3,
+      "currentHP": 40,
+      "currentAP": 3,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Dispel 1 opponent force",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": true,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 11000,
+      "requiredMP": 1,
+      "cardName": "Afsaneh",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 0,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 35,
+      "defaultAP": 3,
+      "currentHP": 35,
+      "currentAP": 3,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "3 continuous holly buffs",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": true,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": true,
+              "numOfHolyBuffs": 3,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": true,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 12000,
+      "requiredMP": 0,
+      "cardName": "Esfandiar",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 0,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 55,
+      "defaultAP": 7,
+      "currentHP": 55,
+      "currentAP": 7,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Rostam has no specialPower",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 4,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 8000,
+      "requiredMP": 0,
+      "cardName": "Rostam",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 4,
+      "currentHP": 6,
+      "currentAP": 4,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 7,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 300,
+      "requiredMP": 2,
+      "cardName": "kamandarFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 4,
+      "currentHP": 6,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "stun in current turn",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": true,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": true
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 2,
+      "cardName": "shamsirzanFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 5,
+      "defaultAP": 3,
+      "currentHP": 5,
+      "currentAP": 3,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 1,
+      "cardName": "neizedarFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 10,
+      "defaultAP": 6,
+      "currentHP": 10,
+      "currentAP": 6,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 200,
+      "requiredMP": 4,
+      "cardName": "asbsavarFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 24,
+      "defaultAP": 6,
+      "currentHP": 24,
+      "currentAP": 6,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 9,
+      "cardName": "pahlavanFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": true,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 12,
+      "defaultAP": 4,
+      "currentHP": 12,
+      "currentAP": 4,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 800,
+      "requiredMP": 7,
+      "cardName": "sepahsalarFars",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 3,
+      "defaultAP": 4,
+      "currentHP": 3,
+      "currentAP": 4,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 5,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 1,
+      "cardName": "kamandarTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 4,
+      "defaultAP": 2,
+      "currentHP": 4,
+      "currentAP": 2,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 7,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 1,
+      "cardName": "gholabsangdarTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 4,
+      "defaultAP": 4,
+      "currentHP": 4,
+      "currentAP": 4,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 1,
+      "cardName": "neizedarTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 6,
+      "currentHP": 6,
+      "currentAP": 6,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "disarm and poison",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": true,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            },
+            {
+              "turnsToApplyChange": 4,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": -1,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 700,
+      "requiredMP": 4,
+      "cardName": "jasosTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 3,
+      "defaultAP": 10,
+      "currentHP": 3,
+      "currentAP": 10,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 450,
+      "requiredMP": 2,
+      "cardName": "GorzdarTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": true,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 10,
+      "currentHP": 6,
+      "currentAP": 10,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 800,
+      "requiredMP": 6,
+      "cardName": "ShahzadeTorani",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 14,
+      "defaultAP": 10,
+      "currentHP": 14,
+      "currentAP": 10,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 7,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 300,
+      "requiredMP": 9,
+      "cardName": "Divesiah",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 12,
+      "defaultAP": 12,
+      "currentHP": 12,
+      "currentAP": 12,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 7,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 300,
+      "requiredMP": 9,
+      "cardName": "GhoulSangAndaz",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 0,
+      "defaultAP": 2,
+      "currentHP": 0,
+      "currentAP": 2,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "10 power buff",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "passive",
+              "changeAP": 0,
+              "changeHP": 10,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 200,
+      "requiredMP": 2,
+      "cardName": "Oghab",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 16,
+      "defaultAP": 8,
+      "currentHP": 16,
+      "currentAP": 8,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 300,
+      "requiredMP": 6,
+      "cardName": "DivGorazSavar",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 12,
+      "defaultAP": 11,
+      "currentHP": 12,
+      "currentAP": 11,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "make 2 damage on around minions",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 8,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 3,
+              "attackRangeWidth": 3,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onDeath",
+              "changeAP": 0,
+              "changeHP": -2,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 7,
+      "cardName": "GhoulTakCheshm",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 5,
+      "defaultAP": 6,
+      "currentHP": 5,
+      "currentAP": 6,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "made toxic enemy force 3 turn",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 3,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": -1,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 4,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 300,
+      "requiredMP": 4,
+      "cardName": "MarSammi",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 9,
+      "defaultAP": 5,
+      "currentHP": 9,
+      "currentAP": 5,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 4,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 250,
+      "requiredMP": 5,
+      "cardName": "EzhdehayeAtashAndaz",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 1,
+      "defaultAP": 8,
+      "currentHP": 1,
+      "currentAP": 8,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "holy buff",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": true,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 2,
+      "cardName": "ShirDarande",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 14,
+      "defaultAP": 7,
+      "currentHP": 14,
+      "currentAP": 7,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "minions around the card receive one more damage when receive damage",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 8,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 3,
+              "attackRangeWidth": 3,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onSpawn",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": true,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 5,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 8,
+      "cardName": "MarGhoulPeykar",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 8,
+      "defaultAP": 2,
+      "currentHP": 8,
+      "currentAP": 2,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 5,
+      "cardName": "GorgSefid",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 2,
+      "currentHP": 6,
+      "currentAP": 2,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "if attack to opponent minion , next minion receive 8 damage",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 1,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": -8,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 4,
+      "cardName": "Palang",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 1,
+      "currentHP": 6,
+      "currentAP": 1,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "if attack to opponent minion , next minion receive 6 damage",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 1,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": -6,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 3,
+      "cardName": "Gorg",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 5,
+      "defaultAP": 4,
+      "currentHP": 5,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "give 2 power buff and 1 poison buff to around minion cards in one turn",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 9,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 3,
+              "attackRangeWidth": 3,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "passive",
+              "changeAP": 2,
+              "changeHP": -1,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 550,
+      "requiredMP": 4,
+      "cardName": "JadoGar",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 6,
+      "currentHP": 6,
+      "currentAP": 6,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "give 2 power buff and 1 poison buff to around minion cards in continuously",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 9,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": true,
+              "attackRangeLength": 3,
+              "attackRangeWidth": 3,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": true,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "passive",
+              "changeAP": 2,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": true,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 5,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 550,
+      "requiredMP": 6,
+      "cardName": "JadoGarAzam",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 10,
+      "defaultAP": 4,
+      "currentHP": 10,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "increase 1 AP to all own minions",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": true,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": true,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onTurn",
+              "changeAP": 1,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 4,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 6,
+      "cardName": "Genn",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 10,
+      "defaultAP": 14,
+      "currentHP": 10,
+      "currentAP": 14,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 6,
+      "cardName": "GorazVahshi",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 20,
+      "defaultAP": 12,
+      "currentHP": 20,
+      "currentAP": 12,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 8,
+      "cardName": "Piran",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 5,
+      "defaultAP": 7,
+      "currentHP": 5,
+      "currentAP": 7,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 5,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 450,
+      "requiredMP": 4,
+      "cardName": "Giv",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 16,
+      "defaultAP": 9,
+      "currentHP": 16,
+      "currentAP": 9,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "random damage one opponent 16 damage",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 1,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onSpawn",
+              "changeAP": 0,
+              "changeHP": -16,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 450,
+      "requiredMP": 8,
+      "cardName": "Bahman",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 14,
+      "defaultAP": 8,
+      "currentHP": 14,
+      "currentAP": 8,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 400,
+      "requiredMP": 7,
+      "cardName": "AshkBos",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 20,
+      "currentHP": 6,
+      "currentAP": 20,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 3,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 4,
+      "cardName": "Iraj",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 30,
+      "defaultAP": 8,
+      "currentHP": 30,
+      "currentAP": 8,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 2,
+      "impactType": "hybrid",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 9,
+      "cardName": "GhoulBozorg",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 10,
+      "defaultAP": 4,
+      "currentHP": 10,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "delete all positive buff",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 1,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 9,
+              "attackRangeWidth": 5,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onAttack",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": true,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 550,
+      "requiredMP": 4,
+      "cardName": "GhoulDosar",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 3,
+      "defaultAP": 4,
+      "currentHP": 3,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "around minions stun",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 3,
+              "attackRangeWidth": 3,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": true
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onSpawn",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": true,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 5,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "price": 500,
+      "requiredMP": 3,
+      "cardName": "NaneSarma",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 1,
+      "defaultAP": 1,
+      "currentHP": 1,
+      "currentAP": 1,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "12 holy buff",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "passive",
+              "changeAP": 0,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": true,
+              "disarmOpponent": false,
+              "activateHolyBuff": true,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 650,
+      "requiredMP": 3,
+      "cardName": "FoladZereh",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 8,
+      "defaultAP": 5,
+      "currentHP": 8,
+      "currentAP": 5,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "on death make 6 damage on opponent hero",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": false,
+              "opponentHero": true,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 1,
+              "positiveChange": false,
+              "applyChangeUntilEndOfTheGame": false,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "timeToActivateSpecialPower": "onDeath",
+              "changeAP": 0,
+              "changeHP": -6,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": true,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 350,
+      "requiredMP": 4,
+      "cardName": "Siavash",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": true,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 10,
+      "defaultAP": 4,
+      "currentHP": 10,
+      "currentAP": 4,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 5,
+      "cardName": "ShahGhoul",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "ableToCombo": true,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 6,
+      "currentHP": 6,
+      "currentAP": 6,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "price": 600,
+      "requiredMP": 3,
+      "cardName": "ArzhangDiv",
+      "row": 0,
+      "column": 0
+    }
+  ],
+  "items": [
+    {
+      "itemName": "CrownOfWisdom",
+      "price": 300,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Increase MP in first 3 turns once",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 3,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 1,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_PLAYER"
+        ],
+        "itemActivateTimes": [
+          "START_BATTLE"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Shield",
+      "price": 4000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Activate 12 holyBuffs on own hero",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": true,
+            "numOfHolyBuffs": 12,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_HERO"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "DamulArk",
+      "price": 30000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Own hero disarm opponent while own hybrid or ranged force attacked",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": true,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANGED_HYBRID_HERO"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "TheDevastation",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Increase HP 6 units",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 6,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "TwinHornArrow",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Increase one hybrid or ranged force twice",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 2,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_RANGED_HYBRID"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "SimurghFeather",
+      "price": 3500,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Decrease opponent hero\u0027s AP twice if hybrid or ranged",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": -2,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_RANGED_HYBRID_HERO"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Elixir",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Increase Hp 3 units and one powerBuff with +3 for random minion",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 3,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          },
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": true,
+            "numOfPowerBuff": 3,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_MINION",
+          "OWN_RANDOM_MINION"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM",
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "ManaPotion",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Increase MP 3 units in next turn",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 3,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_PLAYER"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "InvulnerablePotion",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Activate 10 hollyBuffs on random own force for 2 turns",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 2,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": true,
+            "numOfHolyBuffs": 10,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "DeathCurse",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Minion attack one of the closest opponent forces 8 units",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": -8,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_CLOSEST_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_DEATH"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Random damage",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "add 2 units to random force AP",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 2,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Terror Hood",
+      "price": 5000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": true,
+            "numOfWeaknessBuff": 2,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Blades of agility",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "add 6 units to random force AP",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 6,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "King Wisdom",
+      "price": 9000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Increase MP 1 unit in all turns",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 1,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_PLAYER"
+        ],
+        "itemActivateTimes": [
+          "START_BATTLE"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Assassination Dagger",
+      "price": 15000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Attack opponent hero 1 unit when inserting any force",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": -1,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_HERO"
+        ],
+        "itemActivateTimes": [
+          "ON_SPAWN"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Poisonous Dagger",
+      "price": 7000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Activate poisonBuff on opponent random force for 1 turn while own force attacked",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": true,
+            "numOfPoisonBuff": 1
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Shock Hammer",
+      "price": 15000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Stun opponent when own hero attacked",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": true,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Soul Eater",
+      "price": 25000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Activate 1 powerBuff with 1 unit on random own force while any own minion killed",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": true,
+            "numOfPowerBuff": 1,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_DEATH"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Baptism",
+      "price": 20000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Each minion has powerBuff for 2 turns when spawned",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 2,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": true,
+            "numOfHolyBuffs": 1,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_MINION"
+        ],
+        "itemActivateTimes": [
+          "ON_SPAWN"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    },
+    {
+      "itemName": "Chinese sword",
+      "price": 0,
+      "itemType": "collectible",
+      "descriptionTypeOfItem": "Increase AP 5 units for melee forces",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 0,
+            "applyChangeUntilEndOfTheGame": true,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 5,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": false,
+            "numOfWeaknessBuff": 0,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OWN_MELEE_FORCE"
+        ],
+        "itemActivateTimes": [
+          "USE_ITEM"
+        ]
+      },
+      "collectibleItemSelectedInBattle": false
+    }
+  ]
+}
