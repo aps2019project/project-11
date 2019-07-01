@@ -1,6 +1,4 @@
-package NetWork;
-
-import GameLogic.*;
+package Network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -39,14 +37,7 @@ public class Server
                     output.addMessage(message);
                     if (message.contains("start game"))
                     {
-                        String[] commandParts = message.split(" ");
-                        Player playerOne = Player.findPlayer(commandParts[3]);
-                        Player playerTwo = Player.findPlayer(commandParts[5]);
-                        InputCommandHandler commandHandlerOne =  findCommandHandler(playerOne);
-                        InputCommandHandler commandHandlerTwo =  findCommandHandler(playerTwo);
-                        commandHandlerTwo.getSendMessage().addMessage("Match started against " + playerOne.getName());
-                        Game game = new Game(commandHandlerOne, commandHandlerTwo);
-                        game.start();
+
                     }
                     handleCommand.setMessage(message);
                     synchronized (handleCommand.validMessageLock)
@@ -59,7 +50,7 @@ public class Server
         }
     }
 
-    public static InputCommandHandler findCommandHandler(Player player)
+    /*public static InputCommandHandler findCommandHandler(Player player)
     {
         for (InputCommandHandler inputCommandHandler : commandHandlers)
         {
@@ -69,5 +60,5 @@ public class Server
             }
         }
         return null;
-    }
+    }*/
 }

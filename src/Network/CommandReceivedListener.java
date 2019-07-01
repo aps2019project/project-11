@@ -1,4 +1,4 @@
-package NetWork;
+package Network;
 
 public interface CommandReceivedListener
 {

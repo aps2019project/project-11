@@ -1,4 +1,4 @@
-package NetWork;
+package Network;
 
 import java.io.IOException;
 import java.net.Socket;
