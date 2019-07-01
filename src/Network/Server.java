@@ -17,10 +17,10 @@ public class Server
             Socket socket = serverSocket.accept();
             System.out.println("new Client accepted");
 
-            SendMessage output = new SendMessage(System.out);
+            SendMessageServer output = new SendMessageServer(System.out);
             output.start();
 
-            SendMessage sendMessage = new SendMessage(socket.getOutputStream());
+            SendMessageServer sendMessage = new SendMessageServer(socket.getOutputStream());
             sendMessage.start();
 
             InputCommandHandler handleCommand = new InputCommandHandler(sendMessage);
@@ -28,7 +28,7 @@ public class Server
             commandHandlers.add(handleCommand);
             handleCommand.start();
 
-            ReceiveMessage receiveMessage = new ReceiveMessage(socket.getInputStream());
+            ReceiveMessageServer receiveMessage = new ReceiveMessageServer(socket.getInputStream());
             receiveMessage.addListener(new CommandReceivedListener()
             {
                 @Override

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ReceiveMessage extends Thread
+public class ReceiveMessageServer extends Thread
 {
     private ArrayList<CommandReceivedListener> listeners = new ArrayList<>();
     private InputStream inputStream;
 
-    ReceiveMessage(InputStream inputStream)
+    ReceiveMessageServer(InputStream inputStream)
     {
         this.inputStream = inputStream;
     }
