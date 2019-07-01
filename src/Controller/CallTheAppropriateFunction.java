@@ -297,62 +297,18 @@ public class CallTheAppropriateFunction extends Thread
                     request.requestLock.wait();
                 }
             }
-            if (request.getCommand() == CommandType.EXIT)
-            {
-                request.setCommand(null);
-                determineBattleMenuCommand();
-            }
-            else if (request.getCommand() == CommandType.END_GAME)
-            {
-                request.setCommand(null);
-                determineMainMenuCommand();
-                break;
-            }
-            request.setCommand(null);
-        }
-    }
-
-    private void selectMultiPlayerMatchMode(Player firstPlayer, Player secondPlayer)
-    {
-        while (true)
-        {
-            showOutput.showBattleModes();
-            request.getMultiPlayerMatchMode();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
             switch (request.getCommand())
             {
-                case START_MULTI_PLAYER_GAME:
-
-                    Battle battle = null;
-                    if (request.getCommand().multiPlayerMatchMode.equalsIgnoreCase("KillingEnemyHero"))
-                    {
-                        battle = new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO, BattleType.MULTI_PLAYER_GAME);
-
-                    }
-                    else if (request.getCommand().multiPlayerMatchMode.equalsIgnoreCase("KeepFlagFor6Turns"))
-                    {
-                        battle = new Battle(firstPlayer, secondPlayer, BattleMode.KEEP_FLAG_FOR_6_TURNS, BattleType.MULTI_PLAYER_GAME);
-                    }
-                    else if (request.getCommand().multiPlayerMatchMode.equalsIgnoreCase("GatheringFlags"))
-                    {
-                        battle = new Battle(firstPlayer, secondPlayer, BattleMode.GATHERING_FLAGS, BattleType.MULTI_PLAYER_GAME);
-                        Battle.getCurrentBattle().setNumOfFlagsInGatheringFlagsMatchMode(request.getCommand().numOfFlags);
-                    }
-                    if (battle != null)
-                    {
-                        showOutput.printOutput("Let's Fight");
-                        determineBattleCommand();
-                    }
-                    break;
-                case SHOW_MENU:
-                    showOutput.showMenuMultiPlayerMatchMode();
-                    break;
                 case EXIT:
-                    return;
+                    request.setCommand(null);
+                    determineBattleMenuCommand();
+                    break;
+                case END_GAME:
+                    request.setCommand(null);
+                    determineMainMenuCommand();
+                    break;
             }
+            request.setCommand(null);
         }
     }
 
@@ -377,24 +333,9 @@ public class CallTheAppropriateFunction extends Thread
             }
             switch (request.getCommand())
             {
-                case GAME_INFO:
-                    showOutput.showGameInfo();
-                    break;
-                case SHOW_MY_MINIONS:
-                    showOutput.showMyMinions();
-                    break;
-                case SHOW_OPPONENT_MINIONS:
-                    showOutput.showOpponentMinions();
-                    break;
-                case SHOW_CARD_INFO:
-                    showOutput.showCardInfo(request.getCommand().cardOrItemID);
-                    break;
                 case SELECT:
                     battleManager.selectCard(request.getCommand().cardOrItemID);
                     determineAfterSelectCardCommand();
-                    break;
-                case SHOW_HAND:
-                    showOutput.showHand(Battle.getCurrentBattle().getPlayerTurn().getHand());
                     break;
                 case INSERT_CARD:
                     battleManager.checkCircumstancesToInsertCard(request.getCommand().insertCardName, request.getCommand().insertRow, request.getCommand().insertColumn);
@@ -405,22 +346,6 @@ public class CallTheAppropriateFunction extends Thread
                 case SELECT_ITEM:
                     battleManager.selectItem(request.getCommand().cardOrItemID);
                     determineAfterSelectItemCommand();
-                    break;
-                case SHOW_NEXT_CARD:
-                    showOutput.showNextCardInfo();
-                    break;
-                case ENTER_GRAVEYARD:
-                    determineGraveYardCommand();
-                    break;
-                case END_TURN:
-                    Battle.getCurrentBattle().endTurn();
-                    showOutput.printOutput(Battle.getCurrentBattle().getPlayerTurn().getAccount().getAccountName() + " turn");
-                    break;
-                case SURRENDER:
-                    Battle.getCurrentBattle().tasksWhenSurrender();
-                    break;
-                case HELP_BATTLE:
-                    Battle.getCurrentBattle().help();
                     break;
                 case SHOW_MENU:
                     showOutput.showMenuBattle();
@@ -442,12 +367,6 @@ public class CallTheAppropriateFunction extends Thread
             }
             switch (request.getCommand())
             {
-                case MOVE_TO:
-                    battleManager.moveCard(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
-                    break;
-                case NORMAL_ATTACK:
-                    battleManager.attackToOpponent(request.getCommand().enemyCardIDForNormalAttack);
-                    break;
                 case COMBO_ATTACK:
                     Battle.getCurrentBattle().comboAttack(request.getCommand().enemyCardIDForCombo, request.getCommand().cardIDsForComboAttack);
                     break;
@@ -484,32 +403,6 @@ public class CallTheAppropriateFunction extends Thread
                     break;
                 case SHOW_MENU:
                     showOutput.showMenuAfterSelectItem();
-                    break;
-                case EXIT:
-                    return;
-            }
-        }
-    }
-
-    private void determineGraveYardCommand()
-    {
-        while (true)
-        {
-            request.getGraveYardCommands();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            switch (request.getCommand())
-            {
-                case SHOW_INFO:
-                    showOutput.showGraveYardCardInfo(request.getCommand().cardOrItemIDInGraveYard);
-                    break;
-                case SHOW_MENU:
-                    showOutput.showMenuGraveYard();
-                    break;
-                case SHOW_CARDS:
-                    showOutput.showAllCardsInTheGraveYard();
                     break;
                 case EXIT:
                     return;
