@@ -11,7 +11,7 @@ public class Item implements Cloneable
     private ItemType itemType;
     private String descriptionTypeOfItem;
     private ItemEffect itemEffect;
-    private int capacityOfItemSell ;
+    private int capacityOfItemSell = 5 ;
     private boolean collectibleItemSelectedInBattle = false;
 
     public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)

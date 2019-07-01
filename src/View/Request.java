@@ -1407,13 +1407,21 @@ public class Request
                     mediaPlayer.play();
                     if (specifyKindOfCard(name)==1)
                     {
+                        if (makingItem(name).getCapacityOfItemSell() <= 0)
+                        {
+                            System.out.println("you can not buy this Item");
+                        }
+                        else {
                         makingItem(name).decreaseCapacityOfItemSell();
                         System.out.println(makingItem(name).getItemName() + makingItem(name).getCapacityOfItemSell());
-                    }
-                    else
-                    {
-                        makingCard(name).decreaseCapacityOfSell();
-                        System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
+                    }}
+                    else {
+                        if (makingCard(name).getCapacityOfSell() <= 0) {
+                            System.out.println("you can not buy this Card");
+                        } else {
+                            makingCard(name).decreaseCapacityOfSell();
+                            System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
+                        }
                     }
                     makingJson();
                     setCommand(CommandType.BUY);
@@ -1719,13 +1727,24 @@ public class Request
                 {
                     if (specifyKindOfCard(name) == 1)
                     {
-                        makingItem(name).increaseCapacityOfItemSell();
-                        System.out.println(makingItem(name).getItemName()+ makingItem(name).getCapacityOfItemSell());
+                        if (makingItem(name).getCapacityOfItemSell() > 5)
+                        {
+                            System.out.println("you can not sell this item");
+                        }
+                        else
+                        {
+                            makingItem(name).increaseCapacityOfItemSell();
+                            System.out.println(makingItem(name).getItemName()+ makingItem(name).getCapacityOfItemSell());
+                        }
                     }
-                    else
-                    {
-                       makingCard(name).increaseCapacityOfSell();
-                        System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
+                    else {
+                        if (makingCard(name).getCapacityOfSell() > 5) {
+                            System.out.println("you can not sell this card");
+                        } else
+                            {
+                            makingCard(name).increaseCapacityOfSell();
+                            System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
+                        }
                     }
                     makingJson();
                     setCommand(CommandType.SELL);
