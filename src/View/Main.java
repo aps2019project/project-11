@@ -3,6 +3,7 @@ package View;
 import Controller.*;
 import Model.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,10 +14,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Scanner;
 
 
@@ -130,8 +128,10 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void convertingToShop()
-    {
+    private void convertingToShop() throws FileNotFoundException {
+        FileReader reader = new FileReader("shop.json");
+        JsonParser jsonParser = new JsonParser();
+        Object object = jsonParser.parse(reader);
 
     }
 
