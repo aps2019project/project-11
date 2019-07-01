@@ -8,6 +8,7 @@ public class Target
     private boolean opponentHero;
     private int numOfOpponentBothNonSpellCards;
     private int numOfOwnBothNonSpellCards;
+    private boolean thisTroop;
     private boolean isCellBuff;
     private int attackRangeLength;
     private int attackRangeWidth;
@@ -21,7 +22,7 @@ public class Target
         //for CustomCard
     }
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, boolean isCellBuff, int attackRangeLength, int attackRangeWidth, NonSpellCard nextNoneSpellCard , boolean allOwnMinions, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, boolean thisTroop, boolean isCellBuff, int attackRangeLength, int attackRangeWidth, NonSpellCard nextNoneSpellCard , boolean allOwnMinions, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -29,6 +30,7 @@ public class Target
         this.opponentHero = opponentHero;
         this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
         this.numOfOwnBothNonSpellCards = numOfOwnBothNonSpellCards;
+        this.thisTroop = thisTroop;
         this.isCellBuff = isCellBuff;
         this.attackRangeLength = attackRangeLength;
         this.attackRangeWidth = attackRangeWidth;

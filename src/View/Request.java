@@ -2706,6 +2706,11 @@ public class Request
             public void handle(MouseEvent event)
             {
                 Battle.getCurrentBattle().tasksWhenSurrender();
+                request.setCommand(CommandType.END_GAME);
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.notify();
+                }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 mainMenu(primaryStage);
