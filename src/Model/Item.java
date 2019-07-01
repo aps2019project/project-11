@@ -11,6 +11,7 @@ public class Item implements Cloneable
     private ItemType itemType;
     private String descriptionTypeOfItem;
     private ItemEffect itemEffect;
+    private static int capacityOfItemSell ;
     private boolean collectibleItemSelectedInBattle = false;
 
     public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)
@@ -153,6 +154,18 @@ public class Item implements Cloneable
         itemEffectItem20.addItemTarget(ItemTarget.OWN_MELEE_FORCE);
         itemEffectItem20.addItemActivateTime(ItemActivateTime.USE_ITEM);
         new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces", itemEffectItem20);
+    }
+    public static void decreaseCapacityOfItemSell()
+    {
+        capacityOfItemSell--;
+    }
+    public static void increaseCapacityOfItemSell()
+    {
+        capacityOfItemSell++;
+    }
+
+    public static int getCapacityOfItemSell() {
+        return capacityOfItemSell;
     }
 
     public void applyCollectibleItem(int x, int y)
