@@ -154,6 +154,7 @@ public class Request
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
+    private Text battleInfo;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -2473,9 +2474,9 @@ public class Request
     {
         rootBattleField.getChildren().clear();
         setBackGroundImage(rootBattleField, "file:BackGround Images/CustomGame2.jpg");
-        setMultiPalyerMenuToChooseMode("Mode 1", primaryStage, 100);
-        setMultiPalyerMenuToChooseMode("Mode 2", primaryStage, 200);
-        setMultiPalyerMenuToChooseMode("Mode 3", primaryStage, 300);
+        setMultiPayerMenuToChooseMode("Mode 1", primaryStage, 100);
+        setMultiPayerMenuToChooseMode("Mode 2", primaryStage, 200);
+        setMultiPayerMenuToChooseMode("Mode 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootBattleField, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -2501,7 +2502,7 @@ public class Request
         primaryStage.setScene(sceneMultiPlayer);
     }
 
-    private void setMultiPalyerMenuToChooseMode(String s, Stage primaryStage, int place)
+    private void setMultiPayerMenuToChooseMode(String s, Stage primaryStage, int place)
     {
         Text title = new Text(s);
         title.setTextOrigin(VPos.TOP);
@@ -2601,7 +2602,7 @@ public class Request
             showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField);
         }
-        battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField);
+        battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2626,6 +2627,7 @@ public class Request
         {
             rootBattleField.getChildren().add(text);
         }
+        battleInfo = text;
     }
 
 
@@ -2772,7 +2774,7 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField);
+                battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo);
                 battleFieldController.start();
             }
         });

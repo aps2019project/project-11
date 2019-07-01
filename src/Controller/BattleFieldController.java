@@ -17,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import static javafx.scene.paint.Color.CYAN;
+
 @SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
@@ -29,11 +31,13 @@ public class BattleFieldController extends Thread
     private Scene sceneBattleField;
     private Text attackedCardInfo;
     private static boolean firstWorks = true;
+    private Text battleInfo;
 
-    public BattleFieldController(Group rootBattleField, Scene sceneBattleField)
+    public BattleFieldController(Group rootBattleField, Scene sceneBattleField , Text battleInfo)
     {
         setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
+        setBattleInfo(battleInfo);
     }
 
     @Override
@@ -44,7 +48,15 @@ public class BattleFieldController extends Thread
         {
             firstLoad();
         }
+        showGameInfo();
         preLoad();
+    }
+
+    private void showGameInfo() {
+        battleInfo.setText("");
+        ShowOutput showOutput = ShowOutput.getInstance();
+        String string = showOutput.getGameInfo();
+        battleInfo.setText(string);
     }
 
     private void firstLoad()
@@ -391,6 +403,7 @@ public class BattleFieldController extends Thread
             {
                 if(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard()!= null && Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard().getCurrentHP() <= 0){
                     Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().remove(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().size() - 1);
+                    Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].setCard(null);
                 }
             }
         }
@@ -476,5 +489,13 @@ public class BattleFieldController extends Thread
     public void setSceneBattleField(Scene sceneBattleField)
     {
         this.sceneBattleField = sceneBattleField;
+    }
+
+    public void setBattleInfo(Text battleInfo) {
+        this.battleInfo = battleInfo;
+    }
+
+    public Text getBattleInfo() {
+        return battleInfo;
     }
 }
