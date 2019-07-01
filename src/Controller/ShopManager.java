@@ -32,7 +32,7 @@ public class ShopManager
     {
         if (card.getPrice() > Account.loggedInAccount.getMoney())
         {
-            showOutput.printOutput("you haven't enough money.");
+            showOutput.printOutput("you don't have enough money.");
         }
         else
         {
@@ -45,7 +45,7 @@ public class ShopManager
     {
         if (item.getPrice() > Account.loggedInAccount.getMoney())
         {
-            showOutput.printOutput("you haven't enough money.");
+            showOutput.printOutput("you don't have enough money.");
         }
         else if (Account.loggedInAccount.getCollection().getItems().size() == 3)
         {
@@ -92,7 +92,7 @@ public class ShopManager
                 return;
             }
         }
-        showOutput.printOutput("You haven't Card or Item with this ID!");
+        showOutput.printOutput("You don't have Card or Item with this ID!");
     }
 
     private void removeCardFromDeckToSell(Card cardToSell)

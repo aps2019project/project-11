@@ -7,7 +7,7 @@ public class Client
 {
     public static void main(String[] args) throws IOException
     {
-        Socket socket = new Socket("127.0.0.1", 9000);
+        Socket socket = new Socket("127.0.0.1", 8000);
 
         SendMessage sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();
@@ -33,18 +33,6 @@ public class Client
             public void onMessageReceived(String message) throws InterruptedException
             {
                 output.addMessage(message);
-                if (message.equals("Terminate"))
-                {
-                    sendMessage.addMessage("Client terminated");
-                    System.exit(0);
-                }
-                if (message.contains("circumstances are Ok to start game"))
-                {
-                    String[] messageParts = message.split(" ");
-                    String playerOneName = messageParts[7];
-                    String playerTwoName = messageParts[9];
-                    sendMessage.addMessage("start game between " + playerOneName + " and " + playerTwoName);
-                }
             }
         });
         receiveMessage.start();

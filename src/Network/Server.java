@@ -11,7 +11,7 @@ public class Server
 
     public static void main(String[] args) throws IOException
     {
-        ServerSocket serverSocket = new ServerSocket(9000);
+        ServerSocket serverSocket = new ServerSocket(8000);
         while (true)
         {
             Socket socket = serverSocket.accept();
@@ -35,10 +35,6 @@ public class Server
                 public void onMessageReceived(String message) throws InterruptedException
                 {
                     output.addMessage(message);
-                    if (message.contains("start game"))
-                    {
-
-                    }
                     handleCommand.setMessage(message);
                     synchronized (handleCommand.validMessageLock)
                     {
