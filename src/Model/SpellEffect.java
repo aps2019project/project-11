@@ -7,7 +7,7 @@ public class SpellEffect
     private ArrayList<Target> targets = new ArrayList<>();
     private ArrayList<SpellChange> spellChanges = new ArrayList<>();
 
-    public void addCellEffect(int x, int y)
+    /*public void addCellEffect(int x, int y)
     {
         int startRow = this.getTargets().get(0).getStartRow();
         int startColumn = this.getTargets().get(0).getStartColumn();
@@ -22,7 +22,7 @@ public class SpellEffect
                 Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[i + dx][j + dy].addSpellChange(this.getSpellChanges().get(0));
             }
         }
-    }
+    }*/
 
     public ArrayList<Target> getTargets() {
         return targets;

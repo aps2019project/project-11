@@ -17,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import static javafx.scene.paint.Color.CYAN;
+
 @SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
@@ -29,11 +31,15 @@ public class BattleFieldController extends Thread
     private Scene sceneBattleField;
     private Text attackedCardInfo;
     private static boolean firstWorks = true;
+    private Text battleInfo;
+    private BattleMode battleMode;
 
-    public BattleFieldController(Group rootBattleField, Scene sceneBattleField)
+    public BattleFieldController(Group rootBattleField, Scene sceneBattleField , Text battleInfo , BattleMode battleMode)
     {
         setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
+        setBattleInfo(battleInfo);
+        setBattleMode(battleMode);
     }
 
     @Override
@@ -44,7 +50,15 @@ public class BattleFieldController extends Thread
         {
             firstLoad();
         }
+        showGameInfo();
         preLoad();
+    }
+
+    private void showGameInfo() {
+        battleInfo.setText("");
+        ShowOutput showOutput = ShowOutput.getInstance();
+        String string = showOutput.getGameInfo();
+        battleInfo.setText(string);
     }
 
     private void firstLoad()
@@ -74,7 +88,10 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+        checkEndOfgame();
     }
+
+
 
 
     private void getCardInformation()
@@ -378,9 +395,23 @@ public class BattleFieldController extends Thread
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
     {
         battleManager.attackToOpponent(opponentCard);
+        checkHPOfCards();
         setAttackAnimation();
         attackedCardInfo.setText("");
         preLoad();
+    }
+
+    private void checkHPOfCards() {
+        for (int row = 0; row < 5; row++)
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                if(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard()!= null && Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard().getCurrentHP() <= 0){
+                    Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().remove(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().size() - 1);
+                    Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].setCard(null);
+                }
+            }
+        }
     }
 
     private void setAttackAnimation()
@@ -393,6 +424,18 @@ public class BattleFieldController extends Thread
         final Animation animation = new SpriteAnimation(imageView, Duration.millis(1000), 3, 3, 0, 0, 80, 80);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
+    }
+
+    private void checkEndOfgame() {
+        switch (battleMode){
+            case KILLING_ENEMY_HERO:
+                if(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
+                    System.out.println("Player2 Win!!!");
+                }
+                if(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
+                    System.out.println("Player1 Win!!!");
+                }
+        }
     }
 
     public Card getSelectedCardForInserting()
@@ -463,5 +506,21 @@ public class BattleFieldController extends Thread
     public void setSceneBattleField(Scene sceneBattleField)
     {
         this.sceneBattleField = sceneBattleField;
+    }
+
+    public void setBattleInfo(Text battleInfo) {
+        this.battleInfo = battleInfo;
+    }
+
+    public Text getBattleInfo() {
+        return battleInfo;
+    }
+
+    public void setBattleMode(BattleMode battleMode) {
+        this.battleMode = battleMode;
+    }
+
+    public BattleMode getBattleMode() {
+        return battleMode;
     }
 }
