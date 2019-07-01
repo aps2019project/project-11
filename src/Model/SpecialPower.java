@@ -48,7 +48,7 @@ public class SpecialPower
                     ownMinion.addActiveSpellOnThisCard(spellChange);
                 }
             }
-            else if (target.isAllOwnMinion())
+            else if (target.isAllOwnMinions())
             {
                 ArrayList<Minion> ownMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards();
                 for (NonSpellCard ownMinion : ownMinions)
@@ -89,10 +89,10 @@ public class SpecialPower
                     ownBothNonSpellCards.get(counter).addActiveSpellOnThisCard(spellChange);
                 }
             }
-            else if (target.getStartRow() > 0 && target.getStartColumn() > 0 && target.getEndRow() > 0 && target.getEndColumn() > 0)
+            /*else if (target.getStartRow() > 0 && target.getStartColumn() > 0 && target.getEndRow() > 0 && target.getEndColumn() > 0)
             {
                 this.getSpellEffect().addCellEffect(x, y);
-            }
+            }*/
         }
     }
     public String getDescriptionTypeOfSpecialPower()

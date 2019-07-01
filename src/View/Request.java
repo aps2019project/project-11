@@ -781,7 +781,7 @@ public class Request
         }
         if (allOwnMinion.equalsIgnoreCase("true"))
         {
-            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinion(true);
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinions(true);
         }
         if (attackType.equalsIgnoreCase("melee"))
         {
@@ -987,7 +987,7 @@ public class Request
         }
         if (allOwnMinion.equalsIgnoreCase("true"))
         {
-            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinion(true);
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinions(true);
         }
         if (ownHero.equalsIgnoreCase("true"))
         {

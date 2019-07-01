@@ -8,22 +8,20 @@ public class Target
     private boolean opponentHero;
     private int numOfOpponentBothNonSpellCards;
     private int numOfOwnBothNonSpellCards;
-    private int startRow;
-    private int startColumn;
-    private int endRow;
-    private int endColumn;
-    private int maxAttackRange;
+    private boolean isCellBuff;
+    private int attackRangeLength;
+    private int attackRangeWidth;
     private NonSpellCard nextNoneSpellCard;
-    private boolean allOwnMinion;
+    private boolean allOwnMinions;
     private boolean allOwnBothNonSpellCards;
     private boolean allOpponentNonSpellCards;
 
     public Target()
     {
-
+        //for CustomCard
     }
 
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, int maxAttackRange , NonSpellCard nextNoneSpellCard , boolean allOwnMinion, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
+    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, boolean isCellBuff, int attackRangeLength, int attackRangeWidth, NonSpellCard nextNoneSpellCard , boolean allOwnMinions, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
     {
         this.numOfOwnMinions = numOfOwnMinions;
         this.numOfOpponentMinions = numOfOpponentMinions;
@@ -31,35 +29,14 @@ public class Target
         this.opponentHero = opponentHero;
         this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
         this.numOfOwnBothNonSpellCards = numOfOwnBothNonSpellCards;
-        this.startRow = startRow;
-        this.startColumn = startColumn;
-        this.endRow = endRow;
-        this.endColumn = endColumn;
-        this.maxAttackRange = maxAttackRange;
+        this.isCellBuff = isCellBuff;
+        this.attackRangeLength = attackRangeLength;
+        this.attackRangeWidth = attackRangeWidth;
         this.nextNoneSpellCard = nextNoneSpellCard;
-        this.allOwnMinion = allOwnMinion;
+        this.allOwnMinions = allOwnMinions;
         this.allOpponentNonSpellCards = allOpponentNonSpellCards;
         this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
     }
-
-    public Target(int numOfOwnMinions, int numOfOpponentMinions, boolean ownHero, boolean opponentHero, int numOfOpponentBothNonSpellCards, int numOfOwnBothNonSpellCards, int startRow, int startColumn, int endRow, int endColumn, NonSpellCard nextNoneSpellCard , boolean allOwnMinion, boolean allOpponentNonSpellCards, boolean allOwnBothNonSpellCards)
-    {
-        this.numOfOwnMinions = numOfOwnMinions;
-        this.numOfOpponentMinions = numOfOpponentMinions;
-        this.ownHero = ownHero;
-        this.opponentHero = opponentHero;
-        this.numOfOpponentBothNonSpellCards = numOfOpponentBothNonSpellCards;
-        this.numOfOwnBothNonSpellCards = numOfOwnBothNonSpellCards;
-        this.startRow = startRow;
-        this.startColumn = startColumn;
-        this.endRow = endRow;
-        this.endColumn = endColumn;
-        this.nextNoneSpellCard = nextNoneSpellCard;
-        this.allOwnMinion = allOwnMinion;
-        this.allOpponentNonSpellCards = allOpponentNonSpellCards;
-        this.allOwnBothNonSpellCards = allOwnBothNonSpellCards;
-    }
-
 
     public int getNumOfOwnMinions()
     {
@@ -91,26 +68,19 @@ public class Target
         return numOfOwnBothNonSpellCards;
     }
 
-    public int getStartRow()
+    public boolean isCellBuff()
     {
-        return startRow;
+        return isCellBuff;
     }
 
-    public int getStartColumn() {
-        return startColumn;
-    }
-
-    public int getEndRow()
+    public int getAttackRangeLength()
     {
-        return endRow;
+        return attackRangeLength;
     }
 
-    public int getEndColumn() {
-        return endColumn;
-    }
-
-    public int getMaxAttackRange() {
-        return maxAttackRange;
+    public int getAttackRangeWidth()
+    {
+        return attackRangeWidth;
     }
 
     public NonSpellCard getNextNoneSpellCard()
@@ -122,12 +92,12 @@ public class Target
         this.nextNoneSpellCard = nextNoneSpellCard;
     }
 
-    public boolean isAllOwnMinion() {
-        return allOwnMinion;
+    public boolean isAllOwnMinions() {
+        return allOwnMinions;
     }
 
-    public void setAllOwnMinion(boolean allOwnMinion) {
-        this.allOwnMinion = allOwnMinion;
+    public void setAllOwnMinions(boolean allOwnMinions) {
+        this.allOwnMinions = allOwnMinions;
     }
 
     public boolean isAllOpponentNonSpellCards() {
