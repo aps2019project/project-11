@@ -16,6 +16,14 @@ public class Cell
     private ArrayList<SpellChange> spellChanges = new ArrayList<>();
     private transient Pane cellPane;
 
+    public static double getXOfCell(int column) {
+        return 300 + (column + 1) * 80;
+    }
+
+    public static double getYOfCell(int row) {
+        return 200 + (row + 1) * 80;
+    }
+
     public void setCard(Card card)
     {
         if (card instanceof Hero)
