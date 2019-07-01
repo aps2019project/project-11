@@ -433,10 +433,15 @@ public class CallTheAppropriateFunction extends Thread
         new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
     }
 
-    public void customGameBattleMaker(Deck selectedDeck, int number)
+    public boolean customGameBattleMaker(Deck selectedDeck, int number)
     {
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
-        new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+        if (opponentPlayerForCustomGame != null)
+        {
+            new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+            return true;
+        }
+        return false;
     }
 
     public void multiPayerBattleMaker(int number , Player opponentPlayerForCustomGame )

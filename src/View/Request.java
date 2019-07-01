@@ -2311,7 +2311,10 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
+                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1))
+                    {
+                        return;
+                    }
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KILLING_ENEMY_HERO);
@@ -2321,7 +2324,10 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
+                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2))
+                    {
+                        return;
+                    }
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
@@ -2331,7 +2337,10 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
+                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3))
+                    {
+                        return;
+                    }
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2637,7 +2646,6 @@ public class Request
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
-        primaryStage.show();
     }
 
     private void setNextCard(Group rootBattleField)
