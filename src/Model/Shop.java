@@ -36,6 +36,7 @@ public class Shop
     {
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, card, false);
         Account.loggedInAccount.decreaseMoney(card.getPrice());
+        card.decreaseCapacityOfSell();
     }
 
     public void setCardID(Account account, Card card)
@@ -49,6 +50,7 @@ public class Shop
      {
          Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, false);
          Account.loggedInAccount.decreaseMoney(item.getPrice());
+         item.decreaseCapacityOfItemSell();
      }
 
     public void setItemID(Account account, Item item)
@@ -72,14 +74,15 @@ public class Shop
         {
             Account.loggedInAccount.getCollection().getSpells().remove(cardToSell);
         }
-
         Account.loggedInAccount.addMoney(cardToSell.getPrice());
+        cardToSell.increaseCapacityOfSell();
     }
 
     public void sellItem(Item itemToSell)
     {
         Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
         Account.loggedInAccount.addMoney(itemToSell.getPrice());
+        itemToSell.increaseCapacityOfItemSell();
     }
 
     public ArrayList<Card> getCards()

@@ -128,11 +128,11 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void convertingToShop() throws FileNotFoundException {
+    private void convertingToShop() throws FileNotFoundException
+    {
         FileReader reader = new FileReader("shop.json");
         JsonParser jsonParser = new JsonParser();
         Object object = jsonParser.parse(reader);
-
     }
 
     private void convertingToAccounts() throws Exception
