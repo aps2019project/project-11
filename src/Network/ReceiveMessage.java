@@ -10,7 +10,7 @@ public class ReceiveMessage extends Thread
     private ArrayList<CommandReceivedListener> listeners = new ArrayList<>();
     private InputStream inputStream;
 
-    public ReceiveMessage(InputStream inputStream)
+    ReceiveMessage(InputStream inputStream)
     {
         this.inputStream = inputStream;
     }
