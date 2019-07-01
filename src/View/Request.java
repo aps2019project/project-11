@@ -1405,6 +1405,8 @@ public class Request
                     Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
+                    Card.decreaseCapacityOfSell();
+                    System.out.println(Card.getCapacityOfSell());
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = name;
                     synchronized (requestLock)
@@ -1647,6 +1649,7 @@ public class Request
                 if (option.get() == buttonTypeSell)
                 {
                     setCommand(CommandType.SELL);
+                    Card.increseCapacityOfSell();
                     request.getCommand().cardOrItemID = ID;
                     synchronized (requestLock)
                     {
