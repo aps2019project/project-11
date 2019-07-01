@@ -2,9 +2,12 @@ package Network;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client
 {
+    private static ArrayList<InputCommandHandlerForClient> commandHandlers = new ArrayList<>();
+
     public static void main(String[] args) throws IOException
     {
         Socket socket = new Socket("127.0.0.1", 8000);
@@ -14,6 +17,11 @@ public class Client
 
         SendMessage output = new SendMessage(System.out);
         output.start();
+
+        InputCommandHandlerForClient handleCommand = new InputCommandHandlerForClient(sendMessage);
+        handleCommand.setDaemon(true);
+        commandHandlers.add(handleCommand);
+        handleCommand.start();
 
         ReceiveMessage scanner = new ReceiveMessage(System.in);
         scanner.addListener(new CommandReceivedListener()
