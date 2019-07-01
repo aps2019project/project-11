@@ -122,10 +122,18 @@ public class AccountManager
 
     public Player makeCustomGamePlayer(String deckNameForCustomGame)
     {
-        Account account = new Account("CustomPlayer");
-        account.addDeck(DeckManager.findDeck(deckNameForCustomGame));
-        account.setMainDeck(DeckManager.findDeck(deckNameForCustomGame));
-        return new Player(account, true);
+        Deck deck = DeckManager.findDeck(deckNameForCustomGame);
+        if (new DeckManager().checkDeckValidity(deckNameForCustomGame))
+        {
+            Account account = new Account("CustomPlayer");
+            account.addDeck(deck);
+            account.setMainDeck(deck);
+            return new Player(account, true);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public static ArrayList<Account> getAccounts()
