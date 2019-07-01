@@ -9,13 +9,13 @@ public class Client
     {
         Socket socket = new Socket("127.0.0.1", 8000);
 
-        SendMessageServer sendMessage = new SendMessageServer(socket.getOutputStream());
+        SendMessage sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();
 
-        SendMessageServer output = new SendMessageServer(System.out);
+        SendMessage output = new SendMessage(System.out);
         output.start();
 
-        ReceiveMessageServer scanner = new ReceiveMessageServer(System.in);
+        ReceiveMessage scanner = new ReceiveMessage(System.in);
         scanner.addListener(new CommandReceivedListener()
         {
             @Override
@@ -26,7 +26,7 @@ public class Client
         });
         scanner.start();
 
-        ReceiveMessageServer receiveMessage = new ReceiveMessageServer(socket.getInputStream());
+        ReceiveMessage receiveMessage = new ReceiveMessage(socket.getInputStream());
         receiveMessage.addListener(new CommandReceivedListener()
         {
             @Override

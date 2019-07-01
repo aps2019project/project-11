@@ -11,16 +11,16 @@ public class Server
 
     public static void main(String[] args) throws IOException
     {
-        ServerSocket serverSocket = new ServerSocket(8000);
+        ServerSocket serverSocket = new ServerSocket(9000);
         while (true)
         {
             Socket socket = serverSocket.accept();
             System.out.println("new Client accepted");
 
-            SendMessageServer output = new SendMessageServer(System.out);
+            SendMessage output = new SendMessage(System.out);
             output.start();
 
-            SendMessageServer sendMessage = new SendMessageServer(socket.getOutputStream());
+            SendMessage sendMessage = new SendMessage(socket.getOutputStream());
             sendMessage.start();
 
             InputCommandHandler handleCommand = new InputCommandHandler(sendMessage);
@@ -28,7 +28,7 @@ public class Server
             commandHandlers.add(handleCommand);
             handleCommand.start();
 
-            ReceiveMessageServer receiveMessage = new ReceiveMessageServer(socket.getInputStream());
+            ReceiveMessage receiveMessage = new ReceiveMessage(socket.getInputStream());
             receiveMessage.addListener(new CommandReceivedListener()
             {
                 @Override

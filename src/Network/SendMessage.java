@@ -5,12 +5,12 @@ import java.io.PrintStream;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class SendMessageServer extends Thread
+public class SendMessage extends Thread
 {
     private BlockingDeque<String> messages = new LinkedBlockingDeque<>();
     private OutputStream outputStream;
 
-    SendMessageServer(OutputStream outputStream)
+    public SendMessage(OutputStream outputStream)
     {
         this.outputStream = outputStream;
     }
@@ -32,7 +32,7 @@ public class SendMessageServer extends Thread
         }
     }
 
-    void addMessage(String message) throws InterruptedException
+    public void addMessage(String message) throws InterruptedException
     {
         messages.put(message);
     }

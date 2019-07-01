@@ -1,12 +1,15 @@
 package Network;
 
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 public class InputCommandHandler extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
-    private SendMessageServer sendMessage;
+    private SendMessage sendMessage;
 
-    public InputCommandHandler(SendMessageServer sendMessage)
+    public InputCommandHandler(SendMessage sendMessage)
     {
         this.sendMessage = sendMessage;
     }
@@ -34,7 +37,7 @@ public class InputCommandHandler extends Thread
         return message.trim();
     }
 
-    public SendMessageServer getSendMessage()
+    public SendMessage getSendMessage()
     {
         return sendMessage;
     }
