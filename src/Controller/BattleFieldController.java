@@ -32,12 +32,14 @@ public class BattleFieldController extends Thread
     private Text attackedCardInfo;
     private static boolean firstWorks = true;
     private Text battleInfo;
+    private BattleMode battleMode;
 
-    public BattleFieldController(Group rootBattleField, Scene sceneBattleField , Text battleInfo)
+    public BattleFieldController(Group rootBattleField, Scene sceneBattleField , Text battleInfo , BattleMode battleMode)
     {
         setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
         setBattleInfo(battleInfo);
+        setBattleMode(battleMode);
     }
 
     @Override
@@ -86,7 +88,10 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
+        checkEndOfgame();
     }
+
+
 
 
     private void getCardInformation()
@@ -421,6 +426,18 @@ public class BattleFieldController extends Thread
         animation.play();
     }
 
+    private void checkEndOfgame() {
+        switch (battleMode){
+            case KILLING_ENEMY_HERO:
+                if(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
+                    System.out.println("Player2 Win!!!");
+                }
+                if(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
+                    System.out.println("Player1 Win!!!");
+                }
+        }
+    }
+
     public Card getSelectedCardForInserting()
     {
         return selectedCardForInserting;
@@ -497,5 +514,13 @@ public class BattleFieldController extends Thread
 
     public Text getBattleInfo() {
         return battleInfo;
+    }
+
+    public void setBattleMode(BattleMode battleMode) {
+        this.battleMode = battleMode;
+    }
+
+    public BattleMode getBattleMode() {
+        return battleMode;
     }
 }

@@ -2284,7 +2284,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KILLING_ENEMY_HERO);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2294,7 +2294,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2304,7 +2304,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3);
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2389,7 +2389,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory1", false);
+                        setBattleField(primaryStage, "backgroundStory1", false , BattleMode.KILLING_ENEMY_HERO);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2399,7 +2399,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory2", false);
+                        setBattleField(primaryStage, "backgroundStory2", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2409,7 +2409,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory3", false);
+                        setBattleField(primaryStage, "backgroundStory3", false , BattleMode.GATHERING_FLAGS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2521,7 +2521,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2531,7 +2531,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2541,7 +2541,7 @@ public class Request
                     Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false);
+                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2585,7 +2585,7 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard) throws IOException
+    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard , BattleMode battleMode) throws IOException
     {
         if (!backFromGraveYard)
         {
@@ -2596,13 +2596,13 @@ public class Request
             setPlayersName(rootBattleField);
             setMPIcons(rootBattleField);
             setHeroFirstPlace(rootBattleField);
-            setGraveYardButton(primaryStage, rootBattleField, map);
+            setGraveYardButton(primaryStage, rootBattleField, map , battleMode);
             setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
             showGameInfo(rootBattleField);
-            setEndTurnButton(rootBattleField);
+            setEndTurnButton(rootBattleField , battleMode);
         }
-        battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo);
+        battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo , battleMode);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2691,7 +2691,7 @@ public class Request
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url)
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url , BattleMode battleMode)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2702,13 +2702,13 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, url);
+                showGraveYard(primaryStage, url , battleMode);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void showGraveYard(Stage primaryStage, String map)
+    private void showGraveYard(Stage primaryStage, String map , BattleMode battleMode)
     {
         rootGraveYard.getChildren().clear();
 
@@ -2740,7 +2740,7 @@ public class Request
                 {
                     primaryStage.setScene(sceneBattleField);
                     primaryStage.centerOnScreen();
-                    setBattleField(primaryStage, map, true);
+                    setBattleField(primaryStage, map, true , battleMode);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -2749,7 +2749,7 @@ public class Request
         });
     }
 
-    private void setEndTurnButton(Group rootBattleField)
+    private void setEndTurnButton(Group rootBattleField , BattleMode battleMode)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
@@ -2774,7 +2774,7 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo);
+                battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo , battleMode);
                 battleFieldController.start();
             }
         });
