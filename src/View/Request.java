@@ -1408,12 +1408,12 @@ public class Request
                     if (specifyKindOfCard(name)==1)
                     {
                         makingItem(name).decreaseCapacityOfItemSell();
-                        System.out.println(makingItem(name).getCapacityOfItemSell());
+                        System.out.println(makingItem(name).getItemName() + makingItem(name).getCapacityOfItemSell());
                     }
                     else
                     {
                         makingCard(name).decreaseCapacityOfSell();
-                        System.out.println(makingCard(name).getCapacityOfSell());
+                        System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
                     }
                     makingJson();
                     setCommand(CommandType.BUY);
@@ -1720,12 +1720,12 @@ public class Request
                     if (specifyKindOfCard(name) == 1)
                     {
                         makingItem(name).increaseCapacityOfItemSell();
-                        System.out.println(makingItem(name).getCapacityOfItemSell());
+                        System.out.println(makingItem(name).getItemName()+ makingItem(name).getCapacityOfItemSell());
                     }
                     else
                     {
                        makingCard(name).increaseCapacityOfSell();
-                        System.out.println(makingCard(name).getCapacityOfSell());
+                        System.out.println(makingCard(name).getCardName() + makingCard(name).getCapacityOfSell());
                     }
                     makingJson();
                     setCommand(CommandType.SELL);
