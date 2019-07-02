@@ -10,7 +10,8 @@ public enum ClientCommandsEnum {
     ,MAIN_MENU_COMMAND
     ,MAKE_CUSTOM_SPELL
     ,MAKE_CUSTOM_MINION
-    ,
+    ,MAKE_CUSTOM_HERO
+    ,SHOW_OUTPUT_LEADERBOARD
     ;
 
 

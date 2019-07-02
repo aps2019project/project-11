@@ -2,6 +2,7 @@ package Network;
 
 import Model.Account;
 import Model.CommandType;
+import javafx.scene.Group;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class ClientCommands {
     private Account accountForLogin;
     private CommandType commandType;
     private ArrayList<TextField> textFieldsToMkeCustom;
+    private Group rootLeaderBoard;
 
 
     public ClientCommands(ClientCommandsEnum clientCommand ,String userName ,String passWord ){ //1
@@ -45,6 +47,11 @@ public class ClientCommands {
     public ClientCommands(ClientCommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustom) { //5
         this.clientCommand = clientCommand;
         this.textFieldsToMkeCustom = textFieldsToMkeCustom;
+    }
+
+    public ClientCommands(ClientCommandsEnum clientCommand, Group rootLeaderBoard) {
+        this.clientCommand = clientCommand;
+        this.rootLeaderBoard = rootLeaderBoard;
     }
 
     public ClientCommandsEnum getClientCommand() {
