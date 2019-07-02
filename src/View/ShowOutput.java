@@ -345,49 +345,6 @@ public class ShowOutput
         return str.toString();
     }
 
-
-    public void showShopInfo()
-    {
-        printOutput("Heroes :");
-        int counter = 1;
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card instanceof Hero)
-            {
-                printHeroStats((Hero) card, counter);
-                counter++;
-            }
-
-        }
-        printOutput("Items :");
-        counter = 1;
-        for (Item item : Shop.getInstance().getItems())
-        {
-            printItemStats(counter, item);
-            counter++;
-        }
-        printOutput("Spells :");
-        counter = 1;
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card instanceof Spell)
-            {
-                printSpellCardStats(counter, (Spell) card);
-                counter++;
-            }
-        }
-        printOutput("Minions :");
-        counter = 1;
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card instanceof Minion)
-            {
-                printMinionStats(counter, (Minion) card);
-                counter++;
-            }
-        }
-    }
-
     public void printCardStats(int counter, Card card)
     {
         if (card instanceof Spell)

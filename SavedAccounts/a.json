@@ -35,12 +35,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 4,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -86,7 +85,8 @@
         "requiredMP": 0,
         "cardName": "Rostam",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "turnsRemainingToEndCoolDown": 0,
@@ -114,12 +114,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": true
               }
@@ -165,7 +164,8 @@
         "requiredMP": 5,
         "cardName": "Simurgh",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "turnsRemainingToEndCoolDown": 0,
@@ -193,12 +193,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 4,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -244,7 +243,8 @@
         "requiredMP": 0,
         "cardName": "Rostam",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       }
     ],
     "minions": [
@@ -276,7 +276,8 @@
         "requiredMP": 2,
         "cardName": "kamandarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -306,7 +307,8 @@
         "requiredMP": 2,
         "cardName": "kamandarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -336,7 +338,8 @@
         "requiredMP": 1,
         "cardName": "neizedarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -366,7 +369,8 @@
         "requiredMP": 1,
         "cardName": "neizedarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -396,7 +400,8 @@
         "requiredMP": 4,
         "cardName": "asbsavarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -426,7 +431,8 @@
         "requiredMP": 1,
         "cardName": "kamandarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -456,7 +462,8 @@
         "requiredMP": 1,
         "cardName": "kamandarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -486,7 +493,8 @@
         "requiredMP": 2,
         "cardName": "GorzdarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -516,7 +524,8 @@
         "requiredMP": 1,
         "cardName": "gholabsangdarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -546,7 +555,8 @@
         "requiredMP": 6,
         "cardName": "DivGorazSavar",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -576,7 +586,8 @@
         "requiredMP": 4,
         "cardName": "Iraj",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -606,7 +617,8 @@
         "requiredMP": 5,
         "cardName": "EzhdehayeAtashAndaz",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -636,7 +648,8 @@
         "requiredMP": 9,
         "cardName": "GhoulBozorg",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -666,7 +679,8 @@
         "requiredMP": 1,
         "cardName": "neizedarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -693,12 +707,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 1,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -745,7 +758,8 @@
         "requiredMP": 2,
         "cardName": "shamsirzanFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       }
     ],
     "spells": [
@@ -760,12 +774,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -802,7 +815,8 @@
         "requiredMP": 0,
         "cardName": "totalDisarm",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "disarm",
@@ -815,12 +829,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -857,7 +870,8 @@
         "requiredMP": 0,
         "cardName": "totalDisarm",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "removingAllBadAndGoodBuffs",
@@ -870,12 +884,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 0,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -912,7 +925,8 @@
         "requiredMP": 2,
         "cardName": "areaDispel",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "impactToOpponent",
@@ -925,12 +939,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -967,7 +980,8 @@
         "requiredMP": 1,
         "cardName": "fireball",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "stun",
@@ -980,12 +994,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -1022,7 +1035,8 @@
         "requiredMP": 1,
         "cardName": "shock",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "addingAP",
@@ -1035,12 +1049,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 0,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -1077,7 +1090,8 @@
         "requiredMP": 2,
         "cardName": "godStrength",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       }
     ],
     "items": [
@@ -1113,6 +1127,7 @@
             "START_BATTLE"
           ]
         },
+        "capacityOfItemSell": 0,
         "collectibleItemSelectedInBattle": false
       }
     ]
@@ -1147,12 +1162,11 @@
                   "opponentHero": false,
                   "numOfOpponentBothNonSpellCards": 0,
                   "numOfOwnBothNonSpellCards": 0,
-                  "startRow": 0,
-                  "startColumn": 0,
-                  "endRow": 0,
-                  "endColumn": 0,
-                  "maxAttackRange": 4,
-                  "allOwnMinion": false,
+                  "thisTroop": false,
+                  "isCellBuff": false,
+                  "attackRangeLength": 0,
+                  "attackRangeWidth": 0,
+                  "allOwnMinions": false,
                   "allOwnBothNonSpellCards": false,
                   "allOpponentNonSpellCards": false
                 }
@@ -1198,7 +1212,8 @@
           "requiredMP": 0,
           "cardName": "Rostam",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         }
       ],
       "minions": [
@@ -1230,7 +1245,8 @@
           "requiredMP": 2,
           "cardName": "kamandarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1260,7 +1276,8 @@
           "requiredMP": 2,
           "cardName": "kamandarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1290,7 +1307,8 @@
           "requiredMP": 1,
           "cardName": "neizedarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1320,7 +1338,8 @@
           "requiredMP": 1,
           "cardName": "neizedarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1350,7 +1369,8 @@
           "requiredMP": 4,
           "cardName": "asbsavarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1380,7 +1400,8 @@
           "requiredMP": 1,
           "cardName": "kamandarTorani",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1410,7 +1431,8 @@
           "requiredMP": 1,
           "cardName": "kamandarTorani",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1440,7 +1462,8 @@
           "requiredMP": 2,
           "cardName": "GorzdarTorani",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1470,7 +1493,8 @@
           "requiredMP": 1,
           "cardName": "gholabsangdarTorani",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1500,7 +1524,8 @@
           "requiredMP": 6,
           "cardName": "DivGorazSavar",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1530,7 +1555,8 @@
           "requiredMP": 4,
           "cardName": "Iraj",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1560,7 +1586,8 @@
           "requiredMP": 5,
           "cardName": "EzhdehayeAtashAndaz",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1590,7 +1617,8 @@
           "requiredMP": 9,
           "cardName": "GhoulBozorg",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "ableToCombo": false,
@@ -1620,7 +1648,8 @@
           "requiredMP": 1,
           "cardName": "neizedarTorani",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         }
       ],
       "spells": [
@@ -1635,12 +1664,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 1,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1677,7 +1705,8 @@
           "requiredMP": 0,
           "cardName": "totalDisarm",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "descriptionTypeOfSpell": "disarm",
@@ -1690,12 +1719,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 1,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1732,7 +1760,8 @@
           "requiredMP": 0,
           "cardName": "totalDisarm",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "descriptionTypeOfSpell": "removingAllBadAndGoodBuffs",
@@ -1745,12 +1774,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1787,7 +1815,8 @@
           "requiredMP": 2,
           "cardName": "areaDispel",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "descriptionTypeOfSpell": "impactToOpponent",
@@ -1800,12 +1829,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 1,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1842,7 +1870,8 @@
           "requiredMP": 1,
           "cardName": "fireball",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "descriptionTypeOfSpell": "stun",
@@ -1855,12 +1884,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 1,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1897,7 +1925,8 @@
           "requiredMP": 1,
           "cardName": "shock",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         },
         {
           "descriptionTypeOfSpell": "addingAP",
@@ -1910,12 +1939,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 0,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -1952,7 +1980,8 @@
           "requiredMP": 2,
           "cardName": "godStrength",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         }
       ],
       "item": [
@@ -1988,6 +2017,7 @@
               "START_BATTLE"
             ]
           },
+          "capacityOfItemSell": 0,
           "collectibleItemSelectedInBattle": false
         }
       ]
@@ -2021,12 +2051,11 @@
                   "opponentHero": false,
                   "numOfOpponentBothNonSpellCards": 0,
                   "numOfOwnBothNonSpellCards": 0,
-                  "startRow": 0,
-                  "startColumn": 0,
-                  "endRow": 0,
-                  "endColumn": 0,
-                  "maxAttackRange": 0,
-                  "allOwnMinion": false,
+                  "thisTroop": false,
+                  "isCellBuff": false,
+                  "attackRangeLength": 0,
+                  "attackRangeWidth": 0,
+                  "allOwnMinions": false,
                   "allOwnBothNonSpellCards": false,
                   "allOpponentNonSpellCards": true
                 }
@@ -2072,7 +2101,8 @@
           "requiredMP": 5,
           "cardName": "Simurgh",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         }
       ],
       "minions": [
@@ -2104,7 +2134,8 @@
           "requiredMP": 2,
           "cardName": "kamandarFars",
           "row": 0,
-          "column": 0
+          "column": 0,
+          "capacityOfSell": 5
         }
       ],
       "spells": [],
@@ -2140,12 +2171,11 @@
                 "opponentHero": false,
                 "numOfOpponentBothNonSpellCards": 0,
                 "numOfOwnBothNonSpellCards": 0,
-                "startRow": 0,
-                "startColumn": 0,
-                "endRow": 0,
-                "endColumn": 0,
-                "maxAttackRange": 4,
-                "allOwnMinion": false,
+                "thisTroop": false,
+                "isCellBuff": false,
+                "attackRangeLength": 0,
+                "attackRangeWidth": 0,
+                "allOwnMinions": false,
                 "allOwnBothNonSpellCards": false,
                 "allOpponentNonSpellCards": false
               }
@@ -2191,7 +2221,8 @@
         "requiredMP": 0,
         "cardName": "Rostam",
         "row": 2,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       }
     ],
     "minions": [
@@ -2223,7 +2254,8 @@
         "requiredMP": 2,
         "cardName": "kamandarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2253,7 +2285,8 @@
         "requiredMP": 2,
         "cardName": "kamandarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2283,7 +2316,8 @@
         "requiredMP": 1,
         "cardName": "neizedarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2313,7 +2347,8 @@
         "requiredMP": 1,
         "cardName": "neizedarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2343,7 +2378,8 @@
         "requiredMP": 4,
         "cardName": "asbsavarFars",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2373,7 +2409,8 @@
         "requiredMP": 1,
         "cardName": "kamandarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2403,7 +2440,8 @@
         "requiredMP": 1,
         "cardName": "kamandarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2433,7 +2471,8 @@
         "requiredMP": 2,
         "cardName": "GorzdarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2463,7 +2502,8 @@
         "requiredMP": 1,
         "cardName": "gholabsangdarTorani",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2493,7 +2533,8 @@
         "requiredMP": 6,
         "cardName": "DivGorazSavar",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2523,7 +2564,8 @@
         "requiredMP": 4,
         "cardName": "Iraj",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2553,7 +2595,8 @@
         "requiredMP": 5,
         "cardName": "EzhdehayeAtashAndaz",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2583,7 +2626,8 @@
         "requiredMP": 9,
         "cardName": "GhoulBozorg",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "ableToCombo": false,
@@ -2613,7 +2657,8 @@
         "requiredMP": 1,
         "cardName": "neizedarTorani",
         "row": 2,
-        "column": 1
+        "column": 1,
+        "capacityOfSell": 5
       }
     ],
     "spells": [
@@ -2628,12 +2673,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2670,7 +2714,8 @@
         "requiredMP": 0,
         "cardName": "totalDisarm",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "disarm",
@@ -2683,12 +2728,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2725,7 +2769,8 @@
         "requiredMP": 0,
         "cardName": "totalDisarm",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "removingAllBadAndGoodBuffs",
@@ -2738,12 +2783,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 0,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2780,7 +2824,8 @@
         "requiredMP": 2,
         "cardName": "areaDispel",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "impactToOpponent",
@@ -2793,12 +2838,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2835,7 +2879,8 @@
         "requiredMP": 1,
         "cardName": "fireball",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "stun",
@@ -2848,12 +2893,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 1,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2890,7 +2934,8 @@
         "requiredMP": 1,
         "cardName": "shock",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       },
       {
         "descriptionTypeOfSpell": "addingAP",
@@ -2903,12 +2948,11 @@
               "opponentHero": false,
               "numOfOpponentBothNonSpellCards": 0,
               "numOfOwnBothNonSpellCards": 0,
-              "startRow": 0,
-              "startColumn": 0,
-              "endRow": 0,
-              "endColumn": 0,
-              "maxAttackRange": 0,
-              "allOwnMinion": false,
+              "thisTroop": false,
+              "isCellBuff": false,
+              "attackRangeLength": 0,
+              "attackRangeWidth": 0,
+              "allOwnMinions": false,
               "allOwnBothNonSpellCards": false,
               "allOpponentNonSpellCards": false
             }
@@ -2945,7 +2989,8 @@
         "requiredMP": 2,
         "cardName": "godStrength",
         "row": 0,
-        "column": 0
+        "column": 0,
+        "capacityOfSell": 5
       }
     ],
     "item": [
@@ -2981,6 +3026,7 @@
             "START_BATTLE"
           ]
         },
+        "capacityOfItemSell": 0,
         "collectibleItemSelectedInBattle": false
       }
     ]

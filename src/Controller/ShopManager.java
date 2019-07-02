@@ -7,27 +7,6 @@ public class ShopManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public void searchShop(String name)
-    {
-        for (Card card : Shop.getInstance().getCards())
-        {
-            if (card.getCardName().equals(name))
-            {
-                showOutput.printOutput("The card exists in the shop.");
-                return;
-            }
-        }
-        for (Item item : Shop.getInstance().getItems())
-        {
-            if (item.getItemName().equals(name))
-            {
-                showOutput.printOutput("The item exists in the shop.");
-                return;
-            }
-        }
-        showOutput.printOutput("The item or card doesn't exist in the shop.");
-    }
-
     public void buyCard(Card card)
     {
         if (card.getPrice() > Account.loggedInAccount.getMoney())

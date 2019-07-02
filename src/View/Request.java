@@ -190,10 +190,7 @@ public class Request
                     return;
                 }
                 Account account = accountManager.findAccount(userName);        //1 constructor         //signUp find account(S)
-
                 ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
-
-
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
@@ -1176,6 +1173,8 @@ public class Request
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        rootShop.getChildren().clear();
+
         setBackGroundImage(rootShop, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneShop.setContent(rootShop);
@@ -1440,6 +1439,8 @@ public class Request
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        rootCollection.getChildren().clear();
+
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneCollection.setContent(rootCollection);

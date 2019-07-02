@@ -116,9 +116,6 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineCollectionCommand();
                     break;
-                case SEARCH:
-                    shopManager.searchShop(request.getCommand().cardOrItemName);
-                    break;
                 case BUY:
                     try
                     {

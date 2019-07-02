@@ -2,7 +2,8 @@ package Network;
 
 import Model.Account;
 
-public class ClientCommands {
+public class ClientCommands
+{
     private ClientCommandsEnum clientCommand;
     private String signUpUserName;
     private String signUpPassWord;
@@ -10,13 +11,14 @@ public class ClientCommands {
     private String userNameForSave;
     private boolean isNewAccount;
 
-    public ClientCommands(ClientCommandsEnum clientCommand ,String signUpUserName ,String signUpPassWord ){ //1
+    public ClientCommands(ClientCommandsEnum clientCommand, String signUpUserName, String signUpPassWord)
+    { //1
         this.clientCommand = clientCommand;
         this.signUpUserName = signUpUserName;
         this.signUpPassWord = signUpPassWord;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand , Account accountForSave , String userNameForSave , boolean isNewAccount) //2
+    public ClientCommands(ClientCommandsEnum clientCommand, Account accountForSave, String userNameForSave, boolean isNewAccount) //2
     {
         this.clientCommand = clientCommand;
         this.accountForSave = accountForSave;
@@ -25,51 +27,63 @@ public class ClientCommands {
     }
 
 
-    public ClientCommandsEnum getClientCommand() {
+    public ClientCommandsEnum getClientCommand()
+    {
         return clientCommand;
     }
 
-    public void setClientCommand(ClientCommandsEnum clientCommand) {
+    public void setClientCommand(ClientCommandsEnum clientCommand)
+    {
         this.clientCommand = clientCommand;
     }
 
-    public String getSignUpUserName() {
+    public String getSignUpUserName()
+    {
         return signUpUserName;
     }
 
-    public void setSignUpUserName(String signUpUserName) {
+    public void setSignUpUserName(String signUpUserName)
+    {
         this.signUpUserName = signUpUserName;
     }
 
-    public String getSignUpPassWord() {
+    public String getSignUpPassWord()
+    {
         return signUpPassWord;
     }
 
-    public void setSignUpPassWord(String signUpPassWord) {
+    public void setSignUpPassWord(String signUpPassWord)
+    {
         this.signUpPassWord = signUpPassWord;
     }
 
-    public Account getAccountForSave() {
+    public Account getAccountForSave()
+    {
         return accountForSave;
     }
 
-    public void setAccountForSave(Account accountForSave) {
+    public void setAccountForSave(Account accountForSave)
+    {
         this.accountForSave = accountForSave;
     }
 
-    public String getUserNameForSave() {
+    public String getUserNameForSave()
+    {
         return userNameForSave;
     }
 
-    public void setUserNameForSave(String userNameForSave) {
+    public void setUserNameForSave(String userNameForSave)
+    {
         this.userNameForSave = userNameForSave;
     }
 
-    public boolean isNewAccount() {
+    public boolean isNewAccount()
+    {
         return isNewAccount;
     }
 
-    public void setNewAccount(boolean newAccount) {
+    public void setNewAccount(boolean newAccount)
+    {
         isNewAccount = newAccount;
     }
 }

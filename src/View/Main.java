@@ -128,12 +128,19 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void convertingToShop() throws FileNotFoundException
+    private void convertingToShop()
     {
-        FileReader reader = new FileReader("shop.json");
-        JsonParser jsonParser = new JsonParser();
-        Object object = jsonParser.parse(reader);
-        Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
+        try
+        {
+            FileReader reader = new FileReader("shop.json");
+            JsonParser jsonParser = new JsonParser();
+            Object object = jsonParser.parse(reader);
+            Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
+        }
+        catch (FileNotFoundException ignored)
+        {
+
+        }
     }
 
     private void convertingToAccounts() throws Exception
