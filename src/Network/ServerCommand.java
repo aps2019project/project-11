@@ -7,5 +7,4 @@ public enum ServerCommand
     ;
 
     private String errorMessage;
-    
 }

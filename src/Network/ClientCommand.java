@@ -42,6 +42,11 @@ public enum ClientCommand
         return clientCommand;
     }
 
+    public static void setClientCommand(ClientCommand clientCommand)
+    {
+        ClientCommand.clientCommand = clientCommand;
+    }
+
     public String getUserName()
     {
         return userName;
@@ -100,10 +105,5 @@ public enum ClientCommand
     public void setTextFieldsToMakeCustomCards(ArrayList<TextField> textFieldsToMakeCustomCards)
     {
         this.textFieldsToMakeCustomCards = textFieldsToMakeCustomCards;
-    }
-
-    public static void setClientCommand(ClientCommand clientCommand)
-    {
-        ClientCommand.clientCommand = clientCommand;
     }
 }
