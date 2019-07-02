@@ -27,14 +27,14 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    public void setPrimarySettings() throws InterruptedException, IOException
+    public void setPrimarySettings() throws Exception
     {
         Card.setCards();
         Item.setItems();
         determineMainMenuCommand();
     }
 
-    private void determineMainMenuCommand() throws InterruptedException, IOException
+    private void determineMainMenuCommand() throws Exception
     {
         showOutput.printMainMenuCommands();
         while (true)
@@ -99,7 +99,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineShopCommand() throws InterruptedException, IOException
+    private void determineShopCommand() throws Exception
     {
         while (true)
         {
@@ -117,21 +117,15 @@ public class CallTheAppropriateFunction extends Thread
                     determineCollectionCommand();
                     break;
                 case BUY:
-                    try
+                    Card card = Card.findCard(request.getCommand().cardOrItemName);
+                    Item item = Item.findItem(request.getCommand().cardOrItemName);
+                    if (card != null)
                     {
-                        Card card = Card.findCard(request.getCommand().cardOrItemName);
-                        Item item = Item.findItem(request.getCommand().cardOrItemName);
-                        if (card != null)
-                        {
-                            shopManager.buyCard((Card) card.clone());
-                        }
-                        else if (item != null)
-                        {
-                            shopManager.buyItem((Item) item.clone());
-                        }
-                    } catch (CloneNotSupportedException ignored)
+                        shopManager.buyCard(card);
+                    }
+                    else if (item != null)
                     {
-
+                        shopManager.buyItem(item);
                     }
                     break;
                 case EXIT:
@@ -143,7 +137,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineCollectionCommand() throws InterruptedException, IOException
+    private void determineCollectionCommand() throws Exception
     {
         while (true)
         {
@@ -186,7 +180,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineBattleMenuCommand() throws InterruptedException, IOException
+    private void determineBattleMenuCommand() throws Exception
     {
         if (Account.loggedInAccount.getMainDeck() != null)
         {
@@ -222,7 +216,7 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void selectSinglePlayerMatchMode() throws InterruptedException, IOException
+    private void selectSinglePlayerMatchMode() throws Exception
     {
         showOutput.printOutput("Story");
         showOutput.printOutput("Custom Game");
@@ -282,7 +276,7 @@ public class CallTheAppropriateFunction extends Thread
         return null;
     }
 
-    private void selectSecondPlayerInMultiPlayerMatch() throws InterruptedException, IOException
+    private void selectSecondPlayerInMultiPlayerMatch() throws Exception
     {
         accountManager.showAllPlayers();
         while (true)

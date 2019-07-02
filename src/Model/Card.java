@@ -23,12 +23,12 @@ public class Card implements Cloneable
 
     public void increaseCapacityOfSell()
     {
-        capacityOfSell++;
+        capacityOfSell ++;
     }
 
     public void decreaseCapacityOfSell()
     {
-        capacityOfSell--;
+        capacityOfSell --;
     }
 
     public static ImageView getCardImageView(Card card)

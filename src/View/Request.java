@@ -809,7 +809,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Heroes", 50);
-        for (Hero hero : Hero.getHeroes())  //7
+        for (Hero hero : Shop.getInstance().getHeroes())  //7
         {
             if (isSearchedElement)
             {
@@ -837,7 +837,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : Minion.getMinions())   //7
+        for (Minion minion : Shop.getInstance().getMinions())   //7
         {
             if (isSearchedElement)
             {
@@ -865,7 +865,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : Spell.getSpells())  //7
+        for (Spell spell : Shop.getInstance().getSpells())  //7
         {
             if (isSearchedElement)
             {
@@ -896,7 +896,7 @@ public class Request
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : Item.getItems())   //7
+        for (Item item : Shop.getInstance().getItems())   //7
         {
             if (item.getItemType() == ItemType.collectible)
             {
