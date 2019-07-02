@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Shop
 {
     private static Shop shop = null;
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Hero> heroes = new ArrayList<>();
+    private ArrayList<Minion> minions = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
     private Shop()
@@ -22,13 +24,25 @@ public class Shop
         return shop;
     }
 
-    public static void setShop(Shop shop) {
+    public static void setShop(Shop shop)
+    {
         Shop.shop = shop;
     }
 
     public void addCardToShop(Card card)
     {
-        this.cards.add(card);
+        if (card instanceof Hero)
+        {
+            this.getHeroes().add((Hero) card);
+        }
+        if (card instanceof Minion)
+        {
+            this.getMinions().add((Minion) card);
+        }
+        if (card instanceof Spell)
+        {
+            this.getSpells().add((Spell) card);
+        }
     }
 
     public void addItemToShop(Item item)
@@ -50,12 +64,12 @@ public class Shop
         account.increaseDefaultID();
     }
 
-     public void buyItem(Item item)
-     {
-         Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, false);
-         Account.loggedInAccount.decreaseMoney(item.getPrice());
-         item.decreaseCapacityOfItemSell();
-     }
+    public void buyItem(Item item)
+    {
+        Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, false);
+        Account.loggedInAccount.decreaseMoney(item.getPrice());
+        item.decreaseCapacityOfItemSell();
+    }
 
     public void setItemID(Account account, Item item)
     {
@@ -89,9 +103,19 @@ public class Shop
         itemToSell.increaseCapacityOfItemSell();
     }
 
-    public ArrayList<Card> getCards()
+    public ArrayList<Hero> getHeroes()
     {
-        return cards;
+        return heroes;
+    }
+
+    public ArrayList<Minion> getMinions()
+    {
+        return minions;
+    }
+
+    public ArrayList<Spell> getSpells()
+    {
+        return spells;
     }
 
     public ArrayList<Item> getItems()

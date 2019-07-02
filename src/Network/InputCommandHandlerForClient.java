@@ -20,7 +20,8 @@ public class InputCommandHandlerForClient extends Thread
         checkMassage();
     }
 
-    private void checkMassage() {
+    private void checkMassage()
+    {
 
     }
 

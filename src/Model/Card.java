@@ -95,7 +95,21 @@ public class Card implements Cloneable
 
     public static Card findCard(String cardName)
     {
-        for (Card card : Shop.getInstance().getCards())
+        for (Card card : Shop.getInstance().getHeroes())
+        {
+            if (card.getCardName().equals(cardName))
+            {
+                return card;
+            }
+        }
+        for (Card card : Shop.getInstance().getMinions())
+        {
+            if (card.getCardName().equals(cardName))
+            {
+                return card;
+            }
+        }
+        for (Card card : Shop.getInstance().getSpells())
         {
             if (card.getCardName().equals(cardName))
             {

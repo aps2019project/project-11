@@ -39,6 +39,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static Network.ClientCommandsEnum.SIGN_UP_FIND_ACCOUNT;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
@@ -1175,6 +1176,8 @@ public class Request
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        rootShop.getChildren().clear();
+
         setBackGroundImage(rootShop, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneShop.setContent(rootShop);
@@ -1439,6 +1442,8 @@ public class Request
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        rootCollection.getChildren().clear();
+
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         scrollPaneCollection.setContent(rootCollection);

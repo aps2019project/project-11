@@ -17,7 +17,8 @@ public class InputCommandHandlerForServer extends Thread
         checkMassage();
     }
 
-    private void checkMassage() {
+    private void checkMassage()
+    {
 
     }
 
@@ -34,7 +35,6 @@ public class InputCommandHandlerForServer extends Thread
             {
                 validMessageLock.wait();
             }
-
         }
         return message.trim();
     }
