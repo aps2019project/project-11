@@ -179,7 +179,7 @@ public class Request
             public void handle(MouseEvent event)
             {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                String userName = textFieldName.getText();
+                String userName = textFieldName.getText();                                 //singUp user and  pass
                 String password = textFieldPassword.getText();
                 if (userName.isEmpty() || password.isEmpty())
                 {
@@ -187,14 +187,14 @@ public class Request
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
-                Account account = accountManager.findAccount(userName);
+                Account account = accountManager.findAccount(userName);                //signUp find account(S)
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                    account = accountManager.createAccount(userName, password);
+                    account = accountManager.createAccount(userName, password);        //createdAccount(S)
                     try
                     {
-                        accountManager.saveAccountInfo(account, userName, true);
+                        accountManager.saveAccountInfo(account, userName, true);  //SAVE
                     } catch (IOException e)
                     {
                         e.printStackTrace();
