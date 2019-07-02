@@ -553,6 +553,15 @@ public class Request
         textFields.add(makingTextField(rootSpellCustom, 370, 450, "changingAp"));
         textFields.add(makingTextField(rootSpellCustom, 540, 30, "changingMp"));
         textFields.add(makingTextField(rootSpellCustom, 540, 130, "cost"));
+        textFields.add(makingTextField(rootSpellCustom, 540, 230, "numOfOwnMinion"));
+        textFields.add(makingTextField(rootSpellCustom, 540, 330, "numOfOpponentMinion"));
+        textFields.add(makingTextField(rootSpellCustom, 540, 450, "ownHero"));
+        textFields.add(makingTextField(rootSpellCustom, 710, 30, "opponentHero"));
+        textFields.add(makingTextField(rootSpellCustom, 710, 130, "numOfOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootSpellCustom, 710, 230, "numOfOwnBothNonSpell"));
+        textFields.add(makingTextField(rootSpellCustom, 710, 330, "allOwnMinion"));
+        textFields.add(makingTextField(rootSpellCustom, 710, 450, "allOpponentBothNonSpell"));
+        textFields.add(makingTextField(rootSpellCustom, 865, 30, "allOwnBothNonSpell"));
         Button back = new Button("Back");
         back.setFont(Font.font(25));
         back.relocate(900, 490);

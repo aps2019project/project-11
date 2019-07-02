@@ -163,6 +163,15 @@ public class Spell extends Card
         String changingAP = textFields.get(14).getText();
         String changingMp = textFields.get(15).getText();
         String cost = textFields.get(16).getText();
+        String numOfOwnMinion = textFields.get(17).getText();
+        String numOfOpponentMinion = textFields.get(18).getText();
+        String ownHero = textFields.get(19).getText();
+        String opponentHero = textFields.get(23).getText();
+        String numOfOpponentBothNonSpell = textFields.get(24).getText();
+        String numOfOwnBothNonSpell = textFields.get(25).getText();
+        String allOwnMinion = textFields.get(26).getText();
+        String allOpponentBothNonSpell = textFields.get(27).getText();
+        String allOwnBothNonSpell = textFields.get(28).getText();
         makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
 
