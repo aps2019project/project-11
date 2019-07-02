@@ -2,9 +2,8 @@ package Network;
 
 import Model.Account;
 
-public enum ServerCommands {
-    s;
-
+public class ServerCommands {
+    ServerCommandsEnum serverCommand;
 
     Account accountForSignUp;
     Account createdAccount;

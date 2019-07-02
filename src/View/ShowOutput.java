@@ -34,6 +34,7 @@ public class ShowOutput
     private Group rootMultiPlayer = Main.getRootMultiPlayer();
     private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
 
+
     private ShowOutput()
     {
         //just added to make ShowOutput singleton
