@@ -166,16 +166,17 @@ public class Spell extends Card
         String numOfOwnMinion = textFields.get(17).getText();
         String numOfOpponentMinion = textFields.get(18).getText();
         String ownHero = textFields.get(19).getText();
-        String opponentHero = textFields.get(23).getText();
-        String numOfOpponentBothNonSpell = textFields.get(24).getText();
-        String numOfOwnBothNonSpell = textFields.get(25).getText();
-        String allOwnMinion = textFields.get(26).getText();
-        String allOpponentBothNonSpell = textFields.get(27).getText();
-        String allOwnBothNonSpell = textFields.get(28).getText();
-        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
+        String opponentHero = textFields.get(20).getText();
+        String numOfOpponentBothNonSpell = textFields.get(21).getText();
+        String numOfOwnBothNonSpell = textFields.get(22).getText();
+        String allOwnMinion = textFields.get(23).getText();
+        String allOpponentBothNonSpell = textFields.get(24).getText();
+        String allOwnBothNonSpell = textFields.get(25).getText();
+        makingSpellCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,
+                allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
 
-    private static void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
+    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
     {
         Spell spell = new Spell();
         spell.setCardName(name);
