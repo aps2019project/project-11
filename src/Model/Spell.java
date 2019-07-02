@@ -189,11 +189,35 @@ public class Spell extends Card
         int lasting = Integer.parseInt(last);
         int price = Integer.parseInt(cost);
         spell.setPrice(price);
-
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
         spell.getSpellEffect().addSpellChange(new SpellChange());
         spell.getSpellEffect().addTarget(new Target());
         spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
         spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
+        if (ownHero.equalsIgnoreCase("true"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setOwnHero(true);
+        }
+        if (opponentHero.equalsIgnoreCase("true"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setOpponentHero(true);
+        }
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
+        {
+
+            spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
+        if (allOwnBothNonSpell.equalsIgnoreCase("true"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+        }
+        if (allOwnMinion.equalsIgnoreCase("true"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setAllOwnMinions(true);
+        }
         if (buffType.equalsIgnoreCase("holy"))
         {
             spell.getSpellEffect().getSpellChanges().get(0).setActivateHolyBuff(true);
