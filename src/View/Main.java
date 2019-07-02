@@ -132,7 +132,7 @@ public class Main extends Application
         FileReader reader = new FileReader("shop.json");
         JsonParser jsonParser = new JsonParser();
         Object object = jsonParser.parse(reader);
-
+        Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
     }
 
     private void convertingToAccounts() throws Exception

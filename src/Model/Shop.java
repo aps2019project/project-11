@@ -22,6 +22,10 @@ public class Shop
         return shop;
     }
 
+    public static void setShop(Shop shop) {
+        Shop.shop = shop;
+    }
+
     public void addCardToShop(Card card)
     {
         this.cards.add(card);
