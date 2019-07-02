@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.BattleFieldController;
 import Controller.BattleManager;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -797,6 +798,107 @@ public class Battle
             Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
         }
 
+    }
+    public void setHeroesFirstPlace(){
+        Card.setCardsImageView();
+        ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(firstPlayerHero);
+
+        ImageView secondPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        BattleFieldController.setSpriteAnimation(secondPlayerHero);
+
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(secondPlayerHero);
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
+
+        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+
+        Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].setCard(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].setCard(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+    }
+
+    public void setHeroIcons(Group rootBattleField)
+    {
+        Pane paneHero1 = new Pane();
+        Pane paneHero2 = new Pane();
+        paneHero1.relocate(100, -40);
+        paneHero2.relocate(1100, -40);
+        ImageView firstPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        ImageView secondPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        paneHero1.getChildren().addAll(firstPlayerHeroIcon);
+        paneHero2.getChildren().addAll(secondPlayerHeroIcon);
+        rootBattleField.getChildren().addAll(paneHero1, paneHero2);
+    }
+
+    public void setHandIcons(Group rootBattleField)
+    {
+        Pane[] firstPlayerHandPanes = new Pane[5];
+        Pane[] secondPlayerHandPanes = new Pane[5];
+        Card.setCardIcons();
+        for (int number = 0; number < 5; number++)
+        {
+            ImageView imageView1;
+            ImageView imageView2;
+
+            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+
+            firstPlayerHandPanes[number] = new Pane();
+            secondPlayerHandPanes[number] = new Pane();
+
+            imageView1 = Card.getCardIcon(card1);
+            imageView2 = Card.getCardIcon(card2);
+
+            firstPlayerHandPanes[number].getChildren().add(imageView1);
+            secondPlayerHandPanes[number].getChildren().add(imageView2);
+        }
+
+        firstPlayerHandPanes[0].relocate(400, 620);
+        firstPlayerHandPanes[1].relocate(525, 620);
+        firstPlayerHandPanes[2].relocate(650, 620);
+        firstPlayerHandPanes[3].relocate(775, 620);
+        firstPlayerHandPanes[4].relocate(900, 620);
+        secondPlayerHandPanes[0].relocate(400, 620);
+        secondPlayerHandPanes[1].relocate(525, 620);
+        secondPlayerHandPanes[2].relocate(650, 620);
+        secondPlayerHandPanes[3].relocate(775, 620);
+        secondPlayerHandPanes[4].relocate(900, 620);
+        for (int number = 0; number < 5; number++)
+        {
+            rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
+        }
+        Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
+        Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
+    }
+
+    private void setGridPane(Group rootBattleField)
+    {
+        Pane[][] panes = new Pane[9][5];
+        GridPane gridPane = new GridPane();
+
+        gridPane.relocate(300, 200);
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int column = 0; column < 5; column++)
+            {
+                Pane pane = new Pane();
+                panes[row][column] = pane;
+                gridPane.add(pane, row, column);
+                ImageView imageView = new ImageView("battleField BackGround/normal.png");
+                pane.getChildren().add(imageView);
+            }
+        }
+        rootBattleField.getChildren().add(gridPane);
+        Battle.getCurrentBattle().setBattleFieldPanes(panes);
+        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 }
 
