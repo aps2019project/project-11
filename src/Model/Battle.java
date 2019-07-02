@@ -354,12 +354,14 @@ public class Battle
             case 1:
                 if ((firstPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
                 {
+                    System.out.println("Player2 Win!!!");
                     setVictoriousPlayer(secondPlayer);
                     setLoserPlayer(firstPlayer);
                     return true;
                 }
                 else if ((secondPlayer.getMainDeck().getHero().get(0)).getCurrentHP() <= 0)
                 {
+                    System.out.println("Player1 Win!!!");
                     setVictoriousPlayer(firstPlayer);
                     setLoserPlayer(secondPlayer);
                     return true;
@@ -513,10 +515,6 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
             case CUSTOM_GAME:
-                victoriousPlayer.getAccount().addMoney(1000);
-                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
-                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
-                break;
             case MULTI_PLAYER_GAME:
                 victoriousPlayer.getAccount().addMoney(1000);
                 victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));

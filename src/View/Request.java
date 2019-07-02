@@ -189,9 +189,9 @@ public class Request
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
-                Account account = accountManager.findAccount(userName);        //1 constructor         //signUp find account(S)
+                Account account = accountManager.findAccount(userName);        //1 constructor
 
-                ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
+                //ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
 
 
                 if (account == null)
@@ -200,7 +200,7 @@ public class Request
                     account = accountManager.createAccount(userName, password);        //createdAccount(S)
                     try
                     {
-                        accountManager.saveAccountInfo(account, userName, true);   //2 constructor    //SAVE
+                        accountManager.saveAccountInfo(account, userName, true);   //2 constructor
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -269,7 +269,7 @@ public class Request
                     rootLoginMenu.getChildren().add(labelInvalidInput);
                     return;
                 }
-                Account account = accountManager.findAccount(name);
+                Account account = accountManager.findAccount(name);          //FindAccount in Log in --- 1 constructor
                 if (account == null)
                 {
                     labelInvalidInput.setText("Invalid name or password");
@@ -277,7 +277,7 @@ public class Request
                 }
                 else if (account.getPassword().equals(password))
                 {
-                    accountManager.login(account);
+                    accountManager.login(account);                           //LogIn in accountManager --- 3 constructor
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();

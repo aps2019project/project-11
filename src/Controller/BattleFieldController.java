@@ -439,12 +439,8 @@ public class BattleFieldController extends Thread
     private void checkEndOfgame() {
         switch (battleMode){
             case KILLING_ENEMY_HERO:
-                if(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
-                    System.out.println("Player2 Win!!!");
-
-                }
-                if(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP() <= 0){
-                    System.out.println("Player1 Win!!!");
+                if(Battle.getCurrentBattle().isGameEnded(1)){
+                    Battle.getCurrentBattle().tasksAtEndOfGame();
                 }
         }
     }
