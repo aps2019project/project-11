@@ -3,6 +3,7 @@ package View;
 import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
+import Network.ClientCommands;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -38,6 +39,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static Network.ClientCommandsEnum.SIGN_UP_FIND_ACCOUNT;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
@@ -187,14 +189,18 @@ public class Request
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
-                Account account = accountManager.findAccount(userName);                //signUp find account(S)
+                Account account = accountManager.findAccount(userName);        //1 constructor         //signUp find account(S)
+
+                ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
+
+
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);        //createdAccount(S)
                     try
                     {
-                        accountManager.saveAccountInfo(account, userName, true);  //SAVE
+                        accountManager.saveAccountInfo(account, userName, true);   //2 constructor    //SAVE
                     } catch (IOException e)
                     {
                         e.printStackTrace();
