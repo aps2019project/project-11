@@ -698,6 +698,13 @@ public class Battle
 
     public void setBattleFieldPanes(Pane[][] battleFieldPanes)
     {
+        for (int row = 0; row < 9; row++)
+        {
+            for (int column = 0; column < 5; column++)
+            {
+                getBattleField().getBattleFieldMatrix()[column][row].setCellPane(battleFieldPanes[row][column]);
+            }
+        }
         this.battleFieldPanes = battleFieldPanes;
     }
 
@@ -781,6 +788,15 @@ public class Battle
             return firstPlayerHandPanes;
         }
         return secondPlayerHandPanes;
+    }
+
+    public static void clearTheHandPictures(){
+        for (int number = 0; number < 5; number++)
+        {
+            Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
+            Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
+        }
+
     }
 }
 

@@ -2254,13 +2254,13 @@ public class Request
 
     private void setNextCard(Group rootBattleField)
     {
-        Battle.getCurrentBattle().setNextCardPane(rootBattleField);
+        Battle.getCurrentBattle().setNextCardPane(rootBattleField);   //6
     }
 
     private void showGameInfo(Group rootBattleField)
     {
         Text text = new Text();
-        ShowOutput showOutput = ShowOutput.getInstance();
+        ShowOutput showOutput = ShowOutput.getInstance();  //7
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050, 200);
@@ -2275,13 +2275,13 @@ public class Request
 
     private void setPlayersName(Group rootBattleField)
     {
-        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
+        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());   //6
         firstPlayerName.relocate(250, 50);
         firstPlayerName.setFont(Font.font(20));
         firstPlayerName.setTextFill(BLACK);
         rootBattleField.getChildren().add(firstPlayerName);
 
-        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());
+        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());  //6
         secondPlayerName.relocate(920, 50);
         secondPlayerName.setFont(Font.font(20));
         secondPlayerName.setTextFill(BLACK);
@@ -2293,7 +2293,7 @@ public class Request
         for (int i = 0; i < 10; i++)
         {
             ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)
+            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)                              //6
             {
                 firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
@@ -2305,7 +2305,7 @@ public class Request
         for (int i = 0; i < 10; i++)
         {
             ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
+            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)                              //6
             {
                 secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
@@ -2324,7 +2324,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                Battle.getCurrentBattle().tasksWhenSurrender();
+                Battle.getCurrentBattle().tasksWhenSurrender();                //6
                 request.setCommand(CommandType.END_GAME);
                 synchronized (request.requestLock)
                 {
@@ -2368,7 +2368,7 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())
+        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //6
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
@@ -2405,12 +2405,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                for (int number = 0; number < 5; number++)
-                {
-                    Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
-                    Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
-                }
-
+                //clear the hand panes image view in battle                                    //6
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
                 Battle.getCurrentBattle().setHandIcons();
@@ -2522,14 +2517,13 @@ public class Request
                 Pane pane = new Pane();
                 panes[row][column] = pane;
                 gridPane.add(pane, row, column);
-                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[column][row].setCellPane(pane);
                 ImageView imageView = new ImageView("battleField BackGround/normal.png");
                 pane.getChildren().add(imageView);
             }
         }
         rootBattleField.getChildren().add(gridPane);
-        Battle.getCurrentBattle().setBattleFieldPanes(panes);
-        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
+        Battle.getCurrentBattle().setBattleFieldPanes(panes);         //set Panes and GridPane  //10 constructor
+        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);   //
     }
 
     public void getSecondPlayerInMultiPlayerMatch()

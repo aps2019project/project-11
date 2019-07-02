@@ -5,6 +5,8 @@ import Model.CommandType;
 import Model.Deck;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
@@ -18,10 +20,13 @@ public class ClientCommands {
     private Account account;    //someTime use it for login
     private CommandType commandType;
     private ArrayList<TextField> textFieldsToMkeCustom;
-    private Group rootLeaderBoard;
+    private Group root;
     private Account loggedInAccount;
     private Deck deck;
     private int battleMode;
+    private Pane[][] battleFieldPanes;
+    private GridPane gridPane;
+
 
 
     public ClientCommands(CommandsEnum clientCommand , String userName , String passWord ){ //1
@@ -53,14 +58,14 @@ public class ClientCommands {
         this.textFieldsToMkeCustom = textFieldsToMkeCustom;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Group rootLeaderBoard) {  //6
+    public ClientCommands(CommandsEnum clientCommand, Group root) {  //6
         this.clientCommand = clientCommand;
-        this.rootLeaderBoard = rootLeaderBoard;
+        this.root = root;
     }
 
     public ClientCommands(CommandsEnum clientCommand) { //7
         this.clientCommand = clientCommand;
-    } //7
+    }
 
     public ClientCommands(CommandsEnum clientCommand , Deck deck){ //8
         this.clientCommand = clientCommand;
@@ -70,6 +75,12 @@ public class ClientCommands {
     public ClientCommands(CommandsEnum clientCommand, int battleMode) {  //9
         this.clientCommand = clientCommand;
         this.battleMode = battleMode;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, Pane[][] battleFieldPanes, GridPane gridPane) { //10
+        this.clientCommand = clientCommand;
+        this.battleFieldPanes = battleFieldPanes;
+        this.gridPane = gridPane;
     }
 
     public CommandsEnum getClientCommand() {
@@ -148,12 +159,12 @@ public class ClientCommands {
         this.loggedInAccount = loggedInAccount;
     }
 
-    public Group getRootLeaderBoard() {
-        return rootLeaderBoard;
+    public Group getRoot() {
+        return root;
     }
 
-    public void setRootLeaderBoard(Group rootLeaderBoard) {
-        this.rootLeaderBoard = rootLeaderBoard;
+    public void setRoot(Group root) {
+        this.root = root;
     }
 
     public Deck getDeck() {
@@ -162,5 +173,29 @@ public class ClientCommands {
 
     public void setDeck(Deck deck) {
         this.deck = deck;
+    }
+
+    public int getBattleMode() {
+        return battleMode;
+    }
+
+    public void setBattleMode(int battleMode) {
+        this.battleMode = battleMode;
+    }
+
+    public Pane[][] getBattleFieldPanes() {
+        return battleFieldPanes;
+    }
+
+    public void setBattleFieldPanes(Pane[][] battleFieldPanes) {
+        this.battleFieldPanes = battleFieldPanes;
+    }
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
     }
 }
