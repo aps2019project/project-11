@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.scene.control.TextField;
+
 import java.util.ArrayList;
 
 public class Spell extends Card
@@ -139,5 +141,91 @@ public class Spell extends Card
             }
         }
         return false;
+    }
+
+    public static void workingOnSpellText(ArrayList<TextField> textFields)
+    {
+
+        String name = textFields.get(0).getText();
+        String numOfTarget = textFields.get(1).getText();
+        String kindOfMinion = textFields.get(2).getText();
+        String nameOfBuff = textFields.get(3).getText();
+        String buffType = textFields.get(4).getText();
+        String effectValue = textFields.get(5).getText();
+        String delay = textFields.get(6).getText();
+        String last = textFields.get(7).getText();
+        String friendOrEnemy = textFields.get(8).getText();
+        String numOfFriendOrEnemy = textFields.get(9).getText();
+        String isAll = textFields.get(10).getText();
+        String mp = textFields.get(11).getText();
+        String numOfHolyBuff = textFields.get(12).getText();
+        String changingHP = textFields.get(13).getText();
+        String changingAP = textFields.get(14).getText();
+        String changingMp = textFields.get(15).getText();
+        String cost = textFields.get(16).getText();
+        makingSpellCard(name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
+    }
+
+    private static void makingSpellCard(String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
+    {
+        Spell spell = new Spell();
+        spell.setCardName(name);
+        int mp = Integer.parseInt(MP);
+        spell.setRequiredMP(mp);
+        int holyBuffNumber = Integer.parseInt(numOfHolyBuff);
+        int apChanging = Integer.parseInt(changingAp);
+        int HpChanging = Integer.parseInt(changingHp);
+        int MPChanging = Integer.parseInt(changingMp);
+        int lasting = Integer.parseInt(last);
+        int price = Integer.parseInt(cost);
+        spell.setPrice(price);
+
+        spell.getSpellEffect().addSpellChange(new SpellChange());
+        spell.getSpellEffect().addTarget(new Target());
+        spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+        spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
+        if (buffType.equalsIgnoreCase("holy"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setActivateHolyBuff(true);
+            spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
+        }
+        if (buffType.equalsIgnoreCase("stun"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
+        }
+        if (buffType.equalsIgnoreCase("disarm"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
+        }
+        if (buffType.equalsIgnoreCase("power"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+        }
+        if (buffType.equalsIgnoreCase("weakness"))
+        {
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
+        }
+        if (friendOrEnemy.equalsIgnoreCase("friend"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
+            if (isAll.equalsIgnoreCase("true"))
+            {
+                spell.getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+            }
+        }
+        else if (friendOrEnemy.equalsIgnoreCase("enemy"))
+        {
+            spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(Integer.parseInt(numOfFriendOrEnemy));
+            if (isAll.equalsIgnoreCase("true"))
+            {
+                spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+            }
+        }
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, false);
+        Shop.getInstance().addCardToShop(spell);
+        Spell.getSpells().add(spell);
+        //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
     }
 }

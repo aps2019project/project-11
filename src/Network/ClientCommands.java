@@ -2,6 +2,9 @@ package Network;
 
 import Model.Account;
 import Model.CommandType;
+import javafx.scene.control.TextField;
+
+import java.util.ArrayList;
 
 public class ClientCommands {
     private ClientCommandsEnum clientCommand;
@@ -12,6 +15,7 @@ public class ClientCommands {
     private boolean isNewAccount;
     private Account accountForLogin;
     private CommandType commandType;
+    ArrayList<TextField> textFieldsToMkeCustomSpell;
 
 
     public ClientCommands(ClientCommandsEnum clientCommand ,String userName ,String passWord ){ //1
@@ -36,6 +40,11 @@ public class ClientCommands {
     public ClientCommands(ClientCommandsEnum clientCommand, CommandType commandType) {   //4
         this.clientCommand = clientCommand;
         this.commandType = commandType;
+    }
+
+    public ClientCommands(ClientCommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustomSpell) { //5
+        this.clientCommand = clientCommand;
+        this.textFieldsToMkeCustomSpell = textFieldsToMkeCustomSpell;
     }
 
     public ClientCommandsEnum getClientCommand() {
@@ -100,5 +109,9 @@ public class ClientCommands {
 
     public void setCommandType(CommandType commandType) {
         this.commandType = commandType;
+    }
+
+    public ArrayList<TextField> getTextFieldsToMkeCustomSpell() {
+        return textFieldsToMkeCustomSpell;
     }
 }
