@@ -3,7 +3,7 @@ package View;
 import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
-import Network.ClientCommand;
+import Network.Client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -107,51 +107,51 @@ public class Request
     private static final int CARDS_RECTANGLE_WIDTH = 200;
     private static final int CARDS_RECTANGLE_HEIGHT = 250;
 
-    private Group rootSignUpMenu = Main.getRootSignUpMenu();
-    private Scene sceneSignUpMenu = Main.getSceneSignUpMenu();
-    private Group rootLoginMenu = Main.getRootLoginMenu();
-    private Scene sceneLoginMenu = Main.getSceneLoginMenu();
-    private Group rootMainMenu = Main.getRootMainMenu();
-    private Scene sceneMainMenu = Main.getSceneMainMenu();
-    private Group rootLeaderBoard = Main.getRootLeaderBoard();
-    private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
-    private Group rootProfile = Main.getRootProfile();
-    private Scene sceneProfile = Main.getSceneProfile();
-    private Group rootShop = Main.getRootShop();
-    private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
-    private Scene sceneShop = Main.getSceneShop();
-    private Group rootCollection = Main.getRootCollection();
-    private ScrollPane scrollPaneCollection = Main.getScrollPaneCollection();
-    private Group rootDeck = Main.getRootDeck();
-    private ScrollPane scrollPaneDeck = Main.getScrollPaneDeck();
-    private Scene sceneDeck = Main.getSceneDeck();
-    private Scene sceneCollection = Main.getSceneCollection();
-    private Group rootBattleMenu = Main.getRootBattle();
-    private Scene sceneBattleMenu = Main.getSceneBattle();
-    private Group rootSinglePlayer = Main.getRootSinglePlayer();
-    private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
-    private Group rootMultiPlayer = Main.getRootMultiPlayer();
-    private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
-    private Group rootStoryMode = Main.getRootMultiPlayer();
-    private Scene sceneStoryMode = Main.getSceneMultiPlayer();
-    private Group rootCustomGame = Main.getRootCustomGame();
-    private Scene sceneCustomGame = Main.getSceneCustomGame();
-    private Scene sceneImportingDeck = Main.getSceneImportingDeck();
-    private Group rootImportingDeck = Main.getRootImportingDeck();
-    private Group rootBattleField = Main.getRootBattleField();
-    private Scene sceneBattleField = Main.getSceneBattleField();
+    private Group rootSignUpMenu = Client.getRootSignUpMenu();
+    private Scene sceneSignUpMenu = Client.getSceneSignUpMenu();
+    private Group rootLoginMenu = Client.getRootLoginMenu();
+    private Scene sceneLoginMenu = Client.getSceneLoginMenu();
+    private Group rootMainMenu = Client.getRootMainMenu();
+    private Scene sceneMainMenu = Client.getSceneMainMenu();
+    private Group rootLeaderBoard = Client.getRootLeaderBoard();
+    private Scene sceneLeaderBoard = Client.getSceneLeaderBoard();
+    private Group rootProfile = Client.getRootProfile();
+    private Scene sceneProfile = Client.getSceneProfile();
+    private Group rootShop = Client.getRootShop();
+    private ScrollPane scrollPaneShop = Client.getScrollPaneShop();
+    private Scene sceneShop = Client.getSceneShop();
+    private Group rootCollection = Client.getRootCollection();
+    private ScrollPane scrollPaneCollection = Client.getScrollPaneCollection();
+    private Group rootDeck = Client.getRootDeck();
+    private ScrollPane scrollPaneDeck = Client.getScrollPaneDeck();
+    private Scene sceneDeck = Client.getSceneDeck();
+    private Scene sceneCollection = Client.getSceneCollection();
+    private Group rootBattleMenu = Client.getRootBattle();
+    private Scene sceneBattleMenu = Client.getSceneBattle();
+    private Group rootSinglePlayer = Client.getRootSinglePlayer();
+    private Scene sceneSinglePlayer = Client.getSceneSinglePlayer();
+    private Group rootMultiPlayer = Client.getRootMultiPlayer();
+    private Scene sceneMultiPlayer = Client.getSceneMultiPlayer();
+    private Group rootStoryMode = Client.getRootMultiPlayer();
+    private Scene sceneStoryMode = Client.getSceneMultiPlayer();
+    private Group rootCustomGame = Client.getRootCustomGame();
+    private Scene sceneCustomGame = Client.getSceneCustomGame();
+    private Scene sceneImportingDeck = Client.getSceneImportingDeck();
+    private Group rootImportingDeck = Client.getRootImportingDeck();
+    private Group rootBattleField = Client.getRootBattleField();
+    private Scene sceneBattleField = Client.getSceneBattleField();
     private GridPane BattleFieldGridPane = new GridPane();
-    private Group rootMakingCustomCard = Main.getRootMakingCustomCards();
-    private Scene sceneMakingCustomCards = Main.getSceneMakingCustomCards();
-    private Group rootGraveYard = Main.getRootGraveYard();
-    private ScrollPane scrollPaneGraveYard = Main.getScrollPaneGraveYard();
-    private Scene sceneGraveYard = Main.getSceneGraveYard();
-    private Scene sceneHeroCustom = Main.getSceneHeroCustom();
-    private Group rootHeroCustom = Main.getRootHeroCustom();
-    private Scene sceneMinionCustom = Main.getSceneMinionCustom();
-    private Group rootMinionCustom = Main.getRootMinionCustom();
-    private Group rootSpellCustom = Main.getRootSpellCustom();
-    private Scene sceneSpellCustom = Main.getSceneSpellCustom();
+    private Group rootMakingCustomCard = Client.getRootMakingCustomCards();
+    private Scene sceneMakingCustomCards = Client.getSceneMakingCustomCards();
+    private Group rootGraveYard = Client.getRootGraveYard();
+    private ScrollPane scrollPaneGraveYard = Client.getScrollPaneGraveYard();
+    private Scene sceneGraveYard = Client.getSceneGraveYard();
+    private Scene sceneHeroCustom = Client.getSceneHeroCustom();
+    private Group rootHeroCustom = Client.getRootHeroCustom();
+    private Scene sceneMinionCustom = Client.getSceneMinionCustom();
+    private Group rootMinionCustom = Client.getRootMinionCustom();
+    private Group rootSpellCustom = Client.getRootSpellCustom();
+    private Scene sceneSpellCustom = Client.getSceneSpellCustom();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
@@ -1322,7 +1322,7 @@ public class Request
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeShowDeck = new ButtonType("Show Deck");
                 ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
-                ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
+                ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Client deck");
                 ButtonType buttonTypeExportDeck = new ButtonType("Export Deck");
                 ButtonType buttonTypeRemoveDeck = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
@@ -1912,7 +1912,7 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1))
                     {
                         return;
                     }
@@ -1925,7 +1925,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2))
                     {
                         return;
                     }
@@ -1938,7 +1938,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    if (!Main.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3))
                     {
                         return;
                     }
@@ -2026,7 +2026,7 @@ public class Request
             switch (string)
             {
                 case "Mission 1":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(1);
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2036,7 +2036,7 @@ public class Request
                     }
                     break;
                 case "Mission 2":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(2);
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2046,7 +2046,7 @@ public class Request
                     }
                     break;
                 case "Mission 3":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(3);
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false , BattleMode.GATHERING_FLAGS);
@@ -2158,7 +2158,7 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2168,7 +2168,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
@@ -2178,7 +2178,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);

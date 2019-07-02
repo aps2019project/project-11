@@ -2,6 +2,7 @@ package View;
 
 import Controller.*;
 import Model.*;
+import Network.Client;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,26 +14,26 @@ import javafx.scene.text.Font;
 public class ShowOutput
 {
     private static ShowOutput showOutput = null;
-    private Group rootSignUpMenu = Main.getRootSignUpMenu();
-    private Scene sceneSignUpMenu = Main.getSceneSignUpMenu();
-    private Group rootLoginMenu = Main.getRootLoginMenu();
-    private Scene sceneLoginMenu = Main.getSceneLoginMenu();
-    private Group rootMainMenu = Main.getRootMainMenu();
-    private Scene sceneMainMenu = Main.getSceneMainMenu();
-    private Group rootLeaderBoard = Main.getRootLeaderBoard();
-    private Scene sceneLeaderBoard = Main.getSceneLeaderBoard();
-    private Group rootShop = Main.getRootShop();
-    private ScrollPane scrollPaneShop = Main.getScrollPaneShop();
-    private Scene sceneShop = Main.getSceneShop();
-    private Group rootCollection = Main.getRootCollection();
-    private ScrollPane scrollPaneCollection = Main.getScrollPaneCollection();
-    private Scene sceneCollection = Main.getSceneCollection();
-    private Group rootBattleMenu = Main.getRootBattle();
-    private Scene sceneBattleMenu = Main.getSceneBattle();
-    private Group rootSinglePlayer = Main.getRootSinglePlayer();
-    private Scene sceneSinglePlayer = Main.getSceneSinglePlayer();
-    private Group rootMultiPlayer = Main.getRootMultiPlayer();
-    private Scene sceneMultiPlayer = Main.getSceneMultiPlayer();
+    private Group rootSignUpMenu = Client.getRootSignUpMenu();
+    private Scene sceneSignUpMenu = Client.getSceneSignUpMenu();
+    private Group rootLoginMenu = Client.getRootLoginMenu();
+    private Scene sceneLoginMenu = Client.getSceneLoginMenu();
+    private Group rootMainMenu = Client.getRootMainMenu();
+    private Scene sceneMainMenu = Client.getSceneMainMenu();
+    private Group rootLeaderBoard = Client.getRootLeaderBoard();
+    private Scene sceneLeaderBoard = Client.getSceneLeaderBoard();
+    private Group rootShop = Client.getRootShop();
+    private ScrollPane scrollPaneShop = Client.getScrollPaneShop();
+    private Scene sceneShop = Client.getSceneShop();
+    private Group rootCollection = Client.getRootCollection();
+    private ScrollPane scrollPaneCollection = Client.getScrollPaneCollection();
+    private Scene sceneCollection = Client.getSceneCollection();
+    private Group rootBattleMenu = Client.getRootBattle();
+    private Scene sceneBattleMenu = Client.getSceneBattle();
+    private Group rootSinglePlayer = Client.getRootSinglePlayer();
+    private Scene sceneSinglePlayer = Client.getSceneSinglePlayer();
+    private Group rootMultiPlayer = Client.getRootMultiPlayer();
+    private Scene sceneMultiPlayer = Client.getSceneMultiPlayer();
 
 
     private ShowOutput()
