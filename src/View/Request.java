@@ -39,7 +39,6 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static Network.ClientCommandsEnum.SIGN_UP_FIND_ACCOUNT;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
@@ -409,7 +408,7 @@ public class Request
                 switch (string)
                 {
                     case "Shop":
-                        setCommand(CommandType.ENTER_SHOP);
+                        setCommand(CommandType.ENTER_SHOP);          //4 constructor --- to send message in main menu  --- MAIN_MENU_COMMAND
                         synchronized (requestLock)
                         {
                             requestLock.notify();

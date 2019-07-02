@@ -1,6 +1,7 @@
 package Network;
 
 import Model.Account;
+import Model.CommandType;
 
 public class ClientCommands {
     private ClientCommandsEnum clientCommand;
@@ -10,6 +11,7 @@ public class ClientCommands {
     private String userNameForSave;
     private boolean isNewAccount;
     private Account accountForLogin;
+    private CommandType commandType;
 
 
     public ClientCommands(ClientCommandsEnum clientCommand ,String userName ,String passWord ){ //1
@@ -26,13 +28,15 @@ public class ClientCommands {
         this.isNewAccount = isNewAccount;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand , Account accountForLogIn){
+    public ClientCommands(ClientCommandsEnum clientCommand , Account accountForLogIn){ // 3
         this.clientCommand = clientCommand;
         this.accountForLogin = accountForLogIn;
     }
 
-
-
+    public ClientCommands(ClientCommandsEnum clientCommand, CommandType commandType) {   //4
+        this.clientCommand = clientCommand;
+        this.commandType = commandType;
+    }
 
     public ClientCommandsEnum getClientCommand() {
         return clientCommand;
@@ -88,5 +92,13 @@ public class ClientCommands {
 
     public void setAccountForLogin(Account accountForLogin) {
         this.accountForLogin = accountForLogin;
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
+    }
+
+    public void setCommandType(CommandType commandType) {
+        this.commandType = commandType;
     }
 }
