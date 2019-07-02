@@ -176,7 +176,13 @@ public class Spell extends Card
                 allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
 
-    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
+    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
+                                        String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
+                                        String allOpponentBothNonSpell, String allOwnBothNonSpell, String name,
+                                        String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType,
+                                        String effectValue, String delay, String last, String friendOrEnemy,
+                                        String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff,
+                                        String changingAp, String changingHp, String changingMp, String cost)
     {
         Spell spell = new Spell();
         spell.setCardName(name);
@@ -197,6 +203,10 @@ public class Spell extends Card
         spell.getSpellEffect().addTarget(new Target());
         spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
         spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
         if (ownHero.equalsIgnoreCase("true"))
         {
             spell.getSpellEffect().getTargets().get(0).setOwnHero(true);
