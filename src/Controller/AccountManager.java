@@ -13,9 +13,6 @@ public class AccountManager
     private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public static String JsonOfAccount = null;
-
-
     public Account createAccount(String userName, String password)
     {
         Account account = new Account(userName, password);

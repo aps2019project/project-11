@@ -25,10 +25,12 @@ public class Card implements Cloneable
     {
         capacityOfSell++;
     }
+
     public void decreaseCapacityOfSell()
     {
         capacityOfSell--;
     }
+
     public static ImageView getCardImageView(Card card)
     {
         if (card instanceof Hero)
@@ -37,7 +39,7 @@ public class Card implements Cloneable
         }
         if (card instanceof Minion)
         {
-            return new ImageView("Cards Images/" + ((Minion) card).getImpactType()+ ".png");
+            return new ImageView("Cards Images/" + ((Minion) card).getImpactType() + ".png");
         }
         return null;
     }
@@ -50,7 +52,7 @@ public class Card implements Cloneable
         }
         else if (card instanceof Minion)
         {
-            return new ImageView("cardIcons/" + ((Minion) card).getImpactType()+ ".png");
+            return new ImageView("cardIcons/" + ((Minion) card).getImpactType() + ".png");
         }
         return new ImageView("cardIcons/Spell.png");
     }
@@ -241,7 +243,8 @@ public class Card implements Cloneable
     }
 
 
-    public int getCapacityOfSell() {
+    public int getCapacityOfSell()
+    {
         return capacityOfSell;
     }
 

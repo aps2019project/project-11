@@ -179,7 +179,7 @@ public class Request
             public void handle(MouseEvent event)
             {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                String userName = textFieldName.getText();
+                String userName = textFieldName.getText();                                 //singUp user and  pass
                 String password = textFieldPassword.getText();
                 if (userName.isEmpty() || password.isEmpty())
                 {
@@ -187,14 +187,14 @@ public class Request
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
-                Account account = accountManager.findAccount(userName);
+                Account account = accountManager.findAccount(userName);                //signUp find account(S)
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                    account = accountManager.createAccount(userName, password);
+                    account = accountManager.createAccount(userName, password);        //createdAccount(S)
                     try
                     {
-                        accountManager.saveAccountInfo(account, userName, true);
+                        accountManager.saveAccountInfo(account, userName, true);  //SAVE
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -468,6 +468,7 @@ public class Request
                         login(primaryStage);
                         break;
                     case "Exit":
+                        makeShopJson();
                         setCommand(CommandType.EXIT);
                         synchronized (requestLock)
                         {
@@ -1405,21 +1406,6 @@ public class Request
                     Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
-                    if (specifyKindOfCard(name)==1)
-                    {
-                        if (makingItem(name).getCapacityOfItemSell()>=0)
-                        {
-                            makingItem(name).decreaseCapacityOfItemSell();
-                        }
-                    }
-                    else
-                    {
-                        if (makingCard(name).getCapacityOfSell()>=0)
-                        {
-                            makingCard(name).decreaseCapacityOfSell();
-                        }
-                    }
-                    makingJson();
                     setCommand(CommandType.BUY);
                     request.getCommand().cardOrItemName = name;
                     synchronized (requestLock)
@@ -1431,43 +1417,7 @@ public class Request
         });
     }
 
-    public Card makingCard(String name)
-    {
-        for (Spell spell :Spell.getSpells())
-        {
-            if (spell.getCardName() == name)
-            {
-                return spell;
-            }
-        }
-        for (Hero hero : Hero.getHeroes())
-        {
-            if (hero.getCardName() == name)
-            {
-                return hero;
-            }
-        }
-        for (Minion minion :Minion.getMinions())
-        {
-            if (minion.getCardName() == name)
-            {
-                return minion;
-            }
-        }
-        return null;
-    }
-    public Item makingItem(String name)
-    {
-        for (Item item: Item.getItems())
-        {
-            if (item.getItemName() == name)
-            {
-                return item;
-            }
-        }
-        return null;
-    }
-    public void makingJson()
+    public void makeShopJson()
     {
         String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Shop.getInstance());
         try
@@ -1475,22 +1425,13 @@ public class Request
           FileWriter fileWriter = new FileWriter("shop.json");
           fileWriter.write(shopJson);
           fileWriter.close();
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-    public int specifyKindOfCard(String name)
-    {
-        for (int i = 0; i<Item.getItems().size();i++)
-        {
-            if (Item.getItems().get(i).getItemName() == name)
-            {
-                return 1;
-            }
-        }
-        return -1;
-    }
+
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
@@ -1721,21 +1662,6 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    if (specifyKindOfCard(name) == 1)
-                    {
-                        if (makingItem(name).getCapacityOfItemSell() <= 5)
-                        {
-                            makingItem(name).increaseCapacityOfItemSell();
-                        }
-                    }
-                    else
-                    {
-                        if (makingCard(name).getCapacityOfSell() <= 5)
-                        {
-                            makingCard(name).increaseCapacityOfSell();
-                        }
-                    }
-                    makingJson();
                     setCommand(CommandType.SELL);
                     request.getCommand().cardOrItemID = ID;
                     synchronized (requestLock)

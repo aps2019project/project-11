@@ -157,7 +157,7 @@ public class Item implements Cloneable
     }
     public void decreaseCapacityOfItemSell()
     {
-        capacityOfItemSell--;
+        capacityOfItemSell --;
     }
     public void increaseCapacityOfItemSell()
     {

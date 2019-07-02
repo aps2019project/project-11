@@ -34,14 +34,15 @@ public class ShopManager
         {
             showOutput.printOutput("you don't have enough money.");
         }
-        if (card.getCapacityOfSell()<0)
+        else if (card.getCapacityOfSell() <= 0)
         {
-            showOutput.printOutput("you can not buy because of card capacity of sell");
+            showOutput.printOutput("this card has no capacity to buy");
         }
         else
         {
             Shop.getInstance().buyCard(card);
             showOutput.printOutput("Successful purchase");
+            showOutput.printOutput(card.getCardName() + "'s capacity is " + card.getCapacityOfSell() + " now");
         }
     }
 
@@ -51,9 +52,9 @@ public class ShopManager
         {
             showOutput.printOutput("you don't have enough money.");
         }
-        if (item.getCapacityOfItemSell() <= 0)
+        else if (item.getCapacityOfItemSell() <= 0)
         {
-            showOutput.printOutput("you can not buy because of card capacity of sell");
+            showOutput.printOutput("this item has no capacity to buy");
         }
         else if (Account.loggedInAccount.getCollection().getItems().size() == 3)
         {
@@ -63,6 +64,7 @@ public class ShopManager
         {
             Shop.getInstance().buyItem(item);
             showOutput.printOutput("Successful purchase");
+            showOutput.printOutput(item.getItemName() + "'s capacity is " + item.getCapacityOfItemSell() + " now");
         }
     }
 
@@ -72,14 +74,7 @@ public class ShopManager
         {
             if (hero.getCardID().equals(ID))
             {
-                if (hero.getCapacityOfSell() <=5)
-                {
-                    removeCardFromDeckToSell(hero);
-                }
-                else
-                {
-                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
-                }
+                removeCardFromDeckToSell(hero);
                 return;
             }
         }
@@ -87,14 +82,7 @@ public class ShopManager
         {
             if (minion.getCardID().equals(ID))
             {
-                if (minion.getCapacityOfSell() <= 5)
-                {
-                    removeCardFromDeckToSell(minion);
-                }
-                else
-                {
-                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
-                }
+                removeCardFromDeckToSell(minion);
                 return;
             }
         }
@@ -102,14 +90,7 @@ public class ShopManager
         {
             if (spell.getCardID().equals(ID))
             {
-                if (spell.getCapacityOfSell() <=5)
-                {
-                    removeCardFromDeckToSell(spell);
-                }
-                else
-                {
-                    showOutput.printOutput("you can not sell this card because of capacity Of sell");
-                }
+                removeCardFromDeckToSell(spell);
                 return;
             }
         }
@@ -117,14 +98,7 @@ public class ShopManager
         {
             if (item.getItemID().equals(ID))
             {
-                if (item.getCapacityOfItemSell() <= 5)
-                {
-                    removeItemFromDeckToSell(item);
-                }
-                else
-                {
-                    showOutput.printOutput("you can not sell this Item because of capacity Of ItemSell");
-                }
+                removeItemFromDeckToSell(item);
                 return;
             }
         }
@@ -136,6 +110,7 @@ public class ShopManager
         new DeckManager().searchDecksToRemoveCardOnSale(cardToSell);
         Shop.getInstance().sellCard(cardToSell);
         showOutput.printOutput("Successful Sale");
+        showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
 
     private void removeItemFromDeckToSell(Item itemToSell)
@@ -143,5 +118,6 @@ public class ShopManager
         new DeckManager().searchDecksToRemoveItemOnSale(itemToSell);
         Shop.getInstance().sellItem(itemToSell);
         showOutput.printOutput("Successful Sale");
+        showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfItemSell() + " now");
     }
 }
