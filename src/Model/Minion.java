@@ -1,5 +1,6 @@
 package Model;
 
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -167,5 +168,171 @@ public class Minion extends NonSpellCard
             }
         }
         return false;
+    }
+
+    public static void workingOnMinionText(ArrayList<TextField> textFields)
+    {
+        String name = textFields.get(0).getText();
+        String Ap = textFields.get(1).getText();
+        String Hp = textFields.get(2).getText();
+        String AttackType = textFields.get(3).getText();
+        String Range = textFields.get(4).getText();
+        String specialPowerActivation = textFields.get(5).getText();
+        String cost = textFields.get(6).getText();
+        String turnsToApply = textFields.get(7).getText();
+        String isPositive = textFields.get(8).getText();
+        String untilEnd = textFields.get(9).getText();
+        String changeAp = textFields.get(10).getText();
+        String changeHp = textFields.get(11).getText();
+        String changeMp = textFields.get(12).getText();
+        String stun = textFields.get(13).getText();
+        String disarm = textFields.get(14).getText();
+        String numOfHolyBuff = textFields.get(15).getText();
+        String toxic = textFields.get(16).getText();
+        String holyCell = textFields.get(17).getText();
+        String fiery = textFields.get(18).getText();
+        String combo = textFields.get(19).getText();
+        String numOfOwnMinion = textFields.get(20).getText();
+        String numOfOpponentMinion = textFields.get(21).getText();
+        String ownHero = textFields.get(22).getText();
+        String opponentHero = textFields.get(23).getText();
+        String numOfOpponentBothNonSpell = textFields.get(24).getText();
+        String numOfOwnBothNonSpell = textFields.get(25).getText();
+        String allOwnMinion = textFields.get(26).getText();
+        String allOpponentBothNonSpell = textFields.get(27).getText();
+        String allOwnBothNonSpell = textFields.get(28).getText();
+        makingMinionCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOwnBothNonSpell, allOpponentBothNonSpell, name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
+    }
+
+    private static void makingMinionCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell, String fiery, String combo)
+    {
+        int AP = Integer.parseInt(ap);
+        int HP = Integer.parseInt(hp);
+        int price = Integer.parseInt(cost);
+        int rangeOfAttack = Integer.parseInt(range);
+        int apChange = Integer.parseInt(changeAP);
+        int hpChange = Integer.parseInt(changeHP);
+        int MpChange = Integer.parseInt(ChangeMP);
+        int turnToApply = Integer.parseInt(turn);
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
+        int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
+        Minion minion = new Minion();
+        minion.setCardName(name);
+        minion.setDefaultAP(AP);
+        minion.setDefaultHP(HP);
+        minion.setRangeOfAttack(rangeOfAttack);
+        SpecialPower specialPower = new SpecialPower("Custom card");
+        specialPower.getSpellEffect().addSpellChange(new SpellChange());
+        specialPower.getSpellEffect().addTarget(new Target());
+        minion.setSpecialPower(specialPower);
+        minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(numberOfHolyBuff);
+        minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeAP(apChange);
+        minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeHP(hpChange);
+        minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeMP(MpChange);
+        minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turnToApply);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        minion.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
+        if (ownHero.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOwnHero(true);
+        }
+        if (opponentHero.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
+        }
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
+        if (allOwnBothNonSpell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+        }
+        if (allOwnMinion.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinions(true);
+        }
+        if (attackType.equalsIgnoreCase("melee"))
+        {
+            minion.setImpactType(ImpactType.melee);
+        }
+        if (attackType.equalsIgnoreCase("ranged"))
+        {
+            minion.setImpactType(ImpactType.ranged);
+        }
+        if (attackType.equalsIgnoreCase("hybrid"))
+        {
+            minion.setImpactType(ImpactType.hybrid);
+        }
+        if (isPositive.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setPositiveChange(true);
+        }
+        if (stun.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
+        }
+        if (fiery.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellFiery(true);
+        }
+        if (combo.equalsIgnoreCase("true"))
+        {
+            minion.setAbleToCombo(true);
+        }
+        if (UntilEnd.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setApplyChangeUntilEndOfTheGame(true);
+        }
+        if (disarm.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
+        }
+        if (toxic.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellToxic(true);
+        }
+        if (holycell.equalsIgnoreCase("true"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellHoly(true);
+        }
+        if (specialPowerActivation.equalsIgnoreCase("combo"))
+        {
+            minion.setAbleToCombo(true);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onTurn"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onTurn);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("passive"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.passive);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onAttack"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onAttack);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onSpawn"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onSpawn);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onDeath"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDeath);
+        }
+        else if (specialPowerActivation.equalsIgnoreCase("onDefend"))
+        {
+            minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
+        }
+        minion.setPrice(price);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, false);
+        Shop.getInstance().addCardToShop(minion);
+        Minion.getMinions().add(minion);
+        //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
     }
 }

@@ -8,7 +8,9 @@ public enum ClientCommandsEnum {
     ,FINDACCOUNT_IN_LOG_IN
     ,LOGIN_IN_ACCOUNT_MANAGER
     ,MAIN_MENU_COMMAND
-    ,MAKE_CUSTOM_SPELL;
+    ,MAKE_CUSTOM_SPELL
+    ,MAKE_CUSTOM_MINION
+    ,
     ;
 
 

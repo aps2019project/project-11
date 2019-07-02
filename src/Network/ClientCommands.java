@@ -15,7 +15,7 @@ public class ClientCommands {
     private boolean isNewAccount;
     private Account accountForLogin;
     private CommandType commandType;
-    ArrayList<TextField> textFieldsToMkeCustomSpell;
+    private ArrayList<TextField> textFieldsToMkeCustom;
 
 
     public ClientCommands(ClientCommandsEnum clientCommand ,String userName ,String passWord ){ //1
@@ -42,9 +42,9 @@ public class ClientCommands {
         this.commandType = commandType;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustomSpell) { //5
+    public ClientCommands(ClientCommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustom) { //5
         this.clientCommand = clientCommand;
-        this.textFieldsToMkeCustomSpell = textFieldsToMkeCustomSpell;
+        this.textFieldsToMkeCustom = textFieldsToMkeCustom;
     }
 
     public ClientCommandsEnum getClientCommand() {
@@ -111,7 +111,7 @@ public class ClientCommands {
         this.commandType = commandType;
     }
 
-    public ArrayList<TextField> getTextFieldsToMkeCustomSpell() {
-        return textFieldsToMkeCustomSpell;
+    public ArrayList<TextField> getTextFieldsToMkeCustom() {
+        return textFieldsToMkeCustom;
     }
 }
