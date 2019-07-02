@@ -194,5 +194,25 @@ public class Account
     {
         this.AIAccountDefaultID++;
     }
+
+    public void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        for (Hero hero : deck.getHero())
+        {
+            getCollection().addCard(Account.loggedInAccount, hero, true);
+        }
+        for (Minion minion : deck.getMinions())
+        {
+            getCollection().addCard(Account.loggedInAccount, minion, true);
+        }
+        for (Spell spell : deck.getSpells())
+        {
+            getCollection().addCard(Account.loggedInAccount, spell, true);
+        }
+        for (Item item : deck.getItem())
+        {
+            getCollection().addItem(Account.loggedInAccount, item, true);
+        }
+    }
 }
 

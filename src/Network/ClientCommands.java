@@ -2,31 +2,34 @@ package Network;
 
 import Model.Account;
 import Model.CommandType;
+import Model.Deck;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
 public class ClientCommands {
-    private ClientCommandsEnum clientCommand;
+    private CommandsEnum clientCommand;
     private String userName;
     private String passWord;
     private Account accountForSave;
     private String userNameForSave;
     private boolean isNewAccount;
-    private Account accountForLogin;
+    private Account account;    //someTime use it for login
     private CommandType commandType;
     private ArrayList<TextField> textFieldsToMkeCustom;
     private Group rootLeaderBoard;
+    private Account loggedInAccount;
+    private Deck deck;
 
 
-    public ClientCommands(ClientCommandsEnum clientCommand ,String userName ,String passWord ){ //1
+    public ClientCommands(CommandsEnum clientCommand , String userName , String passWord ){ //1
         this.clientCommand = clientCommand;
         this.userName = userName;
         this.passWord = passWord;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand , Account accountForSave , String userNameForSave , boolean isNewAccount) //2
+    public ClientCommands(CommandsEnum clientCommand , Account accountForSave , String userNameForSave , boolean isNewAccount) //2
     {
         this.clientCommand = clientCommand;
         this.accountForSave = accountForSave;
@@ -34,31 +37,40 @@ public class ClientCommands {
         this.isNewAccount = isNewAccount;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand , Account accountForLogIn){ // 3
+    public ClientCommands(CommandsEnum clientCommand , Account account){ // 3
         this.clientCommand = clientCommand;
-        this.accountForLogin = accountForLogIn;
+        this.account = account;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand, CommandType commandType) {   //4
+    public ClientCommands(CommandsEnum clientCommand, CommandType commandType) {   //4
         this.clientCommand = clientCommand;
         this.commandType = commandType;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustom) { //5
+    public ClientCommands(CommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustom) { //5
         this.clientCommand = clientCommand;
         this.textFieldsToMkeCustom = textFieldsToMkeCustom;
     }
 
-    public ClientCommands(ClientCommandsEnum clientCommand, Group rootLeaderBoard) {
+    public ClientCommands(CommandsEnum clientCommand, Group rootLeaderBoard) {  //6
         this.clientCommand = clientCommand;
         this.rootLeaderBoard = rootLeaderBoard;
     }
 
-    public ClientCommandsEnum getClientCommand() {
+    public ClientCommands(CommandsEnum clientCommand) { //7
+        this.clientCommand = clientCommand;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand , Deck deck){
+        this.clientCommand = clientCommand;
+        this.deck = deck;
+    }
+
+    public CommandsEnum getClientCommand() {
         return clientCommand;
     }
 
-    public void setClientCommand(ClientCommandsEnum clientCommand) {
+    public void setClientCommand(CommandsEnum clientCommand) {
         this.clientCommand = clientCommand;
     }
 
@@ -102,12 +114,12 @@ public class ClientCommands {
         isNewAccount = newAccount;
     }
 
-    public Account getAccountForLogin() {
-        return accountForLogin;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountForLogin(Account accountForLogin) {
-        this.accountForLogin = accountForLogin;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public CommandType getCommandType() {
@@ -120,5 +132,21 @@ public class ClientCommands {
 
     public ArrayList<TextField> getTextFieldsToMkeCustom() {
         return textFieldsToMkeCustom;
+    }
+
+    public Account getLoggedInAccount() {
+        return loggedInAccount;
+    }
+
+    public void setLoggedInAccount(Account loggedInAccount) {
+        this.loggedInAccount = loggedInAccount;
+    }
+
+    public Group getRootLeaderBoard() {
+        return rootLeaderBoard;
+    }
+
+    public void setRootLeaderBoard(Group rootLeaderBoard) {
+        this.rootLeaderBoard = rootLeaderBoard;
     }
 }

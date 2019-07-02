@@ -3,7 +3,6 @@ package View;
 import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
-import Network.ClientCommands;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -39,7 +38,6 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static Network.ClientCommandsEnum.SIGN_UP_FIND_ACCOUNT;
 import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings({"Duplicates", "SwitchStatementWithoutDefaultBranch"})
@@ -157,6 +155,7 @@ public class Request
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
     private Text battleInfo;
+    private Account loggedInAccount;
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -191,6 +190,7 @@ public class Request
                 }
                 Account account = accountManager.findAccount(userName);        //1 constructor
 
+                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
                 //ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
 
 
@@ -198,6 +198,7 @@ public class Request
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     account = accountManager.createAccount(userName, password);        //createdAccount(S)
+                    //loggedInAccount = accountManager.findAccount(userName);      //receive from server
                     try
                     {
                         accountManager.saveAccountInfo(account, userName, true);   //2 constructor
@@ -270,6 +271,8 @@ public class Request
                     return;
                 }
                 Account account = accountManager.findAccount(name);          //FindAccount in Log in --- 1 constructor
+                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
+
                 if (account == null)
                 {
                     labelInvalidInput.setText("Invalid name or password");
@@ -698,7 +701,7 @@ public class Request
     {
         rootProfile.getChildren().clear();
 
-        Label labelProfile = new Label(Account.loggedInAccount.getAccountName());
+        Label labelProfile = new Label(Account.loggedInAccount.getAccountName());          //3 constructor
         labelProfile.setFont(Font.font(40));
         labelProfile.setTextFill(Color.RED);
         labelProfile.relocate(50, 25);
@@ -806,7 +809,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Heroes", 50);
-        for (Hero hero : Hero.getHeroes())
+        for (Hero hero : Hero.getHeroes())  //7
         {
             if (isSearchedElement)
             {
@@ -834,7 +837,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : Minion.getMinions())
+        for (Minion minion : Minion.getMinions())   //7
         {
             if (isSearchedElement)
             {
@@ -862,7 +865,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : Spell.getSpells())
+        for (Spell spell : Spell.getSpells())  //7
         {
             if (isSearchedElement)
             {
@@ -893,7 +896,7 @@ public class Request
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : Item.getItems())
+        for (Item item : Item.getItems())   //7
         {
             if (item.getItemType() == ItemType.collectible)
             {
@@ -1104,7 +1107,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())    //3
         {
             if (isSearchedElement)
             {
@@ -1136,7 +1139,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())  //3
         {
             if (isSearchedElement)
             {
@@ -1167,7 +1170,7 @@ public class Request
             }
         }
         setCollectionMenuText("Items", y + 250 + 50, false);
-        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        for (Item item : Account.loggedInAccount.getCollection().getItems())  //3
         {
             if (isSearchedElement)
             {
@@ -1191,7 +1194,7 @@ public class Request
         setCollectionMenuText("Decks", 50, true);
         yPosition = 0;
         x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())  //3
         {
             if (isSearchedElement)
             {
@@ -1566,22 +1569,7 @@ public class Request
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
-        for (Hero hero : deck.getHero())
-        {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, true);
-        }
-        for (Minion minion : deck.getMinions())
-        {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, true);
-        }
-        for (Spell spell : deck.getSpells())
-        {
-            Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, true);
-        }
-        for (Item item : deck.getItem())
-        {
-            Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, true);
-        }
+        //send deck to server    //
     }
 
     private void deckMenu(Stage primaryStage, Deck deck)
@@ -1596,7 +1584,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Heroes", 50);
-        for (Hero hero : deck.getHero())
+        for (Hero hero : deck.getHero())   //3
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -1617,7 +1605,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : deck.getMinions())
+        for (Minion minion : deck.getMinions())    //3
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -1638,7 +1626,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : deck.getSpells())
+        for (Spell spell : deck.getSpells())    //3
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -1662,7 +1650,7 @@ public class Request
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootDeck, sceneDeck, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : deck.getItem())
+        for (Item item : deck.getItem()) //3
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -2789,4 +2777,11 @@ public class Request
         }
     }
 
+    public Account getLoggedInAccount(){
+        return loggedInAccount;
+    }
+
+    public void setLoggedInAccount(Account account){
+        loggedInAccount = account;
+    }
 }
