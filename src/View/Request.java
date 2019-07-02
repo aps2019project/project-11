@@ -1966,7 +1966,7 @@ public class Request
     {
         Menu decksMenu = new Menu("Decks");
 
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : Account.loggedInAccount.getPlayerDecks())   //8
         {
             MenuItem menuItem = new MenuItem(deck.getDeckName());
             decksMenu.getItems().add(menuItem);
@@ -2029,7 +2029,7 @@ public class Request
             switch (string)
             {
                 case "Mission 1":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(1);   //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2039,7 +2039,7 @@ public class Request
                     }
                     break;
                 case "Mission 2":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(2);  //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2049,7 +2049,7 @@ public class Request
                     }
                     break;
                 case "Mission 3":
-                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);
+                    Main.getCallTheAppropriateFunction().storyModeBattleMaker(3);    //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false , BattleMode.GATHERING_FLAGS);
@@ -2161,7 +2161,7 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2171,7 +2171,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
@@ -2181,7 +2181,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));
+                    Main.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2203,7 +2203,7 @@ public class Request
     {
         Menu decksMenu = new Menu("Players");
 
-        for (Account account : AccountManager.getAccounts())
+        for (Account account : AccountManager.getAccounts())   //7
         {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);

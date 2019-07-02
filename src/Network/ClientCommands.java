@@ -21,6 +21,7 @@ public class ClientCommands {
     private Group rootLeaderBoard;
     private Account loggedInAccount;
     private Deck deck;
+    private int battleMode;
 
 
     public ClientCommands(CommandsEnum clientCommand , String userName , String passWord ){ //1
@@ -59,11 +60,16 @@ public class ClientCommands {
 
     public ClientCommands(CommandsEnum clientCommand) { //7
         this.clientCommand = clientCommand;
-    }
+    } //7
 
-    public ClientCommands(CommandsEnum clientCommand , Deck deck){
+    public ClientCommands(CommandsEnum clientCommand , Deck deck){ //8
         this.clientCommand = clientCommand;
         this.deck = deck;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, int battleMode) {  //9
+        this.clientCommand = clientCommand;
+        this.battleMode = battleMode;
     }
 
     public CommandsEnum getClientCommand() {
@@ -148,5 +154,13 @@ public class ClientCommands {
 
     public void setRootLeaderBoard(Group rootLeaderBoard) {
         this.rootLeaderBoard = rootLeaderBoard;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 }
