@@ -3,6 +3,7 @@ package View;
 import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
+import Network.ClientCommand;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -189,11 +190,7 @@ public class Request
                     return;
                 }
                 Account account = accountManager.findAccount(userName);        //1 constructor
-
                 //loggedInAccount = accountManager.findAccount(userName);      //receive from server
-                //ClientCommands clientCommandForFindAccount = new ClientCommands(SIGN_UP_FIND_ACCOUNT , userName , password );
-
-
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
