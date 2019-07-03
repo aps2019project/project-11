@@ -2051,7 +2051,6 @@ public class Request
                 case "Mission 3":
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , loggedInAccount );
-
                     Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,3);                                      //9
                     try
                     {

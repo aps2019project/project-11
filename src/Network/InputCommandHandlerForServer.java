@@ -1,6 +1,7 @@
 package Network;
 
 import Controller.AccountManager;
+import Controller.ShopManager;
 import Model.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +14,7 @@ public class InputCommandHandlerForServer extends Thread
     private String message;
     private SendMessage sendMessage;
     AccountManager accountManager  =new AccountManager();
+    ShopManager shopManager = new ShopManager();
 
     public InputCommandHandlerForServer(SendMessage sendMessage)
     {
@@ -42,8 +44,7 @@ public class InputCommandHandlerForServer extends Thread
         }
     }
 
-    public void checkMassageSentByClient(String commandSentByClient)
-    {
+    public void checkMassageSentByClient(String commandSentByClient) throws Exception {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         switch (clientCommand.getClientCommandEnum())
         {
@@ -65,8 +66,10 @@ public class InputCommandHandlerForServer extends Thread
             case SAVE_ACCOUNT_INFO:
                 break;
             case BUY:
+                shopManager.buyCard(clientCommand.getCard());
                 break;
             case SELL:
+                shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:
 
@@ -144,7 +147,7 @@ public class InputCommandHandlerForServer extends Thread
                     {
                         Client.getSendMessage().addMessage(accountJson);
                     }
-                    catch (InterruptedException e)
+                    catch (Exception e)
                     {
                         e.printStackTrace();
                     }
@@ -158,7 +161,6 @@ public class InputCommandHandlerForServer extends Thread
                     {
                         e.printStackTrace();
                     }
-
                 }
                 else
                 {
@@ -168,9 +170,9 @@ public class InputCommandHandlerForServer extends Thread
                     {
                         Client.getSendMessage().addMessage(json);
                     }
-                    catch (InterruptedException e)
+                    catch (Exception f)
                     {
-                        e.printStackTrace();
+                        f.printStackTrace();
                     }
                 }
 
