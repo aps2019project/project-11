@@ -34,5 +34,6 @@ public enum ClientCommandEnum
     ,SET_HERO_ICONS
     ,SET_HAND_ICONS
     ,SET_GRID_PANE
+    , GET_PLAYER_DECKS
     ;
 }

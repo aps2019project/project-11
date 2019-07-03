@@ -1926,6 +1926,9 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 1 , loggedInAccount , selectedDeckForCustomGame);
+
                     if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 1))
                     {
                         return;
@@ -1939,6 +1942,9 @@ public class Request
                     }
                     break;
                 case "Mode 2":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 2 , loggedInAccount , selectedDeckForCustomGame);
+
                     if (!Client.getCallTheAppropriateFunction().customGameBattleMaker( loggedInAccount , selectedDeckForCustomGame, 2))
                     {
                         return;
@@ -1952,6 +1958,9 @@ public class Request
                     }
                     break;
                 case "Mode 3":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 3 , loggedInAccount , selectedDeckForCustomGame);
+
                     if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 3))
                     {
                         return;
@@ -1976,6 +1985,8 @@ public class Request
     private void showDecksLists(Group rootCustomGame)
     {
         Menu decksMenu = new Menu("Decks");
+
+//        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_DECKS , loggedInAccount);
 
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())   //8
         {
@@ -2040,6 +2051,9 @@ public class Request
             switch (string)
             {
                 case "Mission 1":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , loggedInAccount );
+
                     Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,1);                                 //9
                     try
                     {
@@ -2050,6 +2064,9 @@ public class Request
                     }
                     break;
                 case "Mission 2":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , loggedInAccount );
+
                     Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,2);                                     //9
                     try
                     {
@@ -2060,6 +2077,9 @@ public class Request
                     }
                     break;
                 case "Mission 3":
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , loggedInAccount );
+
                     Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,3);                                      //9
                     try
                     {
