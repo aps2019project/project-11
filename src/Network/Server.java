@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Server
 {
     private static ArrayList<InputCommandHandlerForServer> commandHandlers = new ArrayList<>();
-    private static ServerCommand serverCommand;
     private static ArrayList<Account> accounts = new ArrayList<>();
     private static ArrayList<Hero> heroes = new ArrayList<>();
     private static ArrayList<Minion> minions = new ArrayList<>();
@@ -52,11 +51,6 @@ public class Server
             });
             receiveMessage.start();
         }
-    }
-
-    public static void setServerCommand(ServerCommand serverCommand)
-    {
-        Server.serverCommand = serverCommand;
     }
 
     /*public static InputCommandHandlerForClient findCommandHandler(Player player)
