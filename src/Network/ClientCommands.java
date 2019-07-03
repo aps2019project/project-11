@@ -1,8 +1,6 @@
 package Network;
 
-import Model.Account;
-import Model.CommandType;
-import Model.Deck;
+import Model.*;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -10,66 +8,82 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class ClientCommands {
+public class ClientCommands
+{
     private CommandsEnum clientCommand;
     private String userName;
-    private String passWord;
+    private String password;
     private Account accountForSave;
-    private String userNameForSave;
-    private boolean isNewAccount;
-    private Account account;    //someTime use it for login
-    private CommandType commandType;
-    private ArrayList<TextField> textFieldsToMkeCustom;
-    private Group root;
-    private Account loggedInAccount;
+    private ArrayList<TextField> textFieldsToMakeCustom;
+    private Card card;
+    private Item item;
     private Deck deck;
+    private String deckName;
+
     private int battleMode;
     private Pane[][] battleFieldPanes;
     private GridPane gridPane;
 
-
-
-    public ClientCommands(CommandsEnum clientCommand , String userName , String passWord ){ //1
+    public ClientCommands(CommandsEnum clientCommand , String userName , String password)  //login & signUp & logout
+    {
         this.clientCommand = clientCommand;
         this.userName = userName;
-        this.passWord = passWord;
+        this.password = password;
     }
 
-    public ClientCommands(CommandsEnum clientCommand , Account accountForSave , String userNameForSave , boolean isNewAccount) //2
+    public ClientCommands(CommandsEnum clientCommand)  //leaderBoard
+    {
+        this.clientCommand = clientCommand;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, Account accountForSave) //save
     {
         this.clientCommand = clientCommand;
         this.accountForSave = accountForSave;
-        this.userNameForSave = userNameForSave;
-        this.isNewAccount = isNewAccount;
     }
 
-    public ClientCommands(CommandsEnum clientCommand , Account account){ // 3
+    public ClientCommands(CommandsEnum clientCommand, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
+    {
         this.clientCommand = clientCommand;
-        this.account = account;
+        this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, CommandType commandType) {   //4
+    public ClientCommands(CommandsEnum clientCommand, Card card)  //buy & sell card
+    {
         this.clientCommand = clientCommand;
-        this.commandType = commandType;
+        this.card = card;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, ArrayList<TextField> textFieldsToMkeCustom) { //5
+    public ClientCommands(CommandsEnum clientCommand, Item item)  //buy & sell item
+    {
         this.clientCommand = clientCommand;
-        this.textFieldsToMkeCustom = textFieldsToMkeCustom;
+        this.item = item;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Group root) {  //6
-        this.clientCommand = clientCommand;
-        this.root = root;
-    }
-
-    public ClientCommands(CommandsEnum clientCommand) { //7
-        this.clientCommand = clientCommand;
-    }
-
-    public ClientCommands(CommandsEnum clientCommand , Deck deck){ //8
+    public ClientCommands(CommandsEnum clientCommand, Deck deck)   //delete deck & import
+    {
         this.clientCommand = clientCommand;
         this.deck = deck;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, Deck deck, Card card)  //add & remove card from deck
+    {
+        this.clientCommand = clientCommand;
+        this.deck = deck;
+        this.card = card;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, Deck deck, Item item)  //add & remove item from deck
+    {
+        this.clientCommand = clientCommand;
+        this.deck = deck;
+        this.item = item;
+    }
+
+    public ClientCommands(CommandsEnum clientCommand, String deckName)  //create deck & export
+    {
+        this.clientCommand = clientCommand;
+        this.deckName = deckName;
     }
 
     public ClientCommands(CommandsEnum clientCommand, int battleMode) {  //9
@@ -99,12 +113,12 @@ public class ClientCommands {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Account getAccountForSave() {
@@ -115,56 +129,44 @@ public class ClientCommands {
         this.accountForSave = accountForSave;
     }
 
-    public String getUserNameForSave() {
-        return userNameForSave;
+    public ArrayList<TextField> getTextFieldsToMakeCustom()
+    {
+        return textFieldsToMakeCustom;
     }
 
-    public void setUserNameForSave(String userNameForSave) {
-        this.userNameForSave = userNameForSave;
+    public void setTextFieldsToMakeCustom(ArrayList<TextField> textFieldsToMakeCustom)
+    {
+        this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
-    public boolean isNewAccount() {
-        return isNewAccount;
+    public Card getCard()
+    {
+        return card;
     }
 
-    public void setNewAccount(boolean newAccount) {
-        isNewAccount = newAccount;
+    public void setCard(Card card)
+    {
+        this.card = card;
     }
 
-    public Account getAccount() {
-        return account;
+    public Item getItem()
+    {
+        return item;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setItem(Item item)
+    {
+        this.item = item;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
+    public String getDeckName()
+    {
+        return deckName;
     }
 
-    public void setCommandType(CommandType commandType) {
-        this.commandType = commandType;
-    }
-
-    public ArrayList<TextField> getTextFieldsToMkeCustom() {
-        return textFieldsToMkeCustom;
-    }
-
-    public Account getLoggedInAccount() {
-        return loggedInAccount;
-    }
-
-    public void setLoggedInAccount(Account loggedInAccount) {
-        this.loggedInAccount = loggedInAccount;
-    }
-
-    public Group getRoot() {
-        return root;
-    }
-
-    public void setRoot(Group root) {
-        this.root = root;
+    public void setDeckName(String deckName)
+    {
+        this.deckName = deckName;
     }
 
     public Deck getDeck() {

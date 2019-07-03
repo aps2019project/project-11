@@ -366,7 +366,6 @@ public class Client extends Application
         return rootImportingDeck;
     }
 
-
     public static Scene getSceneBattleField()
     {
         return sceneBattleField;
