@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Network.Client;
 import View.*;
 
 import java.io.IOException;

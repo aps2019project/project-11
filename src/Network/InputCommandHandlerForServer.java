@@ -6,6 +6,7 @@ import Model.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class InputCommandHandlerForServer extends Thread
@@ -54,6 +55,7 @@ public class InputCommandHandlerForServer extends Thread
             case LOGIN:
                 break;
             case LOGOUT:
+                accountManager.logout();
                 break;
             case MAKE_CUSTOM_SPELL:
                 break;
@@ -64,6 +66,7 @@ public class InputCommandHandlerForServer extends Thread
             case LEADER_BOARD:
                 break;
             case SAVE_ACCOUNT_INFO:
+                accountManager.saveAccountInfo(clientCommand.getAccount(),clientCommand.getUserName(),false);
                 break;
             case BUY:
                 shopManager.buyCard(clientCommand.getCard());
@@ -121,6 +124,28 @@ public class InputCommandHandlerForServer extends Thread
         message = null;
     }
 
+    /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
+    {
+        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
+        if (isNewAccount)
+        {
+            SavedAccountPath.write(name + "\n");
+            SavedAccountPath.close();
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
+        System.out.println(json);
+        try
+        {
+
+            FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
+            saveAccountInfo.write(json);
+            saveAccountInfo.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }*/
     public void doingSignUpWork(String userName,String password)
     {
          if (userName.isEmpty() || password.isEmpty())
