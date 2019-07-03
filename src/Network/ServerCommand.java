@@ -2,18 +2,18 @@ package Network;
 
 public class ServerCommand
 {
-    private ServerCommand serverCommand;
+    private ServerCommandEnum serverCommandEnum;
     private String errorMessage;
 
-    public ServerCommand(ServerCommand serverCommand, String errorMessage)
+    public ServerCommand(ServerCommandEnum serverCommandEnum, String errorMessage)
     {
-        this.serverCommand = serverCommand;
+        this.serverCommandEnum = serverCommandEnum;
         this.errorMessage = errorMessage;
     }
 
-    public ServerCommand getServerCommand()
+    public ServerCommandEnum getServerCommandEnum()
     {
-        return serverCommand;
+        return serverCommandEnum;
     }
 
     public String getErrorMessage()

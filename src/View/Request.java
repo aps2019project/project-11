@@ -195,37 +195,9 @@ public class Request
                 {
                     e.printStackTrace();
                 }
-
-                /*if (userName.isEmpty() || password.isEmpty())
-                {
-                    rootSignUpMenu.getChildren().add(labelInvalidInput);
-                    labelInvalidInput.setText("you must Fill both TextFields");
-                    return;
-                }
-                Account account = accountManager.findAccount(userName);
-                //loggedInAccount = accountManager.findAccount(userName);
-                if (account == null)
-                {
-                    rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                    account = accountManager.createAccount(userName, password);
-                    //loggedInAccount = accountManager.findAccount(userName);
-                    try
-                    {
-                        accountManager.saveAccountInfo(account, userName, true);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    primaryStage.setScene(sceneLoginMenu);
-                    primaryStage.centerOnScreen();
-                    login(primaryStage);
-                }
-                else
-                {
-                    labelInvalidInput.setText("Account exists with this name");
-                    rootSignUpMenu.getChildren().add(labelInvalidInput);
-                }*/
+                primaryStage.setScene(Client.getSceneLoginMenu());
+                primaryStage.centerOnScreen();
+                login(primaryStage);
             }
         });
         rootSignUpMenu.getChildren().add(buttonSignUp);

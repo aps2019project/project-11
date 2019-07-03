@@ -1,12 +1,18 @@
 package Network;
 
+import Controller.AccountManager;
+import Model.Account;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 
 public class InputCommandHandlerForServer extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
     private SendMessage sendMessage;
+    AccountManager accountManager  =new AccountManager();
 
     public InputCommandHandlerForServer(SendMessage sendMessage)
     {
@@ -42,7 +48,7 @@ public class InputCommandHandlerForServer extends Thread
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
-
+                doingSignUpWork(clientCommand.getUserName(),clientCommand.getPassword());
                 break;
             case LOGIN:
                 break;
@@ -63,12 +69,14 @@ public class InputCommandHandlerForServer extends Thread
             case SELL:
                 break;
             case IMPORT_DECK:
+
                 break;
             case EXPORT_DECK:
                 break;
             case CREATE_DECK:
                 break;
             case REMOVE_CARD_FROM_DECK:
+
                 break;
             case ADD_CARD_TO_DECK:
                 break;
@@ -110,6 +118,63 @@ public class InputCommandHandlerForServer extends Thread
         message = null;
     }
 
+    public void doingSignUpWork(String userName,String password)
+    {
+         if (userName.isEmpty() || password.isEmpty())
+                {
+                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"you should fill the blanks");
+                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(json);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
+                Account account = accountManager.findAccount(userName);
+                //loggedInAccount = accountManager.findAccount(userName);
+                if (account == null)
+                {
+                    ServerCommand accountServerCommand = new ServerCommand(ServerCommandEnum.ERROR,"there was no account");
+                    String accountJson = new GsonBuilder().setPrettyPrinting().create().toJson(accountServerCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(accountJson);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    account = accountManager.createAccount(userName, password);
+                    //loggedInAccount = accountManager.findAccount(userName);
+                    try
+                    {
+                        accountManager.saveAccountInfo(account, userName, true);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }
+                else
+                {
+                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Account exists with this name");
+                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(json);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+    }
     public synchronized void setMessage(String message)
     {
         this.message = message;
