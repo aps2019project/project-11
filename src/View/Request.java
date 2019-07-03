@@ -1926,7 +1926,7 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 1))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 1))
                     {
                         return;
                     }
@@ -1939,7 +1939,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 2))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker( loggedInAccount , selectedDeckForCustomGame, 2))
                     {
                         return;
                     }
@@ -1952,7 +1952,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(selectedDeckForCustomGame, 3))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 3))
                     {
                         return;
                     }
@@ -2040,7 +2040,7 @@ public class Request
             switch (string)
             {
                 case "Mission 1":
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(1);//9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,1);                                 //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2050,7 +2050,7 @@ public class Request
                     }
                     break;
                 case "Mission 2":
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(2); //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,2);                                     //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2060,7 +2060,7 @@ public class Request
                     }
                     break;
                 case "Mission 3":
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(3);  //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,3);                                      //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false , BattleMode.GATHERING_FLAGS);
@@ -2172,7 +2172,7 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(1, new Player(multiPlayerAccountToBattle, false));  //9
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,1, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2182,7 +2182,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(2, new Player(multiPlayerAccountToBattle, false));  //9
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,2, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
@@ -2192,7 +2192,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(3, new Player(multiPlayerAccountToBattle, false));  //9
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,3, new Player(multiPlayerAccountToBattle, false));  //9
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2214,7 +2214,7 @@ public class Request
     {
         Menu decksMenu = new Menu("Players");
 
-        for (Account account : AccountManager.getAccounts())   //7
+        for (Account account : AccountManager.getAccounts())                    //7
         {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);
