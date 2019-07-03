@@ -26,6 +26,7 @@ public class Client extends Application
 {
     private static ArrayList<InputCommandHandlerForClient> commandHandlers = new ArrayList<>();
     private static CallTheAppropriateFunction callTheAppropriateFunction;
+    private static SendMessage sendMessage;
 
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
@@ -175,7 +176,7 @@ public class Client extends Application
     {
         Socket socket = new Socket("127.0.0.1", 8000);
 
-        SendMessage sendMessage = new SendMessage(socket.getOutputStream());
+        sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();
 
         SendMessage output = new SendMessage(System.out);
@@ -208,6 +209,11 @@ public class Client extends Application
         });
         receiveMessage.start();
 
+    }
+
+    public static SendMessage getSendMessage()
+    {
+        return sendMessage;
     }
 
     public static Group getRootSignUpMenu()

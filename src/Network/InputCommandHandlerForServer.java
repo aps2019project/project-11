@@ -1,5 +1,13 @@
 package Network;
 
+import Controller.AccountManager;
+import Model.Account;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+
+import java.io.FileReader;
+import java.io.IOException;
+
 public class InputCommandHandlerForServer extends Thread
 {
     public final Object validMessageLock = new Object();
@@ -27,9 +35,9 @@ public class InputCommandHandlerForServer extends Thread
         }
     }
 
-    private void checkMassageSentByClient(String CommandSentByClient)
+    private void checkMassageSentByClient(String commandSentByClient)
     {
-        // switch case
+        //switch case
         message = null;
     }
 
