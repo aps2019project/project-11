@@ -50,9 +50,9 @@ public class Shop
         this.items.add(item);
     }
 
-    public void buyCard(Card card)
+    public void buyCard(Card card) throws Exception
     {
-        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, card, false);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, (Card) card.clone(), false);
         Account.loggedInAccount.decreaseMoney(card.getPrice());
         card.decreaseCapacityOfSell();
     }
@@ -64,9 +64,9 @@ public class Shop
         account.increaseDefaultID();
     }
 
-    public void buyItem(Item item)
+    public void buyItem(Item item) throws Exception
     {
-        Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, item, false);
+        Account.loggedInAccount.getCollection().addItem(Account.loggedInAccount, (Item) item.clone(), false);
         Account.loggedInAccount.decreaseMoney(item.getPrice());
         item.decreaseCapacityOfItemSell();
     }

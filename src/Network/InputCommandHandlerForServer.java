@@ -14,12 +14,23 @@ public class InputCommandHandlerForServer extends Thread
     @Override
     public void run()
     {
-        checkMassage();
+        while (true)
+        {
+            try
+            {
+                checkMassageSentByClient(getMessage());
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void checkMassage()
+    private void checkMassageSentByClient(String CommandSentByClient)
     {
-
+        // switch case
+        message = null;
     }
 
     public void setMessage(String message)

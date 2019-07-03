@@ -1,8 +1,5 @@
 package Network;
 
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
 public class InputCommandHandlerForClient extends Thread
 {
     public final Object validMessageLock = new Object();
@@ -17,12 +14,23 @@ public class InputCommandHandlerForClient extends Thread
     @Override
     public void run()
     {
-        checkMassage();
+        while (true)
+        {
+            try
+            {
+                checkMassageSentByServer(getMessage());
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void checkMassage()
+    private void checkMassageSentByServer(String CommandSentByServer)
     {
-
+        // switch case
+        message = null;
     }
 
     public void setMessage(String message)

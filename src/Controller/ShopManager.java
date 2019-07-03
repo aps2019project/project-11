@@ -7,7 +7,7 @@ public class ShopManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public void buyCard(Card card)
+    public void buyCard(Card card) throws Exception
     {
         if (card.getPrice() > Account.loggedInAccount.getMoney())
         {
@@ -25,7 +25,7 @@ public class ShopManager
         }
     }
 
-    public void buyItem(Item item)
+    public void buyItem(Item item) throws Exception
     {
         if (item.getPrice() > Account.loggedInAccount.getMoney())
         {
