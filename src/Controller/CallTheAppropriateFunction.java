@@ -417,26 +417,27 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    public void storyModeBattleMaker(int numberOfLevel)
+    public void storyModeBattleMaker(Account loggedInAccount ,int numberOfLevel)
     {
         Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-        new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+        new Battle(new Player(loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
     }
 
-    public boolean customGameBattleMaker(Deck selectedDeck, int number)
+    public boolean customGameBattleMaker(Account loggedInAccount ,Deck selectedDeck, int number)
     {
+
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
         if (opponentPlayerForCustomGame != null)
         {
-            new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+            new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
             return true;
         }
         return false;
     }
 
-    public void multiPayerBattleMaker(int number , Player opponentPlayerForCustomGame )
+    public void multiPayerBattleMaker(Account loggedInAccount ,int number , Player opponentPlayerForCustomGame )
     {
-        new Battle(new Player(Account.loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
     }
 }
