@@ -105,7 +105,7 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case GET_PLAYER_TURN_GRAVE_YARD_CARDS:
                 break;
-            case CLEAR_HAND_PANES_IMAGEVIEW_AND_END_TURN_AND_SET_HAND_ICON:
+            case CLEAR_HAND_PANES_IMAGE_VIEW_AND_END_TURN_AND_SET_HAND_ICON:
                 break;
             case SET_HEROES_FIRST_PLACE:
                 break;

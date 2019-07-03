@@ -2356,6 +2356,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x, y;
 
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_TURN_GRAVE_YARD_CARDS);
 
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //7
         {
@@ -2395,6 +2396,9 @@ public class Request
             public void handle(MouseEvent event)
             {
                 ////////////////////////////////////////////clear the hand panes image view in battle (don't forget it)                  //7
+
+                //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.CLEAR_HAND_PANES_IMAGE_VIEW_AND_END_TURN_AND_SET_HAND_ICON , rootBattleField);
+
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
                 Battle.getCurrentBattle().setHandIcons();
@@ -2414,22 +2418,24 @@ public class Request
 
     private void setHeroFirstPlace()
     {
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HEROES_FIRST_PLACE);
+
         Battle.getCurrentBattle().setHeroesFirstPlace();                                                     //7
     }
 
     private void setHeroIcons(Group rootBattleField)
     {
-                                                                                                            //6
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HERO_ICONS ,rootBattleField);                                            //6
     }
 
     private void setHandIcons(Group rootBattleField)
     {
-                                                                                                             //6
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HAND_ICONS ,rootBattleField);                                             //6
     }
 
     private void setGridPane(Group rootBattleField)
     {
-                                                                                                            //6
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_GRID_PANE ,rootBattleField);                              //6
     }
 
 
