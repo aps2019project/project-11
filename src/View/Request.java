@@ -210,6 +210,19 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                String userName = textFieldName.getText();
+                String password = textFieldPassword.getText();
+                ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN,userName,password);
+                String LoginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                try
+                {
+                    Client.getSendMessage().addMessage(LoginJson);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneLoginMenu);
                 primaryStage.centerOnScreen();

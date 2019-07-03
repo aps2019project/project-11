@@ -64,6 +64,7 @@ public class InputCommandHandlerForServer extends Thread
             case MAKE_CUSTOM_HERO:
                 break;
             case LEADER_BOARD:
+                accountManager.sortAccountsByWins();
                 break;
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(),clientCommand.getUserName(),false);
