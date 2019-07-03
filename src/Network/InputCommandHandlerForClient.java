@@ -48,7 +48,7 @@ public class InputCommandHandlerForClient extends Thread
             }
 
         }
-        return message.trim();
+        return message;
     }
 
     public SendMessage getSendMessage()

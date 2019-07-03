@@ -4,6 +4,8 @@ import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
 import Network.Client;
+import Network.ClientCommand;
+import Network.CommandsEnum;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -20,7 +22,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -181,25 +182,38 @@ public class Request
             public void handle(MouseEvent event)
             {
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                String userName = textFieldName.getText();                                 //singUp user and  pass
+                String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (userName.isEmpty() || password.isEmpty())
+                ClientCommand clientCommand = new ClientCommand(CommandsEnum.SIGN_UP, userName, password);
+                String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(json);
+                try
+                {
+                    Client.getSendMessage().addMessage(json);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
+                /*if (userName.isEmpty() || password.isEmpty())
                 {
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
                     labelInvalidInput.setText("you must Fill both TextFields");
                     return;
                 }
-                Account account = accountManager.findAccount(userName);        //1 constructor
-                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
+                Account account = accountManager.findAccount(userName);
+                //loggedInAccount = accountManager.findAccount(userName);
                 if (account == null)
                 {
                     rootSignUpMenu.getChildren().remove(labelInvalidInput);
-                    account = accountManager.createAccount(userName, password);        //createdAccount(S)
-                    //loggedInAccount = accountManager.findAccount(userName);      //receive from server
+                    account = accountManager.createAccount(userName, password);
+                    //loggedInAccount = accountManager.findAccount(userName);
                     try
                     {
-                        accountManager.saveAccountInfo(account, userName, true);   //2 constructor
-                    } catch (IOException e)
+                        accountManager.saveAccountInfo(account, userName, true);
+                    }
+                    catch (IOException e)
                     {
                         e.printStackTrace();
                     }
@@ -211,7 +225,7 @@ public class Request
                 {
                     labelInvalidInput.setText("Account exists with this name");
                     rootSignUpMenu.getChildren().add(labelInvalidInput);
-                }
+                }*/
             }
         });
         rootSignUpMenu.getChildren().add(buttonSignUp);

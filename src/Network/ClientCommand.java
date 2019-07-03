@@ -1,108 +1,107 @@
 package Network;
 
 import Model.*;
-import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class ClientCommands
+public class ClientCommand
 {
-    private CommandsEnum clientCommand;
+    private CommandsEnum clientCommandEnum;
     private String userName;
     private String password;
     private Account accountForSave;
-    private ArrayList<TextField> textFieldsToMakeCustom;
+    private transient ArrayList<TextField> textFieldsToMakeCustom;
     private Card card;
     private Item item;
     private Deck deck;
     private String deckName;
 
-    private int battleMode;
-    private Pane[][] battleFieldPanes;
-    private GridPane gridPane;
+    private transient int battleMode;
+    private transient Pane[][] battleFieldPanes;
+    private transient GridPane gridPane;
 
-    public ClientCommands(CommandsEnum clientCommand , String userName , String password)  //login & signUp & logout
+    public ClientCommand(CommandsEnum clientCommandEnum, String userName , String password)  //login & signUp & logout
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.userName = userName;
         this.password = password;
     }
 
-    public ClientCommands(CommandsEnum clientCommand)  //leaderBoard
+    public ClientCommand(CommandsEnum clientCommandEnum)  //leaderBoard
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Account accountForSave) //save
+    public ClientCommand(CommandsEnum clientCommandEnum, Account accountForSave) //save
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.accountForSave = accountForSave;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
+    public ClientCommand(CommandsEnum clientCommandEnum, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Card card)  //buy & sell card
+    public ClientCommand(CommandsEnum clientCommandEnum, Card card)  //buy & sell card
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.card = card;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Item item)  //buy & sell item
+    public ClientCommand(CommandsEnum clientCommandEnum, Item item)  //buy & sell item
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.item = item;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Deck deck)   //delete deck & import
+    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck)   //delete deck & import
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Deck deck, Card card)  //add & remove card from deck
+    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck, Card card)  //add & remove card from deck
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
         this.card = card;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Deck deck, Item item)  //add & remove item from deck
+    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck, Item item)  //add & remove item from deck
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
         this.item = item;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, String deckName)  //create deck & export
+    public ClientCommand(CommandsEnum clientCommandEnum, String deckName)  //create deck & export
     {
-        this.clientCommand = clientCommand;
+        this.clientCommandEnum = clientCommandEnum;
         this.deckName = deckName;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, int battleMode) {  //9
-        this.clientCommand = clientCommand;
+    public ClientCommand(CommandsEnum clientCommandEnum, int battleMode) {  //9
+        this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
     }
 
-    public ClientCommands(CommandsEnum clientCommand, Pane[][] battleFieldPanes, GridPane gridPane) { //10
-        this.clientCommand = clientCommand;
+    public ClientCommand(CommandsEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane) { //10
+        this.clientCommandEnum = clientCommandEnum;
         this.battleFieldPanes = battleFieldPanes;
         this.gridPane = gridPane;
     }
 
-    public CommandsEnum getClientCommand() {
-        return clientCommand;
+    public CommandsEnum getClientCommandEnum() {
+        return clientCommandEnum;
     }
 
-    public void setClientCommand(CommandsEnum clientCommand) {
-        this.clientCommand = clientCommand;
+    public void setClientCommandEnum(CommandsEnum clientCommandEnum) {
+        this.clientCommandEnum = clientCommandEnum;
     }
 
     public String getUserName() {

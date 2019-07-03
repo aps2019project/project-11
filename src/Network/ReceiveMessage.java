@@ -1,8 +1,11 @@
 package Network;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ReceiveMessage extends Thread
@@ -18,12 +21,19 @@ public class ReceiveMessage extends Thread
     @Override
     public void run()
     {
-        Scanner scanner = new Scanner(inputStream);
+        ObjectInputStream objectInputStream = null;
+        try
+        {
+            objectInputStream = new ObjectInputStream(inputStream);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         while (true)
         {
             try
             {
-                String inputCommand = scanner.nextLine();
+                String inputCommand = (String) Objects.requireNonNull(objectInputStream).readObject();
                 for (CommandReceivedListener listener : listeners)
                 {
                     try
@@ -36,7 +46,7 @@ public class ReceiveMessage extends Thread
                     }
                 }
             }
-            catch (NoSuchElementException ignored)
+            catch (Exception ignored)
             {
 
             }

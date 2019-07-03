@@ -1,7 +1,10 @@
 package Network;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -18,14 +21,22 @@ public class SendMessage extends Thread
     @Override
     public void run()
     {
+        ObjectOutputStream objectOutputStream = null;
+        try
+        {
+            objectOutputStream = new ObjectOutputStream(outputStream);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         while (true)
         {
-            PrintStream printStream = new PrintStream(outputStream);
             try
             {
-                printStream.println(messages.take());
+                Objects.requireNonNull(objectOutputStream).writeObject(messages.take());
             }
-            catch (InterruptedException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }

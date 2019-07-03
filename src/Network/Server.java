@@ -43,10 +43,6 @@ public class Server
                 {
                     output.addMessage(message);
                     handleCommand.setMessage(message);
-                    synchronized (handleCommand.validMessageLock)
-                    {
-                        handleCommand.validMessageLock.notify();
-                    }
                 }
             });
             receiveMessage.start();

@@ -1,8 +1,7 @@
 package Network;
 
-import Model.Account;
-
-public enum CommandsEnum {
+public enum CommandsEnum
+{
     SIGN_UP,
     LOGIN,
     LOGOUT,
@@ -19,7 +18,7 @@ public enum CommandsEnum {
     REMOVE_CARD_FROM_DECK,
     ADD_CARD_TO_DECK,
 
-    ,MAKE_STORY_BATTLE
+    MAKE_STORY_BATTLE
     ,MAKE_CUSTOM_BATTLE
     ,MAKE_MULTI_PLAYER_BATTLE
     ,GET_ALL_OF_THE_ACCOUNTS

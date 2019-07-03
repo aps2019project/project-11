@@ -21,7 +21,8 @@ public class CallTheAppropriateFunction extends Thread
         try
         {
             setPrimarySettings();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
