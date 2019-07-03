@@ -427,8 +427,8 @@ public class CallTheAppropriateFunction extends Thread
 
     public boolean customGameBattleMaker(Account loggedInAccount ,Deck selectedDeck, int number)
     {
-
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName());
+
         if (opponentPlayerForCustomGame != null)
         {
             new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);

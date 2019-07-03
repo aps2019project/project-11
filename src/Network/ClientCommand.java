@@ -12,7 +12,6 @@ public class ClientCommand
     private ClientCommandEnum clientCommandEnum;
     private String userName;
     private String password;
-    private Account accountForSave;
     private transient ArrayList<TextField> textFieldsToMakeCustom;
     private Card card;
     private Item item;
@@ -22,6 +21,8 @@ public class ClientCommand
     private transient int battleMode;
     private transient Pane[][] battleFieldPanes;
     private transient GridPane gridPane;
+    private transient Account account;
+    private transient Player player;
 
     public ClientCommand(ClientCommandEnum clientCommandEnum, String userName , String password)  //login & signUp & logout
     {
@@ -35,10 +36,10 @@ public class ClientCommand
         this.clientCommandEnum = clientCommandEnum;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Account accountForSave) //save
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Account account) //save
     {
         this.clientCommandEnum = clientCommandEnum;
-        this.accountForSave = accountForSave;
+        this.account = account;
     }
 
     public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
@@ -85,15 +86,23 @@ public class ClientCommand
         this.deckName = deckName;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode) {  //9
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account) {  //9
         this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
+        this.account = account;
     }
 
     public ClientCommand(ClientCommandEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane) { //10
         this.clientCommandEnum = clientCommandEnum;
         this.battleFieldPanes = battleFieldPanes;
         this.gridPane = gridPane;
+    }
+
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account , Deck deck) {   //11
+        this.clientCommandEnum = clientCommandEnum;
+        this.battleMode = battleMode;
+        this.account = account;
+        this.deck = deck;
     }
 
     public ClientCommandEnum getClientCommandEnum() {
@@ -118,14 +127,6 @@ public class ClientCommand
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Account getAccountForSave() {
-        return accountForSave;
-    }
-
-    public void setAccountForSave(Account accountForSave) {
-        this.accountForSave = accountForSave;
     }
 
     public ArrayList<TextField> getTextFieldsToMakeCustom()
@@ -198,5 +199,21 @@ public class ClientCommand
 
     public void setGridPane(GridPane gridPane) {
         this.gridPane = gridPane;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
