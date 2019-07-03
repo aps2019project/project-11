@@ -100,17 +100,15 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case SET_NEXT_CARD_PANE:
                 break;
-            case SHOW_BATTLE_INFO:
+            case GET_INSTANCE_OF_SHOW_OUTPUT:
                 break;
-            case GET_FIRST_PLAYER:
-                break;
-            case GET_SECOND_PLAYER:
+            case SET_PLAYERS_NAME:
                 break;
             case TASKS_WHEN_SURRENDER:
                 break;
             case GET_PLAYER_TURN_GRAVE_YARD_CARDS:
                 break;
-            case CLEAR_HAND_PANES_IMAGEVIEW_AND_END_TURN_AND_SET_HAND_ICON:
+            case CLEAR_HAND_PANES_IMAGE_VIEW_AND_END_TURN_AND_SET_HAND_ICON:
                 break;
             case SET_HEROES_FIRST_PLACE:
                 break;
@@ -119,6 +117,10 @@ public class InputCommandHandlerForServer extends Thread
             case SET_HAND_ICONS:
                 break;
             case SET_GRID_PANE:
+                break;
+            case GET_PLAYER_DECKS:
+                break;
+            case SET_MP_ICONS:
                 break;
         }
         message = null;

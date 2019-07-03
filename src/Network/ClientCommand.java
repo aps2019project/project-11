@@ -1,6 +1,7 @@
 package Network;
 
 import Model.*;
+import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -22,7 +23,9 @@ public class ClientCommand
     private transient Pane[][] battleFieldPanes;
     private transient GridPane gridPane;
     private transient Account account;
+    private transient Account secondAccount;
     private transient Player player;
+    private transient Group root;
 
     public ClientCommand(ClientCommandEnum clientCommandEnum, String userName , String password)  //login & signUp & logout
     {
@@ -103,6 +106,18 @@ public class ClientCommand
         this.battleMode = battleMode;
         this.account = account;
         this.deck = deck;
+    }
+
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account , Account secondAccount) {   //12
+        this.clientCommandEnum = clientCommandEnum;
+        this.battleMode = battleMode;
+        this.account = account;
+        this.secondAccount = secondAccount;
+    }
+
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Group root) {
+        this.clientCommandEnum = clientCommandEnum;
+        this.root = root;
     }
 
     public ClientCommandEnum getClientCommandEnum() {
@@ -215,5 +230,21 @@ public class ClientCommand
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Account getSecondAccount() {
+        return secondAccount;
+    }
+
+    public void setSecondAccount(Account secondAccount) {
+        this.secondAccount = secondAccount;
+    }
+
+    public Group getRoot() {
+        return root;
+    }
+
+    public void setRoot(Group root) {
+        this.root = root;
     }
 }
