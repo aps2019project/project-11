@@ -53,6 +53,7 @@ public class InputCommandHandlerForServer extends Thread
                 doingSignUpWork(clientCommand.getUserName(),clientCommand.getPassword());
                 break;
             case LOGIN:
+                doingLoginWork(clientCommand.getUserName(),clientCommand.getPassword());
                 break;
             case LOGOUT:
                 accountManager.logout();
@@ -126,6 +127,76 @@ public class InputCommandHandlerForServer extends Thread
         }
         message = null;
     }
+    @SuppressWarnings("Duplicates")
+
+    private void doingLoginWork(String userName, String password)
+    {
+        if (userName.isEmpty() || password.isEmpty())
+                {
+                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"you should fill the blanks ");
+                    String blankson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(blankson);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return;
+                }
+                Account account = accountManager.findAccount(userName);          //FindAccount in Log in --- 1 constructor
+                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
+
+                if (account == null)
+                {
+                    ServerCommand accountServerCommand = new ServerCommand(ServerCommandEnum.ERROR,"there was no account");
+                    String accountJson = new GsonBuilder().setPrettyPrinting().create().toJson(accountServerCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(accountJson);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    account = accountManager.createAccount(userName, password);
+                    //loggedInAccount = accountManager.findAccount(userName);
+                    try
+                    {
+                        accountManager.saveAccountInfo(account, userName, true);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else if (account.getPassword().equals(password))
+                {
+                    accountManager.login(account);                           //LogIn in accountManager --- 3 constructor
+                    try
+                    {
+                     //   mainMenu(primaryStage);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Password is Wrong.Try again");
+                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(json);
+                    }
+                    catch (Exception f)
+                    {
+                        f.printStackTrace();
+                    }
+                }
+    }
 
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
@@ -149,6 +220,8 @@ public class InputCommandHandlerForServer extends Thread
             e.printStackTrace();
         }
     }*/
+    @SuppressWarnings("Duplicates")
+
     public void doingSignUpWork(String userName,String password)
     {
          if (userName.isEmpty() || password.isEmpty())

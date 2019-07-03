@@ -212,17 +212,6 @@ public class Request
             {
                 String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN,userName,password);
-                String LoginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
-                try
-                {
-                    Client.getSendMessage().addMessage(LoginJson);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneLoginMenu);
                 primaryStage.centerOnScreen();
@@ -260,7 +249,18 @@ public class Request
                 rootLoginMenu.getChildren().remove(labelInvalidInput);
                 String name = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                if (name.isEmpty() || password.isEmpty())
+                ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN,name,password);
+                String LoginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                try
+                {
+                    Client.getSendMessage().addMessage(LoginJson);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
+               /* if (name.isEmpty() || password.isEmpty())
                 {
                     labelInvalidInput.setText("you must Fill both TextFields");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
@@ -292,7 +292,7 @@ public class Request
                 {
                     labelInvalidInput.setText("Password is Wrong.Try again");
                     rootLoginMenu.getChildren().add(labelInvalidInput);
-                }
+                }*/
             }
         });
         rootLoginMenu.getChildren().add(buttonLogin);
@@ -727,6 +727,8 @@ public class Request
         rootLeaderBoard.getChildren().add(labelTop10);
         //showOutput.showRankingPlayers();         //6
         backButton(primaryStage, rootLeaderBoard, 100, 600);
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD);
+        //String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
     }
