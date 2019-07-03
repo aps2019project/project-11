@@ -1,22 +1,23 @@
 package Network;
 
-public enum ServerCommand
+public class ServerCommand
 {
-    OK,
-    ERROR,
-    ;
-
+    private ServerCommand serverCommand;
     private String errorMessage;
 
-    private static ServerCommand serverCommand;
+    public ServerCommand(ServerCommand serverCommand, String errorMessage)
+    {
+        this.serverCommand = serverCommand;
+        this.errorMessage = errorMessage;
+    }
 
-    public static ServerCommand getServerCommand()
+    public ServerCommand getServerCommand()
     {
         return serverCommand;
     }
 
-    public static void setServerCommand(ServerCommand serverCommand)
+    public String getErrorMessage()
     {
-        ServerCommand.serverCommand = serverCommand;
+        return errorMessage;
     }
 }

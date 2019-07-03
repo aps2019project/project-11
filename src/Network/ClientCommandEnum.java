@@ -1,6 +1,6 @@
 package Network;
 
-public enum CommandsEnum
+public enum ClientCommandEnum
 {
     SIGN_UP,
     LOGIN,

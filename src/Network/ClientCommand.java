@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ClientCommand
 {
-    private CommandsEnum clientCommandEnum;
+    private ClientCommandEnum clientCommandEnum;
     private String userName;
     private String password;
     private Account accountForSave;
@@ -23,84 +23,84 @@ public class ClientCommand
     private transient Pane[][] battleFieldPanes;
     private transient GridPane gridPane;
 
-    public ClientCommand(CommandsEnum clientCommandEnum, String userName , String password)  //login & signUp & logout
+    public ClientCommand(ClientCommandEnum clientCommandEnum, String userName , String password)  //login & signUp & logout
     {
         this.clientCommandEnum = clientCommandEnum;
         this.userName = userName;
         this.password = password;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum)  //leaderBoard
+    public ClientCommand(ClientCommandEnum clientCommandEnum)  //leaderBoard
     {
         this.clientCommandEnum = clientCommandEnum;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Account accountForSave) //save
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Account accountForSave) //save
     {
         this.clientCommandEnum = clientCommandEnum;
         this.accountForSave = accountForSave;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<TextField> textFieldsToMakeCustom) //makeCustom
     {
         this.clientCommandEnum = clientCommandEnum;
         this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Card card)  //buy & sell card
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Card card)  //buy & sell card
     {
         this.clientCommandEnum = clientCommandEnum;
         this.card = card;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Item item)  //buy & sell item
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Item item)  //buy & sell item
     {
         this.clientCommandEnum = clientCommandEnum;
         this.item = item;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck)   //delete deck & import
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck)   //delete deck & import
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck, Card card)  //add & remove card from deck
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, Card card)  //add & remove card from deck
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
         this.card = card;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Deck deck, Item item)  //add & remove item from deck
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, Item item)  //add & remove item from deck
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
         this.item = item;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, String deckName)  //create deck & export
+    public ClientCommand(ClientCommandEnum clientCommandEnum, String deckName)  //create deck & export
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deckName = deckName;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, int battleMode) {  //9
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode) {  //9
         this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
     }
 
-    public ClientCommand(CommandsEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane) { //10
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane) { //10
         this.clientCommandEnum = clientCommandEnum;
         this.battleFieldPanes = battleFieldPanes;
         this.gridPane = gridPane;
     }
 
-    public CommandsEnum getClientCommandEnum() {
+    public ClientCommandEnum getClientCommandEnum() {
         return clientCommandEnum;
     }
 
-    public void setClientCommandEnum(CommandsEnum clientCommandEnum) {
+    public void setClientCommandEnum(ClientCommandEnum clientCommandEnum) {
         this.clientCommandEnum = clientCommandEnum;
     }
 

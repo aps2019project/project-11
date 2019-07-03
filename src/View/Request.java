@@ -5,7 +5,7 @@ import Controller.BattleFieldController;
 import Model.*;
 import Network.Client;
 import Network.ClientCommand;
-import Network.CommandsEnum;
+import Network.ClientCommandEnum;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -184,7 +184,7 @@ public class Request
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                ClientCommand clientCommand = new ClientCommand(CommandsEnum.SIGN_UP, userName, password);
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SIGN_UP, userName, password);
                 String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                 System.out.println(json);
                 try
