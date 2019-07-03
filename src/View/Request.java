@@ -2163,7 +2163,10 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,1, new Player(multiPlayerAccountToBattle, false));  //9
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 1 , loggedInAccount , multiPlayerAccountToBattle);
+
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,1, new Player(multiPlayerAccountToBattle, false));  //12
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
@@ -2173,7 +2176,11 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,2, new Player(multiPlayerAccountToBattle, false));  //9
+
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 2 , loggedInAccount , multiPlayerAccountToBattle);
+
+
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,2, new Player(multiPlayerAccountToBattle, false));  //12
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
@@ -2183,7 +2190,10 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,3, new Player(multiPlayerAccountToBattle, false));  //9
+
+                  //  ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 3 , loggedInAccount , multiPlayerAccountToBattle);
+
+                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,3, new Player(multiPlayerAccountToBattle, false));  //12
                     try
                     {
                         setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2205,7 +2215,9 @@ public class Request
     {
         Menu decksMenu = new Menu("Players");
 
-        for (Account account : AccountManager.getAccounts())                    //7
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_OF_THE_ACCOUNTS);
+
+        for (Account account : AccountManager.getAccounts())                    //1
         {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);
@@ -2256,13 +2268,18 @@ public class Request
 
     private void setNextCard(Group rootBattleField)
     {
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_NEXT_CARD_PANE , rootBattleField);
+
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);   //6
     }
 
     private void showGameInfo(Group rootBattleField)
     {
         Text text = new Text();
-        ShowOutput showOutput = ShowOutput.getInstance();  //7
+
+       // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_INSTANCE_OF_SHOW_OUTPUT);
+
+        ShowOutput showOutput = ShowOutput.getInstance();  //1
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050, 200);
@@ -2277,44 +2294,12 @@ public class Request
 
     private void setPlayersName(Group rootBattleField)
     {
-        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());   //7
-        firstPlayerName.relocate(250, 50);
-        firstPlayerName.setFont(Font.font(20));
-        firstPlayerName.setTextFill(BLACK);
-        rootBattleField.getChildren().add(firstPlayerName);
-
-        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());  //7
-        secondPlayerName.relocate(920, 50);
-        secondPlayerName.setFont(Font.font(20));
-        secondPlayerName.setTextFill(BLACK);
-        rootBattleField.getChildren().add(secondPlayerName);
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_PLAYERS_NAME , rootBattleField);
     }
 
     public void setMPIcons(Group rootBattleField)
     {
-        for (int i = 0; i < 10; i++)
-        {
-            ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)                              //7
-            {
-                firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
-            }
-            firstPlayerMPIcon.relocate(250 + i * 20, 90);
-
-            rootBattleField.getChildren().add(firstPlayerMPIcon);
-        }
-
-        for (int i = 0; i < 10; i++)
-        {
-            ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
-            {
-                secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
-            }
-            secondPlayerMPIcon.relocate(1100 - i * 20, 90);
-
-            rootBattleField.getChildren().add(secondPlayerMPIcon);
-        }
+        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_MP_ICONS , rootBattleField);
     }
 
     private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
@@ -2370,6 +2355,8 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
+
+
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //7
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);

@@ -3,12 +3,16 @@ package Model;
 import Controller.BattleFieldController;
 import Controller.BattleManager;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import static javafx.scene.paint.Color.BLACK;
 
 @SuppressWarnings("Duplicates")
 public class Battle
@@ -899,6 +903,50 @@ public class Battle
         rootBattleField.getChildren().add(gridPane);
         Battle.getCurrentBattle().setBattleFieldPanes(panes);
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
+    }
+
+    private void setPlayersName(Group rootBattleField)
+    {
+
+
+        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());   //1
+        firstPlayerName.relocate(250, 50);
+        firstPlayerName.setFont(Font.font(20));
+        firstPlayerName.setTextFill(BLACK);
+        rootBattleField.getChildren().add(firstPlayerName);
+
+        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());  //1
+        secondPlayerName.relocate(920, 50);
+        secondPlayerName.setFont(Font.font(20));
+        secondPlayerName.setTextFill(BLACK);
+        rootBattleField.getChildren().add(secondPlayerName);
+    }
+
+    public void setMPIcons(Group rootBattleField)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)                              //7
+            {
+                firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
+            }
+            firstPlayerMPIcon.relocate(250 + i * 20, 90);
+
+            rootBattleField.getChildren().add(firstPlayerMPIcon);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
+            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
+            {
+                secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
+            }
+            secondPlayerMPIcon.relocate(1100 - i * 20, 90);
+
+            rootBattleField.getChildren().add(secondPlayerMPIcon);
+        }
     }
 }
 
