@@ -138,7 +138,7 @@ public class Hero extends NonSpellCard
         return false;
     }
 
-    public static void workingOnHeroText(ArrayList<TextField> textFields)
+    /*public static void workingOnHeroText(ArrayList<TextField> textFields)
     {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
@@ -280,5 +280,5 @@ public class Hero extends NonSpellCard
         Shop.getInstance().addCardToShop(hero);
         Hero.getHeroes().add(hero);
         //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
-    }
+    }*/
 }

@@ -170,7 +170,7 @@ public class Minion extends NonSpellCard
         return false;
     }
 
-    public static void workingOnMinionText(ArrayList<TextField> textFields)
+   /* public static void workingOnMinionText(ArrayList<TextField> textFields)
     {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
@@ -334,5 +334,5 @@ public class Minion extends NonSpellCard
         Shop.getInstance().addCardToShop(minion);
         Minion.getMinions().add(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
-    }
+    }*/
 }

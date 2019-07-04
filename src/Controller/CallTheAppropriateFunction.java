@@ -1,10 +1,7 @@
 package Controller;
 
 import Model.*;
-import Network.Client;
 import View.*;
-
-import java.io.IOException;
 
 public class CallTheAppropriateFunction extends Thread
 {
@@ -13,7 +10,7 @@ public class CallTheAppropriateFunction extends Thread
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
-    private Request request = Request.getInstance();
+    private Request request = new Request();
     private ShowOutput showOutput = ShowOutput.getInstance();
 
     @Override
@@ -21,19 +18,12 @@ public class CallTheAppropriateFunction extends Thread
     {
         try
         {
-            setPrimarySettings();
+            determineMainMenuCommand();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-
-    public void setPrimarySettings() throws Exception
-    {
-        Card.setCards();
-        Item.setItems();
-        determineMainMenuCommand();
     }
 
     private void determineMainMenuCommand() throws Exception

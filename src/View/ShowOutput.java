@@ -3,38 +3,16 @@ package View;
 import Controller.*;
 import Model.*;
 import Network.Client;
+import Network.Server;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class ShowOutput
 {
     private static ShowOutput showOutput = null;
-    private Group rootSignUpMenu = Client.getRootSignUpMenu();
-    private Scene sceneSignUpMenu = Client.getSceneSignUpMenu();
-    private Group rootLoginMenu = Client.getRootLoginMenu();
-    private Scene sceneLoginMenu = Client.getSceneLoginMenu();
-    private Group rootMainMenu = Client.getRootMainMenu();
-    private Scene sceneMainMenu = Client.getSceneMainMenu();
-    private Group rootLeaderBoard = Client.getRootLeaderBoard();
-    private Scene sceneLeaderBoard = Client.getSceneLeaderBoard();
-    private Group rootShop = Client.getRootShop();
-    private ScrollPane scrollPaneShop = Client.getScrollPaneShop();
-    private Scene sceneShop = Client.getSceneShop();
-    private Group rootCollection = Client.getRootCollection();
-    private ScrollPane scrollPaneCollection = Client.getScrollPaneCollection();
-    private Scene sceneCollection = Client.getSceneCollection();
-    private Group rootBattleMenu = Client.getRootBattle();
-    private Scene sceneBattleMenu = Client.getSceneBattle();
-    private Group rootSinglePlayer = Client.getRootSinglePlayer();
-    private Scene sceneSinglePlayer = Client.getSceneSinglePlayer();
-    private Group rootMultiPlayer = Client.getRootMultiPlayer();
-    private Scene sceneMultiPlayer = Client.getSceneMultiPlayer();
-
 
     private ShowOutput()
     {
@@ -78,10 +56,11 @@ public class ShowOutput
 
     void showRankingPlayers()
     {
+        Group rootLeaderBoard = Client.getRootLeaderBoard();
         int counter = 1;
         try
         {
-            for (Account account : AccountManager.getAccounts())
+            for (Account account : Server.getAccounts())
             {
                 if (counter > 10)
                 {

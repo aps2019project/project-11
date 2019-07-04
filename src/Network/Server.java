@@ -1,11 +1,14 @@
 package Network;
 
 import Model.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Server
 {
@@ -16,8 +19,12 @@ public class Server
     private static ArrayList<Spell> spells = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws Exception
     {
+        Card.setCards();
+        Item.setItems();
+        convertingToAccounts();
+        convertingToShop();
         ServerSocket serverSocket = new ServerSocket(8000);
         while (true)
         {
@@ -49,15 +56,89 @@ public class Server
         }
     }
 
-    /*public static InputCommandHandlerForClient findCommandHandler(Player player)
+    private static void convertingToShop()
     {
-        for (InputCommandHandlerForClient inputCommandHandler : commandHandlers)
+        try
         {
-            if (inputCommandHandler.getPlayer().getName().equals(player.getName()))
-            {
-                return inputCommandHandler;
-            }
+            FileReader reader = new FileReader("shop.json");
+            JsonParser jsonParser = new JsonParser();
+            Object object = jsonParser.parse(reader);
+            Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
         }
-        return null;
-    }*/
+        catch (FileNotFoundException ignored)
+        {
+
+        }
+    }
+
+    private static void convertingToAccounts() throws Exception
+    {
+        InputStream inputStream = new FileInputStream("SavedAccounts/SavedAccountPath.txt");
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNext())
+        {
+            String fileName = scanner.nextLine();
+
+            JsonParser jsonParser = new JsonParser();
+            FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
+            Object obj = jsonParser.parse(reader);
+            System.out.println(obj);
+            Server.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
+        }
+    }
+
+    public static ArrayList<InputCommandHandlerForServer> getCommandHandlers()
+    {
+        return commandHandlers;
+    }
+
+    public static ArrayList<Account> getAccounts()
+    {
+        return accounts;
+    }
+
+    public static void addAccount(Account account)
+    {
+        accounts.add(account);
+    }
+
+    public static ArrayList<Hero> getHeroes()
+    {
+        return heroes;
+    }
+
+    public static void addHero(Hero hero)
+    {
+        heroes.add(hero);
+    }
+
+    public static ArrayList<Minion> getMinions()
+    {
+        return minions;
+    }
+
+    public static void addMinion(Minion minion)
+    {
+        minions.add(minion);
+    }
+
+    public static ArrayList<Spell> getSpells()
+    {
+        return spells;
+    }
+
+    public static void addSpell(Spell spell)
+    {
+        spells.add(spell);
+    }
+
+    public static ArrayList<Item> getItems()
+    {
+        return items;
+    }
+
+    public static void addItem(Item item)
+    {
+        items.add(item);
+    }
 }

@@ -142,8 +142,7 @@ public class Spell extends Card
         }
         return false;
     }
-
-    public static void workingOnSpellText(ArrayList<TextField> textFields)
+    /*public void workingOnSpellText(ArrayList<TextField> textFields)
     {
 
         String name = textFields.get(0).getText();
@@ -175,6 +174,7 @@ public class Spell extends Card
         makingSpellCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,
                 allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
+    @SuppressWarnings("Duplicates")
 
     private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
                                         String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
@@ -271,5 +271,5 @@ public class Spell extends Card
         Shop.getInstance().addCardToShop(spell);
         Spell.getSpells().add(spell);
         //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
-    }
+    }*/
 }

@@ -6,6 +6,7 @@ import Model.*;
 import Network.Client;
 import Network.ClientCommand;
 import Network.ClientCommandEnum;
+import Network.Server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -73,11 +74,11 @@ public class Request
     private final static Pattern patternUseSpecialPower = Pattern.compile("Use special power( [0-9]+ [0-9]+ )");
     private final static Pattern patternInsertCard = Pattern.compile("Insert [a-zA-Z 0-9]+ in ((\\() [0-9]+ [,] [0-9]+ (\\)))");
 
-    private static Request request = null;
     private ShowOutput showOutput = ShowOutput.getInstance();
-    private AccountManager accountManager = new AccountManager();
     private CommandType command;
     public final Object requestLock = new Object();
+    private String messageFromServer;
+    public final Object validMessageFromServer = new Object();
 
     public CommandType getCommand()
     {
@@ -86,21 +87,7 @@ public class Request
 
     public void setCommand(CommandType command)
     {
-        Request.getInstance().command = command;
-    }
-
-    private Request()
-    {
-        //just added to make Request singleton
-    }
-
-    public static Request getInstance()
-    {
-        if (request == null)
-        {
-            request = new Request();
-        }
-        return request;
+        this.command = command;
     }
 
     private static final int ROW_BLANK = 20;
@@ -190,19 +177,31 @@ public class Request
                 String userName = textFieldName.getText();
                 String password = textFieldPassword.getText();
                 ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SIGN_UP, userName, password);
-                String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                System.out.println(json);
+                String signUpJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(signUpJson);
                 try
                 {
-                    Client.getSendMessage().addMessage(json);
+                    Client.getSendMessage().addMessage(signUpJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
                 }
                 catch (InterruptedException e)
                 {
                     e.printStackTrace();
                 }
-                primaryStage.setScene(Client.getSceneLoginMenu());
-                primaryStage.centerOnScreen();
-                login(primaryStage);
+                if (messageFromServer.equals("OK"))
+                {
+                    primaryStage.setScene(Client.getSceneLoginMenu());
+                    primaryStage.centerOnScreen();
+                    login(primaryStage);
+                }
+                else
+                {
+                    labelInvalidInput.setText(messageFromServer);
+                }
+                rootSignUpMenu.getChildren().add(labelInvalidInput);
             }
         });
         rootSignUpMenu.getChildren().add(buttonSignUp);
@@ -215,8 +214,6 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                String userName = textFieldName.getText();
-                String password = textFieldPassword.getText();
                 rootSignUpMenu.getChildren().remove(labelInvalidInput);
                 primaryStage.setScene(sceneLoginMenu);
                 primaryStage.centerOnScreen();
@@ -255,10 +252,15 @@ public class Request
                 String name = textFieldName.getText();
                 String password = textFieldPassword.getText();
                 ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN,name,password);
-                String LoginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                String loginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                System.out.println(loginJson);
                 try
                 {
-                    Client.getSendMessage().addMessage(LoginJson);
+                    Client.getSendMessage().addMessage(loginJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
                 }
                 catch (InterruptedException e)
                 {
@@ -576,6 +578,15 @@ public class Request
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL,textFields);
+            String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(spellJson);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             //workingOnSpellText(textFields);  //moved to spell                //5 constructor
         });
         rootSpellCustom.getChildren().addAll(back, apply);
@@ -627,6 +638,15 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION,textFields);
+            String MinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(MinionJson);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             //workingOnMinionText(textFields);   //5
         });
 
@@ -673,6 +693,15 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO,textFields);
+            String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(HeroJson);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             //workingOnHeroText(textFields);    //5 constructor
         });
         Button back = new Button("Back");
@@ -730,10 +759,18 @@ public class Request
         labelTop10.relocate(100, 0);
         rootLeaderBoard.getChildren().clear();
         rootLeaderBoard.getChildren().add(labelTop10);
-        //showOutput.showRankingPlayers();         //6
+        showOutput.showRankingPlayers();
         backButton(primaryStage, rootLeaderBoard, 100, 600);
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD);
-        //String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().
+        String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(leaderBoardJson);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
     }
@@ -1041,7 +1078,7 @@ public class Request
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
                     setCommand(CommandType.BUY);
-                    request.getCommand().cardOrItemName = name;
+                    getCommand().cardOrItemName = name;
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -1299,7 +1336,7 @@ public class Request
                 if (option.get() == buttonTypeSell)
                 {
                     setCommand(CommandType.SELL);
-                    request.getCommand().cardOrItemID = ID;
+                    getCommand().cardOrItemID = ID;
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -1341,7 +1378,7 @@ public class Request
                 else if (option.get() == buttonTypeRemoveDeck)
                 {
                     setCommand(CommandType.DELETE_DECK);
-                    request.getCommand().deckName = deck.getDeckName();
+                    getCommand().deckName = deck.getDeckName();
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -1351,7 +1388,7 @@ public class Request
                 else if (option.get() == buttonTypeSetMainDeck)
                 {
                     setCommand(CommandType.SET_MAIN_DECK);
-                    request.getCommand().deckName = deck.getDeckName();
+                    getCommand().deckName = deck.getDeckName();
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -1361,7 +1398,7 @@ public class Request
                 else if (option.get() == buttonTypeValidateDeck)
                 {
                     setCommand(CommandType.VALIDATE_DECK);
-                    request.getCommand().deckName = deck.getDeckName();
+                    getCommand().deckName = deck.getDeckName();
                     synchronized (requestLock)
                     {
                         requestLock.notify();
@@ -1485,7 +1522,7 @@ public class Request
                     {
                         setCommand(CommandType.CREATE_DECK);
                         getCommand().deckName = createDeckTextField.getText();
-                        synchronized (request.requestLock)
+                        synchronized (requestLock)
                         {
                             requestLock.notify();
                         }
@@ -2237,7 +2274,7 @@ public class Request
 
         //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_OF_THE_ACCOUNTS);
 
-        for (Account account : AccountManager.getAccounts())                    //1
+        for (Account account : Server.getAccounts())                    //1
         {
             MenuItem menuItem = new MenuItem(account.getAccountName());
             decksMenu.getItems().add(menuItem);
@@ -2279,7 +2316,7 @@ public class Request
             showGameInfo(rootBattleField);
             setEndTurnButton(rootBattleField , battleMode);
         }
-        battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo , battleMode);
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField , battleInfo , battleMode);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2332,10 +2369,10 @@ public class Request
             public void handle(MouseEvent event)
             {
                 Battle.getCurrentBattle().tasksWhenSurrender();
-                request.setCommand(CommandType.END_GAME);
-                synchronized (request.requestLock)
+                setCommand(CommandType.END_GAME);
+                synchronized (requestLock)
                 {
-                    request.requestLock.notify();
+                    requestLock.notify();
                 }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
@@ -2429,11 +2466,16 @@ public class Request
                 {
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
-                battleFieldController = new BattleFieldController(rootBattleField, sceneBattleField , battleInfo , battleMode);
-                battleFieldController.start();
+                makeBattleFieldController(battleMode);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
+    }
+
+    private void makeBattleFieldController(BattleMode battleMode)
+    {
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField , battleInfo , battleMode);
+        battleFieldController.start();
     }
 
     private void setHeroFirstPlace()
@@ -2725,43 +2767,21 @@ public class Request
         }
     }
 
-    public String getPassword()
-    {
-        return myScanner.nextLine();
-    }
-
-    public int getStoryMatchLevel()
-    {
-        try
-        {
-            showOutput.printOutput("Enter Level number");
-            String input = myScanner.nextLine();
-            getCommand().storyGameMode = Integer.parseInt(input);
-        } catch (NumberFormatException e)
-        {
-            showOutput.printOutput("Try Again");
-            getStoryMatchLevel();
-        }
-        return getCommand().storyGameMode;
-    }
-
-    public void getCustomGameCommands()
-    {
-        String line = myScanner.nextLine();
-        String[] partedLine = line.split(" ");
-        getCommand().deckNameForCustomGame = partedLine[2];
-        getCommand().customGameMode = Integer.parseInt(partedLine[3]);
-        if (partedLine.length == 5)    ///I have doubt about it
-        {
-            getCommand().customGameFlagNumber = Integer.parseInt(partedLine[4]);
-        }
-    }
-
     public Account getLoggedInAccount(){
         return loggedInAccount;
     }
 
     public void setLoggedInAccount(Account account){
         loggedInAccount = account;
+    }
+
+    public String getMessageFromServer()
+    {
+        return messageFromServer;
+    }
+
+    public void setMessageFromServer(String messageFromServer)
+    {
+        this.messageFromServer = messageFromServer;
     }
 }

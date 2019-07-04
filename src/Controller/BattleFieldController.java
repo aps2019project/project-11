@@ -25,6 +25,7 @@ public class BattleFieldController extends Thread
 {
     private boolean isCardSelectedToInsert = false;
     private boolean isCardSelectedInBattle = false;
+    private Request request;
     private Card selectedCardForInserting;
     private Card selectedCard;
     private Group rootBattleField;
@@ -35,8 +36,9 @@ public class BattleFieldController extends Thread
     private Text battleInfo;
     private BattleMode battleMode;
 
-    public BattleFieldController(Group rootBattleField, Scene sceneBattleField , Text battleInfo , BattleMode battleMode)
+    public BattleFieldController(Request request, Group rootBattleField, Scene sceneBattleField , Text battleInfo , BattleMode battleMode)
     {
+        this.request = request;
         setSceneBattleField(sceneBattleField);
         setRootBattleField(rootBattleField);
         setBattleInfo(battleInfo);
@@ -271,7 +273,7 @@ public class BattleFieldController extends Thread
                                     Battle.getCurrentBattle().setNextCardPane(rootBattleField);
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
-                                    Request.getInstance().setMPIcons(rootBattleField);
+                                    request.setMPIcons(rootBattleField);
 
                                     setCardSelectedToInsert(false);
                                     setSelectedCardForInserting(null);
@@ -294,7 +296,7 @@ public class BattleFieldController extends Thread
 
                                     Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().add(Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard());
                                     Battle.getCurrentBattle().setHandIcons();
-                                    Request.getInstance().setMPIcons(rootBattleField);
+                                    request.setMPIcons(rootBattleField);
 
                                     setSelectedCardForInserting(null);
                                     setCardSelectedToInsert(false);

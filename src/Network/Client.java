@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -24,9 +23,9 @@ import static javafx.scene.paint.Color.BURLYWOOD;
 
 public class Client extends Application
 {
-    private static ArrayList<InputCommandHandlerForClient> commandHandlers = new ArrayList<>();
     private static CallTheAppropriateFunction callTheAppropriateFunction;
     private static SendMessage sendMessage;
+    private Request request = new Request();
 
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
@@ -155,12 +154,10 @@ public class Client extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        connectToServer();
         Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
-        convertingToShop();
-        convertingToAccounts();
-        Request request = Request.getInstance();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
         primaryStage.getIcons().add(iconImage);
@@ -168,47 +165,15 @@ public class Client extends Application
         primaryStage.show();
     }
 
-    private void convertingToShop()
+    public static void main(String[] args)
     {
-        try
-        {
-            FileReader reader = new FileReader("shop.json");
-            JsonParser jsonParser = new JsonParser();
-            Object object = jsonParser.parse(reader);
-            Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
-        }
-        catch (FileNotFoundException ignored)
-        {
-
-        }
-    }
-
-    private void convertingToAccounts() throws Exception
-    {
-        InputStream inputStream = new FileInputStream("SavedAccounts/SavedAccountPath.txt");
-        Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNext())
-        {
-            String fileName = scanner.nextLine();
-
-            JsonParser jsonParser = new JsonParser();
-            FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
-            Object obj = jsonParser.parse(reader);
-            System.out.println(obj);
-            AccountManager.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
-        }
-    }
-
-    public static void main(String[] args) throws IOException
-    {
-        connectToServer();
         callTheAppropriateFunction = new CallTheAppropriateFunction();
         callTheAppropriateFunction.setDaemon(true);
         callTheAppropriateFunction.start();
         launch(args);
     }
 
-    private static void connectToServer() throws IOException
+    private void connectToServer() throws IOException
     {
         Socket socket = new Socket("127.0.0.1", 8000);
 
@@ -218,21 +183,9 @@ public class Client extends Application
         SendMessage output = new SendMessage(System.out);
         output.start();
 
-        InputCommandHandlerForClient handleCommand = new InputCommandHandlerForClient(sendMessage);
+        InputCommandHandlerForClient handleCommand = new InputCommandHandlerForClient(this, sendMessage);
         handleCommand.setDaemon(true);
-        commandHandlers.add(handleCommand);
         handleCommand.start();
-
-        ReceiveMessage scanner = new ReceiveMessage(System.in);
-        scanner.addListener(new CommandReceivedListener()
-        {
-            @Override
-            public void onMessageReceived(String message) throws InterruptedException
-            {
-                sendMessage.addMessage(message);
-            }
-        });
-        scanner.start();
 
         ReceiveMessage receiveMessage = new ReceiveMessage(socket.getInputStream());
         receiveMessage.addListener(new CommandReceivedListener()
@@ -240,11 +193,11 @@ public class Client extends Application
             @Override
             public void onMessageReceived(String message) throws InterruptedException
             {
+                handleCommand.setMessage(message);
                 output.addMessage(message);
             }
         });
         receiveMessage.start();
-
     }
 
     public static SendMessage getSendMessage()
@@ -435,5 +388,10 @@ public class Client extends Application
     public static Scene getSceneGraveYard()
     {
         return sceneGraveYard;
+    }
+
+    public Request getRequest()
+    {
+        return request;
     }
 }
