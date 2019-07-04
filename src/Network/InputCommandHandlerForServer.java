@@ -64,8 +64,10 @@ public class InputCommandHandlerForServer extends Thread
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
                 break;
             case MAKE_CUSTOM_MINION:
+                workingOnMinionText(clientCommand.getTextFieldsToMakeCustom());
                 break;
             case MAKE_CUSTOM_HERO:
+                workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
                 break;
             case LEADER_BOARD:
                 accountManager.sortAccountsByWins();
@@ -581,6 +583,152 @@ public class InputCommandHandlerForServer extends Thread
         Shop.getInstance().addCardToShop(minion);
         Minion.getMinions().add(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
+    }
+    @SuppressWarnings("Duplicates")
+
+    public static void workingOnHeroText(ArrayList<TextField> textFields)
+    {
+        String name = textFields.get(0).getText();
+        String Ap = textFields.get(1).getText();
+        String Hp = textFields.get(2).getText();
+        String AttackType = textFields.get(3).getText();
+        String Range = textFields.get(4).getText();
+        String coolDown = textFields.get(5).getText();
+        String cost = textFields.get(6).getText();
+        String turnsToApply = textFields.get(7).getText();
+        String isPositive = textFields.get(8).getText();
+        String untilEnd = textFields.get(9).getText();
+        String changeAp = textFields.get(10).getText();
+        String changeHp = textFields.get(11).getText();
+        String changeMp = textFields.get(12).getText();
+        String stun = textFields.get(13).getText();
+        String disarm = textFields.get(14).getText();
+        String numOfHolyBuff = textFields.get(15).getText();
+        String toxic = textFields.get(16).getText();
+        String holyCell = textFields.get(17).getText();
+        String fiery = textFields.get(18).getText();
+        String kill = textFields.get(19).getText();
+        String numOfOwnMinion = textFields.get(20).getText();
+        String numOfOpponentMinion = textFields.get(21).getText();
+        String ownHero = textFields.get(22).getText();
+        String opponentHero = textFields.get(23).getText();
+        String numOfOpponentBothNonSpell = textFields.get(24).getText();
+        String numOfOwnBothNonSpell = textFields.get(25).getText();
+        String allOwnMinion = textFields.get(26).getText();
+        String allOpponentBothNonSpell = textFields.get(27).getText();
+        String allOwnBothNonSpell = textFields.get(28).getText();
+
+        makingHeroCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
+    }
+    @SuppressWarnings("Duplicates")
+
+    private static void makingHeroCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)
+    {
+        int AP = Integer.parseInt(ap);
+        int HP = Integer.parseInt(hp);
+        int price = Integer.parseInt(cost, 10);
+        int rangeOfAttack = Integer.parseInt(range);
+        int cooldown = Integer.parseInt(coolDown, 10);
+        int turn = Integer.parseInt(turnsToApply);
+        int apChange = Integer.parseInt(changeAp);
+        int hpChange = Integer.parseInt(changeHp);
+        int mpChange = Integer.parseInt(changeMP);
+        int holyNumber = Integer.parseInt(numOfHolyBuff);
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
+        int numberOfHolyBuff = Integer.parseInt(numOfHolyBuff);
+        Hero hero = new Hero();
+        hero.setCardName(name);
+        hero.setDefaultAP(AP);
+        hero.setDefaultHP(HP);
+        SpecialPower specialPower = new SpecialPower("Custom card");
+        specialPower.getSpellEffect().addTarget(new Target());
+        specialPower.getSpellEffect().addSpellChange(new SpellChange());
+        hero.setSpecialPower(specialPower);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(turn);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        hero.getSpecialPower().getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(numberOfHolyBuff);
+        if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
+        }
+        if (allOwnBothNonSpell.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
+        }
+        if (allOwnMinion.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setAllOwnMinions(true);
+        }
+        if (ownHero.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setOwnHero(true);
+        }
+        if (opponentHero.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getTargets().get(0).setOpponentHero(true);
+        }
+        if (attackType.equalsIgnoreCase("melee"))
+        {
+            hero.setImpactType(ImpactType.melee);
+        }
+        if (attackType.equalsIgnoreCase("ranged"))
+        {
+            hero.setImpactType(ImpactType.ranged);
+        }
+        if (attackType.equalsIgnoreCase("hybrid"))
+        {
+            hero.setImpactType(ImpactType.hybrid);
+        }
+
+        if (isPositive.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setPositiveChange(true);
+        }
+        if (untilEnd.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setApplyChangeUntilEndOfTheGame(true);
+        }
+        if (stun.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setStunOpponent(true);
+        }
+        if (disarm.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setDisarmOpponent(true);
+        }
+        if (toxic.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellToxic(true);
+        }
+        if (kill.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setKilling(true);
+        }
+        if (fiery.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellFiery(true);
+        }
+        if (holyCell.equalsIgnoreCase("true"))
+        {
+            hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setMadeCellHoly(true);
+        }
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyNumber);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeHP(hpChange);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeAP(apChange);
+        hero.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setChangeMP(mpChange);
+        hero.setPrice(price);
+        hero.setCoolDown(cooldown);
+        hero.setRangeOfAttack(rangeOfAttack);
+        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, false);
+        Shop.getInstance().addCardToShop(hero);
+        Hero.getHeroes().add(hero);
+        //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
     }
 
     public synchronized void setMessage(String message)
