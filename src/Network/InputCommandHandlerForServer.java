@@ -59,6 +59,8 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case LOGOUT:
                 accountManager.logout(account);
+                String json = new GsonBuilder().setPrettyPrinting().create().toJson(new ServerCommand(ServerCommandEnum.OK));
+                getSendMessage().addMessage(json);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());

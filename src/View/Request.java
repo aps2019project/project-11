@@ -459,6 +459,21 @@ public class Request
                         makingCustomCards(primaryStage);
                         break;
                     case "Logout":
+                        ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGOUT, client.getAuthToken());
+                        String loginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                        System.out.println(loginJson);
+                        try
+                        {
+                            Client.getSendMessage().addMessage(loginJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
+                        }
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         login(primaryStage);
                         break;
                     case "Exit":
