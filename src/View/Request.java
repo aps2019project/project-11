@@ -1,6 +1,5 @@
 package View;
 
-import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
 import Network.*;
@@ -18,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -399,7 +397,7 @@ public class Request
                 switch (string)
                 {
                     case "Shop":
-                        setCommand(CommandType.ENTER_SHOP);          //4 constructor --- to send message in main menu  --- MAIN_MENU_COMMAND
+                        setCommand(CommandType.ENTER_SHOP);
                         synchronized (requestLock)
                         {
                             requestLock.notify();
@@ -2136,7 +2134,7 @@ public class Request
     private void multiPlayerMenu(Stage primaryStage)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
+        setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2278,15 +2276,27 @@ public class Request
     {
         Menu decksMenu = new Menu("Players");
 
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_OF_THE_ACCOUNTS);
-
-        for (Account account : Server.getAccounts())                    //1
-        {
-            MenuItem menuItem = new MenuItem(account.getAccountName());
-            decksMenu.getItems().add(menuItem);
-            menuItem.setOnAction(e -> {
-                multiPlayerAccountToBattle = account;
-            });
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_OF_THE_ACCOUNTS);
+        String getAllOfAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        System.out.println(getAllOfAccountsJson);
+        try {
+            Client.getSendMessage().addMessage(getAllOfAccountsJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (messageFromServer.equals("OK")) {
+            for (Account account : Server.getAccounts())                 //todo ?????
+            {
+                MenuItem menuItem = new MenuItem(account.getAccountName());
+                decksMenu.getItems().add(menuItem);
+                menuItem.setOnAction(e -> {
+                    multiPlayerAccountToBattle = account;
+                });
+            }
         }
 
         MenuBar menuBar = new MenuBar(decksMenu);
@@ -2294,7 +2304,7 @@ public class Request
         rootMultiPlayer.getChildren().add(menuBar);
     }
 
-    private void setMultiPlayerMenu(String string, Stage primaryStage, int location)
+    private void setMultiPlayerMenu(String string, int location)
     {
         Text multiPlayerText = new Text(string);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
