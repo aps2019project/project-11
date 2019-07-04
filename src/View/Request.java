@@ -129,7 +129,6 @@ public class Request
     private Group rootImportingDeck = Client.getRootImportingDeck();
     private Group rootBattleField = Client.getRootBattleField();
     private Scene sceneBattleField = Client.getSceneBattleField();
-    private GridPane BattleFieldGridPane = new GridPane();
     private Group rootMakingCustomCard = Client.getRootMakingCustomCards();
     private Scene sceneMakingCustomCards = Client.getSceneMakingCustomCards();
     private Group rootGraveYard = Client.getRootGraveYard();
@@ -266,40 +265,17 @@ public class Request
                 {
                     e.printStackTrace();
                 }
-
-               /* if (name.isEmpty() || password.isEmpty())
+                if (messageFromServer.equals("OK"))
                 {
-                    labelInvalidInput.setText("you must Fill both TextFields");
-                    rootLoginMenu.getChildren().add(labelInvalidInput);
-                    return;
-                }
-                Account account = accountManager.findAccount(name);          //FindAccount in Log in --- 1 constructor
-                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
-
-                if (account == null)
-                {
-                    labelInvalidInput.setText("Invalid name or password");
-                    rootLoginMenu.getChildren().add(labelInvalidInput);
-                }
-                else if (account.getPassword().equals(password))
-                {
-                    accountManager.login(account);                           //LogIn in accountManager --- 3 constructor
-                    rootSignUpMenu.getChildren().remove(labelInvalidInput);
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
-                    try
-                    {
-                        mainMenu(primaryStage);
-                    } catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    mainMenu(primaryStage);
                 }
                 else
                 {
-                    labelInvalidInput.setText("Password is Wrong.Try again");
-                    rootLoginMenu.getChildren().add(labelInvalidInput);
-                }*/
+                    labelInvalidInput.setText(messageFromServer);
+                }
+                rootLoginMenu.getChildren().add(labelInvalidInput);
             }
         });
         rootLoginMenu.getChildren().add(buttonLogin);
