@@ -583,6 +583,10 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(spellJson);
+                synchronized (validMessageFromServer)
+                {
+                    validMessageFromServer.wait();
+                }
             }catch (Exception e)
             {
                 e.printStackTrace();
@@ -643,6 +647,10 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(MinionJson);
+                synchronized (validMessageFromServer)
+                {
+                    validMessageFromServer.wait();
+                }
             }catch (Exception e)
             {
                 e.printStackTrace();
@@ -698,6 +706,10 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(HeroJson);
+                synchronized (validMessageFromServer)
+                {
+                    validMessageFromServer.wait();
+                }
             }catch (Exception e)
             {
                 e.printStackTrace();
