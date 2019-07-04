@@ -371,7 +371,7 @@ public class InputCommandHandlerForServer extends Thread
         }
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, false);
         Shop.getInstance().addCardToShop(spell);
-        Spell.getSpells().add(spell);
+        Server.addSpell(spell);
         //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
     }
 
@@ -541,7 +541,7 @@ public class InputCommandHandlerForServer extends Thread
         minion.setPrice(price);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, false);
         Shop.getInstance().addCardToShop(minion);
-        Minion.getMinions().add(minion);
+        Server.addMinion(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
     }
 
@@ -689,7 +689,7 @@ public class InputCommandHandlerForServer extends Thread
         hero.setRangeOfAttack(rangeOfAttack);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, false);
         Shop.getInstance().addCardToShop(hero);
-        Hero.getHeroes().add(hero);
+        Server.addHero(hero);
         //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
     }
 

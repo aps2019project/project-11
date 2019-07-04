@@ -1,12 +1,12 @@
 package Model;
 
+import Network.Server;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
 public class Spell extends Card
 {
-    private static ArrayList<Spell> spells = new ArrayList<>();
     private String descriptionTypeOfSpell;
     private SpellEffect spellEffect = new SpellEffect();
 
@@ -16,7 +16,7 @@ public class Spell extends Card
         this.setPrice(price);
         this.setRequiredMP(MP);
         this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
-        spells.add(this);
+        Server.addSpell(this);
         Shop.getInstance().addCardToShop(this);
     }
 
@@ -122,12 +122,6 @@ public class Spell extends Card
     public SpellEffect getSpellEffect()
     {
         return spellEffect;
-    }
-
-    public static ArrayList<Spell> getSpells()
-
-    {
-        return spells;
     }
 
     @Override

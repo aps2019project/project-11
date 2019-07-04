@@ -1,5 +1,6 @@
 package Model;
 
+import Network.Server;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -232,7 +233,7 @@ public class Card implements Cloneable
 
     public static void setCardIcons()
     {
-        for (Hero hero : Hero.getHeroes())
+        for (Hero hero : Server.getHeroes())
         {
             ImageView imageView = new ImageView("cardIcons/" + hero.getCardName() + ".png");
             cardsIcons.add(imageView);
@@ -246,7 +247,7 @@ public class Card implements Cloneable
 
     public static void setCardsImageView()
     {
-        for (Hero hero : Hero.getHeroes())
+        for (Hero hero : Server.getHeroes())
         {
             ImageView imageView = new ImageView("Cards Images/" + hero.getCardName() + ".png");
             cardsImageView.add(imageView);

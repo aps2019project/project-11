@@ -1,5 +1,6 @@
 package Model;
 
+import Network.Server;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 
 public class Minion extends NonSpellCard
 {
-    private static ArrayList<Minion> minions = new ArrayList<>();
     private boolean ableToCombo;
+
     public Minion(String name, int price, int MP, int HP, int AP, SpecialPower specialPower, boolean ableToCombo, ImpactType impactType, int rangeOfAttack , int imageNumber)
     {
         this.setCardName(name);
@@ -21,17 +22,13 @@ public class Minion extends NonSpellCard
         this.setImpactType(impactType);
         this.setRangeOfAttack(rangeOfAttack);
         this.setImageNumber(imageNumber);
-        minions.add(this);
+        Server.addMinion(this);
         Shop.getInstance().addCardToShop(this);
     }
 
     public Minion()
     {
 
-    }
-    public static ArrayList<Minion> getMinions()
-    {
-        return minions;
     }
 
     public static void setMinions()

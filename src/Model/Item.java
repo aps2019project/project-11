@@ -1,10 +1,11 @@
 package Model;
 
+import Network.Server;
+
 import java.util.ArrayList;
 
 public class Item implements Cloneable
 {
-    private static ArrayList<Item> items = new ArrayList<>();
     private String itemID;
     private String itemName;
     private int price;
@@ -26,7 +27,7 @@ public class Item implements Cloneable
         this.setItemType(itemType);
         this.setDescriptionTypeOfItem(descriptionTypeOfItem);
         this.setItemEffect(itemEffect);
-        items.add(this);
+        Server.addItem(this);
         Shop.getInstance().addItemToShop(this);
     }
 
@@ -266,7 +267,7 @@ public class Item implements Cloneable
 
     public static Item findItem(String itemName)
     {
-        for (Item item : items)
+        for (Item item : Server.getItems())
         {
             if (item.getItemName().equals(itemName))
             {
@@ -274,11 +275,6 @@ public class Item implements Cloneable
             }
         }
         return null;
-    }
-
-    public static ArrayList<Item> getItems()
-    {
-        return items;
     }
 
     public String getItemName()

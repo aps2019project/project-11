@@ -1,12 +1,12 @@
 package Model;
 
+import Network.Server;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
 public class Hero extends NonSpellCard
 {
-    private static ArrayList<Hero> heroes = new ArrayList<>();
     private int turnsRemainingToEndCoolDown;
     private int coolDown;
 
@@ -22,7 +22,7 @@ public class Hero extends NonSpellCard
         setImpactType(impactType);
         setRangeOfAttack(rangeOfAttack);
         this.setImageNumber(imageNumber);
-        heroes.add(this);
+        Server.addHero(this);
         Shop.getInstance().addCardToShop(this);
     }
     public Hero()
@@ -85,7 +85,7 @@ public class Hero extends NonSpellCard
 
     public static Hero findHero(String name)
     {
-        for (Hero hero : heroes)
+        for (Hero hero : Server.getHeroes())
         {
             if (hero.getCardName().equals(name))
             {
@@ -93,16 +93,6 @@ public class Hero extends NonSpellCard
             }
         }
         return null;
-    }
-
-    public static ArrayList<Hero> getHeroes()
-    {
-        return heroes;
-    }
-
-    public static void setHeroes(ArrayList<Hero> heroes)
-    {
-        Hero.heroes = heroes;
     }
 
     public int getTurnsRemainingToEndCoolDown()
