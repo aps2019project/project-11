@@ -571,6 +571,15 @@ public class Request
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL,textFields);
+            String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(spellJson);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             //workingOnSpellText(textFields);  //moved to spell                //5 constructor
         });
         rootSpellCustom.getChildren().addAll(back, apply);
@@ -728,7 +737,15 @@ public class Request
         //showOutput.showRankingPlayers();         //6
         backButton(primaryStage, rootLeaderBoard, 100, 600);
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD);
-        //String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().
+        String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(leaderBoardJson);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
     }

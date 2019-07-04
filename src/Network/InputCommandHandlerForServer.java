@@ -3,6 +3,8 @@ package Network;
 import Controller.AccountManager;
 import Controller.ShopManager;
 import Model.Account;
+import Model.Card;
+import Model.Item;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
