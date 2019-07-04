@@ -28,8 +28,8 @@ public class ClientCommand
     private transient Player player;
     private transient Group root;
 
-
-    public ClientCommand(ClientCommandEnum clientCommandEnum) {
+    public ClientCommand(ClientCommandEnum clientCommandEnum)
+    {
         this.clientCommandEnum = clientCommandEnum;
     }
 
@@ -40,15 +40,7 @@ public class ClientCommand
         this.password = password;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, String userName, String password, String authToken)  //logout
-    {
-        this.clientCommandEnum = clientCommandEnum;
-        this.userName = userName;
-        this.password = password;
-        this.authToken = authToken;
-    }
-
-    public ClientCommand(ClientCommandEnum clientCommandEnum, String authToken)  //leaderBoard
+    public ClientCommand(ClientCommandEnum clientCommandEnum, String authToken)  //leaderBoard & logout
     {
         this.clientCommandEnum = clientCommandEnum;
         this.authToken = authToken;
@@ -112,60 +104,69 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-
-
-    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account) {  //9
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode, Account account)
+    {  //9
         this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
         this.account = account;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane) { //10
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Pane[][] battleFieldPanes, GridPane gridPane)
+    { //10
         this.clientCommandEnum = clientCommandEnum;
         this.battleFieldPanes = battleFieldPanes;
         this.gridPane = gridPane;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account , Deck deck) {   //11
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode, Account account, Deck deck)
+    {   //11
         this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
         this.account = account;
         this.deck = deck;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode , Account account , Account secondAccount) {   //12
+    public ClientCommand(ClientCommandEnum clientCommandEnum, int battleMode, Account account, Account secondAccount)
+    {   //12
         this.clientCommandEnum = clientCommandEnum;
         this.battleMode = battleMode;
         this.account = account;
         this.secondAccount = secondAccount;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Group root) {
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Group root)
+    {
         this.clientCommandEnum = clientCommandEnum;
         this.root = root;
     }
 
-    public ClientCommandEnum getClientCommandEnum() {
+    public ClientCommandEnum getClientCommandEnum()
+    {
         return clientCommandEnum;
     }
 
-    public void setClientCommandEnum(ClientCommandEnum clientCommandEnum) {
+    public void setClientCommandEnum(ClientCommandEnum clientCommandEnum)
+    {
         this.clientCommandEnum = clientCommandEnum;
     }
 
-    public String getUserName() {
+    public String getUserName()
+    {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(String userName)
+    {
         this.userName = userName;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
@@ -209,67 +210,83 @@ public class ClientCommand
         this.deckName = deckName;
     }
 
-    public Deck getDeck() {
+    public Deck getDeck()
+    {
         return deck;
     }
 
-    public void setDeck(Deck deck) {
+    public void setDeck(Deck deck)
+    {
         this.deck = deck;
     }
 
-    public int getBattleMode() {
+    public int getBattleMode()
+    {
         return battleMode;
     }
 
-    public void setBattleMode(int battleMode) {
+    public void setBattleMode(int battleMode)
+    {
         this.battleMode = battleMode;
     }
 
-    public Pane[][] getBattleFieldPanes() {
+    public Pane[][] getBattleFieldPanes()
+    {
         return battleFieldPanes;
     }
 
-    public void setBattleFieldPanes(Pane[][] battleFieldPanes) {
+    public void setBattleFieldPanes(Pane[][] battleFieldPanes)
+    {
         this.battleFieldPanes = battleFieldPanes;
     }
 
-    public GridPane getGridPane() {
+    public GridPane getGridPane()
+    {
         return gridPane;
     }
 
-    public void setGridPane(GridPane gridPane) {
+    public void setGridPane(GridPane gridPane)
+    {
         this.gridPane = gridPane;
     }
 
-    public Account getAccount() {
+    public Account getAccount()
+    {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Account account)
+    {
         this.account = account;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Player player)
+    {
         this.player = player;
     }
 
-    public Account getSecondAccount() {
+    public Account getSecondAccount()
+    {
         return secondAccount;
     }
 
-    public void setSecondAccount(Account secondAccount) {
+    public void setSecondAccount(Account secondAccount)
+    {
         this.secondAccount = secondAccount;
     }
 
-    public Group getRoot() {
+    public Group getRoot()
+    {
         return root;
     }
 
-    public void setRoot(Group root) {
+    public void setRoot(Group root)
+    {
         this.root = root;
     }
 

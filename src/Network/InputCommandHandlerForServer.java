@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class InputCommandHandlerForServer extends Thread
@@ -38,7 +37,9 @@ public class InputCommandHandlerForServer extends Thread
                     }
                 }
                 checkMassageSentByClient(getMessage());
-            } catch (Exception e)
+                message = null;
+            }
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -62,6 +63,12 @@ public class InputCommandHandlerForServer extends Thread
                 String json = new GsonBuilder().setPrettyPrinting().create().toJson(new ServerCommand(ServerCommandEnum.OK));
                 getSendMessage().addMessage(json);
                 break;
+            case GET_ALL_ACCOUNTS:
+                accountManager.sortAccountsByWins();
+                ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getAllAccountsJson);
+                break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
                 break;
@@ -70,9 +77,6 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case MAKE_CUSTOM_HERO:
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
-                break;
-            case LEADER_BOARD:
-                accountManager.sortAccountsByWins();
                 break;
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
@@ -102,8 +106,6 @@ public class InputCommandHandlerForServer extends Thread
             case MAKE_CUSTOM_BATTLE:
                 break;
             case MAKE_MULTI_PLAYER_BATTLE:
-                break;
-            case GET_ALL_OF_THE_ACCOUNTS:
                 break;
             case SET_BATTLEFIELD_PANES_AND_GRIDPANE:
                 break;

@@ -27,7 +27,7 @@ public class AccountManager
         serverCommand.setAuthToken("Account_" + Server.getNumberOfAccount());
         account.setAuthToken("Account_" + Server.getNumberOfAccount());
         Server.setNumberOfAccount(Server.getNumberOfAccount() + 1);
-        System.out.println(account.getAuthToken());
+        System.out.println("\n" + account.getAuthToken());
     }
 
     public void logout(Account account)
