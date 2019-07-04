@@ -79,6 +79,7 @@ public class Request
     public final Object requestLock = new Object();
     private String messageFromServer;
     public final Object validMessageFromServer = new Object();
+    private Client client;
 
     public CommandType getCommand()
     {
@@ -149,6 +150,16 @@ public class Request
     private Account multiPlayerAccountToBattle;
     private Text battleInfo;
     private Account loggedInAccount;
+
+    public Request()
+    {
+
+    }
+
+    public Request(Client client)
+    {
+        this.client = client;
+    }
 
     public void signUpMenu(Stage primaryStage)
     {
@@ -448,11 +459,6 @@ public class Request
                         makingCustomCards(primaryStage);
                         break;
                     case "Logout":
-                        setCommand(CommandType.LOGOUT);
-                        synchronized (requestLock)
-                        {
-                            requestLock.notify();
-                        }
                         login(primaryStage);
                         break;
                     case "Exit":
@@ -554,7 +560,7 @@ public class Request
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL,textFields);
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL, textFields, client.getAuthToken());
             String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
@@ -618,7 +624,7 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION,textFields);
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION, textFields, client.getAuthToken());
             String MinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
@@ -677,7 +683,7 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO,textFields);
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO, textFields, client.getAuthToken());
             String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
@@ -749,7 +755,7 @@ public class Request
         rootLeaderBoard.getChildren().add(labelTop10);
         showOutput.showRankingPlayers();
         backButton(primaryStage, rootLeaderBoard, 100, 600);
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD);
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD, client.getAuthToken());
         String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
         try
         {
@@ -2500,7 +2506,7 @@ public class Request
     }
 
     private void goToChatMenu(Stage primaryStage) {
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS);
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS, client.getAuthToken());
         //
 
 

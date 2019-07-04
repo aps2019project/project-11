@@ -1,10 +1,7 @@
 package Network;
 
 import Controller.*;
-import Model.*;
 import View.Request;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,8 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
-
 
 import static javafx.scene.paint.Color.BURLYWOOD;
 
@@ -25,7 +20,8 @@ public class Client extends Application
 {
     private static CallTheAppropriateFunction callTheAppropriateFunction;
     private static SendMessage sendMessage;
-    private Request request = new Request();
+    private Request request = new Request(this);
+    private String authToken;
 
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
@@ -393,5 +389,15 @@ public class Client extends Application
     public Request getRequest()
     {
         return request;
+    }
+
+    public String getAuthToken()
+    {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken)
+    {
+        this.authToken = authToken;
     }
 }

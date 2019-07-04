@@ -15,6 +15,7 @@ public class Account
     private int numOfWins = 0;
     private int defaultID = 1;
     private int AIAccountDefaultID = 10000;
+    private String authToken;
 
     public Account(String userName, String password)
     {
@@ -103,6 +104,7 @@ public class Account
     public static void logout()
     {
         loggedInAccount = null;
+
     }
 
     @Override
@@ -213,6 +215,16 @@ public class Account
         {
             getCollection().addItem(Account.loggedInAccount, item, true);
         }
+    }
+
+    public String getAuthToken()
+    {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken)
+    {
+        this.authToken = authToken;
     }
 }
 

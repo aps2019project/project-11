@@ -60,9 +60,6 @@ public class CallTheAppropriateFunction extends Thread
                     }
                     request.setCommand(null);
                     break;
-                case LOGOUT:
-                    accountManager.logout();
-                    break;
                 case SHOW_PROFILE:
                     synchronized (request.requestLock)
                     {

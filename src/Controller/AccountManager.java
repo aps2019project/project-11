@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import Network.Server;
+import Network.ServerCommand;
 import View.*;
 import com.google.gson.GsonBuilder;
 
@@ -20,14 +21,18 @@ public class AccountManager
         return account;
     }
 
-    public void login(Account account)
+    public void login(ServerCommand serverCommand, Account account)
     {
-        Account.login(account);
+        serverCommand.setLogin(true);
+        serverCommand.setAuthToken("Account_" + Server.getNumberOfAccount());
+        account.setAuthToken("Account_" + Server.getNumberOfAccount());
+        Server.setNumberOfAccount(Server.getNumberOfAccount() + 1);
+        System.out.println(account.getAuthToken());
     }
 
-    public void logout()
+    public void logout(Account account)
     {
-        Account.logout();
+        account.setAuthToken(null);
     }
 
     public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
