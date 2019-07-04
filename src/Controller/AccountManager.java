@@ -1,23 +1,22 @@
 package Controller;
 
 import Model.*;
+import Network.Server;
 import View.*;
 import com.google.gson.GsonBuilder;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AccountManager
 {
-    private static ArrayList<Account> accounts = new ArrayList<>();
     private ShowOutput showOutput = ShowOutput.getInstance();
 
     public Account createAccount(String userName, String password)
     {
         Account account = new Account(userName, password);
         account.addDefaultCardsToCollection(account);
-        AccountManager.getAccounts().add(account);
+        Server.addAccount(account);
         return account;
     }
 
@@ -56,7 +55,7 @@ public class AccountManager
 
     public void sortAccountsByWins()
     {
-        accounts.sort((o1, o2) -> {
+        Server.getAccounts().sort((o1, o2) -> {
             if (o1.getNumOfWins() < o2.getNumOfWins())
             {
                 return 1;
@@ -71,7 +70,7 @@ public class AccountManager
 
     public Account findAccount(String userName)
     {
-        for (Account account : accounts)
+        for (Account account : Server.getAccounts())
         {
             if (userName.equals(account.getAccountName()))
             {
@@ -84,7 +83,7 @@ public class AccountManager
     public void showAllPlayers()
     {
         int counter = 1;
-        for (Account account : getAccounts())
+        for (Account account : Server.getAccounts())
         {
             showOutput.printOutput(counter + "- " + account.getAccountName());
             counter ++;
@@ -131,10 +130,5 @@ public class AccountManager
         {
             return null;
         }
-    }
-
-    public static ArrayList<Account> getAccounts()
-    {
-        return accounts;
     }
 }

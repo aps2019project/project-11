@@ -1,13 +1,17 @@
 package Network;
 
+import com.google.gson.Gson;
+
 public class InputCommandHandlerForClient extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
     private SendMessage sendMessage;
+    private Client client;
 
-    public InputCommandHandlerForClient(SendMessage sendMessage)
+    public InputCommandHandlerForClient(Client client, SendMessage sendMessage)
     {
+        this.client = client;
         this.sendMessage = sendMessage;
     }
 
@@ -18,6 +22,13 @@ public class InputCommandHandlerForClient extends Thread
         {
             try
             {
+                synchronized (validMessageLock)
+                {
+                    if (message == null)
+                    {
+                        validMessageLock.wait();
+                    }
+                }
                 checkMassageSentByServer(getMessage());
             }
             catch (InterruptedException e)
@@ -27,27 +38,40 @@ public class InputCommandHandlerForClient extends Thread
         }
     }
 
-    private void checkMassageSentByServer(String CommandSentByServer)
+    private void checkMassageSentByServer(String commandSentByServer)
     {
-        // switch case
+        ServerCommand serverCommand = new Gson().fromJson(commandSentByServer, ServerCommand.class);
+        switch (serverCommand.getServerCommandEnum())
+        {
+            case ERROR:
+                client.getRequest().setMessageFromServer(serverCommand.getErrorMessage());
+                synchronized (client.getRequest().validMessageFromServer)
+                {
+                    client.getRequest().validMessageFromServer.notify();
+                }
+                break;
+            case OK:
+                client.getRequest().setMessageFromServer("OK");
+                synchronized (client.getRequest().validMessageFromServer)
+                {
+                    client.getRequest().validMessageFromServer.notify();
+                }
+                break;
+        }
         message = null;
     }
 
-    public void setMessage(String message)
+    public synchronized void setMessage(String message)
     {
         this.message = message;
-    }
-
-    public String getMessage() throws InterruptedException
-    {
         synchronized (validMessageLock)
         {
-            if (message == null)
-            {
-                validMessageLock.wait();
-            }
-
+            validMessageLock.notify();
         }
+    }
+
+    public synchronized String getMessage() throws InterruptedException
+    {
         return message;
     }
 

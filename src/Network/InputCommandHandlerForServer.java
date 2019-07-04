@@ -16,9 +16,10 @@ public class InputCommandHandlerForServer extends Thread
     public final Object validMessageLock = new Object();
     private String message;
     private SendMessage sendMessage;
-    AccountManager accountManager  =new AccountManager();
-    ShopManager shopManager = new ShopManager();
+    private AccountManager accountManager = new AccountManager();
+    private ShopManager shopManager = new ShopManager();
     Spell spell = new Spell();
+
     public InputCommandHandlerForServer(SendMessage sendMessage)
     {
         this.sendMessage = sendMessage;
@@ -39,23 +40,23 @@ public class InputCommandHandlerForServer extends Thread
                     }
                 }
                 checkMassageSentByClient(getMessage());
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
     }
 
-    public void checkMassageSentByClient(String commandSentByClient) throws Exception {
+    public void checkMassageSentByClient(String commandSentByClient) throws Exception
+    {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
-                doingSignUpWork(clientCommand.getUserName(),clientCommand.getPassword());
+                doingSignUpWork(clientCommand.getUserName(), clientCommand.getPassword());
                 break;
             case LOGIN:
-                doingLoginWork(clientCommand.getUserName(),clientCommand.getPassword());
+                doingLoginWork(clientCommand.getUserName(), clientCommand.getPassword());
                 break;
             case LOGOUT:
                 accountManager.logout();
@@ -73,7 +74,7 @@ public class InputCommandHandlerForServer extends Thread
                 accountManager.sortAccountsByWins();
                 break;
             case SAVE_ACCOUNT_INFO:
-                accountManager.saveAccountInfo(clientCommand.getAccount(),clientCommand.getUserName(),false);
+                accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
                 break;
             case BUY:
                 shopManager.buyCard(clientCommand.getCard());
@@ -95,7 +96,7 @@ public class InputCommandHandlerForServer extends Thread
                 break;
 
 
-                case MAKE_STORY_BATTLE:
+            case MAKE_STORY_BATTLE:
                 break;
             case MAKE_CUSTOM_BATTLE:
                 break;
@@ -132,75 +133,71 @@ public class InputCommandHandlerForServer extends Thread
         }
         message = null;
     }
+
     @SuppressWarnings("Duplicates")
 
     private void doingLoginWork(String userName, String password)
     {
         if (userName.isEmpty() || password.isEmpty())
-                {
-                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"you should fill the blanks ");
-                    String blankson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(blankson);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-                Account account = accountManager.findAccount(userName);          //FindAccount in Log in --- 1 constructor
-                //loggedInAccount = accountManager.findAccount(userName);      //receive from server
+        {
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "you should fill the blanks ");
+            String blankson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(blankson);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            return;
+        }
+        Account account = accountManager.findAccount(userName);          //FindAccount in Log in --- 1 constructor
+        //loggedInAccount = accountManager.findAccount(userName);      //receive from server
 
-                if (account == null)
-                {
-                    ServerCommand accountServerCommand = new ServerCommand(ServerCommandEnum.ERROR,"there was no account");
-                    String accountJson = new GsonBuilder().setPrettyPrinting().create().toJson(accountServerCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(accountJson);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                    account = accountManager.createAccount(userName, password);
-                    //loggedInAccount = accountManager.findAccount(userName);
-                    try
-                    {
-                        accountManager.saveAccountInfo(account, userName, true);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                else if (account.getPassword().equals(password))
-                {
-                    accountManager.login(account);                           //LogIn in accountManager --- 3 constructor
-                    try
-                    {
-                     //   mainMenu(primaryStage);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                {
-                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Password is Wrong.Try again");
-                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(json);
-                    }
-                    catch (Exception f)
-                    {
-                        f.printStackTrace();
-                    }
-                }
+        if (account == null)
+        {
+            ServerCommand accountServerCommand = new ServerCommand(ServerCommandEnum.ERROR, "there was no account");
+            String accountJson = new GsonBuilder().setPrettyPrinting().create().toJson(accountServerCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(accountJson);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            account = accountManager.createAccount(userName, password);
+            //loggedInAccount = accountManager.findAccount(userName);
+            try
+            {
+                accountManager.saveAccountInfo(account, userName, true);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (account.getPassword().equals(password))
+        {
+            accountManager.login(account);                           //LogIn in accountManager --- 3 constructor
+            try
+            {
+                //   mainMenu(primaryStage);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Password is Wrong.Try again");
+            String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(json);
+            } catch (Exception f)
+            {
+                f.printStackTrace();
+            }
+        }
     }
 
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
@@ -227,62 +224,31 @@ public class InputCommandHandlerForServer extends Thread
     }*/
     @SuppressWarnings("Duplicates")
 
-    public void doingSignUpWork(String userName,String password)
+    public void doingSignUpWork(String userName, String password) throws Exception
     {
-         if (userName.isEmpty() || password.isEmpty())
-                {
-                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"you should fill the blanks");
-                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(json);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
-                Account account = accountManager.findAccount(userName);
-                //loggedInAccount = accountManager.findAccount(userName);
-                if (account == null)
-                {
-                    ServerCommand accountServerCommand = new ServerCommand(ServerCommandEnum.ERROR,"there was no account");
-                    String accountJson = new GsonBuilder().setPrettyPrinting().create().toJson(accountServerCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(accountJson);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                    account = accountManager.createAccount(userName, password);
-                    //loggedInAccount = accountManager.findAccount(userName);
-                    try
-                    {
-                        accountManager.saveAccountInfo(account, userName, true);
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                {
-                    ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Account exists with this name");
-                    String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    try
-                    {
-                        Client.getSendMessage().addMessage(json);
-                    }
-                    catch (Exception f)
-                    {
-                        f.printStackTrace();
-                    }
-                }
-
+        ServerCommand serverCommand;
+        if (userName.isEmpty() || password.isEmpty())
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "you must Fill both TextFields");
+        }
+        else
+        {
+            Account account = accountManager.findAccount(userName);
+            if (account == null)
+            {
+                account = accountManager.createAccount(userName, password);
+                accountManager.saveAccountInfo(account, userName, true);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+            }
+            else
+            {
+                serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Player exists with this name");
+            }
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        getSendMessage().addMessage(json);
     }
+
     @SuppressWarnings("Duplicates")
     public void workingOnSpellText(ArrayList<TextField> textFields)
     {
@@ -313,18 +279,12 @@ public class InputCommandHandlerForServer extends Thread
         String allOwnMinion = textFields.get(23).getText();
         String allOpponentBothNonSpell = textFields.get(24).getText();
         String allOwnBothNonSpell = textFields.get(25).getText();
-        makingSpellCard(numOfOwnMinion,numOfOpponentMinion,ownHero,opponentHero,numOfOpponentBothNonSpell,numOfOwnBothNonSpell,
-                allOwnMinion,allOpponentBothNonSpell,allOwnBothNonSpell,name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
+        makingSpellCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
+
     @SuppressWarnings("Duplicates")
 
-    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
-                                        String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
-                                        String allOpponentBothNonSpell, String allOwnBothNonSpell, String name,
-                                        String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType,
-                                        String effectValue, String delay, String last, String friendOrEnemy,
-                                        String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff,
-                                        String changingAp, String changingHp, String changingMp, String cost)
+    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
     {
         Spell spell = new Spell();
         spell.setCardName(name);
@@ -584,6 +544,7 @@ public class InputCommandHandlerForServer extends Thread
         Minion.getMinions().add(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
     }
+
     @SuppressWarnings("Duplicates")
 
     public static void workingOnHeroText(ArrayList<TextField> textFields)
@@ -620,6 +581,7 @@ public class InputCommandHandlerForServer extends Thread
 
         makingHeroCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
     }
+
     @SuppressWarnings("Duplicates")
 
     private static void makingHeroCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)

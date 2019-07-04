@@ -7,22 +7,6 @@ public class BattleManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public Player selectSecondPlayer(String userName)
-    {
-        Account account = new AccountManager().findAccount(userName);
-        if (account != null)
-        {
-            if (account.getMainDeck() != null)
-            {
-                return new Player(account, false);
-            }
-            showOutput.printOutput("second player has no valid MainDeck");
-            return null;
-        }
-        showOutput.printOutput("Invalid UserName");
-        return null;
-    }
-
     public void checkCircumstancesToInsertCard(String cardName, int x, int y)
     {
         Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
