@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -153,6 +154,10 @@ public class Request
     private Group rootMinionCustom = Client.getRootMinionCustom();
     private Group rootSpellCustom = Client.getRootSpellCustom();
     private Scene sceneSpellCustom = Client.getSceneSpellCustom();
+    private Group rootChatMenu = Client.getRootChatMenu();
+    private Scene sceneChatMenu = Client.getSceneChatMenu();
+    private Group rootChatPage = Client.getRootChatPage();
+    private Scene sceneChatPage = Client.getSceneChatPage();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
@@ -2451,6 +2456,93 @@ public class Request
     private void setGridPane(Group rootBattleField)
     {
         //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_GRID_PANE ,rootBattleField);                              //6
+    }
+
+    private void setGlobalChatButton(Stage primaryStage , Group root){
+        Button chatButton = new Button("Global Chat");
+        chatButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                goToChatMenu(primaryStage);
+            }
+        });
+        root.getChildren().add(chatButton);
+    }
+
+    private void goToChatMenu(Stage primaryStage) {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS);
+        //
+
+
+        ArrayList<Account> onlineAccounts = null;
+
+        int i = 0;
+        for(Account account: onlineAccounts){
+            Text text = new Text(account.getAccountName());
+            text.setFont(Font.font("Verdana", 25));
+            text.relocate(10 , i * 25 + 15);
+            text.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    text.setFill(DARKBLUE);
+                }
+            });
+            text.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    text.setFill(BLACK);
+                }
+            });
+            text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setChatPage(primaryStage , account);
+                }
+            });
+
+            rootChatMenu.getChildren().add(text);
+            primaryStage.setScene(sceneChatMenu);
+            primaryStage.show();
+        }
+    }
+
+    private void setChatPage(Stage primaryStage, Account account) {
+        Text text = new Text(account.getAccountName());
+        text.relocate(200 , 15);
+        text.setFont(Font.font("Verdana", 25));
+        rootChatPage = new Group();
+        rootChatPage.getChildren().add(text);
+
+        makeTextFields();
+
+        primaryStage.setScene(sceneChatPage);
+        primaryStage.show();
+    }
+
+    private void makeTextFields() {
+        TextField textField = new TextField();
+        makeSendButton(textField);
+        TilePane tilePane = new TilePane();
+        tilePane.getChildren().add(textField);
+        tilePane.relocate(0 , 500);
+        rootChatPage.getChildren().add(tilePane);
+    }
+
+    private void makeSendButton(TextField textField) {
+        Button button = new Button("SEND");
+        button.setFont(Font.font("Verdana", 12));
+        button.relocate(300, 500);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Text text = new Text();
+                text.setText(textField.getText());
+                text.relocate(50 , 50);
+                rootChatPage.getChildren().add(textField);
+                textField.setText(null);
+            }
+        });
+        rootChatPage.getChildren().add(button);
     }
 
 

@@ -35,5 +35,6 @@ public enum ClientCommandEnum
     ,SET_GRID_PANE
     , GET_PLAYER_DECKS
     ,SET_MP_ICONS
+    ,GET_ONLINE_ACCOUNTS
     ;
 }
