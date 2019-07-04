@@ -2521,57 +2521,17 @@ public class Request
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS, client.getAuthToken());
         //
 
-
-        ArrayList<Account> onlineAccounts = null;
-
-        int i = 0;
-        for(Account account: onlineAccounts){
-            Text text = new Text(account.getAccountName());
-            text.setFont(Font.font("Verdana", 25));
-            text.relocate(10 , i * 25 + 15);
-            text.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    text.setFill(DARKBLUE);
-                }
-            });
-            text.setOnMouseExited(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    text.setFill(BLACK);
-                }
-            });
-            text.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setChatPage(primaryStage , account);
-                }
-            });
-
-            rootChatMenu.getChildren().add(text);
-            primaryStage.setScene(sceneChatMenu);
-            primaryStage.show();
-        }
-    }
-
-    private void setChatPage(Stage primaryStage, Account receiverAccount) {
-        Text text = new Text(receiverAccount.getAccountName());
-        text.relocate(200 , 15);
-        text.setFont(Font.font("Verdana", 25));
-        rootChatPage = new Group();
-        rootChatPage.getChildren().add(text);
-
-        makeTextFields(receiverAccount);
-
+        makeTextFields();
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
+
     }
 
-    private void makeTextFields(Account receiverAccount) {
+    private void makeTextFields() {
         TextField textField = new TextField();
 
-        showMessage(receiverAccount);
-        makeSendButton(textField , receiverAccount);
+        showMessage();
+        makeSendButton(textField);
 
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
@@ -2579,23 +2539,21 @@ public class Request
         rootChatPage.getChildren().add(tilePane);
     }
 
-    private void showMessage(Account receiverAccount) {
+    private void showMessage() {
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_MESSAGES_IN_CHAT);
         //
         ArrayList<ChatMessage> chatMessages = null;
 
         int counter = 0 ;
         for(ChatMessage chatMessage : chatMessages){
-            if((chatMessage.getReceiver() == receiverAccount && chatMessage.getSender() == loggedInAccount) || (chatMessage.getReceiver() == loggedInAccount && chatMessage.getSender() == receiverAccount)){
-                Text text = new Text(chatMessages.get(counter).getSender().getAccountName() + chatMessages.get(counter).getMessage());
-                text.relocate(10, 10 + counter * 20);
-                rootChatPage.getChildren().add(text);
-                counter++;
-            }
+            Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
+            text.relocate(10, 10 + counter * 20);
+            rootChatPage.getChildren().add(text);
+            counter++;
         }
     }
 
-    private void makeSendButton(TextField textField, Account receiverAccount) {
+    private void makeSendButton(TextField textField) {
         Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
@@ -2604,7 +2562,7 @@ public class Request
             public void handle(MouseEvent event) {
                 Text text = new Text();
                 text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(loggedInAccount , receiverAccount , text.toString() , null); //todo
+                ChatMessage chatMessage = new ChatMessage(loggedInAccount , text.toString()) ;
 //                text.relocate(50 , 50);
                 textField.setText(null);
             }

@@ -6,15 +6,11 @@ import java.util.Date;
 
 public class ChatMessage {
     private Account sender;
-    private Account receiver;
     private String message;
-    private Date date;
 
-    public ChatMessage(Account sender, Account receiver, String message, Date date) {
+    public ChatMessage(Account sender, String message) {
         this.sender = sender;
-        this.receiver = receiver;
         this.message = message;
-        this.date = date;
         GlobalChat.getChatMessages().add(this);
     }
 
@@ -26,14 +22,6 @@ public class ChatMessage {
         this.sender = sender;
     }
 
-    public Account getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Account receiver) {
-        this.receiver = receiver;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -42,11 +30,4 @@ public class ChatMessage {
         this.message = message;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }

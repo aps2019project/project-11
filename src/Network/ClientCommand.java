@@ -28,6 +28,11 @@ public class ClientCommand
     private transient Player player;
     private transient Group root;
 
+
+    public ClientCommand(ClientCommandEnum clientCommandEnum) {
+        this.clientCommandEnum = clientCommandEnum;
+    }
+
     public ClientCommand(ClientCommandEnum clientCommandEnum, String userName, String password)  //login & signUp
     {
         this.clientCommandEnum = clientCommandEnum;
