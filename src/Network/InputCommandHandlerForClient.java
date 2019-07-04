@@ -52,6 +52,10 @@ public class InputCommandHandlerForClient extends Thread
                 break;
             case OK:
                 client.getRequest().setMessageFromServer("OK");
+                if (serverCommand.isLogin())
+                {
+                    client.setAuthToken(serverCommand.getAuthToken());
+                }
                 synchronized (client.getRequest().validMessageFromServer)
                 {
                     client.getRequest().validMessageFromServer.notify();

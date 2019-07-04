@@ -18,6 +18,7 @@ public class Server
     private static ArrayList<Minion> minions = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
+    private static int numberOfAccount = 1;
 
     public static void main(String[] args) throws Exception
     {
@@ -140,5 +141,15 @@ public class Server
     public static void addItem(Item item)
     {
         items.add(item);
+    }
+
+    public static int getNumberOfAccount()
+    {
+        return numberOfAccount;
+    }
+
+    public static void setNumberOfAccount(int numberOfAccount)
+    {
+        Server.numberOfAccount = numberOfAccount;
     }
 }

@@ -17,7 +17,6 @@ public class InputCommandHandlerForServer extends Thread
     private SendMessage sendMessage;
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
-    Spell spell = new Spell();
 
     public InputCommandHandlerForServer(SendMessage sendMessage)
     {
@@ -49,6 +48,7 @@ public class InputCommandHandlerForServer extends Thread
     public void checkMassageSentByClient(String commandSentByClient) throws Exception
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
+        Account account = findAccount(clientCommand.getAuthToken());
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -58,7 +58,9 @@ public class InputCommandHandlerForServer extends Thread
                 checkCircumstancesToLogin(clientCommand.getUserName(), clientCommand.getPassword());
                 break;
             case LOGOUT:
-                accountManager.logout();
+                accountManager.logout(account);
+                String json = new GsonBuilder().setPrettyPrinting().create().toJson(new ServerCommand(ServerCommandEnum.OK));
+                getSendMessage().addMessage(json);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
@@ -181,8 +183,15 @@ public class InputCommandHandlerForServer extends Thread
             }
             else if (account.getPassword().equals(password))
             {
-                accountManager.login(account);
-                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                if (account.getAuthToken() != null)
+                {
+                    serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Already LoggedIn to this account");
+                }
+                else
+                {
+                    serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                    accountManager.login(serverCommand, account);
+                }
             }
             else
             {
@@ -658,6 +667,22 @@ public class InputCommandHandlerForServer extends Thread
         Shop.getInstance().addCardToShop(hero);
         Server.addHero(hero);
         //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
+    }
+
+    private Account findAccount(String authToken)
+    {
+        for (Account account : Server.getAccounts())
+        {
+            if (account.getAuthToken() == null)
+            {
+                continue;
+            }
+            if (account.getAuthToken().equals(authToken))
+            {
+                return account;
+            }
+        }
+        return null;
     }
 
     public synchronized void setMessage(String message)
