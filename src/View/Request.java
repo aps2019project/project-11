@@ -791,37 +791,37 @@ public class Request
                 {
                     break;
                 }
-                Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
-                labelPlayerName.setFont(Font.font(15));
-                labelPlayerName.relocate(25, counter * 50);
-                rootLeaderBoard.getChildren().add(labelPlayerName);
+                Text textPlayerName = new Text(counter + "- " + account.getAccountName());
+                textPlayerName.setFont(Font.font(15));
+                textPlayerName.relocate(25, counter * 50);
+                rootLeaderBoard.getChildren().add(textPlayerName);
 
-                Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
-                labelPlayerHighScore.setFont(Font.font(15));
-                labelPlayerHighScore.relocate(250, counter * 50);
-                rootLeaderBoard.getChildren().add(labelPlayerHighScore);
+                Text textPlayerHighScore = new Text(Integer.toString(account.getNumOfWins()));
+                textPlayerHighScore.setFont(Font.font(15));
+                textPlayerHighScore.relocate(250, counter * 50);
+                rootLeaderBoard.getChildren().add(textPlayerHighScore);
 
                 if (account.getAuthToken() != null)
                 {
                     Circle circle = new Circle();
                     circle.setFill(Color.GREEN);
-                    circle.setCenterY(counter * 50);
-                    circle.setCenterX(25 + labelPlayerName.getLayoutX());
+                    circle.setCenterY(counter * 50 + 10);
+                    circle.setCenterX(15);
                     circle.setRadius(5);
                     rootLeaderBoard.getChildren().add(circle);
                 }
 
-                if (account.equals(Account.loggedInAccount))
+                if (account.getAuthToken().equals(client.getAuthToken()))
                 {
-                    labelPlayerName.setTextFill(Color.RED);
-                    labelPlayerHighScore.setTextFill(Color.RED);
+                    textPlayerName.setFill(Color.RED);
+                    textPlayerHighScore.setFill(Color.RED);
                 }
                 counter++;
             }
         }
         catch (Exception e)
         {
-            //showRankingPlayers(accounts);
+            showRankingPlayers(accounts);
         }
     }
 

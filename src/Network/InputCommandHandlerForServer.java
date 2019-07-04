@@ -64,7 +64,6 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(json);
                 break;
             case GET_ALL_ACCOUNTS:
-                accountManager.sortAccountsByWins();
                 ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
                 String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllAccountsJson);
