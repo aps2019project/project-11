@@ -3,10 +3,7 @@ package View;
 import Controller.AccountManager;
 import Controller.BattleFieldController;
 import Model.*;
-import Network.Client;
-import Network.ClientCommand;
-import Network.ClientCommandEnum;
-import Network.Server;
+import Network.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -2536,29 +2533,48 @@ public class Request
         }
     }
 
-    private void setChatPage(Stage primaryStage, Account account) {
-        Text text = new Text(account.getAccountName());
+    private void setChatPage(Stage primaryStage, Account receiverAccount) {
+        Text text = new Text(receiverAccount.getAccountName());
         text.relocate(200 , 15);
         text.setFont(Font.font("Verdana", 25));
         rootChatPage = new Group();
         rootChatPage.getChildren().add(text);
 
-        makeTextFields();
+        makeTextFields(receiverAccount);
 
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
     }
 
-    private void makeTextFields() {
+    private void makeTextFields(Account receiverAccount) {
         TextField textField = new TextField();
-        makeSendButton(textField);
+
+        showMessage(receiverAccount);
+        makeSendButton(textField , receiverAccount);
+
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
         tilePane.relocate(0 , 500);
         rootChatPage.getChildren().add(tilePane);
     }
 
-    private void makeSendButton(TextField textField) {
+    private void showMessage(Account receiverAccount) {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_MESSAGES_IN_CHAT);
+        //
+        ArrayList<ChatMessage> chatMessages = null;
+
+        int counter = 0 ;
+        for(ChatMessage chatMessage : chatMessages){
+            if((chatMessage.getReceiver() == receiverAccount && chatMessage.getSender() == loggedInAccount) || (chatMessage.getReceiver() == loggedInAccount && chatMessage.getSender() == receiverAccount)){
+                Text text = new Text(chatMessages.get(counter).getSender().getAccountName() + chatMessages.get(counter).getMessage());
+                text.relocate(10, 10 + counter * 20);
+                rootChatPage.getChildren().add(text);
+                counter++;
+            }
+        }
+    }
+
+    private void makeSendButton(TextField textField, Account receiverAccount) {
         Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
@@ -2567,8 +2583,8 @@ public class Request
             public void handle(MouseEvent event) {
                 Text text = new Text();
                 text.setText(textField.getText());
-                text.relocate(50 , 50);
-                rootChatPage.getChildren().add(textField);
+                ChatMessage chatMessage = new ChatMessage(loggedInAccount , receiverAccount , text.toString() , null); //todo
+//                text.relocate(50 , 50);
                 textField.setText(null);
             }
         });

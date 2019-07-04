@@ -131,6 +131,10 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case GET_ONLINE_ACCOUNTS:
                 break;
+            case SEND_MESSAGE:
+                break;
+            case GET_ALL_MESSAGES_IN_CHAT:
+                break;
 
         }
         message = null;

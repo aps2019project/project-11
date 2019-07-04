@@ -36,5 +36,7 @@ public enum ClientCommandEnum
     , GET_PLAYER_DECKS
     ,SET_MP_ICONS
     ,GET_ONLINE_ACCOUNTS
+    ,SEND_MESSAGE
+    ,GET_ALL_MESSAGES_IN_CHAT
     ;
 }

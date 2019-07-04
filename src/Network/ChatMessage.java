@@ -10,6 +10,13 @@ public class ChatMessage {
     private String message;
     private Date date;
 
+    public ChatMessage(Account sender, Account receiver, String message, Date date) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.date = date;
+        GlobalChat.getChatMessages().add(this);
+    }
 
     public Account getSender() {
         return sender;
