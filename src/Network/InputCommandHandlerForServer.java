@@ -130,6 +130,9 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case SET_MP_ICONS:
                 break;
+            case GET_ONLINE_ACCOUNTS:
+                break;
+
         }
         message = null;
     }

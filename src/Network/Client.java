@@ -69,6 +69,10 @@ public class Client extends Application
     private static Scene sceneMinionCustom = new Scene(rootMinionCustom, 1000, 562);
     private static Group rootSpellCustom = new Group();
     private static Scene sceneSpellCustom = new Scene(rootSpellCustom, 1000, 548);
+    private static Group rootChatMenu = new Group();
+    private static Scene sceneChatMenu = new Scene(rootChatMenu, 540, 540);
+    private static Group rootChatPage = new Group();
+    private static Scene sceneChatPage = new Scene(rootChatPage, 540, 540);
 
     public static Scene getSceneHeroCustom()
     {
@@ -113,6 +117,38 @@ public class Client extends Application
     public static void setSceneSpellCustom(Scene sceneSpellCustom)
     {
         Client.sceneSpellCustom = sceneSpellCustom;
+    }
+
+    public static Group getRootChatMenu() {
+        return rootChatMenu;
+    }
+
+    public static void setRootChatMenu(Group rootChatMenu) {
+        Client.rootChatMenu = rootChatMenu;
+    }
+
+    public static Scene getSceneChatMenu() {
+        return sceneChatMenu;
+    }
+
+    public static void setSceneChatMenu(Scene sceneChatMenu) {
+        Client.sceneChatMenu = sceneChatMenu;
+    }
+
+    public static Group getRootChatPage() {
+        return rootChatPage;
+    }
+
+    public static void setRootChatPage(Group rootChatPage) {
+        Client.rootChatPage = rootChatPage;
+    }
+
+    public static Scene getSceneChatPage() {
+        return sceneChatPage;
+    }
+
+    public static void setSceneChatPage(Scene sceneChatPage) {
+        Client.sceneChatPage = sceneChatPage;
     }
 
     @Override
