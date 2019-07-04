@@ -686,6 +686,15 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO,textFields);
+            String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            try
+            {
+                Client.getSendMessage().addMessage(HeroJson);
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
             //workingOnHeroText(textFields);    //5 constructor
         });
         Button back = new Button("Back");
