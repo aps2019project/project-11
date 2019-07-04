@@ -21,6 +21,8 @@ public class Server
 
     public static void main(String[] args) throws Exception
     {
+        Card.setCards();
+        Item.setItems();
         convertingToAccounts();
         convertingToShop();
         ServerSocket serverSocket = new ServerSocket(8000);

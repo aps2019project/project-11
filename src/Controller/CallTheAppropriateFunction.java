@@ -18,19 +18,12 @@ public class CallTheAppropriateFunction extends Thread
     {
         try
         {
-            setPrimarySettings();
+            determineMainMenuCommand();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-
-    public void setPrimarySettings() throws Exception
-    {
-        Card.setCards();
-        Item.setItems();
-        determineMainMenuCommand();
     }
 
     private void determineMainMenuCommand() throws Exception
