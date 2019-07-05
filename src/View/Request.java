@@ -1087,11 +1087,19 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeBuy)
                 {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BUY,Card.findCard(name),client.getAuthToken());
+                    String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(buyJson);
+                    try {
+                        Client.getSendMessage().addMessage(buyJson);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
-                    setCommand(CommandType.BUY);
-                    getCommand().cardOrItemName = name;
+                    //setCommand(CommandType.BUY);
+                    //getCommand().cardOrItemName = name;
                     synchronized (requestLock)
                     {
                         requestLock.notify();

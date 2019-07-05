@@ -97,7 +97,7 @@ public class InputCommandHandlerForServer extends Thread
                 shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:
-                importingToCollection(clientCommand.getDeckName());
+                importingToCollection(clientCommand.getDeckName(),account);
                 break;
             case EXPORT_DECK:
                 break;
@@ -234,7 +234,7 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
-      private void importingToCollection(String deckName) throws IOException, ParseException
+      private void importingToCollection(String deckName,Account account) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -242,7 +242,7 @@ public class InputCommandHandlerForServer extends Thread
         System.out.println(obj);
         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
         deck.setDeckName("Imported " + deck.getDeckName());
-        Account.loggedInAccount.getPlayerDecks().add(deck);
+        account.getPlayerDecks().add(deck);
         addImportedDeckCardsAndItemsToCollection(deck);
         ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
