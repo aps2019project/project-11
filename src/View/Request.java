@@ -2192,12 +2192,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, battleMode, new Player(multiPlayerAccountToBattle, false));
-                try {
-                    setBattleField(primaryStage, "customGameBackGround", false, battleMode);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                goWaitingPage(primaryStage , battleMode);
             }
         });
 
@@ -2224,6 +2219,50 @@ public class Request
         });
         primaryStage.setScene(sceneMultiPlayer);
         rootMultiPlayer.getChildren().addAll(backButton, nextButton);
+    }
+
+    private void goWaitingPage(Stage primaryStage, BattleMode battleMode) {
+        rootMultiPlayer.getChildren().clear();
+        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
+
+        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, battleMode, new Player(multiPlayerAccountToBattle, false));
+        try {
+            setBattleField(primaryStage, "customGameBackGround", false, battleMode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
+        Text waitingText = new Text("Waiting for other player ...");
+        waitingText.setFont(Font.font("Verdana", 30));
+        waitingText.relocate(250 , 250);
+        Button backButton = new Button("Back");
+        backButton.relocate(50, 490);
+        backButton.setFont(Font.font(25));
+
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                try
+                {
+                    primaryStage.setScene(sceneMainMenu);
+                    primaryStage.centerOnScreen();
+                    battleMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        primaryStage.setScene(sceneMultiPlayer);
+        rootMultiPlayer.getChildren().addAll(backButton);
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
