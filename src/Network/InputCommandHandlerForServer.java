@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import javafx.scene.control.TextField;
+import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -317,25 +318,27 @@ public class InputCommandHandlerForServer extends Thread
         }
     }
 
+    @SuppressWarnings("Duplicates")
+
     public void checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
     {
-        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
+        if (account.getCollection().findCardinCollection(ID) != null)
         {
-            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+            for (Hero hero : account.getCollection().getHeroes())
             {
                 if (ID.equals(hero.getCardID()))
                 {
                     deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero);
                 }
             }
-            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
                     deckManager.checkCircumstancesToAddCardToDeck(deck, minion);
                 }
             }
-            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            for (Spell spell :account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
@@ -343,9 +346,9 @@ public class InputCommandHandlerForServer extends Thread
                 }
             }
         }
-        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
+        else if (account.getCollection().findItemInTheCollection(ID) != null)
         {
-            for (Item item : Account.loggedInAccount.getCollection().getItems())
+            for (Item item :account.getCollection().getItems())
             {
                 if (ID.equals(item.getItemID()))
                 {
@@ -353,10 +356,26 @@ public class InputCommandHandlerForServer extends Thread
                     return;
                 }
             }
-            ShowOutput.getInstance().printOutput("This item isn't in the collection");
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
+            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            System.out.println(addJson);
+            try {
+                getSendMessage().addMessage(addJson);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
         else
         {
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
+            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            System.out.println(addJson);
+            try {
+                getSendMessage().addMessage(addJson);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ShowOutput.getInstance().printOutput("Invalid ID");
         }
     }
