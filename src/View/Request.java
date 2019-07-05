@@ -2584,6 +2584,7 @@ public class Request
     private void goToChatMenu(Stage primaryStage)
     {
 
+        backButton(primaryStage , rootChatPage ,  0, 0);
         makeTextFields();
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
@@ -2594,8 +2595,8 @@ public class Request
     {
         TextField textField = new TextField();
 
-        showMessage();
         makeSendButton(textField);
+        showMessage();
 
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
@@ -2660,7 +2661,8 @@ public class Request
                 {
                     e.printStackTrace();
                 }
-                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)) {
+                    System.out.println("Message Sent");
                     textField.setText(null);
                     showMessage();
                 }

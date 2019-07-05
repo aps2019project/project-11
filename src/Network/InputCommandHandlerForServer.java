@@ -137,6 +137,9 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case SEND_MESSAGE:
                 GlobalChat.getChatMessages().add(clientCommand.getChatMessage());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String sendOk = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(sendOk);
                 break;
             case GET_ALL_MESSAGES_IN_CHAT:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
