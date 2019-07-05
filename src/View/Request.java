@@ -1090,8 +1090,13 @@ public class Request
                     ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BUY,Card.findCard(name),client.getAuthToken());
                     String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     System.out.println(buyJson);
-                    try {
+                    try
+                    {
                         Client.getSendMessage().addMessage(buyJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1608,6 +1613,10 @@ public class Request
                     try
                     {
                         Client.getSendMessage().addMessage(importJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
                     }
                     catch (Exception e)
                     {
