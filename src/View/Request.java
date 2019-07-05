@@ -1436,30 +1436,20 @@ public class Request
                     ClientCommand clientCommand = new ClientCommand(client.getAuthToken(),ClientCommandEnum.EXPORT_DECK,deck.getDeckName());
                     String exportJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     System.out.println(exportJson);
-                    try {
+                    try
+                    {
                         Client.getSendMessage().addMessage(exportJson);
-                    } catch (InterruptedException e) {
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
                 }
             }
         });
-    }
-
-    private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception
-    {
-        InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
-        Scanner scanner = new Scanner(inputStream);
-        while (scanner.hasNext())
-        {
-            if (scanner.nextLine().equals(exportedDeckName))
-            {
-                return;
-            }
-        }
-        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
-        savedDecksPath.write(exportedDeckName + "\n");
-        savedDecksPath.close();
     }
 
     private void showAllDecks(Stage primaryStage, String ID)
@@ -1616,7 +1606,6 @@ public class Request
                     {
                         e.printStackTrace();
                     }
-                    //importingToCollection(deckNames.get(finalI));
                     primaryStage.setScene(sceneCollection);
                     primaryStage.centerOnScreen();
                     collectionMenu(primaryStage, false, null);
