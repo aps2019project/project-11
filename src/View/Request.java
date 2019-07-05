@@ -2390,18 +2390,13 @@ public class Request
 
     private void setNextCard(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_NEXT_CARD_PANE , rootBattleField);
-
-        Battle.getCurrentBattle().setNextCardPane(rootBattleField);   //6
+        Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
     private void showGameInfo(Group rootBattleField)
     {
         Text text = new Text();
-
-        // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_INSTANCE_OF_SHOW_OUTPUT);
-
-        ShowOutput showOutput = ShowOutput.getInstance();  //1
+        ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050, 200);
@@ -2416,12 +2411,12 @@ public class Request
 
     private void setPlayersName(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_PLAYERS_NAME , rootBattleField);
+        Battle.getCurrentBattle().setPlayersName(rootBattleField);
     }
 
     public void setMPIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_MP_ICONS , rootBattleField);
+        Battle.getCurrentBattle().setMPIcons(rootBattleField);
     }
 
     private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
@@ -2433,9 +2428,6 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-
-                //
-
                 Battle.getCurrentBattle().tasksWhenSurrender();
                 setCommand(CommandType.END_GAME);
                 synchronized (requestLock)
@@ -2480,9 +2472,6 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
-
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_TURN_GRAVE_YARD_CARDS);
-
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //7
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
@@ -2520,10 +2509,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                ////////////////////////////////////////////clear the hand panes image view in battle (don't forget it)                  //7
-
-                //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.CLEAR_HAND_PANES_IMAGE_VIEW_AND_END_TURN_AND_SET_HAND_ICON , rootBattleField);
-
+                Battle.getCurrentBattle().clearTheHandPictures();
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
                 Battle.getCurrentBattle().setHandIcons();
@@ -2549,24 +2535,22 @@ public class Request
 
     private void setHeroFirstPlace()
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HEROES_FIRST_PLACE);
-
-        Battle.getCurrentBattle().setHeroesFirstPlace();                                                     //7
+        Battle.getCurrentBattle().setHeroesFirstPlace();
     }
 
     private void setHeroIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HERO_ICONS ,rootBattleField);                                            //6
+        Battle.getCurrentBattle().setHeroIcons(rootBattleField);
     }
 
     private void setHandIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HAND_ICONS ,rootBattleField);                                             //6
+        Battle.getCurrentBattle().setHandIcons();
     }
 
     private void setGridPane(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_GRID_PANE ,rootBattleField);                              //6
+        Battle.getCurrentBattle().setGridPane(rootBattleField);
     }
 
     private void setGlobalChatButton(Stage primaryStage, Group root)
@@ -2608,16 +2592,28 @@ public class Request
     private void showMessage()
     {
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_MESSAGES_IN_CHAT, client.getAuthToken());
-        //
-        ArrayList<ChatMessage> chatMessages = null;
-
-        int counter = 0;
-        for (ChatMessage chatMessage : chatMessages)
+        String getAllMessagesInChat =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        System.out.println(getAllMessagesInChat);
+        try
         {
-            Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
-            text.relocate(10, 10 + counter * 20);
-            rootChatPage.getChildren().add(text);
-            counter++;
+            Client.getSendMessage().addMessage(getAllMessagesInChat);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)) {
+            ArrayList<ChatMessage> chatMessages = client.getMessageFromServer().getChatMessages();
+            int counter = 0;
+            for (ChatMessage chatMessage : chatMessages) {
+                Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
+                text.relocate(10, 10 + counter * 20);
+                rootChatPage.getChildren().add(text);
+                counter++;
+            }
         }
     }
 

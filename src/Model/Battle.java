@@ -795,7 +795,7 @@ public class Battle
         return secondPlayerHandPanes;
     }
 
-    public static void clearTheHandPictures(){
+    public  void clearTheHandPictures(){
         for (int number = 0; number < 5; number++)
         {
             Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
@@ -882,7 +882,7 @@ public class Battle
         Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
-    private void setGridPane(Group rootBattleField)
+    public void setGridPane(Group rootBattleField)
     {
         Pane[][] panes = new Pane[9][5];
         GridPane gridPane = new GridPane();
@@ -905,7 +905,7 @@ public class Battle
         Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
     }
 
-    private void setPlayersName(Group rootBattleField)
+    public void setPlayersName(Group rootBattleField)
     {
 
 

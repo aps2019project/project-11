@@ -50,6 +50,7 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
+        ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -64,7 +65,7 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(json);
                 break;
             case GET_ALL_ACCOUNTS:
-                ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
                 String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllAccountsJson);
                 break;
@@ -138,6 +139,10 @@ public class InputCommandHandlerForServer extends Thread
                 GlobalChat.getChatMessages().add(clientCommand.getChatMessage());
                 break;
             case GET_ALL_MESSAGES_IN_CHAT:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                serverCommand.setChatMessages(GlobalChat.getChatMessages());
+                String getAllChatsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getAllChatsJson);
                 break;
 
         }
