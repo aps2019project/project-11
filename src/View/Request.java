@@ -1371,7 +1371,18 @@ public class Request
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,f,Card.findCard(name),client.getAuthToken())
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,,Card.findCard(name),client.getAuthToken())
+                    //String addToDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand)
+                    // System.out.println(addToDeckJson);
+                    try {
+                       // Client.getSendMessage().addMessage(addToDeckJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     showAllDecks(primaryStage, ID);
                 }
             }
@@ -1538,7 +1549,18 @@ public class Request
             {
                 if (event.getCode().equals(KeyCode.ENTER))
                 {
-                   // ClientCommand clientCommand = new ClientCommand(client.getAuthToken(),ClientCommandEnum.)
+                    ClientCommand clientCommand = new ClientCommand(client.getAuthToken(),ClientCommandEnum.CREATE_DECK,createDeckTextField.getText());
+                    String createDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(createDeckJson);
+                    try {
+                        Client.getSendMessage().addMessage(createDeckJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     if (!createDeckTextField.getText().isEmpty())
                     {
                         setCommand(CommandType.CREATE_DECK);
