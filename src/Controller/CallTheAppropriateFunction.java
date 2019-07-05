@@ -146,13 +146,13 @@ public class CallTheAppropriateFunction extends Thread
                     collectionManager.createDeck(request.getCommand().deckName);
                     break;
                 case DELETE_DECK:
-                    collectionManager.deleteDeck(request.getCommand().deckName);
+                    //collectionManager.deleteDeck(request.getCommand().deckName);
                     break;
                 case ADD_TO_DECK:
-                    collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "add");
+                   // collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "add");
                     break;
                 case REMOVE_FROM_DECK:
-                    collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "remove");
+                    //collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "remove");
                     break;
                 case VALIDATE_DECK:
                     deckManager.checkDeckValidity(request.getCommand().deckName);

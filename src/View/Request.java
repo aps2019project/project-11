@@ -1371,6 +1371,7 @@ public class Request
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,f,Card.findCard(name),client.getAuthToken())
                     showAllDecks(primaryStage, ID);
                 }
             }

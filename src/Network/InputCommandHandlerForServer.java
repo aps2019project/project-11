@@ -22,7 +22,7 @@ public class InputCommandHandlerForServer extends Thread
     private SendMessage sendMessage;
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
-
+    private DeckManager deckManager = new DeckManager();
     public InputCommandHandlerForServer(SendMessage sendMessage)
     {
         this.sendMessage = sendMessage;
@@ -253,6 +253,112 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
+    public void detectID(String ID, String deckName, String command)
+    {
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
+        {
+            if (command.equals("add"))
+            {
+                this.checkIDValidityToAddToDeck(deck, ID);
+            }
+            else if (command.equals("remove"))
+            {
+                this.checkIDValidityToRemoveFromDeck(deck, ID);
+            }
+        }
+        else
+        {
+            ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+    }
+    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID)
+    {
+        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
+        {
+            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+            {
+                if (ID.equals(hero.getCardID()))
+                {
+                    deckManager.checkCardExistenceInDeckToRemove(deck, hero);
+                }
+            }
+            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            {
+                if (ID.equals(minion.getCardID()))
+                {
+                    deckManager.checkCardExistenceInDeckToRemove(deck, minion);
+                }
+            }
+            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            {
+                if (ID.equals(spell.getCardID()))
+                {
+                    deckManager.checkCardExistenceInDeckToRemove(deck, spell);
+                }
+            }
+        }
+        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
+        {
+            for (Item item : Account.loggedInAccount.getCollection().getItems())
+            {
+                if (ID.equals(item.getItemID()))
+                {
+                    deckManager.checkItemExistenceInDeckToRemove(deck, item);
+                    return;
+                }
+            }
+            ShowOutput.getInstance().printOutput("This item isn't in the collection");
+        }
+        else
+        {
+            ShowOutput.getInstance().printOutput("Invalid ID");
+        }
+    }
+
+    public void checkIDValidityToAddToDeck(Deck deck, String ID)
+    {
+        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
+        {
+            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+            {
+                if (ID.equals(hero.getCardID()))
+                {
+                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero);
+                }
+            }
+            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            {
+                if (ID.equals(minion.getCardID()))
+                {
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion);
+                }
+            }
+            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            {
+                if (ID.equals(spell.getCardID()))
+                {
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell);
+                }
+            }
+        }
+        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
+        {
+            for (Item item : Account.loggedInAccount.getCollection().getItems())
+            {
+                if (ID.equals(item.getItemID()))
+                {
+                    deckManager.checkCircumstancesToAddItemToDeck(deck, item);
+                    return;
+                }
+            }
+            ShowOutput.getInstance().printOutput("This item isn't in the collection");
+        }
+        else
+        {
+            ShowOutput.getInstance().printOutput("Invalid ID");
+        }
+    }
       private void importingToCollection(String deckName,Account account) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
