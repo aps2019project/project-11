@@ -93,6 +93,7 @@ public class InputCommandHandlerForServer extends Thread
                 }
                 break;
             case SELL:
+
                 shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:

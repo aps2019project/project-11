@@ -105,7 +105,7 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineCollectionCommand();
                     break;
-                case BUY:
+                /*case BUY:
                     Card card = Card.findCard(request.getCommand().cardOrItemName);
                     Item item = Item.findItem(request.getCommand().cardOrItemName);
                     if (card != null)
@@ -117,7 +117,7 @@ public class CallTheAppropriateFunction extends Thread
                         shopManager.buyItem(item);
                     }
                     break;
-                case EXIT:
+                */case EXIT:
                     request.setCommand(null);
                     determineMainMenuCommand();
                     break;
