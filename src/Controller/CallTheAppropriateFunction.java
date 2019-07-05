@@ -105,19 +105,7 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineCollectionCommand();
                     break;
-                /*case BUY:
-                    Card card = Card.findCard(request.getCommand().cardOrItemName);
-                    Item item = Item.findItem(request.getCommand().cardOrItemName);
-                    if (card != null)
-                    {
-                        shopManager.buyCard(card);
-                    }
-                    else if (item != null)
-                    {
-                        shopManager.buyItem(item);
-                    }
-                    break;
-                */case EXIT:
+                    case EXIT:
                     request.setCommand(null);
                     determineMainMenuCommand();
                     break;
@@ -139,21 +127,6 @@ public class CallTheAppropriateFunction extends Thread
             }
             switch (request.getCommand())
             {
-                case SELL:
-                    shopManager.detectIDToSell(request.getCommand().cardOrItemID);
-                    break;
-                case CREATE_DECK:
-                    collectionManager.createDeck(request.getCommand().deckName);
-                    break;
-                case DELETE_DECK:
-                    //collectionManager.deleteDeck(request.getCommand().deckName);
-                    break;
-                case ADD_TO_DECK:
-                   // collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "add");
-                    break;
-                case REMOVE_FROM_DECK:
-                    //collectionManager.detectID(request.getCommand().cardOrItemID, request.getCommand().deckName, "remove");
-                    break;
                 case VALIDATE_DECK:
                     deckManager.checkDeckValidity(request.getCommand().deckName);
                     break;
