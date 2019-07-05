@@ -425,8 +425,8 @@ public class CallTheAppropriateFunction extends Thread
         return false;
     }
 
-    public void multiPayerBattleMaker(Account loggedInAccount ,int number , Player opponentPlayerForCustomGame )
+    public void multiPayerBattleMaker(Account loggedInAccount ,BattleMode battleMode , Player opponentPlayerForCustomGame )
     {
-        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
+        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, battleMode , BattleType.CUSTOM_GAME);
     }
 }

@@ -1,6 +1,7 @@
 package View;
 
 import Controller.BattleFieldController;
+import Controller.BattleManager;
 import Model.*;
 import Network.*;
 import com.google.gson.Gson;
@@ -1833,8 +1834,7 @@ public class Request
                     break;
                 case "Multi Player":
                     command = CommandType.MULTI_PLAYER;
-                    multiPlayerMenu(primaryStage);
-                    //todo battlefield
+                    MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
                     break;
             }
             synchronized (requestLock)
@@ -2176,7 +2176,7 @@ public class Request
     }
 
 
-    private void multiPlayerMenu(Stage primaryStage)
+    private void multiPlayerMenu(Stage primaryStage , BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
         setMultiPlayerMenu("Choose  One Player", 75);
@@ -2192,7 +2192,12 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
+                Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, battleMode, new Player(multiPlayerAccountToBattle, false));
+                try {
+                    setBattleField(primaryStage, "customGameBackGround", false, battleMode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -2269,45 +2274,13 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 1 , loggedInAccount , multiPlayerAccountToBattle);
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, 1, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KILLING_ENEMY_HERO);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    multiPlayerMenu(primaryStage , BattleMode.KILLING_ENEMY_HERO);
                     break;
                 case "Mode 2":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 2 , loggedInAccount , multiPlayerAccountToBattle);
-
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, 2, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.GATHERING_FLAGS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    multiPlayerMenu(primaryStage , BattleMode.GATHERING_FLAGS);
                     break;
                 case "Mode 3":
-
-                    //  ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 3 , loggedInAccount , multiPlayerAccountToBattle);
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, 3, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    break;
+                    multiPlayerMenu(primaryStage , BattleMode.KEEP_FLAG_FOR_6_TURNS);
             }
             synchronized (requestLock)
             {
