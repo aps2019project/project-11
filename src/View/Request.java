@@ -1433,18 +1433,12 @@ public class Request
                 }
                 else if (option.get() == buttonTypeExportDeck)
                 {
-                    String accountName = Account.loggedInAccount.getAccountName();
-                    String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
-                    try
-                    {
-                        writeExportedDeckNameInFile(accountName + deck.getDeckName());
-
-                        FileWriter fileWriter = new FileWriter("SavedDecks/" + accountName + deck.getDeckName() + ".json");
-                        fileWriter.write(exportingDeckJson);
-                        System.out.println(accountName + deck.getDeckName());
-                        fileWriter.close();
-                    } catch (Exception e)
-                    {
+                    ClientCommand clientCommand = new ClientCommand(client.getAuthToken(),ClientCommandEnum.EXPORT_DECK,deck.getDeckName());
+                    String exportJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(exportJson);
+                    try {
+                        Client.getSendMessage().addMessage(exportJson);
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }

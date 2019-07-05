@@ -9,9 +9,9 @@ import com.google.gson.JsonParser;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import javafx.scene.control.TextField;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class InputCommandHandlerForServer extends Thread
 {
@@ -100,6 +100,7 @@ public class InputCommandHandlerForServer extends Thread
                 importingToCollection(clientCommand.getDeckName(),account);
                 break;
             case EXPORT_DECK:
+                exportingDeck(account,clientCommand.getDeck());
                 break;
             case CREATE_DECK:
                 break;
@@ -251,6 +252,42 @@ public class InputCommandHandlerForServer extends Thread
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    @SuppressWarnings("Duplicates")
+
+    private void exportingDeck(Account account,Deck deck)
+    {
+
+        String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
+        try
+        {
+            writeExportedDeckNameInFile(account.getAccountName() + deck.getDeckName());
+
+            FileWriter fileWriter = new FileWriter("SavedDecks/" + account.getAccountName() + deck.getDeckName() + ".json");
+            fileWriter.write(exportingDeckJson);
+            System.out.println(account.getAccountName() + deck.getDeckName());
+            fileWriter.close();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    @SuppressWarnings("Duplicates")
+
+    private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception
+    {
+        InputStream inputStream = new FileInputStream("SavedDecks/savedDecksPath.txt");
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNext())
+        {
+            if (scanner.nextLine().equals(exportedDeckName))
+            {
+                return;
+            }
+        }
+        FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
+        savedDecksPath.write(exportedDeckName + "\n");
+        savedDecksPath.close();
     }
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
