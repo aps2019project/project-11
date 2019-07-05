@@ -1409,6 +1409,10 @@ public class Request
                     try
                     {
                      Client.getSendMessage().addMessage(removeJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
                     }
                     catch (InterruptedException e)
                     {
