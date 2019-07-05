@@ -5,8 +5,11 @@ import Controller.ShopManager;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import javafx.scene.control.TextField;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -84,7 +87,7 @@ public class InputCommandHandlerForServer extends Thread
                 shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:
-
+                importingToCollection(clientCommand.getDeckName());
                 break;
             case EXPORT_DECK:
                 break;
@@ -221,7 +224,28 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
-
+      private void importingToCollection(String deckName) throws IOException, ParseException
+    {
+        JsonParser jsonParser = new JsonParser();
+        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
+        Object obj = jsonParser.parse(reader);
+        System.out.println(obj);
+        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
+        deck.setDeckName("Imported " + deck.getDeckName());
+        Account.loggedInAccount.getPlayerDecks().add(deck);
+        addImportedDeckCardsAndItemsToCollection(deck);
+        ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(json);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        //send deck to server    //
+    }
 
     @SuppressWarnings("Duplicates")
     public void workingOnSpellText(ArrayList<TextField> textFields)

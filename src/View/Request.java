@@ -1630,7 +1630,7 @@ public class Request
         }
         return null;
     }
-    /*private void importingToCollection(String deckName) throws IOException, ParseException
+   /* private void importingToCollection(String deckName) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -1640,13 +1640,13 @@ public class Request
         deck.setDeckName("Imported " + deck.getDeckName());
         Account.loggedInAccount.getPlayerDecks().add(deck);
         addImportedDeckCardsAndItemsToCollection(deck);
-    }*/
+    }
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
         //send deck to server    //
     }
-
+    */
     private void deckMenu(Stage primaryStage, Deck deck)
     {
         rootDeck.getChildren().clear();
