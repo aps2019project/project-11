@@ -109,10 +109,10 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-
+                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
-                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add");
+                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
                 break;
 
 
@@ -254,18 +254,18 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
-    public void detectID(String ID, String deckName, String command)
+    public void detectID(String ID, String deckName, String command,Account account)
     {
         Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
         {
             if (command.equals("add"))
             {
-                this.checkIDValidityToAddToDeck(deck, ID);
+                this.checkIDValidityToAddToDeck(deck, ID,account);
             }
             else if (command.equals("remove"))
             {
-                this.checkIDValidityToRemoveFromDeck(deck, ID);
+                this.checkIDValidityToRemoveFromDeck(deck, ID,account);
             }
         }
         else
@@ -273,7 +273,7 @@ public class InputCommandHandlerForServer extends Thread
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
     }
-    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID)
+    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
@@ -317,7 +317,7 @@ public class InputCommandHandlerForServer extends Thread
         }
     }
 
-    public void checkIDValidityToAddToDeck(Deck deck, String ID)
+    public void checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
         {
