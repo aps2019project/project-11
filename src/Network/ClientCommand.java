@@ -27,6 +27,7 @@ public class ClientCommand
     private transient Account secondAccount;
     private transient Player player;
     private transient Group root;
+    private transient ChatMessage chatMessage;
 
     public ClientCommand(ClientCommandEnum clientCommandEnum)
     {
@@ -138,6 +139,12 @@ public class ClientCommand
     {
         this.clientCommandEnum = clientCommandEnum;
         this.root = root;
+    }
+
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ChatMessage chatMessage ,String authToken) {
+        this.clientCommandEnum = clientCommandEnum;
+        this.authToken = authToken;
+        this.chatMessage = chatMessage;
     }
 
     public ClientCommandEnum getClientCommandEnum()
@@ -293,5 +300,13 @@ public class ClientCommand
     public String getAuthToken()
     {
         return authToken;
+    }
+
+    public ChatMessage getChatMessage() {
+        return chatMessage;
+    }
+
+    public void setChatMessage(ChatMessage chatMessage) {
+        this.chatMessage = chatMessage;
     }
 }

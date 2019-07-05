@@ -2378,7 +2378,8 @@ public class Request
             setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
             showGameInfo(rootBattleField);
-            setEndTurnButton(rootBattleField, battleMode);
+            setEndTurnButton(primaryStage ,rootBattleField, battleMode);
+            setGlobalChatButton(primaryStage , rootBattleField);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
@@ -2432,6 +2433,9 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+
+                //
+
                 Battle.getCurrentBattle().tasksWhenSurrender();
                 setCommand(CommandType.END_GAME);
                 synchronized (requestLock)
@@ -2507,7 +2511,7 @@ public class Request
         });
     }
 
-    private void setEndTurnButton(Group rootBattleField, BattleMode battleMode)
+    private void setEndTurnButton(Stage primaryStage, Group rootBattleField, BattleMode battleMode)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
@@ -2531,6 +2535,7 @@ public class Request
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
                 makeBattleFieldController(battleMode);
+                setGlobalChatButton(primaryStage , rootBattleField);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
@@ -2567,8 +2572,8 @@ public class Request
     private void setGlobalChatButton(Stage primaryStage, Group root)
     {
         Button chatButton = new Button("Global Chat");
-        chatButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+        chatButton.relocate(10 , 400);
+        chatButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event)
             {
@@ -2580,8 +2585,6 @@ public class Request
 
     private void goToChatMenu(Stage primaryStage)
     {
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS, client.getAuthToken());
-        //
 
         makeTextFields();
         primaryStage.setScene(sceneChatPage);
@@ -2631,8 +2634,24 @@ public class Request
                 Text text = new Text();
                 text.setText(textField.getText());
                 ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
-                //                text.relocate(50 , 50);
-                textField.setText(null);
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
+                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(sendMessageJson);
+                try
+                {
+                    Client.getSendMessage().addMessage(sendMessageJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
+                    textField.setText(null);
+                    showMessage();
+                }
             }
         });
         rootChatPage.getChildren().add(button);
