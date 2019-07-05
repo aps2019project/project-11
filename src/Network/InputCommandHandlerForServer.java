@@ -1,8 +1,10 @@
 package Network;
 
 import Controller.AccountManager;
+import Controller.DeckManager;
 import Controller.ShopManager;
 import Model.*;
+import View.ShowOutput;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -104,6 +106,7 @@ public class InputCommandHandlerForServer extends Thread
             case CREATE_DECK:
                 break;
             case DELETE_DECK:
+                deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
 
@@ -178,6 +181,20 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(json);
     }
 
+    public void deleteDeck(String deckName,Account account)
+    {
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
+        {
+            account.deleteDeck(deck);
+            ShowOutput.getInstance().printOutput("Deck deleted");
+
+        }
+        else
+        {
+            ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+    }
     private void checkCircumstancesToLogin(String userName, String password) throws Exception
     {
         ServerCommand serverCommand;

@@ -156,17 +156,5 @@ public class CollectionManager
         showOutput.printOutput("Deck created");
     }
 
-    public void deleteDeck(String deckName)
-    {
-        Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null)
-        {
-            Account.loggedInAccount.deleteDeck(deck);
-            showOutput.printOutput("Deck deleted");
-        }
-        else
-        {
-            showOutput.printOutput("There is no deck with this name");
-        }
-    }
+
 }
