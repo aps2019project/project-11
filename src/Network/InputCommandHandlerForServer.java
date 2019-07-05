@@ -221,6 +221,8 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
+
+
     @SuppressWarnings("Duplicates")
     public void workingOnSpellText(ArrayList<TextField> textFields)
     {

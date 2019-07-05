@@ -775,6 +775,10 @@ public class Request
         try
         {
             Client.getSendMessage().addMessage(leaderBoardJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
         }
         catch (Exception e)
         {
@@ -1590,7 +1594,18 @@ public class Request
             deckName.setOnMouseClicked(event -> {
                 try
                 {
-                    importingToCollection(deckNames.get(finalI));
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.IMPORT_DECK,returningDeck(deckName.getText()),client.getAuthToken());
+                    String importJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(importJson);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(importJson);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    //importingToCollection(deckNames.get(finalI));
                     primaryStage.setScene(sceneCollection);
                     primaryStage.centerOnScreen();
                     collectionMenu(primaryStage, false, null);
@@ -1604,7 +1619,18 @@ public class Request
         }
     }
 
-    private void importingToCollection(String deckName) throws IOException, ParseException
+    public Deck returningDeck (String deckName)
+    {
+        for (Deck deck :Account.loggedInAccount.getPlayerDecks())
+        {
+            if (deck.getDeckName() == deckName)
+            {
+                return deck;
+            }
+        }
+        return null;
+    }
+    /*private void importingToCollection(String deckName) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -1614,7 +1640,7 @@ public class Request
         deck.setDeckName("Imported " + deck.getDeckName());
         Account.loggedInAccount.getPlayerDecks().add(deck);
         addImportedDeckCardsAndItemsToCollection(deck);
-    }
+    }*/
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {

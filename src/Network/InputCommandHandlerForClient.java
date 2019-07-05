@@ -62,6 +62,7 @@ public class InputCommandHandlerForClient extends Thread
                 }
                 break;
         }
+
         message = null;
     }
 
