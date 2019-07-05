@@ -356,6 +356,8 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
+        setGlobalChatButton(primaryStage , rootMainMenu);
+
         setMainMenuText(primaryStage, "Battle", 80);
         setMainMenuText(primaryStage, "Shop", 135);
         setMainMenuText(primaryStage, "Collection", 190);
@@ -2619,12 +2621,14 @@ public class Request
         }
         if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)) {
             ArrayList<ChatMessage> chatMessages = client.getMessageFromServer().getChatMessages();
-            int counter = 0;
-            for (ChatMessage chatMessage : chatMessages) {
-                Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
-                text.relocate(10, 10 + counter * 20);
-                rootChatPage.getChildren().add(text);
-                counter++;
+            if (chatMessages != null) {
+                int counter = 0;
+                for (ChatMessage chatMessage : chatMessages) {
+                    Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
+                    text.relocate(10, 10 + counter * 20);
+                    rootChatPage.getChildren().add(text);
+                    counter++;
+                }
             }
         }
     }
