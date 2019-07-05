@@ -105,6 +105,7 @@ public class InputCommandHandlerForServer extends Thread
                 exportingDeck(account,clientCommand.getDeck());
                 break;
             case CREATE_DECK:
+                createDeck(clientCommand.getDeckName(),account);
                 break;
             case DELETE_DECK:
                 deleteDeck(clientCommand.getDeckName(),account);
@@ -255,6 +256,18 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
+    public void createDeck(String deckName,Account account)
+    {
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
+        {
+            ShowOutput.getInstance().printOutput("Deck exists with this name");
+            return;
+        }
+        Deck newDeck = new Deck(deckName);
+        account.addDeck(newDeck);
+        ShowOutput.getInstance().printOutput("Deck created");
+    }
     public void detectID(String ID, String deckName, String command,Account account)
     {
         Deck deck = DeckManager.findDeck(deckName);

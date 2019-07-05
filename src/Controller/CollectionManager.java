@@ -40,18 +40,7 @@ public class CollectionManager
         }
     }*/
 
-    public void createDeck(String deckName)
-    {
-        Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null)
-        {
-            showOutput.printOutput("Deck exists with this name");
-            return;
-        }
-        Deck newDeck = new Deck(deckName);
-        Account.loggedInAccount.addDeck(newDeck);
-        showOutput.printOutput("Deck created");
-    }
+
 
 
 }

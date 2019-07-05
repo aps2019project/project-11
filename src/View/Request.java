@@ -1538,6 +1538,7 @@ public class Request
             {
                 if (event.getCode().equals(KeyCode.ENTER))
                 {
+                   // ClientCommand clientCommand = new ClientCommand(client.getAuthToken(),ClientCommandEnum.)
                     if (!createDeckTextField.getText().isEmpty())
                     {
                         setCommand(CommandType.CREATE_DECK);
