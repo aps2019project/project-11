@@ -1676,7 +1676,7 @@ public class Request
             xPosition++;
             yPosition++;
             StackPane stackPane = showNonSpellCards(rootDeck, x, y, hero, hero.getCardID(), hero.getRequiredMP());
-            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, hero.getCardID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, hero.getCardID(),hero.getCardName());
         }
 
         if (xPosition == 0)
@@ -1695,7 +1695,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootDeck, x, y, minion, minion.getCardID(), minion.getRequiredMP());
-            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, minion.getCardID(),minion.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1716,7 +1716,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
-            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, spell.getCardID(),spell.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1740,7 +1740,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootDeck, x, y, item.getItemID(), item.getPrice(), 0);
-            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, item.getItemID());
+            setDeckCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, deck, item.getItemID(),item.getItemName());
             xPosition++;
             yPosition++;
         }
@@ -1760,7 +1760,7 @@ public class Request
         primaryStage.setScene(sceneDeck);
     }
 
-    private void setDeckCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck, String ID)
+    private void setDeckCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Deck deck, String ID ,String cardName)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1778,6 +1778,18 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK,deck,Card.findCard(cardName),client.getAuthToken());
+                    String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(removeJson);
+                    try {
+                        Client.getSendMessage().addMessage(removeJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     setCommand(CommandType.REMOVE_FROM_DECK);
                     getCommand().cardOrItemID = ID;
                     getCommand().deckName = deck.getDeckName();

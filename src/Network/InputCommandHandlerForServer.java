@@ -274,6 +274,8 @@ public class InputCommandHandlerForServer extends Thread
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
     }
+    @SuppressWarnings("Duplicates")
+
     public void checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
         if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
@@ -310,10 +312,26 @@ public class InputCommandHandlerForServer extends Thread
                     return;
                 }
             }
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
+            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            System.out.println(addJson);
+            try {
+                getSendMessage().addMessage(addJson);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
+            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
+            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            System.out.println(addJson);
+            try {
+                getSendMessage().addMessage(addJson);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ShowOutput.getInstance().printOutput("Invalid ID");
         }
     }
@@ -364,7 +382,7 @@ public class InputCommandHandlerForServer extends Thread
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
