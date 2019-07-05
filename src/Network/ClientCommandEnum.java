@@ -17,6 +17,7 @@ public enum ClientCommandEnum
     CREATE_DECK,
     REMOVE_CARD_FROM_DECK,
     ADD_CARD_TO_DECK,
+    DELETE_DECK,
 
     MAKE_STORY_BATTLE
     ,MAKE_CUSTOM_BATTLE

@@ -1403,11 +1403,16 @@ public class Request
                 }
                 else if (option.get() == buttonTypeRemoveDeck)
                 {
-                    setCommand(CommandType.DELETE_DECK);
-                    getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.DELETE_DECK,deck,client.getAuthToken());
+                    String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(removeJson);
+                    try
                     {
-                        requestLock.notify();
+                     Client.getSendMessage().addMessage(removeJson);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
                     }
                     collectionMenu(primaryStage, false, null);
                 }
