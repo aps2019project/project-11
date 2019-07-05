@@ -81,7 +81,16 @@ public class InputCommandHandlerForServer extends Thread
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
                 break;
             case BUY:
-                shopManager.buyCard(clientCommand.getCard());
+                Card card = Card.findCard(clientCommand.getCard().getCardName());
+                Item item = Item.findItem(clientCommand.getItem().getItemName());
+                if (card != null)
+                {
+                    shopManager.buyCard(card);
+                }
+                else if (item != null)
+                {
+                    shopManager.buyItem(item);
+                }
                 break;
             case SELL:
                 shopManager.detectIDToSell(clientCommand.getCard().getCardID());
