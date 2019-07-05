@@ -112,6 +112,7 @@ public class InputCommandHandlerForServer extends Thread
 
                 break;
             case ADD_CARD_TO_DECK:
+                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add");
                 break;
 
 
