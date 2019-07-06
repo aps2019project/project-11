@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.io.*;
+import java.rmi.ServerError;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,12 +79,21 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customSpellJson);
                 break;
             case MAKE_CUSTOM_MINION:
                 workingOnMinionText(clientCommand.getTextFieldsToMakeCustom());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customHeroJson);
                 break;
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
@@ -306,6 +316,7 @@ public class InputCommandHandlerForServer extends Thread
 
     public void checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
+        ServerCommand serverCommand = null;
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
@@ -340,27 +351,21 @@ public class InputCommandHandlerForServer extends Thread
                     return;
                 }
             }
-            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
-            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            System.out.println(addJson);
-            try {
-                getSendMessage().addMessage(addJson);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
             ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
-            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
-            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            System.out.println(addJson);
-            try {
-                getSendMessage().addMessage(addJson);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
+
             ShowOutput.getInstance().printOutput("Invalid ID");
+        }
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        System.out.println(removeJson);
+        try {
+            getSendMessage().addMessage(removeJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -368,6 +373,7 @@ public class InputCommandHandlerForServer extends Thread
 
     public void checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
     {
+        ServerCommand serverCommand = null;
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
@@ -402,27 +408,20 @@ public class InputCommandHandlerForServer extends Thread
                     return;
                 }
             }
-            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
-            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            System.out.println(addJson);
-            try {
-                getSendMessage().addMessage(addJson);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
             ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
-            ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
-            String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            System.out.println(addJson);
-            try {
-                getSendMessage().addMessage(addJson);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
             ShowOutput.getInstance().printOutput("Invalid ID");
+        }
+        String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        System.out.println(addJson);
+        try {
+            getSendMessage().addMessage(addJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
       private void importingToCollection(String deckName,Account account) throws IOException, ParseException
