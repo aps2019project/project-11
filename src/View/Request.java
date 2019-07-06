@@ -2028,7 +2028,10 @@ public class Request
         setSinglePlayerMenu("Story", primaryStage, 100);
         setSinglePlayerMenu("Custom Game", primaryStage, 250);
         Button backButton = backButton(primaryStage, rootSinglePlayer, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(event -> {
+            primaryStage.setScene(sceneBattleField);
+        });
+        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @SuppressWarnings("Duplicates")
             @Override
@@ -2049,7 +2052,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         primaryStage.setScene(sceneSinglePlayer);
     }
 
@@ -2105,7 +2108,10 @@ public class Request
         rootCustomGame.getChildren().add(nextButton);
 
         Button backButton = backButton(primaryStage, rootCustomGame, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(event -> {
+            primaryStage.setScene(sceneSinglePlayer);
+        });
+        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2125,7 +2131,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
         primaryStage.setScene(sceneCustomGame);
     }
@@ -2253,7 +2259,10 @@ public class Request
         setStoryModeMenu("Mission 2", primaryStage, 200);
         setStoryModeMenu("Mission 3", primaryStage, 300);
         Button backButton = backButton(primaryStage, rootStoryMode, 50, 450);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(event -> {
+            primaryStage.setScene(sceneSinglePlayer);
+        });
+        /* backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2273,7 +2282,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         primaryStage.setScene(sceneStoryMode);
     }
 
