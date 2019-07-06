@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ServerCommand
 {
     private ServerCommandEnum serverCommandEnum;
-    private String errorMessage;
+    private String message;
     private ArrayList<Account> accounts;
     private ArrayList<Hero> heroes = new ArrayList<>();
     private ArrayList<Minion> minions = new ArrayList<>();
@@ -17,10 +17,10 @@ public class ServerCommand
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
 
-    public ServerCommand(ServerCommandEnum serverCommandEnum, String errorMessage)   //error
+    public ServerCommand(ServerCommandEnum serverCommandEnum, String message)   //error
     {
         this.serverCommandEnum = serverCommandEnum;
-        this.errorMessage = errorMessage;
+        this.message = message;
     }
 
     public ServerCommand(ServerCommandEnum serverCommandEnum, ArrayList<Account> accounts)
@@ -38,6 +38,11 @@ public class ServerCommand
         this.items = items;
     }
 
+    public ServerCommand(String message)
+    {
+        this.message = message;
+    }
+
     public ServerCommand(ServerCommandEnum serverCommandEnum)    //ok
     {
         this.serverCommandEnum = serverCommandEnum;
@@ -48,9 +53,9 @@ public class ServerCommand
         return serverCommandEnum;
     }
 
-    public String getErrorMessage()
+    public String getMessage()
     {
-        return errorMessage;
+        return message;
     }
 
     public void setAuthToken(String authToken)

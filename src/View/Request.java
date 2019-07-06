@@ -1,12 +1,9 @@
 package View;
 
 import Controller.BattleFieldController;
-import Controller.BattleManager;
 import Model.*;
 import Network.*;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -33,7 +30,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -204,7 +200,7 @@ public class Request
                 }
                 else
                 {
-                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
+                    labelInvalidInput.setText(client.getMessageFromServer().getMessage());
                 }
                 rootSignUpMenu.getChildren().add(labelInvalidInput);
             }
@@ -279,7 +275,7 @@ public class Request
                 }
                 else
                 {
-                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
+                    labelInvalidInput.setText(client.getMessageFromServer().getMessage());
                 }
                 rootLoginMenu.getChildren().add(labelInvalidInput);
             }
@@ -929,7 +925,7 @@ public class Request
             xPosition++;
             yPosition++;
             StackPane stackPane = showNonSpellCards(rootShop, x, y, hero, hero.getCardName(), hero.getRequiredMP());
-            setShopStackPanesOnMouseClicked(stackPane, hero.getCardName(), hero.getPrice());
+            setShopCardsStackPanesOnMouseClicked(stackPane, hero);
         }
 
         if (xPosition == 0)
@@ -955,7 +951,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootShop, x, y, minion, minion.getCardName(), minion.getRequiredMP());
-            setShopStackPanesOnMouseClicked(stackPane, minion.getCardName(), minion.getPrice());
+            setShopCardsStackPanesOnMouseClicked(stackPane, minion);
             xPosition++;
             yPosition++;
         }
@@ -983,7 +979,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, spell.getCardName(), spell.getPrice(), spell.getRequiredMP());
-            setShopStackPanesOnMouseClicked(stackPane, spell.getCardName(), spell.getPrice());
+            setShopCardsStackPanesOnMouseClicked(stackPane, spell);
             xPosition++;
             yPosition++;
         }
@@ -1018,7 +1014,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootShop, x, y, item.getItemName(), item.getPrice(), 0);
-            setShopStackPanesOnMouseClicked(stackPane, item.getItemName(), item.getPrice());
+            setShopItemsStackPanesOnMouseClicked(stackPane, item);
             xPosition++;
             yPosition++;
         }
@@ -1122,8 +1118,10 @@ public class Request
         return stackPane;
     }
 
-    private void setShopStackPanesOnMouseClicked(StackPane stackPane, String name, int price)
+    private void setShopCardsStackPanesOnMouseClicked(StackPane stackPane, Card card)
     {
+        String name = card.getCardName();
+        int price = card.getPrice();
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -1140,9 +1138,8 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeBuy)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BUY, Card.findCard(name), client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BUY, card, client.getAuthToken());
                     String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                    System.out.println(buyJson);
                     try
                     {
                         Client.getSendMessage().addMessage(buyJson);
@@ -1154,15 +1151,52 @@ public class Request
                     {
                         e.printStackTrace();
                     }
+                    System.out.println(client.getMessageFromServer().getMessage());
                     Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
                     mediaPlayer.play();
-                    //setCommand(CommandType.BUY);
-                    //getCommand().cardOrItemName = name;
-                    synchronized (requestLock)
+                }
+            }
+        });
+    }
+
+    private void setShopItemsStackPanesOnMouseClicked(StackPane stackPane, Item item)
+    {
+        String name = item.getItemName();
+        int price = item.getPrice();
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Buy");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to buy " + name + " for " + price + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBuy = new ButtonType("Buy");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBuy, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBuy)
+                {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BUY, item, client.getAuthToken());
+                    String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    try
                     {
-                        requestLock.notify();
+                        Client.getSendMessage().addMessage(buyJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
                     }
+                    System.out.println(client.getMessageFromServer().getMessage());
+                    Media sound = new Media(new File("Sounds and Music/Buy card.mp3").toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    mediaPlayer.play();
                 }
             }
         });

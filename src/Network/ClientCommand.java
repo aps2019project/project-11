@@ -14,7 +14,9 @@ public class ClientCommand
     private String userName;
     private String password;
     private transient ArrayList<TextField> textFieldsToMakeCustom;
-    private Card card;
+    private Hero hero;
+    private Minion minion;
+    private Spell spell;
     private Item item;
     private Deck deck;
     private String deckName;
@@ -64,7 +66,18 @@ public class ClientCommand
     public ClientCommand(ClientCommandEnum clientCommandEnum, Card card, String authToken)  //buy & sell card
     {
         this.clientCommandEnum = clientCommandEnum;
-        this.card = card;
+        if (card instanceof Hero)
+        {
+            this.hero = (Hero) card;
+        }
+        if (card instanceof Minion)
+        {
+            this.minion = (Minion) card;
+        }
+        if (card instanceof Spell)
+        {
+            this.spell = (Spell) card;
+        }
         this.authToken = authToken;
     }
 
@@ -86,7 +99,18 @@ public class ClientCommand
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
-        this.card = card;
+        if (card instanceof Hero)
+        {
+            this.hero = (Hero) card;
+        }
+        if (card instanceof Minion)
+        {
+            this.minion = (Minion) card;
+        }
+        if (card instanceof Spell)
+        {
+            this.spell = (Spell) card;
+        }
         this.authToken = authToken;
     }
 
@@ -187,14 +211,19 @@ public class ClientCommand
         this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
-    public Card getCard()
+    public Hero getHero()
     {
-        return card;
+        return hero;
     }
 
-    public void setCard(Card card)
+    public Minion getMinion()
     {
-        this.card = card;
+        return minion;
+    }
+
+    public Spell getSpell()
+    {
+        return spell;
     }
 
     public Item getItem()

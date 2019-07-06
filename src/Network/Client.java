@@ -152,6 +152,9 @@ public class Client extends Application
     public void start(Stage primaryStage) throws Exception
     {
         connectToServer();
+        callTheAppropriateFunction = new CallTheAppropriateFunction(request);
+        callTheAppropriateFunction.setDaemon(true);
+        callTheAppropriateFunction.start();
         Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
@@ -164,9 +167,6 @@ public class Client extends Application
 
     public static void main(String[] args)
     {
-        callTheAppropriateFunction = new CallTheAppropriateFunction();
-        callTheAppropriateFunction.setDaemon(true);
-        callTheAppropriateFunction.start();
         launch(args);
     }
 
@@ -191,7 +191,6 @@ public class Client extends Application
             public void onMessageReceived(String message) throws InterruptedException
             {
                 handleCommand.setMessage(message);
-                //output.addMessage(message);
             }
         });
         receiveMessage.start();

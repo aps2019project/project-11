@@ -10,8 +10,13 @@ public class CallTheAppropriateFunction extends Thread
     private DeckManager deckManager = new DeckManager();
     private ShopManager shopManager = new ShopManager();
     private BattleManager battleManager = new BattleManager();
-    private Request request = new Request();
+    private Request request;
     private ShowOutput showOutput = ShowOutput.getInstance();
+
+    public CallTheAppropriateFunction(Request request)
+    {
+        this.request = request;
+    }
 
     @Override
     public void run()

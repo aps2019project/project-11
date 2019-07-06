@@ -2,8 +2,6 @@ package Model;
 
 import Network.Server;
 
-import java.util.ArrayList;
-
 public class Item implements Cloneable
 {
     private String itemID;
@@ -12,7 +10,7 @@ public class Item implements Cloneable
     private ItemType itemType;
     private String descriptionTypeOfItem;
     private ItemEffect itemEffect;
-    private int capacityOfItemSell = 5 ;
+    private int capacityOfSell = 5;
     private boolean collectibleItemSelectedInBattle = false;
 
     public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)
@@ -156,17 +154,20 @@ public class Item implements Cloneable
         itemEffectItem20.addItemActivateTime(ItemActivateTime.USE_ITEM);
         new Item("Chinese sword", ItemType.collectible, "Increase AP 5 units for melee forces", itemEffectItem20);
     }
+
     public void decreaseCapacityOfItemSell()
     {
-        capacityOfItemSell --;
-    }
-    public void increaseCapacityOfItemSell()
-    {
-        capacityOfItemSell++;
+        capacityOfSell--;
     }
 
-    public int getCapacityOfItemSell() {
-        return capacityOfItemSell;
+    public void increaseCapacityOfItemSell()
+    {
+        capacityOfSell++;
+    }
+
+    public int getCapacityOfSell()
+    {
+        return capacityOfSell;
     }
 
     public void applyCollectibleItem(int x, int y)
@@ -256,7 +257,7 @@ public class Item implements Cloneable
                     }
                     break;
                 case OWN_MINION:
-                    for (Card card: player.getMainDeck().getMinions())
+                    for (Card card : player.getMainDeck().getMinions())
                     {
                         ((Minion) card).addActiveItemOnThisCard(itemChange);
                     }
@@ -353,7 +354,8 @@ public class Item implements Cloneable
         return super.clone();
     }
 
-    public void setDefaultCardID() {
+    public void setDefaultCardID()
+    {
         //todo why is this method empty???
     }
 

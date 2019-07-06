@@ -81,6 +81,7 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getHeroes(), Server.getMinions(), Server.getSpells(), Server.getItems());
                 String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(shopJson);
+                break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
@@ -103,19 +104,38 @@ public class InputCommandHandlerForServer extends Thread
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
                 break;
             case BUY:
-                Card card = Card.findCard(clientCommand.getCard().getCardName());
-                Item item = Item.findItem(clientCommand.getItem().getItemName());
-                if (card != null)
+                Hero hero = clientCommand.getHero();
+                Minion minion = clientCommand.getMinion();
+                Spell spell = clientCommand.getSpell();
+                Item item = clientCommand.getItem();
+                if (item == null)
                 {
-                    shopManager.buyCard(card);
+                    Card card = null;
+                    if (hero != null)
+                    {
+                        card = hero;
+                    }
+                    else if (minion != null)
+                    {
+                        card = minion;
+                    }
+                    else if (spell != null)
+                    {
+                        card = spell;
+                    }
+                    serverCommand = new ServerCommand(shopManager.buyCard(card, account));
+                    String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(buyCardJson);
                 }
-                else if (item != null)
+                else
                 {
-                    shopManager.buyItem(item);
+                    serverCommand = new ServerCommand(shopManager.buyItem(item, account));
+                    String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(buyCardJson);
                 }
                 break;
             case SELL:
-                shopManager.detectIDToSell(clientCommand.getCard().getCardID());
+                //shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:
                 importingToCollection(clientCommand.getDeckName(),account);
@@ -136,10 +156,10 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
+                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
-                detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
+                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
                 break;
 
 
