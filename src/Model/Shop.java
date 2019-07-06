@@ -58,28 +58,28 @@ public class Shop
         account.increaseDefaultID();
     }
 
-    public void sellCard(Card cardToSell)
+    public void sellCard(Card cardToSell,Account account)
     {
         if (cardToSell instanceof Hero)
         {
-            Account.loggedInAccount.getCollection().getHeroes().remove(cardToSell);
+            account.getCollection().getHeroes().remove(cardToSell);
         }
         if (cardToSell instanceof Minion)
         {
-            Account.loggedInAccount.getCollection().getMinions().remove(cardToSell);
+            account.getCollection().getMinions().remove(cardToSell);
         }
         if (cardToSell instanceof Spell)
         {
-            Account.loggedInAccount.getCollection().getSpells().remove(cardToSell);
+            account.getCollection().getSpells().remove(cardToSell);
         }
-        Account.loggedInAccount.addMoney(cardToSell.getPrice());
+        account.addMoney(cardToSell.getPrice());
         cardToSell.increaseCapacityOfSell();
     }
 
-    public void sellItem(Item itemToSell)
+    public void sellItem(Item itemToSell,Account account)
     {
-        Account.loggedInAccount.getCollection().getItems().remove(itemToSell);
-        Account.loggedInAccount.addMoney(itemToSell.getPrice());
+        account.getCollection().getItems().remove(itemToSell);
+        account.addMoney(itemToSell.getPrice());
         itemToSell.increaseCapacityOfItemSell();
     }
 

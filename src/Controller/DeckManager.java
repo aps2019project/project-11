@@ -90,13 +90,13 @@ public class DeckManager
         deck.addItemToDeck(item, false);
     }
 
-    public void checkCardExistenceInDeckToRemove(Deck deck, Card card)
+    public void checkCardExistenceInDeckToRemove(Deck deck, Card card,Account account)
     {
         for (Minion minion : deck.getMinions())
         {
             if (card.getCardName().equals(minion.getCardName()))
             {
-                deck.deleteCardFromDeck(card);
+                deck.deleteCardFromDeck(card,account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -105,7 +105,7 @@ public class DeckManager
         {
             if (card.getCardName().equals(spell.getCardName()))
             {
-                deck.deleteCardFromDeck(card);
+                deck.deleteCardFromDeck(card,account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -114,7 +114,7 @@ public class DeckManager
         {
             if (card.getCardID().equals(deckHero.getCardID()))
             {
-                deck.deleteCardFromDeck(card);
+                deck.deleteCardFromDeck(card,account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -124,13 +124,13 @@ public class DeckManager
 
     public void searchDecksToRemoveCardOnSale(Card card,Account account)
     {
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : account.getPlayerDecks())
         {
             for (Hero deckHero : deck.getHero())
             {
                 if (card.getCardID().equals(deckHero.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card);
+                    deck.deleteCardFromDeck(card,account);
                     break;
                 }
             }
@@ -138,7 +138,7 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckMinion.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card);
+                    deck.deleteCardFromDeck(card,account);
                     break;
                 }
             }
@@ -146,20 +146,20 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckSpell.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card);
+                    deck.deleteCardFromDeck(card,account);
                     break;
                 }
             }
         }
     }
 
-    public void checkItemExistenceInDeckToRemove(Deck deck, Item item)
+    public void checkItemExistenceInDeckToRemove(Deck deck, Item item,Account account)
     {
         for (Item deckItem : deck.getItem())
         {
             if (item.getItemID().equals(deckItem.getItemID()))
             {
-                deck.deleteItemFromDeck(item);
+                deck.deleteItemFromDeck(item,account);
                 showOutput.printOutput("Item removed from deck");
                 return;
             }
@@ -169,13 +169,13 @@ public class DeckManager
 
     public void searchDecksToRemoveItemOnSale(Item item,Account account)
     {
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : account.getPlayerDecks())
         {
             for (Item deckItem : deck.getItem())
             {
                 if (item.getItemID().equals(deckItem.getItemID()))
                 {
-                    deck.deleteItemFromDeck(item);
+                    deck.deleteItemFromDeck(item,account);
                     return;
                 }
             }

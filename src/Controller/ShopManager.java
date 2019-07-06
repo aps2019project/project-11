@@ -48,7 +48,7 @@ public class ShopManager
 
     public String detectIDToSell(String ID,Account account)
     {
-        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+        for (Hero hero : account.getCollection().getHeroes())
         {
             if (hero.getCardID().equals(ID))
             {
@@ -56,7 +56,7 @@ public class ShopManager
                 return "Successful sell";
             }
         }
-        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+        for (Minion minion : account.getCollection().getMinions())
         {
             if (minion.getCardID().equals(ID))
             {
@@ -64,7 +64,7 @@ public class ShopManager
                 return "successful sell";
             }
         }
-        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+        for (Spell spell : account.getCollection().getSpells())
         {
             if (spell.getCardID().equals(ID))
             {
@@ -78,7 +78,7 @@ public class ShopManager
 
     public String detectIDForSellItem(String ID,Account account)
     {
-        for (Item item : Account.loggedInAccount.getCollection().getItems())
+        for (Item item :account.getCollection().getItems())
         {
             if (item.getItemID().equals(ID))
             {
@@ -92,7 +92,7 @@ public class ShopManager
     private void removeCardFromDeckToSell(Card cardToSell,Account account)
     {
         new DeckManager().searchDecksToRemoveCardOnSale(cardToSell,account);
-        Server.getShop().sellCard(cardToSell);
+        Server.getShop().sellCard(cardToSell,account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
@@ -100,7 +100,7 @@ public class ShopManager
     private void removeItemFromDeckToSell(Item itemToSell,Account account)
     {
         new DeckManager().searchDecksToRemoveItemOnSale(itemToSell,account);
-        Server.getShop().sellItem(itemToSell);
+        Server.getShop().sellItem(itemToSell,account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfSell() + " now");
     }

@@ -37,7 +37,7 @@ public class Deck
         return this;
     }
 
-    public void deleteCardFromDeck(Card card)
+    public void deleteCardFromDeck(Card card,Account account)
     {
         if (card instanceof Minion)
         {
@@ -51,9 +51,9 @@ public class Deck
         {
             hero.remove(card);
         }
-        if (this.equals(Account.loggedInAccount.getMainDeck()))
+        if (this.equals(account.getMainDeck()))
         {
-            Account.loggedInAccount.setMainDeck(null);
+            account.setMainDeck(null);
         }
     }
 
@@ -66,12 +66,12 @@ public class Deck
         this.item.add(item);
     }
 
-    public void deleteItemFromDeck(Item item)
+    public void deleteItemFromDeck(Item item,Account account)
     {
         this.item.remove(item);
-        if (this.equals(Account.loggedInAccount.getMainDeck()))
+        if (this.equals(account.getMainDeck()))
         {
-            Account.loggedInAccount.setMainDeck(null);
+            account.setMainDeck(null);
         }
     }
 

@@ -407,21 +407,21 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, hero);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, hero,account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, minion);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, minion,account);
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, spell);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, spell,account);
                 }
             }
         }
@@ -431,7 +431,7 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkItemExistenceInDeckToRemove(deck, item);
+                    deckManager.checkItemExistenceInDeckToRemove(deck, item,account);
                     return;
                 }
             }
