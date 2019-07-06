@@ -2802,7 +2802,7 @@ public class Request
 
     private void makeSendButton(Stage primaryStage, TextField textField)
     {
-        Button button1 = new Button("SEND");
+        /*Button button1 = new Button("SEND");
         button1.relocate(400 , 400);
         button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -2822,8 +2822,8 @@ public class Request
                 textField.setText(null);
             }
         });
-        rootChatPage.getChildren().add(button1);
-        /*Button button = new Button("SEND");
+        rootChatPage.getChildren().add(button1);*/
+        Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
         button.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -2831,10 +2831,9 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                System.out.println("2222222222222222222222222222222");
                 Text text = new Text();
                 text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.toString());
+                ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.getText());
                 ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE, chatMessage, client.getAuthToken());
                 String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                 System.out.println(sendMessageJson);
@@ -2861,7 +2860,7 @@ public class Request
 
             }
         });
-        rootChatPage.getChildren().add(button);*/
+        rootChatPage.getChildren().add(button);
     }
 
 
