@@ -113,6 +113,7 @@ public class InputCommandHandlerForServer extends Thread
                 buyCardAndItem(clientCommand, account, serverCommand);
                 break;
             case SELL:
+                sellCardAndItem(clientCommand,account,serverCommand);
                 //shopManager.detectIDToSell(clientCommand.getCard().getCardID());
                 break;
             case IMPORT_DECK:
@@ -216,28 +217,6 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(json);
     }
 
-    public void deleteDeck(String deckName,Account account)
-    {
-        ServerCommand serverCommand = null;
-        Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null)
-        {
-            account.deleteDeck(deck);
-            ShowOutput.getInstance().printOutput("Deck deleted");
-
-        }
-        else
-        {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
-            ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try {
-            getSendMessage().addMessage(json);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     private void checkCircumstancesToLogin(String userName, String password) throws Exception
     {
         ServerCommand serverCommand;
@@ -272,6 +251,29 @@ public class InputCommandHandlerForServer extends Thread
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(json);
     }
+    public void deleteDeck(String deckName,Account account)
+    {
+        ServerCommand serverCommand = null;
+        Deck deck = DeckManager.findDeck(deckName);
+        if (deck != null)
+        {
+            account.deleteDeck(deck);
+            ShowOutput.getInstance().printOutput("Deck deleted");
+
+        }
+        else
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
+            ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(json);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
     {
@@ -307,6 +309,33 @@ public class InputCommandHandlerForServer extends Thread
         return serverCommand;
     }
 
+    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand)
+    {
+        Hero hero = clientCommand.getHero();
+        Minion minion = clientCommand.getMinion();
+        Spell spell = clientCommand.getSpell();
+        Item item = clientCommand.getItem();
+        if (item == null)
+        {
+            Card card =new Card();
+            if (hero!=null)
+            {
+                card = hero;
+            }
+            if (minion!= null)
+            {
+                card = minion;
+            }
+            if (spell != null)
+            {
+                card = spell;
+            }
+            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(),account));
+
+        }
+
+        return serverCommand;
+    }
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
         FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
