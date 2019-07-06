@@ -306,23 +306,23 @@ public class InputCommandHandlerForServer extends Thread
 
     public void checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
-        if (Account.loggedInAccount.getCollection().findCardinCollection(ID) != null)
+        if (account.getCollection().findCardinCollection(ID) != null)
         {
-            for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+            for (Hero hero : account.getCollection().getHeroes())
             {
                 if (ID.equals(hero.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, hero);
                 }
             }
-            for (Minion minion : Account.loggedInAccount.getCollection().getMinions())
+            for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, minion);
                 }
             }
-            for (Spell spell : Account.loggedInAccount.getCollection().getSpells())
+            for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
@@ -330,9 +330,9 @@ public class InputCommandHandlerForServer extends Thread
                 }
             }
         }
-        else if (Account.loggedInAccount.getCollection().findItemInTheCollection(ID) != null)
+        else if (account.getCollection().findItemInTheCollection(ID) != null)
         {
-            for (Item item : Account.loggedInAccount.getCollection().getItems())
+            for (Item item : account.getCollection().getItems())
             {
                 if (ID.equals(item.getItemID()))
                 {
