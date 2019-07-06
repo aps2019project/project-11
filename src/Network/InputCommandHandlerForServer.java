@@ -73,25 +73,25 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(json);
                 break;
             case GET_ALL_ACCOUNTS:
-                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllAccountsJson);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customSpellJson);
                 break;
             case MAKE_CUSTOM_MINION:
                 workingOnMinionText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customHeroJson);
                 break;
@@ -118,9 +118,15 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case EXPORT_DECK:
                 exportingDeck(account,clientCommand.getDeck());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String exportDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(exportDeckJson);
                 break;
             case CREATE_DECK:
                 createDeck(clientCommand.getDeckName(),account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String createDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(createDeckJson);
                 break;
             case DELETE_DECK:
                 deleteDeck(clientCommand.getDeckName(),account);
@@ -211,6 +217,7 @@ public class InputCommandHandlerForServer extends Thread
 
     public void deleteDeck(String deckName,Account account)
     {
+        ServerCommand serverCommand = null;
         Deck deck = DeckManager.findDeck(deckName);
         if (deck != null)
         {
@@ -220,7 +227,14 @@ public class InputCommandHandlerForServer extends Thread
         }
         else
         {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
             ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(json);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
     private void checkCircumstancesToLogin(String userName, String password) throws Exception
