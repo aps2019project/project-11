@@ -23,7 +23,7 @@ public class Minion extends NonSpellCard
         this.setRangeOfAttack(rangeOfAttack);
         this.setImageNumber(imageNumber);
         Server.addMinion(this);
-        Shop.getInstance().addCardToShop(this);
+        Server.getShop().addCardToShop(this);
     }
 
     public Minion()

@@ -58,7 +58,7 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
-        ServerCommand serverCommand;
+        ServerCommand serverCommand = null;
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -103,36 +103,14 @@ public class InputCommandHandlerForServer extends Thread
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
                 break;
+            case SAVE_SHOP:
+                makeShopJson();
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String saveShopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(saveShopJson);
+                break;
             case BUY:
-                Hero hero = clientCommand.getHero();
-                Minion minion = clientCommand.getMinion();
-                Spell spell = clientCommand.getSpell();
-                Item item = clientCommand.getItem();
-                if (item == null)
-                {
-                    Card card = null;
-                    if (hero != null)
-                    {
-                        card = hero;
-                    }
-                    else if (minion != null)
-                    {
-                        card = minion;
-                    }
-                    else if (spell != null)
-                    {
-                        card = spell;
-                    }
-                    serverCommand = new ServerCommand(shopManager.buyCard(card, account));
-                    String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(buyCardJson);
-                }
-                else
-                {
-                    serverCommand = new ServerCommand(shopManager.buyItem(item, account));
-                    String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(buyCardJson);
-                }
+                buyCardAndItem(clientCommand, account, serverCommand);
                 break;
             case SELL:
                 //shopManager.detectIDToSell(clientCommand.getCard().getCardID());
@@ -294,6 +272,40 @@ public class InputCommandHandlerForServer extends Thread
         }
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(json);
+    }
+
+    private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
+    {
+        Hero hero = clientCommand.getHero();
+        Minion minion = clientCommand.getMinion();
+        Spell spell = clientCommand.getSpell();
+        Item item = clientCommand.getItem();
+        if (item == null)
+        {
+            Card card = null;
+            if (hero != null)
+            {
+                card = hero;
+            }
+            else if (minion != null)
+            {
+                card = minion;
+            }
+            else if (spell != null)
+            {
+                card = spell;
+            }
+            serverCommand = new ServerCommand(shopManager.buyCard(card, account));
+            String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(buyCardJson);
+        }
+        else
+        {
+            serverCommand = new ServerCommand(shopManager.buyItem(item, account));
+            String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(buyCardJson);
+        }
+        return serverCommand;
     }
 
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
@@ -462,7 +474,8 @@ public class InputCommandHandlerForServer extends Thread
             e.printStackTrace();
         }
     }
-      private void importingToCollection(String deckName,Account account) throws IOException, ParseException
+
+    private void importingToCollection(String deckName,Account account) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -642,7 +655,7 @@ public class InputCommandHandlerForServer extends Thread
             }
         }
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, false);
-        Shop.getInstance().addCardToShop(spell);
+        Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
         //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
     }
@@ -812,7 +825,7 @@ public class InputCommandHandlerForServer extends Thread
         }
         minion.setPrice(price);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, false);
-        Shop.getInstance().addCardToShop(minion);
+        Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
     }
@@ -960,7 +973,7 @@ public class InputCommandHandlerForServer extends Thread
         hero.setCoolDown(cooldown);
         hero.setRangeOfAttack(rangeOfAttack);
         Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, false);
-        Shop.getInstance().addCardToShop(hero);
+        Server.getShop().addCardToShop(hero);
         Server.addHero(hero);
         //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
     }
@@ -979,6 +992,20 @@ public class InputCommandHandlerForServer extends Thread
             }
         }
         return null;
+    }
+
+    public void makeShopJson()
+    {
+        String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Server.getShop());
+        try
+        {
+            FileWriter fileWriter = new FileWriter("shop.json");
+            fileWriter.write(shopJson);
+            fileWriter.close();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public synchronized void setMessage(String message)

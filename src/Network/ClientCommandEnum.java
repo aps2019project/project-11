@@ -11,6 +11,7 @@ public enum ClientCommandEnum
     GET_ALL_ACCOUNTS,
     ENTER_SHOP,
     SAVE_ACCOUNT_INFO,
+    SAVE_SHOP,
     BUY,
     SELL,
     IMPORT_DECK,

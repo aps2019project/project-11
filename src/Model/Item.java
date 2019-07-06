@@ -26,7 +26,7 @@ public class Item implements Cloneable
         this.setDescriptionTypeOfItem(descriptionTypeOfItem);
         this.setItemEffect(itemEffect);
         Server.addItem(this);
-        Shop.getInstance().addItemToShop(this);
+        Server.getShop().addItemToShop(this);
     }
 
     public static void setItems()

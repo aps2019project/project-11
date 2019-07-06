@@ -1,5 +1,7 @@
 package Model;
 
+import Network.Server;
+
 import java.util.ArrayList;
 
 public class Collection
@@ -93,7 +95,7 @@ public class Collection
     {
         if (!isImported)
         {
-            Shop.getInstance().setCardID(account, card);
+            Server.getShop().setCardID(account, card);
         }
         if (card instanceof Hero)
         {
@@ -118,7 +120,7 @@ public class Collection
     {
         if (!isImported)
         {
-            Shop.getInstance().setItemID(account, item);
+            Server.getShop().setItemID(account, item);
         }
         this.items.add(item);
     }
