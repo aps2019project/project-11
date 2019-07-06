@@ -52,7 +52,7 @@ public class ShopManager
         {
             if (hero.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(hero);
+                removeCardFromDeckToSell(hero,account);
                 return "Successful sell";
             }
         }
@@ -60,7 +60,7 @@ public class ShopManager
         {
             if (minion.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(minion);
+                removeCardFromDeckToSell(minion,account);
                 return "successful sell";
             }
         }
@@ -68,32 +68,38 @@ public class ShopManager
         {
             if (spell.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(spell);
+                removeCardFromDeckToSell(spell,account);
                 return "successful sell";
             }
         }
+
+        return "You don't have Card  with this ID!";
+    }
+
+    public String detectIDForSellItem(String ID,Account account)
+    {
         for (Item item : Account.loggedInAccount.getCollection().getItems())
         {
             if (item.getItemID().equals(ID))
             {
-                removeItemFromDeckToSell(item);
+                removeItemFromDeckToSell(item,account);
                 return "successful sell";
             }
         }
-        return "You don't have Card or Item with this ID!";
+        return "You don't have Item  with this ID!";
     }
 
-    private void removeCardFromDeckToSell(Card cardToSell)
+    private void removeCardFromDeckToSell(Card cardToSell,Account account)
     {
-        new DeckManager().searchDecksToRemoveCardOnSale(cardToSell);
+        new DeckManager().searchDecksToRemoveCardOnSale(cardToSell,account);
         Server.getShop().sellCard(cardToSell);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
 
-    private void removeItemFromDeckToSell(Item itemToSell)
+    private void removeItemFromDeckToSell(Item itemToSell,Account account)
     {
-        new DeckManager().searchDecksToRemoveItemOnSale(itemToSell);
+        new DeckManager().searchDecksToRemoveItemOnSale(itemToSell,account);
         Server.getShop().sellItem(itemToSell);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfSell() + " now");

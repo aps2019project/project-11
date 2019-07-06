@@ -122,7 +122,7 @@ public class DeckManager
         showOutput.printOutput("This card isn't in the deck");
     }
 
-    public void searchDecksToRemoveCardOnSale(Card card)
+    public void searchDecksToRemoveCardOnSale(Card card,Account account)
     {
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
         {
@@ -167,7 +167,7 @@ public class DeckManager
         showOutput.printOutput("This item isn't in the deck");
     }
 
-    public void searchDecksToRemoveItemOnSale(Item item)
+    public void searchDecksToRemoveItemOnSale(Item item,Account account)
     {
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())
         {

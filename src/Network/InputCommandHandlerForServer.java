@@ -309,8 +309,7 @@ public class InputCommandHandlerForServer extends Thread
         return serverCommand;
     }
 
-    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand)
-    {
+    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws InterruptedException {
         Hero hero = clientCommand.getHero();
         Minion minion = clientCommand.getMinion();
         Spell spell = clientCommand.getSpell();
@@ -331,7 +330,14 @@ public class InputCommandHandlerForServer extends Thread
                 card = spell;
             }
             serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(),account));
-
+            String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(SellCardJson);
+        }
+        else
+        {
+            serverCommand = new ServerCommand(shopManager.detectIDForSellItem(item.getItemID(),account));
+            String sellItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(sellItemJson);
         }
 
         return serverCommand;
