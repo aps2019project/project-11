@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class GlobalChat
 {
     private static GlobalChat globalChat = new GlobalChat();
-    private static ArrayList<ChatMessage> chatMessages;
+    private static ArrayList<ChatMessage> chatMessages = new ArrayList<>();
 
     private GlobalChat()
     {

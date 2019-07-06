@@ -16,6 +16,8 @@ public class ServerCommand
     private boolean login;
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
+    private String errorMessage;
+
 
     public ServerCommand(ServerCommandEnum serverCommandEnum, String message)   //error
     {
@@ -109,5 +111,13 @@ public class ServerCommand
     public ArrayList<Item> getItems()
     {
         return items;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

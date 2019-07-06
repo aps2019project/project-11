@@ -172,7 +172,7 @@ public class Client extends Application
 
     private void connectToServer() throws IOException
     {
-        Socket socket = new Socket("127.0.0.1", 8000);
+        Socket socket = new Socket("127.0.0.1", 9000);
 
         sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();

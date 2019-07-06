@@ -26,7 +26,7 @@ public class Server
         Item.setItems();
         convertingToAccounts();
         convertingToShop();
-        ServerSocket serverSocket = new ServerSocket(8000);
+        ServerSocket serverSocket = new ServerSocket(9000);
         while (true)
         {
             Socket socket = serverSocket.accept();

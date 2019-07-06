@@ -1,9 +1,12 @@
 package View;
 
 import Controller.BattleFieldController;
+import Controller.BattleManager;
 import Model.*;
 import Network.*;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -30,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -200,7 +204,7 @@ public class Request
                 }
                 else
                 {
-                    labelInvalidInput.setText(client.getMessageFromServer().getMessage());
+                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
                 }
                 rootSignUpMenu.getChildren().add(labelInvalidInput);
             }
@@ -2388,6 +2392,10 @@ public class Request
         rootMultiPlayer.getChildren().addAll(backButton);
     }
 
+    public void afterWaitingMultiPlayer(){
+
+    }
+
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
     {
         rootBattleField.getChildren().clear();
@@ -2761,7 +2769,29 @@ public class Request
 
     private void makeSendButton(TextField textField)
     {
-        Button button = new Button("SEND");
+        Button button1 = new Button();
+        button1.relocate(400 , 400);
+        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Text text = new Text();
+                text.setText(textField.getText());
+                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
+                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(sendMessageJson);
+                try {
+                    Client.getSendMessage().addMessage(sendMessageJson);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Message Sent");
+                textField.setText(null);
+                showMessage();
+            }
+        });
+        rootChatPage.getChildren().add(button1);
+        /*Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
         button.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -2769,6 +2799,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                System.out.println("2222222222222222222222222222222");
                 Text text = new Text();
                 text.setText(textField.getText());
                 ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
@@ -2792,9 +2823,13 @@ public class Request
                     textField.setText(null);
                     showMessage();
                 }
+                System.out.println("Message Sent");
+                textField.setText(null);
+                showMessage();
+
             }
         });
-        rootChatPage.getChildren().add(button);
+        rootChatPage.getChildren().add(button);*/
     }
 
 
