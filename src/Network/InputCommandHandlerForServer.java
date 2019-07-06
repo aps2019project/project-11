@@ -176,6 +176,7 @@ public class InputCommandHandlerForServer extends Thread
             case GET_ONLINE_ACCOUNTS:
                 break;
             case SEND_MESSAGE:
+                System.out.println(clientCommand.getChatMessage());
                 GlobalChat.getChatMessages().add(clientCommand.getChatMessage());
 
                 break;

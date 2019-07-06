@@ -2713,23 +2713,16 @@ public class Request
     {
 
         backButton(primaryStage, rootChatPage, 0, 0);
-        makeTextFields();
-        primaryStage.setScene(sceneChatPage);
-        primaryStage.show();
-
-    }
-
-    private void makeTextFields()
-    {
         TextField textField = new TextField();
-
-        makeSendButton(textField);
-        showMessage();
-
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
         tilePane.relocate(0, 500);
         rootChatPage.getChildren().add(tilePane);
+        showMessage();
+        makeSendButton(primaryStage , textField);
+        primaryStage.setScene(sceneChatPage);
+        primaryStage.show();
+
     }
 
     private void showMessage()
@@ -2756,6 +2749,7 @@ public class Request
                 int counter = 0;
                 for (ChatMessage chatMessage : chatMessages)
                 {
+                    System.out.println(chatMessage.getMessage());
                     Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
                     text.relocate(10, 10 + counter * 20);
                     rootChatPage.getChildren().add(text);
@@ -2765,69 +2759,29 @@ public class Request
         }
     }
 
-    private void makeSendButton(TextField textField)
+    private void makeSendButton(Stage primaryStage, TextField textField)
     {
-        Button button1 = new Button();
+        Button button1 = new Button("SEND");
         button1.relocate(400 , 400);
         button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 Text text = new Text();
                 text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
+                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.getText());
                 ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
                 String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                 System.out.println(sendMessageJson);
                 try {
                     Client.getSendMessage().addMessage(sendMessageJson);
+                    System.out.println("Message Sent");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Message Sent");
                 textField.setText(null);
-                showMessage();
             }
         });
         rootChatPage.getChildren().add(button1);
-        /*Button button = new Button("SEND");
-        button.setFont(Font.font("Verdana", 12));
-        button.relocate(300, 500);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                System.out.println("2222222222222222222222222222222");
-                Text text = new Text();
-                text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
-                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE, chatMessage, client.getAuthToken());
-                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                System.out.println(sendMessageJson);
-                try
-                {
-                    Client.getSendMessage().addMessage(sendMessageJson);
-                    synchronized (validMessageFromServer)
-                    {
-                        validMessageFromServer.wait();
-                    }
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
-                {
-                    System.out.println("Message Sent");
-                    textField.setText(null);
-                    showMessage();
-                }
-                System.out.println("Message Sent");
-                textField.setText(null);
-                showMessage();
-
-            }
-        });
-        rootChatPage.getChildren().add(button);*/
     }
 
 
