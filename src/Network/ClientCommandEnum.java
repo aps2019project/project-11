@@ -9,6 +9,7 @@ public enum ClientCommandEnum
     MAKE_CUSTOM_MINION,
     MAKE_CUSTOM_HERO,
     GET_ALL_ACCOUNTS,
+    ENTER_SHOP,
     SAVE_ACCOUNT_INFO,
     BUY,
     SELL,

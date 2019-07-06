@@ -890,6 +890,21 @@ public class Request
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ENTER_SHOP, client.getAuthToken());
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        System.out.println(json);
+        try
+        {
+            Client.getSendMessage().addMessage(json);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
         rootShop.getChildren().clear();
 
         setBackGroundImage(rootShop, "file:BackGround Images/Duelyst Menu Blurred.jpg");
@@ -900,7 +915,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Heroes", 50);
-        for (Hero hero : Shop.getInstance().getHeroes())  //7
+        for (Hero hero : client.getMessageFromServer().getHeroes())
         {
             if (isSearchedElement)
             {
@@ -928,7 +943,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Minion minion : Shop.getInstance().getMinions())   //7
+        for (Minion minion : client.getMessageFromServer().getMinions())
         {
             if (isSearchedElement)
             {
@@ -956,7 +971,7 @@ public class Request
             yPosition = yPosition + 4 - yPosition % 4;
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Spell spell : Shop.getInstance().getSpells())  //7
+        for (Spell spell : client.getMessageFromServer().getSpells())
         {
             if (isSearchedElement)
             {
@@ -987,7 +1002,7 @@ public class Request
             }
         }
         setShopAndDeckAndGraveYardMenuText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
-        for (Item item : Shop.getInstance().getItems())   //7
+        for (Item item : client.getMessageFromServer().getItems())
         {
             if (item.getItemType() == ItemType.collectible)
             {

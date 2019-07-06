@@ -1,6 +1,6 @@
 package Network;
 
-import Model.Account;
+import Model.*;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,10 @@ public class ServerCommand
     private ServerCommandEnum serverCommandEnum;
     private String errorMessage;
     private ArrayList<Account> accounts;
+    private ArrayList<Hero> heroes = new ArrayList<>();
+    private ArrayList<Minion> minions = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     private boolean login;
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
@@ -23,6 +27,15 @@ public class ServerCommand
     {
         this.serverCommandEnum = serverCommandEnum;
         this.accounts = accounts;
+    }
+
+    public ServerCommand(ServerCommandEnum serverCommandEnum,ArrayList<Hero> heroes,ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items)
+    {
+        this.serverCommandEnum = serverCommandEnum;
+        this.heroes = heroes;
+        this.minions = minions;
+        this.spells = spells;
+        this.items = items;
     }
 
     public ServerCommand(ServerCommandEnum serverCommandEnum)    //ok
@@ -71,5 +84,25 @@ public class ServerCommand
 
     public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
         this.chatMessages = chatMessages;
+    }
+
+    public ArrayList<Hero> getHeroes()
+    {
+        return heroes;
+    }
+
+    public ArrayList<Minion> getMinions()
+    {
+        return minions;
+    }
+
+    public ArrayList<Spell> getSpells()
+    {
+        return spells;
+    }
+
+    public ArrayList<Item> getItems()
+    {
+        return items;
     }
 }

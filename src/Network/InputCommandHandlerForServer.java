@@ -77,6 +77,10 @@ public class InputCommandHandlerForServer extends Thread
                 String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllAccountsJson);
                 break;
+            case ENTER_SHOP:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getHeroes(), Server.getMinions(), Server.getSpells(), Server.getItems());
+                String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(shopJson);
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
