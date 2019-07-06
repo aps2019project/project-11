@@ -473,7 +473,19 @@ public class Request
                         login(primaryStage);
                         break;
                     case "Exit":
-                        makeShopJson();
+                        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SAVE_SHOP, client.getAuthToken());
+                        String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                        try
+                        {
+                            Client.getSendMessage().addMessage(buyJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
+                        } catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
                         setCommand(CommandType.EXIT);
                         synchronized (requestLock)
                         {
@@ -1204,20 +1216,6 @@ public class Request
                 }
             }
         });
-    }
-
-    public void makeShopJson()
-    {
-        String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Shop.getInstance());
-        try
-        {
-            FileWriter fileWriter = new FileWriter("shop.json");
-            fileWriter.write(shopJson);
-            fileWriter.close();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)

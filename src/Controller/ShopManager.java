@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Network.Server;
 import View.*;
 
 public class ShopManager
@@ -19,7 +20,7 @@ public class ShopManager
         }
         else
         {
-            Shop.getInstance().buyCard(card, account);
+            Server.getShop().buyCard(card, account);
             return "Successful purchase" + "\n" + card.getCardName() + "'s capacity is " + card.getCapacityOfSell() + " now";
         }
     }
@@ -40,7 +41,7 @@ public class ShopManager
         }
         else
         {
-            Shop.getInstance().buyItem(item, account);
+            Server.getShop().buyItem(item, account);
             return "Successful purchase" + "\n" + item.getItemName() + "'s capacity is " + item.getCapacityOfSell() + " now";
         }
     }
@@ -85,7 +86,7 @@ public class ShopManager
     private void removeCardFromDeckToSell(Card cardToSell)
     {
         new DeckManager().searchDecksToRemoveCardOnSale(cardToSell);
-        Shop.getInstance().sellCard(cardToSell);
+        Server.getShop().sellCard(cardToSell);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
@@ -93,7 +94,7 @@ public class ShopManager
     private void removeItemFromDeckToSell(Item itemToSell)
     {
         new DeckManager().searchDecksToRemoveItemOnSale(itemToSell);
-        Shop.getInstance().sellItem(itemToSell);
+        Server.getShop().sellItem(itemToSell);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfSell() + " now");
     }

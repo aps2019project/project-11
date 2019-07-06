@@ -4,30 +4,10 @@ import java.util.ArrayList;
 
 public class Shop
 {
-    private static Shop shop = null;
     private ArrayList<Hero> heroes = new ArrayList<>();
     private ArrayList<Minion> minions = new ArrayList<>();
     private ArrayList<Spell> spells = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
-
-    private Shop()
-    {
-        //just added to make Shop singleton
-    }
-
-    public static Shop getInstance()
-    {
-        if (shop == null)
-        {
-            shop = new Shop();
-        }
-        return shop;
-    }
-
-    public static void setShop(Shop shop)
-    {
-        Shop.shop = shop;
-    }
 
     public void addCardToShop(Card card)
     {

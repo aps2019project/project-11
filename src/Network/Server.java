@@ -14,6 +14,7 @@ public class Server
 {
     private static ArrayList<InputCommandHandlerForServer> commandHandlers = new ArrayList<>();
     private static ArrayList<Account> accounts = new ArrayList<>();
+    private static Shop shop = new Shop();
     private static ArrayList<Hero> heroes = new ArrayList<>();
     private static ArrayList<Minion> minions = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
@@ -64,7 +65,7 @@ public class Server
             FileReader reader = new FileReader("shop.json");
             JsonParser jsonParser = new JsonParser();
             Object object = jsonParser.parse(reader);
-            Shop.setShop(new Gson().fromJson(object.toString(),Shop.class));
+            setShop(new Gson().fromJson(object.toString(),Shop.class));
         }
         catch (FileNotFoundException ignored)
         {
@@ -151,5 +152,15 @@ public class Server
     public static void setNumberOfAccount(int numberOfAccount)
     {
         Server.numberOfAccount = numberOfAccount;
+    }
+
+    public static Shop getShop()
+    {
+        return shop;
+    }
+
+    public static void setShop(Shop shop)
+    {
+        Server.shop = shop;
     }
 }

@@ -17,7 +17,7 @@ public class Spell extends Card
         this.setRequiredMP(MP);
         this.setDescriptionTypeOfSpell(descriptionTypeOfSpell);
         Server.addSpell(this);
-        Shop.getInstance().addCardToShop(this);
+        Server.getShop().addCardToShop(this);
     }
 
     public Spell()

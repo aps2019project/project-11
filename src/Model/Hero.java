@@ -23,7 +23,7 @@ public class Hero extends NonSpellCard
         setRangeOfAttack(rangeOfAttack);
         this.setImageNumber(imageNumber);
         Server.addHero(this);
-        Shop.getInstance().addCardToShop(this);
+        Server.getShop().addCardToShop(this);
     }
     public Hero()
     {
