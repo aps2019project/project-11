@@ -1,7 +1,6 @@
 package View;
 
 import Controller.BattleFieldController;
-import Controller.BattleManager;
 import Model.*;
 import Network.*;
 import com.google.gson.Gson;
@@ -145,12 +144,7 @@ public class Request
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
     private Text battleInfo;
-    private Account loggedInAccount;
-
-    public Request()
-    {
-
-    }
+    private Account accountConnectedToThisClient;
 
     public Request(Client client)
     {
@@ -348,6 +342,23 @@ public class Request
 
     private void mainMenu(Stage primaryStage)
     {
+        ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
+        String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
+        System.out.println(saveJson);
+        try
+        {
+            Client.getSendMessage().addMessage(saveJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        accountConnectedToThisClient = client.getMessageFromServer().getAccount();
+
         setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -432,10 +443,19 @@ public class Request
                         leaderBoard(primaryStage);
                         break;
                     case "Save":
-                        setCommand(CommandType.SAVE);
-                        synchronized (requestLock)
+                        ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.SAVE_ACCOUNT_INFO, client.getAuthToken());
+                        String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
+                        System.out.println(saveJson);
+                        try
                         {
-                            requestLock.notify();
+                            Client.getSendMessage().addMessage(saveJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
+                        } catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
                         }
                         break;
                     case "Profile":
@@ -452,7 +472,6 @@ public class Request
                         {
                             requestLock.notify();
                         }
-
                         makingCustomCards(primaryStage);
                         break;
                     case "Logout":
@@ -743,9 +762,24 @@ public class Request
 
     private void showProfile(Stage primaryStage)
     {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
+        String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(buyJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        Account account = client.getMessageFromServer().getAccount();
+
         rootProfile.getChildren().clear();
 
-        Label labelProfile = new Label(Account.loggedInAccount.getAccountName());          //3 constructor
+        Label labelProfile = new Label(account.getAccountName());          //3 constructor
         labelProfile.setFont(Font.font(40));
         labelProfile.setTextFill(Color.RED);
         labelProfile.relocate(50, 25);
@@ -753,7 +787,7 @@ public class Request
         labelProfile.setLayoutY(25);
         rootProfile.getChildren().add(labelProfile);
 
-        Label labelMoney = new Label("your Money : " + Account.loggedInAccount.getMoney());
+        Label labelMoney = new Label("your Money : " + account.getMoney());
         labelMoney.setFont(Font.font(20));
         labelMoney.setTextFill(Color.GREEN);
         labelMoney.relocate(75, 120);
@@ -1230,7 +1264,7 @@ public class Request
 
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        for (Hero hero : Account.loggedInAccount.getCollection().getHeroes())
+        for (Hero hero : accountConnectedToThisClient.getCollection().getHeroes())
         {
             if (isSearchedElement)
             {
@@ -1262,7 +1296,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Minion minion : Account.loggedInAccount.getCollection().getMinions())    //3
+        for (Minion minion : accountConnectedToThisClient.getCollection().getMinions())    //3
         {
             if (isSearchedElement)
             {
@@ -1294,7 +1328,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Spell spell : Account.loggedInAccount.getCollection().getSpells())  //3
+        for (Spell spell : accountConnectedToThisClient.getCollection().getSpells())  //3
         {
             if (isSearchedElement)
             {
@@ -1325,7 +1359,7 @@ public class Request
             }
         }
         setCollectionMenuText("Items", y + 250 + 50, false);
-        for (Item item : Account.loggedInAccount.getCollection().getItems())  //3
+        for (Item item : accountConnectedToThisClient.getCollection().getItems())  //3
         {
             if (isSearchedElement)
             {
@@ -1349,7 +1383,7 @@ public class Request
         setCollectionMenuText("Decks", 50, true);
         yPosition = 0;
         x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())  //3
+        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())  //3
         {
             if (isSearchedElement)
             {
@@ -1394,7 +1428,7 @@ public class Request
         ImageView imageView = new ImageView(image);
 
         Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT, LIGHTBLUE);
-        if (Account.loggedInAccount.getMainDeck() != null && deck.equals(Account.loggedInAccount.getMainDeck()))
+        if (accountConnectedToThisClient.getMainDeck() != null && deck.equals(accountConnectedToThisClient.getMainDeck()))
         {
             rectangle.setFill(LIGHTGREEN);
         }
@@ -1524,22 +1558,40 @@ public class Request
                 }
                 else if (option.get() == buttonTypeSetMainDeck)
                 {
-                    setCommand(CommandType.SET_MAIN_DECK);
-                    getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
+                    ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.SET_MAIN_DECK, deck, client.getAuthToken());
+                    String loginJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                    System.out.println(loginJson);
+                    try
                     {
-                        requestLock.notify();
+                        Client.getSendMessage().addMessage(loginJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
                     }
+                    System.out.println(client.getMessageFromServer().getMessage());
                     collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeValidateDeck)
                 {
-                    setCommand(CommandType.VALIDATE_DECK);
-                    getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
+                    ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.VALIDATE_DECK, deck, client.getAuthToken());
+                    String loginJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                    System.out.println(loginJson);
+                    try
                     {
-                        requestLock.notify();
+                        Client.getSendMessage().addMessage(loginJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
                     }
+                    System.out.println(client.getMessageFromServer().getMessage());
                     collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeExportDeck)
@@ -1571,7 +1623,7 @@ public class Request
 
         int xPosition = 0, yPosition = 0, x, y;
         setShopAndDeckAndGraveYardMenuText(rootCollection, sceneCollection, "Decks", 50);
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -1745,9 +1797,9 @@ public class Request
 
     public Deck returningDeck(String deckName)
     {
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())
         {
-            if (deck.getDeckName() == deckName)
+            if (deck.getDeckName().equals(deckName))
             {
                 return deck;
             }
@@ -1755,7 +1807,7 @@ public class Request
         return null;
     }
 
-    /* private void importingToCollection(String deckName) throws IOException, ParseException
+     private void importingToCollection(String deckName, Account account) throws IOException, ParseException
      {
          JsonParser jsonParser = new JsonParser();
          FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -1763,7 +1815,7 @@ public class Request
          System.out.println(obj);
          Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
          deck.setDeckName("Imported " + deck.getDeckName());
-         Account.loggedInAccount.getPlayerDecks().add(deck);
+         account.getPlayerDecks().add(deck);
          addImportedDeckCardsAndItemsToCollection(deck);
      }
 
@@ -1771,7 +1823,7 @@ public class Request
      {
          //send deck to server    //
      }
-     */
+
     private void deckMenu(Stage primaryStage, Deck deck)
     {
         rootDeck.getChildren().clear();
@@ -2128,10 +2180,7 @@ public class Request
             switch (string)
             {
                 case "Mode 1":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 1 , loggedInAccount , selectedDeckForCustomGame);
-
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 1))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 1))
                     {
                         return;
                     }
@@ -2144,10 +2193,7 @@ public class Request
                     }
                     break;
                 case "Mode 2":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 2 , loggedInAccount , selectedDeckForCustomGame);
-
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 2))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 2))
                     {
                         return;
                     }
@@ -2160,10 +2206,7 @@ public class Request
                     }
                     break;
                 case "Mode 3":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 3 , loggedInAccount , selectedDeckForCustomGame);
-
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 3))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 3))
                     {
                         return;
                     }
@@ -2188,9 +2231,7 @@ public class Request
     {
         Menu decksMenu = new Menu("Decks");
 
-        //        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_DECKS , loggedInAccount);
-
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())   //8
+        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())
         {
             MenuItem menuItem = new MenuItem(deck.getDeckName());
             decksMenu.getItems().add(menuItem);
@@ -2254,9 +2295,9 @@ public class Request
             {
                 case "Mission 1":
 
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , loggedInAccount );
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 1);                                 //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1);                                 //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false, BattleMode.KILLING_ENEMY_HERO);
@@ -2267,9 +2308,9 @@ public class Request
                     break;
                 case "Mission 2":
 
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , loggedInAccount );
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 2);                                     //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2);                                     //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2280,8 +2321,8 @@ public class Request
                     break;
                 case "Mission 3":
 
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , loggedInAccount );
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 3);                                      //9
+                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , accountConnectedToThisClient );
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3);                                      //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false, BattleMode.GATHERING_FLAGS);
@@ -2350,7 +2391,7 @@ public class Request
         rootMultiPlayer.getChildren().clear();
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
 
-        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, battleMode, new Player(multiPlayerAccountToBattle, false));
+        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(accountConnectedToThisClient, battleMode, new Player(multiPlayerAccountToBattle, false));
         try {
             setBattleField(primaryStage, "customGameBackGround", false, battleMode);
         } catch (IOException e) {
@@ -2768,7 +2809,7 @@ public class Request
             public void handle(MouseEvent event) {
                 Text text = new Text();
                 text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.getText());
+                ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.toString());
                 ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
                 String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                 System.out.println(sendMessageJson);
@@ -2782,6 +2823,45 @@ public class Request
             }
         });
         rootChatPage.getChildren().add(button1);
+        /*Button button = new Button("SEND");
+        button.setFont(Font.font("Verdana", 12));
+        button.relocate(300, 500);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                System.out.println("2222222222222222222222222222222");
+                Text text = new Text();
+                text.setText(textField.getText());
+                ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.toString());
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE, chatMessage, client.getAuthToken());
+                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(sendMessageJson);
+                try
+                {
+                    Client.getSendMessage().addMessage(sendMessageJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
+                {
+                    System.out.println("Message Sent");
+                    textField.setText(null);
+                    showMessage();
+                }
+                System.out.println("Message Sent");
+                textField.setText(null);
+                showMessage();
+
+            }
+        });
+        rootChatPage.getChildren().add(button);*/
     }
 
 
@@ -2945,13 +3025,13 @@ public class Request
         }
     }
 
-    public Account getLoggedInAccount()
+    public Account getAccountConnectedToThisClient()
     {
-        return loggedInAccount;
+        return accountConnectedToThisClient;
     }
 
-    public void setLoggedInAccount(Account account)
+    public void setAccountConnectedToThisClient(Account account)
     {
-        loggedInAccount = account;
+        accountConnectedToThisClient = account;
     }
 }

@@ -188,9 +188,8 @@ public class Card implements Cloneable
         return super.clone();
     }
 
-    public void setDefaultCardID()
+    public void setDefaultCardID(Account account)
     {
-        Account account = Account.loggedInAccount;
         String cardID = "SinglePlayer_" + this.getCardName() + "_" + account.getAIAccountDefaultID();
         this.setCardID(cardID);
         account.increaseAIAccountDefaultID();

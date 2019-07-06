@@ -77,31 +77,18 @@ public class InputCommandHandlerForServer extends Thread
                 String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllAccountsJson);
                 break;
+            case GET_ACCOUNT:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, account);
+                String getAccountJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getAccountJson);
+                break;
             case ENTER_SHOP:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getHeroes(), Server.getMinions(), Server.getSpells(), Server.getItems());
                 String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(shopJson);
                 break;
-            case MAKE_CUSTOM_SPELL:
-                workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK);
-                String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                getSendMessage().addMessage(customSpellJson);
-                break;
-            case MAKE_CUSTOM_MINION:
-                workingOnMinionText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK);
-                String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                getSendMessage().addMessage(customMinionJson);
-                break;
-            case MAKE_CUSTOM_HERO:
-                workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
-                serverCommand = new ServerCommand(ServerCommandEnum.OK);
-                String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                getSendMessage().addMessage(customHeroJson);
-                break;
             case SAVE_ACCOUNT_INFO:
-                accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
+                accountManager.saveAccountInfo(clientCommand.getAccount(), false);
                 break;
             case SAVE_SHOP:
                 makeShopJson();
@@ -113,8 +100,13 @@ public class InputCommandHandlerForServer extends Thread
                 buyCardAndItem(clientCommand, account, serverCommand);
                 break;
             case SELL:
-                sellCardAndItem(clientCommand,account,serverCommand);
                 //shopManager.detectIDToSell(clientCommand.getCard().getCardID());
+                break;
+            case VALIDATE_DECK:
+                deckManager.checkDeckValidity(clientCommand.getDeck());
+                break;
+            case SET_MAIN_DECK:
+                deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account);
                 break;
             case IMPORT_DECK:
                 importingToCollection(clientCommand.getDeckName(),account);
@@ -140,8 +132,24 @@ public class InputCommandHandlerForServer extends Thread
             case ADD_CARD_TO_DECK:
                 //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
                 break;
-
-
+            case MAKE_CUSTOM_SPELL:
+                workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customSpellJson);
+                break;
+            case MAKE_CUSTOM_MINION:
+                workingOnMinionText(clientCommand.getTextFieldsToMakeCustom(), account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customMinionJson);
+                break;
+            case MAKE_CUSTOM_HERO:
+                workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(customHeroJson);
+                break;
             case MAKE_STORY_BATTLE:
                 break;
             case MAKE_CUSTOM_BATTLE:
@@ -177,7 +185,6 @@ public class InputCommandHandlerForServer extends Thread
             case GET_ONLINE_ACCOUNTS:
                 break;
             case SEND_MESSAGE:
-                System.out.println(clientCommand.getChatMessage());
                 GlobalChat.getChatMessages().add(clientCommand.getChatMessage());
 
                 break;
@@ -205,7 +212,7 @@ public class InputCommandHandlerForServer extends Thread
             if (account == null)
             {
                 account = accountManager.createAccount(userName, password);
-                accountManager.saveAccountInfo(account, userName, true);
+                accountManager.saveAccountInfo(account, true);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
             }
             else
@@ -217,6 +224,28 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(json);
     }
 
+    public void deleteDeck(String deckName,Account account)
+    {
+        ServerCommand serverCommand = null;
+        Deck deck = DeckManager.findDeck(deckName, account);
+        if (deck != null)
+        {
+            account.deleteDeck(deck);
+            ShowOutput.getInstance().printOutput("Deck deleted");
+
+        }
+        else
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
+            ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(json);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private void checkCircumstancesToLogin(String userName, String password) throws Exception
     {
         ServerCommand serverCommand;
@@ -251,29 +280,6 @@ public class InputCommandHandlerForServer extends Thread
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(json);
     }
-    public void deleteDeck(String deckName,Account account)
-    {
-        ServerCommand serverCommand = null;
-        Deck deck = DeckManager.findDeck(deckName);
-        if (deck != null)
-        {
-            account.deleteDeck(deck);
-            ShowOutput.getInstance().printOutput("Deck deleted");
-
-        }
-        else
-        {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
-            ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try {
-            getSendMessage().addMessage(json);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
     {
@@ -309,39 +315,6 @@ public class InputCommandHandlerForServer extends Thread
         return serverCommand;
     }
 
-    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws InterruptedException {
-        Hero hero = clientCommand.getHero();
-        Minion minion = clientCommand.getMinion();
-        Spell spell = clientCommand.getSpell();
-        Item item = clientCommand.getItem();
-        if (item == null)
-        {
-            Card card =new Card();
-            if (hero!=null)
-            {
-                card = hero;
-            }
-            if (minion!= null)
-            {
-                card = minion;
-            }
-            if (spell != null)
-            {
-                card = spell;
-            }
-            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(),account));
-            String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(SellCardJson);
-        }
-        else
-        {
-            serverCommand = new ServerCommand(shopManager.detectIDForSellItem(item.getItemID(),account));
-            String sellItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(sellItemJson);
-        }
-
-        return serverCommand;
-    }
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
         FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
@@ -367,7 +340,7 @@ public class InputCommandHandlerForServer extends Thread
 
     public void createDeck(String deckName,Account account)
     {
-        Deck deck = DeckManager.findDeck(deckName);
+        Deck deck = DeckManager.findDeck(deckName, account);
         if (deck != null)
         {
             ShowOutput.getInstance().printOutput("Deck exists with this name");
@@ -379,7 +352,7 @@ public class InputCommandHandlerForServer extends Thread
     }
     public void detectID(String ID, String deckName, String command,Account account)
     {
-        Deck deck = DeckManager.findDeck(deckName);
+        Deck deck = DeckManager.findDeck(deckName, account);
         if (deck != null)
         {
             if (command.equals("add"))
@@ -407,21 +380,21 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, hero,account);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, minion,account);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, minion, account);
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, spell,account);
+                    deckManager.checkCardExistenceInDeckToRemove(deck, spell, account);
                 }
             }
         }
@@ -431,7 +404,7 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkItemExistenceInDeckToRemove(deck, item,account);
+                    deckManager.checkItemExistenceInDeckToRemove(deck, item, account);
                     return;
                 }
             }
@@ -464,21 +437,21 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero);
+                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion);
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
                 }
             }
             for (Spell spell :account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell);
+                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
                 }
             }
         }
@@ -488,7 +461,7 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkCircumstancesToAddItemToDeck(deck, item);
+                    deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
                     return;
                 }
             }
@@ -569,9 +542,8 @@ public class InputCommandHandlerForServer extends Thread
     }
 
     @SuppressWarnings("Duplicates")
-    public void workingOnSpellText(ArrayList<TextField> textFields)
+    public void workingOnSpellText(ArrayList<TextField> textFields, Account account)
     {
-
         String name = textFields.get(0).getText();
         String numOfTarget = textFields.get(1).getText();
         String kindOfMinion = textFields.get(2).getText();
@@ -598,12 +570,12 @@ public class InputCommandHandlerForServer extends Thread
         String allOwnMinion = textFields.get(23).getText();
         String allOpponentBothNonSpell = textFields.get(24).getText();
         String allOwnBothNonSpell = textFields.get(25).getText();
-        makingSpellCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
+        makingSpellCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
     }
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingSpellCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
+    private static void makingSpellCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
     {
         Spell spell = new Spell();
         spell.setCardName(name);
@@ -688,7 +660,7 @@ public class InputCommandHandlerForServer extends Thread
                 spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
             }
         }
-        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, spell, false);
+        account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
         //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
@@ -696,7 +668,7 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    public static void workingOnMinionText(ArrayList<TextField> textFields)
+    public static void workingOnMinionText(ArrayList<TextField> textFields, Account account)
     {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
@@ -727,12 +699,12 @@ public class InputCommandHandlerForServer extends Thread
         String allOwnMinion = textFields.get(26).getText();
         String allOpponentBothNonSpell = textFields.get(27).getText();
         String allOwnBothNonSpell = textFields.get(28).getText();
-        makingMinionCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOwnBothNonSpell, allOpponentBothNonSpell, name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
+        makingMinionCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOwnBothNonSpell, allOpponentBothNonSpell, name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
     }
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingMinionCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell, String fiery, String combo)
+    private static void makingMinionCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell, String fiery, String combo)
     {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
@@ -858,7 +830,7 @@ public class InputCommandHandlerForServer extends Thread
             minion.getSpecialPower().getSpellEffect().getSpellChanges().get(0).setTimeToActivateSpecialPower(TimeToActivateSpecialPower.onDefend);
         }
         minion.setPrice(price);
-        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, minion, false);
+        account.getCollection().addCard(account, minion, false);
         Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
         //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
@@ -866,7 +838,7 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    public static void workingOnHeroText(ArrayList<TextField> textFields)
+    public static void workingOnHeroText(ArrayList<TextField> textFields, Account account)
     {
         String name = textFields.get(0).getText();
         String Ap = textFields.get(1).getText();
@@ -898,12 +870,12 @@ public class InputCommandHandlerForServer extends Thread
         String allOpponentBothNonSpell = textFields.get(27).getText();
         String allOwnBothNonSpell = textFields.get(28).getText();
 
-        makingHeroCard(numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
+        makingHeroCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
     }
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingHeroCard(String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)
+    private static void makingHeroCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)
     {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
@@ -1006,7 +978,7 @@ public class InputCommandHandlerForServer extends Thread
         hero.setPrice(price);
         hero.setCoolDown(cooldown);
         hero.setRangeOfAttack(rangeOfAttack);
-        Account.loggedInAccount.getCollection().addCard(Account.loggedInAccount, hero, false);
+        account.getCollection().addCard(account, hero, false);
         Server.getShop().addCardToShop(hero);
         Server.addHero(hero);
         //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
