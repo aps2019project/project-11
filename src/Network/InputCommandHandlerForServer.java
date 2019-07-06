@@ -44,7 +44,9 @@ public class InputCommandHandlerForServer extends Thread
                     }
                 }
                 checkMassageSentByClient(getMessage());
-            } catch (Exception e)
+                message = null;
+            }
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -55,6 +57,7 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
+        ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -68,6 +71,11 @@ public class InputCommandHandlerForServer extends Thread
                 String json = new GsonBuilder().setPrettyPrinting().create().toJson(new ServerCommand(ServerCommandEnum.OK));
                 getSendMessage().addMessage(json);
                 break;
+            case GET_ALL_ACCOUNTS:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getAccounts());
+                String getAllAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getAllAccountsJson);
+                break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom());
                 break;
@@ -76,9 +84,6 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case MAKE_CUSTOM_HERO:
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom());
-                break;
-            case LEADER_BOARD:
-                accountManager.sortAccountsByWins();
                 break;
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(), clientCommand.getUserName(), false);
@@ -124,8 +129,6 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case MAKE_MULTI_PLAYER_BATTLE:
                 break;
-            case GET_ALL_OF_THE_ACCOUNTS:
-                break;
             case SET_BATTLEFIELD_PANES_AND_GRIDPANE:
                 break;
             case SET_NEXT_CARD_PANE:
@@ -153,6 +156,18 @@ public class InputCommandHandlerForServer extends Thread
             case SET_MP_ICONS:
                 break;
             case GET_ONLINE_ACCOUNTS:
+                break;
+            case SEND_MESSAGE:
+                GlobalChat.getChatMessages().add(clientCommand.getChatMessage());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String sendOk = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(sendOk);
+                break;
+            case GET_ALL_MESSAGES_IN_CHAT:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                serverCommand.setChatMessages(GlobalChat.getChatMessages());
+                String getAllChatsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getAllChatsJson);
                 break;
 
         }

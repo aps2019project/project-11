@@ -30,6 +30,7 @@ public class InputCommandHandlerForClient extends Thread
                     }
                 }
                 checkMassageSentByServer(getMessage());
+                message = null;
             }
             catch (InterruptedException e)
             {
@@ -41,29 +42,11 @@ public class InputCommandHandlerForClient extends Thread
     private void checkMassageSentByServer(String commandSentByServer)
     {
         ServerCommand serverCommand = new Gson().fromJson(commandSentByServer, ServerCommand.class);
-        switch (serverCommand.getServerCommandEnum())
+        client.setMessageFromServer(serverCommand);
+        synchronized (client.getRequest().validMessageFromServer)
         {
-            case ERROR:
-                client.getRequest().setMessageFromServer(serverCommand.getErrorMessage());
-                synchronized (client.getRequest().validMessageFromServer)
-                {
-                    client.getRequest().validMessageFromServer.notify();
-                }
-                break;
-            case OK:
-                client.getRequest().setMessageFromServer("OK");
-                if (serverCommand.isLogin())
-                {
-                    client.setAuthToken(serverCommand.getAuthToken());
-                }
-                synchronized (client.getRequest().validMessageFromServer)
-                {
-                    client.getRequest().validMessageFromServer.notify();
-                }
-                break;
+            client.getRequest().validMessageFromServer.notify();
         }
-
-        message = null;
     }
 
     public synchronized void setMessage(String message)

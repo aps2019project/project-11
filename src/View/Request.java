@@ -1,12 +1,9 @@
 package View;
 
-import Controller.AccountManager;
 import Controller.BattleFieldController;
+import Controller.BattleManager;
 import Model.*;
-import Network.Client;
-import Network.ClientCommand;
-import Network.ClientCommandEnum;
-import Network.Server;
+import Network.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -21,13 +18,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -77,7 +74,6 @@ public class Request
     private ShowOutput showOutput = ShowOutput.getInstance();
     private CommandType command;
     public final Object requestLock = new Object();
-    private String messageFromServer;
     public final Object validMessageFromServer = new Object();
     private Client client;
 
@@ -196,12 +192,11 @@ public class Request
                     {
                         validMessageFromServer.wait();
                     }
-                }
-                catch (InterruptedException e)
+                } catch (InterruptedException e)
                 {
                     e.printStackTrace();
                 }
-                if (messageFromServer.equals("OK"))
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
                 {
                     primaryStage.setScene(Client.getSceneLoginMenu());
                     primaryStage.centerOnScreen();
@@ -209,7 +204,7 @@ public class Request
                 }
                 else
                 {
-                    labelInvalidInput.setText(messageFromServer);
+                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
                 }
                 rootSignUpMenu.getChildren().add(labelInvalidInput);
             }
@@ -261,8 +256,8 @@ public class Request
                 rootLoginMenu.getChildren().remove(labelInvalidInput);
                 String name = textFieldName.getText();
                 String password = textFieldPassword.getText();
-                ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN,name,password);
-                String loginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
+                ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGIN, name, password);
+                String loginJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
                 System.out.println(loginJson);
                 try
                 {
@@ -271,20 +266,20 @@ public class Request
                     {
                         validMessageFromServer.wait();
                     }
-                }
-                catch (InterruptedException e)
+                } catch (InterruptedException e)
                 {
                     e.printStackTrace();
                 }
-                if (messageFromServer.equals("OK"))
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
                 {
+                    client.setAuthToken(client.getMessageFromServer().getAuthToken());
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
                     mainMenu(primaryStage);
                 }
                 else
                 {
-                    labelInvalidInput.setText(messageFromServer);
+                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
                 }
                 rootLoginMenu.getChildren().add(labelInvalidInput);
             }
@@ -361,6 +356,8 @@ public class Request
         duelyst.layoutXProperty().bind(sceneMainMenu.widthProperty().subtract(duelyst.prefWidth(-1)).divide(2));
         rootMainMenu.getChildren().add(duelyst);
 
+        setGlobalChatButton(primaryStage , rootMainMenu);
+
         setMainMenuText(primaryStage, "Battle", 80);
         setMainMenuText(primaryStage, "Shop", 135);
         setMainMenuText(primaryStage, "Collection", 190);
@@ -402,7 +399,7 @@ public class Request
                 switch (string)
                 {
                     case "Shop":
-                        setCommand(CommandType.ENTER_SHOP);          //4 constructor --- to send message in main menu  --- MAIN_MENU_COMMAND
+                        setCommand(CommandType.ENTER_SHOP);
                         synchronized (requestLock)
                         {
                             requestLock.notify();
@@ -459,12 +456,12 @@ public class Request
                         makingCustomCards(primaryStage);
                         break;
                     case "Logout":
-                        ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.LOGOUT, client.getAuthToken());
-                        String loginJson =  new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
-                        System.out.println(loginJson);
+                        ClientCommand LogoutClientCommand = new ClientCommand(ClientCommandEnum.LOGOUT, client.getAuthToken());
+                        String logoutJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogoutClientCommand);
+                        System.out.println(logoutJson);
                         try
                         {
-                            Client.getSendMessage().addMessage(loginJson);
+                            Client.getSendMessage().addMessage(logoutJson);
                             synchronized (validMessageFromServer)
                             {
                                 validMessageFromServer.wait();
@@ -584,7 +581,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -593,7 +590,6 @@ public class Request
         rootSpellCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneSpellCustom);
     }
-
 
 
     private void minionPage(Stage stage)
@@ -648,7 +644,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -658,7 +654,6 @@ public class Request
         rootMinionCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneMinionCustom);
     }
-
 
 
     private void heroPage(Stage stage)
@@ -724,7 +719,6 @@ public class Request
     }
 
 
-
     private TextField makingTextField(Group root, int x, int y, String text)
     {
         TextField textField = new TextField();
@@ -762,16 +756,9 @@ public class Request
 
     private void leaderBoard(Stage primaryStage)
     {
-        Label labelTop10 = new Label("Top 10");
-        labelTop10.setTextFill(YELLOW);
-        labelTop10.setFont(Font.font(30));
-        labelTop10.relocate(100, 0);
-        rootLeaderBoard.getChildren().clear();
-        rootLeaderBoard.getChildren().add(labelTop10);
-        showOutput.showRankingPlayers();
-        backButton(primaryStage, rootLeaderBoard, 100, 600);
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.LEADER_BOARD, client.getAuthToken());
-        String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        ClientCommand LeaderBoardClientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_ACCOUNTS, client.getAuthToken());
+        String leaderBoardJson = new GsonBuilder().setPrettyPrinting().create().toJson(LeaderBoardClientCommand);
+        System.out.println(leaderBoardJson);
         try
         {
             Client.getSendMessage().addMessage(leaderBoardJson);
@@ -779,13 +766,66 @@ public class Request
             {
                 validMessageFromServer.wait();
             }
-        }
-        catch (Exception e)
+        } catch (InterruptedException e)
         {
             e.printStackTrace();
         }
+        Label labelTop10 = new Label("Top 10");
+        labelTop10.setTextFill(YELLOW);
+        labelTop10.setFont(Font.font(30));
+        labelTop10.relocate(100, 0);
+        rootLeaderBoard.getChildren().clear();
+        rootLeaderBoard.getChildren().add(labelTop10);
+        showRankingPlayers(client.getMessageFromServer().getAccounts());
+        backButton(primaryStage, rootLeaderBoard, 100, 600);
         primaryStage.setScene(sceneLeaderBoard);
         primaryStage.centerOnScreen();
+    }
+
+    private void showRankingPlayers(ArrayList<Account> accounts)
+    {
+        Group rootLeaderBoard = Client.getRootLeaderBoard();
+        int counter = 1;
+        try
+        {
+            for (Account account : accounts)
+            {
+                if (counter > 10)
+                {
+                    break;
+                }
+                Text textPlayerName = new Text(counter + "- " + account.getAccountName());
+                textPlayerName.setFont(Font.font(15));
+                textPlayerName.relocate(25, counter * 50);
+                rootLeaderBoard.getChildren().add(textPlayerName);
+
+                Text textPlayerHighScore = new Text(Integer.toString(account.getNumOfWins()));
+                textPlayerHighScore.setFont(Font.font(15));
+                textPlayerHighScore.relocate(250, counter * 50);
+                rootLeaderBoard.getChildren().add(textPlayerHighScore);
+
+                if (account.getAuthToken() != null)
+                {
+                    Circle circle = new Circle();
+                    circle.setFill(Color.GREEN);
+                    circle.setCenterY(counter * 50 + 10);
+                    circle.setCenterX(15);
+                    circle.setRadius(5);
+                    rootLeaderBoard.getChildren().add(circle);
+                }
+
+                if (account.getAuthToken().equals(client.getAuthToken()))
+                {
+                    textPlayerName.setFill(Color.RED);
+                    textPlayerHighScore.setFill(Color.RED);
+                }
+                counter++;
+            }
+        }
+        catch (Exception e)
+        {
+            showRankingPlayers(accounts);
+        }
     }
 
     private Button backButton(Stage primaryStage, Group root, int x, int y)
@@ -1119,11 +1159,10 @@ public class Request
         String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(Shop.getInstance());
         try
         {
-          FileWriter fileWriter = new FileWriter("shop.json");
-          fileWriter.write(shopJson);
-          fileWriter.close();
-        }
-        catch (Exception e)
+            FileWriter fileWriter = new FileWriter("shop.json");
+            fileWriter.write(shopJson);
+            fileWriter.close();
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -1153,7 +1192,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID(), hero.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice(),hero.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice(), hero.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1185,7 +1224,7 @@ public class Request
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID(), minion.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice(),minion.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice(), minion.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1217,7 +1256,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice(),spell.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice(), spell.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1252,7 +1291,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice(), 0);
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice(),item.getItemName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice(), item.getItemName());
             xPosition++;
             yPosition++;
         }
@@ -1342,7 +1381,7 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price,String name)
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price, String name)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1864,8 +1903,7 @@ public class Request
                     break;
                 case "Multi Player":
                     command = CommandType.MULTI_PLAYER;
-                    multiPlayerMenu(primaryStage);
-                    //todo battlefield
+                    MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
                     break;
             }
             synchronized (requestLock)
@@ -2038,7 +2076,7 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 1 , loggedInAccount , selectedDeckForCustomGame);
 
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 1))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 1))
                     {
                         return;
                     }
@@ -2054,13 +2092,13 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 2 , loggedInAccount , selectedDeckForCustomGame);
 
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker( loggedInAccount , selectedDeckForCustomGame, 2))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 2))
                     {
                         return;
                     }
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
+                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.GATHERING_FLAGS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2070,13 +2108,13 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_BATTLE , 3 , loggedInAccount , selectedDeckForCustomGame);
 
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount ,selectedDeckForCustomGame, 3))
+                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(loggedInAccount, selectedDeckForCustomGame, 3))
                     {
                         return;
                     }
                     try
                     {
-                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2095,7 +2133,7 @@ public class Request
     {
         Menu decksMenu = new Menu("Decks");
 
-//        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_DECKS , loggedInAccount);
+        //        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_DECKS , loggedInAccount);
 
         for (Deck deck : Account.loggedInAccount.getPlayerDecks())   //8
         {
@@ -2163,10 +2201,10 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , loggedInAccount );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,1);                                 //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 1);                                 //9
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory1", false , BattleMode.KILLING_ENEMY_HERO);
+                        setBattleField(primaryStage, "backgroundStory1", false, BattleMode.KILLING_ENEMY_HERO);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2176,10 +2214,10 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , loggedInAccount );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,2);                                     //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 2);                                     //9
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory2", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
+                        setBattleField(primaryStage, "backgroundStory2", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2188,10 +2226,10 @@ public class Request
                 case "Mission 3":
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , loggedInAccount );
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount ,3);                                      //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(loggedInAccount, 3);                                      //9
                     try
                     {
-                        setBattleField(primaryStage, "backgroundStory3", false , BattleMode.GATHERING_FLAGS);
+                        setBattleField(primaryStage, "backgroundStory3", false, BattleMode.GATHERING_FLAGS);
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -2207,10 +2245,10 @@ public class Request
     }
 
 
-    private void multiPlayerMenu(Stage primaryStage)
+    private void multiPlayerMenu(Stage primaryStage , BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        setMultiPlayerMenu("Choose  One Player", primaryStage, 75);
+        setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2223,7 +2261,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
+                goWaitingPage(primaryStage , battleMode);
             }
         });
 
@@ -2250,6 +2288,50 @@ public class Request
         });
         primaryStage.setScene(sceneMultiPlayer);
         rootMultiPlayer.getChildren().addAll(backButton, nextButton);
+    }
+
+    private void goWaitingPage(Stage primaryStage, BattleMode battleMode) {
+        rootMultiPlayer.getChildren().clear();
+        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
+
+        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount, battleMode, new Player(multiPlayerAccountToBattle, false));
+        try {
+            setBattleField(primaryStage, "customGameBackGround", false, battleMode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
+        Text waitingText = new Text("Waiting for other player ...");
+        waitingText.setFont(Font.font("Verdana", 30));
+        waitingText.relocate(250 , 250);
+        Button backButton = new Button("Back");
+        backButton.relocate(50, 490);
+        backButton.setFont(Font.font(25));
+
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                setCommand(CommandType.EXIT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                try
+                {
+                    primaryStage.setScene(sceneMainMenu);
+                    primaryStage.centerOnScreen();
+                    battleMenu(primaryStage);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
+        primaryStage.setScene(sceneMultiPlayer);
+        rootMultiPlayer.getChildren().addAll(backButton);
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
@@ -2300,45 +2382,13 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 1 , loggedInAccount , multiPlayerAccountToBattle);
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,1, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KILLING_ENEMY_HERO);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    multiPlayerMenu(primaryStage , BattleMode.KILLING_ENEMY_HERO);
                     break;
                 case "Mode 2":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 2 , loggedInAccount , multiPlayerAccountToBattle);
-
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,2, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.GATHERING_FLAGS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    multiPlayerMenu(primaryStage , BattleMode.GATHERING_FLAGS);
                     break;
                 case "Mode 3":
-
-                  //  ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_MULTI_PLAYER_BATTLE , 3 , loggedInAccount , multiPlayerAccountToBattle);
-
-                    Client.getCallTheAppropriateFunction().multiPayerBattleMaker(loggedInAccount ,3, new Player(multiPlayerAccountToBattle, false));  //12
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false , BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    break;
+                    multiPlayerMenu(primaryStage , BattleMode.KEEP_FLAG_FOR_6_TURNS);
             }
             synchronized (requestLock)
             {
@@ -2352,15 +2402,30 @@ public class Request
     {
         Menu decksMenu = new Menu("Players");
 
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_OF_THE_ACCOUNTS);
-
-        for (Account account : Server.getAccounts())                    //1
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_ACCOUNTS, client.getAuthToken());
+        String getAllOfAccountsJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        System.out.println(getAllOfAccountsJson);
+        try
         {
-            MenuItem menuItem = new MenuItem(account.getAccountName());
-            decksMenu.getItems().add(menuItem);
-            menuItem.setOnAction(e -> {
-                multiPlayerAccountToBattle = account;
-            });
+            Client.getSendMessage().addMessage(getAllOfAccountsJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
+        {
+            for (Account account : client.getMessageFromServer().getAccounts())
+            {
+                MenuItem menuItem = new MenuItem(account.getAccountName());
+                decksMenu.getItems().add(menuItem);
+                menuItem.setOnAction(e -> {
+                    multiPlayerAccountToBattle = account;
+                });
+            }
         }
 
         MenuBar menuBar = new MenuBar(decksMenu);
@@ -2368,7 +2433,7 @@ public class Request
         rootMultiPlayer.getChildren().add(menuBar);
     }
 
-    private void setMultiPlayerMenu(String string, Stage primaryStage, int location)
+    private void setMultiPlayerMenu(String string, int location)
     {
         Text multiPlayerText = new Text(string);
         multiPlayerText.setFont(Font.font(null, FontPosture.ITALIC, 50));
@@ -2379,7 +2444,7 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard , BattleMode battleMode) throws IOException
+    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard, BattleMode battleMode) throws IOException
     {
         if (!backFromGraveYard)
         {
@@ -2390,13 +2455,14 @@ public class Request
             setPlayersName(rootBattleField);
             setMPIcons(rootBattleField);
             setHeroFirstPlace();
-            setGraveYardButton(primaryStage, rootBattleField, map , battleMode);
+            setGraveYardButton(primaryStage, rootBattleField, map, battleMode);
             setSurrenderButton(primaryStage, rootBattleField, map);
             setNextCard(rootBattleField);
             showGameInfo(rootBattleField);
-            setEndTurnButton(rootBattleField , battleMode);
+            setEndTurnButton(primaryStage ,rootBattleField, battleMode);
+            setGlobalChatButton(primaryStage , rootBattleField);
         }
-        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField , battleInfo , battleMode);
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
@@ -2405,18 +2471,13 @@ public class Request
 
     private void setNextCard(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_NEXT_CARD_PANE , rootBattleField);
-
-        Battle.getCurrentBattle().setNextCardPane(rootBattleField);   //6
+        Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
 
     private void showGameInfo(Group rootBattleField)
     {
         Text text = new Text();
-
-       // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_INSTANCE_OF_SHOW_OUTPUT);
-
-        ShowOutput showOutput = ShowOutput.getInstance();  //1
+        ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
         text.setText(string);
         text.relocate(1050, 200);
@@ -2431,12 +2492,12 @@ public class Request
 
     private void setPlayersName(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_PLAYERS_NAME , rootBattleField);
+        Battle.getCurrentBattle().setPlayersName(rootBattleField);
     }
 
     public void setMPIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_MP_ICONS , rootBattleField);
+        Battle.getCurrentBattle().setMPIcons(rootBattleField);
     }
 
     private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
@@ -2462,7 +2523,7 @@ public class Request
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url , BattleMode battleMode)
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url, BattleMode battleMode)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2473,13 +2534,13 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, url , battleMode);
+                showGraveYard(primaryStage, url, battleMode);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void showGraveYard(Stage primaryStage, String map , BattleMode battleMode)
+    private void showGraveYard(Stage primaryStage, String map, BattleMode battleMode)
     {
         rootGraveYard.getChildren().clear();
 
@@ -2492,9 +2553,6 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
-
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_TURN_GRAVE_YARD_CARDS);
-
         for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //7
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
@@ -2514,7 +2572,7 @@ public class Request
                 {
                     primaryStage.setScene(sceneBattleField);
                     primaryStage.centerOnScreen();
-                    setBattleField(primaryStage, map, true , battleMode);
+                    setBattleField(primaryStage, map, true, battleMode);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -2523,7 +2581,7 @@ public class Request
         });
     }
 
-    private void setEndTurnButton(Group rootBattleField , BattleMode battleMode)
+    private void setEndTurnButton(Stage primaryStage, Group rootBattleField, BattleMode battleMode)
     {
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
@@ -2532,10 +2590,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                ////////////////////////////////////////////clear the hand panes image view in battle (don't forget it)                  //7
-
-                //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.CLEAR_HAND_PANES_IMAGE_VIEW_AND_END_TURN_AND_SET_HAND_ICON , rootBattleField);
-
+                Battle.getCurrentBattle().clearTheHandPictures();
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
                 Battle.getCurrentBattle().setHandIcons();
@@ -2547,6 +2602,7 @@ public class Request
                     rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
                 makeBattleFieldController(battleMode);
+                setGlobalChatButton(primaryStage , rootBattleField);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
@@ -2554,114 +2610,129 @@ public class Request
 
     private void makeBattleFieldController(BattleMode battleMode)
     {
-        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField , battleInfo , battleMode);
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
     }
 
     private void setHeroFirstPlace()
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HEROES_FIRST_PLACE);
-
-        Battle.getCurrentBattle().setHeroesFirstPlace();                                                     //7
+        Battle.getCurrentBattle().setHeroesFirstPlace();
     }
 
     private void setHeroIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HERO_ICONS ,rootBattleField);                                            //6
+        Battle.getCurrentBattle().setHeroIcons(rootBattleField);
     }
 
     private void setHandIcons(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_HAND_ICONS ,rootBattleField);                                             //6
+        Battle.getCurrentBattle().setHandIcons();
     }
 
     private void setGridPane(Group rootBattleField)
     {
-        //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SET_GRID_PANE ,rootBattleField);                              //6
+        Battle.getCurrentBattle().setGridPane(rootBattleField);
     }
 
-    private void setGlobalChatButton(Stage primaryStage , Group root){
+    private void setGlobalChatButton(Stage primaryStage, Group root)
+    {
         Button chatButton = new Button("Global Chat");
+        chatButton.relocate(10 , 400);
         chatButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 goToChatMenu(primaryStage);
             }
         });
         root.getChildren().add(chatButton);
     }
 
-    private void goToChatMenu(Stage primaryStage) {
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ONLINE_ACCOUNTS, client.getAuthToken());
-        //
+    private void goToChatMenu(Stage primaryStage)
+    {
 
-
-        ArrayList<Account> onlineAccounts = null;
-
-        int i = 0;
-        for(Account account: onlineAccounts){
-            Text text = new Text(account.getAccountName());
-            text.setFont(Font.font("Verdana", 25));
-            text.relocate(10 , i * 25 + 15);
-            text.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    text.setFill(DARKBLUE);
-                }
-            });
-            text.setOnMouseExited(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    text.setFill(BLACK);
-                }
-            });
-            text.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setChatPage(primaryStage , account);
-                }
-            });
-
-            rootChatMenu.getChildren().add(text);
-            primaryStage.setScene(sceneChatMenu);
-            primaryStage.show();
-        }
-    }
-
-    private void setChatPage(Stage primaryStage, Account account) {
-        Text text = new Text(account.getAccountName());
-        text.relocate(200 , 15);
-        text.setFont(Font.font("Verdana", 25));
-        rootChatPage = new Group();
-        rootChatPage.getChildren().add(text);
-
+        backButton(primaryStage , rootChatPage ,  0, 0);
         makeTextFields();
-
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
+
     }
 
-    private void makeTextFields() {
+    private void makeTextFields()
+    {
         TextField textField = new TextField();
+
         makeSendButton(textField);
+        showMessage();
+
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
-        tilePane.relocate(0 , 500);
+        tilePane.relocate(0, 500);
         rootChatPage.getChildren().add(tilePane);
     }
 
-    private void makeSendButton(TextField textField) {
+    private void showMessage()
+    {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ALL_MESSAGES_IN_CHAT, client.getAuthToken());
+        String getAllMessagesInChat =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        System.out.println(getAllMessagesInChat);
+        try
+        {
+            Client.getSendMessage().addMessage(getAllMessagesInChat);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)) {
+            ArrayList<ChatMessage> chatMessages = client.getMessageFromServer().getChatMessages();
+            if (chatMessages != null) {
+                int counter = 0;
+                for (ChatMessage chatMessage : chatMessages) {
+                    Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
+                    text.relocate(10, 10 + counter * 20);
+                    rootChatPage.getChildren().add(text);
+                    counter++;
+                }
+            }
+        }
+    }
+
+    private void makeSendButton(TextField textField)
+    {
         Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        button.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 Text text = new Text();
                 text.setText(textField.getText());
-                text.relocate(50 , 50);
-                rootChatPage.getChildren().add(textField);
-                textField.setText(null);
+                ChatMessage chatMessage = new ChatMessage(loggedInAccount, text.toString());
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
+                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                System.out.println(sendMessageJson);
+                try
+                {
+                    Client.getSendMessage().addMessage(sendMessageJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)) {
+                    System.out.println("Message Sent");
+                    textField.setText(null);
+                    showMessage();
+                }
             }
         });
         rootChatPage.getChildren().add(button);
@@ -2847,21 +2918,13 @@ public class Request
         }
     }
 
-    public Account getLoggedInAccount(){
+    public Account getLoggedInAccount()
+    {
         return loggedInAccount;
     }
 
-    public void setLoggedInAccount(Account account){
+    public void setLoggedInAccount(Account account)
+    {
         loggedInAccount = account;
-    }
-
-    public String getMessageFromServer()
-    {
-        return messageFromServer;
-    }
-
-    public void setMessageFromServer(String messageFromServer)
-    {
-        this.messageFromServer = messageFromServer;
     }
 }

@@ -8,7 +8,10 @@ import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 public class ShowOutput
 {
@@ -52,42 +55,6 @@ public class ShowOutput
         printOutput("Logout");
         printOutput("Help");
         printOutput("Exit");
-    }
-
-    void showRankingPlayers()
-    {
-        Group rootLeaderBoard = Client.getRootLeaderBoard();
-        int counter = 1;
-        try
-        {
-            for (Account account : Server.getAccounts())
-            {
-                if (counter > 10)
-                {
-                    break;
-                }
-                Label labelPlayerName = new Label(counter + "- " + account.getAccountName());
-                labelPlayerName.setFont(Font.font(15));
-                labelPlayerName.relocate(25, counter * 50);
-                rootLeaderBoard.getChildren().add(labelPlayerName);
-
-                Label labelPlayerHighScore = new Label(Integer.toString(account.getNumOfWins()));
-                labelPlayerHighScore.setFont(Font.font(15));
-                labelPlayerHighScore.relocate(250, counter * 50);
-                rootLeaderBoard.getChildren().add(labelPlayerHighScore);
-
-                if (account.equals(Account.loggedInAccount))
-                {
-                    labelPlayerName.setTextFill(Color.RED);
-                    labelPlayerHighScore.setTextFill(Color.RED);
-                }
-                counter++;
-            }
-        }
-        catch (Exception e)
-        {
-            showRankingPlayers();
-        }
     }
 
     public void printHeroStats(Hero hero, int counter)

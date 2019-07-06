@@ -22,6 +22,7 @@ public class Client extends Application
     private static SendMessage sendMessage;
     private Request request = new Request(this);
     private String authToken;
+    private ServerCommand messageFromServer;
 
     private static Group rootSignUpMenu = new Group();
     private static Scene sceneSignUpMenu = new Scene(rootSignUpMenu, 400, 400);
@@ -190,7 +191,7 @@ public class Client extends Application
             public void onMessageReceived(String message) throws InterruptedException
             {
                 handleCommand.setMessage(message);
-                output.addMessage(message);
+                //output.addMessage(message);
             }
         });
         receiveMessage.start();
@@ -399,5 +400,15 @@ public class Client extends Application
     public void setAuthToken(String authToken)
     {
         this.authToken = authToken;
+    }
+
+    public ServerCommand getMessageFromServer()
+    {
+        return messageFromServer;
+    }
+
+    public void setMessageFromServer(ServerCommand messageFromServer)
+    {
+        this.messageFromServer = messageFromServer;
     }
 }
