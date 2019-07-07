@@ -94,7 +94,10 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(collectionJson);
                 break;
             case SAVE_ACCOUNT_INFO:
-                accountManager.saveAccountInfo(clientCommand.getAccount(), false);
+                accountManager.saveAccountInfo(account, false);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(saveJson);
                 break;
             case SAVE_SHOP:
                 makeShopJson();
