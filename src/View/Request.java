@@ -2760,8 +2760,8 @@ public class Request
 
     private void goToChatMenu(Stage primaryStage)
     {
-
-        backButton(primaryStage, rootChatPage, 400, 500);
+        setBackGroundImage(rootChatPage , "file:battleField BackGround/chat background.jpg");
+        backButton(primaryStage, rootChatPage, 400, 485);
         TextField textField = new TextField();
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
