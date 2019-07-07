@@ -21,6 +21,7 @@ public class ClientCommand
     private Deck deck;
     private String deckName;
     private String authToken;
+    private ChatMessage chatMessage;
 
     private transient int battleMode;
     private transient Pane[][] battleFieldPanes;
@@ -29,7 +30,6 @@ public class ClientCommand
     private transient Account secondAccount;
     private transient Player player;
     private transient Group root;
-    private transient ChatMessage chatMessage;
 
     public ClientCommand(ClientCommandEnum clientCommandEnum)
     {
@@ -165,10 +165,11 @@ public class ClientCommand
         this.root = root;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, ChatMessage chatMessage ,String authToken) {
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ChatMessage chatMessage, String authToken)
+    {
         this.clientCommandEnum = clientCommandEnum;
-        this.authToken = authToken;
         this.chatMessage = chatMessage;
+        this.authToken = authToken;
     }
 
     
@@ -333,11 +334,13 @@ public class ClientCommand
         return authToken;
     }
 
-    public ChatMessage getChatMessage() {
+    public ChatMessage getChatMessage()
+    {
         return chatMessage;
     }
 
-    public void setChatMessage(ChatMessage chatMessage) {
+    public void setChatMessage(ChatMessage chatMessage)
+    {
         this.chatMessage = chatMessage;
     }
 }

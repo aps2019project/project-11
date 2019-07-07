@@ -58,7 +58,7 @@ public class Shop
         account.increaseDefaultID();
     }
 
-    public void sellCard(Card cardToSell,Account account)
+    public void sellCard(Card cardToSell, Account account)
     {
         if (cardToSell instanceof Hero)
         {
@@ -76,7 +76,7 @@ public class Shop
         cardToSell.increaseCapacityOfSell();
     }
 
-    public void sellItem(Item itemToSell,Account account)
+    public void sellItem(Item itemToSell, Account account)
     {
         account.getCollection().getItems().remove(itemToSell);
         account.addMoney(itemToSell.getPrice());

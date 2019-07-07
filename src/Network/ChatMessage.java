@@ -2,8 +2,6 @@ package Network;
 
 import Model.Account;
 
-import java.util.Date;
-
 public class ChatMessage
 {
     private Account sender;
@@ -21,19 +19,8 @@ public class ChatMessage
         return sender;
     }
 
-    public void setSender(Account sender)
-    {
-        this.sender = sender;
-    }
-
     public String getMessage()
     {
         return message;
     }
-
-    public void setMessage(String message)
-    {
-        this.message = message;
-    }
-
 }

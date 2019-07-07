@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Account
 {
-    public transient static Account loggedInAccount;
     private String accountName;
     private ArrayList<FinishedMatch> matchHistory = new ArrayList<>();
     private Collection collection = new Collection();
@@ -54,7 +53,7 @@ public class Account
             this.getCollection().addCard(account, (Spell) Card.findCard("fireball").clone(), false);
             this.getCollection().addCard(account, (Spell) Card.findCard("shock").clone(), false);
             this.getCollection().addCard(account, (Spell) Card.findCard("godStrength").clone(), false);
-            addDefaultDeck();
+            addDefaultDeck(account);
         }
         catch (CloneNotSupportedException ignored)
         {
@@ -62,22 +61,22 @@ public class Account
         }
     }
 
-    public void addDefaultDeck()
+    public void addDefaultDeck(Account account)
     {
         Deck deck = new Deck("defaultDeck");
         for (Hero hero : getCollection().getHeroes())
         {
-            deck.addCardToDeck(hero, false);
+            deck.addCardToDeck(hero, account, false);
         }
         for (Minion minion : getCollection().getMinions())
         {
-            deck.addCardToDeck(minion, false);
+            deck.addCardToDeck(minion, account, false);
         }
         for (Spell spell : getCollection().getSpells())
         {
-            deck.addCardToDeck(spell, false);
+            deck.addCardToDeck(spell, account, false);
         }
-        deck.addItemToDeck(this.getCollection().getItems().get(0), false);
+        deck.addItemToDeck(this.getCollection().getItems().get(0), account, false);
         addDeck(deck);
         setMainDeck(deck);
     }
@@ -94,17 +93,6 @@ public class Account
         {
             setMainDeck(null);
         }
-    }
-
-    public static void login(Account account)
-    {
-        loggedInAccount = account;
-    }
-
-    public static void logout()
-    {
-        loggedInAccount = null;
-
     }
 
     @Override
@@ -197,23 +185,23 @@ public class Account
         this.AIAccountDefaultID++;
     }
 
-    public void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    public void addImportedDeckCardsAndItemsToCollection(Deck deck, Account account)
     {
         for (Hero hero : deck.getHero())
         {
-            getCollection().addCard(Account.loggedInAccount, hero, true);
+            getCollection().addCard(account, hero, true);
         }
         for (Minion minion : deck.getMinions())
         {
-            getCollection().addCard(Account.loggedInAccount, minion, true);
+            getCollection().addCard(account, minion, true);
         }
         for (Spell spell : deck.getSpells())
         {
-            getCollection().addCard(Account.loggedInAccount, spell, true);
+            getCollection().addCard(account, spell, true);
         }
         for (Item item : deck.getItem())
         {
-            getCollection().addItem(Account.loggedInAccount, item, true);
+            getCollection().addItem(account, item, true);
         }
     }
 

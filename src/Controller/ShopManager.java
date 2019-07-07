@@ -46,61 +46,55 @@ public class ShopManager
         }
     }
 
-    public String detectIDToSell(String ID,Account account)
+    public void detectIDToSell(String ID, Account account)
     {
         for (Hero hero : account.getCollection().getHeroes())
         {
             if (hero.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(hero,account);
-                return "Successful sell";
+                removeCardFromDeckToSell(hero, account);
+                return;
             }
         }
         for (Minion minion : account.getCollection().getMinions())
         {
             if (minion.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(minion,account);
-                return "successful sell";
+                removeCardFromDeckToSell(minion, account);
+                return;
             }
         }
         for (Spell spell : account.getCollection().getSpells())
         {
             if (spell.getCardID().equals(ID))
             {
-                removeCardFromDeckToSell(spell,account);
-                return "successful sell";
+                removeCardFromDeckToSell(spell, account);
+                return;
             }
         }
-
-        return "You don't have Card  with this ID!";
-    }
-
-    public String detectIDForSellItem(String ID,Account account)
-    {
-        for (Item item :account.getCollection().getItems())
+        for (Item item : account.getCollection().getItems())
         {
             if (item.getItemID().equals(ID))
             {
-                removeItemFromDeckToSell(item,account);
-                return "successful sell";
+                removeItemFromDeckToSell(item, account);
+                return;
             }
         }
-        return "You don't have Item  with this ID!";
+        showOutput.printOutput("You don't have Card or Item with this ID!");
     }
 
-    private void removeCardFromDeckToSell(Card cardToSell,Account account)
+    private void removeCardFromDeckToSell(Card cardToSell, Account account)
     {
-        new DeckManager().searchDecksToRemoveCardOnSale(cardToSell,account);
-        Server.getShop().sellCard(cardToSell,account);
+        new DeckManager().searchDecksToRemoveCardOnSale(cardToSell, account);
+        Server.getShop().sellCard(cardToSell, account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
 
-    private void removeItemFromDeckToSell(Item itemToSell,Account account)
+    private void removeItemFromDeckToSell(Item itemToSell, Account account)
     {
-        new DeckManager().searchDecksToRemoveItemOnSale(itemToSell,account);
-        Server.getShop().sellItem(itemToSell,account);
+        new DeckManager().searchDecksToRemoveItemOnSale(itemToSell, account);
+        Server.getShop().sellItem(itemToSell, account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfSell() + " now");
     }

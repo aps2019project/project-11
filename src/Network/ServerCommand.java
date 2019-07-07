@@ -8,6 +8,7 @@ public class ServerCommand
 {
     private ServerCommandEnum serverCommandEnum;
     private String message;
+    private Account account;
     private ArrayList<Account> accounts;
     private ArrayList<Hero> heroes = new ArrayList<>();
     private ArrayList<Minion> minions = new ArrayList<>();
@@ -29,6 +30,12 @@ public class ServerCommand
     {
         this.serverCommandEnum = serverCommandEnum;
         this.accounts = accounts;
+    }
+
+    public ServerCommand(ServerCommandEnum serverCommandEnum, Account account)
+    {
+        this.serverCommandEnum = serverCommandEnum;
+        this.account = account;
     }
 
     public ServerCommand(ServerCommandEnum serverCommandEnum,ArrayList<Hero> heroes,ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items)
@@ -119,5 +126,10 @@ public class ServerCommand
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public Account getAccount()
+    {
+        return account;
     }
 }

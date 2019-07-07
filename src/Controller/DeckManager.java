@@ -7,9 +7,9 @@ public class DeckManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
 
-    public static Deck findDeck(String deckName)
+    public static Deck findDeck(String deckName, Account account)
     {
-        for (Deck deck : Account.loggedInAccount.getPlayerDecks())
+        for (Deck deck : account.getPlayerDecks())
         {
             if (deck.getDeckName().equals(deckName))
             {
@@ -19,11 +19,11 @@ public class DeckManager
         return null;
     }
 
-    public void checkCircumstancesToAddCardToDeck(Deck deck, Card card)
+    public void checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
     {
         if (card instanceof  Hero)
         {
-            checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card);
+            checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card, account);
         }
         else
         {
@@ -48,12 +48,12 @@ public class DeckManager
                 showOutput.printOutput("Deck is full");
                 return;
             }
-            deck.addCardToDeck(card, false);
+            deck.addCardToDeck(card, account, false);
             showOutput.printOutput("Card added to deck");
         }
     }
 
-    public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero)
+    public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero, Account account)
     {
         for (Hero deckHero : deck.getHero())
         {
@@ -68,11 +68,11 @@ public class DeckManager
             showOutput.printOutput("Deck is full");
             return;
         }
-        deck.addCardToDeck(hero, false);
+        deck.addCardToDeck(hero, account, false);
         showOutput.printOutput("Card added to deck");
     }
 
-    public void checkCircumstancesToAddItemToDeck(Deck deck, Item item)
+    public void checkCircumstancesToAddItemToDeck(Deck deck, Item item, Account account)
     {
         for (Item deckItem : deck.getItem())
         {
@@ -87,16 +87,16 @@ public class DeckManager
             showOutput.printOutput("Deck is full");
             return;
         }
-        deck.addItemToDeck(item, false);
+        deck.addItemToDeck(item, account, false);
     }
 
-    public void checkCardExistenceInDeckToRemove(Deck deck, Card card,Account account)
+    public void checkCardExistenceInDeckToRemove(Deck deck, Card card, Account account)
     {
         for (Minion minion : deck.getMinions())
         {
             if (card.getCardName().equals(minion.getCardName()))
             {
-                deck.deleteCardFromDeck(card,account);
+                deck.deleteCardFromDeck(card, account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -105,7 +105,7 @@ public class DeckManager
         {
             if (card.getCardName().equals(spell.getCardName()))
             {
-                deck.deleteCardFromDeck(card,account);
+                deck.deleteCardFromDeck(card, account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -114,7 +114,7 @@ public class DeckManager
         {
             if (card.getCardID().equals(deckHero.getCardID()))
             {
-                deck.deleteCardFromDeck(card,account);
+                deck.deleteCardFromDeck(card, account);
                 showOutput.printOutput("Card removed from deck");
                 return;
             }
@@ -122,7 +122,7 @@ public class DeckManager
         showOutput.printOutput("This card isn't in the deck");
     }
 
-    public void searchDecksToRemoveCardOnSale(Card card,Account account)
+    public void searchDecksToRemoveCardOnSale(Card card, Account account)
     {
         for (Deck deck : account.getPlayerDecks())
         {
@@ -130,7 +130,7 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckHero.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card,account);
+                    deck.deleteCardFromDeck(card, account);
                     break;
                 }
             }
@@ -138,7 +138,7 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckMinion.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card,account);
+                    deck.deleteCardFromDeck(card, account);
                     break;
                 }
             }
@@ -146,20 +146,20 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckSpell.getCardID()))
                 {
-                    deck.deleteCardFromDeck(card,account);
+                    deck.deleteCardFromDeck(card, account);
                     break;
                 }
             }
         }
     }
 
-    public void checkItemExistenceInDeckToRemove(Deck deck, Item item,Account account)
+    public void checkItemExistenceInDeckToRemove(Deck deck, Item item, Account account)
     {
         for (Item deckItem : deck.getItem())
         {
             if (item.getItemID().equals(deckItem.getItemID()))
             {
-                deck.deleteItemFromDeck(item,account);
+                deck.deleteItemFromDeck(item, account);
                 showOutput.printOutput("Item removed from deck");
                 return;
             }
@@ -167,7 +167,7 @@ public class DeckManager
         showOutput.printOutput("This item isn't in the deck");
     }
 
-    public void searchDecksToRemoveItemOnSale(Item item,Account account)
+    public void searchDecksToRemoveItemOnSale(Item item, Account account)
     {
         for (Deck deck : account.getPlayerDecks())
         {
@@ -175,16 +175,15 @@ public class DeckManager
             {
                 if (item.getItemID().equals(deckItem.getItemID()))
                 {
-                    deck.deleteItemFromDeck(item,account);
+                    deck.deleteItemFromDeck(item, account);
                     return;
                 }
             }
         }
     }
 
-    public boolean checkDeckValidity(String deckName)
+    public boolean checkDeckValidity(Deck deck)
     {
-        Deck deck = findDeck(deckName);
         if (deck != null)
         {
             if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
@@ -205,12 +204,11 @@ public class DeckManager
         return false;
     }
 
-    public void setDeckAsMainDeck(String deckName)
+    public void setDeckAsMainDeck(Deck deck, Account account)
     {
-        if (checkDeckValidity(deckName))
+        if (checkDeckValidity(deck))
         {
-            Deck deck = DeckManager.findDeck(deckName);
-            Account.loggedInAccount.setMainDeck(deck);
+            account.setMainDeck(deck);
             showOutput.printOutput("MainDeck set");
         }
     }
