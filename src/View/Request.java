@@ -1448,6 +1448,21 @@ public class Request
 
     private StackPane showDecksImageAndFeatures(Group root, int x, int y, Deck deck)
     {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(json);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        accountConnectedToThisClient = client.getMessageFromServer().getAccount();
+
         Image image = new Image("file:Deck.jpg");
         ImageView imageView = new ImageView(image);
 
@@ -1595,7 +1610,7 @@ public class Request
                 alert.getButtonTypes().clear();
                 ButtonType buttonTypeShowDeck = new ButtonType("Show Deck");
                 ButtonType buttonTypeValidateDeck = new ButtonType("Validate Deck");
-                ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Client deck");
+                ButtonType buttonTypeSetMainDeck = new ButtonType("Set as Main deck");
                 ButtonType buttonTypeExportDeck = new ButtonType("Export Deck");
                 ButtonType buttonTypeRemoveDeck = new ButtonType("Remove deck");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
@@ -1684,13 +1699,28 @@ public class Request
 
     private void addToDeck(Stage primaryStage, String ID)
     {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_PLAYER_DECKS, client.getAuthToken());
+        String sellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(sellJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
         rootCollection.getChildren().clear();
 
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
 
         int xPosition = 0, yPosition = 0, x, y;
         setShopAndDeckAndGraveYardMenuText(rootCollection, sceneCollection, "Decks", 50);
-        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())
+        for (Deck deck : client.getMessageFromServer().getDecks())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
@@ -1717,7 +1747,7 @@ public class Request
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
                         mediaPlayer.play();
 
-                        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_TO_DECK, deck, ID, client.getAuthToken());
+                        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_TO_DECK, deck.getDeckName(), ID, client.getAuthToken());
                         String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                         try
                         {
@@ -2020,7 +2050,7 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeRemoveCardFromDeck)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, ID, client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck.getDeckName(), ID, client.getAuthToken());
                     String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     try
                     {

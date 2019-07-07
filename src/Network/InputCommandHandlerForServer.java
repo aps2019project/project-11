@@ -123,11 +123,17 @@ public class InputCommandHandlerForServer extends Thread
                 String setMainDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(setMainDeckJson);
                 break;
+            case GET_PLAYER_DECKS:
+                serverCommand = new ServerCommand(account.getPlayerDecks(), ServerCommandEnum.OK);
+                String getDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getDeckJson);
+                break;
             case REMOVE_CARD_FROM_DECK:
                 checkIDValidityToRemoveFromDeck(clientCommand.getDeck(),clientCommand.getCardOrItemID(),account);
                 break;
             case ADD_TO_DECK:
-                checkIDValidityToAddToDeck(clientCommand.getDeck(), clientCommand.getCardOrItemID(), account);
+                Deck deck = DeckManager.findDeck(clientCommand.getDeckName(), account);
+                checkIDValidityToAddToDeck(deck, clientCommand.getCardOrItemID(), account);
                 break;
             case IMPORT_DECK:
                 importingToCollection(clientCommand.getDeckName(), account);
@@ -192,8 +198,6 @@ public class InputCommandHandlerForServer extends Thread
             case SET_HAND_ICONS:
                 break;
             case SET_GRID_PANE:
-                break;
-            case GET_PLAYER_DECKS:
                 break;
             case SET_MP_ICONS:
                 break;
