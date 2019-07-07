@@ -18,7 +18,7 @@ public class DeckManager
         }
         return null;
     }
-
+    @SuppressWarnings("Duplicates")
     public String checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
     {
         if (card instanceof  Hero)

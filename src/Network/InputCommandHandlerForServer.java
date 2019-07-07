@@ -413,21 +413,21 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                  // message =  deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
+                   message =  deckManager.checkCircumstanceToRemoveHeroCardFromDeck(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, minion, account);
+                     message= deckManager.checkCircumstancesToRemoveCardFromDeck(deck, minion, account);
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, spell, account);
+                   message =  deckManager.checkCircumstancesToRemoveCardFromDeck(deck, spell, account);
                 }
             }
         }
@@ -437,21 +437,25 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkItemExistenceInDeckToRemove(deck, item, account);
-                    return;
+                    message = deckManager.checkCircumstancesToRemoveItemFromDeck(deck, item, account);
                 }
             }
-           // serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "This item isn't in the collection");
-            ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
-            //serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Invalid ID");
-
-            ShowOutput.getInstance().printOutput("Invalid ID");
+            message = "Invalid ID";
         }
-       // String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        //System.out.println(removeJson);
+        ServerCommand serverCommand = new ServerCommand(message);
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        System.out.println(removeJson);
+        try
+        {
+            getSendMessage().addMessage(removeJson);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 
