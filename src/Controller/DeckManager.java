@@ -19,11 +19,11 @@ public class DeckManager
         return null;
     }
 
-    public void checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
+    public String checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
     {
         if (card instanceof  Hero)
         {
-            checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card, account);
+            return checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card, account);
         }
         else
         {
@@ -31,63 +31,57 @@ public class DeckManager
             {
                 if (card.getCardID().equals(deckMinion.getCardID()))
                 {
-                    showOutput.printOutput("This card is in the deck");
-                    return;
+                    return "This card is in the deck";
                 }
             }
             for (Spell deckSpell : deck.getSpells())
             {
                 if (card.getCardID().equals(deckSpell.getCardID()))
                 {
-                    showOutput.printOutput("This card is in the deck");
-                    return;
+                    return "This card is in the deck";
                 }
             }
             if (deck.getMinions().size() + deck.getSpells().size() == 20)
             {
-                showOutput.printOutput("Deck is full");
-                return;
+                return "Deck is full";
             }
             deck.addCardToDeck(card, account, false);
-            showOutput.printOutput("Card added to deck");
+            return "Card added to deck";
         }
     }
 
-    public void checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero, Account account)
+    public String checkCircumstanceToAddHeroCardToDeck(Deck deck, Hero hero, Account account)
     {
         for (Hero deckHero : deck.getHero())
         {
             if (hero.getCardID().equals(deckHero.getCardID()))
             {
-                showOutput.printOutput("This hero is in the deck");
-                return;
+                return "This hero is in the deck";
             }
         }
         if (deck.getHero().size() == 1)
         {
-            showOutput.printOutput("Deck is full");
-            return;
+            return "Deck is full";
         }
         deck.addCardToDeck(hero, account, false);
-        showOutput.printOutput("Card added to deck");
+        return "Card added to deck";
     }
 
-    public void checkCircumstancesToAddItemToDeck(Deck deck, Item item, Account account)
+    public String checkCircumstancesToAddItemToDeck(Deck deck, Item item, Account account)
     {
         for (Item deckItem : deck.getItem())
         {
             if (item.getItemID().equals(deckItem.getItemID()))
             {
-                showOutput.printOutput("This item is in the deck");
-                return;
+                return "This item is in the deck";
             }
         }
         if (deck.getItem().size() == 1)
         {
-            showOutput.printOutput("Deck is full");
-            return;
+            return "Deck is full";
         }
         deck.addItemToDeck(item, account, false);
+        return "Item added to deck";
     }
 
     public void checkCardExistenceInDeckToRemove(Deck deck, Card card, Account account)

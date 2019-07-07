@@ -14,6 +14,7 @@ public class ClientCommand
     private String userName;
     private String password;
     private transient ArrayList<TextField> textFieldsToMakeCustom;
+    private String cardOrItemID;
     private Hero hero;
     private Minion minion;
     private Spell spell;
@@ -95,22 +96,11 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, Card card, String authToken)  //add & remove card from deck
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, String cardOrItemID, String authToken)  //add & remove card from deck
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
-        if (card instanceof Hero)
-        {
-            this.hero = (Hero) card;
-        }
-        if (card instanceof Minion)
-        {
-            this.minion = (Minion) card;
-        }
-        if (card instanceof Spell)
-        {
-            this.spell = (Spell) card;
-        }
+        this.cardOrItemID = cardOrItemID;
         this.authToken = authToken;
     }
 
@@ -342,5 +332,10 @@ public class ClientCommand
     public void setChatMessage(ChatMessage chatMessage)
     {
         this.chatMessage = chatMessage;
+    }
+
+    public String getCardOrItemID()
+    {
+        return cardOrItemID;
     }
 }

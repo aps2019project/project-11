@@ -1529,7 +1529,7 @@ public class Request
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
-                    showAllDecks(primaryStage, ID);
+                    addToDeck(primaryStage, ID);
                 }
             }
         });
@@ -1575,7 +1575,7 @@ public class Request
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
-                    showAllDecks(primaryStage, ID);
+                    addToDeck(primaryStage, ID);
                 }
             }
         });
@@ -1682,7 +1682,7 @@ public class Request
         });
     }
 
-    private void showAllDecks(Stage primaryStage, String ID)
+    private void addToDeck(Stage primaryStage, String ID)
     {
         rootCollection.getChildren().clear();
 
@@ -1707,23 +1707,31 @@ public class Request
                     alert.setHeaderText(null);
                     alert.setContentText("Want to add " + ID + " to " + deck.getDeckName() + "?");
                     alert.getButtonTypes().clear();
-                    ButtonType buttonTypeSell = new ButtonType("Add");
+                    ButtonType buttonTypeAdd = new ButtonType("Add");
                     ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                    alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                    alert.getButtonTypes().addAll(buttonTypeAdd, buttonTypeCancel);
                     Optional<ButtonType> option = alert.showAndWait();
-                    if (option.get() == buttonTypeSell)
+                    if (option.get() == buttonTypeAdd)
                     {
                         Media sound = new Media(new File("Sounds and Music/Add card to deck.wav").toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
                         mediaPlayer.play();
-                        setCommand(CommandType.ADD_TO_DECK);
-                        getCommand().cardOrItemID = ID;
-                        getCommand().deckName = deck.getDeckName();
-                        synchronized (requestLock)
+
+                        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_TO_DECK, deck, ID, client.getAuthToken());
+                        String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                        try
                         {
-                            requestLock.notify();
+                            Client.getSendMessage().addMessage(addJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
                         }
-                        rootCollection.getChildren().clear();
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        System.out.println(client.getMessageFromServer().getMessage());
                         collectionMenu(primaryStage, false, null);
                     }
                 }
@@ -2012,9 +2020,8 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, Card.findCard(cardName), client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, ID, client.getAuthToken());
                     String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                    System.out.println(removeJson);
                     try
                     {
                         Client.getSendMessage().addMessage(removeJson);

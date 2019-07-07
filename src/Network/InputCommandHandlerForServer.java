@@ -59,7 +59,7 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
-        ServerCommand serverCommand = null;
+        ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -114,6 +114,12 @@ public class InputCommandHandlerForServer extends Thread
             case SET_MAIN_DECK:
                 deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account);
                 break;
+            case REMOVE_CARD_FROM_DECK:
+                //checkIDValidityToRemoveFromDeck(deck, ID,account);
+                break;
+            case ADD_TO_DECK:
+                checkIDValidityToAddToDeck(clientCommand.getDeck(), clientCommand.getCardOrItemID(), account);
+                break;
             case IMPORT_DECK:
                 importingToCollection(clientCommand.getDeckName(), account);
                 break;
@@ -131,12 +137,6 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case DELETE_DECK:
                 deleteDeck(clientCommand.getDeckName(), account);
-                break;
-            case REMOVE_CARD_FROM_DECK:
-                //detectID(clientCommand.get,clientCommand.getDeckName(),"remove",account);
-                break;
-            case ADD_CARD_TO_DECK:
-                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
@@ -397,26 +397,6 @@ public class InputCommandHandlerForServer extends Thread
         ShowOutput.getInstance().printOutput("Deck created");
     }
 
-    public void detectID(String ID, String deckName, String command, Account account)
-    {
-        Deck deck = DeckManager.findDeck(deckName, account);
-        if (deck != null)
-        {
-            if (command.equals("add"))
-            {
-                //  this.checkIDValidityToAddToDeck(deck, ID,account);
-            }
-            else if (command.equals("remove"))
-            {
-                //this.checkIDValidityToRemoveFromDeck(deck, ID,account);
-            }
-        }
-        else
-        {
-            ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-    }
-
     @SuppressWarnings("Duplicates")
 
     public void checkIDValidityToRemoveFromDeck(Deck deck, String ID, Account account)
@@ -480,28 +460,29 @@ public class InputCommandHandlerForServer extends Thread
 
     public void checkIDValidityToAddToDeck(Deck deck, String ID, Account account)
     {
-        ServerCommand serverCommand = null;
+        String message = null;
+
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
+                    message = deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
+                    message = deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
+                    message = deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
                 }
             }
         }
@@ -511,24 +492,22 @@ public class InputCommandHandlerForServer extends Thread
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
-                    return;
+                    message = deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
                 }
             }
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "This item isn't in the collection");
-            ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Invalid ID");
-            ShowOutput.getInstance().printOutput("Invalid ID");
+            message = "Invalid ID";
         }
+        ServerCommand serverCommand = new ServerCommand(message);
         String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         System.out.println(addJson);
         try
         {
             getSendMessage().addMessage(addJson);
-        } catch (InterruptedException e)
+        }
+        catch (InterruptedException e)
         {
             e.printStackTrace();
         }

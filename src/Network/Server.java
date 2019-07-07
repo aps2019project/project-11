@@ -85,7 +85,7 @@ public class Server
             FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
-            Server.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
+            Server.addAccount(new Gson().fromJson(obj.toString(), Account.class));
         }
     }
 
