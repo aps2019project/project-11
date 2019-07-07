@@ -1484,12 +1484,19 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    setCommand(CommandType.SELL);
-                    getCommand().cardOrItemID = ID;
-                    synchronized (requestLock)
-                    {
-                        requestLock.notify();
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL,Card.findCard(name),client.getAuthToken());
+                    String sellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    System.out.println(sellJson);
+                    try {
+                        Client.getSendMessage().addMessage(sellJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+
                     collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeAddToDeck)

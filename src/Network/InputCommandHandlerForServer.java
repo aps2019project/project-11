@@ -127,7 +127,7 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
+                //detectID(clientCommand.get,clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
                 //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
@@ -228,28 +228,6 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(json);
     }
 
-    public void deleteDeck(String deckName,Account account)
-    {
-        ServerCommand serverCommand = null;
-        Deck deck = DeckManager.findDeck(deckName, account);
-        if (deck != null)
-        {
-            account.deleteDeck(deck);
-            ShowOutput.getInstance().printOutput("Deck deleted");
-
-        }
-        else
-        {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
-            ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try {
-            getSendMessage().addMessage(json);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     private void checkCircumstancesToLogin(String userName, String password) throws Exception
     {
         ServerCommand serverCommand;
@@ -285,6 +263,29 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(json);
     }
 
+
+    public void deleteDeck(String deckName,Account account)
+    {
+        ServerCommand serverCommand = null;
+        Deck deck = DeckManager.findDeck(deckName, account);
+        if (deck != null)
+        {
+            account.deleteDeck(deck);
+            ShowOutput.getInstance().printOutput("Deck deleted");
+
+        }
+        else
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
+            ShowOutput.getInstance().printOutput("There is no deck with this name");
+        }
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(json);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
     {
         Hero hero = clientCommand.getHero();
