@@ -46,14 +46,14 @@ public class ShopManager
         }
     }
 
-    public void detectIDToSell(String ID, Account account)
+    public String detectIDToSell(String ID, Account account)
     {
         for (Hero hero : account.getCollection().getHeroes())
         {
             if (hero.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(hero, account);
-                return;
+                return " successful sell";
             }
         }
         for (Minion minion : account.getCollection().getMinions())
@@ -61,7 +61,7 @@ public class ShopManager
             if (minion.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(minion, account);
-                return;
+                return " successful sell";
             }
         }
         for (Spell spell : account.getCollection().getSpells())
@@ -69,18 +69,24 @@ public class ShopManager
             if (spell.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(spell, account);
-                return;
+                return " successful sell";
             }
         }
+
+        return "You don't have Card with this ID!";
+    }
+
+    public String sellItem(Account account,String ID)
+    {
         for (Item item : account.getCollection().getItems())
         {
             if (item.getItemID().equals(ID))
             {
                 removeItemFromDeckToSell(item, account);
-                return;
+                return " successful sell";
             }
         }
-        showOutput.printOutput("You don't have Card or Item with this ID!");
+        return "You don't have Item with this ID!";
     }
 
     private void removeCardFromDeckToSell(Card cardToSell, Account account)

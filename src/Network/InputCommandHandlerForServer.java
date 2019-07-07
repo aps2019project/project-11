@@ -317,6 +317,7 @@ public class InputCommandHandlerForServer extends Thread
         return serverCommand;
     }
 
+
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
         FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
