@@ -127,10 +127,10 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                //detectID(clientCommand.get,clientCommand.getDeckName(),"remove",account);
+                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
-                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"add",account);
+                detectID(clientCommand,clientCommand.getDeckName(),"add",account);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
@@ -388,14 +388,14 @@ public class InputCommandHandlerForServer extends Thread
         account.addDeck(newDeck);
         ShowOutput.getInstance().printOutput("Deck created");
     }
-    public void detectID(String ID, String deckName, String command,Account account)
+    public void detectID(ClientCommand clientCommand, String deckName, String command,Account account)
     {
         Deck deck = DeckManager.findDeck(deckName, account);
         if (deck != null)
         {
             if (command.equals("add"))
             {
-              //  this.checkIDValidityToAddToDeck(deck, ID,account);
+                //this.checkIDValidityToAddToDeck(deck,clientCommand,account);
             }
             else if (command.equals("remove"))
             {

@@ -1276,7 +1276,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID(), hero.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, hero.getCardID(), hero.getPrice(), hero.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, hero.getCardID(), hero.getPrice(), hero.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1308,7 +1308,7 @@ public class Request
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID(), minion.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, minion.getCardID(), minion.getPrice(), minion.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, minion.getCardID(), minion.getPrice(), minion.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1340,7 +1340,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, spell.getCardID(), spell.getPrice(), spell.getCardName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, spell.getCardID(), spell.getPrice(), spell.getCardName());
             xPosition++;
             yPosition++;
         }
@@ -1375,7 +1375,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice(), 0);
-            setCollectionCardAndItemStackPanesOnMouseClicked(primaryStage, stackPane, item.getItemID(), item.getPrice(), item.getItemName());
+            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, item.getItemID(), item.getPrice(), item.getItemName());
             xPosition++;
             yPosition++;
         }
@@ -1465,7 +1465,7 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, String ID, int price, String name)
+    private void setCollectionCardAndItemStackPanesOnMouseClicked(Deck deck ,Stage primaryStage, StackPane stackPane, String ID, int price, String name)
     {
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
@@ -1501,12 +1501,12 @@ public class Request
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,,Card.findCard(name),client.getAuthToken())
-                    //String addToDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand)
-                    // System.out.println(addToDeckJson);
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,deck,Card.findCard(name),client.getAuthToken());
+                    String addToDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                     System.out.println(addToDeckJson);
                     try
                     {
-                        // Client.getSendMessage().addMessage(addToDeckJson);
+                         Client.getSendMessage().addMessage(addToDeckJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
