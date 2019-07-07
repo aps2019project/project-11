@@ -211,7 +211,13 @@ public class InputCommandHandlerForServer extends Thread
                 String getAllChatsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllChatsJson);
                 break;
-            case MAKE_BATTLE_FOR_MULTIPLAYER_GAME:
+            case MAKE_BATTLE_FOR_MULTI_PLAYER_GAME:
+                break;
+            case GET_STORY_PLAYER_1:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                serverCommand.setPlayer(AccountManager.getStoryPlayer1());
+                String getStoryPlayer1 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getStoryPlayer1);
                 break;
 
         }

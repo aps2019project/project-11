@@ -2384,7 +2384,7 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1);                                 //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1 ,client);                                 //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false, BattleMode.KILLING_ENEMY_HERO);
@@ -2397,7 +2397,7 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2);                                     //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2,client);                                     //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2409,7 +2409,7 @@ public class Request
                 case "Mission 3":
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , accountConnectedToThisClient );
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3);                                      //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3,client);                                      //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false, BattleMode.GATHERING_FLAGS);

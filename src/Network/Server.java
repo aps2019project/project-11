@@ -62,9 +62,9 @@ public class Server
     }
 
     private static void setStoryAIPlayer() {
-        accountManager.makeStoryPlayer(1);
-        accountManager.makeStoryPlayer(2);
-        accountManager.makeStoryPlayer(3);
+        AccountManager.makeStoryPlayer(1);
+        AccountManager.makeStoryPlayer(2);
+        AccountManager.makeStoryPlayer(3);
     }
 
     private static void convertingToShop()

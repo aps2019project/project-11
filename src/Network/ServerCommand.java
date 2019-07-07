@@ -18,6 +18,7 @@ public class ServerCommand
     private boolean login;
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
+    private Player player;
 
     public ServerCommand(ServerCommandEnum serverCommandEnum, String message)   //error
     {
@@ -144,5 +145,13 @@ public class ServerCommand
     public void setMessage(String message)
     {
         this.message = message;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
