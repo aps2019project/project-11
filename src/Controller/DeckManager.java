@@ -84,6 +84,71 @@ public class DeckManager
         return "Item added to deck";
     }
 
+    @SuppressWarnings("Duplicates")
+    public String checkCircumstancesToRemoveCardFromDeck(Deck deck, Card card, Account account)
+    {
+        if (card instanceof Hero)
+        {
+            return checkCircumstanceToRemoveHeroCardFromDeck(deck,(Hero) card,account);
+        }
+        else
+        {
+        for (Minion deckMinion : deck.getMinions())
+        {
+            if (card.getCardID().equals(deckMinion.getCardID()))
+            {
+                return "This card is in the deck";
+            }
+        }
+        for (Spell deckSpell : deck.getSpells())
+        {
+            if (card.getCardID().equals(deckSpell.getCardID()))
+            {
+                return "This card is in the deck";
+            }
+        }
+        if (deck.getMinions().size() + deck.getSpells().size() == 0)
+        {
+            return "Deck is empty";
+        }
+        deck.deleteCardFromDeck(card, account);
+        return "Card removed from deck";
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public String checkCircumstancesToRemoveItemFromDeck(Deck deck, Item item, Account account)
+    {
+        for (Item deckItem : deck.getItem())
+        {
+            if (item.getItemID().equals(deckItem.getItemID()))
+            {
+                return "This item is in the deck";
+            }
+        }
+        if (deck.getItem().size() == 0)
+        {
+            return "Deck is empty";
+        }
+        deck.deleteItemFromDeck(item, account);
+        return "Item removed From deck";
+    }
+    public String checkCircumstanceToRemoveHeroCardFromDeck(Deck deck,Hero hero,Account account)
+    {
+        for (Hero removingHero :deck.getHero())
+        {
+            if (hero.getCardID().equalsIgnoreCase(removingHero.getCardID()))
+            {
+                return "This hero is in the deck";
+            }
+        }
+        if (deck.getHero().size() == 0)
+        {
+            return "Deck is empty";
+        }
+        deck.deleteCardFromDeck(hero,account);
+        return "hero removed from deck";
+    }
     public void checkCardExistenceInDeckToRemove(Deck deck, Card card, Account account)
     {
         for (Minion minion : deck.getMinions())

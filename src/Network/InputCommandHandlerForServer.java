@@ -115,7 +115,7 @@ public class InputCommandHandlerForServer extends Thread
                 deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                //checkIDValidityToRemoveFromDeck(deck, ID,account);
+                checkIDValidityToRemoveFromDeck(clientCommand.getDeck(),clientCommand.getCardOrItemID(),account);
                 break;
             case ADD_TO_DECK:
                 checkIDValidityToAddToDeck(clientCommand.getDeck(), clientCommand.getCardOrItemID(), account);
@@ -294,6 +294,7 @@ public class InputCommandHandlerForServer extends Thread
             e.printStackTrace();
         }
     }
+    @SuppressWarnings("Duplicates")
 
     private void buyCardAndItem(ClientCommand clientCommand, Account account) throws Exception
     {
@@ -327,6 +328,7 @@ public class InputCommandHandlerForServer extends Thread
         String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(buyCardJson);
     }
+    @SuppressWarnings("Duplicates")
 
     private void sellCardAndItem(ClientCommand clientCommand, Account account) throws InterruptedException
     {
@@ -401,14 +403,14 @@ public class InputCommandHandlerForServer extends Thread
 
     public void checkIDValidityToRemoveFromDeck(Deck deck, String ID, Account account)
     {
-        ServerCommand serverCommand = null;
+        String message = null;
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
+                  // message =  deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
@@ -436,24 +438,18 @@ public class InputCommandHandlerForServer extends Thread
                     return;
                 }
             }
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "This item isn't in the collection");
+           // serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "This item isn't in the collection");
             ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
         else
         {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Invalid ID");
+            //serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Invalid ID");
 
             ShowOutput.getInstance().printOutput("Invalid ID");
         }
-        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        System.out.println(removeJson);
-        try
-        {
-            getSendMessage().addMessage(removeJson);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+       // String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        //System.out.println(removeJson);
+
     }
 
     @SuppressWarnings("Duplicates")
