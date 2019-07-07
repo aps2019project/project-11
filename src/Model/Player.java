@@ -23,7 +23,6 @@ public class Player
         this.account = account;
         this.mainDeck = account.getMainDeck();
         setAIPlayer(isAIPlayer);
-        System.out.println(account.getMainDeck());
         nonHeroCards.addAll(account.getMainDeck().getMinions());
         nonHeroCards.addAll(account.getMainDeck().getSpells());
         Collections.shuffle(nonHeroCards);

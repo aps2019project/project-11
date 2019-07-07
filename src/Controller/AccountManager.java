@@ -129,27 +129,27 @@ public class AccountManager
         {
             case 1:
                 Account account1 = new Account("StoryPlayerOne");
-                Player player1 = new Player(account1, true);
-                setStoryPlayer1(player1);
-                Deck deck1 = Deck.createMainDeckForStoryAccount(storyPlayer1.getAccount(), 1);
+                Deck deck1 = Deck.createMainDeckForStoryAccount(account1, 1);
                 account1.addDeck(deck1);
                 account1.setMainDeck(deck1);
+                Player player1 = new Player(account1, true);
+                setStoryPlayer1(player1);
                 return player1;
             case 2:
                 Account account2 = new Account("StoryPlayerTwo");
-                Player player2 = new Player(account2, true);
-                setStoryPlayer2(player2);
-                Deck deck2 = Deck.createMainDeckForStoryAccount(storyPlayer2.getAccount(), 2);
+                Deck deck2 = Deck.createMainDeckForStoryAccount(account2, 2);
                 account2.addDeck(deck2);
                 account2.setMainDeck(deck2);
+                Player player2 = new Player(account2, true);
+                setStoryPlayer2(player2);
                 return player2;
             case 3:
                 Account account3 = new Account("StoryPlayerThree");
-                Player player3 = new Player(account3, true);
-                setStoryPlayer3(player3);
-                Deck deck3 = Deck.createMainDeckForStoryAccount(storyPlayer3.getAccount(), 3);
+                Deck deck3 = Deck.createMainDeckForStoryAccount(account3, 3);
                 account3.addDeck(deck3);
                 account3.setMainDeck(deck3);
+                Player player3 = new Player(account3, true);
+                setStoryPlayer3(player3);
                 return player3;
         }
         return null;
