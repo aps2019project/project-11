@@ -2353,7 +2353,7 @@ public class Request
     private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        setMultiPlayerMenu("Choose  One Player", 75);
+        //setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2441,7 +2441,6 @@ public class Request
     }
 
     public void afterWaitingMultiPlayer(){
-
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
@@ -2747,7 +2746,7 @@ public class Request
     private void setGlobalChatButton(Stage primaryStage, Group root)
     {
         Button chatButton = new Button("Global Chat");
-        chatButton.relocate(10, 400);
+        chatButton.relocate(10, 380);
         chatButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -2761,8 +2760,8 @@ public class Request
 
     private void goToChatMenu(Stage primaryStage)
     {
-
-        backButton(primaryStage, rootChatPage, 0, 0);
+        backButton(primaryStage, rootChatPage, 400, 450);
+        setBackGroundImage(rootChatPage , "file:battleField BackGround/multiPlayerGround.jpg");
         TextField textField = new TextField();
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
@@ -2770,9 +2769,17 @@ public class Request
         rootChatPage.getChildren().add(tilePane);
         showMessage();
         makeSendButton(primaryStage , textField);
+        ImageView refresh = new ImageView("file:battleField BackGround/refresh.jpg");
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                showMessage();
+            }
+        });
+        rootChatPage.getChildren().add(refresh);
+        refresh.relocate(200 , 200);
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
-
     }
 
     private void showMessage()
@@ -2799,8 +2806,7 @@ public class Request
                 int counter = 0;
                 for (ChatMessage chatMessage : chatMessages)
                 {
-                    System.out.println(chatMessage.getMessage());
-                    Text text = new Text(chatMessage.getSender().getAccountName() + chatMessage.getMessage());
+                    Text text = new Text(chatMessage.getSender().getAccountName() + " : " + chatMessage.getMessage());
                     text.relocate(10, 10 + counter * 20);
                     rootChatPage.getChildren().add(text);
                     counter++;
@@ -2811,27 +2817,6 @@ public class Request
 
     private void makeSendButton(Stage primaryStage, TextField textField)
     {
-        /*Button button1 = new Button("SEND");
-        button1.relocate(400 , 400);
-        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Text text = new Text();
-                text.setText(textField.getText());
-                ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.toString());
-                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE , chatMessage , client.getAuthToken());
-                String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                System.out.println(sendMessageJson);
-                try {
-                    Client.getSendMessage().addMessage(sendMessageJson);
-                    System.out.println("Message Sent");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                textField.setText(null);
-            }
-        });
-        rootChatPage.getChildren().add(button1);*/
         Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
         button.relocate(300, 500);
@@ -2845,7 +2830,6 @@ public class Request
                 ChatMessage chatMessage = new ChatMessage(accountConnectedToThisClient, text.getText());
                 ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SEND_MESSAGE, chatMessage, client.getAuthToken());
                 String sendMessageJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                System.out.println(sendMessageJson);
                 try
                 {
                     Client.getSendMessage().addMessage(sendMessageJson);
@@ -2863,9 +2847,6 @@ public class Request
                     textField.setText(null);
                     showMessage();
                 }
-                System.out.println("Message Sent");
-                textField.setText(null);
-                showMessage();
 
             }
         });

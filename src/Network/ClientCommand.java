@@ -172,6 +172,8 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
+    
+
     public ClientCommandEnum getClientCommandEnum()
     {
         return clientCommandEnum;

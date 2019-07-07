@@ -43,5 +43,6 @@ public enum ClientCommandEnum
     ,GET_ONLINE_ACCOUNTS
     ,SEND_MESSAGE
     ,GET_ALL_MESSAGES_IN_CHAT
+    ,MAKE_BATTLE_FOR_MULTIPLAYER_GAME
     ;
 }
