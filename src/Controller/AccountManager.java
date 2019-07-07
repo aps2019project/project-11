@@ -125,7 +125,7 @@ public class AccountManager
     public Player makeCustomGamePlayer(String deckNameForCustomGame, Account account)
     {
         Deck deck = DeckManager.findDeck(deckNameForCustomGame, account);
-        if (new DeckManager().checkDeckValidity(deck))
+        if (new DeckManager().checkDeckValidityForAIAccount(deck))
         {
             Account customPlayer = new Account("CustomPlayer");
             customPlayer.addDeck(deck);

@@ -112,10 +112,16 @@ public class InputCommandHandlerForServer extends Thread
                 sellCardAndItem(clientCommand, account);
                 break;
             case VALIDATE_DECK:
-                deckManager.checkDeckValidity(clientCommand.getDeck());
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                deckManager.checkDeckValidity(clientCommand.getDeck(), serverCommand);
+                String validateDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(validateDeckJson);
                 break;
             case SET_MAIN_DECK:
-                deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account, serverCommand);
+                String setMainDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(setMainDeckJson);
                 break;
             case REMOVE_CARD_FROM_DECK:
                 checkIDValidityToRemoveFromDeck(clientCommand.getDeck(),clientCommand.getCardOrItemID(),account);

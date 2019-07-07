@@ -18,8 +18,6 @@ public class ServerCommand
     private boolean login;
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
-    private String errorMessage;
-
 
     public ServerCommand(ServerCommandEnum serverCommandEnum, String message)   //error
     {
@@ -39,7 +37,7 @@ public class ServerCommand
         this.account = account;
     }
 
-    public ServerCommand(ServerCommandEnum serverCommandEnum,ArrayList<Hero> heroes,ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items)
+    public ServerCommand(ServerCommandEnum serverCommandEnum, ArrayList<Hero> heroes, ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items)
     {
         this.serverCommandEnum = serverCommandEnum;
         this.heroes = heroes;
@@ -48,7 +46,7 @@ public class ServerCommand
         this.items = items;
     }
 
-    public ServerCommand(ServerCommandEnum serverCommandEnum,ArrayList<Hero> heroes,ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items, ArrayList<Deck> decks)
+    public ServerCommand(ServerCommandEnum serverCommandEnum, ArrayList<Hero> heroes, ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items, ArrayList<Deck> decks)
     {
         this.serverCommandEnum = serverCommandEnum;
         this.heroes = heroes;
@@ -103,11 +101,13 @@ public class ServerCommand
         return accounts;
     }
 
-    public ArrayList<ChatMessage> getChatMessages() {
+    public ArrayList<ChatMessage> getChatMessages()
+    {
         return chatMessages;
     }
 
-    public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
+    public void setChatMessages(ArrayList<ChatMessage> chatMessages)
+    {
         this.chatMessages = chatMessages;
     }
 
@@ -131,14 +131,6 @@ public class ServerCommand
         return items;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     public Account getAccount()
     {
         return account;
@@ -147,5 +139,10 @@ public class ServerCommand
     public ArrayList<Deck> getDecks()
     {
         return decks;
+    }
+
+    public void setMessage(String message)
+    {
+        this.message = message;
     }
 }
