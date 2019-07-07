@@ -2303,7 +2303,7 @@ public class Request
     private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        setMultiPlayerMenu("Choose  One Player", 75);
+        //setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2391,7 +2391,7 @@ public class Request
     }
 
     public void afterWaitingMultiPlayer(){
-
+        ClientCommand clientCommand = new ClientCommand()
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)

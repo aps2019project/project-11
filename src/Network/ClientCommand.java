@@ -171,6 +171,8 @@ public class ClientCommand
         this.chatMessage = chatMessage;
     }
 
+    
+
     public ClientCommandEnum getClientCommandEnum()
     {
         return clientCommandEnum;
