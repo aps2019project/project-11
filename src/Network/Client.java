@@ -133,6 +133,7 @@ public class Client extends Application
         callTheAppropriateFunction.start();
         Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setAutoPlay(true);
         mediaPlayer.play();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
