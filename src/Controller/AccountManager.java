@@ -12,6 +12,33 @@ import java.io.IOException;
 public class AccountManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
+    private static Player storyPlayer1;
+    private static Player storyPlayer2;
+    private static Player storyPlayer3;
+
+    public static Player getStoryPlayer1() {
+        return storyPlayer1;
+    }
+
+    public static void setStoryPlayer1(Player storyPlayer1) {
+        AccountManager.storyPlayer1 = storyPlayer1;
+    }
+
+    public static Player getStoryPlayer2() {
+        return storyPlayer2;
+    }
+
+    public static void setStoryPlayer2(Player storyPlayer2) {
+        AccountManager.storyPlayer2 = storyPlayer2;
+    }
+
+    public static Player getStoryPlayer3() {
+        return storyPlayer3;
+    }
+
+    public static void setStoryPlayer3(Player storyPlayer3) {
+        AccountManager.storyPlayer3 = storyPlayer3;
+    }
 
     public Account createAccount(String userName, String password)
     {
@@ -96,28 +123,34 @@ public class AccountManager
         }
     }
 
-    public Player makeStoryPlayer(int selectedNumber)
+    public static Player makeStoryPlayer(int selectedNumber)
     {
         switch (selectedNumber)
         {
             case 1:
                 Account account1 = new Account("StoryPlayerOne");
-                Deck deck1 = Deck.createMainDeckForStoryAccount(account1, 1);
+                Player player1 = new Player(account1, true);
+                setStoryPlayer1(player1);
+                Deck deck1 = Deck.createMainDeckForStoryAccount(storyPlayer1.getAccount(), 1);
                 account1.addDeck(deck1);
                 account1.setMainDeck(deck1);
-                return new Player(account1, true);
+                return player1;
             case 2:
                 Account account2 = new Account("StoryPlayerTwo");
-                Deck deck2 = Deck.createMainDeckForStoryAccount(account2, 2);
+                Player player2 = new Player(account2, true);
+                setStoryPlayer2(player2);
+                Deck deck2 = Deck.createMainDeckForStoryAccount(storyPlayer2.getAccount(), 2);
                 account2.addDeck(deck2);
                 account2.setMainDeck(deck2);
-                return new Player(account2, true);
+                return player2;
             case 3:
                 Account account3 = new Account("StoryPlayerThree");
-                Deck deck3 = Deck.createMainDeckForStoryAccount(account3, 3);
+                Player player3 = new Player(account3, true);
+                setStoryPlayer3(player3);
+                Deck deck3 = Deck.createMainDeckForStoryAccount(storyPlayer3.getAccount(), 3);
                 account3.addDeck(deck3);
                 account3.setMainDeck(deck3);
-                return new Player(account3, true);
+                return player3;
         }
         return null;
     }

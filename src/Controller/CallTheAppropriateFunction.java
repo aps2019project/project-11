@@ -381,9 +381,19 @@ public class CallTheAppropriateFunction extends Thread
 
     public void storyModeBattleMaker(Account loggedInAccount, int numberOfLevel)
     {
-        Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
+        //Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-        new Battle(new Player(loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+        switch (numberOfLevel){
+            case 1:
+                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer1(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                break;
+            case 2:
+                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer2(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                break;
+            case 3:
+                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer3(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                break;
+        }
     }
 
     public boolean customGameBattleMaker(Account accountConnectedToThisClient, Deck selectedDeck, int number)

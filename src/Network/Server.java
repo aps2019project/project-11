@@ -1,5 +1,6 @@
 package Network;
 
+import Controller.AccountManager;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -20,6 +21,7 @@ public class Server
     private static ArrayList<Spell> spells = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
     private static int numberOfAccount = 1;
+    private static AccountManager accountManager = new AccountManager();
 
     public static void main(String[] args) throws Exception
     {
@@ -27,6 +29,7 @@ public class Server
         Item.setItems();
         convertingToAccounts();
         convertingToShop();
+        setStoryAIPlayer();
         ServerSocket serverSocket = new ServerSocket(8000);
         while (true)
         {
@@ -56,6 +59,12 @@ public class Server
             });
             receiveMessage.start();
         }
+    }
+
+    private static void setStoryAIPlayer() {
+        accountManager.makeStoryPlayer(1);
+        accountManager.makeStoryPlayer(2);
+        accountManager.makeStoryPlayer(3);
     }
 
     private static void convertingToShop()
