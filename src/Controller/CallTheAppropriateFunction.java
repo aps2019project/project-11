@@ -56,6 +56,13 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineBattleMenuCommand();
                     break;
+                case CHAT:
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    break;
                 case SHOW_LEADER_BOARD:
                     accountManager.sortAccountsByWins();
                     synchronized (request.requestLock)

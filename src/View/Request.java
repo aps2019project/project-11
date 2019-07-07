@@ -136,8 +136,6 @@ public class Request
     private Group rootMinionCustom = Client.getRootMinionCustom();
     private Group rootSpellCustom = Client.getRootSpellCustom();
     private Scene sceneSpellCustom = Client.getSceneSpellCustom();
-    private Group rootChatMenu = Client.getRootChatMenu();
-    private Scene sceneChatMenu = Client.getSceneChatMenu();
     private Group rootChatPage = Client.getRootChatPage();
     private Scene sceneChatPage = Client.getSceneChatPage();
     private Deck selectedDeckForCustomGame = null;
@@ -2764,6 +2762,13 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                setCommand(CommandType.CHAT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneChatPage);
+                primaryStage.centerOnScreen();
                 goToChatMenu(primaryStage);
             }
         });
@@ -2772,16 +2777,19 @@ public class Request
 
     private void goToChatMenu(Stage primaryStage)
     {
-        backButton(primaryStage, rootChatPage, 400, 450);
-        setBackGroundImage(rootChatPage, "file:battleField BackGround/multiPlayerGround.jpg");
+        rootChatPage.getChildren().clear();
+
+        setBackGroundImage(rootChatPage, "file:battleField BackGround/chat background.jpg");
+
         TextField textField = new TextField();
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
-        tilePane.relocate(0, 500);
+        tilePane.relocate(10, 500);
         rootChatPage.getChildren().add(tilePane);
         showMessage();
         makeSendButton(primaryStage, textField);
         ImageView refresh = new ImageView("file:battleField BackGround/refresh.jpg");
+        refresh.relocate(200, 200);
         refresh.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -2791,9 +2799,7 @@ public class Request
             }
         });
         rootChatPage.getChildren().add(refresh);
-        refresh.relocate(200, 200);
-        primaryStage.setScene(sceneChatPage);
-        primaryStage.show();
+        backButton(primaryStage, rootChatPage, 400, 450);
     }
 
     private void showMessage()
@@ -3031,10 +3037,5 @@ public class Request
     public Account getAccountConnectedToThisClient()
     {
         return accountConnectedToThisClient;
-    }
-
-    public void setAccountConnectedToThisClient(Account account)
-    {
-        accountConnectedToThisClient = account;
     }
 }

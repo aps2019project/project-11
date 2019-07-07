@@ -13,6 +13,7 @@ public enum CommandType
     ENTER_COLLECTION,
     ENTER_BATTLE,
     SHOW_PROFILE,
+    CHAT,
     LOGOUT,
     SAVE,
     SHOW_COLLECTION,

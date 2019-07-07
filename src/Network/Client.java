@@ -116,35 +116,43 @@ public class Client extends Application
         Client.sceneSpellCustom = sceneSpellCustom;
     }
 
-    public static Group getRootChatMenu() {
+    public static Group getRootChatMenu()
+    {
         return rootChatMenu;
     }
 
-    public static void setRootChatMenu(Group rootChatMenu) {
+    public static void setRootChatMenu(Group rootChatMenu)
+    {
         Client.rootChatMenu = rootChatMenu;
     }
 
-    public static Scene getSceneChatMenu() {
+    public static Scene getSceneChatMenu()
+    {
         return sceneChatMenu;
     }
 
-    public static void setSceneChatMenu(Scene sceneChatMenu) {
+    public static void setSceneChatMenu(Scene sceneChatMenu)
+    {
         Client.sceneChatMenu = sceneChatMenu;
     }
 
-    public static Group getRootChatPage() {
+    public static Group getRootChatPage()
+    {
         return rootChatPage;
     }
 
-    public static void setRootChatPage(Group rootChatPage) {
+    public static void setRootChatPage(Group rootChatPage)
+    {
         Client.rootChatPage = rootChatPage;
     }
 
-    public static Scene getSceneChatPage() {
+    public static Scene getSceneChatPage()
+    {
         return sceneChatPage;
     }
 
-    public static void setSceneChatPage(Scene sceneChatPage) {
+    public static void setSceneChatPage(Scene sceneChatPage)
+    {
         Client.sceneChatPage = sceneChatPage;
     }
 
