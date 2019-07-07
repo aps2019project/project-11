@@ -100,7 +100,7 @@ public class InputCommandHandlerForServer extends Thread
                 buyCardAndItem(clientCommand, account, serverCommand);
                 break;
             case SELL:
-                //shopManager.detectIDToSell(clientCommand.getCard().getCardID());
+                sellCardAndItem(clientCommand,account,serverCommand);
                 break;
             case VALIDATE_DECK:
                 deckManager.checkDeckValidity(clientCommand.getDeck());
@@ -317,6 +317,38 @@ public class InputCommandHandlerForServer extends Thread
         return serverCommand;
     }
 
+    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws InterruptedException {
+        Hero hero = clientCommand.getHero();
+        Minion minion = clientCommand.getMinion();
+        Spell spell = clientCommand.getSpell();
+        Item item = clientCommand.getItem();
+        if (item == null)
+        {
+            Card card=new Card();
+            if (hero!=null)
+            {
+                card = hero;
+            }
+            if (minion!= null)
+            {
+                card = minion;
+            }
+            if (spell != null)
+            {
+                card = spell;
+            }
+            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(),account));
+            String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(SellCardJson);
+        }
+        else
+        {
+            serverCommand = new ServerCommand(shopManager.sellItem(account,item.getItemID()));
+            String sellItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+            getSendMessage().addMessage(sellItemJson);
+        }
+        return serverCommand;
+    }
 
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
     {
@@ -360,11 +392,11 @@ public class InputCommandHandlerForServer extends Thread
         {
             if (command.equals("add"))
             {
-                this.checkIDValidityToAddToDeck(deck, ID,account);
+              //  this.checkIDValidityToAddToDeck(deck, ID,account);
             }
             else if (command.equals("remove"))
             {
-                this.checkIDValidityToRemoveFromDeck(deck, ID,account);
+                //this.checkIDValidityToRemoveFromDeck(deck, ID,account);
             }
         }
         else
@@ -484,7 +516,7 @@ public class InputCommandHandlerForServer extends Thread
             e.printStackTrace();
         }
     }
-
+    @SuppressWarnings("Duplicates")
     private void importingToCollection(String deckName,Account account) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
