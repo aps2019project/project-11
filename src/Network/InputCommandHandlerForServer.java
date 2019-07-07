@@ -127,7 +127,7 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                //detectID(clientCommand,clientCommand.getDeckName(),"remove",account);
+                detectID(clientCommand,clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
                 detectID(clientCommand,clientCommand.getDeckName(),"add",account);
@@ -402,9 +402,9 @@ public class InputCommandHandlerForServer extends Thread
         Item item = clientCommand.getItem();
         if (deck != null)
         {
-            Card card = new Card();
             if (command.equals("add"))
             {
+                Card card = new Card();
                 if (item == null)
                 {
                     if (minion != null)
