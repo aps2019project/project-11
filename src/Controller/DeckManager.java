@@ -149,37 +149,6 @@ public class DeckManager
         deck.deleteCardFromDeck(hero,account);
         return "hero removed from deck";
     }
-    public void checkCardExistenceInDeckToRemove(Deck deck, Card card, Account account)
-    {
-        for (Minion minion : deck.getMinions())
-        {
-            if (card.getCardName().equals(minion.getCardName()))
-            {
-                deck.deleteCardFromDeck(card, account);
-                showOutput.printOutput("Card removed from deck");
-                return;
-            }
-        }
-        for (Spell spell : deck.getSpells())
-        {
-            if (card.getCardName().equals(spell.getCardName()))
-            {
-                deck.deleteCardFromDeck(card, account);
-                showOutput.printOutput("Card removed from deck");
-                return;
-            }
-        }
-        for (Hero deckHero : deck.getHero())
-        {
-            if (card.getCardID().equals(deckHero.getCardID()))
-            {
-                deck.deleteCardFromDeck(card, account);
-                showOutput.printOutput("Card removed from deck");
-                return;
-            }
-        }
-        showOutput.printOutput("This card isn't in the deck");
-    }
 
     public void searchDecksToRemoveCardOnSale(Card card, Account account)
     {
@@ -210,20 +179,6 @@ public class DeckManager
                 }
             }
         }
-    }
-
-    public void checkItemExistenceInDeckToRemove(Deck deck, Item item, Account account)
-    {
-        for (Item deckItem : deck.getItem())
-        {
-            if (item.getItemID().equals(deckItem.getItemID()))
-            {
-                deck.deleteItemFromDeck(item, account);
-                showOutput.printOutput("Item removed from deck");
-                return;
-            }
-        }
-        showOutput.printOutput("This item isn't in the deck");
     }
 
     public void searchDecksToRemoveItemOnSale(Item item, Account account)
