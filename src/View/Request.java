@@ -269,6 +269,21 @@ public class Request
                     client.setAuthToken(client.getMessageFromServer().getAuthToken());
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
+                    ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
+                    String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
+                    System.out.println(saveJson);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(saveJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    accountConnectedToThisClient = client.getMessageFromServer().getAccount();
                     mainMenu(primaryStage);
                 }
                 else
@@ -342,23 +357,6 @@ public class Request
 
     private void mainMenu(Stage primaryStage)
     {
-        ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
-        String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
-        System.out.println(saveJson);
-        try
-        {
-            Client.getSendMessage().addMessage(saveJson);
-            synchronized (validMessageFromServer)
-            {
-                validMessageFromServer.wait();
-            }
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        accountConnectedToThisClient = client.getMessageFromServer().getAccount();
-
         setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -864,7 +862,7 @@ public class Request
                     textPlayerName.setFill(Color.RED);
                     textPlayerHighScore.setFill(Color.RED);
                 }
-                counter ++;
+                counter++;
             }
         } catch (Exception e)
         {
@@ -1484,16 +1482,18 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL,Card.findCard(name),client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL, Card.findCard(name), client.getAuthToken());
                     String sellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     System.out.println(sellJson);
-                    try {
+                    try
+                    {
                         Client.getSendMessage().addMessage(sellJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
                         }
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
 
@@ -1814,22 +1814,22 @@ public class Request
         return null;
     }
 
-     private void importingToCollection(String deckName, Account account) throws IOException, ParseException
-     {
-         JsonParser jsonParser = new JsonParser();
-         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
-         Object obj = jsonParser.parse(reader);
-         System.out.println(obj);
-         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
-         deck.setDeckName("Imported " + deck.getDeckName());
-         account.getPlayerDecks().add(deck);
-         addImportedDeckCardsAndItemsToCollection(deck);
-     }
+    private void importingToCollection(String deckName, Account account) throws IOException, ParseException
+    {
+        JsonParser jsonParser = new JsonParser();
+        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
+        Object obj = jsonParser.parse(reader);
+        System.out.println(obj);
+        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
+        deck.setDeckName("Imported " + deck.getDeckName());
+        account.getPlayerDecks().add(deck);
+        addImportedDeckCardsAndItemsToCollection(deck);
+    }
 
-     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
-     {
-         //send deck to server    //
-     }
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        //send deck to server    //
+    }
 
     private void deckMenu(Stage primaryStage, Deck deck)
     {
@@ -2038,7 +2038,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneBattleField);
         });
-        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @SuppressWarnings("Duplicates")
             @Override
@@ -2059,7 +2059,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
         primaryStage.setScene(sceneSinglePlayer);
     }
 
@@ -2081,16 +2081,20 @@ public class Request
             {
                 case "Story":
                     setCommand(CommandType.STORY);
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
                     storyModeMenu(primaryStage);
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
                     customGameMenuToChooseDeck(primaryStage);
                     break;
-            }
-            synchronized (requestLock)
-            {
-                requestLock.notify();
             }
         });
         rootSinglePlayer.getChildren().add(title);
@@ -2118,7 +2122,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneSinglePlayer);
         });
-        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2138,7 +2142,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
 
         primaryStage.setScene(sceneCustomGame);
     }
@@ -2269,7 +2273,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneSinglePlayer);
         });
-        /* backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2289,7 +2293,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
         primaryStage.setScene(sceneStoryMode);
     }
 
@@ -2360,7 +2364,7 @@ public class Request
     private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        //setMultiPlayerMenu("Choose  One Player", 75);
+        setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2447,7 +2451,8 @@ public class Request
         rootMultiPlayer.getChildren().addAll(backButton);
     }
 
-    public void afterWaitingMultiPlayer(){
+    public void afterWaitingMultiPlayer()
+    {
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
@@ -2472,7 +2477,7 @@ public class Request
                 primaryStage.centerOnScreen();
                 try
                 {
-                    singlePlayerMenu(primaryStage);
+                    battleMenu(primaryStage);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -2768,23 +2773,25 @@ public class Request
     private void goToChatMenu(Stage primaryStage)
     {
         backButton(primaryStage, rootChatPage, 400, 450);
-        setBackGroundImage(rootChatPage , "file:battleField BackGround/multiPlayerGround.jpg");
+        setBackGroundImage(rootChatPage, "file:battleField BackGround/multiPlayerGround.jpg");
         TextField textField = new TextField();
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
         tilePane.relocate(0, 500);
         rootChatPage.getChildren().add(tilePane);
         showMessage();
-        makeSendButton(primaryStage , textField);
+        makeSendButton(primaryStage, textField);
         ImageView refresh = new ImageView("file:battleField BackGround/refresh.jpg");
-        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 showMessage();
             }
         });
         rootChatPage.getChildren().add(refresh);
-        refresh.relocate(200 , 200);
+        refresh.relocate(200, 200);
         primaryStage.setScene(sceneChatPage);
         primaryStage.show();
     }
