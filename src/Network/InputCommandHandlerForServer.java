@@ -127,7 +127,7 @@ public class InputCommandHandlerForServer extends Thread
                 deleteDeck(clientCommand.getDeckName(),account);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                //detectID(clientCommand.getCard().getCardID(),clientCommand.getDeckName(),"remove",account);
+                //detectID(clientCommand,clientCommand.getDeckName(),"remove",account);
                 break;
             case ADD_CARD_TO_DECK:
                 detectID(clientCommand,clientCommand.getDeckName(),"add",account);
@@ -280,12 +280,17 @@ public class InputCommandHandlerForServer extends Thread
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try {
+        try
+        {
             getSendMessage().addMessage(json);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+    @SuppressWarnings("Duplicates")
+
     private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
     {
         Hero hero = clientCommand.getHero();
@@ -319,7 +324,7 @@ public class InputCommandHandlerForServer extends Thread
         }
         return serverCommand;
     }
-
+    @SuppressWarnings("Duplicates")
     private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws InterruptedException {
         Hero hero = clientCommand.getHero();
         Minion minion = clientCommand.getMinion();
@@ -388,18 +393,70 @@ public class InputCommandHandlerForServer extends Thread
         account.addDeck(newDeck);
         ShowOutput.getInstance().printOutput("Deck created");
     }
-    public void detectID(ClientCommand clientCommand, String deckName, String command,Account account)
-    {
+    @SuppressWarnings("Duplicates")
+    public void detectID(ClientCommand clientCommand,String deckName, String command,Account account) throws InterruptedException {
         Deck deck = DeckManager.findDeck(deckName, account);
+        Minion minion = clientCommand.getMinion();
+        Spell spell = clientCommand.getSpell();
+        Hero hero = clientCommand.getHero();
+        Item item = clientCommand.getItem();
         if (deck != null)
         {
+            Card card = new Card();
             if (command.equals("add"))
             {
-                //this.checkIDValidityToAddToDeck(deck,clientCommand,account);
+                if (item == null)
+                {
+                    if (minion != null)
+                    {
+                        card = minion;
+                    }
+                    if (hero != null)
+                    {
+                        card = hero;
+                    }
+                    if (spell != null)
+                    {
+                        card = spell;
+                    }
+                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToAddToDeck(deck,card.getCardID(),account));
+                    String addCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(addCardJson);
+
+                }
+                else
+                {
+                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToAddToDeck(deck,item.getItemID(),account));
+                    String addItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(addItemJson);
+
+                }
             }
             else if (command.equals("remove"))
             {
-                //this.checkIDValidityToRemoveFromDeck(deck, ID,account);
+                if (item == null)
+                {
+                    Card removeCard = new Card();
+                    if (minion != null)
+                    {
+                        removeCard = minion;
+                    }
+                    if (hero != null)
+                    {
+                        removeCard = hero;
+                    }
+                    if (spell != null)
+                    {
+                        removeCard = spell;
+                    }
+                    //ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,removeCard.getCardID(),account));
+                    //String addItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    //getSendMessage().addMessage(addItemJson);
+                }
+                else
+                {
+                    //checkIDValidityToRemoveFromDeck(deck,item.getItemID(),account);
+                }
             }
         }
         else
@@ -407,9 +464,9 @@ public class InputCommandHandlerForServer extends Thread
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
     }
-    @SuppressWarnings("Duplicates")
+    //@SuppressWarnings("Duplicates")
 
-    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
+   /* public String  checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
         ServerCommand serverCommand = null;
         if (account.getCollection().findCardinCollection(ID) != null)
@@ -419,6 +476,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(hero.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
+                    return "this hero removed from deck";
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
@@ -426,6 +484,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(minion.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, minion, account);
+                    return "this minion removed from deck";
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
@@ -433,6 +492,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(spell.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, spell, account);
+                    return "this minion removed from deck";
                 }
             }
         }
@@ -462,11 +522,11 @@ public class InputCommandHandlerForServer extends Thread
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @SuppressWarnings("Duplicates")
 
-    public void checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
+    public String checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
     {
         ServerCommand serverCommand = null;
         if (account.getCollection().findCardinCollection(ID) != null)
@@ -476,6 +536,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(hero.getCardID()))
                 {
                     deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
+                    return "this hero added to deck";
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
@@ -483,6 +544,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(minion.getCardID()))
                 {
                     deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
+                    return "this minion added to deck";
                 }
             }
             for (Spell spell :account.getCollection().getSpells())
@@ -490,6 +552,7 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(spell.getCardID()))
                 {
                     deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
+                    return "this spell added to deck";
                 }
             }
         }
@@ -500,24 +563,14 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(item.getItemID()))
                 {
                     deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
-                    return;
+                    return "this item added to deck";
                 }
             }
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
-            ShowOutput.getInstance().printOutput("This item isn't in the collection");
+            return "This item isn't in the collection";
         }
-        else
-        {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
-            ShowOutput.getInstance().printOutput("Invalid ID");
-        }
-        String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        System.out.println(addJson);
-        try {
-            getSendMessage().addMessage(addJson);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        return "Invalid ID";
+
     }
     @SuppressWarnings("Duplicates")
     private void importingToCollection(String deckName,Account account) throws IOException, ParseException
