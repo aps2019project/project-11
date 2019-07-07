@@ -27,7 +27,7 @@ public class Server
         Item.setItems();
         convertingToAccounts();
         convertingToShop();
-        ServerSocket serverSocket = new ServerSocket(9000);
+        ServerSocket serverSocket = new ServerSocket(8000);
         while (true)
         {
             Socket socket = serverSocket.accept();
@@ -39,7 +39,7 @@ public class Server
             SendMessage sendMessage = new SendMessage(socket.getOutputStream());
             sendMessage.start();
 
-            InputCommandHandlerForServer handleCommand = new InputCommandHandlerForServer(sendMessage);
+            InputCommandHandlerForServer handleCommand = new InputCommandHandlerForServer(socket, sendMessage);
             handleCommand.setDaemon(true);
             commandHandlers.add(handleCommand);
             handleCommand.start();
@@ -85,7 +85,7 @@ public class Server
             FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
-            Server.getAccounts().add(new Gson().fromJson(obj.toString(), Account.class));
+            Server.addAccount(new Gson().fromJson(obj.toString(), Account.class));
         }
     }
 

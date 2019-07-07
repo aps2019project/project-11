@@ -24,8 +24,7 @@ public class CallTheAppropriateFunction extends Thread
         try
         {
             determineMainMenuCommand();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -55,7 +54,14 @@ public class CallTheAppropriateFunction extends Thread
                     break;
                 case ENTER_BATTLE:
                     request.setCommand(null);
-                    //determineBattleMenuCommand();
+                    determineBattleMenuCommand();
+                    break;
+                case CHAT:
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
                     break;
                 case SHOW_LEADER_BOARD:
                     accountManager.sortAccountsByWins();
@@ -107,7 +113,7 @@ public class CallTheAppropriateFunction extends Thread
                     request.setCommand(null);
                     determineCollectionCommand();
                     break;
-                    case EXIT:
+                case EXIT:
                     request.setCommand(null);
                     determineMainMenuCommand();
                     break;
@@ -148,6 +154,159 @@ public class CallTheAppropriateFunction extends Thread
                 return BattleType.STORY_GAME_3;
         }
         return null;
+    }
+
+    private void determineBattleMenuCommand() throws Exception
+    {
+        showOutput.showBattleMenuCommands();
+        if (request.getAccountConnectedToThisClient().getMainDeck() != null)
+        {
+            while (true)
+            {
+                if (request.getCommand() == null)
+                {
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                }
+                switch (request.getCommand())
+                {
+                    case SINGLE_PLAYER:
+                        selectSinglePlayerMatchMode();
+                        break;
+                    case MULTI_PLAYER:
+                        selectSecondPlayerInMultiPlayerMatch();
+                        break;
+                    case EXIT:
+                        request.setCommand(null);
+                        determineMainMenuCommand();
+                        return;
+                }
+                request.setCommand(null);
+            }
+        }
+        else
+        {
+            showOutput.printOutput("you don't have Valid mainDeck");
+        }
+    }
+
+    private void selectSinglePlayerMatchMode() throws Exception
+    {
+        showOutput.printOutput("Story");
+        showOutput.printOutput("Custom Game");
+        while (true)
+        {
+            if (request.getCommand() == null)
+            {
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.wait();
+                }
+            }
+            switch (request.getCommand())
+            {
+                case STORY:
+                    showOutput.showStoryBattleInfo();
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    selectSinglePlayerMatchMode();
+                    break;
+                case CUSTOM_GAME:
+                    showOutput.showCustomGameInfo();
+                    synchronized (request.requestLock)
+                    {
+                        request.requestLock.wait();
+                    }
+                    request.setCommand(null);
+                    selectSinglePlayerMatchMode();
+                    break;
+                case EXIT:
+                    request.setCommand(null);
+                    determineBattleMenuCommand();
+                    break;
+                case END_GAME:
+                    request.setCommand(null);
+                    determineMainMenuCommand();
+                    break;
+            }
+            request.setCommand(null);
+        }
+    }
+
+    private void selectSecondPlayerInMultiPlayerMatch() throws Exception
+    {
+        accountManager.showAllPlayers();
+        while (true)
+        {
+            if (request.getCommand() == null)
+            {
+                synchronized (request.requestLock)
+                {
+                    request.requestLock.wait();
+                }
+            }
+            switch (request.getCommand())
+            {
+                case EXIT:
+                    request.setCommand(null);
+                    determineBattleMenuCommand();
+                    break;
+                case END_GAME:
+                    request.setCommand(null);
+                    determineMainMenuCommand();
+                    break;
+            }
+            request.setCommand(null);
+        }
+    }
+
+    private void determineBattleCommand()
+    {
+        Battle.getCurrentBattle().setHeroesInBattlefield();
+        while (true)
+        {
+            if (Battle.getCurrentBattle().getPlayerTurn().isAIPlayer())
+            {
+                Battle.getCurrentBattle().AIPlayerWorks(battleManager);
+                continue;
+            }
+            request.getBattleCommands();
+            if (request.getCommand() == null)
+            {
+                continue;
+            }
+            if (Battle.getCurrentBattle().isGameEnded(request.getCommand().storyGameMode))
+            {
+                determineAfterGameEndedCommand();
+            }
+            switch (request.getCommand())
+            {
+                case SELECT:
+                    battleManager.selectCard(request.getCommand().cardOrItemID);
+                    determineAfterSelectCardCommand();
+                    break;
+                case INSERT_CARD:
+                    battleManager.checkCircumstancesToInsertCard(request.getCommand().insertCardName, request.getCommand().insertRow, request.getCommand().insertColumn);
+                    break;
+                case SHOW_COLLECTIBLES:
+                    showOutput.showCollectibleItems();
+                    break;
+                case SELECT_ITEM:
+                    battleManager.selectItem(request.getCommand().cardOrItemID);
+                    determineAfterSelectItemCommand();
+                    break;
+                case SHOW_MENU:
+                    showOutput.showMenuBattle();
+                    break;
+                case EXIT:
+                    return;
+            }
+        }
     }
 
     private void determineAfterSelectCardCommand()
@@ -220,14 +379,14 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    public void storyModeBattleMaker(Account loggedInAccount ,int numberOfLevel)
+    public void storyModeBattleMaker(Account loggedInAccount, int numberOfLevel)
     {
         Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
         new Battle(new Player(loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
     }
 
-    public boolean customGameBattleMaker(Account accountConnectedToThisClient ,Deck selectedDeck, int number)
+    public boolean customGameBattleMaker(Account accountConnectedToThisClient, Deck selectedDeck, int number)
     {
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName(), accountConnectedToThisClient);
 
@@ -239,8 +398,8 @@ public class CallTheAppropriateFunction extends Thread
         return false;
     }
 
-    public void multiPayerBattleMaker(Account loggedInAccount ,BattleMode battleMode , Player opponentPlayerForCustomGame )
+    public void multiPayerBattleMaker(Account loggedInAccount, BattleMode battleMode, Player opponentPlayerForCustomGame)
     {
-        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, battleMode , BattleType.CUSTOM_GAME);
+        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, battleMode, BattleType.CUSTOM_GAME);
     }
 }

@@ -136,8 +136,6 @@ public class Request
     private Group rootMinionCustom = Client.getRootMinionCustom();
     private Group rootSpellCustom = Client.getRootSpellCustom();
     private Scene sceneSpellCustom = Client.getSceneSpellCustom();
-    private Group rootChatMenu = Client.getRootChatMenu();
-    private Scene sceneChatMenu = Client.getSceneChatMenu();
     private Group rootChatPage = Client.getRootChatPage();
     private Scene sceneChatPage = Client.getSceneChatPage();
     private Deck selectedDeckForCustomGame = null;
@@ -269,6 +267,21 @@ public class Request
                     client.setAuthToken(client.getMessageFromServer().getAuthToken());
                     primaryStage.setScene(sceneMainMenu);
                     primaryStage.centerOnScreen();
+                    ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
+                    String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
+                    System.out.println(saveJson);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(saveJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    accountConnectedToThisClient = client.getMessageFromServer().getAccount();
                     mainMenu(primaryStage);
                 }
                 else
@@ -342,23 +355,6 @@ public class Request
 
     private void mainMenu(Stage primaryStage)
     {
-        ClientCommand saveClientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
-        String saveJson = new GsonBuilder().setPrettyPrinting().create().toJson(saveClientCommand);
-        System.out.println(saveJson);
-        try
-        {
-            Client.getSendMessage().addMessage(saveJson);
-            synchronized (validMessageFromServer)
-            {
-                validMessageFromServer.wait();
-            }
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        accountConnectedToThisClient = client.getMessageFromServer().getAccount();
-
         setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -497,6 +493,20 @@ public class Request
                         try
                         {
                             Client.getSendMessage().addMessage(buyJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
+                        } catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        ClientCommand closeClientCommand = new ClientCommand(ClientCommandEnum.LOGOUT, client.getAuthToken());
+                        String closeJson = new GsonBuilder().setPrettyPrinting().create().toJson(closeClientCommand);
+                        System.out.println(closeJson);
+                        try
+                        {
+                            Client.getSendMessage().addMessage(closeJson);
                             synchronized (validMessageFromServer)
                             {
                                 validMessageFromServer.wait();
@@ -936,7 +946,7 @@ public class Request
 
     public void shopMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ENTER_SHOP, client.getAuthToken());
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_SHOP_CARDS_AND_ITEMS, client.getAuthToken());
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
         System.out.println(json);
         try
@@ -1254,6 +1264,20 @@ public class Request
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_COLLECTION_CARDS_AND_ITEMS_AND_DECKS, client.getAuthToken());
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(json);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
         rootCollection.getChildren().clear();
 
         setBackGroundImage(rootCollection, "file:BackGround Images/Duelyst Menu Blurred.jpg");
@@ -1264,7 +1288,7 @@ public class Request
 
         setCollectionMenuText("Heroes", 50, false);
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        for (Hero hero : accountConnectedToThisClient.getCollection().getHeroes())
+        for (Hero hero : client.getMessageFromServer().getHeroes())
         {
             if (isSearchedElement)
             {
@@ -1276,7 +1300,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, hero, hero.getCardID(), hero.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, hero.getCardID(), hero.getPrice(), hero.getCardName());
+            setCollectionCardsStackPanesOnMouseClicked(primaryStage, stackPane, hero);
             xPosition++;
             yPosition++;
         }
@@ -1296,7 +1320,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Minion minion : accountConnectedToThisClient.getCollection().getMinions())    //3
+        for (Minion minion : client.getMessageFromServer().getMinions())
         {
             if (isSearchedElement)
             {
@@ -1308,7 +1332,7 @@ public class Request
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showNonSpellCards(rootCollection, x, y, minion, minion.getCardID(), minion.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, minion.getCardID(), minion.getPrice(), minion.getCardName());
+            setCollectionCardsStackPanesOnMouseClicked(primaryStage, stackPane, minion);
             xPosition++;
             yPosition++;
         }
@@ -1328,7 +1352,7 @@ public class Request
         {
             yPosition = yPosition + 3 - yPosition % 3;
         }
-        for (Spell spell : accountConnectedToThisClient.getCollection().getSpells())  //3
+        for (Spell spell : client.getMessageFromServer().getSpells())
         {
             if (isSearchedElement)
             {
@@ -1340,7 +1364,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 3 * COLUMN_BLANK - 2 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, spell.getCardID(), spell.getPrice(), spell.getRequiredMP());
-            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, spell.getCardID(), spell.getPrice(), spell.getCardName());
+            setCollectionCardsStackPanesOnMouseClicked(primaryStage, stackPane, spell);
             xPosition++;
             yPosition++;
         }
@@ -1359,7 +1383,7 @@ public class Request
             }
         }
         setCollectionMenuText("Items", y + 250 + 50, false);
-        for (Item item : accountConnectedToThisClient.getCollection().getItems())  //3
+        for (Item item : client.getMessageFromServer().getItems())
         {
             if (isSearchedElement)
             {
@@ -1375,7 +1399,7 @@ public class Request
             x = ROW_BLANK + (xPosition % 3) * (200 + BLANK_BETWEEN_CARDS);
             y = 4 * COLUMN_BLANK - 3 * BLANK_BETWEEN_CARDS + yPosition / 3 * (250 + BLANK_BETWEEN_CARDS);
             StackPane stackPane = showCardAndItemImageAndFeatures(rootCollection, x, y, item.getItemID(), item.getPrice(), 0);
-            setCollectionCardAndItemStackPanesOnMouseClicked(accountConnectedToThisClient.getMainDeck(),primaryStage, stackPane, item.getItemID(), item.getPrice(), item.getItemName());
+            setCollectionItemsStackPanesOnMouseClicked(primaryStage, stackPane, item);
             xPosition++;
             yPosition++;
         }
@@ -1383,7 +1407,7 @@ public class Request
         setCollectionMenuText("Decks", 50, true);
         yPosition = 0;
         x = ROW_BLANK + 3 * (200 + BLANK_BETWEEN_CARDS);
-        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())  //3
+        for (Deck deck : client.getMessageFromServer().getDecks())
         {
             if (isSearchedElement)
             {
@@ -1465,8 +1489,10 @@ public class Request
         rootCollection.getChildren().addAll(text);
     }
 
-    private void setCollectionCardAndItemStackPanesOnMouseClicked(Deck deck ,Stage primaryStage, StackPane stackPane, String ID, int price, String name)
+    private void setCollectionCardsStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Card card)
     {
+        String ID = card.getCardID();
+        int price = card.getPrice();
         stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -1484,38 +1510,72 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL,Card.findCard(name),client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL, card, client.getAuthToken());
                     String sellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                    System.out.println(sellJson);
-                    try {
+                    try
+                    {
                         Client.getSendMessage().addMessage(sellJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
                         }
-                    } catch (InterruptedException e) {
+                    }
+                    catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
-
+                    System.out.println(client.getMessageFromServer().getMessage());
                     collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_CARD_TO_DECK,deck,Card.findCard(name),client.getAuthToken());
-                    String addToDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                     System.out.println(addToDeckJson);
+                    addToDeck(primaryStage, ID);
+                }
+            }
+        });
+    }
+
+    private void setCollectionItemsStackPanesOnMouseClicked(Stage primaryStage, StackPane stackPane, Item item)
+    {
+        String ID = item.getItemID();
+        int price = item.getPrice();
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Sell");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to sell " + ID + " for " + price + "or adding it to a deck ?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeAddToDeck = new ButtonType("Add to deck");
+                ButtonType buttonTypeSell = new ButtonType("Sell");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeAddToDeck, buttonTypeSell, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeSell)
+                {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SELL, item, client.getAuthToken());
+                    String sellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     try
                     {
-                         Client.getSendMessage().addMessage(addToDeckJson);
+                        Client.getSendMessage().addMessage(sellJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
                         }
-                    } catch (InterruptedException e)
+                    }
+                    catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
-                    showAllDecks(primaryStage, ID);
+                    System.out.println(client.getMessageFromServer().getMessage());
+                    collectionMenu(primaryStage, false, null);
+                }
+                else if (option.get() == buttonTypeAddToDeck)
+                {
+                    addToDeck(primaryStage, ID);
                 }
             }
         });
@@ -1622,7 +1682,7 @@ public class Request
         });
     }
 
-    private void showAllDecks(Stage primaryStage, String ID)
+    private void addToDeck(Stage primaryStage, String ID)
     {
         rootCollection.getChildren().clear();
 
@@ -1647,23 +1707,31 @@ public class Request
                     alert.setHeaderText(null);
                     alert.setContentText("Want to add " + ID + " to " + deck.getDeckName() + "?");
                     alert.getButtonTypes().clear();
-                    ButtonType buttonTypeSell = new ButtonType("Add");
+                    ButtonType buttonTypeAdd = new ButtonType("Add");
                     ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                    alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                    alert.getButtonTypes().addAll(buttonTypeAdd, buttonTypeCancel);
                     Optional<ButtonType> option = alert.showAndWait();
-                    if (option.get() == buttonTypeSell)
+                    if (option.get() == buttonTypeAdd)
                     {
                         Media sound = new Media(new File("Sounds and Music/Add card to deck.wav").toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
                         mediaPlayer.play();
-                        setCommand(CommandType.ADD_TO_DECK);
-                        getCommand().cardOrItemID = ID;
-                        getCommand().deckName = deck.getDeckName();
-                        synchronized (requestLock)
+
+                        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ADD_TO_DECK, deck, ID, client.getAuthToken());
+                        String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                        try
                         {
-                            requestLock.notify();
+                            Client.getSendMessage().addMessage(addJson);
+                            synchronized (validMessageFromServer)
+                            {
+                                validMessageFromServer.wait();
+                            }
                         }
-                        rootCollection.getChildren().clear();
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        System.out.println(client.getMessageFromServer().getMessage());
                         collectionMenu(primaryStage, false, null);
                     }
                 }
@@ -1814,22 +1882,22 @@ public class Request
         return null;
     }
 
-     private void importingToCollection(String deckName, Account account) throws IOException, ParseException
-     {
-         JsonParser jsonParser = new JsonParser();
-         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
-         Object obj = jsonParser.parse(reader);
-         System.out.println(obj);
-         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
-         deck.setDeckName("Imported " + deck.getDeckName());
-         account.getPlayerDecks().add(deck);
-         addImportedDeckCardsAndItemsToCollection(deck);
-     }
+    private void importingToCollection(String deckName, Account account) throws IOException, ParseException
+    {
+        JsonParser jsonParser = new JsonParser();
+        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
+        Object obj = jsonParser.parse(reader);
+        System.out.println(obj);
+        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
+        deck.setDeckName("Imported " + deck.getDeckName());
+        account.getPlayerDecks().add(deck);
+        addImportedDeckCardsAndItemsToCollection(deck);
+    }
 
-     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
-     {
-         //send deck to server    //
-     }
+    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
+    {
+        //send deck to server    //
+    }
 
     private void deckMenu(Stage primaryStage, Deck deck)
     {
@@ -1952,9 +2020,8 @@ public class Request
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get() == buttonTypeSell)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, Card.findCard(cardName), client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, ID, client.getAuthToken());
                     String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                    System.out.println(removeJson);
                     try
                     {
                         Client.getSendMessage().addMessage(removeJson);
@@ -2038,7 +2105,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneBattleField);
         });
-        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @SuppressWarnings("Duplicates")
             @Override
@@ -2059,7 +2126,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
         primaryStage.setScene(sceneSinglePlayer);
     }
 
@@ -2081,16 +2148,20 @@ public class Request
             {
                 case "Story":
                     setCommand(CommandType.STORY);
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
                     storyModeMenu(primaryStage);
                     break;
                 case "Custom Game":
                     setCommand(CommandType.CUSTOM_GAME);
+                    synchronized (requestLock)
+                    {
+                        requestLock.notify();
+                    }
                     customGameMenuToChooseDeck(primaryStage);
                     break;
-            }
-            synchronized (requestLock)
-            {
-                requestLock.notify();
             }
         });
         rootSinglePlayer.getChildren().add(title);
@@ -2118,7 +2189,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneSinglePlayer);
         });
-        /*backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2138,7 +2209,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
 
         primaryStage.setScene(sceneCustomGame);
     }
@@ -2269,7 +2340,7 @@ public class Request
         backButton.setOnMouseClicked(event -> {
             primaryStage.setScene(sceneSinglePlayer);
         });
-        /* backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
@@ -2289,7 +2360,7 @@ public class Request
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
         primaryStage.setScene(sceneStoryMode);
     }
 
@@ -2360,7 +2431,7 @@ public class Request
     private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        //setMultiPlayerMenu("Choose  One Player", 75);
+        setMultiPlayerMenu("Choose  One Player", 75);
         showChoosePlayerMenu(rootMultiPlayer);
 
         Button backButton = new Button("Back");
@@ -2447,7 +2518,8 @@ public class Request
         rootMultiPlayer.getChildren().addAll(backButton);
     }
 
-    public void afterWaitingMultiPlayer(){
+    public void afterWaitingMultiPlayer()
+    {
     }
 
     private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
@@ -2472,7 +2544,7 @@ public class Request
                 primaryStage.centerOnScreen();
                 try
                 {
-                    singlePlayerMenu(primaryStage);
+                    battleMenu(primaryStage);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -2759,6 +2831,13 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                setCommand(CommandType.CHAT);
+                synchronized (requestLock)
+                {
+                    requestLock.notify();
+                }
+                primaryStage.setScene(sceneChatPage);
+                primaryStage.centerOnScreen();
                 goToChatMenu(primaryStage);
             }
         });
@@ -2767,26 +2846,30 @@ public class Request
 
     private void goToChatMenu(Stage primaryStage)
     {
-        backButton(primaryStage, rootChatPage, 400, 450);
-        setBackGroundImage(rootChatPage , "file:battleField BackGround/multiPlayerGround.jpg");
+        rootChatPage.getChildren().clear();
+
+        setBackGroundImage(rootChatPage, "file:battleField BackGround/chat background.jpg");
+
         TextField textField = new TextField();
         TilePane tilePane = new TilePane();
         tilePane.getChildren().add(textField);
-        tilePane.relocate(0, 500);
+        tilePane.relocate(10, 500);
         rootChatPage.getChildren().add(tilePane);
         showMessage();
-        makeSendButton(primaryStage , textField);
         ImageView refresh = new ImageView("file:battleField BackGround/refresh.jpg");
-        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        refresh.relocate(200, 200);
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 showMessage();
             }
         });
         rootChatPage.getChildren().add(refresh);
-        refresh.relocate(200 , 200);
-        primaryStage.setScene(sceneChatPage);
-        primaryStage.show();
+
+        backButton(primaryStage, rootChatPage, 400, 450);
+        makeSendButton(rootChatPage, textField);
     }
 
     private void showMessage()
@@ -2822,7 +2905,7 @@ public class Request
         }
     }
 
-    private void makeSendButton(Stage primaryStage, TextField textField)
+    private void makeSendButton(Group rootChatPage, TextField textField)
     {
         Button button = new Button("SEND");
         button.setFont(Font.font("Verdana", 12));
@@ -3024,10 +3107,5 @@ public class Request
     public Account getAccountConnectedToThisClient()
     {
         return accountConnectedToThisClient;
-    }
-
-    public void setAccountConnectedToThisClient(Account account)
-    {
-        accountConnectedToThisClient = account;
     }
 }

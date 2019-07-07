@@ -10,10 +10,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import javafx.scene.control.TextField;
-import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.io.*;
-import java.rmi.ServerError;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,11 +21,14 @@ public class InputCommandHandlerForServer extends Thread
     public final Object validMessageLock = new Object();
     private String message;
     private SendMessage sendMessage;
+    private Socket socket;
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
     private DeckManager deckManager = new DeckManager();
-    public InputCommandHandlerForServer(SendMessage sendMessage)
+
+    public InputCommandHandlerForServer(Socket socket, SendMessage sendMessage)
     {
+        this.socket = socket;
         this.sendMessage = sendMessage;
     }
 
@@ -46,8 +48,7 @@ public class InputCommandHandlerForServer extends Thread
                 }
                 checkMassageSentByClient(getMessage());
                 message = null;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -58,7 +59,7 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
-        ServerCommand serverCommand = null;
+        ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
             case SIGN_UP:
@@ -82,10 +83,15 @@ public class InputCommandHandlerForServer extends Thread
                 String getAccountJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAccountJson);
                 break;
-            case ENTER_SHOP:
+            case GET_SHOP_CARDS_AND_ITEMS:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getHeroes(), Server.getMinions(), Server.getSpells(), Server.getItems());
                 String shopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(shopJson);
+                break;
+            case GET_COLLECTION_CARDS_AND_ITEMS_AND_DECKS:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, account.getCollection().getHeroes(), account.getCollection().getMinions(), account.getCollection().getSpells(), account.getCollection().getItems(), account.getPlayerDecks());
+                String collectionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(collectionJson);
                 break;
             case SAVE_ACCOUNT_INFO:
                 accountManager.saveAccountInfo(clientCommand.getAccount(), false);
@@ -97,10 +103,10 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(saveShopJson);
                 break;
             case BUY:
-                buyCardAndItem(clientCommand, account, serverCommand);
+                buyCardAndItem(clientCommand, account);
                 break;
             case SELL:
-                sellCardAndItem(clientCommand,account,serverCommand);
+                sellCardAndItem(clientCommand, account);
                 break;
             case VALIDATE_DECK:
                 deckManager.checkDeckValidity(clientCommand.getDeck());
@@ -108,29 +114,29 @@ public class InputCommandHandlerForServer extends Thread
             case SET_MAIN_DECK:
                 deckManager.setDeckAsMainDeck(clientCommand.getDeck(), account);
                 break;
+            case REMOVE_CARD_FROM_DECK:
+                //checkIDValidityToRemoveFromDeck(deck, ID,account);
+                break;
+            case ADD_TO_DECK:
+                checkIDValidityToAddToDeck(clientCommand.getDeck(), clientCommand.getCardOrItemID(), account);
+                break;
             case IMPORT_DECK:
-                importingToCollection(clientCommand.getDeckName(),account);
+                importingToCollection(clientCommand.getDeckName(), account);
                 break;
             case EXPORT_DECK:
-                exportingDeck(account,clientCommand.getDeck());
+                exportingDeck(account, clientCommand.getDeck());
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String exportDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(exportDeckJson);
                 break;
             case CREATE_DECK:
-                createDeck(clientCommand.getDeckName(),account);
+                createDeck(clientCommand.getDeckName(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String createDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(createDeckJson);
                 break;
             case DELETE_DECK:
-                deleteDeck(clientCommand.getDeckName(),account);
-                break;
-            case REMOVE_CARD_FROM_DECK:
-                detectID(clientCommand,clientCommand.getDeckName(),"remove",account);
-                break;
-            case ADD_CARD_TO_DECK:
-                detectID(clientCommand,clientCommand.getDeckName(),"add",account);
+                deleteDeck(clientCommand.getDeckName(), account);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
@@ -264,7 +270,7 @@ public class InputCommandHandlerForServer extends Thread
     }
 
 
-    public void deleteDeck(String deckName,Account account)
+    public void deleteDeck(String deckName, Account account)
     {
         ServerCommand serverCommand = null;
         Deck deck = DeckManager.findDeck(deckName, account);
@@ -276,23 +282,23 @@ public class InputCommandHandlerForServer extends Thread
         }
         else
         {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"There is no deck with this name");
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "There is no deck with this name");
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         try
         {
             getSendMessage().addMessage(json);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
         }
     }
 
-    @SuppressWarnings("Duplicates")
-
-    private ServerCommand buyCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws Exception
+    private void buyCardAndItem(ClientCommand clientCommand, Account account) throws Exception
     {
+        ServerCommand serverCommand;
+
         Hero hero = clientCommand.getHero();
         Minion minion = clientCommand.getMinion();
         Spell spell = clientCommand.getSpell();
@@ -313,31 +319,31 @@ public class InputCommandHandlerForServer extends Thread
                 card = spell;
             }
             serverCommand = new ServerCommand(shopManager.buyCard(card, account));
-            String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(buyCardJson);
         }
         else
         {
             serverCommand = new ServerCommand(shopManager.buyItem(item, account));
-            String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(buyCardJson);
         }
-        return serverCommand;
+        String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        getSendMessage().addMessage(buyCardJson);
     }
-    @SuppressWarnings("Duplicates")
-    private ServerCommand sellCardAndItem(ClientCommand clientCommand, Account account, ServerCommand serverCommand) throws InterruptedException {
+
+    private void sellCardAndItem(ClientCommand clientCommand, Account account) throws InterruptedException
+    {
+        ServerCommand serverCommand;
+
         Hero hero = clientCommand.getHero();
         Minion minion = clientCommand.getMinion();
         Spell spell = clientCommand.getSpell();
         Item item = clientCommand.getItem();
         if (item == null)
         {
-            Card card=new Card();
-            if (hero!=null)
+            Card card = new Card();
+            if (hero != null)
             {
                 card = hero;
             }
-            if (minion!= null)
+            if (minion != null)
             {
                 card = minion;
             }
@@ -345,17 +351,14 @@ public class InputCommandHandlerForServer extends Thread
             {
                 card = spell;
             }
-            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(),account));
-            String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(SellCardJson);
+            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(), account));
         }
         else
         {
-            serverCommand = new ServerCommand(shopManager.sellItem(account,item.getItemID()));
-            String sellItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-            getSendMessage().addMessage(sellItemJson);
+            serverCommand = new ServerCommand(shopManager.sellItem(account, item.getItemID()));
         }
-        return serverCommand;
+        String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        getSendMessage().addMessage(SellCardJson);
     }
 
     /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
@@ -381,7 +384,7 @@ public class InputCommandHandlerForServer extends Thread
         }
     }*/
 
-    public void createDeck(String deckName,Account account)
+    public void createDeck(String deckName, Account account)
     {
         Deck deck = DeckManager.findDeck(deckName, account);
         if (deck != null)
@@ -393,84 +396,12 @@ public class InputCommandHandlerForServer extends Thread
         account.addDeck(newDeck);
         ShowOutput.getInstance().printOutput("Deck created");
     }
-    @SuppressWarnings("Duplicates")
-    public void detectID(ClientCommand clientCommand,String deckName, String command,Account account) throws InterruptedException {
-        Deck deck = DeckManager.findDeck(deckName, account);
-        Minion minion = clientCommand.getMinion();
-        Spell spell = clientCommand.getSpell();
-        Hero hero = clientCommand.getHero();
-        Item item = clientCommand.getItem();
-        if (deck != null)
-        {
-            if (command.equals("add"))
-            {
-                Card card = new Card();
-                if (item == null)
-                {
-                    if (minion != null)
-                    {
-                        card = minion;
-                    }
-                    if (hero != null)
-                    {
-                        card = hero;
-                    }
-                    if (spell != null)
-                    {
-                        card = spell;
-                    }
-                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToAddToDeck(deck,card.getCardID(),account));
-                    String addCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(addCardJson);
 
-                }
-                else
-                {
-                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToAddToDeck(deck,item.getItemID(),account));
-                    String addItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(addItemJson);
-
-                }
-            }
-            else if (command.equals("remove"))
-            {
-                if (item == null)
-                {
-                    Card removeCard = new Card();
-                    if (minion != null)
-                    {
-                        removeCard = minion;
-                    }
-                    if (hero != null)
-                    {
-                        removeCard = hero;
-                    }
-                    if (spell != null)
-                    {
-                        removeCard = spell;
-                    }
-                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,removeCard.getCardID(),account));
-                    String removeCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(removeCardJson);
-                }
-                else
-                {
-                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,item.getItemID(),account));
-                    String removeItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(removeItemJson);
-                }
-            }
-        }
-        else
-        {
-            ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-    }
     @SuppressWarnings("Duplicates")
 
-    public String  checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
+    public void checkIDValidityToRemoveFromDeck(Deck deck, String ID, Account account)
     {
-
+        ServerCommand serverCommand = null;
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
@@ -478,7 +409,6 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(hero.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, hero, account);
-                    return "this hero removed from deck";
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
@@ -486,7 +416,6 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(minion.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, minion, account);
-                    return "this minion removed from deck";
                 }
             }
             for (Spell spell : account.getCollection().getSpells())
@@ -494,7 +423,6 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(spell.getCardID()))
                 {
                     deckManager.checkCardExistenceInDeckToRemove(deck, spell, account);
-                    return "this minion removed from deck";
                 }
             }
         }
@@ -505,67 +433,88 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(item.getItemID()))
                 {
                     deckManager.checkItemExistenceInDeckToRemove(deck, item, account);
-                    return "this item removed from this deck";
+                    return;
                 }
             }
-            return "This item isn't in the collection";
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "This item isn't in the collection");
+            ShowOutput.getInstance().printOutput("This item isn't in the collection");
         }
+        else
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "Invalid ID");
 
-
-            return "Invalid ID";
-
+            ShowOutput.getInstance().printOutput("Invalid ID");
+        }
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        System.out.println(removeJson);
+        try
+        {
+            getSendMessage().addMessage(removeJson);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("Duplicates")
 
-    public String checkIDValidityToAddToDeck(Deck deck, String ID,Account account)
+    public void checkIDValidityToAddToDeck(Deck deck, String ID, Account account)
     {
-        ServerCommand serverCommand = null;
+        String message = null;
+
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
             {
                 if (ID.equals(hero.getCardID()))
                 {
-                    deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
-                    return "this hero added to deck";
+                    message = deckManager.checkCircumstanceToAddHeroCardToDeck(deck, hero, account);
                 }
             }
             for (Minion minion : account.getCollection().getMinions())
             {
                 if (ID.equals(minion.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
-                    return "this minion added to deck";
+                    message = deckManager.checkCircumstancesToAddCardToDeck(deck, minion, account);
                 }
             }
-            for (Spell spell :account.getCollection().getSpells())
+            for (Spell spell : account.getCollection().getSpells())
             {
                 if (ID.equals(spell.getCardID()))
                 {
-                    deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
-                    return "this spell added to deck";
+                    message = deckManager.checkCircumstancesToAddCardToDeck(deck, spell, account);
                 }
             }
         }
         else if (account.getCollection().findItemInTheCollection(ID) != null)
         {
-            for (Item item :account.getCollection().getItems())
+            for (Item item : account.getCollection().getItems())
             {
                 if (ID.equals(item.getItemID()))
                 {
-                    deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
-                    return "this item added to deck";
+                    message = deckManager.checkCircumstancesToAddItemToDeck(deck, item, account);
                 }
             }
-            return "This item isn't in the collection";
         }
-
-        return "Invalid ID";
-
+        else
+        {
+            message = "Invalid ID";
+        }
+        ServerCommand serverCommand = new ServerCommand(message);
+        String addJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        System.out.println(addJson);
+        try
+        {
+            getSendMessage().addMessage(addJson);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
+
     @SuppressWarnings("Duplicates")
-    private void importingToCollection(String deckName,Account account) throws IOException, ParseException
+    private void importingToCollection(String deckName, Account account) throws IOException, ParseException
     {
         JsonParser jsonParser = new JsonParser();
         FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
@@ -577,15 +526,18 @@ public class InputCommandHandlerForServer extends Thread
         addImportedDeckCardsAndItemsToCollection(deck);
         ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try {
+        try
+        {
             getSendMessage().addMessage(json);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e)
+        {
             e.printStackTrace();
         }
     }
+
     @SuppressWarnings("Duplicates")
 
-    private void exportingDeck(Account account,Deck deck)
+    private void exportingDeck(Account account, Deck deck)
     {
 
         String exportingDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(deck);
@@ -602,6 +554,7 @@ public class InputCommandHandlerForServer extends Thread
             e.printStackTrace();
         }
     }
+
     @SuppressWarnings("Duplicates")
 
     private void writeExportedDeckNameInFile(String exportedDeckName) throws Exception
@@ -619,6 +572,7 @@ public class InputCommandHandlerForServer extends Thread
         savedDecksPath.write(exportedDeckName + "\n");
         savedDecksPath.close();
     }
+
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
         //send deck to server    //
