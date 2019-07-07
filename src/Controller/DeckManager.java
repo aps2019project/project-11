@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Network.ServerCommand;
 import View.*;
 
 public class DeckManager
@@ -196,34 +197,50 @@ public class DeckManager
         }
     }
 
-    public boolean checkDeckValidity(Deck deck)
+    public boolean checkDeckValidityForAIAccount(Deck deck)
     {
         if (deck != null)
         {
             if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
             {
-                showOutput.printOutput("Deck is valid");
                 return true;
             }
             else
             {
-                showOutput.printOutput("Deck isn't valid");
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkDeckValidity(Deck deck, ServerCommand serverCommand)
+    {
+        if (deck != null)
+        {
+            if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
+            {
+                serverCommand.setMessage("Deck is valid");
+                return true;
+            }
+            else
+            {
+                serverCommand.setMessage("Deck isn't valid");
                 return false;
             }
         }
         else
         {
-            showOutput.printOutput("There is no deck with this name");
+            serverCommand.setMessage("There is no deck with this name");
         }
         return false;
     }
 
-    public void setDeckAsMainDeck(Deck deck, Account account)
+    public void setDeckAsMainDeck(Deck deck, Account account, ServerCommand serverCommand)
     {
-        if (checkDeckValidity(deck))
+        if (checkDeckValidity(deck, serverCommand))
         {
             account.setMainDeck(deck);
-            showOutput.printOutput("MainDeck set");
+            serverCommand.setMessage(serverCommand.getMessage() + "\n" + "MainDeck set");
         }
     }
 }

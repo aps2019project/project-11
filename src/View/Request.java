@@ -196,7 +196,7 @@ public class Request
                 }
                 else
                 {
-                    labelInvalidInput.setText(client.getMessageFromServer().getErrorMessage());
+                    labelInvalidInput.setText(client.getMessageFromServer().getMessage());
                 }
                 rootSignUpMenu.getChildren().add(labelInvalidInput);
             }
@@ -2014,11 +2014,11 @@ public class Request
                 alert.setHeaderText(null);
                 alert.setContentText("Want to remove " + ID + " from " + deck.getDeckName() + "?");
                 alert.getButtonTypes().clear();
-                ButtonType buttonTypeSell = new ButtonType("Remove");
+                ButtonType buttonTypeRemoveCardFromDeck = new ButtonType("Remove");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel");
-                alert.getButtonTypes().addAll(buttonTypeSell, buttonTypeCancel);
+                alert.getButtonTypes().addAll(buttonTypeRemoveCardFromDeck, buttonTypeCancel);
                 Optional<ButtonType> option = alert.showAndWait();
-                if (option.get() == buttonTypeSell)
+                if (option.get() == buttonTypeRemoveCardFromDeck)
                 {
                     ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REMOVE_CARD_FROM_DECK, deck, ID, client.getAuthToken());
                     String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
