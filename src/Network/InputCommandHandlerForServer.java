@@ -449,13 +449,15 @@ public class InputCommandHandlerForServer extends Thread
                     {
                         removeCard = spell;
                     }
-                    //ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,removeCard.getCardID(),account));
-                    //String addItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    //getSendMessage().addMessage(addItemJson);
+                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,removeCard.getCardID(),account));
+                    String removeCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(removeCardJson);
                 }
                 else
                 {
-                    //checkIDValidityToRemoveFromDeck(deck,item.getItemID(),account);
+                    ServerCommand serverCommand = new ServerCommand(checkIDValidityToRemoveFromDeck(deck,item.getItemID(),account));
+                    String removeItemJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(removeItemJson);
                 }
             }
         }
@@ -464,11 +466,11 @@ public class InputCommandHandlerForServer extends Thread
             ShowOutput.getInstance().printOutput("There is no deck with this name");
         }
     }
-    //@SuppressWarnings("Duplicates")
+    @SuppressWarnings("Duplicates")
 
-   /* public String  checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
+    public String  checkIDValidityToRemoveFromDeck(Deck deck, String ID,Account account)
     {
-        ServerCommand serverCommand = null;
+
         if (account.getCollection().findCardinCollection(ID) != null)
         {
             for (Hero hero : account.getCollection().getHeroes())
@@ -503,26 +505,16 @@ public class InputCommandHandlerForServer extends Thread
                 if (ID.equals(item.getItemID()))
                 {
                     deckManager.checkItemExistenceInDeckToRemove(deck, item, account);
-                    return;
+                    return "this item removed from this deck";
                 }
             }
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"This item isn't in the collection");
-            ShowOutput.getInstance().printOutput("This item isn't in the collection");
+            return "This item isn't in the collection";
         }
-        else
-        {
-            serverCommand = new ServerCommand(ServerCommandEnum.ERROR,"Invalid ID");
 
-            ShowOutput.getInstance().printOutput("Invalid ID");
-        }
-        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        System.out.println(removeJson);
-        try {
-            getSendMessage().addMessage(removeJson);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }*/
+
+            return "Invalid ID";
+
+    }
 
     @SuppressWarnings("Duplicates")
 
