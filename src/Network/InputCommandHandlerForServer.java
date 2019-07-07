@@ -129,11 +129,12 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(getDeckJson);
                 break;
             case REMOVE_CARD_FROM_DECK:
-                checkIDValidityToRemoveFromDeck(clientCommand.getDeck(),clientCommand.getCardOrItemID(),account);
+                Deck deck = DeckManager.findDeck(clientCommand.getDeckName(), account);
+                checkIDValidityToRemoveFromDeck(deck,clientCommand.getCardOrItemID(),account);
                 break;
             case ADD_TO_DECK:
-                Deck deck = DeckManager.findDeck(clientCommand.getDeckName(), account);
-                checkIDValidityToAddToDeck(deck, clientCommand.getCardOrItemID(), account);
+                Deck deckToAddCard = DeckManager.findDeck(clientCommand.getDeckName(), account);
+                checkIDValidityToAddToDeck(deckToAddCard, clientCommand.getCardOrItemID(), account);
                 break;
             case IMPORT_DECK:
                 importingToCollection(clientCommand.getDeckName(), account);

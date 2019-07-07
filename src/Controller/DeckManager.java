@@ -19,10 +19,11 @@ public class DeckManager
         }
         return null;
     }
+
     @SuppressWarnings("Duplicates")
     public String checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
     {
-        if (card instanceof  Hero)
+        if (card instanceof Hero)
         {
             return checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card, account);
         }
@@ -90,31 +91,32 @@ public class DeckManager
     {
         if (card instanceof Hero)
         {
-            return checkCircumstanceToRemoveHeroCardFromDeck(deck,(Hero) card,account);
+            return checkCircumstanceToRemoveHeroCardFromDeck(deck, (Hero) card, account);
         }
         else
         {
-        for (Minion deckMinion : deck.getMinions())
-        {
-            if (card.getCardID().equals(deckMinion.getCardID()))
+            for (Minion deckMinion : deck.getMinions())
             {
-                return "This card is in the deck";
+                if (card.getCardID().equals(deckMinion.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card, account);
+                    return "Card removed from deck";
+                }
+            }
+            for (Spell deckSpell : deck.getSpells())
+            {
+                if (card.getCardID().equals(deckSpell.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card, account);
+                    return "Card removed from deck";
+                }
+            }
+            if (deck.getMinions().size() + deck.getSpells().size() == 0)
+            {
+                return "Deck is empty";
             }
         }
-        for (Spell deckSpell : deck.getSpells())
-        {
-            if (card.getCardID().equals(deckSpell.getCardID()))
-            {
-                return "This card is in the deck";
-            }
-        }
-        if (deck.getMinions().size() + deck.getSpells().size() == 0)
-        {
-            return "Deck is empty";
-        }
-        deck.deleteCardFromDeck(card, account);
-        return "Card removed from deck";
-        }
+        return null;
     }
 
     @SuppressWarnings("Duplicates")
@@ -124,31 +126,32 @@ public class DeckManager
         {
             if (item.getItemID().equals(deckItem.getItemID()))
             {
-                return "This item is in the deck";
+                deck.deleteItemFromDeck(item, account);
+                return "Item removed From deck";
             }
         }
         if (deck.getItem().size() == 0)
         {
             return "Deck is empty";
         }
-        deck.deleteItemFromDeck(item, account);
-        return "Item removed From deck";
+        return null;
     }
-    public String checkCircumstanceToRemoveHeroCardFromDeck(Deck deck,Hero hero,Account account)
+
+    public String checkCircumstanceToRemoveHeroCardFromDeck(Deck deck, Hero hero, Account account)
     {
-        for (Hero removingHero :deck.getHero())
+        for (Hero removingHero : deck.getHero())
         {
-            if (hero.getCardID().equalsIgnoreCase(removingHero.getCardID()))
+            if (hero.getCardID().equals(removingHero.getCardID()))
             {
-                return "This hero is in the deck";
+                deck.deleteCardFromDeck(hero, account);
+                return "hero removed from deck";
             }
         }
         if (deck.getHero().size() == 0)
         {
             return "Deck is empty";
         }
-        deck.deleteCardFromDeck(hero,account);
-        return "hero removed from deck";
+        return null;
     }
 
     public void searchDecksToRemoveCardOnSale(Card card, Account account)

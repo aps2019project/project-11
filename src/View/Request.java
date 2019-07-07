@@ -2063,15 +2063,8 @@ public class Request
                     {
                         e.printStackTrace();
                     }
-                    setCommand(CommandType.REMOVE_FROM_DECK);
-                    getCommand().cardOrItemID = ID;
-                    getCommand().deckName = deck.getDeckName();
-                    synchronized (requestLock)
-                    {
-                        requestLock.notify();
-                    }
-                    rootDeck.getChildren().clear();
-                    deckMenu(primaryStage, deck);
+                    System.out.println(client.getMessageFromServer().getMessage());
+                    collectionMenu(primaryStage, false, null);
                 }
             }
         });
