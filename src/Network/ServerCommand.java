@@ -14,6 +14,7 @@ public class ServerCommand
     private ArrayList<Minion> minions = new ArrayList<>();
     private ArrayList<Spell> spells = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Deck> decks = new ArrayList<>();
     private boolean login;
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
@@ -45,6 +46,16 @@ public class ServerCommand
         this.minions = minions;
         this.spells = spells;
         this.items = items;
+    }
+
+    public ServerCommand(ServerCommandEnum serverCommandEnum,ArrayList<Hero> heroes,ArrayList<Minion> minions, ArrayList<Spell> spells, ArrayList<Item> items, ArrayList<Deck> decks)
+    {
+        this.serverCommandEnum = serverCommandEnum;
+        this.heroes = heroes;
+        this.minions = minions;
+        this.spells = spells;
+        this.items = items;
+        this.decks = decks;
     }
 
     public ServerCommand(String message)
@@ -131,5 +142,10 @@ public class ServerCommand
     public Account getAccount()
     {
         return account;
+    }
+
+    public ArrayList<Deck> getDecks()
+    {
+        return decks;
     }
 }

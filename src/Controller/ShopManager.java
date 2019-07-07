@@ -53,7 +53,7 @@ public class ShopManager
             if (hero.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(hero, account);
-                return " successful sell";
+                return " Successful Sale" + "\n" + hero.getCardName() + "'s capacity is " + hero.getCapacityOfSell() + " now";
             }
         }
         for (Minion minion : account.getCollection().getMinions())
@@ -61,7 +61,7 @@ public class ShopManager
             if (minion.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(minion, account);
-                return " successful sell";
+                return " Successful Sale" + "\n" + minion.getCardName() + "'s capacity is " + minion.getCapacityOfSell() + " now";
             }
         }
         for (Spell spell : account.getCollection().getSpells())
@@ -69,10 +69,9 @@ public class ShopManager
             if (spell.getCardID().equals(ID))
             {
                 removeCardFromDeckToSell(spell, account);
-                return " successful sell";
+                return " Successful Sale" + "\n" + spell.getCardName() + "'s capacity is " + spell.getCapacityOfSell() + " now";
             }
         }
-
         return "You don't have Card with this ID!";
     }
 
