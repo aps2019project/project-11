@@ -216,6 +216,7 @@ public class InputCommandHandlerForServer extends Thread
             case GET_STORY_PLAYER_1:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 serverCommand.setPlayer(AccountManager.getStoryPlayer1());
+                System.out.println(AccountManager.getStoryPlayer1());
                 String getStoryPlayer1 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getStoryPlayer1);
                 break;

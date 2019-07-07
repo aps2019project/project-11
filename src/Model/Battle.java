@@ -392,6 +392,7 @@ public class Battle
 
     public void setSecondPlayer(Player secondPlayer)
     {
+        System.out.println(secondPlayer);
         this.secondPlayer = secondPlayer;
         this.getSecondPlayer().setMP();
     }

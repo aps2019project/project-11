@@ -397,10 +397,6 @@ public class CallTheAppropriateFunction extends Thread
                 try
                 {
                     Client.getSendMessage().addMessage(getStoryPlayer1);
-                    synchronized (validMessageFromServer)
-                    {
-                        validMessageFromServer.wait();
-                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
