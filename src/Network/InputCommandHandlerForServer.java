@@ -170,6 +170,7 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
+                System.out.println("saa");
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
@@ -1020,6 +1021,7 @@ public class InputCommandHandlerForServer extends Thread
         hero.setPrice(price);
         hero.setCoolDown(cooldown);
         hero.setRangeOfAttack(rangeOfAttack);
+
         account.getCollection().addCard(account, hero, false);
         Server.getShop().addCardToShop(hero);
         Server.addHero(hero);

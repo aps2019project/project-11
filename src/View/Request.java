@@ -728,6 +728,11 @@ public class Request
         textFields.add(makingTextField(rootHeroCustom, 865, 130, "allOwnMinion"));
         textFields.add(makingTextField(rootHeroCustom, 865, 230, "allOpponentBothNonSpell"));
         textFields.add(makingTextField(rootHeroCustom, 865, 330, "allOwnBothNonSpell"));
+        ArrayList<String> textOfTextField = new ArrayList<>();
+        for (int i = 0 ; i<textFields.size(); i ++)
+        {
+            textOfTextField.add(textFields.get(i).getText());
+        }
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
@@ -736,11 +741,14 @@ public class Request
             String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
+                System.out.println(textFields.get(0).getText());
+                System.out.println(textOfTextField.get(0));
                 Client.getSendMessage().addMessage(HeroJson);
-                synchronized (validMessageFromServer)
-                {
-                    validMessageFromServer.wait();
-                }
+
+                //synchronized (validMessageFromServer)
+                //{
+                 //   validMessageFromServer.wait();
+                //}
             } catch (Exception e)
             {
                 e.printStackTrace();
