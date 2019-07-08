@@ -489,10 +489,10 @@ public class Request
                         break;
                     case "Exit":
                         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.SAVE_SHOP, client.getAuthToken());
-                        String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                        String saveShopJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                         try
                         {
-                            Client.getSendMessage().addMessage(buyJson);
+                            Client.getSendMessage().addMessage(saveShopJson);
                             synchronized (validMessageFromServer)
                             {
                                 validMessageFromServer.wait();
@@ -1540,7 +1540,7 @@ public class Request
                         e.printStackTrace();
                     }
                     System.out.println(client.getMessageFromServer().getMessage());
-                    collectionMenu(primaryStage, false, null);
+                    //collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
