@@ -222,6 +222,7 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 serverCommand.setPlayer(AccountManager.getStoryPlayer1());
                 String getStoryPlayer1 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                System.out.println(getStoryPlayer1);
                 getSendMessage().addMessage(getStoryPlayer1);
                 break;
 

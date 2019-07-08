@@ -401,7 +401,7 @@ public class CallTheAppropriateFunction extends Thread
                     e.printStackTrace();
                 }
                 if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
-                    Player opponentPlayer1 = client.getMessageFromServer().getPlayer();
+                    System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(client.getMessageFromServer()));
                     new Battle(new Player(loggedInAccount, false), new Player(client.getMessageFromServer().getAccount(), true) , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
