@@ -1878,12 +1878,13 @@ public class Request
                     System.out.println(importJson);
                     try
                     {
-
+                        System.out.println("salam");
                         Client.getSendMessage().addMessage(importJson);
-                        synchronized (validMessageFromServer)
-                        {
-                            validMessageFromServer.wait();
-                        }
+                        System.out.println("baba");
+                       // synchronized (validMessageFromServer)
+                        //{
+                         //   validMessageFromServer.wait();
+                        //}
                     } catch (InterruptedException e)
                     {
                         e.printStackTrace();
