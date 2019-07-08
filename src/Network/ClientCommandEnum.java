@@ -16,6 +16,7 @@ public enum ClientCommandEnum
     SAVE_SHOP,
     BUY,
     SELL,
+    GET_DECK,
     VALIDATE_DECK,
     SET_MAIN_DECK,
     IMPORT_DECK,
@@ -43,6 +44,7 @@ public enum ClientCommandEnum
     ,GET_ONLINE_ACCOUNTS
     ,SEND_MESSAGE
     ,GET_ALL_MESSAGES_IN_CHAT
-    ,MAKE_BATTLE_FOR_MULTIPLAYER_GAME
+    , MAKE_BATTLE_FOR_MULTI_PLAYER_GAME
+    ,GET_STORY_PLAYER_1
     ;
 }

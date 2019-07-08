@@ -1,5 +1,6 @@
 package Network;
 
+import Controller.AccountManager;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -20,6 +21,7 @@ public class Server
     private static ArrayList<Spell> spells = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
     private static int numberOfAccount = 1;
+    private static AccountManager accountManager = new AccountManager();
 
     public static void main(String[] args) throws Exception
     {
@@ -27,6 +29,7 @@ public class Server
         Item.setItems();
         convertingToAccounts();
         convertingToShop();
+        setStoryAIPlayer();
         ServerSocket serverSocket = new ServerSocket(8000);
         while (true)
         {
@@ -58,6 +61,12 @@ public class Server
         }
     }
 
+    private static void setStoryAIPlayer() {
+        AccountManager.makeStoryPlayer(1);
+        AccountManager.makeStoryPlayer(2);
+        AccountManager.makeStoryPlayer(3);
+    }
+
     private static void convertingToShop()
     {
         try
@@ -85,7 +94,9 @@ public class Server
             FileReader reader = new FileReader("SavedAccounts/" + fileName + ".json");
             Object obj = jsonParser.parse(reader);
             System.out.println(obj);
-            Server.addAccount(new Gson().fromJson(obj.toString(), Account.class));
+            Account account = new Gson().fromJson(obj.toString(), Account.class);
+            account.setAuthToken(null);
+            Server.addAccount(account);
         }
     }
 

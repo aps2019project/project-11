@@ -3071,6 +3071,7 @@
         ]
       },
       "cardSelectedInBattle": false,
+      "cardID": "SinglePlayer_godStrength_10003",
       "price": 450,
       "requiredMP": 2,
       "cardName": "godStrength",

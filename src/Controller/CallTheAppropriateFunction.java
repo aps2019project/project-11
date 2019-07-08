@@ -1,7 +1,12 @@
 package Controller;
 
 import Model.*;
+import Network.Client;
+import Network.ClientCommand;
+import Network.ClientCommandEnum;
+import Network.ServerCommandEnum;
 import View.*;
+import com.google.gson.GsonBuilder;
 
 public class CallTheAppropriateFunction extends Thread
 {
@@ -12,6 +17,8 @@ public class CallTheAppropriateFunction extends Thread
     private BattleManager battleManager = new BattleManager();
     private Request request;
     private ShowOutput showOutput = ShowOutput.getInstance();
+    public final Object validMessageFromServer = new Object();
+
 
     public CallTheAppropriateFunction(Request request)
     {
@@ -379,11 +386,32 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    public void storyModeBattleMaker(Account loggedInAccount, int numberOfLevel)
+    public void storyModeBattleMaker(Account loggedInAccount, int numberOfLevel , Client client)
     {
-        Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
+        //Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-        new Battle(new Player(loggedInAccount, false), opponentPlayerForStory, BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+        switch (numberOfLevel){
+            case 1:
+                ClientCommand clientCommand1 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_1);
+                String getStoryPlayer1 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand1);
+                try
+                {
+                    Client.getSendMessage().addMessage(getStoryPlayer1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
+                    Player opponentPlayer1 = client.getMessageFromServer().getPlayer();
+                    new Battle(new Player(loggedInAccount, false), new Player(client.getMessageFromServer().getAccount(), true) , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                }
+                break;
+            case 2:
+                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer2(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                break;
+            case 3:
+                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer3(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                break;
+        }
     }
 
     public boolean customGameBattleMaker(Account accountConnectedToThisClient, Deck selectedDeck, int number)

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Network.ServerCommand;
 import View.*;
 
 public class DeckManager
@@ -18,10 +19,11 @@ public class DeckManager
         }
         return null;
     }
+
     @SuppressWarnings("Duplicates")
     public String checkCircumstancesToAddCardToDeck(Deck deck, Card card, Account account)
     {
-        if (card instanceof  Hero)
+        if (card instanceof Hero)
         {
             return checkCircumstanceToAddHeroCardToDeck(deck, (Hero) card, account);
         }
@@ -89,31 +91,32 @@ public class DeckManager
     {
         if (card instanceof Hero)
         {
-            return checkCircumstanceToRemoveHeroCardFromDeck(deck,(Hero) card,account);
+            return checkCircumstanceToRemoveHeroCardFromDeck(deck, (Hero) card, account);
         }
         else
         {
-        for (Minion deckMinion : deck.getMinions())
-        {
-            if (card.getCardID().equals(deckMinion.getCardID()))
+            for (Minion deckMinion : deck.getMinions())
             {
-                return "This card is in the deck";
+                if (card.getCardID().equals(deckMinion.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card, account);
+                    return "Card removed from deck";
+                }
+            }
+            for (Spell deckSpell : deck.getSpells())
+            {
+                if (card.getCardID().equals(deckSpell.getCardID()))
+                {
+                    deck.deleteCardFromDeck(card, account);
+                    return "Card removed from deck";
+                }
+            }
+            if (deck.getMinions().size() + deck.getSpells().size() == 0)
+            {
+                return "Deck is empty";
             }
         }
-        for (Spell deckSpell : deck.getSpells())
-        {
-            if (card.getCardID().equals(deckSpell.getCardID()))
-            {
-                return "This card is in the deck";
-            }
-        }
-        if (deck.getMinions().size() + deck.getSpells().size() == 0)
-        {
-            return "Deck is empty";
-        }
-        deck.deleteCardFromDeck(card, account);
-        return "Card removed from deck";
-        }
+        return null;
     }
 
     @SuppressWarnings("Duplicates")
@@ -123,31 +126,32 @@ public class DeckManager
         {
             if (item.getItemID().equals(deckItem.getItemID()))
             {
-                return "This item is in the deck";
+                deck.deleteItemFromDeck(item, account);
+                return "Item removed From deck";
             }
         }
         if (deck.getItem().size() == 0)
         {
             return "Deck is empty";
         }
-        deck.deleteItemFromDeck(item, account);
-        return "Item removed From deck";
+        return null;
     }
-    public String checkCircumstanceToRemoveHeroCardFromDeck(Deck deck,Hero hero,Account account)
+
+    public String checkCircumstanceToRemoveHeroCardFromDeck(Deck deck, Hero hero, Account account)
     {
-        for (Hero removingHero :deck.getHero())
+        for (Hero removingHero : deck.getHero())
         {
-            if (hero.getCardID().equalsIgnoreCase(removingHero.getCardID()))
+            if (hero.getCardID().equals(removingHero.getCardID()))
             {
-                return "This hero is in the deck";
+                deck.deleteCardFromDeck(hero, account);
+                return "hero removed from deck";
             }
         }
         if (deck.getHero().size() == 0)
         {
             return "Deck is empty";
         }
-        deck.deleteCardFromDeck(hero,account);
-        return "hero removed from deck";
+        return null;
     }
 
     public void searchDecksToRemoveCardOnSale(Card card, Account account)
@@ -196,34 +200,50 @@ public class DeckManager
         }
     }
 
-    public boolean checkDeckValidity(Deck deck)
+    public boolean checkDeckValidityForAIAccount(Deck deck)
     {
         if (deck != null)
         {
             if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
             {
-                showOutput.printOutput("Deck is valid");
                 return true;
             }
             else
             {
-                showOutput.printOutput("Deck isn't valid");
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkDeckValidity(Deck deck, ServerCommand serverCommand)
+    {
+        if (deck != null)
+        {
+            if (deck.getMinions().size() + deck.getSpells().size() == 20 && deck.getHero().size() == 1)
+            {
+                serverCommand.setMessage("Deck is valid");
+                return true;
+            }
+            else
+            {
+                serverCommand.setMessage("Deck isn't valid");
                 return false;
             }
         }
         else
         {
-            showOutput.printOutput("There is no deck with this name");
+            serverCommand.setMessage("There is no deck with this name");
         }
         return false;
     }
 
-    public void setDeckAsMainDeck(Deck deck, Account account)
+    public void setDeckAsMainDeck(Deck deck, Account account, ServerCommand serverCommand)
     {
-        if (checkDeckValidity(deck))
+        if (checkDeckValidity(deck, serverCommand))
         {
             account.setMainDeck(deck);
-            showOutput.printOutput("MainDeck set");
+            serverCommand.setMessage(serverCommand.getMessage() + "\n" + "MainDeck set");
         }
     }
 }
