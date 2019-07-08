@@ -10,6 +10,7 @@ public class ShopManager
 
     public String buyCard(Card card, Account account) throws Exception
     {
+
         if (card.getPrice() > account.getMoney())
         {
             return "you don't have enough money.";

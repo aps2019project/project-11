@@ -1871,6 +1871,7 @@ public class Request
             deckName.setOnMouseEntered(event -> deckName.setFill(GREEN));
             deckName.setOnMouseExited(event -> deckName.setFill(YELLOW));
             deckName.setOnMouseClicked(event -> {
+
                 try
                 {
                     ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.IMPORT_DECK, returningDeck(deckName.getText()), client.getAuthToken());
@@ -1878,11 +1879,13 @@ public class Request
                     System.out.println(importJson);
                     try
                     {
+                        System.out.println("salam");
                         Client.getSendMessage().addMessage(importJson);
-                        synchronized (validMessageFromServer)
+                        System.out.println("bababa");
+                        /*synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
-                        }
+                        }*/
                     } catch (Exception e)
                     {
                         e.printStackTrace();
