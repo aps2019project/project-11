@@ -23,8 +23,14 @@ public class Server
     private static int numberOfAccount = 1;
     private static AccountManager accountManager = new AccountManager();
 
+
+
     public static void main(String[] args) throws Exception
     {
+        ServerGraphic serverGraphic = new ServerGraphic();
+        Thread thread = new Thread(serverGraphic);
+        thread.start();
+
         Card.setCards();
         Item.setItems();
         convertingToAccounts();
@@ -58,8 +64,7 @@ public class Server
                 }
             });
             receiveMessage.start();
-        }
-    }
+        }    }
 
     private static void setStoryAIPlayer() {
         AccountManager.makeStoryPlayer(1);
@@ -174,4 +179,14 @@ public class Server
     {
         Server.shop = shop;
     }
+
+    public static AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public static void setAccountManager(AccountManager accountManager) {
+        Server.accountManager = accountManager;
+    }
+
+
 }
