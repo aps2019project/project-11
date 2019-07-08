@@ -191,16 +191,6 @@ public class Server
         Server.shop = shop;
     }
 
-    public static AccountManager getAccountManager() {
-        return accountManager;
-    }
-
-    public static void setAccountManager(AccountManager accountManager) {
-        Server.accountManager = accountManager;
-    }
-
-
-
     public static Hero getBidHero()
     {
         return bidHero;
