@@ -29,6 +29,10 @@ public class Server
 
     public static void main(String[] args) throws Exception
     {
+        ServerGraphic serverGraphic = new ServerGraphic();
+        Thread thread = new Thread(serverGraphic);
+        thread.start();
+
         Card.setCards();
         Item.setItems();
         convertingToAccounts();
@@ -186,6 +190,16 @@ public class Server
     {
         Server.shop = shop;
     }
+
+    public static AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public static void setAccountManager(AccountManager accountManager) {
+        Server.accountManager = accountManager;
+    }
+
+
 
     public static Hero getBidHero()
     {
