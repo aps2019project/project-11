@@ -5,6 +5,7 @@ import Model.Battle;
 import Model.BattleMode;
 import View.Request;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,7 +37,7 @@ public class BattleTimer extends Application implements Runnable {
     private void timerLoop() {
         int counter;
         while (true){
-            for(counter = 6 ; counter > 0  ; counter--){
+            for(counter = 60 ; counter > 0  ; counter--){
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -50,19 +51,24 @@ public class BattleTimer extends Application implements Runnable {
     }
 
     private void endTurn() {
-        Battle.getCurrentBattle().clearTheHandPictures();
-        Battle.getCurrentBattle().endTurn();
-        request.setMPIcons(rootBattleField);
-        Battle.getCurrentBattle().setHandIcons();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Battle.getCurrentBattle().clearTheHandPictures();
+                Battle.getCurrentBattle().endTurn();
+                request.setMPIcons(rootBattleField);
+                Battle.getCurrentBattle().setHandIcons();
 
-        request.setNextCard(rootBattleField);
+                request.setNextCard(rootBattleField);
 
-        for (int number = 0; number < 5; number++)
-        {
-            rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
-        }
-        request.makeBattleFieldController(battleMode);
-        request.setGlobalChatButton(primaryStage, rootBattleField);
+                for (int number = 0; number < 5; number++)
+                {
+                    rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
+                }
+                request.makeBattleFieldController(battleMode);
+                request.setGlobalChatButton(primaryStage, rootBattleField);
+            }
+        });
     }
 
 
