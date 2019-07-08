@@ -29,7 +29,7 @@ public class ClientCommand
     private transient GridPane gridPane;
     private transient Account account;
     private transient Account secondAccount;
-    private transient Player player;
+    private Player player;
     private transient Group root;
 
     public ClientCommand(ClientCommandEnum clientCommandEnum)
