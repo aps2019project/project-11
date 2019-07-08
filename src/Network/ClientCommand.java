@@ -44,7 +44,7 @@ public class ClientCommand
         this.password = password;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, String authToken)  //leaderBoard & logout
+    public ClientCommand(ClientCommandEnum clientCommandEnum, String authToken)
     {
         this.clientCommandEnum = clientCommandEnum;
         this.authToken = authToken;
@@ -96,10 +96,10 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, String cardOrItemID, String authToken)  //add & remove card from deck
+    public ClientCommand(ClientCommandEnum clientCommandEnum, String deckName, String cardOrItemID, String authToken)  //add & remove card from deck
     {
         this.clientCommandEnum = clientCommandEnum;
-        this.deck = deck;
+        this.deckName = deckName;
         this.cardOrItemID = cardOrItemID;
         this.authToken = authToken;
     }

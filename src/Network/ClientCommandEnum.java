@@ -16,6 +16,7 @@ public enum ClientCommandEnum
     SAVE_SHOP,
     BUY,
     SELL,
+    GET_DECK,
     VALIDATE_DECK,
     SET_MAIN_DECK,
     IMPORT_DECK,

@@ -32,6 +32,12 @@ public class ServerCommand
         this.accounts = accounts;
     }
 
+    public ServerCommand(ArrayList<Deck> decks, ServerCommandEnum serverCommandEnum)
+    {
+        this.serverCommandEnum = serverCommandEnum;
+        this.decks = decks;
+    }
+
     public ServerCommand(ServerCommandEnum serverCommandEnum, Account account)
     {
         this.serverCommandEnum = serverCommandEnum;
