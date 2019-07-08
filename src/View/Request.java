@@ -142,6 +142,8 @@ public class Request
     private Account multiPlayerAccountToBattle;
     private Text battleInfo;
     private Account accountConnectedToThisClient;
+    private static Text counterText;
+    private static BattleTimer battleTimer;
 
     public Request(Client client)
     {
@@ -2678,32 +2680,15 @@ public class Request
     }
 
     private void setTimer(Group rootBattleField, BattleMode battleMode, Stage primaryStage) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Text counterText = new Text();
-                int counter;
-                while (true){
-                    for(counter = 6 ; counter > 0  ; counter--){
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        counterText.setText(String.valueOf(counter));
-                    }
-//                    endTurn();
-                    counterText.setText(null);
-                }
-            }
-        });
-        /*Text counterText = new Text();
+        counterText = new Text();
         counterText.setFont(Font.font("verdana" , 20));
-        counterText.relocate(100 , 100);
+        counterText.relocate(120 , 120);
         rootBattleField.getChildren().add(counterText);
-        BattleTimer battleTimer = new BattleTimer(rootBattleField , counterText , this, battleMode, primaryStage);
-        Thread thread = new Thread(battleTimer);
-        thread.start();*/
+        if(battleTimer != null){
+            battleTimer.end();
+        }
+        battleTimer = new BattleTimer(rootBattleField , counterText , this, battleMode, primaryStage);
+        battleTimer.start();
     }
 
     public void setNextCard(Group rootBattleField)
@@ -2827,6 +2812,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                setTimer(rootBattleField , battleMode , primaryStage);
                 Battle.getCurrentBattle().clearTheHandPictures();
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);
