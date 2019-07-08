@@ -774,10 +774,10 @@ public class Request
     private void showProfile(Stage primaryStage)
     {
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_ACCOUNT, client.getAuthToken());
-        String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        String getAccountJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
         try
         {
-            Client.getSendMessage().addMessage(buyJson);
+            Client.getSendMessage().addMessage(getAccountJson);
             synchronized (validMessageFromServer)
             {
                 validMessageFromServer.wait();
@@ -1879,12 +1879,13 @@ public class Request
                     System.out.println(importJson);
                     try
                     {
+
                         Client.getSendMessage().addMessage(importJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
                         }
-                    } catch (Exception e)
+                    } catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
@@ -1911,18 +1912,6 @@ public class Request
             }
         }
         return null;
-    }
-
-    private void importingToCollection(String deckName, Account account) throws IOException, ParseException
-    {
-        JsonParser jsonParser = new JsonParser();
-        FileReader reader = new FileReader("SavedDecks/" + deckName + ".json");
-        Object obj = jsonParser.parse(reader);
-        System.out.println(obj);
-        Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
-        deck.setDeckName("Imported " + deck.getDeckName());
-        account.getPlayerDecks().add(deck);
-        addImportedDeckCardsAndItemsToCollection(deck);
     }
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)

@@ -351,6 +351,7 @@ public class InputCommandHandlerForServer extends Thread
             {
                 card = spell;
             }
+
             serverCommand = new ServerCommand(shopManager.buyCard(card, account));
         }
         else
