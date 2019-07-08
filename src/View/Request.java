@@ -4,9 +4,8 @@ import Controller.BattleFieldController;
 import Controller.BattleTimer;
 import Model.*;
 import Network.*;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -33,7 +32,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -2663,7 +2661,7 @@ public class Request
             showGameInfo(rootBattleField);
             setEndTurnButton(primaryStage, rootBattleField, battleMode);
             setGlobalChatButton(primaryStage, rootBattleField);
-            setTimer(rootBattleField);
+            setTimer(rootBattleField , battleMode , primaryStage);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
@@ -2672,16 +2670,36 @@ public class Request
         primaryStage.setFullScreen(true);
     }
 
-    private void setTimer(Group rootBattleField) {
-        Text counterText = new Text();
+    private void setTimer(Group rootBattleField, BattleMode battleMode, Stage primaryStage) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Text counterText = new Text();
+                int counter;
+                while (true){
+                    for(counter = 6 ; counter > 0  ; counter--){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        counterText.setText(String.valueOf(counter));
+                    }
+//                    endTurn();
+                    counterText.setText(null);
+                }
+            }
+        });
+        /*Text counterText = new Text();
         counterText.setFont(Font.font("verdana" , 20));
         counterText.relocate(100 , 100);
         rootBattleField.getChildren().add(counterText);
-        BattleTimer battleTimer = new BattleTimer(rootBattleField , counterText);
-        battleTimer.start();
+        BattleTimer battleTimer = new BattleTimer(rootBattleField , counterText , this, battleMode, primaryStage);
+        Thread thread = new Thread(battleTimer);
+        thread.start();*/
     }
 
-    private void setNextCard(Group rootBattleField)
+    public void setNextCard(Group rootBattleField)
     {
         Battle.getCurrentBattle().setNextCardPane(rootBattleField);
     }
@@ -2820,7 +2838,7 @@ public class Request
         rootBattleField.getChildren().add(endTurnButton);
     }
 
-    private void makeBattleFieldController(BattleMode battleMode)
+    public void makeBattleFieldController(BattleMode battleMode)
     {
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
@@ -2846,7 +2864,7 @@ public class Request
         Battle.getCurrentBattle().setGridPane(rootBattleField);
     }
 
-    private void setGlobalChatButton(Stage primaryStage, Group root)
+    public void setGlobalChatButton(Stage primaryStage, Group root)
     {
         Button chatButton = new Button("Global Chat");
         chatButton.relocate(10, 380);
