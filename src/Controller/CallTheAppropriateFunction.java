@@ -400,16 +400,59 @@ public class CallTheAppropriateFunction extends Thread
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                synchronized (client.getRequest().validMessageFromServer)
+                {
+                    try {
+                        client.getRequest().validMessageFromServer.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
-                    System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(client.getMessageFromServer()));
-                    new Battle(new Player(loggedInAccount, false), new Player(client.getMessageFromServer().getAccount(), true) , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
             case 2:
-                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer2(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                ClientCommand clientCommand2 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_2);
+                String getStoryPlayer2 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand2);
+                try
+                {
+                    Client.getSendMessage().addMessage(getStoryPlayer2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (client.getRequest().validMessageFromServer)
+                {
+                    try {
+                        client.getRequest().validMessageFromServer.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
+                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                }
                 break;
             case 3:
-                new Battle(new Player(loggedInAccount, false), AccountManager.getStoryPlayer3(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                ClientCommand clientCommand3 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_3);
+                String getStoryPlayer3 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand3);
+                try
+                {
+                    Client.getSendMessage().addMessage(getStoryPlayer3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (client.getRequest().validMessageFromServer)
+                {
+                    try {
+                        client.getRequest().validMessageFromServer.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
+                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                }
                 break;
         }
     }

@@ -222,8 +222,19 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 serverCommand.setPlayer(AccountManager.getStoryPlayer1());
                 String getStoryPlayer1 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                System.out.println(getStoryPlayer1);
                 getSendMessage().addMessage(getStoryPlayer1);
+                break;
+            case GET_STORY_PLAYER_2:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                serverCommand.setPlayer(AccountManager.getStoryPlayer2());
+                String getStoryPlayer2 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getStoryPlayer2);
+                break;
+            case GET_STORY_PLAYER_3:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                serverCommand.setPlayer(AccountManager.getStoryPlayer3());
+                String getStoryPlayer3 = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(getStoryPlayer3);
                 break;
 
         }

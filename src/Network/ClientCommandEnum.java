@@ -46,5 +46,7 @@ public enum ClientCommandEnum
     ,GET_ALL_MESSAGES_IN_CHAT
     , MAKE_BATTLE_FOR_MULTI_PLAYER_GAME
     ,GET_STORY_PLAYER_1
+    ,GET_STORY_PLAYER_2
+    ,GET_STORY_PLAYER_3
     ;
 }
