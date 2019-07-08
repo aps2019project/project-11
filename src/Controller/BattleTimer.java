@@ -4,22 +4,19 @@ package Controller;
 import Model.Battle;
 import Model.BattleMode;
 import View.Request;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class BattleTimer extends Application implements Runnable {
+public class BattleTimer extends Thread{
     private Group rootBattleField;
     private Text counterText;
     private Request request;
     private BattleMode battleMode;
     private Stage primaryStage;
+    private static BattleTimer battleTimer;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-    }
 
     @Override
     public void run() {
@@ -32,9 +29,10 @@ public class BattleTimer extends Application implements Runnable {
         this.request = request;
         this.battleMode = battleMode;
         this.primaryStage = primaryStage;
+        setBattleTimer(this);
     }
 
-    private void timerLoop() {
+    public void timerLoop() {
         int counter;
         while (true){
             for(counter = 60 ; counter > 0  ; counter--){
@@ -94,5 +92,23 @@ public class BattleTimer extends Application implements Runnable {
 
     public void setRequest(Request request) {
         this.request = request;
+    }
+
+    public static BattleTimer getBattleTimer() {
+        return battleTimer;
+    }
+
+    public void setBattleTimer(BattleTimer battleTimer) {
+        BattleTimer.battleTimer = battleTimer;
+    }
+
+    public void end() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                counterText.setText(null);
+            }
+        });
+        this.stop();
     }
 }
