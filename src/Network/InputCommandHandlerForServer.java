@@ -352,11 +352,11 @@ public class InputCommandHandlerForServer extends Thread
                 card = spell;
             }
 
-            serverCommand = new ServerCommand(shopManager.buyCard(card, account));
+            serverCommand = new ServerCommand(shopManager.buyCard(Card.findCard(card.getCardName()), account));
         }
         else
         {
-            serverCommand = new ServerCommand(shopManager.buyItem(item, account));
+            serverCommand = new ServerCommand(shopManager.buyItem(Item.findItem(item.getItemName()),account));
         }
         String buyCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(buyCardJson);

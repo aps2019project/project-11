@@ -92,14 +92,14 @@ public class ShopManager
     private void removeCardFromDeckToSell(Card cardToSell, Account account)
     {
         new DeckManager().searchDecksToRemoveCardOnSale(cardToSell, account);
-        Server.getShop().sellCard(cardToSell, account);
+        Server.getShop().sellCard(Card.findCard(cardToSell.getCardName()), account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(cardToSell.getCardName() + "'s capacity is " + cardToSell.getCapacityOfSell() + " now");
     }
 
     private void removeItemFromDeckToSell(Item itemToSell, Account account)
     {
-        new DeckManager().searchDecksToRemoveItemOnSale(itemToSell, account);
+        new DeckManager().searchDecksToRemoveItemOnSale(Item.findItem(itemToSell.getItemName()), account);
         Server.getShop().sellItem(itemToSell, account);
         showOutput.printOutput("Successful Sale");
         showOutput.printOutput(itemToSell.getItemName() + "'s capacity is " + itemToSell.getCapacityOfSell() + " now");
