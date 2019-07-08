@@ -1,6 +1,7 @@
 package View;
 
 import Controller.BattleFieldController;
+import Controller.BattleTimer;
 import Model.*;
 import Network.*;
 import com.google.gson.Gson;
@@ -2672,12 +2673,22 @@ public class Request
             showGameInfo(rootBattleField);
             setEndTurnButton(primaryStage, rootBattleField, battleMode);
             setGlobalChatButton(primaryStage, rootBattleField);
+            setTimer(rootBattleField);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
+    }
+
+    private void setTimer(Group rootBattleField) {
+        Text counterText = new Text();
+        counterText.setFont(Font.font("verdana" , 20));
+        counterText.relocate(100 , 100);
+        rootBattleField.getChildren().add(counterText);
+        BattleTimer battleTimer = new BattleTimer(rootBattleField , counterText);
+        battleTimer.start();
     }
 
     private void setNextCard(Group rootBattleField)

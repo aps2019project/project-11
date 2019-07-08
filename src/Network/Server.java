@@ -30,7 +30,7 @@ public class Server
         convertingToAccounts();
         convertingToShop();
         setStoryAIPlayer();
-        ServerSocket serverSocket = new ServerSocket(8000);
+        ServerSocket serverSocket = new ServerSocket(9000);
         while (true)
         {
             Socket socket = serverSocket.accept();
