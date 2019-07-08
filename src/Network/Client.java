@@ -36,7 +36,9 @@ public class Client extends Application
     private static Scene sceneProfile = new Scene(rootProfile, 300, 300);
     private static Group rootShop = new Group();
     private static ScrollPane scrollPaneShop = new ScrollPane();
-    private static Scene sceneShop = new Scene(scrollPaneShop, 1000, 562, BURLYWOOD);
+    private static Scene sceneShop = new Scene(scrollPaneShop, 1000, 562);
+    private static Group rootBid = new Group();
+    private static Scene sceneBid = new Scene(rootBid, 1000, 562);
     private static Group rootCollection = new Group();
     private static ScrollPane scrollPaneCollection = new ScrollPane();
     private static Scene sceneCollection = new Scene(scrollPaneCollection, 1000, 562);
@@ -124,6 +126,11 @@ public class Client extends Application
         return sceneChatPage;
     }
 
+    public static Scene getSceneBid()
+    {
+        return sceneBid;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -133,7 +140,7 @@ public class Client extends Application
         callTheAppropriateFunction.start();
         Media sound = new Media(new File("Sounds and Music/StarSky.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
         mediaPlayer.play();
         request.signUpMenu(primaryStage);
         Image iconImage = new Image("file:Icon Image.jpg");
@@ -386,5 +393,10 @@ public class Client extends Application
     public void setMessageFromServer(ServerCommand messageFromServer)
     {
         this.messageFromServer = messageFromServer;
+    }
+
+    public static Group getRootBid()
+    {
+        return rootBid;
     }
 }

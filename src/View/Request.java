@@ -5,7 +5,6 @@ import Controller.BattleTimer;
 import Model.*;
 import Network.*;
 import com.google.gson.GsonBuilder;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -137,6 +136,8 @@ public class Request
     private Scene sceneSpellCustom = Client.getSceneSpellCustom();
     private Group rootChatPage = Client.getRootChatPage();
     private Scene sceneChatPage = Client.getSceneChatPage();
+    private Scene sceneBidMenu = Client.getSceneBid();
+    private Group rootBidMenu = Client.getRootBid();
     private Deck selectedDeckForCustomGame = null;
     private BattleFieldController battleFieldController;
     private Account multiPlayerAccountToBattle;
@@ -875,7 +876,7 @@ public class Request
                     textPlayerName.setFill(Color.RED);
                     textPlayerHighScore.setFill(Color.RED);
                 }
-                counter ++;
+                counter++;
             }
         } catch (Exception e)
         {
@@ -1083,15 +1084,34 @@ public class Request
         backButton(primaryStage, rootShop, 20, 15);
         searchField(primaryStage, sceneShop, rootShop, "ShopMenu");
         showCollectionText(primaryStage, rootShop);
+        showBidText(primaryStage, rootShop);
 
         primaryStage.setScene(sceneShop);
+    }
+
+    private void showBidText(Stage primaryStage, Group root)
+    {
+        Text text = new Text("Bid Menu");
+        text.setFont(Font.font(25));
+        text.relocate(600, 20);
+        text.setOnMouseEntered(event -> text.setFill(RED));
+        text.setOnMouseExited(event -> text.setFill(BLACK));
+        text.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                bidMenu(primaryStage);
+            }
+        });
+        root.getChildren().add(text);
     }
 
     private void showCollectionText(Stage primaryStage, Group root)
     {
         Text text = new Text("Show Collection");
         text.setFont(Font.font(25));
-        text.relocate(700, 20);
+        text.relocate(790, 20);
         text.setOnMouseEntered(event -> text.setFill(RED));
         text.setOnMouseExited(event -> text.setFill(BLACK));
         text.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -1261,6 +1281,44 @@ public class Request
                 }
             }
         });
+    }
+
+    private void bidMenu(Stage primaryStage)
+    {
+        rootBidMenu.getChildren().clear();
+
+        setBackGroundImage(rootBidMenu, "file:BackGround Images/Bid Menu.jpg");
+
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.ENTER_BID_MENU, client.getAuthToken());
+        String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(json);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        //todo
+
+        Button backButton = backButton(primaryStage, rootBidMenu, 50, 450);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                primaryStage.setScene(sceneShop);
+                primaryStage.centerOnScreen();
+                shopMenu(primaryStage, false, null);
+            }
+        });
+
+        primaryStage.setScene(sceneBidMenu);
+        primaryStage.centerOnScreen();
     }
 
     public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
@@ -1535,8 +1593,7 @@ public class Request
                         {
                             validMessageFromServer.wait();
                         }
-                    }
-                    catch (InterruptedException e)
+                    } catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
@@ -1581,8 +1638,7 @@ public class Request
                         {
                             validMessageFromServer.wait();
                         }
-                    }
-                    catch (InterruptedException e)
+                    } catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
@@ -1708,8 +1764,7 @@ public class Request
             {
                 validMessageFromServer.wait();
             }
-        }
-        catch (InterruptedException e)
+        } catch (InterruptedException e)
         {
             e.printStackTrace();
         }
@@ -1756,8 +1811,7 @@ public class Request
                             {
                                 validMessageFromServer.wait();
                             }
-                        }
-                        catch (InterruptedException e)
+                        } catch (InterruptedException e)
                         {
                             e.printStackTrace();
                         }
@@ -1881,9 +1935,9 @@ public class Request
                         System.out.println("salam");
                         Client.getSendMessage().addMessage(importJson);
                         System.out.println("baba");
-                       // synchronized (validMessageFromServer)
+                        // synchronized (validMessageFromServer)
                         //{
-                         //   validMessageFromServer.wait();
+                        //   validMessageFromServer.wait();
                         //}
                     } catch (InterruptedException e)
                     {
@@ -2397,7 +2451,7 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1 ,client);                                 //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1, client);                                 //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory1", false, BattleMode.KILLING_ENEMY_HERO);
@@ -2410,7 +2464,7 @@ public class Request
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , accountConnectedToThisClient );
 
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2,client);                                     //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2, client);                                     //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory2", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
@@ -2422,7 +2476,7 @@ public class Request
                 case "Mission 3":
 
                     //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , accountConnectedToThisClient );
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3,client);                                      //9
+                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3, client);                                      //9
                     try
                     {
                         setBattleField(primaryStage, "backgroundStory3", false, BattleMode.GATHERING_FLAGS);
@@ -2662,7 +2716,7 @@ public class Request
             showGameInfo(rootBattleField);
             setEndTurnButton(primaryStage, rootBattleField, battleMode);
             setGlobalChatButton(primaryStage, rootBattleField);
-            setTimer(rootBattleField , battleMode , primaryStage);
+            setTimer(rootBattleField, battleMode, primaryStage);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
         battleFieldController.start();
@@ -2671,15 +2725,17 @@ public class Request
         primaryStage.setFullScreen(true);
     }
 
-    private void setTimer(Group rootBattleField, BattleMode battleMode, Stage primaryStage) {
+    private void setTimer(Group rootBattleField, BattleMode battleMode, Stage primaryStage)
+    {
         counterText = new Text();
-        counterText.setFont(Font.font("verdana" , 20));
-        counterText.relocate(120 , 120);
+        counterText.setFont(Font.font("verdana", 20));
+        counterText.relocate(120, 120);
         rootBattleField.getChildren().add(counterText);
-        if(battleTimer != null){
+        if (battleTimer != null)
+        {
             battleTimer.end();
         }
-        battleTimer = new BattleTimer(rootBattleField , counterText , this, battleMode, primaryStage);
+        battleTimer = new BattleTimer(rootBattleField, counterText, this, battleMode, primaryStage);
         battleTimer.start();
     }
 
@@ -2804,7 +2860,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                setTimer(rootBattleField , battleMode , primaryStage);
+                setTimer(rootBattleField, battleMode, primaryStage);
                 Battle.getCurrentBattle().clearTheHandPictures();
                 Battle.getCurrentBattle().endTurn();
                 setMPIcons(rootBattleField);

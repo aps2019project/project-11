@@ -21,7 +21,7 @@ public class ShopManager
         }
         else
         {
-            Server.getShop().buyCard(card, account);
+            Server.getShop().buyCard(card, account, false);
             return "Successful purchase" + "\n" + card.getCardName() + "'s capacity is " + card.getCapacityOfSell() + " now";
         }
     }
@@ -42,7 +42,7 @@ public class ShopManager
         }
         else
         {
-            Server.getShop().buyItem(item, account);
+            Server.getShop().buyItem(item, account, false);
             return "Successful purchase" + "\n" + item.getItemName() + "'s capacity is " + item.getCapacityOfSell() + " now";
         }
     }

@@ -21,6 +21,8 @@ public class Card implements Cloneable
     private static ArrayList<ImageView> cardsIcons = new ArrayList<>();
     private static ArrayList<ImageView> cardsImageView = new ArrayList<>();
     private int capacityOfSell = 5;
+    private Account bidWinner;
+    private int bidWinnerPrice;
 
     public void increaseCapacityOfSell()
     {
@@ -262,4 +264,23 @@ public class Card implements Cloneable
         return capacityOfSell;
     }
 
+    public Account getBidWinner()
+    {
+        return bidWinner;
+    }
+
+    public void setBidWinner(Account bidWinner)
+    {
+        this.bidWinner = bidWinner;
+    }
+
+    public int getBidWinnerPrice()
+    {
+        return bidWinnerPrice;
+    }
+
+    public void setBidWinnerPrice(int bidWinnerPrice)
+    {
+        this.bidWinnerPrice = bidWinnerPrice;
+    }
 }
