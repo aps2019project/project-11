@@ -402,6 +402,7 @@ public class CallTheAppropriateFunction extends Thread
                 }
                 if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
                     Player opponentPlayer1 = client.getMessageFromServer().getPlayer();
+                    System.out.println(opponentPlayer1);
                     new Battle(new Player(loggedInAccount, false), opponentPlayer1 , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
