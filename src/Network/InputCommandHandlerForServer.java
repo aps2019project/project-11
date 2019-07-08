@@ -366,29 +366,6 @@ public class InputCommandHandlerForServer extends Thread
         getSendMessage().addMessage(SellCardJson);
     }
 
-    /*public void saveAccountInfo(Account account,String name, boolean isNewAccount) throws IOException
-    {
-        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
-        if (isNewAccount)
-        {
-            SavedAccountPath.write(name + "\n");
-            SavedAccountPath.close();
-        }
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(account);
-        System.out.println(json);
-        try
-        {
-
-            FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
-            saveAccountInfo.write(json);
-            saveAccountInfo.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }*/
-
     public void createDeck(String deckName, Account account)
     {
         Deck deck = DeckManager.findDeck(deckName, account);
