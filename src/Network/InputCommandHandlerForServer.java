@@ -153,6 +153,9 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case DELETE_DECK:
                 deleteDeck(clientCommand.getDeckName(), account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, "Deck removed");
+                String deleteDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(deleteDeckJson);
                 break;
             case MAKE_CUSTOM_SPELL:
                 workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
@@ -316,14 +319,6 @@ public class InputCommandHandlerForServer extends Thread
         {
             serverCommand = new ServerCommand(ServerCommandEnum.ERROR, "There is no deck with this name");
             ShowOutput.getInstance().printOutput("There is no deck with this name");
-        }
-        String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-        try
-        {
-            getSendMessage().addMessage(json);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
         }
     }
     @SuppressWarnings("Duplicates")

@@ -232,7 +232,7 @@
       "cardName": "SevenHeadedDragon",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 3
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -888,7 +888,7 @@
       "cardName": "shamsirzanFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 4
     },
     {
       "ableToCombo": false,

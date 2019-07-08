@@ -1621,9 +1621,8 @@ public class Request
                 }
                 else if (option.get() == buttonTypeRemoveDeck)
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.DELETE_DECK, deck, client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(client.getAuthToken(), ClientCommandEnum.DELETE_DECK, deck.getDeckName());
                     String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-                    System.out.println(removeJson);
                     try
                     {
                         Client.getSendMessage().addMessage(removeJson);
@@ -1635,16 +1634,17 @@ public class Request
                     {
                         e.printStackTrace();
                     }
+                    System.out.println(client.getMessageFromServer().getMessage());
                     collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeSetMainDeck)
                 {
-                    ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.SET_MAIN_DECK, deck, client.getAuthToken());
-                    String loginJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
-                    System.out.println(loginJson);
+                    ClientCommand setMainDeckClientCommand = new ClientCommand(ClientCommandEnum.SET_MAIN_DECK, deck, client.getAuthToken());
+                    String setMainDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(setMainDeckClientCommand);
+
                     try
                     {
-                        Client.getSendMessage().addMessage(loginJson);
+                        Client.getSendMessage().addMessage(setMainDeckJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
@@ -1658,12 +1658,11 @@ public class Request
                 }
                 else if (option.get() == buttonTypeValidateDeck)
                 {
-                    ClientCommand LogInClientCommand = new ClientCommand(ClientCommandEnum.VALIDATE_DECK, deck, client.getAuthToken());
-                    String loginJson = new GsonBuilder().setPrettyPrinting().create().toJson(LogInClientCommand);
-                    System.out.println(loginJson);
+                    ClientCommand validateDeckClientCommand = new ClientCommand(ClientCommandEnum.VALIDATE_DECK, deck, client.getAuthToken());
+                    String validateDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(validateDeckClientCommand);
                     try
                     {
-                        Client.getSendMessage().addMessage(loginJson);
+                        Client.getSendMessage().addMessage(validateDeckJson);
                         synchronized (validMessageFromServer)
                         {
                             validMessageFromServer.wait();
