@@ -1353,6 +1353,20 @@ public class Request
 
         }
 
+        Button refreshButton = new Button("Refresh");
+        refreshButton.setFont(Font.font(25));
+        refreshButton.relocate(850, 15);
+        refreshButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                bidMenu(primaryStage);
+            }
+        });
+        rootBidMenu.getChildren().add(refreshButton);
+
+
         Button backButton = backButton(primaryStage, rootBidMenu, 20, 15);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
