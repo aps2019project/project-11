@@ -172,13 +172,12 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(customSpellJson);
                 break;
             case MAKE_CUSTOM_MINION:
-                //workingOnMinionText(clientCommand.getTextFieldsToMakeCustom(), account);
+                workingOnMinionText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
-                System.out.println("Ya ali");
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
@@ -750,37 +749,37 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    public static void workingOnMinionText(ArrayList<TextField> textFields, Account account)
+    public static void workingOnMinionText(ArrayList<String> textFields, Account account)
     {
-        String name = textFields.get(0).getText();
-        String Ap = textFields.get(1).getText();
-        String Hp = textFields.get(2).getText();
-        String AttackType = textFields.get(3).getText();
-        String Range = textFields.get(4).getText();
-        String specialPowerActivation = textFields.get(5).getText();
-        String cost = textFields.get(6).getText();
-        String turnsToApply = textFields.get(7).getText();
-        String isPositive = textFields.get(8).getText();
-        String untilEnd = textFields.get(9).getText();
-        String changeAp = textFields.get(10).getText();
-        String changeHp = textFields.get(11).getText();
-        String changeMp = textFields.get(12).getText();
-        String stun = textFields.get(13).getText();
-        String disarm = textFields.get(14).getText();
-        String numOfHolyBuff = textFields.get(15).getText();
-        String toxic = textFields.get(16).getText();
-        String holyCell = textFields.get(17).getText();
-        String fiery = textFields.get(18).getText();
-        String combo = textFields.get(19).getText();
-        String numOfOwnMinion = textFields.get(20).getText();
-        String numOfOpponentMinion = textFields.get(21).getText();
-        String ownHero = textFields.get(22).getText();
-        String opponentHero = textFields.get(23).getText();
-        String numOfOpponentBothNonSpell = textFields.get(24).getText();
-        String numOfOwnBothNonSpell = textFields.get(25).getText();
-        String allOwnMinion = textFields.get(26).getText();
-        String allOpponentBothNonSpell = textFields.get(27).getText();
-        String allOwnBothNonSpell = textFields.get(28).getText();
+        String name = textFields.get(0);
+        String Ap = textFields.get(1);
+        String Hp = textFields.get(2);
+        String AttackType = textFields.get(3);
+        String Range = textFields.get(4);
+        String specialPowerActivation = textFields.get(5);
+        String cost = textFields.get(6);
+        String turnsToApply = textFields.get(7);
+        String isPositive = textFields.get(8);
+        String untilEnd = textFields.get(9);
+        String changeAp = textFields.get(10);
+        String changeHp = textFields.get(11);
+        String changeMp = textFields.get(12);
+        String stun = textFields.get(13);
+        String disarm = textFields.get(14);
+        String numOfHolyBuff = textFields.get(15);
+        String toxic = textFields.get(16);
+        String holyCell = textFields.get(17);
+        String fiery = textFields.get(18);
+        String combo = textFields.get(19);
+        String numOfOwnMinion = textFields.get(20);
+        String numOfOpponentMinion = textFields.get(21);
+        String ownHero = textFields.get(22);
+        String opponentHero = textFields.get(23);
+        String numOfOpponentBothNonSpell = textFields.get(24);
+        String numOfOwnBothNonSpell = textFields.get(25);
+        String allOwnMinion = textFields.get(26);
+        String allOpponentBothNonSpell = textFields.get(27);
+        String allOwnBothNonSpell = textFields.get(28);
         makingMinionCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOwnBothNonSpell, allOpponentBothNonSpell, name, Ap, Hp, AttackType, Range, specialPowerActivation, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, combo);
     }
 
