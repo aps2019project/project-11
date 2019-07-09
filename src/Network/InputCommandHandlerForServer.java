@@ -666,25 +666,25 @@ public class InputCommandHandlerForServer extends Thread
         spell.setCardName(name);
         int mp = Integer.parseInt(MP);
         spell.setRequiredMP(mp);
-        //int holyBuffNumber = Integer.parseInt(numOfHolyBuff,10);
-        //int apChanging = Integer.parseInt(changingAp);
-        //int HpChanging = Integer.parseInt(changingHp);
-        //int MPChanging = Integer.parseInt(changingMp);
-        //int lasting = Integer.parseInt(last);
-        //int price = Integer.parseInt(cost);
-        //spell.setPrice(price);
-        //int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
-        //int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
-        //int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
-        //int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
+        int holyBuffNumber = Integer.parseInt(numOfHolyBuff,10);
+        int apChanging = Integer.parseInt(changingAp);
+        int HpChanging = Integer.parseInt(changingHp);
+        int MPChanging = Integer.parseInt(changingMp);
+        int lasting = Integer.parseInt(last);
+        int price = Integer.parseInt(cost);
+        spell.setPrice(price);
+        int numberOfOwnMinion = Integer.parseInt(numOfOwnMinion);
+        int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
+        int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
+        int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
         spell.getSpellEffect().addSpellChange(new SpellChange());
         spell.getSpellEffect().addTarget(new Target());
-        //spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
-        //spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
-        //spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
-        //spell.getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
-        //spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
-        //spell.getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
+        spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
+        spell.getSpellEffect().getSpellChanges().get(0).setChangeMP(MPChanging);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfOwnMinion);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOpponentMinions(numberOfOpponentMinion);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOpponentBothNonSpellCards(numberOfOpponentBothNonSpell);
+        spell.getSpellEffect().getTargets().get(0).setNumOfOwnBothNonSpellCards(numberOfOwnBothNonSpell);
         if (ownHero.equalsIgnoreCase("true"))
         {
             spell.getSpellEffect().getTargets().get(0).setOwnHero(true);
@@ -709,7 +709,7 @@ public class InputCommandHandlerForServer extends Thread
         if (buffType.equalsIgnoreCase("holy"))
         {
             spell.getSpellEffect().getSpellChanges().get(0).setActivateHolyBuff(true);
-           // spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
+            spell.getSpellEffect().getSpellChanges().get(0).setNumOfHolyBuffs(holyBuffNumber);
         }
         if (buffType.equalsIgnoreCase("stun"))
         {
@@ -721,13 +721,13 @@ public class InputCommandHandlerForServer extends Thread
         }
         if (buffType.equalsIgnoreCase("power"))
         {
-            //spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
-            //spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
         }
         if (buffType.equalsIgnoreCase("weakness"))
         {
-            //spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
-            //spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeHP(HpChanging);
+            spell.getSpellEffect().getSpellChanges().get(0).setChangeAP(apChanging);
         }
         if (friendOrEnemy.equalsIgnoreCase("friend"))
         {
