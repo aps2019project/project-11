@@ -25,7 +25,7 @@ public class InputCommandHandlerForServer extends Thread
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
     private DeckManager deckManager = new DeckManager();
-    private ArrayList<Account> requestedForOpponent = new ArrayList<>();
+    private static ArrayList<Account> requestedForOpponent = new ArrayList<>();
 
     public InputCommandHandlerForServer(Socket socket, SendMessage sendMessage)
     {
@@ -190,13 +190,24 @@ public class InputCommandHandlerForServer extends Thread
             case REQUEST_FOR_MULTI_PLAYER_MATCH:
                 if (requestedForOpponent.size() == 0)
                 {
+                    System.out.println(1);
                     requestedForOpponent.add(account);
+                    serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                    String requestJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(requestJson);
                 }
                 else
                 {
+                    System.out.println(2);
                     Account opponent = requestedForOpponent.get(0);
-
                     requestedForOpponent.remove(0);
+
+                    Player firstPlayer = new Player(opponent, false);
+                    Player secondPlayer = new Player(account, false);
+                    Battle battle = new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO,BattleType.MULTI_PLAYER_GAME);
+                    serverCommand = new ServerCommand(ServerCommandEnum.MULTI_PLAYER_MATCH, battle);
+                    String startBattleJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(startBattleJson);
                 }
                 break;
             case RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH:
@@ -248,8 +259,6 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand.setChatMessages(GlobalChat.getChatMessages());
                 String getAllChatsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllChatsJson);
-                break;
-            case MAKE_BATTLE_FOR_MULTI_PLAYER_GAME:
                 break;
             case GET_STORY_PLAYER_1:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);

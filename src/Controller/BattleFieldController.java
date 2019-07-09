@@ -36,7 +36,7 @@ public class BattleFieldController extends Thread
     private Text battleInfo;
     private BattleMode battleMode;
 
-    public BattleFieldController(Request request, Group rootBattleField, Scene sceneBattleField , Text battleInfo , BattleMode battleMode)
+    public BattleFieldController(Request request, Group rootBattleField, Scene sceneBattleField, Text battleInfo, BattleMode battleMode)
     {
         this.request = request;
         setSceneBattleField(sceneBattleField);
@@ -57,7 +57,8 @@ public class BattleFieldController extends Thread
         preLoad();
     }
 
-    private void showGameInfo() {
+    private void showGameInfo()
+    {
         battleInfo.setText("");
         ShowOutput showOutput = ShowOutput.getInstance();
         String string = showOutput.getGameInfo();
@@ -93,8 +94,6 @@ public class BattleFieldController extends Thread
         checkSelectingCard();
         checkEndOfgame();
     }
-
-
 
 
     private void getCardInformation()
@@ -387,9 +386,11 @@ public class BattleFieldController extends Thread
         {
             Battle.getCurrentBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
             ImageView imageView = Card.getCardImageView(selectedCard);
-            try {
-                cardMoveAnimation(imageView ,sourceRow , sourceColumn, destinationRow , destinationColumn);
-            } catch (InterruptedException e) {
+            try
+            {
+                cardMoveAnimation(imageView, sourceRow, sourceColumn, destinationRow, destinationColumn);
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             setSpriteAnimation(imageView);
@@ -400,7 +401,8 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void cardMoveAnimation(ImageView imageView ,int sourceRow , int sourceColumn, int destinationRow , int destinationColumn) throws InterruptedException {
+    private void cardMoveAnimation(ImageView imageView, int sourceRow, int sourceColumn, int destinationRow, int destinationColumn) throws InterruptedException
+    {
 
     }
 
@@ -413,12 +415,14 @@ public class BattleFieldController extends Thread
         preLoad();
     }
 
-    private void checkHPOfCards() {
+    private void checkHPOfCards()
+    {
         for (int row = 0; row < 5; row++)
         {
             for (int column = 0; column < 9; column++)
             {
-                if(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard()!= null && Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard().getCurrentHP() <= 0){
+                if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard() != null && Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCard().getCurrentHP() <= 0)
+                {
                     Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().remove(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].getCellPane().getChildren().size() - 1);
                     Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[row][column].setCard(null);
                 }
@@ -438,10 +442,13 @@ public class BattleFieldController extends Thread
         animation.play();
     }
 
-    private void checkEndOfgame() {
-        switch (battleMode){
+    private void checkEndOfgame()
+    {
+        switch (battleMode)
+        {
             case KILLING_ENEMY_HERO:
-                if(Battle.getCurrentBattle().isGameEnded(1)){
+                if (Battle.getCurrentBattle().isGameEnded(1))
+                {
                     Battle.getCurrentBattle().tasksAtEndOfGame();
                 }
         }
@@ -517,19 +524,23 @@ public class BattleFieldController extends Thread
         this.sceneBattleField = sceneBattleField;
     }
 
-    public void setBattleInfo(Text battleInfo) {
+    public void setBattleInfo(Text battleInfo)
+    {
         this.battleInfo = battleInfo;
     }
 
-    public Text getBattleInfo() {
+    public Text getBattleInfo()
+    {
         return battleInfo;
     }
 
-    public void setBattleMode(BattleMode battleMode) {
+    public void setBattleMode(BattleMode battleMode)
+    {
         this.battleMode = battleMode;
     }
 
-    public BattleMode getBattleMode() {
+    public BattleMode getBattleMode()
+    {
         return battleMode;
     }
 }

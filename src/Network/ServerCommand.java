@@ -23,6 +23,7 @@ public class ServerCommand
     private String authToken;
     private ArrayList<ChatMessage> chatMessages;
     private Player player;
+    private Battle battle;
 
     public ServerCommand(ServerCommandEnum serverCommandEnum, String message)   //error
     {
@@ -84,6 +85,12 @@ public class ServerCommand
     public ServerCommand(ServerCommandEnum serverCommandEnum)    //ok
     {
         this.serverCommandEnum = serverCommandEnum;
+    }
+
+    public ServerCommand(ServerCommandEnum serverCommandEnum, Battle battle)
+    {
+        this.serverCommandEnum = serverCommandEnum;
+        this.battle = battle;
     }
 
     public ServerCommandEnum getServerCommandEnum()
@@ -194,5 +201,10 @@ public class ServerCommand
     public Item getBidItem()
     {
         return bidItem;
+    }
+
+    public Battle getBattle()
+    {
+        return battle;
     }
 }

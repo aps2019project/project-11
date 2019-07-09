@@ -2735,8 +2735,18 @@ public class Request
         {
             e.printStackTrace();
         }
+        if (client.getMessageFromServer().getServerCommandEnum() == ServerCommandEnum.MULTI_PLAYER_MATCH)
+        {
+            try
+            {
+                setBattleField(primaryStage, "multiPlayerGround", false, battleMode);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
-        Text waitingText = new Text("Waiting for opponent ...");
+        Text waitingText = new Text("Searching for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
         waitingText.layoutXProperty().bind(sceneWait.widthProperty().subtract(waitingText.prefWidth(-1)).divide(2));
         waitingText.setY(50);
