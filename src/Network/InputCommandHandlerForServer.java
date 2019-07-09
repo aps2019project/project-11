@@ -166,7 +166,7 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(deleteDeckJson);
                 break;
             case MAKE_CUSTOM_SPELL:
-                //workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
+                workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customSpellJson);
@@ -624,9 +624,9 @@ public class InputCommandHandlerForServer extends Thread
     }
 
     @SuppressWarnings("Duplicates")
-    public void workingOnSpellText(ArrayList<TextField> textFields, Account account)
+    public void workingOnSpellText(ArrayList<String> textFields, Account account)
     {
-        String name = textFields.get(0).getText();
+       /* String name = textFields.get(0).getText();
         String numOfTarget = textFields.get(1).getText();
         String kindOfMinion = textFields.get(2).getText();
         String nameOfBuff = textFields.get(3).getText();
@@ -653,7 +653,7 @@ public class InputCommandHandlerForServer extends Thread
         String allOpponentBothNonSpell = textFields.get(24).getText();
         String allOwnBothNonSpell = textFields.get(25).getText();
         makingSpellCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
-    }
+    */}
 
     @SuppressWarnings("Duplicates")
 
@@ -745,7 +745,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
-        //showOutput.printOutput("Custom card " + spell.getCardID() + " added to your collection");//todo
+        ShowOutput.getInstance().printOutput("Custom card " + spell.getCardID() + " added to your collection");
     }
 
     @SuppressWarnings("Duplicates")
@@ -915,7 +915,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, minion, false);
         Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
-        //showOutput.printOutput("Custom card " + minion.getCardID() + " added to your collection");//todo
+        ShowOutput.getInstance().printOutput("Custom card " + minion.getCardID() + " added to your collection");
     }
 
     @SuppressWarnings("Duplicates")
@@ -1064,7 +1064,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, hero, false);
         Server.getShop().addCardToShop(hero);
         Server.addHero(hero);
-        //showOutput.printOutput("Custom card " + hero.getCardID() + " added to your collection"); //todo
+        ShowOutput.getInstance().printOutput("Custom card " + hero.getCardID() + " added to your collection");
     }
 
     private Account findAccount(String authToken)
