@@ -72,7 +72,7 @@ public class Shop
         account.increaseDefaultID();
     }
 
-    public void sellCard(Card cardToSell, Account account)
+    public String sellCard(Card cardToSell, Account account)
     {
         if (cardToSell instanceof Hero)
         {
@@ -87,14 +87,18 @@ public class Shop
             account.getCollection().getSpells().remove(cardToSell);
         }
         account.addMoney(cardToSell.getPrice());
-        cardToSell.increaseCapacityOfSell();
+        Card card = Card.findCard(cardToSell.getCardName());
+        card.increaseCapacityOfSell();
+        return " Successful Sale" + "\n" + cardToSell.getCardName() + "'s capacity is " + card.getCapacityOfSell() + " now";
     }
 
-    public void sellItem(Item itemToSell, Account account)
+    public String sellItem(Item itemToSell, Account account)
     {
         account.getCollection().getItems().remove(itemToSell);
         account.addMoney(itemToSell.getPrice());
-        itemToSell.increaseCapacityOfItemSell();
+        Item item = Item.findItem(itemToSell.getItemName());
+        item.increaseCapacityOfItemSell();
+        return " Successful Sale" + "\n" + item.getItemName() + "'s capacity is " + item.getCapacityOfSell() + " now";
     }
 
     public ArrayList<Hero> getHeroes()

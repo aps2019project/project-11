@@ -6,40 +6,11 @@ import View.ShowOutput;
 public class BattleManager
 {
     private ShowOutput showOutput = ShowOutput.getInstance();
+    private Battle battle;
 
-    public void checkCircumstancesToInsertCard(String cardName, int x, int y)
+    public BattleManager(Battle battle)
     {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().findCardInHand(cardName);
-        if (card == null)
-        {
-            showOutput.printOutput("Invalid card name");
-            return;
-        }
-        if (card instanceof Minion)
-        {
-            checkCircumstancesToInsertMinion((Minion) card, x, y);
-        }
-        else
-        {
-            checkCircumstancesToInsertSpell((Spell) card, x, y);
-        }
-    }
-
-    public void checkCircumstancesToInsertMinion(Minion minion, int x, int y)
-    {
-        if (setInsertAbleCellsMatrixForMinion()[x][y] != 1)
-        {
-            showOutput.printOutput("Invalid target");
-            return;
-        }
-        if (insertCardToBattleField(minion, x, y))
-        {
-            System.out.println(minion.getCardName() + " with " + minion.getCardID() + " inserted to (" + x + ", " + y + ")");
-        }
-        else
-        {
-            System.out.println("Card insertion failed!");
-        }
+        this.battle = battle;
     }
 
     boolean checkCircumstancesToInsertMinionBoolean(Minion minion, int x, int y)
@@ -61,22 +32,9 @@ public class BattleManager
         }
     }
 
-    private void checkCircumstancesToInsertSpell(Spell spell, int x, int y)
-    {
-        NonSpellCard nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
-        if (getPossibilityToInsertSpell(spell, nonSpellCard))
-        {
-            System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
-        }
-        else
-        {
-            System.out.println("Invalid target");
-        }
-    }
-
     public boolean checkCircumstancesToInsertSpellBoolean(Spell spell, int x, int y)
     {
-        NonSpellCard nonSpellCard = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+        NonSpellCard nonSpellCard = battle.getBattleField().getBattleFieldMatrix()[x][y].getCard();
         if (getPossibilityToInsertSpell(spell, nonSpellCard))
         {
             System.out.println(spell.getCardName() + " with " + spell.getCardID() + " inserted to (" + x + ", " + y + ")");
@@ -105,14 +63,14 @@ public class BattleManager
     private int[][] setInsertAbleCellsMatrixForMinion()
     {
         int[][] insertAbleCells = new int[5][9];
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Minion minion : battle.getPlayerTurn().getInsertedCards())
         {
             generateMatrix(insertAbleCells, minion);
         }
-        Hero hero = Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0);
+        Hero hero = battle.getPlayerTurn().getMainDeck().getHero().get(0);
         generateMatrix(insertAbleCells, hero);
         insertAbleCells[hero.getRow()][hero.getColumn()] = 0;
-        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Card card : battle.getPlayerTurn().getInsertedCards())
         {
             insertAbleCells[card.getRow()][card.getColumn()] = 0;
         }
@@ -148,7 +106,7 @@ public class BattleManager
             {
                 for (y = 0; y < 9; y++)
                 {
-                    if (Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setInsertAbleCellsMatrixForMinion()[(int) x][(int) y] == 1)
+                    if (getBattle().getBattleField().getBattleFieldMatrix()[(int) x][(int) y].getCard() == null && setInsertAbleCellsMatrixForMinion()[(int) x][(int) y] == 1)
                     {
                         condition = 1;
                         break;
@@ -170,30 +128,30 @@ public class BattleManager
 
     public boolean insertCardToBattleField(Card card, int x, int y)
     {
-        if (!(Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull()))
+        if (!(getBattle().getBattleField().getBattleFieldMatrix()[x][y].isFull()))
         {
-            if (Battle.getCurrentBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
+            if (getBattle().getPlayerTurn().getMP() >= card.getRequiredMP())
             {
                 card.setRow(x);
                 card.setColumn(y);
-                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(Battle.getCurrentBattle().getSelectedCard());
-                Battle.getCurrentBattle().getPlayerTurn().getHand().getCards().remove(card);
-                Battle.getCurrentBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
-                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(card);
+                getBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(getBattle().getSelectedCard());
+                getBattle().getPlayerTurn().getHand().getCards().remove(card);
+                getBattle().getPlayerTurn().decreaseMP(card.getRequiredMP());
+                getBattle().getBattleField().getBattleFieldMatrix()[x][y].setCard(card);
                 if (card instanceof Minion)
                 {
-                    Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
-                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
+                    getBattle().getPlayerTurn().getInsertedCards().add((Minion) card);
+                    getBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
                 }
                 else if (card instanceof Hero)
                 {
-                    Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
+                    getBattle().getBattleField().getAllCardsInTheBattleField().add((NonSpellCard) card);
                     System.out.println("Hero sat in BattleField");
                 }
-                Battle.getCurrentBattle().getBattleField().addCardInTheBattleField((NonSpellCard) card);
-                if (Battle.getCurrentBattle().getPlayerTurn().getNonHeroCards().size() > 5)
+                getBattle().getBattleField().addCardInTheBattleField((NonSpellCard) card);
+                if (getBattle().getPlayerTurn().getNonHeroCards().size() > 5)
                 {
-                    Battle.getCurrentBattle().getPlayerTurn().getHand().setNextCard(Battle.getCurrentBattle().getPlayerTurn().getNonHeroCards().get(5));
+                    getBattle().getPlayerTurn().getHand().setNextCard(getBattle().getPlayerTurn().getNonHeroCards().get(5));
                 }
                 return true;
             }
@@ -207,9 +165,9 @@ public class BattleManager
 
     public void useSpecialPower(SpecialPower specialPower, int x, int y)
     {
-        if (Battle.getCurrentBattle().getSelectedCard().isCardSelectedInBattle())
+        if (getBattle().getSelectedCard().isCardSelectedInBattle())
         {
-            NonSpellCard SelectedCard = Battle.getCurrentBattle().getSelectedCard();
+            NonSpellCard SelectedCard = getBattle().getSelectedCard();
             if (SelectedCard.getSpecialPower() == null)
             {
                 showOutput.printOutput("Selected Card doesn't have special power");
@@ -217,7 +175,7 @@ public class BattleManager
             else
             {
                 SpellChange spellChange = specialPower.getSpellEffect().getSpellChanges().get(0);
-                NonSpellCard card = Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
+                NonSpellCard card = getBattle().getBattleField().getBattleFieldMatrix()[x][y].getCard();
                 if (card != null)
                 {
                     card.addActiveSpellOnThisCard(spellChange);
@@ -229,17 +187,17 @@ public class BattleManager
 
     public void selectCard(String cardID)
     {
-        if (Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0).getCardID().equals(cardID))
+        if (getBattle().getPlayerTurn().getMainDeck().getHero().get(0).getCardID().equals(cardID))
         {
-            Battle.getCurrentBattle().selectCard(Battle.getCurrentBattle().getPlayerTurn().getMainDeck().getHero().get(0));
+            getBattle().selectCard(getBattle().getPlayerTurn().getMainDeck().getHero().get(0));
             System.out.println("Card selected");
             return;
         }
-        for (Card card : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Card card : getBattle().getPlayerTurn().getInsertedCards())
         {
             if (card.getCardID().equals(cardID))
             {
-                Battle.getCurrentBattle().selectCard((NonSpellCard) card);
+                getBattle().selectCard((NonSpellCard) card);
                 System.out.println("Card selected");
                 return;
             }
@@ -249,11 +207,11 @@ public class BattleManager
 
     public void selectItem(String itemID)
     {
-        for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
+        for (Item item : getBattle().getPlayerTurn().getCollectibleItems())
         {
             if (item.getItemID().equals(itemID))
             {
-                Battle.getCurrentBattle().selectCollectibleItem(item);
+                getBattle().selectCollectibleItem(item);
             }
         }
     }
@@ -265,13 +223,13 @@ public class BattleManager
             showOutput.printOutput("Invalid target");
             return;
         }
-        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
-        int[][] moveAbleCells = selectedCard.getMoveAbleCells();
+        NonSpellCard selectedCard = getBattle().getSelectedCard();
+        int[][] moveAbleCells = selectedCard.getMoveAbleCells(getBattle());
         if (selectedCard.isMoveAble())
         {
             if (moveAbleCells[x][y] == 1)
             {
-                Battle.getCurrentBattle().moveCard(selectedCard, x, y);
+                getBattle().moveCard(selectedCard, x, y);
                 showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
             }
             else
@@ -287,20 +245,20 @@ public class BattleManager
 
     boolean moveCardBoolean(int x, int y)
     {
-        if (Battle.getCurrentBattle().getSelectedCard() != null)
+        if (getBattle().getSelectedCard() != null)
         {
             if (x < 0 || x > 4 || y < 0 || y > 8)
             {
                 showOutput.printOutput("Invalid target");
                 return false;
             }
-            NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
-            int[][] moveAbleCells = selectedCard.getMoveAbleCells();
+            NonSpellCard selectedCard = getBattle().getSelectedCard();
+            int[][] moveAbleCells = selectedCard.getMoveAbleCells(getBattle());
             if (selectedCard.isMoveAble())
             {
                 if (moveAbleCells[x][y] == 1)
                 {
-                    Battle.getCurrentBattle().moveCard(selectedCard, x, y);
+                    getBattle().moveCard(selectedCard, x, y);
                     showOutput.printOutput(selectedCard.getCardID() + " moved to " + x + " " + y);
                     return true;
                 }
@@ -322,13 +280,13 @@ public class BattleManager
 
     public void attackToOpponent(String cardName)
     {
-        if (Battle.getCurrentBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollectionByName(cardName) == null)
+        if (getBattle().getOpponentPlayer().getAccount().getCollection().findCardinCollectionByName(cardName) == null)
         {
             showOutput.printOutput("Invalid card name");
             return;
         }
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleFieldByName(cardName);
-        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+        NonSpellCard opponentCard = getBattle().getBattleField().findCardInBattleFieldByName(cardName);
+        NonSpellCard selectedCard = getBattle().getSelectedCard();
         if (selectedCard.isCardSelectedInBattle())
         {
             if ((selectedCard).isAttackAble())
@@ -355,12 +313,12 @@ public class BattleManager
 
     public void attackToOpponent(Card opponentCard)
     {
-        if (!Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField().contains(opponentCard))
+        if (!getBattle().getBattleField().getAllCardsInTheBattleField().contains(opponentCard))
         {
             showOutput.printOutput("Invalid card name");
             return;
         }
-        NonSpellCard selectedCard = Battle.getCurrentBattle().getSelectedCard();
+        NonSpellCard selectedCard = getBattle().getSelectedCard();
         if(selectedCard != null) {
             if (selectedCard.isCardSelectedInBattle()) {
                 if ((selectedCard).isAttackAble()) {
@@ -383,7 +341,7 @@ public class BattleManager
     {
         if (Card.checkNeighborhood(selectedCard, opponentCard))
         {
-            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+            getBattle().attackToOpponent(selectedCard, opponentCard);
         }
         else
         {
@@ -395,7 +353,7 @@ public class BattleManager
     {
         if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack() && !(Card.checkNeighborhood(selectedCard, opponentCard)))
         {
-            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+            getBattle().attackToOpponent(selectedCard, opponentCard);
         }
         else
         {
@@ -407,11 +365,16 @@ public class BattleManager
     {
         if (Card.findDestination(selectedCard, opponentCard) <= (selectedCard).getRangeOfAttack())
         {
-            Battle.getCurrentBattle().attackToOpponent(selectedCard, opponentCard);
+            getBattle().attackToOpponent(selectedCard, opponentCard);
         }
         else
         {
             showOutput.printOutput("opponent minion is unavailable for attack");
         }
+    }
+
+    public Battle getBattle()
+    {
+        return battle;
     }
 }

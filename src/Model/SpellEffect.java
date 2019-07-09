@@ -19,7 +19,7 @@ public class SpellEffect
         {
             for (int j = startColumn; j <= endColumn; j++)
             {
-                Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[i + dx][j + dy].addSpellChange(this.getSpellChanges().get(0));
+                getBattle().getBattleField().getBattleFieldMatrix()[i + dx][j + dy].addSpellChange(this.getSpellChanges().get(0));
             }
         }
     }*/

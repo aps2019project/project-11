@@ -85,6 +85,24 @@ public class ServerGraphic extends Application implements Runnable
         Group rootShowClientCommand = new Group();
         setBackGroundImage(rootShowClientCommand);
         backButton(rootShowClientCommand , 400 , 400);
+
+        Text showClientCommandsText = new Text("Show Client Commands");
+        showClientCommandsText.setFont(Font.font("verdana", 25));
+        showClientCommandsText.relocate(170, 5);
+        rootShowClientCommand.getChildren().add(showClientCommandsText);
+
+        int counter = 0;
+        if(Server.getClientCommands() != null) {
+            for (ClientCommand clientCommand : Server.getClientCommands()) {
+                Text text = new Text(clientCommand.getAuthToken() + " : " + String.valueOf(clientCommand.getClientCommandEnum()));
+                text.relocate(5, counter * 15 + 50);
+                rootShowClientCommand.getChildren().add(text);
+                counter++;
+            }
+        }
+        Scene sceneShowClientCommand = new Scene(rootShowClientCommand , 500 ,500);
+        primaryStage.setScene(sceneShowClientCommand);
+        primaryStage.show();
     }
 
     private void showCards()

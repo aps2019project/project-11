@@ -20,6 +20,7 @@ public class InputCommandHandlerForServer extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
+    private String lastReceivedMessage;
     private SendMessage sendMessage;
     private Socket socket;
     private AccountManager accountManager = new AccountManager();
@@ -46,8 +47,10 @@ public class InputCommandHandlerForServer extends Thread
                         validMessageLock.wait();
                     }
                 }
-                checkMassageSentByClient(getMessage());
-                message = null;
+                String message = getMessage();
+                checkMassageSentByClient(message);
+                setLastReceivedMessage(message);
+                setMessage(null);
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -186,6 +189,36 @@ public class InputCommandHandlerForServer extends Thread
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customHeroJson);
                 break;
+            case REQUEST_FOR_MULTI_PLAYER_MATCH:
+                if (Server.getRequestedForOpponent().isEmpty())
+                {
+                    Server.getRequestedForOpponent().add(account);
+                    serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                    String requestJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(requestJson);
+                }
+                else
+                {
+                    Account opponent = Server.getRequestedForOpponent().get(0);
+                    Server.getRequestedForOpponent().remove(0);
+
+                    Player firstPlayer = new Player(opponent, false);
+                    Player secondPlayer = new Player(account, false);
+                    Battle battle = new Battle(firstPlayer, secondPlayer, BattleMode.KILLING_ENEMY_HERO,BattleType.MULTI_PLAYER_GAME);
+                    serverCommand = new ServerCommand(ServerCommandEnum.MULTI_PLAYER_MATCH, battle);
+                    String startBattleJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                    getSendMessage().addMessage(startBattleJson);
+
+                    InputCommandHandlerForServer inputCommandHandlerForServer = Server.findCommandHandler(opponent);
+                    inputCommandHandlerForServer.getSendMessage().addMessage(startBattleJson);
+                }
+                break;
+            case RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH:
+                Server.getRequestedForOpponent().remove(account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String relinquishmentJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(relinquishmentJson);
+                break;
             case MAKE_STORY_BATTLE:
                 break;
             case MAKE_CUSTOM_BATTLE:
@@ -229,8 +262,6 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand.setChatMessages(GlobalChat.getChatMessages());
                 String getAllChatsJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(getAllChatsJson);
-                break;
-            case MAKE_BATTLE_FOR_MULTI_PLAYER_GAME:
                 break;
             case GET_STORY_PLAYER_1:
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
@@ -411,7 +442,7 @@ public class InputCommandHandlerForServer extends Thread
         Item item = clientCommand.getItem();
         if (item == null)
         {
-            Card card = new Card();
+            Card card = null;
             if (hero != null)
             {
                 card = hero;
@@ -424,11 +455,11 @@ public class InputCommandHandlerForServer extends Thread
             {
                 card = spell;
             }
-            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(), account));
+            serverCommand = new ServerCommand(shopManager.removeCardFromCollectionToSell(Card.findCard(card.getCardID(), account), account));
         }
         else
         {
-            serverCommand = new ServerCommand(shopManager.sellItem(account, item.getItemID()));
+            serverCommand = new ServerCommand(shopManager.removeItemFromCollectionToSell(Item.findItem(item.getItemID(), account), account));
         }
         String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(SellCardJson);
@@ -571,6 +602,7 @@ public class InputCommandHandlerForServer extends Thread
         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
         deck.setDeckName("Imported " + deck.getDeckName());
         account.getPlayerDecks().add(deck);
+        account.addImportedDeckCardsAndItemsToCollection(deck);
 
         ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
@@ -1124,5 +1156,20 @@ public class InputCommandHandlerForServer extends Thread
     public SendMessage getSendMessage()
     {
         return sendMessage;
+    }
+
+    public Socket getSocket()
+    {
+        return socket;
+    }
+
+    public String getLastReceivedMessage()
+    {
+        return lastReceivedMessage;
+    }
+
+    public void setLastReceivedMessage(String lastReceivedMessage)
+    {
+        this.lastReceivedMessage = lastReceivedMessage;
     }
 }

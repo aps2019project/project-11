@@ -122,6 +122,32 @@ public class Card implements Cloneable
         return null;
     }
 
+    public static Card findCard(String cardID, Account account)
+    {
+        for (Card card : account.getCollection().getHeroes())
+        {
+            if (card.getCardID().equals(cardID))
+            {
+                return card;
+            }
+        }
+        for (Card card : account.getCollection().getMinions())
+        {
+            if (card.getCardID().equals(cardID))
+            {
+                return card;
+            }
+        }
+        for (Card card : account.getCollection().getSpells())
+        {
+            if (card.getCardID().equals(cardID))
+            {
+                return card;
+            }
+        }
+        return null;
+    }
+
     public boolean isCardSelectedInBattle()
     {
         return cardSelectedInBattle;

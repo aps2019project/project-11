@@ -11,13 +11,8 @@ import com.google.gson.GsonBuilder;
 public class CallTheAppropriateFunction extends Thread
 {
     private AccountManager accountManager = new AccountManager();
-    private CollectionManager collectionManager = new CollectionManager();
-    private DeckManager deckManager = new DeckManager();
-    private ShopManager shopManager = new ShopManager();
-    private BattleManager battleManager = new BattleManager();
     private Request request;
     private ShowOutput showOutput = ShowOutput.getInstance();
-    public final Object validMessageFromServer = new Object();
 
 
     public CallTheAppropriateFunction(Request request)
@@ -274,205 +269,98 @@ public class CallTheAppropriateFunction extends Thread
         }
     }
 
-    private void determineBattleCommand()
+    public Battle storyModeBattleMaker(Account loggedInAccount, int numberOfLevel, Client client)
     {
-        Battle.getCurrentBattle().setHeroesInBattlefield();
-        while (true)
-        {
-            if (Battle.getCurrentBattle().getPlayerTurn().isAIPlayer())
-            {
-                Battle.getCurrentBattle().AIPlayerWorks(battleManager);
-                continue;
-            }
-            request.getBattleCommands();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            if (Battle.getCurrentBattle().isGameEnded(request.getCommand().storyGameMode))
-            {
-                determineAfterGameEndedCommand();
-            }
-            switch (request.getCommand())
-            {
-                case SELECT:
-                    battleManager.selectCard(request.getCommand().cardOrItemID);
-                    determineAfterSelectCardCommand();
-                    break;
-                case INSERT_CARD:
-                    battleManager.checkCircumstancesToInsertCard(request.getCommand().insertCardName, request.getCommand().insertRow, request.getCommand().insertColumn);
-                    break;
-                case SHOW_COLLECTIBLES:
-                    showOutput.showCollectibleItems();
-                    break;
-                case SELECT_ITEM:
-                    battleManager.selectItem(request.getCommand().cardOrItemID);
-                    determineAfterSelectItemCommand();
-                    break;
-                case SHOW_MENU:
-                    showOutput.showMenuBattle();
-                    break;
-                case EXIT:
-                    return;
-            }
-        }
-    }
-
-    private void determineAfterSelectCardCommand()
-    {
-        while (true)
-        {
-            request.getAfterSelectCardCommands();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            switch (request.getCommand())
-            {
-                case COMBO_ATTACK:
-                    Battle.getCurrentBattle().comboAttack(request.getCommand().enemyCardIDForCombo, request.getCommand().cardIDsForComboAttack);
-                    break;
-                case USE_SPECIAL_POWER:
-                    Battle.getCurrentBattle().getSelectedCard().getSpecialPower().applySpecialPower(request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
-                    battleManager.useSpecialPower(Battle.getCurrentBattle().getSelectedCard().getSpecialPower(), request.getCommand().rowOfTheCell, request.getCommand().columnOfTheCell);
-                    break;
-                case EXIT:
-                    showOutput.printOutput("exited");
-                    return;
-            }
-        }
-    }
-
-    private void determineAfterSelectItemCommand()
-    {
-        while (true)
-        {
-            request.getAfterSelectItemCommands();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            switch (request.getCommand())
-            {
-                case SHOW_ITEM_INFO:
-                    showOutput.printItemStats(Battle.getCurrentBattle().getSelectedICollectibleItem());
-                    break;
-                case USE_ITEM:
-                    int x = request.getCommand().rowOfTheCell;
-                    int y = request.getCommand().columnOfTheCell;
-                    Battle.getCurrentBattle().getSelectedICollectibleItem().applyCollectibleItem(x, y);
-                    Battle.getCurrentBattle().checkUsedItemsToApplyItemChange();
-                    break;
-                case SHOW_MENU:
-                    showOutput.showMenuAfterSelectItem();
-                    break;
-                case EXIT:
-                    return;
-            }
-        }
-    }
-
-    private void determineAfterGameEndedCommand()
-    {
-        while (true)
-        {
-            request.getAfterGameEndedCommand();
-            if (request.getCommand() == null)
-            {
-                continue;
-            }
-            if (request.getCommand() == CommandType.END_GAME)
-            {
-                Battle.getCurrentBattle().tasksAtEndOfGame();
-            }
-        }
-    }
-
-    public void storyModeBattleMaker(Account loggedInAccount, int numberOfLevel , Client client)
-    {
-        //Player opponentPlayerForStory = accountManager.makeStoryPlayer(numberOfLevel);
         BattleType battleTypeStory = getBattleTypeStory(numberOfLevel);
-        switch (numberOfLevel){
+        switch (numberOfLevel)
+        {
             case 1:
                 ClientCommand clientCommand1 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_1);
-                String getStoryPlayer1 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand1);
+                String getStoryPlayer1 = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand1);
                 try
                 {
                     Client.getSendMessage().addMessage(getStoryPlayer1);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 synchronized (client.getRequest().validMessageFromServer)
                 {
-                    try {
+                    try
+                    {
                         client.getRequest().validMessageFromServer.wait();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
                 }
-                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
-                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
+                {
+                    return new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
             case 2:
                 ClientCommand clientCommand2 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_2);
-                String getStoryPlayer2 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand2);
+                String getStoryPlayer2 = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand2);
                 try
                 {
                     Client.getSendMessage().addMessage(getStoryPlayer2);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 synchronized (client.getRequest().validMessageFromServer)
                 {
-                    try {
+                    try
+                    {
                         client.getRequest().validMessageFromServer.wait();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
                 }
-                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
-                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
+                {
+                    return new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
             case 3:
                 ClientCommand clientCommand3 = new ClientCommand(ClientCommandEnum.GET_STORY_PLAYER_3);
-                String getStoryPlayer3 =  new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand3);
+                String getStoryPlayer3 = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand3);
                 try
                 {
                     Client.getSendMessage().addMessage(getStoryPlayer3);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 synchronized (client.getRequest().validMessageFromServer)
                 {
-                    try {
+                    try
+                    {
                         client.getRequest().validMessageFromServer.wait();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
                 }
-                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK)){
-                    new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer() , BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
+                if (client.getMessageFromServer().getServerCommandEnum().equals(ServerCommandEnum.OK))
+                {
+                    return new Battle(new Player(loggedInAccount, false), client.getMessageFromServer().getPlayer(), BattleMode.getBattleMode(numberOfLevel), battleTypeStory);
                 }
                 break;
         }
+        return null;
     }
 
-    public boolean customGameBattleMaker(Account accountConnectedToThisClient, Deck selectedDeck, int number)
+    public Battle customGameBattleMaker(Account accountConnectedToThisClient, Deck selectedDeck, int number)
     {
         Player opponentPlayerForCustomGame = accountManager.makeCustomGamePlayer(selectedDeck.getDeckName(), accountConnectedToThisClient);
 
         if (opponentPlayerForCustomGame != null)
         {
-            new Battle(new Player(accountConnectedToThisClient, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
-            return true;
+            return new Battle(new Player(accountConnectedToThisClient, false), opponentPlayerForCustomGame, BattleMode.getBattleMode(number), BattleType.CUSTOM_GAME);
         }
-        return false;
-    }
-
-    public void multiPayerBattleMaker(Account loggedInAccount, BattleMode battleMode, Player opponentPlayerForCustomGame)
-    {
-        new Battle(new Player(loggedInAccount, false), opponentPlayerForCustomGame, battleMode, BattleType.CUSTOM_GAME);
+        return null;
     }
 }

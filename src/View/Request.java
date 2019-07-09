@@ -5,6 +5,7 @@ import Controller.BattleTimer;
 import Model.*;
 import Network.*;
 import com.google.gson.GsonBuilder;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -1798,7 +1799,7 @@ public class Request
                         e.printStackTrace();
                     }
                     System.out.println(client.getMessageFromServer().getMessage());
-                    //collectionMenu(primaryStage, false, null);
+                    collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {
@@ -2514,47 +2515,38 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
+            Battle battle = null;
             switch (string)
             {
                 case "Mode 1":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 1))
+                    battle = Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 1);
+                    if (battle == null)
                     {
                         return;
-                    }
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KILLING_ENEMY_HERO);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
                     }
                     break;
                 case "Mode 2":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 2))
+                    battle = Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 2);
+                    if (battle == null)
                     {
                         return;
-                    }
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.GATHERING_FLAGS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
                     }
                     break;
                 case "Mode 3":
-                    if (!Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 3))
+                    battle = Client.getCallTheAppropriateFunction().customGameBattleMaker(accountConnectedToThisClient, selectedDeckForCustomGame, 3);
+                    if (battle == null)
                     {
                         return;
                     }
-                    try
-                    {
-                        setBattleField(primaryStage, "customGameBackGround", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
                     break;
+            }
+            try
+            {
+                setBattleField(primaryStage, "customGameBackGround", false, battle);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
             synchronized (requestLock)
             {
@@ -2631,46 +2623,37 @@ public class Request
         title.setOnMouseExited(event -> title.setFont(Font.font(null, FontWeight.SEMI_BOLD, 45)));
         title.setOnMouseExited(event -> title.setFill(BLACK));
         title.setOnMouseClicked(event -> {
+            Battle battle = null;
             switch (string)
             {
                 case "Mission 1":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 1 , accountConnectedToThisClient );
-
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1, client);                                 //9
-                    try
+                    battle = Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 1, client);                                 //9
+                    if (battle == null)
                     {
-                        setBattleField(primaryStage, "backgroundStory1", false, BattleMode.KILLING_ENEMY_HERO);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
+                        return;
                     }
                     break;
                 case "Mission 2":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 2 , accountConnectedToThisClient );
-
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2, client);                                     //9
-                    try
+                    battle = Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 2, client);                                     //9
+                    if (battle == null)
                     {
-                        setBattleField(primaryStage, "backgroundStory2", false, BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
+                        return;
                     }
                     break;
                 case "Mission 3":
-
-                    //ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_STORY_BATTLE , 3 , accountConnectedToThisClient );
-                    Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3, client);                                      //9
-                    try
+                    battle = Client.getCallTheAppropriateFunction().storyModeBattleMaker(accountConnectedToThisClient, 3, client);                                      //9
+                    if (battle == null)
                     {
-                        setBattleField(primaryStage, "backgroundStory3", false, BattleMode.GATHERING_FLAGS);
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
+                        return;
                     }
                     break;
+            }
+            try
+            {
+                setBattleField(primaryStage, "backgroundStory1", false, battle);
+            } catch (IOException e)
+            {
+                e.printStackTrace();
             }
             synchronized (requestLock)
             {
@@ -2680,56 +2663,13 @@ public class Request
         rootStoryMode.getChildren().add(title);
     }
 
-
-    /*private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
-    {
-        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        //setMultiPlayerMenu("Choose  One Player", 75);
-        //showChoosePlayerMenu(rootMultiPlayer);
-
-        Text requestForGame = new Text("Start");
-        requestForGame.setFill(BLUE);
-        requestForGame.setFont(Font.font(50));
-        requestForGame.relocate(500, 270);
-        requestForGame.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                primaryStage.setScene(sceneWait);
-                primaryStage.centerOnScreen();
-                waitingPage(primaryStage, battleMode);
-            }
-        });
-        rootMultiPlayer.getChildren().add(requestForGame);
-
-        Button backButton = backButton(primaryStage, rootMultiPlayer,50, 490);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                primaryStage.setScene(sceneMainMenu);
-                primaryStage.centerOnScreen();
-                battleMenu(primaryStage);
-            }
-        });
-    }*/
-
     private void waitingPage(Stage primaryStage, BattleMode battleMode)
     {
         rootWait.getChildren().clear();
 
         setBackGroundImage(rootWait, "file:BackGround Images/Wait Menu.jpg");
 
-        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(accountConnectedToThisClient, battleMode, new Player(multiPlayerAccountToBattle, false));
-        try {
-            setBattleField(primaryStage, "customGameBackGround", false, battleMode);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        Text waitingText = new Text("Waiting for opponent ...");
+        Text waitingText = new Text("Searching for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
         waitingText.layoutXProperty().bind(sceneWait.widthProperty().subtract(waitingText.prefWidth(-1)).divide(2));
         waitingText.setY(50);
@@ -2743,17 +2683,51 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH, client.getAuthToken());
+                String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                try
+                {
+                    Client.getSendMessage().addMessage(removeJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
             }
         });
         rootWait.getChildren().add(relinquishmentButton);
-    }
 
-    public void afterWaitingMultiPlayer()
-    {
-
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REQUEST_FOR_MULTI_PLAYER_MATCH, client.getAuthToken());
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(removeJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        if (client.getMessageFromServer().getServerCommandEnum() == ServerCommandEnum.MULTI_PLAYER_MATCH)
+        {
+            try
+            {
+                setBattleField(primaryStage, "multiPlayerGround", false, client.getMessageFromServer().getBattle());
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void MultiPlayerChooseModeMenu(Group root, Stage primaryStage)
@@ -2868,33 +2842,34 @@ public class Request
         rootMultiPlayer.getChildren().add(multiPlayerText);
     }
 
-    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard, BattleMode battleMode) throws IOException
+    private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard, Battle battle) throws IOException
     {
+        BattleMode battleMode = battle.getBattleMode();
         if (!backFromGraveYard)
         {
             setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");
-            setGridPane(rootBattleField);
-            setHeroIcons(rootBattleField);
-            setHandIcons(rootBattleField);
-            setPlayersName(rootBattleField);
-            setMPIcons(rootBattleField);
-            setHeroFirstPlace();
-            setGraveYardButton(primaryStage, rootBattleField, map, battleMode);
-            setSurrenderButton(primaryStage, rootBattleField, map);
-            setNextCard(rootBattleField);
-            showGameInfo(rootBattleField);
-            setEndTurnButton(primaryStage, rootBattleField, battleMode);
+            setGridPane(rootBattleField, battle);
+            setHeroIcons(rootBattleField, battle);
+            setHandIcons(rootBattleField, battle);
+            setPlayersName(rootBattleField, battle);
+            setMPIcons(rootBattleField, battle);
+            setHeroFirstPlace(battle);
+            setGraveYardButton(primaryStage, rootBattleField, map, battle);
+            setSurrenderButton(primaryStage, rootBattleField, battle);
+            setNextCard(rootBattleField, battle);
+            showGameInfo(rootBattleField, battle);
+            setEndTurnButton(primaryStage, rootBattleField, battle);
             setGlobalChatButton(primaryStage, rootBattleField);
-            setTimer(rootBattleField, battleMode, primaryStage);
+            setTimer(rootBattleField, battle, primaryStage);
         }
-        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battle);
         battleFieldController.start();
         primaryStage.setScene(sceneBattleField);
         primaryStage.centerOnScreen();
         primaryStage.setFullScreen(true);
     }
 
-    private void setTimer(Group rootBattleField, BattleMode battleMode, Stage primaryStage)
+    private void setTimer(Group rootBattleField, Battle battle, Stage primaryStage)
     {
         counterText = new Text();
         counterText.setFont(Font.font("verdana", 20));
@@ -2904,20 +2879,20 @@ public class Request
         {
             battleTimer.end();
         }
-        battleTimer = new BattleTimer(rootBattleField, counterText, this, battleMode, primaryStage);
+        battleTimer = new BattleTimer(rootBattleField, counterText, this, battle, primaryStage);
         battleTimer.start();
     }
 
-    public void setNextCard(Group rootBattleField)
+    public void setNextCard(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setNextCardPane(rootBattleField);
+        battle.setNextCardPane(rootBattleField);
     }
 
-    private void showGameInfo(Group rootBattleField)
+    private void showGameInfo(Group rootBattleField, Battle battle)
     {
         Text text = new Text();
         ShowOutput showOutput = ShowOutput.getInstance();
-        String string = showOutput.getGameInfo();
+        String string = showOutput.getGameInfo(battle);
         text.setText(string);
         text.relocate(1050, 200);
         text.setFill(CYAN);
@@ -2928,18 +2903,17 @@ public class Request
         battleInfo = text;
     }
 
-
-    private void setPlayersName(Group rootBattleField)
+    private void setPlayersName(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setPlayersName(rootBattleField);
+        battle.setPlayersName(rootBattleField);
     }
 
-    public void setMPIcons(Group rootBattleField)
+    public void setMPIcons(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setMPIcons(rootBattleField);
+        battle.setMPIcons(rootBattleField);
     }
 
-    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, String url)
+    private void setSurrenderButton(Stage primaryStage, Group rootBattleField, Battle battle)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_Surrender.png");
         graveYardButton.relocate(1135, 530);
@@ -2948,7 +2922,7 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                Battle.getCurrentBattle().tasksWhenSurrender();
+                battle.tasksWhenSurrender();
                 setCommand(CommandType.END_GAME);
                 synchronized (requestLock)
                 {
@@ -2962,7 +2936,7 @@ public class Request
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url, BattleMode battleMode)
+    private void setGraveYardButton(Stage primaryStage, Group rootBattleField, String url, Battle battle)
     {
         ImageView graveYardButton = new ImageView("battleField BackGround/button_GraveYard.png");
         graveYardButton.relocate(50, 640);
@@ -2973,13 +2947,13 @@ public class Request
             {
                 primaryStage.setScene(sceneGraveYard);
                 primaryStage.centerOnScreen();
-                showGraveYard(primaryStage, url, battleMode);
+                showGraveYard(primaryStage, url, battle);
             }
         });
         rootBattleField.getChildren().add(graveYardButton);
     }
 
-    private void showGraveYard(Stage primaryStage, String map, BattleMode battleMode)
+    private void showGraveYard(Stage primaryStage, String map, Battle battle)
     {
         rootGraveYard.getChildren().clear();
 
@@ -2992,7 +2966,7 @@ public class Request
         setShopAndDeckAndGraveYardMenuText(rootGraveYard, sceneGraveYard, "Cards", 50);
 
         int xPosition = 0, yPosition = 0, x, y;
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getGraveYard().getCards())   //7
+        for (Minion minion : battle.getPlayerTurn().getGraveYard().getCards())   //7
         {
             x = ROW_BLANK + (xPosition % 4) * (200 + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (250 + BLANK_BETWEEN_CARDS);
@@ -3011,7 +2985,7 @@ public class Request
                 {
                     primaryStage.setScene(sceneBattleField);
                     primaryStage.centerOnScreen();
-                    setBattleField(primaryStage, map, true, battleMode);
+                    setBattleField(primaryStage, map, true, battle);
                 } catch (Exception e)
                 {
                     e.printStackTrace();
@@ -3020,8 +2994,9 @@ public class Request
         });
     }
 
-    private void setEndTurnButton(Stage primaryStage, Group rootBattleField, BattleMode battleMode)
+    private void setEndTurnButton(Stage primaryStage, Group rootBattleField, Battle battle)
     {
+        BattleMode battleMode = battle.getBattleMode();
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -3029,49 +3004,49 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
-                setTimer(rootBattleField, battleMode, primaryStage);
-                Battle.getCurrentBattle().clearTheHandPictures();
-                Battle.getCurrentBattle().endTurn();
-                setMPIcons(rootBattleField);
-                Battle.getCurrentBattle().setHandIcons();
+                setTimer(rootBattleField, battle, primaryStage);
+                battle.clearTheHandPictures();
+                battle.endTurn();
+                setMPIcons(rootBattleField, battle);
+                battle.setHandIcons();
 
-                setNextCard(rootBattleField);
+                setNextCard(rootBattleField, battle);
 
                 for (int number = 0; number < 5; number++)
                 {
-                    rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
+                    rootBattleField.getChildren().add(battle.getCurrentPlayerHand()[number]);
                 }
-                makeBattleFieldController(battleMode);
+                makeBattleFieldController(battle);
                 setGlobalChatButton(primaryStage, rootBattleField);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
     }
 
-    public void makeBattleFieldController(BattleMode battleMode)
+    public void makeBattleFieldController(Battle battle)
     {
-        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battleMode);
+        battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battle);
         battleFieldController.start();
     }
 
-    private void setHeroFirstPlace()
+    private void setHeroFirstPlace(Battle battle)
     {
-        Battle.getCurrentBattle().setHeroesFirstPlace();
+        battle.setHeroesFirstPlace();
     }
 
-    private void setHeroIcons(Group rootBattleField)
+    private void setHeroIcons(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setHeroIcons(rootBattleField);
+        battle.setHeroIcons(rootBattleField);
     }
 
-    private void setHandIcons(Group rootBattleField)
+    private void setHandIcons(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setHandIcons();
+        battle.setHandIcons();
     }
 
-    private void setGridPane(Group rootBattleField)
+    private void setGridPane(Group rootBattleField, Battle battle)
     {
-        Battle.getCurrentBattle().setGridPane(rootBattleField);
+        battle.setGridPane(rootBattleField);
     }
 
     public void setGlobalChatButton(Stage primaryStage, Group root)

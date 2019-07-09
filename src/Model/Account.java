@@ -185,23 +185,23 @@ public class Account
         this.AIAccountDefaultID++;
     }
 
-    public void addImportedDeckCardsAndItemsToCollection(Deck deck, Account account)
+    public void addImportedDeckCardsAndItemsToCollection(Deck deck)
     {
         for (Hero hero : deck.getHero())
         {
-            getCollection().addCard(account, hero, true);
+            getCollection().addCard(this, hero, true);
         }
         for (Minion minion : deck.getMinions())
         {
-            getCollection().addCard(account, minion, true);
+            getCollection().addCard(this, minion, true);
         }
         for (Spell spell : deck.getSpells())
         {
-            getCollection().addCard(account, spell, true);
+            getCollection().addCard(this, spell, true);
         }
         for (Item item : deck.getItem())
         {
-            getCollection().addItem(account, item, true);
+            getCollection().addItem(this, item, true);
         }
     }
 
