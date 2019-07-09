@@ -1,6 +1,7 @@
 package Network;
 
 import Controller.AccountManager;
+import Controller.BidTimer;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -20,10 +21,11 @@ public class Server
     private static ArrayList<Minion> minions = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
     private static ArrayList<Item> items = new ArrayList<>();
+    private static Hero bidHero;
+    private static Minion bidMinion;
+    private static Spell bidSpell;
+    private static Item bidItem;
     private static int numberOfAccount = 1;
-    private static AccountManager accountManager = new AccountManager();
-
-
 
     public static void main(String[] args) throws Exception
     {
@@ -36,6 +38,7 @@ public class Server
         convertingToAccounts();
         convertingToShop();
         setStoryAIPlayer();
+        setBidTimer();
         ServerSocket serverSocket = new ServerSocket(9000);
         while (true)
         {
@@ -64,7 +67,8 @@ public class Server
                 }
             });
             receiveMessage.start();
-        }    }
+        }
+    }
 
     private static void setStoryAIPlayer() {
         AccountManager.makeStoryPlayer(1);
@@ -103,6 +107,13 @@ public class Server
             account.setAuthToken(null);
             Server.addAccount(account);
         }
+    }
+
+    private static void setBidTimer()
+    {
+        BidTimer bidTimer = new BidTimer();
+        bidTimer.setDaemon(true);
+        bidTimer.start();
     }
 
     public static ArrayList<InputCommandHandlerForServer> getCommandHandlers()
@@ -180,13 +191,43 @@ public class Server
         Server.shop = shop;
     }
 
-    public static AccountManager getAccountManager() {
-        return accountManager;
+    public static Hero getBidHero()
+    {
+        return bidHero;
     }
 
-    public static void setAccountManager(AccountManager accountManager) {
-        Server.accountManager = accountManager;
+    public static void setBidHero(Hero bidHero)
+    {
+        Server.bidHero = bidHero;
     }
 
+    public static Minion getBidMinion()
+    {
+        return bidMinion;
+    }
 
+    public static void setBidMinion(Minion bidMinion)
+    {
+        Server.bidMinion = bidMinion;
+    }
+
+    public static Spell getBidSpell()
+    {
+        return bidSpell;
+    }
+
+    public static void setBidSpell(Spell bidSpell)
+    {
+        Server.bidSpell = bidSpell;
+    }
+
+    public static Item getBidItem()
+    {
+        return bidItem;
+    }
+
+    public static void setBidItem(Item bidItem)
+    {
+        Server.bidItem = bidItem;
+    }
 }

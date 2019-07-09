@@ -105,6 +105,11 @@ public class InputCommandHandlerForServer extends Thread
                 String saveShopJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(saveShopJson);
                 break;
+            case ENTER_BID_MENU:
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, Server.getBidHero(), Server.getBidMinion(), Server.getBidSpell(), Server.getBidItem());
+                String bidJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(bidJson);
+                break;
             case BUY:
                 buyCardAndItem(clientCommand, account);
                 break;

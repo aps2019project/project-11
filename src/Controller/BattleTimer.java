@@ -9,8 +9,9 @@ import javafx.scene.Group;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class BattleTimer extends Thread{
-    private Group rootBattleField;
+public class BattleTimer extends Thread
+{
+    private Group root;
     private Text counterText;
     private Request request;
     private BattleMode battleMode;
@@ -19,12 +20,14 @@ public class BattleTimer extends Thread{
 
 
     @Override
-    public void run() {
+    public void run()
+    {
         timerLoop();
     }
 
-    public BattleTimer(Group rootBattleField, Text counterText, Request request, BattleMode battleMode, Stage primaryStage){
-        this.rootBattleField = rootBattleField;
+    public BattleTimer(Group root, Text counterText, Request request, BattleMode battleMode, Stage primaryStage)
+    {
+        this.root = root;
         this.counterText = counterText;
         this.request = request;
         this.battleMode = battleMode;
@@ -32,13 +35,18 @@ public class BattleTimer extends Thread{
         setBattleTimer(this);
     }
 
-    public void timerLoop() {
+    public void timerLoop()
+    {
         int counter;
-        while (true){
-            for(counter = 60 ; counter > 0  ; counter--){
-                try {
+        while (true)
+        {
+            for (counter = 60; counter > 0; counter--)
+            {
+                try
+                {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 counterText.setText(String.valueOf(counter));
@@ -48,64 +56,78 @@ public class BattleTimer extends Thread{
         }
     }
 
-    private void endTurn() {
-        Platform.runLater(new Runnable() {
+    private void endTurn()
+    {
+        Platform.runLater(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 Battle.getCurrentBattle().clearTheHandPictures();
                 Battle.getCurrentBattle().endTurn();
-                request.setMPIcons(rootBattleField);
+                request.setMPIcons(root);
                 Battle.getCurrentBattle().setHandIcons();
 
-                request.setNextCard(rootBattleField);
+                request.setNextCard(root);
 
                 for (int number = 0; number < 5; number++)
                 {
-                    rootBattleField.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
+                    root.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
                 }
                 request.makeBattleFieldController(battleMode);
-                request.setGlobalChatButton(primaryStage, rootBattleField);
+                request.setGlobalChatButton(primaryStage, root);
             }
         });
     }
 
 
-    public Group getRootBattleField() {
-        return rootBattleField;
+    public Group getRoot()
+    {
+        return root;
     }
 
-    public void setRootBattleField(Group rootBattleField) {
-        this.rootBattleField = rootBattleField;
+    public void setRoot(Group root)
+    {
+        this.root = root;
     }
 
-    public Text getCounterText() {
+    public Text getCounterText()
+    {
         return counterText;
     }
 
-    public void setCounterText(Text counterText) {
+    public void setCounterText(Text counterText)
+    {
         this.counterText = counterText;
     }
 
-    public Request getRequest() {
+    public Request getRequest()
+    {
         return request;
     }
 
-    public void setRequest(Request request) {
+    public void setRequest(Request request)
+    {
         this.request = request;
     }
 
-    public static BattleTimer getBattleTimer() {
+    public static BattleTimer getBattleTimer()
+    {
         return battleTimer;
     }
 
-    public void setBattleTimer(BattleTimer battleTimer) {
+    public void setBattleTimer(BattleTimer battleTimer)
+    {
         BattleTimer.battleTimer = battleTimer;
     }
 
-    public void end() {
-        Platform.runLater(new Runnable() {
+    public void end()
+    {
+        Platform.runLater(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 counterText.setText(null);
             }
         });

@@ -12,6 +12,8 @@ public class Item implements Cloneable
     private ItemEffect itemEffect;
     private int capacityOfSell = 5;
     private boolean collectibleItemSelectedInBattle = false;
+    private Account bidWinner;
+    private int bidWinnerPrice;
 
     public Item(String itemName, int price, ItemType itemType, String descriptionTypeOfItem, ItemEffect itemEffect)
     {
@@ -370,5 +372,25 @@ public class Item implements Cloneable
             }
         }
         return false;
+    }
+
+    public Account getBidWinner()
+    {
+        return bidWinner;
+    }
+
+    public void setBidWinner(Account bidWinner)
+    {
+        this.bidWinner = bidWinner;
+    }
+
+    public int getBidWinnerPrice()
+    {
+        return bidWinnerPrice;
+    }
+
+    public void setBidWinnerPrice(int bidWinnerPrice)
+    {
+        this.bidWinnerPrice = bidWinnerPrice;
     }
 }

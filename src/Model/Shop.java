@@ -30,10 +30,18 @@ public class Shop
         this.items.add(item);
     }
 
-    public void buyCard(Card card, Account account) throws Exception
+    public void buyCard(Card card, Account account, boolean isBidCard) throws Exception
     {
         account.getCollection().addCard(account, (Card) card.clone(), false);
-        account.decreaseMoney(card.getPrice());
+        if (isBidCard)
+        {
+            account.decreaseMoney(card.getBidWinnerPrice());
+        }
+        else
+        {
+            account.decreaseMoney(card.getPrice());
+        }
+
         card.decreaseCapacityOfSell();
     }
 
@@ -44,10 +52,17 @@ public class Shop
         account.increaseDefaultID();
     }
 
-    public void buyItem(Item item, Account account) throws Exception
+    public void buyItem(Item item, Account account, boolean isBidItem) throws Exception
     {
         account.getCollection().addItem(account, (Item) item.clone(), false);
-        account.decreaseMoney(item.getPrice());
+        if (isBidItem)
+        {
+            account.decreaseMoney(item.getBidWinnerPrice());
+        }
+        else
+        {
+            account.decreaseMoney(item.getPrice());
+        }
         item.decreaseCapacityOfItemSell();
     }
 
