@@ -49,6 +49,8 @@ public class Client extends Application
     private static Scene sceneSinglePlayer = new Scene(rootSinglePlayer, 1000, 562);
     private static Group rootMultiPlayer = new Group();
     private static Scene sceneMultiPlayer = new Scene(rootMultiPlayer, 1000, 562);
+    private static Group rootWait = new Group();
+    private static Scene sceneWait = new Scene(rootWait, 1000, 562);
     private static Group rootCustomGame = new Group();
     private static Scene sceneCustomGame = new Scene(rootCustomGame, 1000, 562);
     private static Group rootBattleField = new Group();
@@ -396,5 +398,15 @@ public class Client extends Application
     public static Group getRootBid()
     {
         return rootBid;
+    }
+
+    public static Group getRootWait()
+    {
+        return rootWait;
+    }
+
+    public static Scene getSceneWait()
+    {
+        return sceneWait;
     }
 }

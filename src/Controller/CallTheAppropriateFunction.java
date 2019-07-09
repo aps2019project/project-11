@@ -180,9 +180,11 @@ public class CallTheAppropriateFunction extends Thread
                 switch (request.getCommand())
                 {
                     case SINGLE_PLAYER:
+                        request.setCommand(null);
                         selectSinglePlayerMatchMode();
                         break;
                     case MULTI_PLAYER:
+                        request.setCommand(null);
                         selectSecondPlayerInMultiPlayerMatch();
                         break;
                     case EXIT:
