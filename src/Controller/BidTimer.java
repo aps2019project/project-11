@@ -41,6 +41,7 @@ public class BidTimer extends Thread
     private void timerLoop() throws Exception
     {
         int counter;
+        counterText = new Text();
         while (true)
         {
             for (counter = 30; counter >= 0; counter--)
