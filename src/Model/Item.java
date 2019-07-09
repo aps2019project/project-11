@@ -280,6 +280,18 @@ public class Item implements Cloneable
         return null;
     }
 
+    public static Item findItem(String itemID, Account account)
+    {
+        for (Item item : account.getCollection().getItems())
+        {
+            if (item.getItemID().equals(itemID))
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public String getItemName()
     {
         return itemName;

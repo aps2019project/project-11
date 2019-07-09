@@ -1793,7 +1793,7 @@ public class Request
                         e.printStackTrace();
                     }
                     System.out.println(client.getMessageFromServer().getMessage());
-                    //collectionMenu(primaryStage, false, null);
+                    collectionMenu(primaryStage, false, null);
                 }
                 else if (option.get() == buttonTypeAddToDeck)
                 {

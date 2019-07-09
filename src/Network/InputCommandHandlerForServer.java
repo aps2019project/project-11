@@ -411,7 +411,7 @@ public class InputCommandHandlerForServer extends Thread
         Item item = clientCommand.getItem();
         if (item == null)
         {
-            Card card = new Card();
+            Card card = null;
             if (hero != null)
             {
                 card = hero;
@@ -424,11 +424,11 @@ public class InputCommandHandlerForServer extends Thread
             {
                 card = spell;
             }
-            serverCommand = new ServerCommand(shopManager.detectIDToSell(card.getCardID(), account));
+            serverCommand = new ServerCommand(shopManager.removeCardFromCollectionToSell(Card.findCard(card.getCardID(), account), account));
         }
         else
         {
-            serverCommand = new ServerCommand(shopManager.sellItem(account, item.getItemID()));
+            serverCommand = new ServerCommand(shopManager.removeItemFromCollectionToSell(Item.findItem(item.getItemID(), account), account));
         }
         String SellCardJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         getSendMessage().addMessage(SellCardJson);
