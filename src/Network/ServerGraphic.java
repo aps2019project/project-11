@@ -46,7 +46,7 @@ public class ServerGraphic extends Application implements Runnable
         setRootServerMenu(rootServerMenu);
         setBackGroundImage(rootServerMenu);
         Button showOnlinePlayers = new Button("Show Online Players");
-        showOnlinePlayers.relocate(220, 250);
+        showOnlinePlayers.relocate(200, 190);
         showOnlinePlayers.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -57,7 +57,7 @@ public class ServerGraphic extends Application implements Runnable
         });
 
         Button showCard = new Button("Show Cards");
-        showCard.relocate(220, 280);
+        showCard.relocate(220, 220);
         showCard.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -66,11 +66,25 @@ public class ServerGraphic extends Application implements Runnable
                 showCards();
             }
         });
-        rootServerMenu.getChildren().addAll(showCard, showOnlinePlayers);
+        Button showClientCommand = new Button("Show Client Commands");
+        showClientCommand.relocate(193 , 250);
+        showClientCommand.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                showClientCommand();
+            }
+        });
+        rootServerMenu.getChildren().addAll(showCard, showOnlinePlayers , showClientCommand);
         Scene sceneServerMenu = new Scene(rootServerMenu, 500, 500);
         setSceneServerMenu(sceneServerMenu);
         primaryStage.setScene(sceneServerMenu);
         primaryStage.show();
+    }
+
+    private void showClientCommand() {
+        Group rootShowClientCommand = new Group();
+        setBackGroundImage(rootShowClientCommand);
+        backButton(rootShowClientCommand , 400 , 400);
     }
 
     private void showCards()

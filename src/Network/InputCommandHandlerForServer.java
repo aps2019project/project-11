@@ -59,6 +59,8 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
+        clientCommand.setAccount(account);
+        Server.addClientCommands(clientCommand);
         ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
