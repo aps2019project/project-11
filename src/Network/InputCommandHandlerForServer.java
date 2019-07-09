@@ -20,12 +20,12 @@ public class InputCommandHandlerForServer extends Thread
 {
     public final Object validMessageLock = new Object();
     private String message;
+    private String lastReceivedMessage;
     private SendMessage sendMessage;
     private Socket socket;
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
     private DeckManager deckManager = new DeckManager();
-    private static ArrayList<Account> requestedForOpponent = new ArrayList<>();
 
     public InputCommandHandlerForServer(Socket socket, SendMessage sendMessage)
     {
@@ -47,8 +47,10 @@ public class InputCommandHandlerForServer extends Thread
                         validMessageLock.wait();
                     }
                 }
-                checkMassageSentByClient(getMessage());
-                message = null;
+                String message = getMessage();
+                checkMassageSentByClient(message);
+                setLastReceivedMessage(message);
+                setMessage(null);
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -188,19 +190,17 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(customHeroJson);
                 break;
             case REQUEST_FOR_MULTI_PLAYER_MATCH:
-                if (requestedForOpponent.size() == 0)
+                if (Server.getRequestedForOpponent().isEmpty())
                 {
-                    System.out.println(1);
-                    requestedForOpponent.add(account);
-                    serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                    Server.getRequestedForOpponent().add(account);
+                    /*serverCommand = new ServerCommand(ServerCommandEnum.OK);
                     String requestJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(requestJson);
+                    getSendMessage().addMessage(requestJson);*/
                 }
                 else
                 {
-                    System.out.println(2);
-                    Account opponent = requestedForOpponent.get(0);
-                    requestedForOpponent.remove(0);
+                    Account opponent = Server.getRequestedForOpponent().get(0);
+                    Server.getRequestedForOpponent().remove(0);
 
                     Player firstPlayer = new Player(opponent, false);
                     Player secondPlayer = new Player(account, false);
@@ -208,10 +208,13 @@ public class InputCommandHandlerForServer extends Thread
                     serverCommand = new ServerCommand(ServerCommandEnum.MULTI_PLAYER_MATCH, battle);
                     String startBattleJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                     getSendMessage().addMessage(startBattleJson);
+
+                    InputCommandHandlerForServer inputCommandHandlerForServer = Server.findCommandHandler(opponent);
+                    inputCommandHandlerForServer.getSendMessage().addMessage(startBattleJson);
                 }
                 break;
             case RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH:
-                requestedForOpponent.remove(account);
+                Server.getRequestedForOpponent().remove(account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String relinquishmentJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(relinquishmentJson);
@@ -1151,5 +1154,20 @@ public class InputCommandHandlerForServer extends Thread
     public SendMessage getSendMessage()
     {
         return sendMessage;
+    }
+
+    public Socket getSocket()
+    {
+        return socket;
+    }
+
+    public String getLastReceivedMessage()
+    {
+        return lastReceivedMessage;
+    }
+
+    public void setLastReceivedMessage(String lastReceivedMessage)
+    {
+        this.lastReceivedMessage = lastReceivedMessage;
     }
 }

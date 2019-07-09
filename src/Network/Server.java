@@ -5,6 +5,7 @@ import Controller.BidTimer;
 import Controller.ReadPropertyFile;
 import Model.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 
 import java.io.*;
@@ -28,6 +29,7 @@ public class Server
     private static Item bidItem;
     private static int numberOfAccount = 1;
     private static ArrayList<ClientCommand> clientCommands = new ArrayList<>();
+    private static ArrayList<Account> requestedForOpponent = new ArrayList<>();
 
     public static void main(String[] args) throws Exception
     {
@@ -116,6 +118,25 @@ public class Server
         BidTimer bidTimer = new BidTimer();
         bidTimer.setDaemon(true);
         bidTimer.start();
+    }
+
+    public static InputCommandHandlerForServer findCommandHandler(Account account)
+    {
+        for (ClientCommand clientCommand : clientCommands)
+        {
+            if (clientCommand.getAuthToken()!= null && clientCommand.getAuthToken().equals(account.getAuthToken()))
+            {
+                String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                for (InputCommandHandlerForServer inputCommandHandlerForServer : getCommandHandlers())
+                {
+                    if (inputCommandHandlerForServer.getLastReceivedMessage().equals(json))
+                    {
+                        return inputCommandHandlerForServer;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public static ArrayList<InputCommandHandlerForServer> getCommandHandlers()
@@ -233,11 +254,18 @@ public class Server
         Server.bidItem = bidItem;
     }
 
-    public static ArrayList<ClientCommand> getClientCommands() {
+    public static ArrayList<ClientCommand> getClientCommands()
+    {
         return clientCommands;
     }
 
-    public static void addClientCommands(ClientCommand clientCommand) {
+    public static void addClientCommands(ClientCommand clientCommand)
+    {
         Server.clientCommands.add(clientCommand);
+    }
+
+    public static ArrayList<Account> getRequestedForOpponent()
+    {
+        return requestedForOpponent;
     }
 }

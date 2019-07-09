@@ -5,6 +5,7 @@ import Controller.BattleTimer;
 import Model.*;
 import Network.*;
 import com.google.gson.GsonBuilder;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -2667,31 +2668,6 @@ public class Request
 
         setBackGroundImage(rootWait, "file:BackGround Images/Wait Menu.jpg");
 
-        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REQUEST_FOR_MULTI_PLAYER_MATCH, client.getAuthToken());
-        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
-        try
-        {
-            Client.getSendMessage().addMessage(removeJson);
-            synchronized (validMessageFromServer)
-            {
-                validMessageFromServer.wait();
-            }
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        if (client.getMessageFromServer().getServerCommandEnum() == ServerCommandEnum.MULTI_PLAYER_MATCH)
-        {
-            try
-            {
-                setBattleField(primaryStage, "multiPlayerGround", false, client.getMessageFromServer().getBattle());
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
         Text waitingText = new Text("Searching for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
         waitingText.layoutXProperty().bind(sceneWait.widthProperty().subtract(waitingText.prefWidth(-1)).divide(2));
@@ -2726,11 +2702,31 @@ public class Request
             }
         });
         rootWait.getChildren().add(relinquishmentButton);
-    }
 
-    public void afterWaitingMultiPlayer()
-    {
-
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REQUEST_FOR_MULTI_PLAYER_MATCH, client.getAuthToken());
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(removeJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        if (client.getMessageFromServer().getServerCommandEnum() == ServerCommandEnum.MULTI_PLAYER_MATCH)
+        {
+            try
+            {
+                setBattleField(primaryStage, "multiPlayerGround", false, client.getMessageFromServer().getBattle());
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void MultiPlayerChooseModeMenu(Group root, Stage primaryStage)
