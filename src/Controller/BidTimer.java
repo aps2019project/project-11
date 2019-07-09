@@ -24,15 +24,14 @@ public class BidTimer extends Thread
 
     private void timerLoop() throws Exception
     {
-        int counter;
         while (true)
         {
-            for (counter = 30; counter >= 0; counter--)
+            for (int counter = 30; counter >= 0; counter--)
             {
                 Thread.sleep(1000);
                 System.out.println("00:" + counter);
             }
-            confirmBidWinners();
+            //confirmBidWinners();
             setNewCardsAndItemToBid();
         }
     }

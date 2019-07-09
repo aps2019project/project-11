@@ -367,10 +367,11 @@ public class InputCommandHandlerForServer extends Thread
     {
         ServerCommand serverCommand;
 
+        Item item = clientCommand.getItem();
         Hero hero = clientCommand.getHero();
         Minion minion = clientCommand.getMinion();
         Spell spell = clientCommand.getSpell();
-        Item item = clientCommand.getItem();
+
         if (item == null)
         {
             Card card = null;

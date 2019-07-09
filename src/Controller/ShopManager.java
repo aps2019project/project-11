@@ -51,14 +51,14 @@ public class ShopManager
     {
         card.setBidWinner(account);
         card.setBidWinnerPrice(card.getBidWinnerPrice() + 500);
-        return "You bid on " + card.getCardName() + " with " + card.getBidWinnerPrice();
+        return "You bid on " + card.getCardName() + " for " + card.getBidWinnerPrice();
     }
 
     public String bidItem(Item item, Account account)
     {
         item.setBidWinner(account);
         item.setBidWinnerPrice(item.getBidWinnerPrice() + 500);
-        return "You bid on " + item.getItemName() + " with " + item.getBidWinnerPrice();
+        return "You bid on " + item.getItemName() + " for " + item.getBidWinnerPrice();
     }
 
     public String detectIDToSell(String ID, Account account)

@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 
-import static javafx.scene.paint.Color.BURLYWOOD;
-
 public class Client extends Application
 {
     private static CallTheAppropriateFunction callTheAppropriateFunction;

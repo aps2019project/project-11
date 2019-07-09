@@ -71,7 +71,8 @@ public class Server
         }
     }
 
-    private static void setStoryAIPlayer() {
+    private static void setStoryAIPlayer()
+    {
         AccountManager.makeStoryPlayer(1);
         AccountManager.makeStoryPlayer(2);
         AccountManager.makeStoryPlayer(3);
@@ -84,9 +85,8 @@ public class Server
             FileReader reader = new FileReader("shop.json");
             JsonParser jsonParser = new JsonParser();
             Object object = jsonParser.parse(reader);
-            setShop(new Gson().fromJson(object.toString(),Shop.class));
-        }
-        catch (FileNotFoundException ignored)
+            setShop(new Gson().fromJson(object.toString(), Shop.class));
+        } catch (FileNotFoundException ignored)
         {
 
         }
