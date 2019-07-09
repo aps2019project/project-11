@@ -13,7 +13,7 @@ public class ClientCommand
     private ClientCommandEnum clientCommandEnum;
     private String userName;
     private String password;
-    private transient ArrayList<TextField> textFieldsToMakeCustom;
+    private transient ArrayList<String> textFieldsToMakeCustom;
     private String cardOrItemID;
     private Hero hero;
     private Minion minion;
@@ -57,7 +57,7 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<TextField> textFieldsToMakeCustom, String authToken) //makeCustom
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<String> textFieldsToMakeCustom, String authToken) //makeCustom
     {
         this.clientCommandEnum = clientCommandEnum;
         this.textFieldsToMakeCustom = textFieldsToMakeCustom;
@@ -194,12 +194,12 @@ public class ClientCommand
         this.password = password;
     }
 
-    public ArrayList<TextField> getTextFieldsToMakeCustom()
+    public ArrayList<String> getTextFieldsToMakeCustom()
     {
         return textFieldsToMakeCustom;
     }
 
-    public void setTextFieldsToMakeCustom(ArrayList<TextField> textFieldsToMakeCustom)
+    public void setTextFieldsToMakeCustom(ArrayList<String> textFieldsToMakeCustom)
     {
         this.textFieldsToMakeCustom = textFieldsToMakeCustom;
     }
