@@ -13,7 +13,7 @@ public class ClientCommand
     private ClientCommandEnum clientCommandEnum;
     private String userName;
     private String password;
-    private ArrayList<String> textFieldsToMakeCustom = new ArrayList<>();
+    private ArrayList<String> textOfTextFieldsToMakeCustom = new ArrayList<>();
     private String cardOrItemID;
     private Hero hero;
     private Minion minion;
@@ -50,10 +50,10 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<String> textFieldsToMakeCustom, String authToken) //makeCustom
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ArrayList<String> textOfTextFieldsToMakeCustom, String authToken) //makeCustom
     {
         this.clientCommandEnum = clientCommandEnum;
-        this.textFieldsToMakeCustom = textFieldsToMakeCustom;
+        this.textOfTextFieldsToMakeCustom = textOfTextFieldsToMakeCustom;
         this.authToken = authToken;
     }
 
@@ -185,14 +185,14 @@ public class ClientCommand
         this.password = password;
     }
 
-    public ArrayList<String> getTextFieldsToMakeCustom()
+    public ArrayList<String> getTextOfTextFieldsToMakeCustom()
     {
-        return textFieldsToMakeCustom;
+        return textOfTextFieldsToMakeCustom;
     }
 
-    public void setTextFieldsToMakeCustom(ArrayList<String> textFieldsToMakeCustom)
+    public void setTextOfTextFieldsToMakeCustom(ArrayList<String> textFieldsToMakeCustom)
     {
-        this.textFieldsToMakeCustom = textFieldsToMakeCustom;
+        this.textOfTextFieldsToMakeCustom = textFieldsToMakeCustom;
     }
 
     public Hero getHero()

@@ -172,19 +172,19 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(deleteDeckJson);
                 break;
             case MAKE_CUSTOM_SPELL:
-                workingOnSpellText(clientCommand.getTextFieldsToMakeCustom(), account);
+                workingOnSpellText(clientCommand.getTextOfTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customSpellJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customSpellJson);
                 break;
             case MAKE_CUSTOM_MINION:
-                workingOnMinionText(clientCommand.getTextFieldsToMakeCustom(), account);
+                workingOnMinionText(clientCommand.getTextOfTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customMinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
-                workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
+                workingOnHeroText(clientCommand.getTextOfTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customHeroJson);
