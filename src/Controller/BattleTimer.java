@@ -14,10 +14,9 @@ public class BattleTimer extends Thread
     private Group root;
     private Text counterText;
     private Request request;
-    private BattleMode battleMode;
+    private Battle battle;
     private Stage primaryStage;
     private static BattleTimer battleTimer;
-
 
     @Override
     public void run()
@@ -25,12 +24,12 @@ public class BattleTimer extends Thread
         timerLoop();
     }
 
-    public BattleTimer(Group root, Text counterText, Request request, BattleMode battleMode, Stage primaryStage)
+    public BattleTimer(Group root, Text counterText, Request request, Battle battle, Stage primaryStage)
     {
         this.root = root;
         this.counterText = counterText;
         this.request = request;
-        this.battleMode = battleMode;
+        this.battle = battle;
         this.primaryStage = primaryStage;
         setBattleTimer(this);
     }
@@ -63,18 +62,18 @@ public class BattleTimer extends Thread
             @Override
             public void run()
             {
-                Battle.getCurrentBattle().clearTheHandPictures();
-                Battle.getCurrentBattle().endTurn();
-                request.setMPIcons(root);
-                Battle.getCurrentBattle().setHandIcons();
+                getBattle().clearTheHandPictures();
+                getBattle().endTurn();
+                request.setMPIcons(root, getBattle());
+                getBattle().setHandIcons();
 
-                request.setNextCard(root);
+                request.setNextCard(root, getBattle());
 
                 for (int number = 0; number < 5; number++)
                 {
-                    root.getChildren().add(Battle.getCurrentBattle().getCurrentPlayerHand()[number]);
+                    root.getChildren().add(getBattle().getCurrentPlayerHand()[number]);
                 }
-                request.makeBattleFieldController(battleMode);
+                request.makeBattleFieldController(getBattle());
                 request.setGlobalChatButton(primaryStage, root);
             }
         });
@@ -132,5 +131,10 @@ public class BattleTimer extends Thread
             }
         });
         this.stop();
+    }
+
+    public Battle getBattle()
+    {
+        return battle;
     }
 }

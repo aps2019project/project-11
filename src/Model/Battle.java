@@ -17,7 +17,6 @@ import static javafx.scene.paint.Color.BLACK;
 @SuppressWarnings("Duplicates")
 public class Battle
 {
-    private static Battle currentBattle;
     private Player firstPlayer;
     private Player secondPlayer;
     private Player playerTurn;
@@ -45,21 +44,10 @@ public class Battle
         this.setBattleMode(battleMode);
         this.setBattleType(battleType);
         this.getBattleField().makeCells();
-        Battle.setCurrentBattle(this);
         /*Item usableItemFirstPlayer = this.getFirstPlayer().getMainDeck().getItem().get(0);
         usableItemFirstPlayer.applyUsableItem(this.getFirstPlayer());
         Item usableItemSecondPlayer = this.getSecondPlayer().getMainDeck().getItem().get(0);
         usableItemSecondPlayer.applyUsableItem(this.getSecondPlayer());*/
-    }
-
-    public static Battle getCurrentBattle()
-    {
-        return currentBattle;
-    }
-
-    private static void setCurrentBattle(Battle currentBattle)
-    {
-        Battle.currentBattle = currentBattle;
     }
 
     public void selectCard(NonSpellCard card)
@@ -93,8 +81,8 @@ public class Battle
 
     public void attackToOpponent(NonSpellCard selectedCard, NonSpellCard opponentCard)
     {
-        Battle.getCurrentBattle().damageCard(selectedCard, opponentCard);
-        Battle.getCurrentBattle().counterAttack(opponentCard);
+        this.damageCard(selectedCard, opponentCard);
+        this.counterAttack(opponentCard);
         (selectedCard).setAttackAble(false);
     }
 
@@ -129,8 +117,8 @@ public class Battle
     //TODO how below method works?? i apply some changes check it works properly(to Ali)
     private void counterAttack(String cardID1, String cardID2)
     {
-        selectedCard = (NonSpellCard) Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID1);
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID2);
+        selectedCard = (NonSpellCard) this.getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID1);
+        NonSpellCard opponentCard = this.getBattleField().findCardInBattleField(cardID2);
         counterAttack(opponentCard);
         setSelectedCard(null);
     }
@@ -138,10 +126,10 @@ public class Battle
     public void comboAttack(String enemyCardID, ArrayList<String> cardsIDForComboAttack)
     {
         checkComboCondition(cardsIDForComboAttack);
-        NonSpellCard opponentCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(enemyCardID);
+        NonSpellCard opponentCard = this.getBattleField().findCardInBattleField(enemyCardID);
         for (String cardID : cardsIDForComboAttack)
         {
-            NonSpellCard selectedCard = Battle.getCurrentBattle().getBattleField().findCardInBattleField(cardID);
+            NonSpellCard selectedCard = this.getBattleField().findCardInBattleField(cardID);
             attackToOpponent(selectedCard, opponentCard);
         }
     }
@@ -150,11 +138,11 @@ public class Battle
     {
         for (String cardID : cardsIDForComboAttack)
         {
-            if (Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
+            if (this.getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID) == null)
             {
                 continue;
             }
-            Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
+            Card card = this.getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
             if (!(card instanceof Minion) || !((Minion) card).isAbleToCombo())
             {
                 cardsIDForComboAttack.removeIf(n -> n.equals(cardID));
@@ -164,7 +152,7 @@ public class Battle
 
     public void checkInsertedCardsToApplySpellChange()
     {
-        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
         {
             for (SpellChange spellChange : nonSpellCard.getActiveSpellsOnThisCard())
             {
@@ -182,7 +170,7 @@ public class Battle
 
     public void checkUsedItemsToApplyItemChange()
     {
-        for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+        for (NonSpellCard nonSpellCard : this.getBattleField().getAllCardsInTheBattleField())
         {
             for (ItemChange itemChange : nonSpellCard.getActiveItemsOnThisCard())
             {
@@ -242,15 +230,15 @@ public class Battle
 
     public Minion findRandomOwnMinionToApplyItem()
     {
-        int numOfInsertedMinions = Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().size();
+        int numOfInsertedMinions = this.getPlayerTurn().getInsertedCards().size();
         int randomMinionNumber = random.nextInt(numOfInsertedMinions);
-        return Battle.getCurrentBattle().getPlayerTurn().getInsertedCards().get(randomMinionNumber);
+        return this.getPlayerTurn().getInsertedCards().get(randomMinionNumber);
     }
 
     public Minion findRandomOwnRangedHybridMinionToApplyItem()
     {
         ArrayList<Minion> minions = new ArrayList<>();
-        for (Minion minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
+        for (Minion minion : this.getPlayerTurn().getInsertedCards())
         {
             if (minion.getImpactType() == ImpactType.hybrid || minion.getImpactType() == ImpactType.ranged)
             {
@@ -530,7 +518,7 @@ public class Battle
     }
 
     //todo
-    public void AIPlayerWorks(BattleManager battleManager)
+    /*public void AIPlayerWorks(BattleManager battleManager)
     {
         for (int counter = 1; counter <= 10 && playerTurn.getMP() > 0; counter++)
         {
@@ -547,7 +535,7 @@ public class Battle
         }
         this.setPlayerTurn(firstPlayer);
         selectedCard = null;
-    }
+    }*/
 
 
     public void help()
@@ -650,8 +638,8 @@ public class Battle
         firstPlayer.getMainDeck().getHero().get(0).setColumn(0);
         secondPlayer.getMainDeck().getHero().get(0).setRow(2);
         secondPlayer.getMainDeck().getHero().get(0).setColumn(8);
-        currentBattle.getBattleField().addCardInTheBattleField(firstPlayer.getMainDeck().getHero().get(0));
-        currentBattle.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
+        this.getBattleField().addCardInTheBattleField(firstPlayer.getMainDeck().getHero().get(0));
+        this.getBattleField().addCardInTheBattleField(secondPlayer.getMainDeck().getHero().get(0));
     }
 
     public GridPane getBattleFieldGridPane()
@@ -716,14 +704,14 @@ public class Battle
 
     public void setHandIcons()
     {
-        Pane[] firstPlayerHandPanes = new Pane[Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size()];
-        Pane[] secondPlayerHandPanes = new Pane[Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size()];
+        Pane[] firstPlayerHandPanes = new Pane[this.getFirstPlayer().getHand().getCards().size()];
+        Pane[] secondPlayerHandPanes = new Pane[this.getSecondPlayer().getHand().getCards().size()];
 
-        for (int number = 0; number < Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().size(); number++)
+        for (int number = 0; number < this.getFirstPlayer().getHand().getCards().size(); number++)
         {
             ImageView imageView1;
 
-            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card1 = this.getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getFirstPlayer().getHand().getCards().get(number));
 
             firstPlayerHandPanes[number] = new Pane();
 
@@ -734,11 +722,11 @@ public class Battle
             firstPlayerHandPanes[number].getChildren().add(imageView1);
         }
 
-        for (int number = 0; number < Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().size(); number++)
+        for (int number = 0; number < this.getSecondPlayer().getHand().getCards().size(); number++)
         {
             ImageView imageView2;
 
-            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+            Card card2 = this.getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getSecondPlayer().getHand().getCards().get(number));
 
             secondPlayerHandPanes[number] = new Pane();
 
@@ -760,8 +748,8 @@ public class Battle
         secondPlayerHandPanes[3].relocate(775, 620);
         secondPlayerHandPanes[4].relocate(900, 620);
 
-        Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
-        Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
+        this.setFirstPlayerHandPanes(firstPlayerHandPanes);
+        this.setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
     public Pane getNextCardPane()
@@ -796,37 +784,40 @@ public class Battle
         return secondPlayerHandPanes;
     }
 
-    public  void clearTheHandPictures(){
+    public void clearTheHandPictures()
+    {
         for (int number = 0; number < 5; number++)
         {
-            Battle.getCurrentBattle().getFirstPlayerHandPanes()[number].getChildren().clear();
-            Battle.getCurrentBattle().getSecondPlayerHandPanes()[number].getChildren().clear();
+            this.getFirstPlayerHandPanes()[number].getChildren().clear();
+            this.getSecondPlayerHandPanes()[number].getChildren().clear();
         }
 
     }
-    public void setHeroesFirstPlace(){
+
+    public void setHeroesFirstPlace()
+    {
         Card.setCardsImageView();
-        ImageView firstPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
+        ImageView firstPlayerHero = Card.getCardImageView(this.getFirstPlayer().getMainDeck().getHero().get(0));
         BattleFieldController.setSpriteAnimation(firstPlayerHero);
 
-        ImageView secondPlayerHero = Card.getCardImageView(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        ImageView secondPlayerHero = Card.getCardImageView(this.getSecondPlayer().getMainDeck().getHero().get(0));
         BattleFieldController.setSpriteAnimation(secondPlayerHero);
 
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(secondPlayerHero);
-        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
-        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
-        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
-        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
+        this.getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
+        this.getBattleField().getBattleFieldMatrix()[2][8].getCellPane().getChildren().add(secondPlayerHero);
+        this.getFirstPlayer().getMainDeck().getHero().get(0).setRow(2);
+        this.getFirstPlayer().getMainDeck().getHero().get(0).setColumn(0);
+        this.getSecondPlayer().getMainDeck().getHero().get(0).setRow(2);
+        this.getSecondPlayer().getMainDeck().getHero().get(0).setColumn(8);
 
-        Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
-        Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+        this.getFirstPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
+        this.getSecondPlayer().getMainDeck().getHero().get(0).setDefaultAPHP();
 
-        Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
-        Battle.getCurrentBattle().getBattleField().addCardInTheBattleField(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        this.getBattleField().addCardInTheBattleField(this.getFirstPlayer().getMainDeck().getHero().get(0));
+        this.getBattleField().addCardInTheBattleField(this.getSecondPlayer().getMainDeck().getHero().get(0));
 
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][0].setCard(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
-        Battle.getCurrentBattle().getBattleField().getBattleFieldMatrix()[2][8].setCard(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        this.getBattleField().getBattleFieldMatrix()[2][0].setCard(this.getFirstPlayer().getMainDeck().getHero().get(0));
+        this.getBattleField().getBattleFieldMatrix()[2][8].setCard(this.getSecondPlayer().getMainDeck().getHero().get(0));
     }
 
     public void setHeroIcons(Group rootBattleField)
@@ -835,8 +826,8 @@ public class Battle
         Pane paneHero2 = new Pane();
         paneHero1.relocate(100, -40);
         paneHero2.relocate(1100, -40);
-        ImageView firstPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0));
-        ImageView secondPlayerHeroIcon = Card.getCardIcon(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0));
+        ImageView firstPlayerHeroIcon = Card.getCardIcon(this.getFirstPlayer().getMainDeck().getHero().get(0));
+        ImageView secondPlayerHeroIcon = Card.getCardIcon(this.getSecondPlayer().getMainDeck().getHero().get(0));
         paneHero1.getChildren().addAll(firstPlayerHeroIcon);
         paneHero2.getChildren().addAll(secondPlayerHeroIcon);
         rootBattleField.getChildren().addAll(paneHero1, paneHero2);
@@ -852,8 +843,8 @@ public class Battle
             ImageView imageView1;
             ImageView imageView2;
 
-            Card card1 = Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getFirstPlayer().getHand().getCards().get(number));
-            Card card2 = Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(Battle.getCurrentBattle().getSecondPlayer().getHand().getCards().get(number));
+            Card card1 = this.getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card2 = this.getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getSecondPlayer().getHand().getCards().get(number));
 
             firstPlayerHandPanes[number] = new Pane();
             secondPlayerHandPanes[number] = new Pane();
@@ -879,8 +870,8 @@ public class Battle
         {
             rootBattleField.getChildren().add(firstPlayerHandPanes[number]);
         }
-        Battle.getCurrentBattle().setFirstPlayerHandPanes(firstPlayerHandPanes);
-        Battle.getCurrentBattle().setSecondPlayerHandPanes(secondPlayerHandPanes);
+        this.setFirstPlayerHandPanes(firstPlayerHandPanes);
+        this.setSecondPlayerHandPanes(secondPlayerHandPanes);
     }
 
     public void setGridPane(Group rootBattleField)
@@ -902,21 +893,19 @@ public class Battle
             }
         }
         rootBattleField.getChildren().add(gridPane);
-        Battle.getCurrentBattle().setBattleFieldPanes(panes);
-        Battle.getCurrentBattle().setBattleFieldGridPane(gridPane);
+        this.setBattleFieldPanes(panes);
+        this.setBattleFieldGridPane(gridPane);
     }
 
     public void setPlayersName(Group rootBattleField)
     {
-
-
-        Label firstPlayerName = new Label(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());   //1
+        Label firstPlayerName = new Label(this.getFirstPlayer().getAccount().getAccountName());   //1
         firstPlayerName.relocate(250, 50);
         firstPlayerName.setFont(Font.font(20));
         firstPlayerName.setTextFill(BLACK);
         rootBattleField.getChildren().add(firstPlayerName);
 
-        Label secondPlayerName = new Label(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());  //1
+        Label secondPlayerName = new Label(this.getSecondPlayer().getAccount().getAccountName());  //1
         secondPlayerName.relocate(920, 50);
         secondPlayerName.setFont(Font.font(20));
         secondPlayerName.setTextFill(BLACK);
@@ -928,7 +917,7 @@ public class Battle
         for (int i = 0; i < 10; i++)
         {
             ImageView firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getFirstPlayer().getMP() > i)                              //7
+            if (this.getFirstPlayer().getMP() > i)                              //7
             {
                 firstPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }
@@ -940,7 +929,7 @@ public class Battle
         for (int i = 0; i < 10; i++)
         {
             ImageView secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana_inactive.png");
-            if (Battle.getCurrentBattle().getSecondPlayer().getMP() > i)
+            if (this.getSecondPlayer().getMP() > i)
             {
                 secondPlayerMPIcon = new ImageView("ManaIcons/icon_mana.png");
             }

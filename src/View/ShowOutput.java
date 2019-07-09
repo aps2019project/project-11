@@ -1,17 +1,6 @@
 package View;
 
-import Controller.*;
 import Model.*;
-import Network.Client;
-import Network.Server;
-import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-
-import java.util.ArrayList;
 
 public class ShowOutput
 {
@@ -31,16 +20,6 @@ public class ShowOutput
         return showOutput;
     }
 
-    public void showAlert(String text)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Deck operations");
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-        alert.getButtonTypes().clear();
-        alert.showAndWait();
-    }
-
     public void printOutput(String command)
     {
         System.out.println(command);
@@ -57,50 +36,23 @@ public class ShowOutput
         printOutput("Exit");
     }
 
-    public void printHeroStats(Hero hero, int counter)
-    {
-        printOutput(counter + "- Name : " + hero.getCardName() + " - AP : " + hero.getDefaultAP() + " – HP : " + hero.getDefaultHP() + " – Class : " + hero.getImpactType() + " – Special power : " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower() + " - Sell Cost : " + hero.getPrice());
-    }
-
-    public void showGameInfo()
-    {
-        printOutput("First Player : " + Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName());
-        printOutput("Second Player : " + Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName());
-        printOutput("First Player MP : " + Battle.getCurrentBattle().getFirstPlayer().getMP());
-        printOutput("Second Player MP : " + Battle.getCurrentBattle().getSecondPlayer().getMP());
-        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
-        {
-            printOutput("First Player Hero HP : " + Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP());
-            printOutput("Second Player Hero HP : " + Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP());
-        }
-        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
-        {
-
-        }
-        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
-        {
-
-        }
-
-    }
-
-    public String getGameInfo()
+    public String getGameInfo(Battle battle)
     {
         StringBuilder str = new StringBuilder("");
-        str.append("First Player : ").append(Battle.getCurrentBattle().getFirstPlayer().getAccount().getAccountName()).append("\n");
-        str.append("Second Player : ").append(Battle.getCurrentBattle().getSecondPlayer().getAccount().getAccountName()).append("\n");
-        str.append("First Player MP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMP()).append("\n");
-        str.append("Second Player MP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMP()).append("\n");
-        if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
+        str.append("First Player : ").append(battle.getFirstPlayer().getAccount().getAccountName()).append("\n");
+        str.append("Second Player : ").append(battle.getSecondPlayer().getAccount().getAccountName()).append("\n");
+        str.append("First Player MP : ").append(battle.getFirstPlayer().getMP()).append("\n");
+        str.append("Second Player MP : ").append(battle.getSecondPlayer().getMP()).append("\n");
+        if (battle.getBattleMode() == BattleMode.KILLING_ENEMY_HERO)
         {
-            str.append("First Player Hero HP : ").append(Battle.getCurrentBattle().getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
-            str.append("Second Player Hero HP : ").append(Battle.getCurrentBattle().getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+            str.append("First Player Hero HP : ").append(battle.getFirstPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
+            str.append("Second Player Hero HP : ").append(battle.getSecondPlayer().getMainDeck().getHero().get(0).getCurrentHP()).append("\n");
         }
-        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
+        else if (battle.getBattleMode() == BattleMode.KEEP_FLAG_FOR_6_TURNS)
         {
 
         }
-        else if (Battle.getCurrentBattle().getBattleMode() == BattleMode.GATHERING_FLAGS)
+        else if (battle.getBattleMode() == BattleMode.GATHERING_FLAGS)
         {
 
         }
@@ -108,104 +60,13 @@ public class ShowOutput
         return str.toString();
     }
 
-    public void showMyMinions()
-    {
-        for (NonSpellCard minion : Battle.getCurrentBattle().getPlayerTurn().getInsertedCards())
-        {
-            showMinionInfoInTheBattle((Minion) minion);
-        }
-        showOwnHero(Battle.getCurrentBattle().getPlayerTurn());
-    }
-
-    private void showOwnHero(Player player)
-    {
-        Hero hero = player.getMainDeck().getHero().get(0);
-        showInformationOfCards(hero.getCardID(), hero.getCardName(), hero.getCurrentHP(), hero.getRow(), hero.getColumn(), hero.getCurrentAP(), hero);
-    }
-
     private void showInformationOfCards(String cardID, String cardName, int currentHP, int row, int column, int currentAP, Hero hero)
     {
-        //todo behine kardan
         printOutput(cardID + " : " + cardName + ", " + "health : " + currentHP + ", " + "location : " + "(" + row + ", " + column + "), " + "power : " + currentAP);
     }
 
-    public void showOpponentMinions()
+    public String showCardInfoString(Card card)
     {
-        Player opponent;
-        if (Battle.getCurrentBattle().getPlayerTurn() == Battle.getCurrentBattle().getFirstPlayer())
-        {
-            opponent = Battle.getCurrentBattle().getSecondPlayer();
-        }
-        else
-        {
-            opponent = Battle.getCurrentBattle().getFirstPlayer();
-        }
-        for (NonSpellCard minion : opponent.getInsertedCards())
-        {
-            showMinionInfoInTheBattle((Minion) minion);
-        }
-        Hero hero = opponent.getMainDeck().getHero().get(0);
-        showInformationOfCards(hero.getCardID(), hero.getCardName(), hero.getCurrentHP(), hero.getRow(), hero.getColumn(), hero.getCurrentAP(), hero);
-    }
-
-    private void showMinionInfoInTheBattle(Minion minion)
-    {
-        showInformationOfCards(minion.getCardID(), minion.getCardName(), minion.getCurrentHP(), minion.getRow(), minion.getColumn(), minion.getCurrentAP(), null);
-    }
-
-    public void showCardInfo(String cardID)
-    {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollection(cardID);
-        if (card instanceof Hero)
-        {
-            Hero hero = (Hero) card;
-            printOutput("Hero:");
-            printOutput("Name: " + hero.getCardName());
-            printOutput("Cost: " + hero.getPrice());
-            if (hero.getSpecialPower() != null)
-            {
-                printOutput("Desc: " + hero.getSpecialPower().getDescriptionTypeOfSpecialPower());
-            }
-            else
-            {
-                printOutput("This hero has no special power");
-            }
-
-        }
-        if (card instanceof Minion)
-        {
-            Minion minion = (Minion) card;
-            printOutput("Minion: ");
-            printOutput("Name: " + minion.getCardName());
-            printOutput("HP: " + minion.getCurrentHP());
-            printOutput("AP: " + minion.getCurrentAP());
-            printOutput("MP: " + minion.getRequiredMP());
-            printOutput("Range: " + minion.getImpactType());
-            printOutput("Combo Ability: " + minion.getImpactType());
-            printOutput("Cost: " + minion.getPrice());
-            if (minion.getSpecialPower() != null)
-            {
-                printOutput("Special Power: " + minion.getSpecialPower().getDescriptionTypeOfSpecialPower());
-            }
-            else
-            {
-                printOutput("This minion has no special power");
-            }
-        }
-        if (card instanceof Spell)
-        {
-            Spell spell = (Spell) card;
-            printOutput("Spell: ");
-            printOutput("Name: " + spell.getCardName());
-            printOutput("MP: " + spell.getRequiredMP());
-            printOutput("Cost: " + spell.getPrice());
-            printOutput("Desc: " + spell.getDescriptionTypeOfSpell());
-        }
-    }
-
-    public String showCardInfoString(String cardName)
-    {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getAccount().getCollection().findCardinCollectionByName(cardName);
         StringBuilder str = new StringBuilder("");
         if (card instanceof Hero)
         {
@@ -360,48 +221,6 @@ public class ShowOutput
         }
     }
 
-    public void showGraveYardCardInfo(String cardID)
-    {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().findCardInGraveYard(cardID);
-        if (card != null)
-        {
-            printCardStats(card);
-        }
-    }
-
-    public void showAllCardsInTheGraveYard()
-    {
-        int counter = 1;
-        printOutput("first Player Grave Yard :");
-        for (Card card : Battle.getCurrentBattle().getFirstPlayer().getGraveYard().getCards())
-        {
-            printCardStats(counter, card);
-            counter++;
-        }
-        counter = 1;
-        printOutput("second Player Grave Yard :");
-        for (Card card : Battle.getCurrentBattle().getSecondPlayer().getGraveYard().getCards())
-        {
-            printCardStats(counter, card);
-            counter++;
-        }
-    }
-
-    public void showNextCardInfo()
-    {
-        Card card = Battle.getCurrentBattle().getPlayerTurn().getHand().getNextCard();
-        printCardStats(card);
-    }
-
-    public void showHand(Hand hand)
-    {
-        for (Card card : hand.getCards())
-        {
-            showCardInfo(card.getCardID());
-        }
-        showCardInfo(hand.getNextCard().getCardID());
-    }
-
     public void showBattleMenuCommands()
     {
         printOutput("Single Player");
@@ -414,16 +233,6 @@ public class ShowOutput
         printOutput("1- Killing Enemy Hero");
         printOutput("2- Keep flag for 6 turns");
         printOutput("3- Gathering Flags");
-    }
-
-    public void showCollectibleItems()
-    {
-        int counter = 1;
-        for (Item item : Battle.getCurrentBattle().getPlayerTurn().getCollectibleItems())
-        {
-            printItemStats(counter, item);
-            counter++;
-        }
     }
 
     public void showStoryBattleInfo()

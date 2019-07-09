@@ -172,7 +172,7 @@ public class Item implements Cloneable
         return capacityOfSell;
     }
 
-    public void applyCollectibleItem(int x, int y)
+    /*public void applyCollectibleItem(int x, int y)
     {
         for (int i = 0; i < this.getItemEffect().getItemTargets().size(); i++)
         {
@@ -182,25 +182,25 @@ public class Item implements Cloneable
             switch (itemTarget)
             {
                 case OWN_RANDOM_FORCE:
-                    NonSpellCard ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    NonSpellCard ownNonSpellCard = getBattle().findRandomOwnForce();
                     if (ownNonSpellCard != null)
                     {
                         ownNonSpellCard.addActiveItemOnThisCard(itemChange);
                     }
                     break;
                 case OWN_RANDOM_RANGED_HYBRID:
-                    minion = Battle.getCurrentBattle().findRandomOwnRangedHybridMinionToApplyItem();
+                    minion = getBattle().findRandomOwnRangedHybridMinionToApplyItem();
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_RANDOM_MINION:
-                    minion = Battle.getCurrentBattle().findRandomOwnMinionToApplyItem();
+                    minion = getBattle().findRandomOwnMinionToApplyItem();
                     minion.addActiveItemOnThisCard(itemChange);
                     break;
                 case OWN_PLAYER:
-                    Battle.getCurrentBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
+                    getBattle().getPlayerTurn().addActiveItemOnPlayer(itemChange);
                     break;
                 case OWN_MELEE_FORCE:
-                    for (NonSpellCard nonSpellCard : Battle.getCurrentBattle().getBattleField().getAllCardsInTheBattleField())
+                    for (NonSpellCard nonSpellCard : getBattle().getBattleField().getAllCardsInTheBattleField())
                     {
                         if (nonSpellCard.getImpactType() == ImpactType.melee)
                         {
@@ -234,25 +234,25 @@ public class Item implements Cloneable
                     }
                     break;
                 case OPPONENT_RANGED_HYBRID_HERO:
-                    Hero opponentRangedHybridHero = Battle.getCurrentBattle().getOpponentHero();
+                    Hero opponentRangedHybridHero = getBattle().getOpponentHero();
                     if (opponentRangedHybridHero.getImpactType() == ImpactType.ranged || opponentRangedHybridHero.getImpactType() == ImpactType.hybrid)
                     {
                         opponentRangedHybridHero.addActiveItemOnThisCard(itemChange);
                     }
                     break;
                 case OPPONENT_RANDOM_FORCE:
-                    NonSpellCard opponentNonSpellCard = Battle.getCurrentBattle().findRandomOpponentNonSpellCardToApplyUsableItem();
+                    NonSpellCard opponentNonSpellCard = getBattle().findRandomOpponentNonSpellCardToApplyUsableItem();
                     opponentNonSpellCard.addActiveItemOnThisCard(itemChange);
                     break;
                 case OPPONENT_HERO:
-                    Hero opponentHero = Battle.getCurrentBattle().getOpponentHero();
+                    Hero opponentHero = getBattle().getOpponentHero();
                     opponentHero.addActiveItemOnThisCard(itemChange);
                     break;
                 case OPPONENT_FORCE:
                     //todo
                     break;
                 case OWN_RANDOM_FORCE:
-                    NonSpellCard ownNonSpellCard = Battle.getCurrentBattle().findRandomOwnForce();
+                    NonSpellCard ownNonSpellCard = getBattle().findRandomOwnForce();
                     if (ownNonSpellCard != null)
                     {
                         ownNonSpellCard.addActiveItemOnThisCard(itemChange);
@@ -266,7 +266,7 @@ public class Item implements Cloneable
                     break;
             }
         }
-    }
+    }*/
 
     public static Item findItem(String itemName)
     {
