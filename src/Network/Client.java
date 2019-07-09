@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 
-import static javafx.scene.paint.Color.BURLYWOOD;
-
 public class Client extends Application
 {
     private static CallTheAppropriateFunction callTheAppropriateFunction;
@@ -156,7 +154,7 @@ public class Client extends Application
 
     private void connectToServer() throws IOException
     {
-        Socket socket = new Socket("127.0.0.1", 9000);
+        Socket socket = new Socket(ReadPropertyFile.getIpAddress(), ReadPropertyFile.getPort());
 
         sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();

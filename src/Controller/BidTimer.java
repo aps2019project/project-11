@@ -1,24 +1,18 @@
 package Controller;
 
 import Model.*;
-import Network.Client;
 import Network.Server;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.Random;
 
 public class BidTimer extends Thread
 {
-    private Text counterText;
-
     @Override
     public void run()
     {
         try
         {
-            //setCounterText();
             setNewCardsAndItemToBid();
             timerLoop();
         }
@@ -28,30 +22,17 @@ public class BidTimer extends Thread
         }
     }
 
-    private void setCounterText()
-    {
-        counterText = new Text();
-        counterText.relocate(500, 300);
-        counterText.setFont(Font.font(30));
-        counterText.setFill(Color.GREEN);
-
-        Client.getRootBid().getChildren().add(counterText);
-    }
-
     private void timerLoop() throws Exception
     {
-        int counter;
-        counterText = new Text();
         while (true)
         {
-            for (counter = 30; counter >= 0; counter--)
+            for (int counter = 30; counter >= 0; counter--)
             {
                 Thread.sleep(1000);
-                counterText.setText("00:" + counter);
+                System.out.println("00:" + counter);
             }
-            confirmBidWinners();
+            //confirmBidWinners();
             setNewCardsAndItemToBid();
-            counterText.setText(null);
         }
     }
 

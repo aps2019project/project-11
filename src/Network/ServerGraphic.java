@@ -14,80 +14,93 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ServerGraphic extends Application implements Runnable{
+public class ServerGraphic extends Application implements Runnable
+{
     private Stage primaryMessage;
     private Group rootServerMenu;
     private Scene sceneServerMenu;
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception
+    {
         setPrimaryMessage(primaryStage);
         makeMenu();
     }
 
-    private void makeMenu() {
+    private void makeMenu()
+    {
         Group rootServerMenu = new Group();
         setRootServerMenu(rootServerMenu);
         setBackGroundImage(rootServerMenu);
         Button showOnlinePlayers = new Button("Show Online Players");
-        showOnlinePlayers.relocate(220 , 250);
-        showOnlinePlayers.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        showOnlinePlayers.relocate(220, 250);
+        showOnlinePlayers.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 showOnlinePlayers();
             }
         });
 
         Button showCard = new Button("Show Cards");
-        showCard.relocate(220 , 280);
-        showCard.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        showCard.relocate(220, 280);
+        showCard.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event)
+            {
                 showCards();
             }
         });
-        rootServerMenu.getChildren().addAll(showCard , showOnlinePlayers);
-        Scene sceneServerMenu = new Scene(rootServerMenu , 500 , 500);
+        rootServerMenu.getChildren().addAll(showCard, showOnlinePlayers);
+        Scene sceneServerMenu = new Scene(rootServerMenu, 500, 500);
         setSceneServerMenu(sceneServerMenu);
         primaryMessage.setScene(sceneServerMenu);
         primaryMessage.show();
     }
 
-    private void showCards() {
+    private void showCards()
+    {
 
     }
 
-    private void showOnlinePlayers() {
+    private void showOnlinePlayers()
+    {
         Group rootShowOnlinePlayers = new Group();
         setBackGroundImage(rootShowOnlinePlayers);
-        int counter = 0 ;
+        int counter = 0;
         Text onlinePlayerText = new Text("Online Players");
-        onlinePlayerText.setFont(Font.font("verdana" , 25));
-        onlinePlayerText.relocate(170 , 5);
+        onlinePlayerText.setFont(Font.font("verdana", 25));
+        onlinePlayerText.relocate(170, 5);
         rootShowOnlinePlayers.getChildren().add(onlinePlayerText);
-        for(Account account :Server.getAccounts()){
-            if(account.getAuthToken() != null){
+        for (Account account : Server.getAccounts())
+        {
+            if (account.getAuthToken() != null)
+            {
                 Text text = new Text(account.getAccountName());
-                text.relocate(5 , 50 + counter * 10);
+                text.relocate(5, 50 + counter * 10);
                 rootShowOnlinePlayers.getChildren().add(text);
                 counter++;
             }
         }
 
-        backButton(rootShowOnlinePlayers , 400 , 400);
+        backButton(rootShowOnlinePlayers, 400, 400);
 
-        Scene sceneShowOnlinePlayers = new Scene(rootShowOnlinePlayers , 500 , 500);
+        Scene sceneShowOnlinePlayers = new Scene(rootShowOnlinePlayers, 500, 500);
         primaryMessage.setScene(sceneShowOnlinePlayers);
         primaryMessage.show();
     }
 
 
-    public Stage getPrimaryMessage() {
+    public Stage getPrimaryMessage()
+    {
         return primaryMessage;
     }
 
-    private void setPrimaryMessage(Stage primaryMessage) {
+    private void setPrimaryMessage(Stage primaryMessage)
+    {
         this.primaryMessage = primaryMessage;
     }
 
@@ -117,24 +130,29 @@ public class ServerGraphic extends Application implements Runnable{
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         launch();
     }
 
 
-    public Group getRootServerMenu() {
+    public Group getRootServerMenu()
+    {
         return rootServerMenu;
     }
 
-    public void setRootServerMenu(Group rootServerMenu) {
+    public void setRootServerMenu(Group rootServerMenu)
+    {
         this.rootServerMenu = rootServerMenu;
     }
 
-    public Scene getSceneServerMenu() {
+    public Scene getSceneServerMenu()
+    {
         return sceneServerMenu;
     }
 
-    public void setSceneServerMenu(Scene sceneServerMenu) {
+    public void setSceneServerMenu(Scene sceneServerMenu)
+    {
         this.sceneServerMenu = sceneServerMenu;
     }
 }
