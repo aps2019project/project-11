@@ -41,7 +41,6 @@ public class Shop
         {
             account.decreaseMoney(card.getPrice());
         }
-
         card.decreaseCapacityOfSell();
     }
 

@@ -1,0 +1,158 @@
+{
+  "deckName": "ali",
+  "hero": [
+    {
+      "turnsRemainingToEndCoolDown": 0,
+      "coolDown": 2,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 50,
+      "defaultAP": 4,
+      "currentHP": 50,
+      "currentAP": 4,
+      "specialPower": {
+        "descriptionTypeOfSpecialPower": "Activate a power buff with 4 units Increase impact strength permanently on itself",
+        "spellEffect": {
+          "targets": [
+            {
+              "numOfOwnMinions": 0,
+              "numOfOpponentMinions": 0,
+              "ownHero": true,
+              "opponentHero": false,
+              "numOfOpponentBothNonSpellCards": 0,
+              "numOfOwnBothNonSpellCards": 0,
+              "thisTroop": true,
+              "isCellBuff": false,
+              "attackRangeLength": 1,
+              "attackRangeWidth": 1,
+              "allOwnMinions": false,
+              "allOwnBothNonSpellCards": false,
+              "allOpponentNonSpellCards": false
+            }
+          ],
+          "spellChanges": [
+            {
+              "turnsToApplyChange": 0,
+              "positiveChange": true,
+              "applyChangeUntilEndOfTheGame": true,
+              "removeOpponentPositiveBuffs": false,
+              "removeOwnNegativeBuffs": false,
+              "changeAP": 4,
+              "changeHP": 0,
+              "changeMP": 0,
+              "stunOpponent": false,
+              "disarmOpponent": false,
+              "activateHolyBuff": false,
+              "numOfHolyBuffs": 0,
+              "activateReverseHolyBuff": false,
+              "madeCellToxic": false,
+              "madeCellHoly": false,
+              "madeCellFiery": false,
+              "deleteAllPositiveBuff": false,
+              "killing": false,
+              "dispel": false,
+              "continuous": false,
+              "currentTurn": false
+            }
+          ]
+        }
+      },
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 0,
+      "impactType": "melee",
+      "cardSelectedInBattle": false,
+      "cardID": "a_Dave White_25",
+      "price": 8000,
+      "requiredMP": 1,
+      "cardName": "Dave White",
+      "row": 0,
+      "column": 0,
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
+    }
+  ],
+  "minions": [
+    {
+      "ableToCombo": false,
+      "currentCell": {
+        "row": 0,
+        "column": 0,
+        "holyCell": false,
+        "toxicCell": false,
+        "fieryCell": false,
+        "spellChanges": []
+      },
+      "defaultHP": 6,
+      "defaultAP": 4,
+      "currentHP": 0,
+      "currentAP": 0,
+      "activeSpellsOnThisCard": [],
+      "activeItemsOnThisCard": [],
+      "moveAble": true,
+      "attackAble": true,
+      "counterAttackAble": true,
+      "numOfHolyBuffs": 0,
+      "rangeOfAttack": 7,
+      "impactType": "ranged",
+      "cardSelectedInBattle": false,
+      "cardID": "a_kamandarFars_4",
+      "price": 300,
+      "requiredMP": 2,
+      "cardName": "kamandarFars",
+      "row": 0,
+      "column": 0,
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
+    }
+  ],
+  "spells": [],
+  "item": [
+    {
+      "itemID": "a_Terror Hood_27",
+      "itemName": "Terror Hood",
+      "price": 5000,
+      "itemType": "usable",
+      "descriptionTypeOfItem": "Activate weaknessBuff with decreasing AP 2 units for 1 turn on random opponent when attacked",
+      "itemEffect": {
+        "itemChanges": [
+          {
+            "turnsToApplyChange": 1,
+            "applyChangeUntilEndOfTheGame": false,
+            "changeMP": 0,
+            "changeHP": 0,
+            "changeAP": 0,
+            "disarmOpponent": false,
+            "activateHolyBuff": false,
+            "numOfHolyBuffs": 0,
+            "activatePowerBuff": false,
+            "numOfPowerBuff": 0,
+            "activateWeaknessBuff": true,
+            "numOfWeaknessBuff": 2,
+            "activatePoisonBuff": false,
+            "numOfPoisonBuff": 0
+          }
+        ],
+        "itemTargets": [
+          "OPPONENT_RANDOM_FORCE"
+        ],
+        "itemActivateTimes": [
+          "ON_ATTACK"
+        ]
+      },
+      "capacityOfSell": 5,
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 2500
+    }
+  ]
+}

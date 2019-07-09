@@ -117,6 +117,8 @@ public class Request
     private Scene sceneMultiPlayer = Client.getSceneMultiPlayer();
     private Group rootStoryMode = Client.getRootMultiPlayer();
     private Scene sceneStoryMode = Client.getSceneMultiPlayer();
+    private Group rootWait = Client.getRootWait();
+    private Scene sceneWait = Client.getSceneWait();
     private Group rootCustomGame = Client.getRootCustomGame();
     private Scene sceneCustomGame = Client.getSceneCustomGame();
     private Scene sceneImportingDeck = Client.getSceneImportingDeck();
@@ -2688,55 +2690,46 @@ public class Request
     }
 
 
-    private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
+    /*private void multiPlayerMenu(Stage primaryStage, BattleMode battleMode)
     {
         setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
-        setMultiPlayerMenu("Choose  One Player", 75);
-        showChoosePlayerMenu(rootMultiPlayer);
+        //setMultiPlayerMenu("Choose  One Player", 75);
+        //showChoosePlayerMenu(rootMultiPlayer);
 
-        Button backButton = new Button("Back");
-        backButton.relocate(50, 490);
-        backButton.setFont(Font.font(25));
-        Button nextButton = new Button("Next");
-        nextButton.relocate(500, 270);
-        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        Text requestForGame = new Text("Start");
+        requestForGame.setFill(BLUE);
+        requestForGame.setFont(Font.font(50));
+        requestForGame.relocate(500, 270);
+        requestForGame.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
             {
-                goWaitingPage(primaryStage, battleMode);
+                primaryStage.setScene(sceneWait);
+                primaryStage.centerOnScreen();
+                waitingPage(primaryStage, battleMode);
             }
         });
+        rootMultiPlayer.getChildren().add(requestForGame);
 
+        Button backButton = backButton(primaryStage, rootMultiPlayer,50, 490);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
             {
-                setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
-                try
-                {
-                    primaryStage.setScene(sceneMainMenu);
-                    primaryStage.centerOnScreen();
-                    battleMenu(primaryStage);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                battleMenu(primaryStage);
             }
         });
-        primaryStage.setScene(sceneMultiPlayer);
-        rootMultiPlayer.getChildren().addAll(backButton, nextButton);
-    }
+    }*/
 
-    private void goWaitingPage(Stage primaryStage, BattleMode battleMode)
+    private void waitingPage(Stage primaryStage, BattleMode battleMode)
     {
-        rootMultiPlayer.getChildren().clear();
-        setBackGroundImage(rootMultiPlayer, "file:BackGround Images/MultiPlayerrr.jpg");
+        rootWait.getChildren().clear();
+
+        setBackGroundImage(rootWait, "file:BackGround Images/Wait Menu.jpg");
 
         /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(accountConnectedToThisClient, battleMode, new Player(multiPlayerAccountToBattle, false));
         try {
@@ -2745,51 +2738,41 @@ public class Request
             e.printStackTrace();
         }*/
 
-
-        Text waitingText = new Text("Waiting for other player ...");
+        Text waitingText = new Text("Waiting for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
-        waitingText.relocate(250, 250);
-        Button backButton = new Button("Back");
-        backButton.relocate(50, 490);
-        backButton.setFont(Font.font(25));
+        waitingText.layoutXProperty().bind(sceneWait.widthProperty().subtract(waitingText.prefWidth(-1)).divide(2));
+        waitingText.setY(50);
+        rootWait.getChildren().add(waitingText);
 
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        Button relinquishmentButton = new Button("Relinquishment");
+        relinquishmentButton.setFont(Font.font(25));
+        relinquishmentButton.relocate(50, 450);
+        relinquishmentButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent event)
             {
-                setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
-                try
-                {
-                    primaryStage.setScene(sceneMainMenu);
-                    primaryStage.centerOnScreen();
-                    battleMenu(primaryStage);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
             }
         });
-        primaryStage.setScene(sceneMultiPlayer);
-        rootMultiPlayer.getChildren().addAll(backButton);
+        rootWait.getChildren().add(relinquishmentButton);
     }
 
     public void afterWaitingMultiPlayer()
     {
+
     }
 
-    private void MultiPlayerChooseModeMenu(Group rootBattleField, Stage primaryStage)
+    private void MultiPlayerChooseModeMenu(Group root, Stage primaryStage)
     {
-        rootBattleField.getChildren().clear();
-        setBackGroundImage(rootBattleField, "file:BackGround Images/CustomGame2.jpg");
+        root.getChildren().clear();
+        setBackGroundImage(root, "file:BackGround Images/CustomGame2.jpg");
         setMultiPayerMenuToChooseMode("Mode 1", primaryStage, 100);
         setMultiPayerMenuToChooseMode("Mode 2", primaryStage, 200);
         setMultiPayerMenuToChooseMode("Mode 3", primaryStage, 300);
-        Button backButton = backButton(primaryStage, rootBattleField, 50, 450);
+        Button backButton = backButton(primaryStage, root, 50, 450);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -2830,17 +2813,19 @@ public class Request
             switch (s)
             {
                 case "Mode 1":
-                    multiPlayerMenu(primaryStage, BattleMode.KILLING_ENEMY_HERO);
+                    primaryStage.setScene(sceneWait);
+                    primaryStage.centerOnScreen();
+                    waitingPage(primaryStage, BattleMode.KILLING_ENEMY_HERO);
                     break;
                 case "Mode 2":
-                    multiPlayerMenu(primaryStage, BattleMode.GATHERING_FLAGS);
+                    primaryStage.setScene(sceneWait);
+                    primaryStage.centerOnScreen();
+                    waitingPage(primaryStage, BattleMode.GATHERING_FLAGS);
                     break;
                 case "Mode 3":
-                    multiPlayerMenu(primaryStage, BattleMode.KEEP_FLAG_FOR_6_TURNS);
-            }
-            synchronized (requestLock)
-            {
-                requestLock.notify();
+                    primaryStage.setScene(sceneWait);
+                    primaryStage.centerOnScreen();
+                    waitingPage(primaryStage, BattleMode.KEEP_FLAG_FOR_6_TURNS);
             }
         });
         rootMultiPlayer.getChildren().add(title);

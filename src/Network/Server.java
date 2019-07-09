@@ -27,6 +27,7 @@ public class Server
     private static Spell bidSpell;
     private static Item bidItem;
     private static int numberOfAccount = 1;
+    private static ArrayList<ClientCommand> clientCommands = new ArrayList<>();
 
     public static void main(String[] args) throws Exception
     {
@@ -230,5 +231,13 @@ public class Server
     public static void setBidItem(Item bidItem)
     {
         Server.bidItem = bidItem;
+    }
+
+    public static ArrayList<ClientCommand> getClientCommands() {
+        return clientCommands;
+    }
+
+    public static void addClientCommands(ClientCommand clientCommand) {
+        Server.clientCommands.add(clientCommand);
     }
 }

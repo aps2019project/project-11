@@ -59,6 +59,8 @@ public class InputCommandHandlerForServer extends Thread
     {
         ClientCommand clientCommand = new Gson().fromJson(commandSentByClient, ClientCommand.class);
         Account account = findAccount(clientCommand.getAuthToken());
+        clientCommand.setAccount(account);
+        Server.addClientCommands(clientCommand);
         ServerCommand serverCommand;
         switch (clientCommand.getClientCommandEnum())
         {
@@ -148,7 +150,8 @@ public class InputCommandHandlerForServer extends Thread
                 importingToCollection(clientCommand.getDeckName(), account);
                 break;
             case EXPORT_DECK:
-                exportingDeck(account, clientCommand.getDeck());
+                Deck deckToExport = DeckManager.findDeck(clientCommand.getDeckName(), account);
+                exportingDeck(account, deckToExport);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String exportDeckJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(exportDeckJson);
