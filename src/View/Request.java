@@ -2733,7 +2733,7 @@ public class Request
             e.printStackTrace();
         }*/
 
-        Text waitingText = new Text("Waiting for other players ...");
+        Text waitingText = new Text("Waiting for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
         waitingText.layoutXProperty().bind(sceneWait.widthProperty().subtract(waitingText.prefWidth(-1)).divide(2));
         waitingText.setY(50);
@@ -2811,19 +2811,16 @@ public class Request
                     primaryStage.setScene(sceneWait);
                     primaryStage.centerOnScreen();
                     waitingPage(primaryStage, BattleMode.KILLING_ENEMY_HERO);
-                    //multiPlayerMenu(primaryStage, BattleMode.KILLING_ENEMY_HERO);
                     break;
                 case "Mode 2":
                     primaryStage.setScene(sceneWait);
                     primaryStage.centerOnScreen();
                     waitingPage(primaryStage, BattleMode.GATHERING_FLAGS);
-                    //multiPlayerMenu(primaryStage, BattleMode.GATHERING_FLAGS);
                     break;
                 case "Mode 3":
                     primaryStage.setScene(sceneWait);
                     primaryStage.centerOnScreen();
                     waitingPage(primaryStage, BattleMode.KEEP_FLAG_FOR_6_TURNS);
-                    //multiPlayerMenu(primaryStage, BattleMode.KEEP_FLAG_FOR_6_TURNS);
             }
         });
         rootMultiPlayer.getChildren().add(title);
