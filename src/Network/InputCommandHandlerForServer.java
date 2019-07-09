@@ -193,9 +193,9 @@ public class InputCommandHandlerForServer extends Thread
                 if (Server.getRequestedForOpponent().isEmpty())
                 {
                     Server.getRequestedForOpponent().add(account);
-                    /*serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                    serverCommand = new ServerCommand(ServerCommandEnum.OK);
                     String requestJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
-                    getSendMessage().addMessage(requestJson);*/
+                    getSendMessage().addMessage(requestJson);
                 }
                 else
                 {
@@ -602,6 +602,7 @@ public class InputCommandHandlerForServer extends Thread
         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
         deck.setDeckName("Imported " + deck.getDeckName());
         account.getPlayerDecks().add(deck);
+        account.addImportedDeckCardsAndItemsToCollection(deck);
 
         ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
