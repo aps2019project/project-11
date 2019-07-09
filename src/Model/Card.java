@@ -146,6 +146,7 @@ public class Card implements Cloneable
     public void setPrice(int price)
     {
         this.price = price;
+        this.bidWinnerPrice = price / 2;
     }
 
     public void setRequiredMP(int requiredMP)

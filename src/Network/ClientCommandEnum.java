@@ -17,6 +17,7 @@ public enum ClientCommandEnum
     BUY,
     SELL,
     ENTER_BID_MENU,
+    BID,
     VALIDATE_DECK,
     SET_MAIN_DECK,
     IMPORT_DECK,

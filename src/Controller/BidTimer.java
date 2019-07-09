@@ -136,6 +136,11 @@ public class BidTimer extends Thread
     {
         Random random = new Random();
         int randomNumber = random.nextInt(Server.getItems().size());
-        return Server.getItems().get(randomNumber);
+        Item item = Server.getItems().get(randomNumber);
+        if (item.getItemType() == ItemType.collectible)
+        {
+            getRandomItem();
+        }
+        return item;
     }
 }

@@ -110,6 +110,9 @@ public class InputCommandHandlerForServer extends Thread
                 String bidJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(bidJson);
                 break;
+            case BID:
+                bid(clientCommand, account);
+                break;
             case BUY:
                 buyCardAndItem(clientCommand, account);
                 break;
@@ -328,6 +331,37 @@ public class InputCommandHandlerForServer extends Thread
         }
     }
     @SuppressWarnings("Duplicates")
+
+    private void bid(ClientCommand clientCommand, Account account) throws Exception
+    {
+        ServerCommand serverCommand = null;
+
+        Hero hero = clientCommand.getHero();
+        Minion minion = clientCommand.getMinion();
+        Spell spell = clientCommand.getSpell();
+        Item item = clientCommand.getItem();
+        if (item == null)
+        {
+            if (hero != null)
+            {
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, shopManager.bidCard(Server.getBidHero(), account));
+            }
+            else if (minion != null)
+            {
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, shopManager.bidCard(Server.getBidMinion(), account));
+            }
+            else if (spell != null)
+            {
+                serverCommand = new ServerCommand(ServerCommandEnum.OK, shopManager.bidCard(Server.getBidSpell(), account));
+            }
+        }
+        else
+        {
+            serverCommand = new ServerCommand(ServerCommandEnum.OK, shopManager.bidItem(Server.getBidItem(),account));
+        }
+        String bidJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        getSendMessage().addMessage(bidJson);
+    }
 
     private void buyCardAndItem(ClientCommand clientCommand, Account account) throws Exception
     {
