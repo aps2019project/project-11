@@ -156,7 +156,7 @@ public class Client extends Application
 
     private void connectToServer() throws IOException
     {
-        Socket socket = new Socket("127.0.0.1", 9000);
+        Socket socket = new Socket(ReadPropertyFile.getIpAddress(), ReadPropertyFile.getPort());
 
         sendMessage = new SendMessage(socket.getOutputStream());
         sendMessage.start();

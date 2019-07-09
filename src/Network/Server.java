@@ -2,6 +2,7 @@ package Network;
 
 import Controller.AccountManager;
 import Controller.BidTimer;
+import Controller.ReadPropertyFile;
 import Model.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -39,7 +40,7 @@ public class Server
         convertingToShop();
         setStoryAIPlayer();
         setBidTimer();
-        ServerSocket serverSocket = new ServerSocket(9000);
+        ServerSocket serverSocket = new ServerSocket(ReadPropertyFile.getPort());
         while (true)
         {
             Socket socket = serverSocket.accept();
