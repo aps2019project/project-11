@@ -175,9 +175,16 @@ public class InputCommandHandlerForServer extends Thread
                 getSendMessage().addMessage(customMinionJson);
                 break;
             case MAKE_CUSTOM_HERO:
-                System.out.println("saa");
-                System.out.println(clientCommand.getTextFieldsToMakeCustom().size());
-                workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
+                System.out.println("Ya ali");
+                clientCommand.setTextFieldsToMakeCustom(new ArrayList<>());
+              //ArrayList<String> text = new ArrayList<>();
+               /* for (int i =0 ; i<clientCommand.getTextFieldsToMakeCustom().size();i++)
+               {
+                   text.add(clientCommand.getTextFieldsToMakeCustom().get(i));
+               }*/
+                // clientCommand.setTextFieldsToMakeCustom (clientCommand.getTextFieldsToMakeCustom());
+                // System.out.println(clientCommand.getTextFieldsToMakeCustom().get(0));
+                // workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customHeroJson);
@@ -889,7 +896,6 @@ public class InputCommandHandlerForServer extends Thread
 
     public static void workingOnHeroText(ArrayList<String> textFields, Account account)
     {
-        System.out.println(textFields.get(0));
         String name = textFields.get(0);
         String Ap = textFields.get(1);
         String Hp = textFields.get(2);

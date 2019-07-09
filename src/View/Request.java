@@ -743,6 +743,10 @@ public class Request
             {
                 textOfTextField.add(textFields.get(i).getText());
             }
+            for (int i = 0;i<textFields.size();i ++)
+            {
+                System.out.println(textOfTextField.get(i));
+            }
             ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO, textOfTextField, client.getAuthToken());
             String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             System.out.println(HeroJson);
