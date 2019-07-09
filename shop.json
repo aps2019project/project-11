@@ -76,7 +76,8 @@
       "cardName": "Dave White",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -154,7 +155,8 @@
       "cardName": "Simurgh",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -232,7 +234,8 @@
       "cardName": "SevenHeadedDragon",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 3
+      "capacityOfSell": 3,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -310,7 +313,8 @@
       "cardName": "Rakhsh",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -388,7 +392,8 @@
       "cardName": "Zahak",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -466,7 +471,8 @@
       "cardName": "Kaveh",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -544,7 +550,8 @@
       "cardName": "Arash",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -622,7 +629,8 @@
       "cardName": "Afsaneh",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -700,7 +708,8 @@
       "cardName": "Esfandiar",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "turnsRemainingToEndCoolDown": 0,
@@ -778,7 +787,8 @@
       "cardName": "Rostam",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     }
   ],
   "minions": [
@@ -810,7 +820,8 @@
       "cardName": "kamandarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -888,7 +899,8 @@
       "cardName": "shamsirzanFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 4
+      "capacityOfSell": 4,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -918,7 +930,8 @@
       "cardName": "neizedarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -948,7 +961,8 @@
       "cardName": "asbsavarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -978,7 +992,8 @@
       "cardName": "pahlavanFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": true,
@@ -1008,7 +1023,8 @@
       "cardName": "sepahsalarFars",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1038,7 +1054,8 @@
       "cardName": "kamandarTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1068,7 +1085,8 @@
       "cardName": "gholabsangdarTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1098,7 +1116,8 @@
       "cardName": "neizedarTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1200,7 +1219,8 @@
       "cardName": "jasosTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1230,7 +1250,8 @@
       "cardName": "GorzdarTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": true,
@@ -1260,7 +1281,8 @@
       "cardName": "ShahzadeTorani",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1290,7 +1312,8 @@
       "cardName": "Divesiah",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1320,7 +1343,8 @@
       "cardName": "GhoulSangAndaz",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1398,7 +1422,8 @@
       "cardName": "Oghab",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1428,7 +1453,8 @@
       "cardName": "DivGorazSavar",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1506,7 +1532,8 @@
       "cardName": "GhoulTakCheshm",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1584,7 +1611,8 @@
       "cardName": "MarSammi",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1614,7 +1642,8 @@
       "cardName": "EzhdehayeAtashAndaz",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1692,7 +1721,8 @@
       "cardName": "ShirDarande",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1770,7 +1800,8 @@
       "cardName": "MarGhoulPeykar",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1800,7 +1831,8 @@
       "cardName": "GorgSefid",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1878,7 +1910,8 @@
       "cardName": "Palang",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -1956,7 +1989,8 @@
       "cardName": "Gorg",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2034,7 +2068,8 @@
       "cardName": "JadoGar",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2112,7 +2147,8 @@
       "cardName": "JadoGarAzam",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2190,7 +2226,8 @@
       "cardName": "Genn",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2220,7 +2257,8 @@
       "cardName": "GorazVahshi",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2250,7 +2288,8 @@
       "cardName": "Piran",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2280,7 +2319,8 @@
       "cardName": "Giv",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2358,7 +2398,8 @@
       "cardName": "Bahman",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2388,7 +2429,8 @@
       "cardName": "AshkBos",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2418,7 +2460,8 @@
       "cardName": "Iraj",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2448,7 +2491,8 @@
       "cardName": "GhoulBozorg",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2526,7 +2570,8 @@
       "cardName": "GhoulDosar",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2604,7 +2649,8 @@
       "cardName": "NaneSarma",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2682,7 +2728,8 @@
       "cardName": "FoladZereh",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": false,
@@ -2760,7 +2807,8 @@
       "cardName": "Siavash",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": true,
@@ -2790,7 +2838,8 @@
       "cardName": "ShahGhoul",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "ableToCombo": true,
@@ -2820,7 +2869,8 @@
       "cardName": "ArzhangDiv",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     }
   ],
   "spells": [
@@ -2876,7 +2926,8 @@
       "cardName": "totalDisarm",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "removingAllBadAndGoodBuffs",
@@ -2930,7 +2981,8 @@
       "cardName": "areaDispel",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "addingAP",
@@ -2984,7 +3036,8 @@
       "cardName": "empower",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "impactToOpponent",
@@ -3022,7 +3075,8 @@
       "cardName": "fireball",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "addingAP",
@@ -3077,7 +3131,8 @@
       "cardName": "godStrength",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "fieryHouse",
@@ -3131,7 +3186,8 @@
       "cardName": "hellFire",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "impactToOpponent",
@@ -3185,7 +3241,8 @@
       "cardName": "lightingBolt",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "toxicHouse",
@@ -3239,7 +3296,8 @@
       "cardName": "poisonLake",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "addingAPButDisarm",
@@ -3293,7 +3351,8 @@
       "cardName": "madness",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "disarm",
@@ -3347,7 +3406,8 @@
       "cardName": "allDisarm",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "toxic",
@@ -3401,7 +3461,8 @@
       "cardName": "allPoison",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "...",
@@ -3455,7 +3516,8 @@
       "cardName": "dispel",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "2hollyBuffFor3turn",
@@ -3532,7 +3594,8 @@
       "cardName": "healthWithProfit",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "powerUp",
@@ -3586,7 +3649,8 @@
       "cardName": "powerUp",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "addingAP",
@@ -3640,7 +3704,8 @@
       "cardName": "allPower",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "impactingToAllOpponent",
@@ -3694,7 +3759,8 @@
       "cardName": "allAttack",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "weaknessBuff",
@@ -3748,7 +3814,8 @@
       "cardName": "weakening",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "weaknessBuffAndPowerBuff",
@@ -3825,7 +3892,8 @@
       "cardName": "sacrifice",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "killingOpponentMinion",
@@ -3879,7 +3947,8 @@
       "cardName": "kingGuard",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     },
     {
       "descriptionTypeOfSpell": "stun",
@@ -3933,7 +4002,8 @@
       "cardName": "shock",
       "row": 0,
       "column": 0,
-      "capacityOfSell": 5
+      "capacityOfSell": 5,
+      "bidWinnerPrice": 0
     }
   ],
   "items": [
@@ -3969,7 +4039,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Shield",
@@ -4003,7 +4074,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "DamulArk",
@@ -4037,7 +4109,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "TheDevastation",
@@ -4071,7 +4144,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "TwinHornArrow",
@@ -4105,7 +4179,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "SimurghFeather",
@@ -4139,7 +4214,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Elixir",
@@ -4191,7 +4267,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "ManaPotion",
@@ -4225,7 +4302,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "InvulnerablePotion",
@@ -4259,7 +4337,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "DeathCurse",
@@ -4293,7 +4372,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Random damage",
@@ -4327,7 +4407,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Terror Hood",
@@ -4361,7 +4442,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Blades of agility",
@@ -4395,7 +4477,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "King Wisdom",
@@ -4429,7 +4512,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Assassination Dagger",
@@ -4463,7 +4547,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Poisonous Dagger",
@@ -4497,7 +4582,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Shock Hammer",
@@ -4531,7 +4617,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Soul Eater",
@@ -4565,7 +4652,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Baptism",
@@ -4599,7 +4687,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     },
     {
       "itemName": "Chinese sword",
@@ -4633,7 +4722,8 @@
         ]
       },
       "capacityOfSell": 5,
-      "collectibleItemSelectedInBattle": false
+      "collectibleItemSelectedInBattle": false,
+      "bidWinnerPrice": 0
     }
   ]
 }

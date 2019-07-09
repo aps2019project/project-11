@@ -749,7 +749,6 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(HeroJson);
-
                 //synchronized (validMessageFromServer)
                 //{
                  //   validMessageFromServer.wait();

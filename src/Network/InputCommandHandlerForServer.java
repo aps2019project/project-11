@@ -176,6 +176,7 @@ public class InputCommandHandlerForServer extends Thread
                 break;
             case MAKE_CUSTOM_HERO:
                 System.out.println("saa");
+                System.out.println(clientCommand.getTextFieldsToMakeCustom().size());
                 workingOnHeroText(clientCommand.getTextFieldsToMakeCustom(), account);
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
@@ -888,6 +889,7 @@ public class InputCommandHandlerForServer extends Thread
 
     public static void workingOnHeroText(ArrayList<String> textFields, Account account)
     {
+        System.out.println(textFields.get(0));
         String name = textFields.get(0);
         String Ap = textFields.get(1);
         String Hp = textFields.get(2);
