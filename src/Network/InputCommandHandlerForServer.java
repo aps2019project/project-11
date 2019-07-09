@@ -571,7 +571,7 @@ public class InputCommandHandlerForServer extends Thread
         Deck deck = new Gson().fromJson(obj.toString(), Deck.class);
         deck.setDeckName("Imported " + deck.getDeckName());
         account.getPlayerDecks().add(deck);
-        addImportedDeckCardsAndItemsToCollection(deck);
+
         ServerCommand serverCommand = new ServerCommand(ServerCommandEnum.OK);
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         try
@@ -619,11 +619,6 @@ public class InputCommandHandlerForServer extends Thread
         FileWriter savedDecksPath = new FileWriter("SavedDecks/savedDecksPath.txt", true);
         savedDecksPath.write(exportedDeckName + "\n");
         savedDecksPath.close();
-    }
-
-    private void addImportedDeckCardsAndItemsToCollection(Deck deck)
-    {
-        //send deck to server    //
     }
 
     @SuppressWarnings("Duplicates")

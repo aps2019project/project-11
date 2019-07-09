@@ -105,7 +105,7 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(String authToken, ClientCommandEnum clientCommandEnum, String deckName)  //create & delete deck & export
+    public ClientCommand(String authToken, ClientCommandEnum clientCommandEnum, String deckName)  //create & delete deck & export & import
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deckName = deckName;

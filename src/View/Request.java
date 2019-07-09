@@ -2120,25 +2120,23 @@ public class Request
             deckName.setFill(YELLOW);
             deckName.layoutXProperty().bind(sceneImportingDeck.widthProperty().subtract(deckName.prefWidth(-1)).divide(2));
             deckName.setY(i * 50 + 100);
-            int finalI = i;
             deckName.setOnMouseEntered(event -> deckName.setFill(GREEN));
             deckName.setOnMouseExited(event -> deckName.setFill(YELLOW));
             deckName.setOnMouseClicked(event -> {
                 try
                 {
-                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.IMPORT_DECK, returningDeck(deckName.getText()), client.getAuthToken());
+                    ClientCommand clientCommand = new ClientCommand(client.getAuthToken(), ClientCommandEnum.IMPORT_DECK, deckName.getText());
                     String importJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
                     System.out.println(importJson);
                     try
                     {
-                        System.out.println("salam");
                         Client.getSendMessage().addMessage(importJson);
-                        System.out.println("baba");
-                        // synchronized (validMessageFromServer)
-                        //{
-                        //   validMessageFromServer.wait();
-                        //}
-                    } catch (InterruptedException e)
+                        synchronized (validMessageFromServer)
+                        {
+                          validMessageFromServer.wait();
+                        }
+                    }
+                    catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
@@ -2153,18 +2151,6 @@ public class Request
             System.out.println(deckName.getText());
             rootImportingDeck.getChildren().add(deckName);
         }
-    }
-
-    public Deck returningDeck(String deckName)
-    {
-        for (Deck deck : accountConnectedToThisClient.getPlayerDecks())
-        {
-            if (deck.getDeckName().equals(deckName))
-            {
-                return deck;
-            }
-        }
-        return null;
     }
 
     private void addImportedDeckCardsAndItemsToCollection(Deck deck)
