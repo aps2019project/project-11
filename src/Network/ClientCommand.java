@@ -13,7 +13,7 @@ public class ClientCommand
     private ClientCommandEnum clientCommandEnum;
     private String userName;
     private String password;
-    private transient ArrayList<String> textFieldsToMakeCustom;
+    private ArrayList<String> textFieldsToMakeCustom = new ArrayList<>();
     private String cardOrItemID;
     private Hero hero;
     private Minion minion;
