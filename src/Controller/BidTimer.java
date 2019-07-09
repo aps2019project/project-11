@@ -41,6 +41,7 @@ public class BidTimer extends Thread
     private void timerLoop() throws Exception
     {
         int counter;
+        counterText = new Text();
         while (true)
         {
             for (counter = 30; counter >= 0; counter--)
@@ -135,6 +136,11 @@ public class BidTimer extends Thread
     {
         Random random = new Random();
         int randomNumber = random.nextInt(Server.getItems().size());
-        return Server.getItems().get(randomNumber);
+        Item item = Server.getItems().get(randomNumber);
+        if (item.getItemType() == ItemType.collectible)
+        {
+            getRandomItem();
+        }
+        return item;
     }
 }

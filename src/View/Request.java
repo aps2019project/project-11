@@ -1316,9 +1316,37 @@ public class Request
             e.printStackTrace();
         }
 
-        //todo
+        int xPosition = 0, yPosition = 0, x, y;
+        Hero hero = client.getMessageFromServer().getBidHero();
+        Minion minion = client.getMessageFromServer().getBidMinion();
+        Spell spell = client.getMessageFromServer().getBidSpell();
+        Item item = client.getMessageFromServer().getBidItem();
 
-        Button backButton = backButton(primaryStage, rootBidMenu, 50, 450);
+        for (int i=0;i < 4;i++)
+        {
+            x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
+            y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
+            xPosition ++;
+            yPosition ++;
+            switch (i)
+            {
+                case 0:
+                    setBidMenuCardStackPanes(primaryStage, rootBidMenu, x, y, hero);
+                    break;
+                case 1:
+                    setBidMenuCardStackPanes(primaryStage, rootBidMenu, x, y, minion);
+                    break;
+                case 2:
+                    setBidMenuCardStackPanes(primaryStage, rootBidMenu, x, y, spell);
+                    break;
+                case 3:
+                    setBidMenuItemStackPanes(primaryStage, rootBidMenu, x, y, item);
+                    break;
+            }
+
+        }
+
+        Button backButton = backButton(primaryStage, rootBidMenu, 20, 15);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -1334,7 +1362,159 @@ public class Request
         primaryStage.centerOnScreen();
     }
 
-    public void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
+    private void setBidMenuCardStackPanes(Stage primaryStage, Group root, int x, int y, Card card)
+    {
+        String name = card.getCardName();
+        Account bidWinner = card.getBidWinner();
+        int bidWinnerPrice = card.getBidWinnerPrice();
+
+        Image image = new Image("file:Bid Card.jpg");
+        ImageView imageView = new ImageView(image);
+
+        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT);
+        rectangle.setFill(GRAY);
+
+        StackPane stackPane = new StackPane(rectangle, imageView);
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.relocate(x, y);
+
+        Text textCardName = new Text(name);
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
+        textCardName.setLayoutY(y + 160);
+
+        root.getChildren().addAll(stackPane, textCardName);
+
+        if (bidWinner != null)
+        {
+            Text textBidWinner = new Text(bidWinner.getAccountName());
+            textBidWinner.setFont(Font.font(15));
+            textBidWinner.setFill(GREEN);
+            textBidWinner.setLayoutX(x + (rectangle.getWidth() - textBidWinner.getLayoutBounds().getWidth()) / 2);
+            textBidWinner.setLayoutY(y + 190);
+
+            Text textBidWinnerPrice = new Text(Integer.toString(bidWinnerPrice));
+            textBidWinnerPrice.setFont(Font.font(15));
+            textBidWinnerPrice.setFill(GREEN);
+            textBidWinnerPrice.setLayoutX(x + (rectangle.getWidth() - textBidWinnerPrice.getLayoutBounds().getWidth()) / 2);
+            textBidWinnerPrice.setLayoutY(y + 220);
+
+            root.getChildren().addAll(textBidWinner, textBidWinnerPrice);
+        }
+
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Bid");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to bid for " + name + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBid = new ButtonType("Bid");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBid, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBid)
+                {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BID, card, client.getAuthToken());
+                    String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(buyJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    System.out.println(client.getMessageFromServer().getMessage());
+                    bidMenu(primaryStage);
+                }
+            }
+        });
+    }
+
+    private void setBidMenuItemStackPanes(Stage primaryStage, Group root, int x, int y, Item item)
+    {
+        String name = item.getItemName();
+        Account bidWinner = item.getBidWinner();
+        int bidWinnerPrice = item.getBidWinnerPrice();
+
+        Image image = new Image("file:Bid Card.jpg");
+        ImageView imageView = new ImageView(image);
+
+        Rectangle rectangle = new Rectangle(CARDS_RECTANGLE_WIDTH, CARDS_RECTANGLE_HEIGHT);
+        rectangle.setFill(GRAY);
+
+        StackPane stackPane = new StackPane(rectangle, imageView);
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.relocate(x, y);
+
+        Text textCardName = new Text(name);
+        textCardName.setFont(Font.font(15));
+        textCardName.setLayoutX(x + (rectangle.getWidth() - textCardName.getLayoutBounds().getWidth()) / 2);
+        textCardName.setLayoutY(y + 160);
+
+        root.getChildren().addAll(stackPane, textCardName);
+
+        if (bidWinner != null)
+        {
+            Text textBidWinner = new Text(bidWinner.getAccountName());
+            textBidWinner.setFont(Font.font(15));
+            textBidWinner.setFill(GREEN);
+            textBidWinner.setLayoutX(x + (rectangle.getWidth() - textBidWinner.getLayoutBounds().getWidth()) / 2);
+            textBidWinner.setLayoutY(y + 190);
+
+            Text textBidWinnerPrice = new Text(Integer.toString(bidWinnerPrice));
+            textBidWinnerPrice.setFont(Font.font(15));
+            textBidWinnerPrice.setFill(GREEN);
+            textBidWinnerPrice.setLayoutX(x + (rectangle.getWidth() - textBidWinnerPrice.getLayoutBounds().getWidth()) / 2);
+            textBidWinnerPrice.setLayoutY(y + 220);
+
+            root.getChildren().addAll(textBidWinner, textBidWinnerPrice);
+        }
+
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Bid");
+                alert.setHeaderText(null);
+                alert.setContentText("Want to bid for " + name + "?");
+                alert.getButtonTypes().clear();
+                ButtonType buttonTypeBid = new ButtonType("Bid");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel");
+                alert.getButtonTypes().addAll(buttonTypeBid, buttonTypeCancel);
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == buttonTypeBid)
+                {
+                    ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.BID, item, client.getAuthToken());
+                    String buyJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                    try
+                    {
+                        Client.getSendMessage().addMessage(buyJson);
+                        synchronized (validMessageFromServer)
+                        {
+                            validMessageFromServer.wait();
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    System.out.println(client.getMessageFromServer().getMessage());
+                    bidMenu(primaryStage);
+                }
+            }
+        });
+    }
+
+    private void collectionMenu(Stage primaryStage, boolean isSearchedElement, String searchedElement)
     {
         ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.GET_COLLECTION_CARDS_AND_ITEMS_AND_DECKS, client.getAuthToken());
         String json = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
