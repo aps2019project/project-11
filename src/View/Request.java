@@ -614,11 +614,11 @@ public class Request
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-           // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL, textFields, client.getAuthToken());
+            // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL, textFields, client.getAuthToken());
             //String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
-              //  Client.getSendMessage().addMessage(spellJson);
+                //  Client.getSendMessage().addMessage(spellJson);
                 synchronized (validMessageFromServer)
                 {
                     validMessageFromServer.wait();
@@ -677,11 +677,11 @@ public class Request
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-           // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION, textFields, client.getAuthToken());
+            // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION, textFields, client.getAuthToken());
             //String MinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
-              //  Client.getSendMessage().addMessage(MinionJson);
+                //  Client.getSendMessage().addMessage(MinionJson);
                 synchronized (validMessageFromServer)
                 {
                     validMessageFromServer.wait();
@@ -731,32 +731,27 @@ public class Request
         textFields.add(makingTextField(rootHeroCustom, 865, 130, "allOwnMinion"));
         textFields.add(makingTextField(rootHeroCustom, 865, 230, "allOpponentBothNonSpell"));
         textFields.add(makingTextField(rootHeroCustom, 865, 330, "allOwnBothNonSpell"));
-        ArrayList<String> textOfTextField = new ArrayList<>();
-
+        ArrayList<String> textOfTextFields = new ArrayList<>();
 
         Button apply = new Button("Apply");
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
 
         apply.setOnMouseClicked(event -> {
-            for (int i = 0 ; i<textFields.size(); i ++)
+            for (int i = 0; i < textFields.size(); i++)
             {
-                textOfTextField.add(textFields.get(i).getText());
+                textOfTextFields.add(textFields.get(i).getText());
             }
-            for (int i = 0;i<textFields.size();i ++)
-            {
-                System.out.println(textOfTextField.get(i));
-            }
-            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO, textOfTextField, client.getAuthToken());
+            ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_HERO, textOfTextFields, client.getAuthToken());
             String HeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             System.out.println(HeroJson);
             try
             {
                 Client.getSendMessage().addMessage(HeroJson);
-                //synchronized (validMessageFromServer)
-                //{
-                 //   validMessageFromServer.wait();
-                //}
+                synchronized (validMessageFromServer)
+                {
+                    validMessageFromServer.wait();
+                }
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -1322,12 +1317,12 @@ public class Request
         Spell spell = client.getMessageFromServer().getBidSpell();
         Item item = client.getMessageFromServer().getBidItem();
 
-        for (int i=0;i < 4;i++)
+        for (int i = 0; i < 4; i++)
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            xPosition ++;
-            yPosition ++;
+            xPosition++;
+            yPosition++;
             switch (i)
             {
                 case 0:
