@@ -626,38 +626,43 @@ public class InputCommandHandlerForServer extends Thread
     @SuppressWarnings("Duplicates")
     public void workingOnSpellText(ArrayList<String> textFields, Account account)
     {
-       /* String name = textFields.get(0).getText();
-        String numOfTarget = textFields.get(1).getText();
-        String kindOfMinion = textFields.get(2).getText();
-        String nameOfBuff = textFields.get(3).getText();
-        String buffType = textFields.get(4).getText();
-        String effectValue = textFields.get(5).getText();
-        String delay = textFields.get(6).getText();
-        String last = textFields.get(7).getText();
-        String friendOrEnemy = textFields.get(8).getText();
-        String numOfFriendOrEnemy = textFields.get(9).getText();
-        String isAll = textFields.get(10).getText();
-        String mp = textFields.get(11).getText();
-        String numOfHolyBuff = textFields.get(12).getText();
-        String changingHP = textFields.get(13).getText();
-        String changingAP = textFields.get(14).getText();
-        String changingMp = textFields.get(15).getText();
-        String cost = textFields.get(16).getText();
-        String numOfOwnMinion = textFields.get(17).getText();
-        String numOfOpponentMinion = textFields.get(18).getText();
-        String ownHero = textFields.get(19).getText();
-        String opponentHero = textFields.get(20).getText();
-        String numOfOpponentBothNonSpell = textFields.get(21).getText();
-        String numOfOwnBothNonSpell = textFields.get(22).getText();
-        String allOwnMinion = textFields.get(23).getText();
-        String allOpponentBothNonSpell = textFields.get(24).getText();
-        String allOwnBothNonSpell = textFields.get(25).getText();
+        String name = textFields.get(0);
+        String numOfTarget = textFields.get(1);
+        String kindOfMinion = textFields.get(2);
+        String nameOfBuff = textFields.get(3);
+        String buffType = textFields.get(4);
+        String effectValue = textFields.get(5);
+        String delay = textFields.get(6);
+        String last = textFields.get(7);
+        String friendOrEnemy = textFields.get(8);
+        String numOfFriendOrEnemy = textFields.get(9);
+        String isAll = textFields.get(10);
+        String mp = textFields.get(11);
+        String numOfHolyBuff = textFields.get(12);
+        String changingHP = textFields.get(13);
+        String changingAP = textFields.get(14);
+        String changingMp = textFields.get(15);
+        String cost = textFields.get(16);
+        String numOfOwnMinion = textFields.get(17);
+        String numOfOpponentMinion = textFields.get(18);
+        String ownHero = textFields.get(19);
+        String opponentHero = textFields.get(20);
+        String numOfOpponentBothNonSpell = textFields.get(21);
+        String numOfOwnBothNonSpell = textFields.get(22);
+        String allOwnMinion = textFields.get(23);
+        String allOpponentBothNonSpell = textFields.get(24);
+        String allOwnBothNonSpell = textFields.get(25);
         makingSpellCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, numOfTarget, kindOfMinion, nameOfBuff, buffType, effectValue, delay, last, friendOrEnemy, numOfFriendOrEnemy, isAll, mp, numOfHolyBuff, changingAP, changingHP, changingMp, cost);
-    */}
+    }
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingSpellCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue, String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP, String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
+    private static void makingSpellCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
+                                        String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell,
+                                        String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name,
+                                        String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue,
+                                        String delay, String last, String friendOrEnemy, String numOfFriendOrEnemy, String isAll, String MP,
+                                        String numOfHolyBuff, String changingAp, String changingHp, String changingMp, String cost)
     {
         Spell spell = new Spell();
         spell.setCardName(name);
@@ -786,7 +791,13 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingMinionCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name, String ap, String hp, String attackType, String range, String specialPowerActivation, String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP, String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell, String fiery, String combo)
+    private static void makingMinionCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
+                                         String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell,
+                                         String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name,
+                                         String ap, String hp, String attackType, String range, String specialPowerActivation,
+                                         String cost, String turn, String isPositive, String UntilEnd, String changeAP, String changeHP,
+                                         String ChangeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holycell,
+                                         String fiery, String combo)
     {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);

@@ -674,18 +674,23 @@ public class Request
             stage.setScene(sceneMakingCustomCards);
         });
         Button apply = new Button("Apply");
+        ArrayList<String> textOfTextFields = new ArrayList<>();
         apply.relocate(780, 505);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-            // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION, textFields, client.getAuthToken());
-            //String MinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+            for (int i = 0; i < textFields.size(); i++)
+            {
+                textOfTextFields.add(textFields.get(i).getText());
+            }
+             ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_MINION, textOfTextFields, client.getAuthToken());
+            String MinionJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
-                //  Client.getSendMessage().addMessage(MinionJson);
-                synchronized (validMessageFromServer)
-                {
-                    validMessageFromServer.wait();
-                }
+                  Client.getSendMessage().addMessage(MinionJson);
+                //synchronized (validMessageFromServer)
+                //{
+                  //  validMessageFromServer.wait();
+                //}
             } catch (Exception e)
             {
                 e.printStackTrace();
