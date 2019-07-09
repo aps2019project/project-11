@@ -613,23 +613,28 @@ public class Request
             stage.setScene(sceneMakingCustomCards);
         });
         Button apply = new Button("Apply");
+        ArrayList<String> textOfTextField = new ArrayList<>();
+        for (int i = 0; i < textFields.size(); i++)
+        {
+            textOfTextField.add(textFields.get(i).getText());
+        }
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
-            // ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL, textFields, client.getAuthToken());
-            //String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+             ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL,textOfTextField, client.getAuthToken());
+            String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
             {
-                //  Client.getSendMessage().addMessage(spellJson);
-                synchronized (validMessageFromServer)
+                  Client.getSendMessage().addMessage(spellJson);
+               /* synchronized (validMessageFromServer)
                 {
                     validMessageFromServer.wait();
-                }
+                }*/
             } catch (Exception e)
             {
                 e.printStackTrace();
             }
-            //workingOnSpellText(textFields);  //moved to spell                //5 constructor
+
         });
         rootSpellCustom.getChildren().addAll(back, apply);
         stage.setScene(sceneSpellCustom);
@@ -755,15 +760,14 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(HeroJson);
-                synchronized (validMessageFromServer)
+                /*synchronized (validMessageFromServer)
                 {
                     validMessageFromServer.wait();
-                }
+                }*/
             } catch (Exception e)
             {
                 e.printStackTrace();
             }
-            //workingOnHeroText(textFields);    //5 constructor
         });
         Button back = new Button("Back");
         back.relocate(900, 505);
