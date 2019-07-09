@@ -25,6 +25,7 @@ public class InputCommandHandlerForServer extends Thread
     private AccountManager accountManager = new AccountManager();
     private ShopManager shopManager = new ShopManager();
     private DeckManager deckManager = new DeckManager();
+    private ArrayList<Account> requestedForOpponent = new ArrayList<>();
 
     public InputCommandHandlerForServer(Socket socket, SendMessage sendMessage)
     {
@@ -185,6 +186,24 @@ public class InputCommandHandlerForServer extends Thread
                 serverCommand = new ServerCommand(ServerCommandEnum.OK);
                 String customHeroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
                 getSendMessage().addMessage(customHeroJson);
+                break;
+            case REQUEST_FOR_MULTI_PLAYER_MATCH:
+                if (requestedForOpponent.size() == 0)
+                {
+                    requestedForOpponent.add(account);
+                }
+                else
+                {
+                    Account opponent = requestedForOpponent.get(0);
+
+                    requestedForOpponent.remove(0);
+                }
+                break;
+            case RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH:
+                requestedForOpponent.remove(account);
+                serverCommand = new ServerCommand(ServerCommandEnum.OK);
+                String relinquishmentJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+                getSendMessage().addMessage(relinquishmentJson);
                 break;
             case MAKE_STORY_BATTLE:
                 break;

@@ -2721,12 +2721,20 @@ public class Request
 
         setBackGroundImage(rootWait, "file:BackGround Images/Wait Menu.jpg");
 
-        /*Client.getCallTheAppropriateFunction().multiPayerBattleMaker(accountConnectedToThisClient, battleMode, new Player(multiPlayerAccountToBattle, false));
-        try {
-            setBattleField(primaryStage, "customGameBackGround", false, battleMode);
-        } catch (IOException e) {
+        ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.REQUEST_FOR_MULTI_PLAYER_MATCH, client.getAuthToken());
+        String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+        try
+        {
+            Client.getSendMessage().addMessage(removeJson);
+            synchronized (validMessageFromServer)
+            {
+                validMessageFromServer.wait();
+            }
+        }
+        catch (InterruptedException e)
+        {
             e.printStackTrace();
-        }*/
+        }
 
         Text waitingText = new Text("Waiting for opponent ...");
         waitingText.setFont(Font.font("Verdana", 30));
@@ -2742,6 +2750,20 @@ public class Request
             @Override
             public void handle(MouseEvent event)
             {
+                ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.RELINQUISHMENT_FROM_MULTI_PLAYER_MATCH, client.getAuthToken());
+                String removeJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
+                try
+                {
+                    Client.getSendMessage().addMessage(removeJson);
+                    synchronized (validMessageFromServer)
+                    {
+                        validMessageFromServer.wait();
+                    }
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
                 primaryStage.setScene(sceneMainMenu);
                 primaryStage.centerOnScreen();
                 MultiPlayerChooseModeMenu(rootMultiPlayer, primaryStage);
