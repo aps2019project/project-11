@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import static javafx.scene.paint.Color.*;
 
 public class ServerGraphic extends Application implements Runnable{
-    private Stage primaryMessage;
+    private Stage primaryStage;
     private Group rootServerMenu;
     private Scene sceneServerMenu;
 
@@ -62,29 +62,28 @@ public class ServerGraphic extends Application implements Runnable{
         rootServerMenu.getChildren().addAll(showCard , showOnlinePlayers);
         Scene sceneServerMenu = new Scene(rootServerMenu , 500 , 500);
         setSceneServerMenu(sceneServerMenu);
-        primaryMessage.setScene(sceneServerMenu);
-        primaryMessage.show();
+        primaryStage.setScene(sceneServerMenu);
+        primaryStage.show();
     }
 
     private void showCards() {
-        Group rootShop = new Group();
-        setBackGroundImage(rootShop);
+        Group rootCardsInServer = new Group();
+        setBackGroundImage(rootCardsInServer);
         ScrollPane scrollPaneShop = new ScrollPane();
-        Scene sceneShop = new Scene(rootShop , 500 , 500);
 
-        scrollPaneShop.setContent(rootShop);
+        scrollPaneShop.setContent(rootCardsInServer);
         scrollPaneShop.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPaneShop.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         int xPosition = 0, yPosition = 0, x = 0, y = 0;
-        setShopText(rootShop, sceneShop, "Heroes", 50);
+        setShopText(rootCardsInServer, "Heroes", 50);
         for (Hero hero :Server.getHeroes())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = COLUMN_BLANK + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
             xPosition++;
             yPosition++;
-            showNonSpellCards(rootShop, x, y, hero);
+            showNonSpellCards(rootCardsInServer, x, y, hero);
         }
 
         if (xPosition == 0)
@@ -97,12 +96,12 @@ public class ServerGraphic extends Application implements Runnable{
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopText(rootShop, sceneShop, "Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopText(rootCardsInServer,"Minions", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Minion minion : Server.getMinions())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
             y = 2 * COLUMN_BLANK - BLANK_BETWEEN_CARDS + yPosition / 4 * (CARDS_RECTANGLE_HEIGHT + BLANK_BETWEEN_CARDS);
-            showNonSpellCards(rootShop, x, y, minion);
+            showNonSpellCards(rootCardsInServer, x, y, minion);
             xPosition++;
             yPosition++;
         }
@@ -117,7 +116,7 @@ public class ServerGraphic extends Application implements Runnable{
         {
             yPosition = yPosition + 4 - yPosition % 4;
         }
-        setShopText(rootShop, sceneShop, "Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopText(rootCardsInServer,"Spells", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Spell spell : Server.getSpells())
         {
 
@@ -140,7 +139,7 @@ public class ServerGraphic extends Application implements Runnable{
                 yPosition = yPosition + 4 - yPosition % 4;
             }
         }
-        setShopText(rootShop, sceneShop, "Items", y + CARDS_RECTANGLE_HEIGHT + 50);
+        setShopText(rootCardsInServer,"Items", y + CARDS_RECTANGLE_HEIGHT + 50);
         for (Item item : Server.getItems())
         {
             x = ROW_BLANK + (xPosition % 4) * (CARDS_RECTANGLE_WIDTH + BLANK_BETWEEN_CARDS);
@@ -149,9 +148,11 @@ public class ServerGraphic extends Application implements Runnable{
             yPosition++;
         }
 
-        backButton(rootShop, 20, 15);
+        backButton(rootCardsInServer, 20, 15);
 
-        primaryMessage.setScene(sceneShop);
+        Scene sceneShop = new Scene(rootCardsInServer , 500 , 500);
+        primaryStage.setScene(sceneShop);
+        primaryStage.show();
     }
 
     private void showNonSpellCards(Group root, int x, int y, NonSpellCard nonSpellCard)
@@ -198,10 +199,10 @@ public class ServerGraphic extends Application implements Runnable{
 
     }
 
-    private void setShopText(Group root, Scene scene, String str, int y)
+    private void setShopText(Group root, String str, int y)
     {
         Text text = new Text(str);
-        text.setLayoutX((scene.getWidth() - text.getLayoutBounds().getWidth()) / 2 - 40);
+        text.setLayoutX((500 - text.getLayoutBounds().getWidth()) / 2 - 40);
         text.setLayoutY(y);
         text.setFont(Font.font(null, FontWeight.SEMI_BOLD, 40));
         root.getChildren().addAll(text);
@@ -227,17 +228,17 @@ public class ServerGraphic extends Application implements Runnable{
         backButton(rootShowOnlinePlayers , 400 , 400);
 
         Scene sceneShowOnlinePlayers = new Scene(rootShowOnlinePlayers , 500 , 500);
-        primaryMessage.setScene(sceneShowOnlinePlayers);
-        primaryMessage.show();
+        primaryStage.setScene(sceneShowOnlinePlayers);
+        primaryStage.show();
     }
 
 
-    public Stage getPrimaryMessage() {
-        return primaryMessage;
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     private void setPrimaryStage(Stage primaryMessage) {
-        this.primaryMessage = primaryMessage;
+        this.primaryStage = primaryMessage;
     }
 
     private void setBackGroundImage(Group root)
@@ -257,7 +258,7 @@ public class ServerGraphic extends Application implements Runnable{
             @Override
             public void handle(MouseEvent event)
             {
-                primaryMessage.setScene(getSceneServerMenu());
+                primaryStage.setScene(getSceneServerMenu());
                 makeMenu();
             }
         });
