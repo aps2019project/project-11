@@ -31,7 +31,7 @@ public class BidTimer extends Thread
                 Thread.sleep(1000);
                 System.out.println("00:" + counter);
             }
-            //confirmBidWinners();
+            confirmBidWinners();
             setNewCardsAndItemToBid();
         }
     }

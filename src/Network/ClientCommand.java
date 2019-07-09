@@ -32,7 +32,7 @@ public class ClientCommand
     private Player player;
     private transient Group root;
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum)
+    public ClientCommand(ClientCommandEnum clientCommandEnum) //Story
     {
         this.clientCommandEnum = clientCommandEnum;
     }
@@ -47,13 +47,6 @@ public class ClientCommand
     public ClientCommand(ClientCommandEnum clientCommandEnum, String authToken)
     {
         this.clientCommandEnum = clientCommandEnum;
-        this.authToken = authToken;
-    }
-
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Account account, String authToken) //save
-    {
-        this.clientCommandEnum = clientCommandEnum;
-        this.account = account;
         this.authToken = authToken;
     }
 
@@ -89,7 +82,7 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, String authToken)   //delete deck & import
+    public ClientCommand(ClientCommandEnum clientCommandEnum, Deck deck, String authToken)   //import
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deck = deck;
@@ -112,7 +105,7 @@ public class ClientCommand
         this.authToken = authToken;
     }
 
-    public ClientCommand(String authToken, ClientCommandEnum clientCommandEnum, String deckName)  //create deck & export
+    public ClientCommand(String authToken, ClientCommandEnum clientCommandEnum, String deckName)  //create & delete deck & export
     {
         this.clientCommandEnum = clientCommandEnum;
         this.deckName = deckName;
@@ -155,14 +148,12 @@ public class ClientCommand
         this.root = root;
     }
 
-    public ClientCommand(ClientCommandEnum clientCommandEnum, ChatMessage chatMessage, String authToken)
+    public ClientCommand(ClientCommandEnum clientCommandEnum, ChatMessage chatMessage, String authToken) //chat
     {
         this.clientCommandEnum = clientCommandEnum;
         this.chatMessage = chatMessage;
         this.authToken = authToken;
     }
-
-    
 
     public ClientCommandEnum getClientCommandEnum()
     {
