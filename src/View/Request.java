@@ -614,13 +614,14 @@ public class Request
         });
         Button apply = new Button("Apply");
         ArrayList<String> textOfTextField = new ArrayList<>();
-        for (int i = 0; i < textFields.size(); i++)
-        {
-            textOfTextField.add(textFields.get(i).getText());
-        }
+
         apply.relocate(780, 490);
         apply.setFont(Font.font(25));
         apply.setOnMouseClicked(event -> {
+            for (int i = 0; i < textFields.size(); i++)
+            {
+                textOfTextField.add(textFields.get(i).getText());
+            }
              ClientCommand clientCommand = new ClientCommand(ClientCommandEnum.MAKE_CUSTOM_SPELL,textOfTextField, client.getAuthToken());
             String spellJson = new GsonBuilder().setPrettyPrinting().create().toJson(clientCommand);
             try
