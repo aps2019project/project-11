@@ -698,7 +698,7 @@ public class InputCommandHandlerForServer extends Thread
         spell.setCardName(name);
         int mp = Integer.parseInt(MP);
         spell.setRequiredMP(mp);
-        int holyBuffNumber = Integer.parseInt(numOfHolyBuff);
+        int holyBuffNumber = Integer.parseInt(numOfHolyBuff,10);
         int apChanging = Integer.parseInt(changingAp);
         int HpChanging = Integer.parseInt(changingHp);
         int MPChanging = Integer.parseInt(changingMp);
@@ -777,10 +777,11 @@ public class InputCommandHandlerForServer extends Thread
                 spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
             }
         }
+        System.out.println(spell.getCardName());
         account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
-        ShowOutput.getInstance().printOutput("Custom card " + spell.getCardID() + " added to your collection");
+        ShowOutput.getInstance().printOutput("Custom card " + spell.getCardName() + " added to your collection");
     }
 
     @SuppressWarnings("Duplicates")
@@ -956,7 +957,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, minion, false);
         Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
-        ShowOutput.getInstance().printOutput("Custom card " + minion.getCardID() + " added to your collection");
+        ShowOutput.getInstance().printOutput("Custom card " + minion.getCardName() + " added to your collection");
     }
 
     @SuppressWarnings("Duplicates")
