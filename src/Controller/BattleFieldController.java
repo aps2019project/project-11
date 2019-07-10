@@ -10,8 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -128,7 +127,10 @@ public class BattleFieldController extends Thread
                 @Override
                 public void handle(MouseEvent event)
                 {
-                    text[0].setText("");
+                    if(text[0] != null) {
+                        text[0].setText("");
+
+                    }
                 }
             });
             counter++;
@@ -180,7 +182,6 @@ public class BattleFieldController extends Thread
                 }
             }
         }
-
     }
 
     private void checkInsertingCard()
@@ -192,7 +193,7 @@ public class BattleFieldController extends Thread
         {
             int finalNumber = number;
 
-            firstPlayerHandPanes[number].setOnMouseClicked(new EventHandler<MouseEvent>()
+            firstPlayerHandPanes[number].setOnDragDetected(new EventHandler<MouseEvent>()
             {
                 @Override
                 public void handle(MouseEvent event)
@@ -206,6 +207,7 @@ public class BattleFieldController extends Thread
                         setCardSelectedToInsert(true);
                         setSelectedCardForInserting(getBattle().getFirstPlayer().getHand().getCards().get(finalNumber));
                         insertCard();
+                        event.consume();
                     }
                 }
             });
@@ -240,19 +242,27 @@ public class BattleFieldController extends Thread
     private void insertCard()
     {
         Cell[][] battleFieldCells = getBattle().getBattleField().getBattleFieldMatrix();
-
         for (int row = 0; row < 5; row++)
         {
             for (int column = 0; column < 9; column++)
             {
                 int finalColumn = column;
                 int finalRow = row;
-
-                battleFieldCells[row][column].getCellPane().setOnMouseClicked(new EventHandler<MouseEvent>()
+                battleFieldCells[row][column].getCellPane().setOnDragOver(new EventHandler<DragEvent>()
                 {
                     @Override
-                    public void handle(MouseEvent event)
+                    public void handle(DragEvent event)
                     {
+                        event.acceptTransferModes(TransferMode.ANY);
+                    }
+                });
+                battleFieldCells[row][column].getCellPane().setOnDragDropped(new EventHandler<DragEvent>()
+                {
+                    @Override
+                    public void handle(DragEvent event)
+                    {
+                        event.acceptTransferModes(TransferMode.ANY);
+
                         if (isCardSelectedToInsert)
                         {
                             if (selectedCardForInserting instanceof Minion)
@@ -277,6 +287,7 @@ public class BattleFieldController extends Thread
 
                                     setCardSelectedToInsert(false);
                                     setSelectedCardForInserting(null);
+                                    event.setDropCompleted(false);
                                     checkSelectingCard();
                                     preLoad();
                                 }
@@ -300,6 +311,7 @@ public class BattleFieldController extends Thread
 
                                     setSelectedCardForInserting(null);
                                     setCardSelectedToInsert(false);
+                                    event.setDropCompleted(false);
                                     checkSelectingCard();
                                     preLoad();
 

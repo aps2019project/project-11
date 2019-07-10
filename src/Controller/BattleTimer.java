@@ -17,6 +17,7 @@ public class BattleTimer extends Thread
     private Battle battle;
     private Stage primaryStage;
     private static BattleTimer battleTimer;
+    private static int time = 60;
 
     @Override
     public void run()
@@ -39,7 +40,7 @@ public class BattleTimer extends Thread
         int counter;
         while (true)
         {
-            for (counter = 60; counter > 0; counter--)
+            for (counter = getTime(); counter > 0; counter--)
             {
                 try
                 {
@@ -136,5 +137,13 @@ public class BattleTimer extends Thread
     public Battle getBattle()
     {
         return battle;
+    }
+
+    public static int getTime() {
+        return time;
+    }
+
+    public static void setTime(int time) {
+        BattleTimer.time = time;
     }
 }

@@ -6,6 +6,7 @@ import Model.*;
 import Network.*;
 import com.google.gson.GsonBuilder;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -369,6 +370,7 @@ public class Request
         rootMainMenu.getChildren().add(duelyst);
 
         setGlobalChatButton(primaryStage, rootMainMenu);
+        getBattleTime();
 
         setMainMenuText(primaryStage, "Battle", 80);
         setMainMenuText(primaryStage, "Shop", 135);
@@ -380,7 +382,25 @@ public class Request
         setMainMenuText(primaryStage, "Logout", 465);
         setMainMenuText(primaryStage, "Exit", 520);
 
+
         primaryStage.setScene(sceneMainMenu);
+    }
+
+    private void getBattleTime() {
+        TextField textField = new TextField();
+        TilePane tilePane = new TilePane();
+        tilePane.getChildren().add(textField);
+        tilePane.relocate(10, 500);
+        textField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String input = textField.getText();
+                BattleTimer.setTime(Integer.parseInt(input));
+                textField.setText(null);
+
+            }
+        });
+        rootMainMenu.getChildren().add(tilePane);
     }
 
     private void setBackGroundImage(Group root, String url)
