@@ -2,6 +2,7 @@ package Model;
 
 import Controller.BattleFieldController;
 import Controller.BattleManager;
+import View.Request;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -485,6 +486,40 @@ public class Battle
         tasksAtEndOfGame();
     }
 
+    public void tasksAtEndOfGame(Request request)
+    {
+        victoriousPlayer.getAccount().increaseNumberOfWins();
+        switch (this.getBattleType())
+        {
+            case STORY_GAME_1:
+                victoriousPlayer.getAccount().addMoney(500);
+                System.out.println("500 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
+            case STORY_GAME_2:
+                victoriousPlayer.getAccount().addMoney(1000);
+                System.out.println("1000 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
+            case STORY_GAME_3:
+                victoriousPlayer.getAccount().addMoney(1500);
+                System.out.println("1500 added to " + victoriousPlayer.getAccount().getAccountName() + "'s money");
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
+            case CUSTOM_GAME:
+            case MULTI_PLAYER_GAME:
+                victoriousPlayer.getAccount().addMoney(1000);
+                victoriousPlayer.getAccount().getMatchHistory().add(new FinishedMatch(loserPlayer.getAccount().getAccountName(), MatchResult.WIN, 0));
+                loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
+                break;
+        }
+        request.endGame(victoriousPlayer);
+
+    }
+
     public void tasksAtEndOfGame()
     {
         victoriousPlayer.getAccount().increaseNumberOfWins();
@@ -515,6 +550,7 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
         }
+
     }
 
     //todo

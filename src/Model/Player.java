@@ -28,7 +28,6 @@ public class Player
         Collections.shuffle(nonHeroCards);
         for (int i = 0;i < 5;i++)
         {
-            System.out.println(nonHeroCards.get(i).getCardID());
             getHand().addCardToHand(nonHeroCards.get(i));
         }
         getHand().setNextCard(nonHeroCards.get(5));

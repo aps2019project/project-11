@@ -76,6 +76,14 @@ public class Request
     public final Object validMessageFromServer = new Object();
     private Client client;
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static void setPrimaryStage(Stage primaryStage) {
+        Request.primaryStage = primaryStage;
+    }
+
     public CommandType getCommand()
     {
         return command;
@@ -149,6 +157,7 @@ public class Request
     private Account accountConnectedToThisClient;
     private static Text counterText;
     private static BattleTimer battleTimer;
+    private static Stage primaryStage;
 
     public Request(Client client)
     {
@@ -157,6 +166,7 @@ public class Request
 
     public void signUpMenu(Stage primaryStage)
     {
+        setPrimaryStage(primaryStage);
         rootSignUpMenu.getChildren().clear();
 
         TextField textFieldName = new TextField();
@@ -3365,4 +3375,15 @@ public class Request
     {
         return accountConnectedToThisClient;
     }
+
+    public void endGame(Player victoriousPlayer) {
+        setBackGroundImage(rootBattleField , "file:battleField BackGround/endGameBackground.jpg");
+        rootBattleField.getChildren().clear();
+        Text text = new Text(victoriousPlayer.getAccount().getAccountName() + " Win!");
+        text.relocate(650 , 360);
+        rootBattleField.getChildren().add(text);
+        backButton(primaryStage ,rootBattleField ,650 , 400);
+    }
+
+
 }

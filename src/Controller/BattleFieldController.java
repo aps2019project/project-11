@@ -40,6 +40,7 @@ public class BattleFieldController extends Thread
     private Text battleInfo;
     private Battle battle;
 
+
     public BattleFieldController(Request request, Group rootBattleField, Scene sceneBattleField, Text battleInfo, Battle battle)
     {
         this.request = request;
@@ -488,7 +489,7 @@ public class BattleFieldController extends Thread
             case KILLING_ENEMY_HERO:
                 if (getBattle().isGameEnded(1))
                 {
-                    getBattle().tasksAtEndOfGame();
+                    getBattle().tasksAtEndOfGame(request);
                 }
                 break;
         }
