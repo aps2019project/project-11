@@ -2892,7 +2892,6 @@ public class Request
             setNextCard(rootBattleField, battle);
             showGameInfo(rootBattleField, battle);
             setEndTurnButton(primaryStage, rootBattleField, battle);
-            setGlobalChatButton(primaryStage, rootBattleField);
             setTimer(rootBattleField, battle, primaryStage);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battle);
@@ -3050,7 +3049,6 @@ public class Request
                     rootBattleField.getChildren().add(battle.getCurrentPlayerHand()[number]);
                 }
                 makeBattleFieldController(battle);
-                setGlobalChatButton(primaryStage, rootBattleField);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
@@ -3074,7 +3072,7 @@ public class Request
 
     private void setHandIcons(Group rootBattleField, Battle battle)
     {
-        battle.setHandIcons();
+        battle.setHandIcons(rootBattleField);
     }
 
     private void setGridPane(Group rootBattleField, Battle battle)

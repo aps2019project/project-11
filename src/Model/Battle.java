@@ -709,32 +709,32 @@ public class Battle
 
         for (int number = 0; number < this.getFirstPlayer().getHand().getCards().size(); number++)
         {
-            ImageView imageView1;
+            ImageView imageView;
 
-            Card card1 = this.getFirstPlayer().getHand().getCards().get(number);
+            Card card = this.getFirstPlayer().getHand().getCards().get(number);
 
             firstPlayerHandPanes[number] = new Pane();
 
-            imageView1 = Card.getCardIcon(card1);
+            imageView = Card.getCardIcon(card);
 
             firstPlayerHandPanes[number].getChildren().clear();
 
-            firstPlayerHandPanes[number].getChildren().add(imageView1);
+            firstPlayerHandPanes[number].getChildren().add(imageView);
         }
 
         for (int number = 0; number < this.getSecondPlayer().getHand().getCards().size(); number++)
         {
-            ImageView imageView2;
+            ImageView imageView;
 
-            Card card2 = this.getSecondPlayer().getHand().getCards().get(number);
+            Card card = this.getSecondPlayer().getHand().getCards().get(number);
 
             secondPlayerHandPanes[number] = new Pane();
 
-            imageView2 = Card.getCardIcon(card2);
+            imageView = Card.getCardIcon(card);
 
             secondPlayerHandPanes[number].getChildren().clear();
 
-            secondPlayerHandPanes[number].getChildren().add(imageView2);
+            secondPlayerHandPanes[number].getChildren().add(imageView);
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);
@@ -850,10 +850,11 @@ public class Battle
             secondPlayerHandPanes[number] = new Pane();
 
             imageView1 = Card.getCardIcon(card1);
-            imageView2 = Card.getCardIcon(card2);
+            imageView2 = Card.getCardIcon(card2 );
 
             firstPlayerHandPanes[number].getChildren().add(imageView1);
             secondPlayerHandPanes[number].getChildren().add(imageView2);
+
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);

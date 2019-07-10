@@ -57,9 +57,11 @@ public class Card implements Cloneable
         {
             return new ImageView("cardIcons/" + ((Minion) card).getImpactType() + ".png");
         }
-        return new ImageView("cardIcons/Spell.png");
+        else if(card instanceof Spell){
+            return new ImageView("cardIcons/Spell.png");
+        }
+        return null;
     }
-
 
     public int getColumn()
     {
