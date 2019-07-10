@@ -687,7 +687,7 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingSpellCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
+    private void makingSpellCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
                                         String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell,
                                         String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name,
                                         String numOfTarget, String kindOfMinion, String nameOfBuff, String buffType, String effectValue,
@@ -781,12 +781,18 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
-        ShowOutput.getInstance().printOutput("Custom card " + spell.getCardName() + " added to your collection");
+        ServerCommand serverCommand = new ServerCommand("Custom card " + spell.getCardName() + " added to your collection");
+        String spellMessage = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(spellMessage);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("Duplicates")
 
-    public static void workingOnMinionText(ArrayList<String> textFields, Account account)
+    public void workingOnMinionText(ArrayList<String> textFields, Account account)
     {
         String name = textFields.get(0);
         String Ap = textFields.get(1);
@@ -822,7 +828,7 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingMinionCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
+    private  void makingMinionCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero,
                                          String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell,
                                          String allOwnMinion, String allOwnBothNonSpell, String allOpponentBothNonSpell, String name,
                                          String ap, String hp, String attackType, String range, String specialPowerActivation,
@@ -957,12 +963,18 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, minion, false);
         Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
-        ShowOutput.getInstance().printOutput("Custom card " + minion.getCardName() + " added to your collection");
+        ServerCommand serverCommand = new ServerCommand("Custom card" +minion.getCardName() +"added to your collection");
+        String minionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(minionJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressWarnings("Duplicates")
 
-    public static void workingOnHeroText(ArrayList<String> textFields, Account account)
+    public  void workingOnHeroText(ArrayList<String> textFields, Account account)
     {
         String name = textFields.get(0);
         String Ap = textFields.get(1);
@@ -999,8 +1011,12 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    private static void makingHeroCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero, String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion, String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp, String attackType, String range, String coolDown, String cost, String turnsToApply, String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun, String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)
-    {
+    private void makingHeroCard(Account account, String numOfOwnMinion, String numOfOpponentMinion, String ownHero, String opponentHero,
+                                String numOfOpponentBothNonSpell, String numOfOwnBothNonSpell, String allOwnMinion,
+                                String allOpponentBothNonSpell, String allOwnBothNonSpell, String name, String ap, String hp,
+                                String attackType, String range, String coolDown, String cost, String turnsToApply,
+                                String isPositive, String untilEnd, String changeAp, String changeHp, String changeMP, String stun,
+                                String disarm, String numOfHolyBuff, String toxic, String holyCell, String fiery, String kill)  {
         int AP = Integer.parseInt(ap);
         int HP = Integer.parseInt(hp);
         int price = Integer.parseInt(cost, 10);
@@ -1106,7 +1122,13 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, hero, false);
         Server.getShop().addCardToShop(hero);
         Server.addHero(hero);
-        ShowOutput.getInstance().printOutput("Custom card " + hero.getCardID() + " added to your collection");
+        ServerCommand serverCommand = new ServerCommand("Custom card" + hero.getCardName() +"added to your collection");
+        String heroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
+        try {
+            getSendMessage().addMessage(heroJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private Account findAccount(String authToken)
