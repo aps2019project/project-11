@@ -648,10 +648,6 @@ public class Request
             try
             {
                   Client.getSendMessage().addMessage(spellJson);
-               /* synchronized (validMessageFromServer)
-                {
-                    validMessageFromServer.wait();
-                }*/
                mainMenu(stage);
             } catch (Exception e)
             {
@@ -717,16 +713,11 @@ public class Request
             try
             {
                   Client.getSendMessage().addMessage(MinionJson);
-                //synchronized (validMessageFromServer)
-                //{
-                  //  validMessageFromServer.wait();
-                //}
                 mainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();
             }
-            //workingOnMinionText(textFields);   //5
         });
 
         rootMinionCustom.getChildren().addAll(back, apply);
@@ -784,10 +775,6 @@ public class Request
             try
             {
                 Client.getSendMessage().addMessage(HeroJson);
-                /*synchronized (validMessageFromServer)
-                {
-                    validMessageFromServer.wait();
-                }*/
                 mainMenu(stage);
             } catch (Exception e)
             {
@@ -933,25 +920,20 @@ public class Request
         Button backButton = new Button("Back");
         backButton.setFont(Font.font(25));
         backButton.relocate(x, y);
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent event)
+        backButton.setOnMouseClicked(event -> {
+            setCommand(CommandType.EXIT);
+            synchronized (requestLock)
             {
-                setCommand(CommandType.EXIT);
-                synchronized (requestLock)
-                {
-                    requestLock.notify();
-                }
-                try
-                {
-                    primaryStage.setScene(sceneMainMenu);
-                    primaryStage.centerOnScreen();
-                    mainMenu(primaryStage);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                requestLock.notify();
+            }
+            try
+            {
+                primaryStage.setScene(sceneMainMenu);
+                primaryStage.centerOnScreen();
+                mainMenu(primaryStage);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
             }
         });
         root.getChildren().add(backButton);
