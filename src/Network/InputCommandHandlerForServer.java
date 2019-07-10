@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class InputCommandHandlerForServer extends Thread
 {
-    public final Object validMessageLock = new Object();
+    private final Object validMessageLock = new Object();
     private String message;
     private String lastReceivedMessage;
     private SendMessage sendMessage;
