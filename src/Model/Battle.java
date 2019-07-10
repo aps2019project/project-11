@@ -770,7 +770,9 @@ public class Battle
 
             secondPlayerHandPanes[number].getChildren().clear();
 
-            secondPlayerHandPanes[number].getChildren().add(imageView);
+            if(imageView != null) {
+                secondPlayerHandPanes[number].getChildren().add(imageView);
+            }
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);
@@ -795,11 +797,14 @@ public class Battle
 
     public void setNextCardPane(Group rootBattleField)
     {
-        Pane pane = new Pane();
-        pane.relocate(100, 400);
-        pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
-        nextCardPane = pane;
-        rootBattleField.getChildren().add(nextCardPane);
+        try {
+            Pane pane = new Pane();
+            pane.relocate(100, 400);
+            pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
+            nextCardPane = pane;
+            rootBattleField.getChildren().add(nextCardPane);
+        }
+        catch (Exception ignored){}
     }
 
     public void unSelectCard()
@@ -889,8 +894,9 @@ public class Battle
             imageView2 = Card.getCardIcon(card2 );
 
             firstPlayerHandPanes[number].getChildren().add(imageView1);
-            secondPlayerHandPanes[number].getChildren().add(imageView2);
-
+            if(imageView2 != null) {
+                secondPlayerHandPanes[number].getChildren().add(imageView2);
+            }
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);
