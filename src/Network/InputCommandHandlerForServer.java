@@ -781,6 +781,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
+        ShowOutput.getInstance().printOutput("Custom card " + spell.getCardName() + " added to your collection");
         ServerCommand serverCommand = new ServerCommand("Custom card " + spell.getCardName() + " added to your collection");
         String spellMessage = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         try {
@@ -963,6 +964,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, minion, false);
         Server.getShop().addCardToShop(minion);
         Server.addMinion(minion);
+        ShowOutput.getInstance().printOutput("Custom card" +minion.getCardName() +"added to your collection");
         ServerCommand serverCommand = new ServerCommand("Custom card" +minion.getCardName() +"added to your collection");
         String minionJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         try {
@@ -1122,6 +1124,7 @@ public class InputCommandHandlerForServer extends Thread
         account.getCollection().addCard(account, hero, false);
         Server.getShop().addCardToShop(hero);
         Server.addHero(hero);
+        ShowOutput.getInstance().printOutput("Custom card" + hero.getCardName() +"added to your collection");
         ServerCommand serverCommand = new ServerCommand("Custom card" + hero.getCardName() +"added to your collection");
         String heroJson = new GsonBuilder().setPrettyPrinting().create().toJson(serverCommand);
         try {
