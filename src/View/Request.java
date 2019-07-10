@@ -662,6 +662,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }*/
+               mainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -730,6 +731,7 @@ public class Request
                 //{
                   //  validMessageFromServer.wait();
                 //}
+                mainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -796,6 +798,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }*/
+                mainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();
