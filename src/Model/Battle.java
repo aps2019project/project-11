@@ -2,6 +2,7 @@ package Model;
 
 import Controller.BattleFieldController;
 import Controller.BattleManager;
+import View.Request;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -515,6 +516,7 @@ public class Battle
                 loserPlayer.getAccount().getMatchHistory().add(new FinishedMatch(victoriousPlayer.getAccount().getAccountName(), MatchResult.LOSE, 0));
                 break;
         }
+
     }
 
     //todo
@@ -734,7 +736,9 @@ public class Battle
 
             secondPlayerHandPanes[number].getChildren().clear();
 
-            secondPlayerHandPanes[number].getChildren().add(imageView);
+            if(imageView != null) {
+                secondPlayerHandPanes[number].getChildren().add(imageView);
+            }
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);
@@ -759,11 +763,14 @@ public class Battle
 
     public void setNextCardPane(Group rootBattleField)
     {
-        Pane pane = new Pane();
-        pane.relocate(100, 400);
-        pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
-        nextCardPane = pane;
-        rootBattleField.getChildren().add(nextCardPane);
+        try {
+            Pane pane = new Pane();
+            pane.relocate(100, 400);
+            pane.getChildren().add(new ImageView(Card.getCardIcon(getPlayerTurn().getHand().getNextCard()).getImage()));
+            nextCardPane = pane;
+            rootBattleField.getChildren().add(nextCardPane);
+        }
+        catch (Exception ignored){}
     }
 
     public void unSelectCard()
@@ -797,10 +804,10 @@ public class Battle
     public void setHeroesFirstPlace()
     {
         Card.setCardsImageView();
-        ImageView firstPlayerHero = Card.getCardImageView(this.getFirstPlayer().getMainDeck().getHero().get(0));
+        ImageView firstPlayerHero = Card.getCardStandingImageView(this.getFirstPlayer().getMainDeck().getHero().get(0));
         BattleFieldController.setSpriteAnimation(firstPlayerHero);
 
-        ImageView secondPlayerHero = Card.getCardImageView(this.getSecondPlayer().getMainDeck().getHero().get(0));
+        ImageView secondPlayerHero = Card.getCardStandingImageView(this.getSecondPlayer().getMainDeck().getHero().get(0));
         BattleFieldController.setSpriteAnimation(secondPlayerHero);
 
         this.getBattleField().getBattleFieldMatrix()[2][0].getCellPane().getChildren().add(firstPlayerHero);
@@ -853,8 +860,9 @@ public class Battle
             imageView2 = Card.getCardIcon(card2 );
 
             firstPlayerHandPanes[number].getChildren().add(imageView1);
-            secondPlayerHandPanes[number].getChildren().add(imageView2);
-
+            if(imageView2 != null) {
+                secondPlayerHandPanes[number].getChildren().add(imageView2);
+            }
         }
 
         firstPlayerHandPanes[0].relocate(400, 620);

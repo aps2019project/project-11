@@ -5,7 +5,6 @@ import View.Request;
 import View.ShowOutput;
 import View.SpriteAnimation;
 import javafx.animation.Animation;
-import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,8 +21,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-import static javafx.scene.paint.Color.CYAN;
-
 @SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
 {
@@ -39,6 +36,7 @@ public class BattleFieldController extends Thread
     private static boolean firstWorks = true;
     private Text battleInfo;
     private Battle battle;
+
 
     public BattleFieldController(Request request, Group rootBattleField, Scene sceneBattleField, Text battleInfo, Battle battle)
     {
@@ -287,7 +285,7 @@ public class BattleFieldController extends Thread
                             {
                                 if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCardForInserting, finalRow, finalColumn))
                                 {
-                                    ImageView imageView = Card.getCardImageView(selectedCardForInserting);
+                                    ImageView imageView = Card.getCardStandingImageView(selectedCardForInserting);
                                     setSpriteAnimation(imageView);
                                     battleFieldCells[finalRow][finalColumn].getCellPane().getChildren().add(imageView);
                                     battleFieldCells[finalRow][finalColumn].setCard(selectedCardForInserting);
@@ -366,11 +364,12 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
-                            System.out.println(battleFieldCells[finalRow][finalColumn].getCard().getCardName());
-                            setSelectedCard(battleFieldCells[finalRow][finalColumn].getCard());
+                            Card card = battleFieldCells[finalRow][finalColumn].getCard();
+                            System.out.println(card.getCardName() + " is selected");
+                            setSelectedCard(card);
                             setCardSelectedInBattle(true);
-                            getBattle().selectCard(battleFieldCells[finalRow][finalColumn].getCard());
-                            selectedCardActions(finalRow, finalColumn);
+                            getBattle().selectCard((NonSpellCard) card);
+                            selectedCardActions(card, finalRow, finalColumn);
                         }
                     }
                 });
@@ -379,7 +378,7 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void selectedCardActions(int sourceRow, int sourceColumn)
+    private void selectedCardActions(Card card, int sourceRow, int sourceColumn)
     {
         Cell[][] battleFieldCells = getBattle().getBattleField().getBattleFieldMatrix();
 
@@ -398,20 +397,20 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
+                            Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
+                            attackTo(card, opponentCard, sourceRow, sourceColumn);
+
                             Media sound = new Media(new File("Sounds and Music/Attack.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
                             mediaPlayer.play();
-
-                            Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
-                            attackTo(opponentCard, sourceRow, sourceColumn);
                         }
                         else if (!battleFieldCells[finalRow][finalColumn].isFull())
                         {
+                            moveTo(card, finalRow, finalColumn, sourceRow, sourceColumn);
+
                             Media sound = new Media(new File("Sounds and Music/displacement.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
                             mediaPlayer.play();
-
-                            moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
                     }
                 });
@@ -419,12 +418,12 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void moveTo(int destinationRow, int destinationColumn, int sourceRow, int sourceColumn)
+    private void moveTo(Card card, int destinationRow, int destinationColumn, int sourceRow, int sourceColumn)
     {
         if (battleManager.moveCardBoolean(destinationRow, destinationColumn))
         {
             getBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
-            ImageView imageView = Card.getCardImageView(selectedCard);
+            ImageView imageView = Card.getCardStandingImageView(card);
             try
             {
                 cardMoveAnimation(imageView, sourceRow, sourceColumn, destinationRow, destinationColumn);
@@ -445,11 +444,12 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
+    private void attackTo(Card card, Card opponentCard, int sourceRow, int sourceColumn)
     {
+        ImageView imageView = Card.getCardAttackImageView(card);
+        setAttackAnimation(imageView);
         battleManager.attackToOpponent(opponentCard);
         checkHPOfCards();
-        setAttackAnimation();
         attackedCardInfo.setText("");
         preLoad();
     }
@@ -469,14 +469,15 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void setAttackAnimation()
+    private void setAttackAnimation(ImageView imageView)
     {
-
+        final Animation animation = new SpriteAnimation(imageView, Duration.millis(3000), 8, 8, 0, 0, 80, 80);
+        animation.play();
     }
 
     public static void setSpriteAnimation(ImageView imageView)
     {
-        final Animation animation = new SpriteAnimation(imageView, Duration.millis(1000), 3, 3, 0, 0, 80, 80);
+        final Animation animation = new SpriteAnimation(imageView, Duration.millis(3000), 30, 10, 0, 0, 80, 80);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
     }
