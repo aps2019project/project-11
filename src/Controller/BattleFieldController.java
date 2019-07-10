@@ -95,7 +95,13 @@ public class BattleFieldController extends Thread
         getCardInformation();
         checkInsertingCard();
         checkSelectingCard();
-        checkEndOfgame();
+        try
+        {
+            request.checkEndOfGame(getBattle());
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -480,19 +486,6 @@ public class BattleFieldController extends Thread
         final Animation animation = new SpriteAnimation(imageView, Duration.millis(3000), 30, 10, 0, 0, 80, 80);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-    }
-
-    private void checkEndOfgame()
-    {
-        switch (getBattle().getBattleMode())
-        {
-            case KILLING_ENEMY_HERO:
-                if (getBattle().isGameEnded(1))
-                {
-                    getBattle().tasksAtEndOfGame();
-                }
-                break;
-        }
     }
 
     public Card getSelectedCardForInserting()

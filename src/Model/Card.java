@@ -47,7 +47,6 @@ public class Card implements Cloneable
         return null;
     }
 
-
     public static ImageView getCardAttackImageView(Card card)
     {
         if (card instanceof Hero)

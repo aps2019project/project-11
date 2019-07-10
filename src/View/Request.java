@@ -371,6 +371,9 @@ public class Request
 
     private void mainMenu(Stage primaryStage)
     {
+        primaryStage.setScene(sceneMainMenu);
+        primaryStage.centerOnScreen();
+
         setBackGroundImage(rootMainMenu, "file:BackGround Images/Duelyst Menu.jpg");
 
         Text duelyst = new Text("Duelyst");
@@ -3094,6 +3097,23 @@ public class Request
             }
         });
         root.getChildren().add(chatButton);
+    }
+
+    public void checkEndOfGame(Battle battle) throws InterruptedException
+    {
+        switch (battle.getBattleMode())
+        {
+            case KILLING_ENEMY_HERO:
+                if (battle.isGameEnded(1))
+                {
+                    battle.tasksAtEndOfGame();
+                    Media sound = new Media(new File("Sounds and Music/victory.mp3").toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    mediaPlayer.play();
+                    mainMenu(primaryStage);
+                }
+                break;
+        }
     }
 
     private void goToChatMenu(Stage primaryStage)
