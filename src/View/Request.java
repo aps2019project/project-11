@@ -2878,7 +2878,6 @@ public class Request
 
     private void setBattleField(Stage primaryStage, String map, boolean backFromGraveYard, Battle battle) throws IOException
     {
-        BattleMode battleMode = battle.getBattleMode();
         if (!backFromGraveYard)
         {
             setBackGroundImage(rootBattleField, "battleField BackGround/" + map + ".jpg");

@@ -711,7 +711,7 @@ public class Battle
         {
             ImageView imageView1;
 
-            Card card1 = this.getFirstPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getFirstPlayer().getHand().getCards().get(number));
+            Card card1 = this.getFirstPlayer().getHand().getCards().get(number);
 
             firstPlayerHandPanes[number] = new Pane();
 
@@ -726,7 +726,7 @@ public class Battle
         {
             ImageView imageView2;
 
-            Card card2 = this.getSecondPlayer().getHand().getCards().get(number);//Card.getCardsIcon().get(getBattle().getSecondPlayer().getHand().getCards().get(number));
+            Card card2 = this.getSecondPlayer().getHand().getCards().get(number);
 
             secondPlayerHandPanes[number] = new Pane();
 
