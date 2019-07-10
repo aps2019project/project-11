@@ -652,7 +652,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }*/
-               collectionMenu(stage,false,null);
+               mainMenu(stage);
             } catch (Exception e)
             {
                 e.printStackTrace();
