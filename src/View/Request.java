@@ -652,6 +652,7 @@ public class Request
                 {
                     validMessageFromServer.wait();
                 }*/
+               collectionMenu(stage,false,null);
             } catch (Exception e)
             {
                 e.printStackTrace();
