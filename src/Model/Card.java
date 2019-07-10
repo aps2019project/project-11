@@ -47,6 +47,20 @@ public class Card implements Cloneable
         return null;
     }
 
+
+    public static ImageView getCardAttackImageView(Card card)
+    {
+        if (card instanceof Hero)
+        {
+            return new ImageView("Cards Images/" + card.getCardName() + "Attack.png");
+        }
+        if (card instanceof Minion)
+        {
+            return new ImageView("Cards Images/" + ((Minion) card).getImpactType() + "Attack.png");
+        }
+        return null;
+    }
+
     public static ImageView getCardIcon(Card card)
     {
         if (card instanceof Hero)

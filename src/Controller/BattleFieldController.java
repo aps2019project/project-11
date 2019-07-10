@@ -364,11 +364,12 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
-                            System.out.println(battleFieldCells[finalRow][finalColumn].getCard().getCardName() + " is selected");
-                            setSelectedCard(battleFieldCells[finalRow][finalColumn].getCard());
+                            Card card = battleFieldCells[finalRow][finalColumn].getCard();
+                            System.out.println(card.getCardName() + " is selected");
+                            setSelectedCard(card);
                             setCardSelectedInBattle(true);
-                            getBattle().selectCard(battleFieldCells[finalRow][finalColumn].getCard());
-                            selectedCardActions(finalRow, finalColumn);
+                            getBattle().selectCard((NonSpellCard) card);
+                            selectedCardActions(card, finalRow, finalColumn);
                         }
                     }
                 });
@@ -377,7 +378,7 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void selectedCardActions(int sourceRow, int sourceColumn)
+    private void selectedCardActions(Card card, int sourceRow, int sourceColumn)
     {
         Cell[][] battleFieldCells = getBattle().getBattleField().getBattleFieldMatrix();
 
@@ -397,7 +398,7 @@ public class BattleFieldController extends Thread
                         if (getBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
                             Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
-                            attackTo(opponentCard, sourceRow, sourceColumn);
+                            attackTo(card, opponentCard, sourceRow, sourceColumn);
 
                             Media sound = new Media(new File("Sounds and Music/Attack.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -405,7 +406,7 @@ public class BattleFieldController extends Thread
                         }
                         else if (!battleFieldCells[finalRow][finalColumn].isFull())
                         {
-                            moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
+                            moveTo(card, finalRow, finalColumn, sourceRow, sourceColumn);
 
                             Media sound = new Media(new File("Sounds and Music/displacement.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -417,12 +418,12 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void moveTo(int destinationRow, int destinationColumn, int sourceRow, int sourceColumn)
+    private void moveTo(Card card, int destinationRow, int destinationColumn, int sourceRow, int sourceColumn)
     {
         if (battleManager.moveCardBoolean(destinationRow, destinationColumn))
         {
             getBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
-            ImageView imageView = Card.getCardStandingImageView(selectedCard);
+            ImageView imageView = Card.getCardStandingImageView(card);
             try
             {
                 cardMoveAnimation(imageView, sourceRow, sourceColumn, destinationRow, destinationColumn);
@@ -443,28 +444,14 @@ public class BattleFieldController extends Thread
 
     }
 
-    private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
+    private void attackTo(Card card, Card opponentCard, int sourceRow, int sourceColumn)
     {
-        ImageView imageView = getCardAttackImageView();
+        ImageView imageView = Card.getCardAttackImageView(card);
         setAttackAnimation(imageView);
         battleManager.attackToOpponent(opponentCard);
         checkHPOfCards();
         attackedCardInfo.setText("");
         preLoad();
-    }
-
-    public ImageView getCardAttackImageView()
-    {
-        Card card = selectedCard;
-        if (card instanceof Hero)
-        {
-            return new ImageView("Cards Images/" + card.getCardName() + "Attack.png");
-        }
-        if (card instanceof Minion)
-        {
-            return new ImageView("Cards Images/" + ((Minion) card).getImpactType() + "Attack.png");
-        }
-        return null;
     }
 
     private void checkHPOfCards()
