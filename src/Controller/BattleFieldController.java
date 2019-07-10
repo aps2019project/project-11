@@ -9,6 +9,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
@@ -198,6 +199,15 @@ public class BattleFieldController extends Thread
                 @Override
                 public void handle(MouseEvent event)
                 {
+                    Dragboard db = firstPlayerHandPanes[finalNumber].startDragAndDrop(TransferMode.ANY);
+
+                    /* Put a string on a dragboard */
+                    ClipboardContent content = new ClipboardContent();
+                    Image image = new Image("file:BackGround Images/New Project.png");
+                    content.putImage(image);
+                    db.setContent(content);
+
+                    event.consume();
                     if (isCardSelectedToInsert)
                     {
                         //todo to Show error
