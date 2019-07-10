@@ -26,15 +26,15 @@ public class Card implements Cloneable
 
     public void increaseCapacityOfSell()
     {
-        capacityOfSell ++;
+        capacityOfSell++;
     }
 
     public void decreaseCapacityOfSell()
     {
-        capacityOfSell --;
+        capacityOfSell--;
     }
 
-    public static ImageView getCardImageView(Card card)
+    public static ImageView getCardStandingImageView(Card card)
     {
         if (card instanceof Hero)
         {
@@ -57,7 +57,8 @@ public class Card implements Cloneable
         {
             return new ImageView("cardIcons/" + ((Minion) card).getImpactType() + ".png");
         }
-        else if(card instanceof Spell){
+        else if (card instanceof Spell)
+        {
             return new ImageView("cardIcons/Spell.png");
         }
         return null;
@@ -226,7 +227,7 @@ public class Card implements Cloneable
         account.increaseAIAccountDefaultID();
     }
 
-    public ImageView getCardImageView()
+    public ImageView getCardStandingImageView()
     {
         return cardImageView;
     }

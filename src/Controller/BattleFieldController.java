@@ -5,7 +5,6 @@ import View.Request;
 import View.ShowOutput;
 import View.SpriteAnimation;
 import javafx.animation.Animation;
-import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,8 +20,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.File;
-
-import static javafx.scene.paint.Color.CYAN;
 
 @SuppressWarnings("ALL")
 public class BattleFieldController extends Thread
@@ -288,7 +285,7 @@ public class BattleFieldController extends Thread
                             {
                                 if (battleManager.checkCircumstancesToInsertMinionBoolean((Minion) selectedCardForInserting, finalRow, finalColumn))
                                 {
-                                    ImageView imageView = Card.getCardImageView(selectedCardForInserting);
+                                    ImageView imageView = Card.getCardStandingImageView(selectedCardForInserting);
                                     setSpriteAnimation(imageView);
                                     battleFieldCells[finalRow][finalColumn].getCellPane().getChildren().add(imageView);
                                     battleFieldCells[finalRow][finalColumn].setCard(selectedCardForInserting);
@@ -367,7 +364,7 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getPlayerTurn().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getPlayerTurn().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
-                            System.out.println(battleFieldCells[finalRow][finalColumn].getCard().getCardName());
+                            System.out.println(battleFieldCells[finalRow][finalColumn].getCard().getCardName() + " is selected");
                             setSelectedCard(battleFieldCells[finalRow][finalColumn].getCard());
                             setCardSelectedInBattle(true);
                             getBattle().selectCard(battleFieldCells[finalRow][finalColumn].getCard());
@@ -399,20 +396,20 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
+                            Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
+                            attackTo(opponentCard, sourceRow, sourceColumn);
+
                             Media sound = new Media(new File("Sounds and Music/Attack.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
                             mediaPlayer.play();
-
-                            Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
-                            attackTo(opponentCard, sourceRow, sourceColumn);
                         }
                         else if (!battleFieldCells[finalRow][finalColumn].isFull())
                         {
+                            moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
+
                             Media sound = new Media(new File("Sounds and Music/displacement.mp3").toURI().toString());
                             MediaPlayer mediaPlayer = new MediaPlayer(sound);
                             mediaPlayer.play();
-
-                            moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
                     }
                 });
@@ -425,7 +422,7 @@ public class BattleFieldController extends Thread
         if (battleManager.moveCardBoolean(destinationRow, destinationColumn))
         {
             getBattle().getBattleFieldPanes()[sourceColumn][sourceRow].getChildren().remove(1);
-            ImageView imageView = Card.getCardImageView(selectedCard);
+            ImageView imageView = Card.getCardStandingImageView(selectedCard);
             try
             {
                 cardMoveAnimation(imageView, sourceRow, sourceColumn, destinationRow, destinationColumn);
@@ -448,11 +445,26 @@ public class BattleFieldController extends Thread
 
     private void attackTo(Card opponentCard, int sourceRow, int sourceColumn)
     {
+        ImageView imageView = getCardAttackImageView();
+        setAttackAnimation(imageView);
         battleManager.attackToOpponent(opponentCard);
         checkHPOfCards();
-        setAttackAnimation();
         attackedCardInfo.setText("");
         preLoad();
+    }
+
+    public ImageView getCardAttackImageView()
+    {
+        Card card = selectedCard;
+        if (card instanceof Hero)
+        {
+            return new ImageView("Cards Images/" + card.getCardName() + "Attack.png");
+        }
+        if (card instanceof Minion)
+        {
+            return new ImageView("Cards Images/" + ((Minion) card).getImpactType() + "Attack.png");
+        }
+        return null;
     }
 
     private void checkHPOfCards()
@@ -470,14 +482,15 @@ public class BattleFieldController extends Thread
         }
     }
 
-    private void setAttackAnimation()
+    private void setAttackAnimation(ImageView imageView)
     {
-
+        final Animation animation = new SpriteAnimation(imageView, Duration.millis(3000), 8, 8, 0, 0, 80, 80);
+        animation.play();
     }
 
     public static void setSpriteAnimation(ImageView imageView)
     {
-        final Animation animation = new SpriteAnimation(imageView, Duration.millis(1000), 3, 3, 0, 0, 80, 80);
+        final Animation animation = new SpriteAnimation(imageView, Duration.millis(3000), 30, 10, 0, 0, 80, 80);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
     }
@@ -489,7 +502,7 @@ public class BattleFieldController extends Thread
             case KILLING_ENEMY_HERO:
                 if (getBattle().isGameEnded(1))
                 {
-                    getBattle().tasksAtEndOfGame(request);
+                    getBattle().tasksAtEndOfGame();
                 }
                 break;
         }
