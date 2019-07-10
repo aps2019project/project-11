@@ -976,37 +976,37 @@ public class InputCommandHandlerForServer extends Thread
 
     @SuppressWarnings("Duplicates")
 
-    public  void workingOnHeroText(ArrayList<String> textFields, Account account)
+    public  void workingOnHeroText(ArrayList<String> texts, Account account)
     {
-        String name = textFields.get(0);
-        String Ap = textFields.get(1);
-        String Hp = textFields.get(2);
-        String AttackType = textFields.get(3);
-        String Range = textFields.get(4);
-        String coolDown = textFields.get(5);
-        String cost = textFields.get(6);
-        String turnsToApply = textFields.get(7);
-        String isPositive = textFields.get(8);
-        String untilEnd = textFields.get(9);
-        String changeAp = textFields.get(10);
-        String changeHp = textFields.get(11);
-        String changeMp = textFields.get(12);
-        String stun = textFields.get(13);
-        String disarm = textFields.get(14);
-        String numOfHolyBuff = textFields.get(15);
-        String toxic = textFields.get(16);
-        String holyCell = textFields.get(17);
-        String fiery = textFields.get(18);
-        String kill = textFields.get(19);
-        String numOfOwnMinion = textFields.get(20);
-        String numOfOpponentMinion = textFields.get(21);
-        String ownHero = textFields.get(22);
-        String opponentHero = textFields.get(23);
-        String numOfOpponentBothNonSpell = textFields.get(24);
-        String numOfOwnBothNonSpell = textFields.get(25);
-        String allOwnMinion = textFields.get(26);
-        String allOpponentBothNonSpell = textFields.get(27);
-        String allOwnBothNonSpell = textFields.get(28);
+        String name = texts.get(0);
+        String Ap = texts.get(1);
+        String Hp = texts.get(2);
+        String AttackType = texts.get(3);
+        String Range = texts.get(4);
+        String coolDown = texts.get(5);
+        String cost = texts.get(6);
+        String turnsToApply = texts.get(7);
+        String isPositive = texts.get(8);
+        String untilEnd = texts.get(9);
+        String changeAp = texts.get(10);
+        String changeHp = texts.get(11);
+        String changeMp = texts.get(12);
+        String stun = texts.get(13);
+        String disarm = texts.get(14);
+        String numOfHolyBuff = texts.get(15);
+        String toxic = texts.get(16);
+        String holyCell = texts.get(17);
+        String fiery = texts.get(18);
+        String kill = texts.get(19);
+        String numOfOwnMinion = texts.get(20);
+        String numOfOpponentMinion = texts.get(21);
+        String ownHero = texts.get(22);
+        String opponentHero = texts.get(23);
+        String numOfOpponentBothNonSpell = texts.get(24);
+        String numOfOwnBothNonSpell = texts.get(25);
+        String allOwnMinion = texts.get(26);
+        String allOpponentBothNonSpell = texts.get(27);
+        String allOwnBothNonSpell = texts.get(28);
 
         makingHeroCard(account, numOfOwnMinion, numOfOpponentMinion, ownHero, opponentHero, numOfOpponentBothNonSpell, numOfOwnBothNonSpell, allOwnMinion, allOpponentBothNonSpell, allOwnBothNonSpell, name, Ap, Hp, AttackType, Range, coolDown, cost, turnsToApply, isPositive, untilEnd, changeAp, changeHp, changeMp, stun, disarm, numOfHolyBuff, toxic, holyCell, fiery, kill);
     }
