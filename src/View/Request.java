@@ -3029,7 +3029,6 @@ public class Request
 
     private void setEndTurnButton(Stage primaryStage, Group rootBattleField, Battle battle)
     {
-        BattleMode battleMode = battle.getBattleMode();
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()

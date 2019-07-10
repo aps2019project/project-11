@@ -16,27 +16,33 @@ public class AccountManager
     private static Player storyPlayer2;
     private static Player storyPlayer3;
 
-    public static Player getStoryPlayer1() {
+    public static Player getStoryPlayer1()
+    {
         return storyPlayer1;
     }
 
-    public static void setStoryPlayer1(Player storyPlayer1) {
+    public static void setStoryPlayer1(Player storyPlayer1)
+    {
         AccountManager.storyPlayer1 = storyPlayer1;
     }
 
-    public static Player getStoryPlayer2() {
+    public static Player getStoryPlayer2()
+    {
         return storyPlayer2;
     }
 
-    public static void setStoryPlayer2(Player storyPlayer2) {
+    public static void setStoryPlayer2(Player storyPlayer2)
+    {
         AccountManager.storyPlayer2 = storyPlayer2;
     }
 
-    public static Player getStoryPlayer3() {
+    public static Player getStoryPlayer3()
+    {
         return storyPlayer3;
     }
 
-    public static void setStoryPlayer3(Player storyPlayer3) {
+    public static void setStoryPlayer3(Player storyPlayer3)
+    {
         AccountManager.storyPlayer3 = storyPlayer3;
     }
 
@@ -65,7 +71,7 @@ public class AccountManager
     public void saveAccountInfo(Account account, boolean isNewAccount) throws IOException
     {
         String name = account.getAccountName();
-        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt" ,true);
+        FileWriter SavedAccountPath = new FileWriter("SavedAccounts/SavedAccountPath.txt", true);
         if (isNewAccount)
         {
             SavedAccountPath.write(name + "\n");
@@ -79,8 +85,7 @@ public class AccountManager
             FileWriter saveAccountInfo = new FileWriter("SavedAccounts/" + name + ".json", false);
             saveAccountInfo.write(json);
             saveAccountInfo.close();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -119,7 +124,7 @@ public class AccountManager
         for (Account account : Server.getAccounts())
         {
             showOutput.printOutput(counter + "- " + account.getAccountName());
-            counter ++;
+            counter++;
         }
     }
 
