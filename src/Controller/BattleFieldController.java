@@ -13,10 +13,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.io.File;
 
 import static javafx.scene.paint.Color.CYAN;
 
@@ -271,6 +275,10 @@ public class BattleFieldController extends Thread
                     @Override
                     public void handle(DragEvent event)
                     {
+                        Media sound = new Media(new File("Sounds and Music/Insert.mp3").toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
+
                         event.acceptTransferModes(TransferMode.ANY);
 
                         if (isCardSelectedToInsert)
@@ -390,11 +398,19 @@ public class BattleFieldController extends Thread
                     {
                         if (getBattle().getOpponentPlayer().getInsertedCards().contains(battleFieldCells[finalRow][finalColumn].getCard()) || getBattle().getOpponentPlayer().getMainDeck().getHero().get(0).equals((battleFieldCells[finalRow][finalColumn].getCard())))
                         {
+                            Media sound = new Media(new File("Sounds and Music/Attack.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                            mediaPlayer.play();
+
                             Card opponentCard = getBattle().getBattleField().getBattleFieldMatrix()[finalRow][finalColumn].getCard();
                             attackTo(opponentCard, sourceRow, sourceColumn);
                         }
                         else if (!battleFieldCells[finalRow][finalColumn].isFull())
                         {
+                            Media sound = new Media(new File("Sounds and Music/displacement.mp3").toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                            mediaPlayer.play();
+
                             moveTo(finalRow, finalColumn, sourceRow, sourceColumn);
                         }
                     }

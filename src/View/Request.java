@@ -2895,7 +2895,6 @@ public class Request
             setNextCard(rootBattleField, battle);
             showGameInfo(rootBattleField, battle);
             setEndTurnButton(primaryStage, rootBattleField, battle);
-            setGlobalChatButton(primaryStage, rootBattleField);
             setTimer(rootBattleField, battle, primaryStage);
         }
         battleFieldController = new BattleFieldController(this, rootBattleField, sceneBattleField, battleInfo, battle);
@@ -3032,7 +3031,6 @@ public class Request
 
     private void setEndTurnButton(Stage primaryStage, Group rootBattleField, Battle battle)
     {
-        BattleMode battleMode = battle.getBattleMode();
         ImageView endTurnButton = new ImageView("battleField BackGround/button_end_turn_mine_glow.png");
         endTurnButton.relocate(1100, 620);
         endTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -3053,7 +3051,6 @@ public class Request
                     rootBattleField.getChildren().add(battle.getCurrentPlayerHand()[number]);
                 }
                 makeBattleFieldController(battle);
-                setGlobalChatButton(primaryStage, rootBattleField);
             }
         });
         rootBattleField.getChildren().add(endTurnButton);
@@ -3077,7 +3074,7 @@ public class Request
 
     private void setHandIcons(Group rootBattleField, Battle battle)
     {
-        battle.setHandIcons();
+        battle.setHandIcons(rootBattleField);
     }
 
     private void setGridPane(Group rootBattleField, Battle battle)
