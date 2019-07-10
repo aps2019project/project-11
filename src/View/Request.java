@@ -3383,6 +3383,7 @@ public class Request
         setBackGroundImage(rootBattleField , "file:battleField BackGround/endGameBackground.jpg");
         rootBattleField.getChildren().clear();
         Text text = new Text(victoriousPlayer.getAccount().getAccountName() + " Win!");
+        text.setFont(Font.font("verdana" , 30));
         text.relocate(650 , 360);
         rootBattleField.getChildren().add(text);
         backButton(primaryStage ,rootBattleField ,650 , 400);
