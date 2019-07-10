@@ -709,6 +709,7 @@ public class InputCommandHandlerForServer extends Thread
         int numberOfOpponentMinion = Integer.parseInt(numOfOpponentMinion);
         int numberOfOpponentBothNonSpell = Integer.parseInt(numOfOpponentBothNonSpell);
         int numberOfOwnBothNonSpell = Integer.parseInt(numOfOwnBothNonSpell);
+        int numberOfFriendOrEnemy = Integer.parseInt(numOfFriendOrEnemy);
         spell.getSpellEffect().addSpellChange(new SpellChange());
         spell.getSpellEffect().addTarget(new Target());
         spell.getSpellEffect().getSpellChanges().get(0).setTurnsToApplyChange(lasting);
@@ -727,7 +728,6 @@ public class InputCommandHandlerForServer extends Thread
         }
         if (allOpponentBothNonSpell.equalsIgnoreCase("true"))
         {
-
             spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
         }
         if (allOwnBothNonSpell.equalsIgnoreCase("true"))
@@ -763,7 +763,7 @@ public class InputCommandHandlerForServer extends Thread
         }
         if (friendOrEnemy.equalsIgnoreCase("friend"))
         {
-            spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(Integer.parseInt(numOfFriendOrEnemy));
+            spell.getSpellEffect().getTargets().get(0).setNumOfOwnMinions(numberOfFriendOrEnemy);
             if (isAll.equalsIgnoreCase("true"))
             {
                 spell.getSpellEffect().getTargets().get(0).setAllOwnBothNonSpellCards(true);
@@ -777,7 +777,6 @@ public class InputCommandHandlerForServer extends Thread
                 spell.getSpellEffect().getTargets().get(0).setAllOpponentNonSpellCards(true);
             }
         }
-        System.out.println(spell.getCardName());
         account.getCollection().addCard(account, spell, false);
         Server.getShop().addCardToShop(spell);
         Server.addSpell(spell);
